@@ -6,11 +6,13 @@ These instructions apply to the entire repository.
 
 When sources disagree, use this order:
 
-1. **EVERSTEAD — LOCKED CORE DESIGN v1.0** is authoritative for product systems and mechanics: <https://docs.google.com/document/d/1t3NSgajWhndtjrLXuS8dY4jiujITKFmMtZFUjbeSZkg/edit>
+1. **EVERSTEAD — LOCKED CORE DESIGN v1.2** is authoritative for product systems and mechanics: <https://docs.google.com/document/d/1t3NSgajWhndtjrLXuS8dY4jiujITKFmMtZFUjbeSZkg/edit>
 2. **EVERSTEAD — IMPLEMENTATION ROADMAP v1.0** is authoritative for migration order and phase acceptance gates: <https://docs.google.com/document/d/1REzV4KUPHqs_XBW92zFbTyU_UuunG3WcRqR9Tc7w900/edit>
 3. `index.html` is the current implementation to preserve and migrate where compatible. Existing mechanics are not design authority.
 
 Do not invent a new product direction to resolve a conflict. Flag unresolved design conflicts for the primary integrator.
+
+The current locked rule for Campaign and Tower progression is **total owned-roster Power**. Older roadmap or prototype references to selected-squad Power or composition bonuses do not override that rule. Presentation squads, Types, counters, and Roles may remain contextual systems only after their exact interaction with total-roster Power is defined.
 
 ## Baseline
 
@@ -48,4 +50,3 @@ For every behavioral change:
 - Verify mobile-width navigation and the affected modal/screens.
 - Verify offline Gold behavior when related systems are touched.
 - Report the exact acceptance criteria exercised and any untested risk.
-

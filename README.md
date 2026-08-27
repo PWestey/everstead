@@ -3,7 +3,7 @@
 Everstead is a mobile-first, single-file browser game currently being migrated from the original **OATHFORGE — New World Prototype v0.1** into the locked Everstead design.
 
 - [Play the current baseline](https://pwestey.github.io/everstead/)
-- [Locked Core Design v1.0](https://docs.google.com/document/d/1t3NSgajWhndtjrLXuS8dY4jiujITKFmMtZFUjbeSZkg/edit)
+- [Locked Core Design v1.2](https://docs.google.com/document/d/1t3NSgajWhndtjrLXuS8dY4jiujITKFmMtZFUjbeSZkg/edit)
 - [Implementation Roadmap v1.0](https://docs.google.com/document/d/1REzV4KUPHqs_XBW92zFbTyU_UuunG3WcRqR9Tc7w900/edit)
 
 ## Current status
@@ -25,4 +25,4 @@ python3 -m http.server 8000
 - Make small migration commits that preserve existing UI and save data where practical.
 - Review and integrate changes centrally rather than allowing parallel tasks to edit the same checkout.
 - Follow [AGENTS.md](AGENTS.md) for authority, safety, and acceptance rules.
-
+- Follow [Phase 0 Execution Contract](docs/PHASE_0_EXECUTION.md) for the current implementation gates.
