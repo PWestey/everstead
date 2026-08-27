@@ -74,6 +74,11 @@ check(
   runnerText.includes('offline-special-claim') && runnerText.includes('[data-modal-act="collect-offline"]') &&
     runnerText.includes('offline-immediate-second-claim')
 );
+check(
+  'runner-literal-html-insertion',
+  runnerText.includes("contract.source.replace('<head>', () => `<head>${preludeScript}`)") &&
+    runnerText.includes("sourceWithPrelude.replace('</body>', () => `${agentScript}</body>`)")
+);
 
 for (const fixture of manifest.fixtures) {
   const bytes = readFileSync(resolve(repoRoot, fixture.path));

@@ -75,6 +75,7 @@ Mandatory recorded defects include:
 - `lastGoldAt: 0` is treated as missing because of a falsy fallback;
 - collection floors pending Gold and discards the fractional remainder;
 - Oath undo restores a whole-state snapshot and can undo unrelated mutations performed after completion;
+- completing and undoing a new Oath discards a previously persisted Oath undo record;
 - corrupt JSON is silently replaced by defaults;
 - sparse or wrong-type nested state can fail during boot.
 

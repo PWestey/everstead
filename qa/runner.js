@@ -247,7 +247,20 @@
       );
       click('[data-modal-act="undo-oath"]');
       const immediatelyUndone = state();
-      add('oath-immediate-undo', 'Immediate Oath undo restores the pre-completion state', 'required', deepEqual(immediatelyUndone, beforeOath));
+      const expectedImmediatelyUndone = clone(beforeOath);
+      delete expectedImmediatelyUndone.undo;
+      add(
+        'oath-immediate-undo',
+        'Immediate Oath undo restores the complete pre-completion gameplay state',
+        'required',
+        deepEqual(immediatelyUndone, expectedImmediatelyUndone)
+      );
+      add(
+        'prior-oath-undo-discarded',
+        'Completing and undoing a new Oath discards the previously persisted Oath undo record',
+        'legacy-defect',
+        beforeOath.undo?.id === 'o7' && immediatelyUndone.undo == null
+      );
 
       click('[data-oath="o1"]');
       const appCollect = query('#app [data-act="collect"]');
@@ -670,8 +683,8 @@
       };
       const preludeScript = `<script>(${prelude.toString()})(${inlineJson(config)})</script>`;
       const agentScript = `<script>(${realmAgent.toString()})()</script>`;
-      const sourceWithPrelude = contract.source.replace('<head>', `<head>${preludeScript}`);
-      frame.srcdoc = sourceWithPrelude.replace('</body>', `${agentScript}</body>`);
+      const sourceWithPrelude = contract.source.replace('<head>', () => `<head>${preludeScript}`);
+      frame.srcdoc = sourceWithPrelude.replace('</body>', () => `${agentScript}</body>`);
       document.body.appendChild(frame);
     });
   }
