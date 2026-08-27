@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 1,
+  "manifestVersion": 2,
   "phaseGate": "0A",
   "repositoryCommit": "e77d3f0eb8f22bbfdc2087d02805c7cc74917271",
   "indexBaselineCommit": "bf51479a78fb0220afa4aaff9ac918fb9f110b92",
@@ -29,12 +29,12 @@
       "id": "representative-v0.1",
       "path": "qa/fixtures/representative-v0.1.txt",
       "classification": "legacy-v0.1",
-      "sha256": "d2246328a26b8fcee6f3956ecf319ba49e24b048450845926090ef273139424c",
-      "byteLength": 3407,
-      "codeUnitLength": 3407,
+      "sha256": "8e80d6d89e9489ee33cc5ab77227dc7c625935e8ba1b9ba0063a07ce5f7da5f7",
+      "byteLength": 7526,
+      "codeUnitLength": 7496,
       "trailingNewline": false,
       "contractClassification": "required",
-      "expectedOutcome": "Boots, renders, mutates, saves, and reloads while preserving the complete v0.1 state shape.",
+      "expectedOutcome": "Boots and round-trips the complete v0.1 state, including persisted undo data and UTF-8 synthetic text.",
       "frozenNow": "2030-06-17T19:00:00.000Z",
       "timezone": "America/Phoenix",
       "timezoneOffsetMinutes": 420,
@@ -48,8 +48,8 @@
       "assertions": [
         {
           "kind": "required",
-          "id": "boot-and-round-trip",
-          "expected": "Boots and preserves resources, Oaths, Buildings, rosters, assignments, progress, UI state, and timestamps."
+          "id": "complete-state-round-trip",
+          "expected": "Every persisted state field matches after initial boot and deterministic re-boot except named timestamp/UI mutations."
         }
       ]
     },
@@ -77,7 +77,7 @@
         {
           "kind": "legacy-defect",
           "id": "shallow-defaulting",
-          "expected": "Top-level migration does not repair nested Building/Fellow data, so boot throws."
+          "expected": "Sparse nested Building/Fellow data causes boot failure."
         }
       ]
     },
@@ -105,7 +105,7 @@
         {
           "kind": "legacy-defect",
           "id": "silent-corrupt-overwrite",
-          "expected": "Parse failure silently creates and persists defaults, replacing the only active raw payload."
+          "expected": "Parse failure replaces the only active raw payload with defaults."
         }
       ]
     },
@@ -133,7 +133,7 @@
         {
           "kind": "legacy-defect",
           "id": "no-type-validation",
-          "expected": "Wrong-type top-level values survive migration and cause boot-time calculation/render failure."
+          "expected": "Wrong-type values cause boot-time calculation/render failure."
         }
       ]
     },
@@ -141,12 +141,12 @@
       "id": "clock-rollback-v0.1",
       "path": "qa/fixtures/clock-rollback-v0.1.txt",
       "classification": "legacy-v0.1-clock-rollback",
-      "sha256": "2b6569ffd702dd319121adf94704944dbd538d6439dcd6becb53abbd3822fa04",
-      "byteLength": 3405,
-      "codeUnitLength": 3405,
+      "sha256": "27caa2b5c884775dc83953ab7b4d1018c877af67d74374f22c46455fa5ff1568",
+      "byteLength": 7524,
+      "codeUnitLength": 7494,
       "trailingNewline": false,
       "contractClassification": "legacy-defect",
-      "expectedOutcome": "No negative Gold is earned, but load moves the future lastGoldAt backward to the frozen current time.",
+      "expectedOutcome": "No negative Gold is earned, but load moves a future lastGoldAt backward to the frozen current time.",
       "frozenNow": "2030-06-17T19:00:00.000Z",
       "timezone": "America/Phoenix",
       "timezoneOffsetMinutes": 420,
@@ -174,9 +174,9 @@
       "id": "cross-midnight-v0.1",
       "path": "qa/fixtures/cross-midnight-v0.1.txt",
       "classification": "legacy-v0.1-cross-midnight",
-      "sha256": "d6f622b8dd66e9d99707ff46c1fef6cc9f540f8c25ec0be9b7ebcb5c5e6ec8db",
-      "byteLength": 3398,
-      "codeUnitLength": 3398,
+      "sha256": "b01da05aeb263fa81f27a7aa80ea4b96dd5f1e0c71674a0bb76bbc62fd228df8",
+      "byteLength": 7517,
+      "codeUnitLength": 7487,
       "trailingNewline": false,
       "contractClassification": "legacy-defect",
       "expectedOutcome": "Daily rollover succeeds, then the entire elapsed hour is incorrectly paid at the new-day unboosted rate.",
@@ -194,12 +194,12 @@
         {
           "kind": "required",
           "id": "daily-rollover",
-          "expected": "Rollover resets daily boosts and habit counts and banks at most one Patrol up to the cap."
+          "expected": "Rollover resets boosts/habits and banks one Patrol."
         },
         {
           "kind": "legacy-defect",
           "id": "unsegmented-cross-midnight-accrual",
-          "expected": "Rollover occurs before accrual, so the entire interval is paid at the new day unboosted rate."
+          "expected": "The entire interval is paid at the new-day rate."
         }
       ]
     },
@@ -207,9 +207,9 @@
       "id": "offline-24-hour-cap-v0.1",
       "path": "qa/fixtures/offline-24-hour-cap-v0.1.txt",
       "classification": "legacy-v0.1-offline-cap",
-      "sha256": "f944780cc97142dbc5d19fc70aa49facbca90c58291c4feb8faa3a784acee502",
-      "byteLength": 3392,
-      "codeUnitLength": 3392,
+      "sha256": "136c6f9afe4d1490f77acd710084a23f5a079f430394ed60a27de6eb86c3d4cf",
+      "byteLength": 7511,
+      "codeUnitLength": 7481,
       "trailingNewline": false,
       "contractClassification": "required",
       "expectedOutcome": "Thirty elapsed hours award exactly twenty-four hours of current Building production.",
@@ -227,7 +227,7 @@
         {
           "kind": "required",
           "id": "offline-cap",
-          "expected": "Thirty elapsed hours award exactly twenty-four hours of current Building production."
+          "expected": "Elapsed offline production is capped at twenty-four hours."
         }
       ]
     },
@@ -235,12 +235,12 @@
       "id": "last-gold-at-zero-v0.1",
       "path": "qa/fixtures/last-gold-at-zero-v0.1.txt",
       "classification": "legacy-v0.1-zero-timestamp",
-      "sha256": "ff111e006665e616178aa8cc934957cc8bf0880e5b957b4387b7a51412837251",
-      "byteLength": 3392,
-      "codeUnitLength": 3392,
+      "sha256": "21ee91666e06c45994b859f0a1f2beeebd6addb76825ca2c1380a92be45e48da",
+      "byteLength": 7511,
+      "codeUnitLength": 7481,
       "trailingNewline": false,
       "contractClassification": "legacy-defect",
-      "expectedOutcome": "The falsy zero timestamp is treated as now, earns no offline Gold, and is replaced by the current timestamp.",
+      "expectedOutcome": "The falsy zero timestamp earns no offline Gold and is replaced by the current timestamp.",
       "frozenNow": "2030-06-17T19:00:00.000Z",
       "timezone": "America/Phoenix",
       "timezoneOffsetMinutes": 420,
@@ -255,7 +255,7 @@
         {
           "kind": "legacy-defect",
           "id": "zero-timestamp-fallback",
-          "expected": "lastGoldAt: 0 falls back to now instead of representing the Unix epoch."
+          "expected": "lastGoldAt: 0 falls back to now."
         }
       ]
     },
@@ -263,12 +263,12 @@
       "id": "fractional-pending-gold-v0.1",
       "path": "qa/fixtures/fractional-pending-gold-v0.1.txt",
       "classification": "legacy-v0.1-fractional-pending",
-      "sha256": "2025e144a3ee8840c0280e9a5e4ac53cb2c7ea606eb8ed6de657342ff9e3a247",
-      "byteLength": 3406,
-      "codeUnitLength": 3406,
+      "sha256": "3899e6c8a06bdd8511dfde9621765c9db19023e3a5483532efbc4ac8e438b47d",
+      "byteLength": 7525,
+      "codeUnitLength": 7495,
       "trailingNewline": false,
       "contractClassification": "legacy-defect",
-      "expectedOutcome": "Collect floors 1234.75 to 1234 Gold, clears pendingGold to zero, and loses the 0.75 remainder.",
+      "expectedOutcome": "Collect floors 1234.75 to 1234 Gold and loses the 0.75 remainder.",
       "frozenNow": "2030-06-17T19:00:00.000Z",
       "timezone": "America/Phoenix",
       "timezoneOffsetMinutes": 420,
@@ -283,15 +283,71 @@
         {
           "kind": "legacy-defect",
           "id": "fractional-pending-loss",
-          "expected": "Collection floors pending Gold and discards the fractional remainder."
+          "expected": "Collection discards the fractional remainder."
+        }
+      ]
+    },
+    {
+      "id": "offline-boundaries-v0.1",
+      "path": "qa/fixtures/offline-boundaries-v0.1.txt",
+      "classification": "legacy-v0.1-offline-boundaries",
+      "sha256": "77c86c6a363ce11f65b60bf8ecdc4725028af15b6dec51d340cb892b85d124e7",
+      "byteLength": 7508,
+      "codeUnitLength": 7478,
+      "trailingNewline": false,
+      "contractClassification": "required",
+      "expectedOutcome": "Provides the neutral fixed-rate source state for table-driven elapsed-time boundaries.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "offline-boundary-table",
+          "expected": "Elapsed-time and modal thresholds match the fixed boundary table."
+        }
+      ]
+    },
+    {
+      "id": "offline-claim-2h-v0.1",
+      "path": "qa/fixtures/offline-claim-2h-v0.1.txt",
+      "classification": "legacy-v0.1-offline-claim",
+      "sha256": "5e15248765f0f622788b83554140c961547af932f5c18cecfbd209d69267daca",
+      "byteLength": 7508,
+      "codeUnitLength": 7478,
+      "trailingNewline": false,
+      "contractClassification": "required",
+      "expectedOutcome": "Two elapsed hours open the offline modal and transfer floored pending Gold exactly once.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "offline-special-claim",
+          "expected": "Special claim transfers Gold, resets pending, persists, closes, and does not double-claim."
         }
       ]
     }
   ],
   "scenarioData": {
     "path": "qa/scenarios.json",
-    "sha256": "a0cedc39432d0d5649e01215c78dc94085ca6684ed9ab10319dfea365cdd748a",
-    "byteLength": 6669
+    "sha256": "7ccfb47c63b9f9768387af95f35ae66f1dc612b74e43c7acf68cda1808c02a62",
+    "byteLength": 12496
   },
   "contractLabels": {
     "required": "A working baseline behavior that later gates must preserve until an authoritative migration replaces it.",

@@ -25,11 +25,12 @@ The runner has no external dependencies. It:
 
 1. fetches `index.html` as opaque bytes;
 2. verifies its SHA-256 and byte length before decoding or executing it;
-3. creates a new sandboxed iframe without `allow-same-origin` for every scenario;
-4. installs a memory-only `localStorage` in that disposable opaque realm before production code starts;
-5. freezes the clock to America/Phoenix semantics and supplies a fixed random sequence;
-6. executes the verified production artifact and reports results through `postMessage`;
-7. removes the iframe after the scenario.
+3. fetches every raw fixture and aborts `loadContract()` before any scenario if any checksum, byte length, code-unit length, or trailing-newline contract fails;
+4. creates a new sandboxed iframe without `allow-same-origin` for every scenario;
+5. installs a memory-only `localStorage` in that disposable opaque realm before production code starts;
+6. freezes the clock to America/Phoenix semantics and supplies a fixed random sequence;
+7. executes the verified production artifact and reports results through `postMessage`;
+8. removes the iframe after the scenario.
 
 The QA page never reads, writes, clears, backs up, or restores the browser origin's real player storage. A failed memory-storage installation cannot fall through to player storage because the test iframe has an opaque sandbox origin where native storage is unavailable.
 
@@ -55,6 +56,12 @@ If Node is not on `PATH` in the Codex workspace, use the bundled runtime:
 ```
 
 The command-line verifier checks the manifest, Git blob identity, artifact, fixture bytes and metadata, scenario storage slots, JavaScript syntax, fixed source contracts, and source evidence for the recorded defects. It does not claim browser layout or interaction coverage; those results come only from `qa/index.html`.
+
+## Review-strengthened characterization
+
+The representative fixture is an exact raw v0.1 save with a valid persisted Oath undo snapshot and synthetic non-ASCII text. Its UTF-8 byte length is deliberately different from its JavaScript code-unit length. The browser runner performs a recursive, complete-state comparison against that raw fixture after initial boot and again after a deterministic re-boot. The only permitted differences are explicitly named in `scenarios.json`: the boot timestamp, then the boot timestamp plus `ui.view` after the navigation mutation. This comparison includes every Building and operator slot, Fellow training and Bond, Family progress, Companion bindings, every Oath field, focus/featured selection, Patrol, Story, Tower, Trading, Resolve, auto mode, all UI fields, trade team, Operation, and persisted undo data.
+
+Offline Gold coverage includes a table of fixed expected outcomes for 0 and 1 milliseconds, the 60,000/60,001 millisecond modal boundary, exactly two hours, an immediate second claim, 24 hours minus 1 millisecond, exactly 24 hours, 24 hours plus 1 millisecond, a missing timestamp, and same-day/next-day rollover. A separate scenario clicks the offline summary's special claim action and verifies whole-Gold transfer, pending reset, exact memory-storage persistence, modal closure, deterministic re-boot behavior, and a zero-value immediate second claim. Expected numbers are stored as constants in scenario data; the harness does not reuse production economy formulas.
 
 ## Contract labels
 
@@ -83,6 +90,8 @@ Mandatory recorded defects include:
 Fixture files are test inputs, not save templates for players. Do not pretty-print, normalize, or add trailing newlines to them.
 
 In the manifest, `repositoryCommit` is the reviewed repository snapshot from which Gate 0A was prepared. `indexBaselineCommit` is the original upload commit that introduced the byte-locked artifact. `artifact.gitBlobId` identifies that exact Git object independently from its SHA-256 contract.
+
+The backup and staging raw-key fields are inert scenario-data slots for Gate 0B to extend. Gate 0A deliberately contains no current-schema behavior, active/backup/staging precedence, idempotence contract, transactional write-failure test, backup or staging recovery, or future-schema behavior. The current production artifact has no schema/transaction layer that could support those claims without changing production code.
 
 ## Manual verification risks
 

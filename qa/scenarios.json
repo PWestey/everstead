@@ -1,5 +1,5 @@
 {
-  "scenarioVersion": 1,
+  "scenarioVersion": 2,
   "storageKeys": {
     "active": "oathforge_new_world_proto_v01",
     "backup": "oathforge_new_world_proto_v01__raw_backup_v0_1",
@@ -54,7 +54,7 @@
       },
       "expected": {
         "gold": 246810,
-        "prosperity": 357,
+        "prosperity": 361,
         "pendingGold": 1234.5,
         "oathCount": 9,
         "navCount": 5,
@@ -71,10 +71,48 @@
           "resultingGold": 173115
         },
         "oathBoosts": {
-          "easyArchives": 0.1,
+          "easyArchives": 0.15,
           "mediumCommand": 0.1,
           "hardTraining": 0.19,
           "hearthCap": 0.3
+        },
+        "completeState": {
+          "sourceFixtureId": "representative-v0.1",
+          "requiredTopLevelKeys": [
+            "version",
+            "gold",
+            "prosperity",
+            "pendingGold",
+            "lastGoldAt",
+            "lastSeen",
+            "day",
+            "focusFellow",
+            "featured",
+            "patrolBank",
+            "patrolIndex",
+            "storyStage",
+            "towerFloor",
+            "tradingRating",
+            "currentWall",
+            "resolve",
+            "autoMode",
+            "ui",
+            "buildings",
+            "fellows",
+            "family",
+            "companions",
+            "oaths",
+            "tradeTeam",
+            "operation",
+            "undo"
+          ],
+          "initialBootMutations": {
+            "lastSeen": 1907953200000
+          },
+          "deterministicRebootMutations": {
+            "lastSeen": 1907953200000,
+            "ui.view": "more"
+          }
         }
       }
     },
@@ -215,7 +253,7 @@
         "stagingRawFixtureId": null
       },
       "expected": {
-        "pendingGold": 1660934.8899126998,
+        "pendingGold": 1660934.8899126996,
         "lastGoldAt": 1907953200000
       }
     },
@@ -266,6 +304,172 @@
         "resultingGold": 2234,
         "resultingPendingGold": 0,
         "lostFraction": 0.75
+      }
+    },
+    {
+      "id": "offline-boundaries",
+      "contractClassification": "required",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "offline-boundaries-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "initialGold": 10000,
+        "ratePerHour": 69201.45374636249,
+        "cases": [
+          {
+            "id": "elapsed-0ms",
+            "classification": "required",
+            "elapsedMs": 0,
+            "expectedPendingGold": 0,
+            "expectModal": false
+          },
+          {
+            "id": "elapsed-1ms",
+            "classification": "required",
+            "elapsedMs": 1,
+            "expectedPendingGold": 0.019222626040656245,
+            "expectModal": false
+          },
+          {
+            "id": "modal-threshold-60000ms",
+            "classification": "required",
+            "elapsedMs": 60000,
+            "expectedPendingGold": 1153.3575624393748,
+            "expectModal": false
+          },
+          {
+            "id": "modal-threshold-60001ms",
+            "classification": "required",
+            "elapsedMs": 60001,
+            "expectedPendingGold": 1153.3767850654153,
+            "expectModal": true
+          },
+          {
+            "id": "exact-2h",
+            "classification": "required",
+            "elapsedMs": 7200000,
+            "expectedPendingGold": 138402.90749272497,
+            "expectModal": true
+          },
+          {
+            "id": "immediate-second-claim",
+            "classification": "required",
+            "elapsedMs": 7200000,
+            "expectedPendingGold": 138402.90749272497,
+            "expectModal": true,
+            "action": "claim-twice",
+            "expectedAfterClaim": {
+              "gold": 148402,
+              "pendingGold": 0
+            }
+          },
+          {
+            "id": "cap-minus-1ms",
+            "classification": "required",
+            "elapsedMs": 86399999,
+            "expectedPendingGold": 1660834.8706900736,
+            "expectModal": true
+          },
+          {
+            "id": "cap-exact-24h",
+            "classification": "required",
+            "elapsedMs": 86400000,
+            "expectedPendingGold": 1660834.8899126996,
+            "expectModal": true
+          },
+          {
+            "id": "cap-plus-1ms",
+            "classification": "required",
+            "elapsedMs": 86400001,
+            "expectedPendingGold": 1660834.8899126996,
+            "expectModal": true
+          },
+          {
+            "id": "missing-timestamp",
+            "classification": "required",
+            "removeLastGoldAt": true,
+            "expectedPendingGold": 0,
+            "expectModal": false,
+            "expectedLastGoldAt": 1907953200000
+          },
+          {
+            "id": "same-day-rollover",
+            "classification": "required",
+            "elapsedMs": 0,
+            "expectModal": false,
+            "statePatch": {
+              "day": "D2030-6-17",
+              "patrolBank": 1,
+              "habitCount": 9,
+              "buildingBoost": 0.2,
+              "boostDay": "D2030-6-17"
+            },
+            "expectedState": {
+              "day": "D2030-6-17",
+              "patrolBank": 1,
+              "habitCount": 9,
+              "buildingBoost": 0.2
+            }
+          },
+          {
+            "id": "next-day-rollover",
+            "classification": "required",
+            "elapsedMs": 0,
+            "expectModal": false,
+            "statePatch": {
+              "day": "D2030-6-16",
+              "patrolBank": 1,
+              "habitCount": 9,
+              "buildingBoost": 0.2,
+              "boostDay": "D2030-6-16"
+            },
+            "expectedState": {
+              "day": "D2030-6-17",
+              "patrolBank": 2,
+              "habitCount": 0,
+              "buildingBoost": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "offline-claim",
+      "contractClassification": "required",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "offline-claim-2h-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "initialGold": 10000,
+        "pendingGoldBeforeClaim": 138402.90749272497,
+        "claimedWholeGold": 138402,
+        "resultingGold": 148402,
+        "resultingPendingGold": 0,
+        "lastGoldAt": 1907953200000
       }
     }
   ]

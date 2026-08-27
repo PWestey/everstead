@@ -73,6 +73,48 @@
     const rawState = () => localStorage.getItem(activeKey);
     const near = (actual, wanted, tolerance = 1e-7) => Number.isFinite(actual) && Math.abs(actual - wanted) <= tolerance;
     const deepEqual = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+    const clone = value => JSON.parse(JSON.stringify(value));
+    const setPath = (target, path, value) => {
+      const parts = path.split('.');
+      let cursor = target;
+      for (const part of parts.slice(0, -1)) {
+        if (cursor == null || typeof cursor !== 'object' || !(part in cursor)) throw new Error(`Unknown expected mutation path: ${path}`);
+        cursor = cursor[part];
+      }
+      const leaf = parts.at(-1);
+      if (cursor == null || typeof cursor !== 'object' || !(leaf in cursor)) throw new Error(`Unknown expected mutation path: ${path}`);
+      cursor[leaf] = value;
+    };
+    const stateDifferences = (actual, wanted, path = '$', differences = []) => {
+      if (Object.is(actual, wanted)) return differences;
+      const actualArray = Array.isArray(actual);
+      const wantedArray = Array.isArray(wanted);
+      if (actualArray !== wantedArray || actual == null || wanted == null || typeof actual !== 'object' || typeof wanted !== 'object') {
+        differences.push(`${path}: expected ${JSON.stringify(wanted)}, got ${JSON.stringify(actual)}`);
+        return differences;
+      }
+      const actualKeys = Object.keys(actual).sort();
+      const wantedKeys = Object.keys(wanted).sort();
+      if (!deepEqual(actualKeys, wantedKeys)) {
+        differences.push(`${path}: expected keys ${JSON.stringify(wantedKeys)}, got ${JSON.stringify(actualKeys)}`);
+      }
+      for (const key of [...new Set([...actualKeys, ...wantedKeys])]) {
+        if (!(key in actual) || !(key in wanted)) continue;
+        stateDifferences(actual[key], wanted[key], actualArray ? `${path}[${key}]` : `${path}.${key}`, differences);
+      }
+      return differences;
+    };
+    const compareCompleteState = mutations => {
+      const wanted = clone(JSON.parse(harness.initialActiveRaw));
+      for (const [path, value] of Object.entries(mutations)) setPath(wanted, path, value);
+      const actual = state();
+      const wantedTopLevel = [...expected.completeState.requiredTopLevelKeys].sort();
+      const actualTopLevel = Object.keys(actual).sort();
+      const topLevelPass = deepEqual(actualTopLevel, wantedTopLevel);
+      const differences = stateDifferences(actual, wanted);
+      if (!topLevelPass) differences.unshift(`$: contract top-level keys ${JSON.stringify(wantedTopLevel)}, got ${JSON.stringify(actualTopLevel)}`);
+      return { pass: topLevelPass && differences.length === 0, detail: differences.slice(0, 20).join(' | ') || 'all persisted fields match' };
+    };
 
     async function runFresh() {
       await wait(20);
@@ -95,17 +137,16 @@
       await wait(20);
       let saved = state();
       add('representative-console', 'Representative save boots without uncaught or console errors', 'required', harness.errors.length === 0, harness.errors.join(' | '));
+      const initialStateComparison = compareCompleteState(expected.completeState.initialBootMutations);
       add(
-        'representative-load',
-        'Representative resources, custom Oath, and nested progression load',
+        'representative-complete-initial-state',
+        'Initial boot exactly preserves every persisted field except the named lastSeen mutation',
         'required',
-        saved.gold === expected.gold && saved.prosperity === expected.prosperity && near(saved.pendingGold, expected.pendingGold) &&
-          saved.oaths.length === expected.oathCount && saved.oaths.some(item => item.id === 'fixture-custom') &&
-          saved.buildings.training.level === expected.buildingUpgrade.initialLevel && saved.family.elara.level === 12 && saved.companions.cinderwing.bound === 'selene'
+        initialStateComparison.pass,
+        initialStateComparison.detail
       );
 
       click('[data-nav="more"]');
-      const beforeReload = state();
       try {
         window.eval(harness.productionScript);
       } catch (error) {
@@ -113,12 +154,13 @@
       }
       await wait(20);
       saved = state();
+      const rebootStateComparison = compareCompleteState(expected.completeState.deterministicRebootMutations);
       add(
-        'save-reload',
-        'A saved navigation mutation and representative state survive a second boot',
+        'representative-complete-reboot-state',
+        'Deterministic re-boot exactly preserves every persisted field except named lastSeen and ui.view mutations',
         'required',
-        saved.ui.view === 'more' && beforeReload.ui.view === 'more' && saved.gold === expected.gold &&
-          saved.oaths.some(item => item.id === 'fixture-custom') && saved.buildings.hearth.level === 5
+        rebootStateComparison.pass && harness.errors.length === 0,
+        [rebootStateComparison.detail, ...harness.errors].join(' | ')
       );
 
       const navigationChecks = [
@@ -338,6 +380,114 @@
       );
     }
 
+    function applyBoundaryStatePatch(saved, statePatch = {}) {
+      if ('day' in statePatch) saved.day = statePatch.day;
+      if ('patrolBank' in statePatch) saved.patrolBank = statePatch.patrolBank;
+      if ('habitCount' in statePatch) saved.oaths.find(item => item.id === 'o4').count = statePatch.habitCount;
+      if ('buildingBoost' in statePatch || 'boostDay' in statePatch) {
+        for (const building of Object.values(saved.buildings)) {
+          if ('buildingBoost' in statePatch) building.boost = statePatch.buildingBoost;
+          if ('boostDay' in statePatch) building.boostDay = statePatch.boostDay;
+        }
+      }
+    }
+
+    async function bootBoundaryCase(boundaryCase) {
+      const saved = clone(JSON.parse(harness.initialActiveRaw));
+      saved.gold = expected.initialGold;
+      saved.pendingGold = 0;
+      saved.lastSeen = config.now;
+      if (boundaryCase.removeLastGoldAt) delete saved.lastGoldAt;
+      else saved.lastGoldAt = config.now - boundaryCase.elapsedMs;
+      applyBoundaryStatePatch(saved, boundaryCase.statePatch);
+      localStorage.setItem(activeKey, JSON.stringify(saved));
+      query('#app').innerHTML = '';
+      query('#overlay').innerHTML = '';
+      query('#toast').innerHTML = '';
+      const errorsBefore = harness.errors.length;
+      try {
+        window.eval(harness.productionScript);
+      } catch (error) {
+        harness.errors.push(`${boundaryCase.id} eval: ${error.message}`);
+      }
+      await wait(320);
+      return { saved: state(), newErrors: harness.errors.slice(errorsBefore) };
+    }
+
+    async function runOfflineBoundaries() {
+      for (const boundaryCase of expected.cases) {
+        const booted = await bootBoundaryCase(boundaryCase);
+        const saved = booted.saved;
+        const modalOpen = Boolean(query('#overlay .offline-list'));
+        let pass = booted.newErrors.length === 0 && near(saved.pendingGold, boundaryCase.expectedPendingGold ?? 0, 1e-6) &&
+          modalOpen === boundaryCase.expectModal;
+        if ('expectedLastGoldAt' in boundaryCase) pass &&= saved.lastGoldAt === boundaryCase.expectedLastGoldAt;
+        if (boundaryCase.expectedState) {
+          const habit = saved.oaths.find(item => item.id === 'o4');
+          pass &&= saved.day === boundaryCase.expectedState.day && saved.patrolBank === boundaryCase.expectedState.patrolBank &&
+            habit.count === boundaryCase.expectedState.habitCount &&
+            Object.values(saved.buildings).every(building => building.boost === boundaryCase.expectedState.buildingBoost && building.boostDay === boundaryCase.expectedState.day);
+        }
+        let actionDetail = '';
+        if (boundaryCase.action === 'claim-twice') {
+          click('[data-modal-act="collect-offline"]');
+          const afterFirstClaim = state();
+          click('#app [data-act="collect"]');
+          const afterSecondClaim = state();
+          pass &&= afterFirstClaim.gold === boundaryCase.expectedAfterClaim.gold && afterFirstClaim.pendingGold === 0 &&
+            afterSecondClaim.gold === afterFirstClaim.gold && afterSecondClaim.pendingGold === 0;
+          actionDetail = `, firstGold=${afterFirstClaim.gold}, secondGold=${afterSecondClaim.gold}`;
+        }
+        add(
+          `offline-boundary-${boundaryCase.id}`,
+          `Offline boundary: ${boundaryCase.id}`,
+          boundaryCase.classification,
+          pass,
+          `pendingGold=${saved.pendingGold}, modal=${modalOpen}${actionDetail}${booted.newErrors.length ? `, errors=${booted.newErrors.join(' | ')}` : ''}`
+        );
+      }
+    }
+
+    async function runOfflineClaim() {
+      await wait(320);
+      const before = state();
+      const modalBefore = Boolean(query('#overlay .offline-list'));
+      click('[data-modal-act="collect-offline"]');
+      const after = state();
+      const persistedAfter = JSON.parse(rawState());
+      const modalClosed = query('#overlay').innerHTML === '';
+      add(
+        'offline-special-claim',
+        'The offline summary claim transfers whole Gold, resets pending Gold, persists, and closes its modal',
+        'required',
+        harness.errors.length === 0 && modalBefore && near(before.pendingGold, expected.pendingGoldBeforeClaim, 1e-6) && after.gold === expected.resultingGold &&
+          after.gold - before.gold === expected.claimedWholeGold && after.pendingGold === expected.resultingPendingGold &&
+          after.lastGoldAt === expected.lastGoldAt && deepEqual(persistedAfter, after) && modalClosed,
+        `beforeGold=${before.gold}, pending=${before.pendingGold}, afterGold=${after.gold}, modalClosed=${modalClosed}`
+      );
+
+      const errorsBeforeReboot = harness.errors.length;
+      try {
+        window.eval(harness.productionScript);
+      } catch (error) {
+        harness.errors.push(`offline claim reboot eval: ${error.message}`);
+      }
+      await wait(320);
+      const rebooted = state();
+      const modalAfterReboot = Boolean(query('#overlay .offline-list'));
+      const rebootErrors = harness.errors.slice(errorsBeforeReboot);
+      click('#app [data-act="collect"]');
+      const secondClaim = state();
+      add(
+        'offline-immediate-second-claim',
+        'A deterministic re-boot and immediate second claim do not award the same offline interval twice',
+        'required',
+        rebootErrors.length === 0 && !modalAfterReboot && rebooted.gold === expected.resultingGold && rebooted.pendingGold === 0 &&
+          secondClaim.gold === rebooted.gold && secondClaim.pendingGold === 0,
+        `rebootGold=${rebooted.gold}, secondGold=${secondClaim.gold}, modal=${modalAfterReboot}${rebootErrors.length ? `, errors=${rebootErrors.join(' | ')}` : ''}`
+      );
+    }
+
     async function execute() {
       try {
         if (config.id === 'fresh') await runFresh();
@@ -349,6 +499,8 @@
         else if (config.id === 'offline-24-hour-cap') await runOfflineCap();
         else if (config.id === 'last-gold-at-zero') await runLastGoldAtZero();
         else if (config.id === 'fractional-pending-gold') await runFractionalPendingGold();
+        else if (config.id === 'offline-boundaries') await runOfflineBoundaries();
+        else if (config.id === 'offline-claim') await runOfflineClaim();
         else throw new Error(`Unknown scenario: ${config.id}`);
       } catch (error) {
         add(`${config.id}-harness`, `Scenario ${config.id} completed`, config.contractClassification, false, error.stack || error.message);
@@ -448,6 +600,10 @@
       fixtureResults.push(result(`fixture-${fixture.id}`, `Fixture ${fixture.id} bytes and metadata match`, 'required', pass,
         `sha256=${hash}, bytes=${bytes.byteLength}, codeUnits=${raw.length}, trailingNewline=${raw.endsWith('\n')}`));
       fixtureRaw.set(fixture.id, raw);
+    }
+    const fixtureFailures = fixtureResults.filter(item => !item.pass);
+    if (fixtureFailures.length > 0) {
+      throw new Error(`Fixture integrity failure; refusing to execute any scenario: ${fixtureFailures.map(item => item.id).join(', ')}`);
     }
 
     const indexBytes = await fetchBytes('../' + manifest.artifact.path);

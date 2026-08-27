@@ -8,6 +8,7 @@ import vm from 'node:vm';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(resolve(repoRoot, 'qa', 'baseline-manifest.json'), 'utf8'));
 const scenarios = JSON.parse(readFileSync(resolve(repoRoot, manifest.scenarioData.path), 'utf8'));
+const runnerText = readFileSync(resolve(repoRoot, 'qa', 'runner.js'), 'utf8');
 const checks = [];
 
 function sha256(bytes) {
@@ -26,7 +27,7 @@ const indexBytes = readFileSync(resolve(repoRoot, manifest.artifact.path));
 const indexText = indexBytes.toString('utf8');
 const indexScript = indexText.match(/<script>([\s\S]*?)<\/script>/)?.[1];
 
-check('manifest-gate', manifest.manifestVersion === 1 && manifest.phaseGate === '0A');
+check('manifest-gate', manifest.manifestVersion === 2 && manifest.phaseGate === '0A');
 check('repository-commit', git('cat-file', '-t', manifest.repositoryCommit) === 'commit', 'required', manifest.repositoryCommit);
 check('index-baseline-commit', git('cat-file', '-t', manifest.indexBaselineCommit) === 'commit', 'required', manifest.indexBaselineCommit);
 check('index-git-blob', git('hash-object', manifest.artifact.path) === manifest.artifact.gitBlobId, 'required', manifest.artifact.gitBlobId);
@@ -44,6 +45,35 @@ try {
 } catch (error) {
   check('index-script-syntax', false, 'required', error.message);
 }
+
+try {
+  new vm.Script(runnerText);
+  check('runner-script-syntax', true);
+} catch (error) {
+  check('runner-script-syntax', false, 'required', error.message);
+}
+
+const fixtureAbortIndex = runnerText.indexOf('Fixture integrity failure; refusing to execute any scenario');
+const scenarioLoopIndex = runnerText.indexOf('for (const scenario of contract.scenarioData.scenarios)');
+check(
+  'runner-fixture-integrity-aborts-scenarios',
+  fixtureAbortIndex > 0 && scenarioLoopIndex > fixtureAbortIndex &&
+    runnerText.includes('const fixtureFailures = fixtureResults.filter(item => !item.pass)') &&
+    runnerText.includes('if (fixtureFailures.length > 0)') && runnerText.includes('throw new Error(`Fixture integrity failure'),
+  'required',
+  `abortIndex=${fixtureAbortIndex}, scenarioLoopIndex=${scenarioLoopIndex}`
+);
+check(
+  'runner-complete-state-comparison',
+  runnerText.includes('stateDifferences(actual, wanted)') &&
+    runnerText.includes('representative-complete-initial-state') &&
+    runnerText.includes('representative-complete-reboot-state')
+);
+check(
+  'runner-offline-special-claim',
+  runnerText.includes('offline-special-claim') && runnerText.includes('[data-modal-act="collect-offline"]') &&
+    runnerText.includes('offline-immediate-second-claim')
+);
 
 for (const fixture of manifest.fixtures) {
   const bytes = readFileSync(resolve(repoRoot, fixture.path));
@@ -70,9 +100,35 @@ for (const fixture of manifest.fixtures) {
   }
 }
 
+const representativeFixture = manifest.fixtures.find(fixture => fixture.id === 'representative-v0.1');
+const representativeRaw = readFileSync(resolve(repoRoot, representativeFixture.path), 'utf8');
+const representative = JSON.parse(representativeRaw);
+const undoSnapshot = JSON.parse(representative.undo.snapshot);
+const representativeOath = representative.oaths.find(item => item.id === representative.undo.id);
+const snapshotOath = undoSnapshot.oaths.find(item => item.id === representative.undo.id);
+const syntheticOath = representative.oaths.find(item => item.id === 'fixture-custom');
+check(
+  'representative-utf8-vs-code-units',
+  representativeFixture.byteLength > representativeFixture.codeUnitLength && /[^\u0000-\u007f]/.test(representativeRaw),
+  'required',
+  `bytes=${representativeFixture.byteLength}, codeUnits=${representativeFixture.codeUnitLength}`
+);
+check(
+  'representative-valid-persisted-undo',
+  representative.undo.id === 'o7' && typeof representative.undo.snapshot === 'string' && !Object.hasOwn(undoSnapshot, 'undo') &&
+    representativeOath.doneKey === 'D2030-6-17' && snapshotOath.doneKey === null &&
+    representativeOath.streak === snapshotOath.streak + 1 && representative.prosperity > undoSnapshot.prosperity
+);
+check(
+  'representative-synthetic-non-ascii',
+  syntheticOath.title === 'Fixture café review 🌵' && syntheticOath.notes === 'Résumé naïve — synthetic 測試 only.' &&
+    syntheticOath.memo === 'Privé QA memo 🔒'
+);
+
 const scenarioBytes = readFileSync(resolve(repoRoot, manifest.scenarioData.path));
 check('scenario-sha256', sha256(scenarioBytes) === manifest.scenarioData.sha256, 'required', sha256(scenarioBytes));
 check('scenario-byte-length', scenarioBytes.length === manifest.scenarioData.byteLength, 'required', String(scenarioBytes.length));
+check('scenario-version', scenarios.scenarioVersion === 2);
 check(
   'scenario-storage-keys',
   scenarios.storageKeys.active === 'oathforge_new_world_proto_v01' &&
@@ -92,9 +148,58 @@ for (const scenario of scenarios.scenarios) {
   check(`scenario-${scenario.id}-fixed-expected`, scenario.expected && Object.keys(scenario.expected).length > 0);
 }
 
-for (const id of ['representative', 'sparse', 'corrupt', 'wrong-type', 'clock-rollback', 'cross-midnight', 'offline-24-hour-cap', 'last-gold-at-zero', 'fractional-pending-gold']) {
+for (const id of ['representative', 'sparse', 'corrupt', 'wrong-type', 'clock-rollback', 'cross-midnight', 'offline-24-hour-cap', 'last-gold-at-zero', 'fractional-pending-gold', 'offline-boundaries', 'offline-claim']) {
   check(`mandatory-scenario-${id}`, scenarios.scenarios.some(scenario => scenario.id === id));
 }
+
+const requiredPersistedKeys = [
+  'version', 'gold', 'prosperity', 'pendingGold', 'lastGoldAt', 'lastSeen', 'day', 'focusFellow', 'featured',
+  'patrolBank', 'patrolIndex', 'storyStage', 'towerFloor', 'tradingRating', 'currentWall', 'resolve', 'autoMode',
+  'ui', 'buildings', 'fellows', 'family', 'companions', 'oaths', 'tradeTeam', 'operation', 'undo'
+];
+const representativeScenario = scenarios.scenarios.find(scenario => scenario.id === 'representative');
+check(
+  'representative-complete-state-key-contract',
+  JSON.stringify([...representativeScenario.expected.completeState.requiredTopLevelKeys].sort()) === JSON.stringify([...requiredPersistedKeys].sort())
+);
+check(
+  'representative-only-named-boot-mutations',
+  JSON.stringify(representativeScenario.expected.completeState.initialBootMutations) === JSON.stringify({ lastSeen: 1907953200000 }) &&
+    JSON.stringify(representativeScenario.expected.completeState.deterministicRebootMutations) === JSON.stringify({ lastSeen: 1907953200000, 'ui.view': 'more' })
+);
+
+const boundaryScenario = scenarios.scenarios.find(scenario => scenario.id === 'offline-boundaries');
+const boundaryIds = boundaryScenario.expected.cases.map(item => item.id);
+const requiredBoundaryIds = [
+  'elapsed-0ms', 'elapsed-1ms', 'modal-threshold-60000ms', 'modal-threshold-60001ms', 'exact-2h',
+  'immediate-second-claim', 'cap-minus-1ms', 'cap-exact-24h', 'cap-plus-1ms', 'missing-timestamp',
+  'same-day-rollover', 'next-day-rollover'
+];
+check('offline-boundary-table-complete', JSON.stringify(boundaryIds) === JSON.stringify(requiredBoundaryIds));
+check(
+  'offline-boundary-fixed-expectations',
+  boundaryScenario.expected.initialGold === 10000 &&
+    boundaryScenario.expected.cases.find(item => item.id === 'elapsed-1ms').expectedPendingGold === 0.019222626040656245 &&
+    boundaryScenario.expected.cases.find(item => item.id === 'modal-threshold-60000ms').expectModal === false &&
+    boundaryScenario.expected.cases.find(item => item.id === 'modal-threshold-60001ms').expectModal === true &&
+    boundaryScenario.expected.cases.find(item => item.id === 'cap-minus-1ms').expectedPendingGold === 1660834.8706900736 &&
+    boundaryScenario.expected.cases.find(item => item.id === 'cap-exact-24h').expectedPendingGold === 1660834.8899126996 &&
+    boundaryScenario.expected.cases.find(item => item.id === 'cap-plus-1ms').expectedPendingGold === 1660834.8899126996 &&
+    boundaryScenario.expected.cases.find(item => item.id === 'immediate-second-claim').expectedAfterClaim.gold === 148402
+);
+const offlineClaimScenario = scenarios.scenarios.find(scenario => scenario.id === 'offline-claim');
+check(
+  'offline-claim-fixed-expectations',
+  offlineClaimScenario.expected.pendingGoldBeforeClaim === 138402.90749272497 &&
+    offlineClaimScenario.expected.claimedWholeGold === 138402 && offlineClaimScenario.expected.resultingGold === 148402 &&
+    offlineClaimScenario.expected.resultingPendingGold === 0
+);
+
+const forbiddenGate0BFragments = ['current-schema', 'future-schema', 'precedence', 'idempotence', 'write-failure', 'transaction', 'recovery'];
+check(
+  'no-gate-0b-scenarios',
+  scenarios.scenarios.every(scenario => forbiddenGate0BFragments.every(fragment => !scenario.id.includes(fragment)))
+);
 
 check('required-oath-multipliers-source', indexScript.includes("easy:{label:'Easy',boost:.03") && indexScript.includes("medium:{label:'Medium',boost:.05") && indexScript.includes("hard:{label:'Hard',boost:.08"));
 check('required-oath-cap-source', indexScript.includes("b.boost=Math.min(.30"));
