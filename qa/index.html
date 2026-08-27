@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Everstead Gate 0A QA</title>
+  <style>
+    :root{color-scheme:dark;--bg:#081019;--panel:#101b25;--ink:#fff7e7;--muted:#a7bbc0;--line:#ffffff20;--good:#7bd68a;--bad:#e76e5b;--gold:#f1c76b;--teal:#66e1d2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,sans-serif}main{width:min(100% - 24px,960px);margin:32px auto 64px}h1{margin:0 0 4px;font:700 30px Georgia,serif}p{color:var(--muted)}button{border:1px solid #ffffff30;border-radius:10px;background:#173246;color:white;padding:11px 16px;font-weight:800;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:20px 0}.metric,.result{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:12px}.metric b{display:block;font-size:22px}.metric span{color:var(--muted);font-size:11px}.result{margin:8px 0;display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:start}.result code{color:var(--muted);font-size:11px}.pass{border-color:#7bd68a55}.fail{border-color:#e76e5b99}.required{color:var(--teal)}.legacy-defect{color:var(--gold)}.status-pass{color:var(--good);font-weight:900}.status-fail{color:var(--bad);font-weight:900}#fatal{white-space:pre-wrap;color:var(--bad)}@media(max-width:640px){.summary{grid-template-columns:repeat(2,1fr)}.result{grid-template-columns:1fr}.result .status-pass,.result .status-fail{grid-row:1;justify-self:end}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Everstead Gate 0A</h1>
+  <p>External, black-box characterization of the byte-locked v0.1 prototype. Test realms use memory-only storage.</p>
+  <button id="run" type="button">Run characterization</button>
+  <section class="summary" aria-label="Test summary">
+    <div class="metric"><b id="total">0</b><span>Total assertions</span></div>
+    <div class="metric"><b id="passed">0</b><span>Passed / observed</span></div>
+    <div class="metric"><b id="failed">0</b><span>Failed</span></div>
+    <div class="metric"><b id="duration">0 ms</b><span>Duration</span></div>
+  </section>
+  <p id="fatal" role="alert"></p>
+  <section id="results" aria-live="polite"></section>
+</main>
+<script src="runner.js"></script>
+</body>
+</html>

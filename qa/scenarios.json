@@ -1,0 +1,272 @@
+{
+  "scenarioVersion": 1,
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backup": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  },
+  "scenarios": [
+    {
+      "id": "fresh",
+      "contractClassification": "required",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": null,
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "gold": 500000,
+        "prosperity": 120,
+        "oathCount": 8,
+        "buildingCount": 4,
+        "fellowCount": 6,
+        "familyCount": 3,
+        "companionCount": 2
+      }
+    },
+    {
+      "id": "representative",
+      "contractClassification": "required",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "representative-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "gold": 246810,
+        "prosperity": 357,
+        "pendingGold": 1234.5,
+        "oathCount": 9,
+        "navCount": 5,
+        "rosterCounts": {
+          "fellows": 6,
+          "family": 3,
+          "companions": 2
+        },
+        "buildingUpgrade": {
+          "id": "training",
+          "initialLevel": 4,
+          "cost": 73695,
+          "resultingLevel": 5,
+          "resultingGold": 173115
+        },
+        "oathBoosts": {
+          "easyArchives": 0.1,
+          "mediumCommand": 0.1,
+          "hardTraining": 0.19,
+          "hearthCap": 0.3
+        }
+      }
+    },
+    {
+      "id": "sparse",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "sparse-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "bootError": true
+      }
+    },
+    {
+      "id": "corrupt",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "corrupt-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "overwrittenWithDefaults": true,
+        "gold": 500000,
+        "oathCount": 8
+      }
+    },
+    {
+      "id": "wrong-type",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "wrong-type-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "bootError": true
+      }
+    },
+    {
+      "id": "clock-rollback",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "clock-rollback-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "pendingGold": 88.5,
+        "resultingLastGoldAt": 1907953200000
+      }
+    },
+    {
+      "id": "cross-midnight",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-18T07:30:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "cross-midnight-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "day": "D2030-6-18",
+        "patrolBank": 2,
+        "habitCount": 0,
+        "boost": 0,
+        "pendingGoldAtUnsegmentedRate": 69201.45374636249,
+        "pendingGoldIfSegmentedCorrectly": 79581.67180831687
+      }
+    },
+    {
+      "id": "offline-24-hour-cap",
+      "contractClassification": "required",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "offline-24-hour-cap-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "pendingGold": 1660934.8899126998,
+        "lastGoldAt": 1907953200000
+      }
+    },
+    {
+      "id": "last-gold-at-zero",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "last-gold-at-zero-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "pendingGold": 77.25,
+        "resultingLastGoldAt": 1907953200000
+      }
+    },
+    {
+      "id": "fractional-pending-gold",
+      "contractClassification": "legacy-defect",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "storage": {
+        "activeRawFixtureId": "fractional-pending-gold-v0.1",
+        "backupRawFixtureId": null,
+        "stagingRawFixtureId": null
+      },
+      "expected": {
+        "initialGold": 1000,
+        "initialPendingGold": 1234.75,
+        "resultingGold": 2234,
+        "resultingPendingGold": 0,
+        "lostFraction": 0.75
+      }
+    }
+  ]
+}

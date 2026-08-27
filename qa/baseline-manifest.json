@@ -1,0 +1,307 @@
+{
+  "manifestVersion": 1,
+  "phaseGate": "0A",
+  "repositoryCommit": "e77d3f0eb8f22bbfdc2087d02805c7cc74917271",
+  "indexBaselineCommit": "bf51479a78fb0220afa4aaff9ac918fb9f110b92",
+  "artifact": {
+    "path": "index.html",
+    "gitBlobId": "9a03c80f27532c6947533e7a003413621cf48300",
+    "sha256": "5223b96d35960465176a8ba6332b8b49185b95e006fd65f0d44aa6256fac9f80",
+    "byteLength": 18284940,
+    "documentTitle": "OATHFORGE — New World Prototype v0.1",
+    "visibleVersion": "v0.1",
+    "stateVersion": "0.1.0",
+    "activeStorageKey": "oathforge_new_world_proto_v01"
+  },
+  "deterministicEnvironment": {
+    "timezone": "America/Phoenix",
+    "timezoneOffsetMinutes": 420,
+    "randomSequence": [
+      0.05,
+      0.25,
+      0.5,
+      0.75,
+      0.95
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "representative-v0.1",
+      "path": "qa/fixtures/representative-v0.1.txt",
+      "classification": "legacy-v0.1",
+      "sha256": "d2246328a26b8fcee6f3956ecf319ba49e24b048450845926090ef273139424c",
+      "byteLength": 3407,
+      "codeUnitLength": 3407,
+      "trailingNewline": false,
+      "contractClassification": "required",
+      "expectedOutcome": "Boots, renders, mutates, saves, and reloads while preserving the complete v0.1 state shape.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "boot-and-round-trip",
+          "expected": "Boots and preserves resources, Oaths, Buildings, rosters, assignments, progress, UI state, and timestamps."
+        }
+      ]
+    },
+    {
+      "id": "sparse-v0.1",
+      "path": "qa/fixtures/sparse-v0.1.txt",
+      "classification": "legacy-v0.1-sparse",
+      "sha256": "27570ae4dea95662f5066eff3bafcafc39d8f10d3176b9125fea23832abf4534",
+      "byteLength": 112,
+      "codeUnitLength": 112,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "Boot throws because shallow top-level defaulting does not repair sparse nested state.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "legacy-defect",
+          "id": "shallow-defaulting",
+          "expected": "Top-level migration does not repair nested Building/Fellow data, so boot throws."
+        }
+      ]
+    },
+    {
+      "id": "corrupt-v0.1",
+      "path": "qa/fixtures/corrupt-v0.1.txt",
+      "classification": "corrupt-json",
+      "sha256": "b67e5932a7562b3982eef0f77a664abee936077e5444b66fb6cee7e5b68d5c21",
+      "byteLength": 32,
+      "codeUnitLength": 32,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "Boot silently overwrites the active corrupt string with a new default save.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "legacy-defect",
+          "id": "silent-corrupt-overwrite",
+          "expected": "Parse failure silently creates and persists defaults, replacing the only active raw payload."
+        }
+      ]
+    },
+    {
+      "id": "wrong-type-v0.1",
+      "path": "qa/fixtures/wrong-type-v0.1.txt",
+      "classification": "legacy-v0.1-invalid-types",
+      "sha256": "d59a8189d22c3c7b2a921da6d653f29cee3dcfd4d8e870d8fe440940382fffa8",
+      "byteLength": 245,
+      "codeUnitLength": 245,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "Boot throws because wrong-type values survive the shallow migration.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "legacy-defect",
+          "id": "no-type-validation",
+          "expected": "Wrong-type top-level values survive migration and cause boot-time calculation/render failure."
+        }
+      ]
+    },
+    {
+      "id": "clock-rollback-v0.1",
+      "path": "qa/fixtures/clock-rollback-v0.1.txt",
+      "classification": "legacy-v0.1-clock-rollback",
+      "sha256": "2b6569ffd702dd319121adf94704944dbd538d6439dcd6becb53abbd3822fa04",
+      "byteLength": 3405,
+      "codeUnitLength": 3405,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "No negative Gold is earned, but load moves the future lastGoldAt backward to the frozen current time.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "non-negative-elapsed",
+          "expected": "A future lastGoldAt earns zero Gold."
+        },
+        {
+          "kind": "legacy-defect",
+          "id": "rollback-moves-claim-clock",
+          "expected": "Load replaces the future lastGoldAt with the earlier current timestamp."
+        }
+      ]
+    },
+    {
+      "id": "cross-midnight-v0.1",
+      "path": "qa/fixtures/cross-midnight-v0.1.txt",
+      "classification": "legacy-v0.1-cross-midnight",
+      "sha256": "d6f622b8dd66e9d99707ff46c1fef6cc9f540f8c25ec0be9b7ebcb5c5e6ec8db",
+      "byteLength": 3398,
+      "codeUnitLength": 3398,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "Daily rollover succeeds, then the entire elapsed hour is incorrectly paid at the new-day unboosted rate.",
+      "frozenNow": "2030-06-18T07:30:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "daily-rollover",
+          "expected": "Rollover resets daily boosts and habit counts and banks at most one Patrol up to the cap."
+        },
+        {
+          "kind": "legacy-defect",
+          "id": "unsegmented-cross-midnight-accrual",
+          "expected": "Rollover occurs before accrual, so the entire interval is paid at the new day unboosted rate."
+        }
+      ]
+    },
+    {
+      "id": "offline-24-hour-cap-v0.1",
+      "path": "qa/fixtures/offline-24-hour-cap-v0.1.txt",
+      "classification": "legacy-v0.1-offline-cap",
+      "sha256": "f944780cc97142dbc5d19fc70aa49facbca90c58291c4feb8faa3a784acee502",
+      "byteLength": 3392,
+      "codeUnitLength": 3392,
+      "trailingNewline": false,
+      "contractClassification": "required",
+      "expectedOutcome": "Thirty elapsed hours award exactly twenty-four hours of current Building production.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "required",
+          "id": "offline-cap",
+          "expected": "Thirty elapsed hours award exactly twenty-four hours of current Building production."
+        }
+      ]
+    },
+    {
+      "id": "last-gold-at-zero-v0.1",
+      "path": "qa/fixtures/last-gold-at-zero-v0.1.txt",
+      "classification": "legacy-v0.1-zero-timestamp",
+      "sha256": "ff111e006665e616178aa8cc934957cc8bf0880e5b957b4387b7a51412837251",
+      "byteLength": 3392,
+      "codeUnitLength": 3392,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "The falsy zero timestamp is treated as now, earns no offline Gold, and is replaced by the current timestamp.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "legacy-defect",
+          "id": "zero-timestamp-fallback",
+          "expected": "lastGoldAt: 0 falls back to now instead of representing the Unix epoch."
+        }
+      ]
+    },
+    {
+      "id": "fractional-pending-gold-v0.1",
+      "path": "qa/fixtures/fractional-pending-gold-v0.1.txt",
+      "classification": "legacy-v0.1-fractional-pending",
+      "sha256": "2025e144a3ee8840c0280e9a5e4ac53cb2c7ea606eb8ed6de657342ff9e3a247",
+      "byteLength": 3406,
+      "codeUnitLength": 3406,
+      "trailingNewline": false,
+      "contractClassification": "legacy-defect",
+      "expectedOutcome": "Collect floors 1234.75 to 1234 Gold, clears pendingGold to zero, and loses the 0.75 remainder.",
+      "frozenNow": "2030-06-17T19:00:00.000Z",
+      "timezone": "America/Phoenix",
+      "timezoneOffsetMinutes": 420,
+      "randomSequence": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "assertions": [
+        {
+          "kind": "legacy-defect",
+          "id": "fractional-pending-loss",
+          "expected": "Collection floors pending Gold and discards the fractional remainder."
+        }
+      ]
+    }
+  ],
+  "scenarioData": {
+    "path": "qa/scenarios.json",
+    "sha256": "a0cedc39432d0d5649e01215c78dc94085ca6684ed9ab10319dfea365cdd748a",
+    "byteLength": 6669
+  },
+  "contractLabels": {
+    "required": "A working baseline behavior that later gates must preserve until an authoritative migration replaces it.",
+    "legacy-defect": "A deliberately observed v0.1 failure. Gate 0A passes when the defect is reproduced and clearly labeled, not when it is repaired."
+  },
+  "manualVerification": [
+    "Real iOS safe-area and standalone/PWA viewport behavior.",
+    "Android soft-keyboard behavior in the Oath form.",
+    "Touch scrolling, backdrop tapping, and embedded-atlas visual quality.",
+    "Safari private-storage and quota behavior.",
+    "Clipboard and confirmation-dialog behavior."
+  ]
+}

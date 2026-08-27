@@ -1,0 +1,1 @@
+{"version":"0.1.0","gold":321,"buildings":{"training":{"level":2}},"fellows":{"cael":{"training":2}},"oaths":[]}

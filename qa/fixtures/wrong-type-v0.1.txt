@@ -1,0 +1,1 @@
+{"version":"0.1.0","gold":"246810","prosperity":"high","pendingGold":{},"lastGoldAt":"not-a-timestamp","lastSeen":null,"day":20300617,"focusFellow":[],"ui":[],"buildings":[],"fellows":[],"family":[],"companions":[],"oaths":{},"tradeTeam":"cael"}
