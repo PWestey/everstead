@@ -52,6 +52,7 @@ Introduce explicit schema versioning, validation, exact raw backup, ordered idem
 - Staging key: `oathforge_new_world_proto_v01__staging`
 - Integer `schemaVersion` independent from visible/build version.
 - Save metadata includes a save ID, created/updated timestamps, revision, source, and applied migration receipts.
+- Gate 0B may introduce a persistence-local storage adapter and fault-injection seam to prove write ordering, quota handling, and recovery. Gate 0C still owns the broader QA bridge and general runtime adapters.
 
 ### Required write order
 
