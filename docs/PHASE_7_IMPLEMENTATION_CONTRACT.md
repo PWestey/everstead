@@ -260,6 +260,7 @@ Resolution is deterministic and contains no RNG:
 
 ## Schema 7 → 8 migration
 
+- The supported predecessor boundary is the released schema 0–7 lineage ending at sealed Phase 6. Phase 7 schema-8 compatibility begins with this final sealed format. Provisional schema-8 artifacts produced only in the isolated, unmerged, unpushed Phase 7 worktree before this seal are development fixtures, were never present on canonical main or the public build, and are intentionally unsupported rather than silently normalized without a schema bump. QA and development must use isolated storage.
 - Add write-once `PRE_V8_BACKUP_KEY = oathforge_new_world_proto_v01__raw_backup_v7`.
 - Protected slots become active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, pre-v7, pre-v8, and staging: ten exact raw slots.
 - For a schema-7 origin, pre-v8 is the exact active schema-7 raw bytes. For schema 0–6, pre-v8 is the exact canonical schema-7 intermediate produced after all earlier protected intermediates. Preserve and authenticate original whitespace whenever raw exists.
