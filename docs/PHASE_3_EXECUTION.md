@@ -42,6 +42,14 @@ Phase 3 migrates Family from the pre-lock relationship placeholder into the rela
 
 All other Phase 2 semantics remain required.
 
+## Observed final gate
+
+- Phase 3 CLI: `334/334`, twice.
+- Phase 2 semantic successor: `294/294`, twice, with exactly six expected supersessions.
+- Phase 3 checksum manifest: `13/13`, twice; all 90 historical Phase 0/1/2 QA and result artifacts remained byte-frozen.
+- Live Chromium: `303/303`, twice, across the built-in 320×568 and 390×844 realms, with blank fatal output, no failed rows, no horizontal overflow, zero native-storage calls, and zero warning/error console entries.
+- Two independent exact-tip adversarial reviews returned PASS, and `git diff --check` remained clean.
+
 ## Frozen production identity
 
 - Base: `9b4fbc11ad465f83802b7d787756d2d390de0e55`.

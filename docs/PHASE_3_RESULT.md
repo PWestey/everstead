@@ -1,6 +1,6 @@
 # Everstead Phase 3 — Result
 
-Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `7a97cea1e7422aaf23e796bbd33385d535ce06df`. This supersedes the independently rejected candidate `cea999a4c3c8d48f70ee4858cff55cfdb568e1c3` and all intermediate repair tips.
+Status: **PASS — FINAL ACCEPTANCE** at production tip `7a97cea1e7422aaf23e796bbd33385d535ce06df`. This supersedes the independently rejected candidate `cea999a4c3c8d48f70ee4858cff55cfdb568e1c3` and all intermediate repair tips.
 
 ## Accepted implementation
 
@@ -25,7 +25,7 @@ Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `
 - Phase 3 CLI: `334/334`, twice.
 - Phase 2 semantic successor: `294/294`, twice, with exactly six itemized supersessions.
 - Phase 3 checksum manifest: `13/13`, twice; `90` Phase 0/1/2 QA and result artifacts byte-frozen.
-- Live Chromium: pending two final-tip passes from the root browser binding across 320×568 and 390×844 realms. Required evidence remains blank fatal output, no failed rows, no horizontal overflow, zero native-storage calls, and zero warning/error console entries.
+- Live Chromium: `303/303`, twice, across the built-in 320×568 and 390×844 realms; blank fatal output, no failed rows, no horizontal overflow, zero native-storage calls, and zero warning/error console entries.
 - `git diff --check`: clean.
 
 ## Source authority
@@ -55,6 +55,6 @@ Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `
 - Real-device Safari behavior remains outside the required Chromium gate.
 - The campaign Gift hook is deliberately neutral until Phase 5.
 
-## Final gate still required
+## Final gate acceptance
 
-- Live Chromium twice at both required mobile sizes. Replace this pending section with the observed counts before final acceptance. All CLI, successor, checksum, frozen-file, and diff checks are complete.
+- Two independent exact-tip reviews passed with no production blockers. The root browser gate also passed twice at both required mobile sizes. All CLI, successor, checksum, frozen-file, diff, and live-browser checks are complete.
