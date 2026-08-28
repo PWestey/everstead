@@ -18,8 +18,8 @@
   },
   "artifact": {
     "path": "index.html",
-    "sha256": "ac9ad9dde2da75e14b84bec07708c0bc4eec6259417756fd42afe1c500e7065a",
-    "byteLength": 18375175,
+    "sha256": "c41b6729725e2e50aee84e93d65cc8cdbc9f78d432dfb8cd703ff2060a11a2b3",
+    "byteLength": 18380433,
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78",
     "embeddedAssetLineCount": 3,
     "embeddedAssetByteLength": 18229348

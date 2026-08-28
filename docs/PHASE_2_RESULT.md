@@ -18,15 +18,17 @@ Expected Phase 1 successor supersessions are limited to current artifact identit
 ## Frozen evidence
 
 - Base: `de41734692be4ff1760ae62f6a65467e0f25527a`.
-- Production commit: `2e2cf496ebccec1e3e922942990d5030b6fd041d` (`feat(phase-2): migrate Fellow progression`).
-- Current `index.html`: SHA-256 `ac9ad9dde2da75e14b84bec07708c0bc4eec6259417756fd42afe1c500e7065a`; 18,375,175 bytes.
+- Production commits: `2e2cf496ebccec1e3e922942990d5030b6fd041d` (`feat(phase-2): migrate Fellow progression`) and `c2499af215f187ea1d5cf0347f4ddc91eb891836` (`fix(phase-2): authenticate migration checkpoints before writes`).
+- Current `index.html`: SHA-256 `c41b6729725e2e50aee84e93d65cc8cdbc9f78d432dfb8cd703ff2060a11a2b3`; 18,380,433 bytes.
 - Embedded asset-line aggregate: SHA-256 `9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78`; 3 lines; 18,229,348 bytes, identical to the Phase 1 base.
 - Historical freeze: 78 pre-existing docs/QA files verified byte-for-byte.
-- Phase 2 CLI: 311/311 twice.
+- Phase 2 CLI: 353/353 twice.
 - Phase 1 successor: 244 inherited assertions pass plus 12 documented replacements, with zero unexpected failures and zero missing replacements, twice.
 - Phase 2 checksum sweep: all 13 entries pass twice.
 - Live in-app Chromium: 312/312 twice across 320×568 and 390×844; fatal output blank; zero failed result rows; zero warning/error console entries. The browser-control evaluation realm could read the rendered counters and result rows but not the page-global result object, so the recorded evidence is the directly observed DOM and console state.
 
 Migration retries were exercised at schema-2 checkpoint read/write/verify, staging write/verify, active conflict/write/verify, and cleanup boundaries. Later-clock retries preserve exact v0/v1/v2 checkpoints, remove only owned staging, and keep each migration receipt singular. Foreign, invalid, and valid-but-unrelated checkpoint/staging payloads remain byte-exact and cause zero writes.
+
+The correction contract additionally proves read-only refusal before empty lower checkpoint creation, canonical-source lineage, safe-integer import boundaries, monotonic rollback-clock migration metadata, and complete five-slot fixture rollback at every set/remove boundary without boot-saving restored state.
 
 Residual risk: Web Storage offers no atomic cross-tab compare-and-swap. Existing revision, raw-identity, storage-event, and staging checks reduce but cannot eliminate that platform limitation.

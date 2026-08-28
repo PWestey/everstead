@@ -14,12 +14,16 @@ Authority used:
 - The v0 and v1 write-once keys remain unchanged. Existing mismatched bytes at any checkpoint are preserved and block replacement.
 - A Phase 1 schema-2 staging envelope is accepted only when deterministic projection proves its exact lineage from the active schema-0 or schema-1 payload. It then becomes the exact v2 checkpoint before schema 3 is staged.
 - Multi-hop schema-3 staging is validated against the complete deterministic projection and its schema hop count, not an assumed `active revision + 1`.
+- Before any backup or checkpoint write, all occupied migration checkpoints and staging bytes are read and authenticated against the active lineage. A malformed, foreign-source, or semantically unrelated occupied checkpoint refuses with all five slots byte-exact and zero writes.
+- Schema-1 and legacy projections use canonical sources (`schema-1` and `legacy-v0.1`); checkpoint metadata cannot authorize itself by supplying a different source.
 - Missing-active recovery order is attested schema-3 staging, valid v2, valid v1, then exact v0. Corrupt active data never gains authority from an unattested later checkpoint.
-- Fixture installation and rollback cover active/v0/v1/v2/staging. Rollback failures are explicit.
+- Fixture installation and rollback cover active/v0/v1/v2/staging. A failed installation restores the captured in-memory identity and UI directly without invoking normal boot persistence; rollback failures are explicit.
+- Migration metadata time is monotonic under clock rollback. Migration receipts retain the captured attempt time, while `saveMeta.updatedAt` never moves behind its predecessor.
 
 ## Fellow invariants
 
 - Persisted canonical inputs are `owned`, `exp`, `level`, `rarity`, per-character `shards`, numeric `bond`, and empty `relicSlots`. Known derived shadows are rejected in schema 3 and removed during migration.
+- EXP and shards require nonnegative safe integers. The exact `Number.MAX_SAFE_INTEGER` boundary is accepted when the Level agrees with EXP; unsafe values are rejected without writes.
 - Valid legacy Training is floored and clamped to `1..120`; Level is identical and EXP is the exact cumulative threshold. Bond is copied numerically and cannot influence Level or EXP.
 - `effectiveFellowPowerComponents(id,state)` is the only Power pipeline. It applies base and Level, rarity, then neutral Bond milestone, Relic, derived Companion binding, Family, and global hooks; rounding occurs once at the end.
 - Locked Core v1.2 supersedes the roadmap’s older implied Bond-Power seed. Bond milestones are separate and Power-neutral during Phase 2.
