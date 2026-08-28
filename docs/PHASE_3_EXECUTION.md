@@ -15,7 +15,8 @@ Phase 3 migrates Family from the pre-lock relationship placeholder into the rela
 - Configured Family-to-Fellow bonuses in the existing single Fellow Power pipeline, including Lyra's Elara and Isolde links and one final round.
 - Replay-safe four-hour Building rolls, per-Building ordinals/carry/drought, and canonical carry provenance containing the Family assignment and Building level that earned a partial interval.
 - Safe-magnitude fractional Intimacy with exact +10 Gift arithmetic, exact configured Family/drop/receipt map keys, canonical-only collection, and zero-write immediate double claims.
-- Fail-closed schema-4 staging recovery: current mutations remain recoverable, while migratable and missing-active recovery require exact deterministic lineage/source/metadata/state before any of the six slots can be written.
+- Fail-closed schema-4 staging recovery: current mutations remain recoverable, while migratable and missing-active recovery require exact deterministic lineage/source/metadata/state before any of the six slots can be written. Corrupt, invalid, and future active payloads never treat a generic-valid staging envelope as recovery authority.
+- Exact staging ownership before every new transaction: a post-boot foreign staging payload is retained and the attempted mutation returns with zero persistence, state, revision, modal, toast, or rendered-UI change. Authenticated current staging recovery, exact successor replacement, and committed-current cleanup retain their existing paths.
 - Daily deterministic Oath Gifts with a fifth-unique guarantee and scoped Undo protection for inventory/tracker divergence.
 - Family Patrol rewards converted to one universal Gift plus their existing secondary reward.
 - Live Family and Building UI, claim reporting, diagnostics, safe export, and isolated authorized QA controls.
@@ -42,8 +43,8 @@ All other Phase 2 semantics remain required.
 ## Frozen production identity
 
 - Base: `9b4fbc11ad465f83802b7d787756d2d390de0e55`.
-- Production tip: `4815efaf0d28e24282aaa835e2d22468f1d932e1`.
-- Artifact: `a4b3e4c870f4f228738e7f8f4bb9a772c64bb863f1a6f7998541f1bbf794a93a` (`18,423,511` bytes).
+- Production tip: `b0beeb862fa20b6246da43120ba9a654013a449a`.
+- Artifact: `5e7593268db8a5a59cd13a1dc846a9fe608638eea8718696c9f3b5224a45e7c4` (`18,423,803` bytes).
 - Embedded asset-line aggregate: `9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78`, unchanged from Phase 2.
 
 ## Do not break
