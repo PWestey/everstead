@@ -33,7 +33,7 @@
 <div id="app" class="app"></div><div id="overlay"></div><div id="toast" class="toast"></div>
 <script>
 (()=>{'use strict';
-const NS='oathforge_new_world_proto_v01',VERSION='0.1.0',CURRENT_SCHEMA_VERSION=4,RAW_BACKUP_KEY=NS+'__raw_backup_v0_1',PRE_V2_BACKUP_KEY=NS+'__raw_backup_v1',PRE_V3_BACKUP_KEY=NS+'__raw_backup_v2',PRE_V4_BACKUP_KEY=NS+'__raw_backup_v3',STAGING_KEY=NS+'__staging';
+const NS='oathforge_new_world_proto_v01',VERSION='0.1.0',CURRENT_SCHEMA_VERSION=5,RAW_BACKUP_KEY=NS+'__raw_backup_v0_1',PRE_V2_BACKUP_KEY=NS+'__raw_backup_v1',PRE_V3_BACKUP_KEY=NS+'__raw_backup_v2',PRE_V4_BACKUP_KEY=NS+'__raw_backup_v3',PRE_V5_BACKUP_KEY=NS+'__raw_backup_v4',STAGING_KEY=NS+'__staging';
 const DIFF={easy:{label:'Easy',boost:.03,bond:4,prosperity:2},medium:{label:'Medium',boost:.05,bond:7,prosperity:4},hard:{label:'Hard',boost:.08,bond:11,prosperity:7}};
 const ECONOMY_CONFIG=Object.freeze({buildingBaseRates:Object.freeze({training:7200,command:6500,archives:5600,hearth:6100}),buildingLevelCap:52,levelMultiplier:1.15,upgradeBase:15000,upgradeGrowth:1.7,oathDailyCap:.30,neutralHooks:Object.freeze({familyAssignment:0,fellowRoster:0,companionRoster:0,overallDay:0})});
 const FAMILY_CONFIG=Object.freeze({starterGifts:1,giftIntimacy:10,rarityMax:5,rarityShardCosts:Object.freeze([20,40,80,160]),freshAssignments:Object.freeze({elara:'hearth',tamsin:'training',isolde:'archives'}),specialties:Object.freeze({elara:'hearth',tamsin:'training',isolde:'archives'}),buildingBonus:Object.freeze({cap:.20,base:.01,intimacyCap:.10,intimacyRate:.0002,rarityRate:.02,specialtyMatch:.01}),linkedFellowBonus:Object.freeze({perFamilyCap:.09,intimacyCap:.05,intimacyRate:.0001,rarityRate:.01,aggregateCap:.12}),intimacyMilestones:Object.freeze([{id:'intimacy-150',threshold:150,shards:5},{id:'intimacy-300',threshold:300,shards:10},{id:'intimacy-600',threshold:600,shards:20},{id:'intimacy-1000',threshold:1000,shards:40}]),rollIntervalMs:14400000,shardChanceBase:.10,shardChancePerLevel:.01,shardChanceCap:.18,assignedRecipientWeight:.75,shardDroughtForceAt:8,hearthGiftChance:.02,campaignGiftChance:0,oathGiftChance:.05,oathGiftGuaranteeUnique:5});
@@ -43,6 +43,8 @@ const DOMAIN_BUILDING={fitness:'training',work:'command',discipline:'command',ho
 const ELEMENTS=['Flame','Grove','Stone','Storm','Tide'],COUNTERS={Flame:'Grove',Grove:'Stone',Stone:'Storm',Storm:'Tide',Tide:'Flame'};
 const FELLOW_CONFIG=Object.freeze({levelCap:120,expBase:100,expGrowth:1.12,levelPowerGrowth:.115,rarityMax:5,rarityShardCosts:Object.freeze([20,40,80,160]),rarityPowerGrowth:.08,bondMilestonePower:0,bondMilestoneMax:99,counterAdvantage:1.18,counterDisadvantage:.90,balancedRoleMultiplier:1.06,neutralHooks:Object.freeze({relic:1,companion:1,familyBond:1,global:1}),efficiency:Object.freeze({baseCost:12000,recommendedPower:30000,discountScale:.25,discountCap:.35})});
 function fellowExpToNext(level){const normalized=Math.max(1,Math.min(FELLOW_CONFIG.levelCap,Math.floor(level)));return Math.round(FELLOW_CONFIG.expBase*Math.pow(FELLOW_CONFIG.expGrowth,normalized-1))}function fellowExpThreshold(level){const normalized=Math.max(1,Math.min(FELLOW_CONFIG.levelCap,Math.floor(level)));let total=0;for(let current=1;current<normalized;current++)total+=fellowExpToNext(current);return total}function fellowLevelForExp(exp){const normalized=Number.isFinite(exp)?Math.max(0,Math.floor(exp)):0;let level=1,total=0;while(level<FELLOW_CONFIG.levelCap){const next=fellowExpToNext(level);if(normalized<total+next)break;total+=next;level++}return level}
+const COMPANION_CONFIG=Object.freeze({levelCap:100,expBase:80,expGrowth:1.12,rarityMax:5,rarityShardCosts:Object.freeze([20,40,80,160]),basePower:Object.freeze({bramble:1000,cinderwing:1200}),levelPowerGrowth:.10,rarityPowerGrowth:.10,transferRate:.40,masteryMultiplier:1});
+function companionExpToNext(level){const normalized=Math.max(1,Math.min(COMPANION_CONFIG.levelCap,Math.floor(level)));return Math.round(COMPANION_CONFIG.expBase*Math.pow(COMPANION_CONFIG.expGrowth,normalized-1))}function companionExpThreshold(level){const normalized=Math.max(1,Math.min(COMPANION_CONFIG.levelCap,Math.floor(level)));let total=0;for(let current=1;current<normalized;current++)total+=companionExpToNext(current);return total}function companionLevelForExp(exp){const normalized=Number.isFinite(exp)?Math.max(0,Math.floor(exp)):0;let level=1,total=0;while(level<COMPANION_CONFIG.levelCap){const next=companionExpToNext(level);if(normalized<total+next)break;total+=next;level++}return level}
 const FELLOW_DEFS=[
  {id:'cael',name:'Cael Varen',title:'Storm Vanguard',role:'Tank',type:'Storm',base:6100,quote:'A kept oath is stronger than any wall.',idx:0},
  {id:'lyra',name:'Lyra Vale',title:'Ember Envoy',role:'DPS',type:'Flame',base:6400,quote:'Good. Let the world learn you mean what you say.',idx:1},
@@ -57,8 +59,8 @@ const FAMILY_DEFS=[
  {id:'isolde',name:'Isolde Marren',title:'Patron of the Archives',idx:2,links:['selene','mira','lyra'],quote:'Consistency is a form of devotion. I notice yours.'}
 ];
 const COMPANION_DEFS=[
- {id:'bramble',name:'Bramble',title:'Grove Drake',idx:0},
- {id:'cinderwing',name:'Cinderwing',title:'Storm Salamander',idx:1}
+ {id:'bramble',name:'Bramble',title:'Grove Drake',idx:0,base:COMPANION_CONFIG.basePower.bramble},
+ {id:'cinderwing',name:'Cinderwing',title:'Storm Salamander',idx:1,base:COMPANION_CONFIG.basePower.cinderwing}
 ];
 const BUILDING_DEFS=[
  {id:'training',name:'Training Grounds',domain:'Fitness',base:ECONOMY_CONFIG.buildingBaseRates.training,spot:'spot-training'},
