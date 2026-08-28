@@ -2,7 +2,7 @@
 
 ## Authority and immutable base
 
-- Implement from exact Phase 3 commit `cea999a4c3c8d48f70ee4858cff55cfdb568e1c3`.
+- Implement from exact sealed Phase 3 package commit `165d18aaab66370ac959670ef1c7284c6ec95a3c` (production artifact tip `7a97cea1e7422aaf23e796bbd33385d535ce06df`).
 - `EVERSTEAD — LOCKED CORE DESIGN v1.2` is authoritative. Its Companion principles are locked: Level/EXP, Power, character-specific shards and rarity, free Fellow assignment, one Companion per Fellow initially, and a boost derived from the Companion's own Power.
 - `EVERSTEAD — IMPLEMENTATION ROADMAP v1.0` defines Phase 4 as Companion expansion and assignment. Companion Campaign, Companion Tower, idle EXP/Mastery/random shards, and their actual progression state remain Phase 6.
 - Preserve the working single-file shell, portraits, roster navigation, modal system, transactional persistence, and every accepted Phase 0–3 behavior.
