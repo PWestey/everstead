@@ -1,0 +1,18 @@
+{
+  "contractVersion": 1,
+  "phase": "1",
+  "baseCommit": "e2dfc24f513499e176ab5c2be3894c8e324c31ac",
+  "frozenNow": "2030-06-17T19:00:00.000Z",
+  "timezoneOffsetMinutes": 420,
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backupV0": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "backupV1": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  },
+  "randomSequence": [0.01, 0.83, 0.27, 0.62, 0.44, 0.91, 0.13, 0.75],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ]
+}
