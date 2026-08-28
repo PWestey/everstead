@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const qaRoot = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(qaRoot, '..', '..');
 const baseCommit = '81ec44c';
+const correctionBaseCommit = '7a80a04';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const read = path => readFileSync(resolve(repoRoot, path));
 const git = args => execFileSync('git', args, { cwd: repoRoot, maxBuffer: 64 * 1024 * 1024 });
@@ -30,6 +31,7 @@ const manifest = {
   manifestVersion: 1,
   phaseGate: '0C',
   baseCommit,
+  correctionBaseCommit,
   historicalFiles,
   artifact: {
     path: 'index.html',

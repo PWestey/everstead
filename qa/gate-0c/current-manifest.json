@@ -2,6 +2,7 @@
   "manifestVersion": 1,
   "phaseGate": "0C",
   "baseCommit": "81ec44c",
+  "correctionBaseCommit": "7a80a04",
   "historicalFiles": {
     "docs/MIGRATION_BASELINE.md": "34da91d85c1a3dad6054d443036207527846d541f06a018a4a1ecf2656e4cb16",
     "docs/PHASE_0A_RESULT.md": "4bc8d33dbdb7205f58b68e5e201ab778faad4d1957e2b77301264c8286992b51",
@@ -60,8 +61,8 @@
   },
   "artifact": {
     "path": "index.html",
-    "sha256": "30a0f108ef6fce91a781ce86abf801a4c4a2a2103f74d5949281e247eb7cbd30",
-    "byteLength": 18346294,
+    "sha256": "6a78e9177586c854a60717f5ee4f7dc5ce428132465d5976916690cf6936de3b",
+    "byteLength": 18346742,
     "visibleVersion": "v0.1",
     "stateVersion": "0.1.0",
     "schemaVersion": 1,

@@ -21,12 +21,13 @@ For live Chromium, serve the repository over HTTP from an exact loopback host an
 - Clock, random, storage, confirmation, and ID adapters are captured once. An installed invalid, throwing, non-finite, non-boolean, or exhausted adapter fails closed without a native fallback or partial active write.
 - The Gate 0B persistence test/fault seam retains priority and its synchronous transaction, backup, recovery, revision, conflict, and scoped-Undo behavior remains frozen.
 - Disabled legacy modes are guarded at their mutating leaves as well as rendered controls. Story-disabled Oath completion cannot add wall Resolve, Patrol rollover cannot replenish its bank, open Patrol choices cannot reward, ready Operations cannot claim, and Trading optimization/routes cannot write.
+- The existing visible **Simulate 2H**, **+1 Patrol**, and **Reset Prototype** controls are grandfathered Phase 0 prototype behavior and remain unchanged for compatibility. Their production quarantine or removal is deferred to Phase 1; this gate restricts only their new programmatic bridge equivalents.
 
 ## Local QA bridge
 
 The bridge exists only when the document uses `http:` or `https:`, the hostname is exactly `localhost`, `127.0.0.1`, or IPv6 loopback, and the raw query contains exactly one literal `qa=1` segment that also decodes to exactly one `qa=1` entry. Encoded, duplicate, conflicting, appended-after-boot, deceptive-host, non-loopback, file, data, blob, about, srcdoc, and opaque-origin cases fail closed.
 
-Bridge calls return deep-cloned snapshots/results, use a fixed action allowlist, validate raw plain data before cloning, and reject unknown keys, functions, undefined values, symbols, accessors, custom `toJSON`, custom/inherited prototypes, prototype-pollution names, malformed arrays, and mixed-case action names. Diagnostics and export are read-only. Destructive fixture/grant controls additionally require an explicitly supplied isolated storage adapter and `qa.allowDestructive === true`.
+Bridge calls return deep-cloned snapshots/results, use a fixed action allowlist, validate raw plain data before cloning, and reject unknown keys, functions, undefined values, symbols, accessors, custom `toJSON`, custom/inherited prototypes, prototype-pollution names, malformed arrays, and mixed-case action names. Diagnostics and export are read-only. Destructive fixture/grant controls and the programmatic `simulate`/`add-patrol` actions require an explicitly supplied storage adapter, `qa.allowDestructive === true`, and `qa.isolatedStorage === true`. Authorization is rejected when the selected source is the exact captured native `localStorage` object. An attested distinct adapter is the trusted test-runtime boundary; a malicious forwarding wrapper is outside this contract.
 
 ## Concurrency boundary
 

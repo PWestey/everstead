@@ -25,7 +25,7 @@
       },
       confirm: () => true,
       ids: { save: () => `save-browser-${++saveIndex}`, transaction: () => `tx-browser-${++transactionIndex}` },
-      qa: { allowDestructive: true }
+      qa: { allowDestructive: true, isolatedStorage: true }
     };
     if (config.features) runtime.features = config.features;
     window.__EVERSTEAD_RUNTIME__ = runtime;

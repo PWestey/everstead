@@ -122,7 +122,7 @@ function runRealm(options = {}) {
     clearTimeout(id) { if (options.clearTimerThrows) throw new Error('injected clear timer failure'); timers.delete(id); }
   };
   const location = { protocol: 'http:', hostname: '127.0.0.1', search: '?qa=1', ...(options.location ?? {}) };
-  const nativeStorage = options.nativeStorage ?? (options.runtime === false ? storage : { getItem() { throw new Error('native storage fallback used'); }, setItem() { throw new Error('native storage fallback used'); }, removeItem() { throw new Error('native storage fallback used'); } });
+  const nativeStorage = options.runtimeUsesNativeStorage ? storage : options.nativeStorage ?? (options.runtime === false ? storage : { getItem() { throw new Error('native storage fallback used'); }, setItem() { throw new Error('native storage fallback used'); }, removeItem() { throw new Error('native storage fallback used'); } });
   const math = Object.create(Math);
   math.random = random;
   const runtime = {};
@@ -130,10 +130,10 @@ function runRealm(options = {}) {
   if (options.runtime !== false) {
     runtime.clock = clockAdapter;
     runtime.random = options.randomAdapter ?? random;
-    runtime.storage = options.runtimeStorage === undefined ? storage : options.runtimeStorage;
+    runtime.storage = options.runtimeUsesNativeStorage ? nativeStorage : options.runtimeStorage === undefined ? storage : options.runtimeStorage;
     runtime.confirm = options.confirmAdapter ?? (() => true);
     runtime.ids = { save: () => 'save-gate-0c', transaction: (() => { let value = 0; return () => `tx-gate-0c-${++value}`; })() };
-    runtime.qa = { allowDestructive: options.allowDestructive !== false };
+    runtime.qa = options.qaConfig ?? {};
   }
   const listeners = {};
   const context = {
@@ -162,7 +162,7 @@ function evaluate(run, expression) {
 
 function activeRaw(run) { return run.slots.get(keys.active) ?? null; }
 
-check('manifest-version', manifest.manifestVersion === 1 && manifest.phaseGate === '0C' && manifest.baseCommit === '81ec44c');
+check('manifest-version', manifest.manifestVersion === 1 && manifest.phaseGate === '0C' && manifest.baseCommit === '81ec44c' && manifest.correctionBaseCommit === '7a80a04');
 check('artifact-sha256', sha256(htmlBytes) === manifest.artifact.sha256, sha256(htmlBytes));
 check('artifact-byte-length', htmlBytes.length === manifest.artifact.byteLength, htmlBytes.length);
 check('scenario-sha256', sha256(read(manifest.scenarios.path)) === manifest.scenarios.sha256);
@@ -186,6 +186,9 @@ check('story-resolve-leaf-guard', productionSource.includes("featureEnabled('sto
 check('patrol-rollover-leaf-guard', productionSource.includes("if(featureEnabled('patrol'))S.patrolBank="));
 check('bridge-gate-source', productionSource.includes("rawQa.length===1&&values.length===1&&values[0]==='1'") && productionSource.includes("['localhost','127.0.0.1','[::1]','::1']"));
 check('bridge-input-hardening-source', productionSource.includes('assertBridgeInput') && productionSource.includes('Object.getOwnPropertyDescriptor') && productionSource.includes('BRIDGE_FORBIDDEN_KEYS'));
+check('grandfathered-visible-qa-controls-preserved', productionSource.includes('data-act="simulate">SIMULATE 2H') && productionSource.includes('data-act="add-patrol"') && productionSource.includes('data-act="reset">RESET') && productionSource.includes("if(a==='simulate')simulate()") && productionSource.includes("if(a==='add-patrol')addPatrolOpportunity()") && productionSource.includes("if(a==='reset')resetProto()"));
+check('bridge-destructive-action-metadata', productionSource.includes("QA_ACTION_METADATA=Object.freeze({'add-patrol':Object.freeze({destructive:true}),simulate:Object.freeze({destructive:true})})") && productionSource.includes('if(QA_ACTION_METADATA[name]?.destructive)requireQaDestructiveAuthorization()'));
+check('bridge-destructive-storage-attestation-source', productionSource.includes("RUNTIME_QA.isolatedStorage===true") && productionSource.includes('STORAGE_SOURCE!==NATIVE_STORAGE'));
 check('browser-runner-dependency-free', !/https?:\/\/|\bimport\s|\brequire\s*\(/.test(browserRunnerSource + browserRealmSource));
 check('browser-runner-checksum-before-execution', browserRunnerSource.includes("await loadContract(),results=[...contract.staticResults]") && browserRunnerSource.includes('checksum mismatch; execution aborted'));
 check('browser-runner-memory-storage', browserRealmSource.includes('new Map(Object.entries(config.slots))') && !browserRealmSource.includes('localStorage'));
@@ -449,14 +452,37 @@ const recoveryResult = evaluate(recoveryRun, '__EVERSTEAD_QA__.recovery.recover(
 check('bridge-safe-recovery-current', recoveryResult.ok === true && Boolean(currentState(activeRaw(recoveryRun))));
 check('bridge-safe-recovery-backup-exact', recoveryRun.slots.get(keys.backup) === corruptRaw);
 
-const destructiveRun = runRealm({ activeRaw: currentRaw, allowDestructive: true });
+const destructiveRun = runRealm({ activeRaw: currentRaw, qaConfig: { allowDestructive: true, isolatedStorage: true } });
 const installResult = evaluate(destructiveRun, `__EVERSTEAD_QA__.controls.installFixture({activeRaw:${JSON.stringify(legacyRaw)},backupRaw:null,stagingRaw:null})`);
 check('bridge-destructive-install-local-isolated', installResult.ok === true && Boolean(currentState(activeRaw(destructiveRun))));
 const beforeGrant = currentState(activeRaw(destructiveRun)).gold;
 const grantResult = evaluate(destructiveRun, `__EVERSTEAD_QA__.controls.grant({resource:'gold',amount:1234})`);
 check('bridge-destructive-grant-local-isolated', grantResult.ok === true && currentState(activeRaw(destructiveRun)).gold === beforeGrant + 1234);
-const noDestructiveRun = runRealm({ activeRaw: currentRaw, allowDestructive: false });
-check('bridge-destructive-requires-opt-in', evaluate(noDestructiveRun, `__EVERSTEAD_QA__.controls.grant({resource:'gold',amount:1})`).ok === false);
+
+const authorizedActionRun = runRealm({ activeRaw: currentRaw, qaConfig: { allowDestructive: true, isolatedStorage: true } });
+const authorizedActionBefore = currentState(activeRaw(authorizedActionRun));
+const authorizedSimulate = evaluate(authorizedActionRun, `__EVERSTEAD_QA__.act('simulate')`), authorizedAddPatrol = evaluate(authorizedActionRun, `__EVERSTEAD_QA__.act('add-patrol')`), authorizedActionAfter = currentState(activeRaw(authorizedActionRun));
+check('bridge-destructive-actions-distinct-memory-succeed', authorizedSimulate.ok === true && authorizedAddPatrol.ok === true && authorizedActionAfter.saveMeta.revision === authorizedActionBefore.saveMeta.revision + 2);
+
+const noDestructiveRun = runRealm({ activeRaw: currentRaw, qaConfig: { allowDestructive: false, isolatedStorage: true } });
+const noDestructiveBefore = activeRaw(noDestructiveRun), noDestructiveRevision = currentState(noDestructiveBefore).saveMeta.revision, noDestructiveLog = noDestructiveRun.storageLog.length, noDestructiveToast = noDestructiveRun.nodes['#toast'].innerHTML, noDestructiveOverlay = noDestructiveRun.nodes['#overlay'].innerHTML;
+const rejectedGrant = evaluate(noDestructiveRun, `__EVERSTEAD_QA__.controls.grant({resource:'gold',amount:1})`), rejectedInstall = evaluate(noDestructiveRun, `__EVERSTEAD_QA__.controls.installFixture({activeRaw:${JSON.stringify(legacyRaw)},backupRaw:null,stagingRaw:null})`), rejectedSimulate = evaluate(noDestructiveRun, `__EVERSTEAD_QA__.act('simulate')`), rejectedAddPatrol = evaluate(noDestructiveRun, `__EVERSTEAD_QA__.act('add-patrol')`);
+check('bridge-destructive-controls-reject-without-authorization', rejectedGrant.ok === false && rejectedInstall.ok === false);
+check('bridge-destructive-actions-reject-without-authorization', rejectedSimulate.ok === false && rejectedAddPatrol.ok === false);
+check('bridge-destructive-rejection-no-write-revision-ui', activeRaw(noDestructiveRun) === noDestructiveBefore && currentState(activeRaw(noDestructiveRun)).saveMeta.revision === noDestructiveRevision && noDestructiveRun.storageLog.length === noDestructiveLog && noDestructiveRun.nodes['#toast'].innerHTML === noDestructiveToast && noDestructiveRun.nodes['#overlay'].innerHTML === noDestructiveOverlay);
+
+for (const [id, qaConfig] of [['missing-isolated-storage', { allowDestructive: true }], ['false-isolated-storage', { allowDestructive: true, isolatedStorage: false }]]) {
+  const run = runRealm({ activeRaw: currentRaw, qaConfig }), before = activeRaw(run), revision = currentState(before).saveMeta.revision;
+  const grant = evaluate(run, `__EVERSTEAD_QA__.controls.grant({resource:'gold',amount:1})`), simulateResult = evaluate(run, `__EVERSTEAD_QA__.act('simulate')`), addPatrolResult = evaluate(run, `__EVERSTEAD_QA__.act('add-patrol')`);
+  check(`bridge-destructive-${id}-rejected`, grant.ok === false && simulateResult.ok === false && addPatrolResult.ok === false);
+  check(`bridge-destructive-${id}-no-write`, activeRaw(run) === before && currentState(activeRaw(run)).saveMeta.revision === revision);
+}
+
+const nativeStorageRun = runRealm({ activeRaw: currentRaw, runtimeUsesNativeStorage: true, qaConfig: { allowDestructive: true, isolatedStorage: true } });
+const nativeStorageBefore = activeRaw(nativeStorageRun), nativeStorageRevision = currentState(nativeStorageBefore).saveMeta.revision;
+const nativeGrant = evaluate(nativeStorageRun, `__EVERSTEAD_QA__.controls.grant({resource:'gold',amount:1})`), nativeInstall = evaluate(nativeStorageRun, `__EVERSTEAD_QA__.controls.installFixture({activeRaw:${JSON.stringify(legacyRaw)},backupRaw:null,stagingRaw:null})`), nativeSimulate = evaluate(nativeStorageRun, `__EVERSTEAD_QA__.act('simulate')`), nativeAddPatrol = evaluate(nativeStorageRun, `__EVERSTEAD_QA__.act('add-patrol')`);
+check('bridge-destructive-exact-native-storage-rejected', nativeGrant.ok === false && nativeInstall.ok === false && nativeSimulate.ok === false && nativeAddPatrol.ok === false);
+check('bridge-destructive-exact-native-storage-no-write', activeRaw(nativeStorageRun) === nativeStorageBefore && currentState(activeRaw(nativeStorageRun)).saveMeta.revision === nativeStorageRevision);
 
 const failed = checks.filter(item => !item.pass);
 for (const item of checks) console.log(`${item.pass ? 'PASS' : 'FAIL'} ${item.id}${item.detail ? ` — ${item.detail}` : ''}`);
