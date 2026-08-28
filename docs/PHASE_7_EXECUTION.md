@@ -10,6 +10,7 @@ Phase 7 evolves the sealed Phase 6 single-file product from schema 7 to schema 8
 - `c8638a52b30261aab6de36c255a6d92996f2b58c` — pre-v8 cross-tab storage-event coverage.
 - `9b4ac312fa94c2e910a18d32b859ace90abf3b80` — bounded best chronology, complete idle provenance, replay ceilings, nominal-versus-actual Might copy, historical schema 2–7 transaction recovery, preflight-first safe reset, and authenticated historical safe-reset archival roots.
 - `99b24720fc4c5dbc19e23443996ffc849d89810f` — released schema-7 safe-reset and direct-migration recovery, fail-closed protected-slot read faults, normal-current safe reset, and exact replay-capacity UI controls.
+- `8ca8353534bd4ae312e9470155988d209b0b6fed` — exact released Phase 6 fresh-to-boot schema-7 recovery and unabridged Campaign/Expedition replay-capacity copy.
 
 ## Verification order
 

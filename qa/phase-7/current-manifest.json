@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "phase": "7",
   "baseCommit": "1ffa12eb73cccb4de40769ae7251937c67f69766",
-  "productionCommit": "99b24720fc4c5dbc19e23443996ffc849d89810f",
+  "productionCommit": "8ca8353534bd4ae312e9470155988d209b0b6fed",
   "supportedReleasedSchemas": [
     0,
     1,
@@ -30,8 +30,8 @@
     "implementationRoadmap": "AIroW37XK-kLSvIWAi8bvi_c0B1TCCOIJCp93RQrxiAF8JmMMvgT0A9vnlZGdeAKQ_hSs674e9BNw9beXDa6RApDYcpXuZexshqiy4pvM_U"
   },
   "artifact": {
-    "sha256": "2557c875bd4d0c1a6597f0bbe67f6363ed871d6a8bfcf270b517a2526316e0e5",
-    "byteLength": 18761214,
+    "sha256": "e15f41f378af381818ad9ff60bdc154a5c6d6b34395e3a8872a33c0a786e95d5",
+    "byteLength": 18761746,
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "baseArtifact": {
@@ -40,7 +40,7 @@
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "scenarios": {
-    "sha256": "fa23529b1e9cf82666c29168082c3058422ded4c158b50fd68fde69dc057a540",
+    "sha256": "90db221a9c1b50bf912e2c3e5c540c8d74cf55c8583722c85027e806f0846eca",
     "byteLength": 946
   },
   "frozenHistoricalFiles": {

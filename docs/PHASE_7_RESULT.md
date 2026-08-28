@@ -3,9 +3,9 @@
 ## Candidate
 
 - Base: sealed Phase 6 package `1ffa12eb73cccb4de40769ae7251937c67f69766`.
-- Production tip: `99b24720fc4c5dbc19e23443996ffc849d89810f`.
-- Production artifact SHA-256: `2557c875bd4d0c1a6597f0bbe67f6363ed871d6a8bfcf270b517a2526316e0e5`.
-- Production artifact bytes: `18,761,214`.
+- Production tip: `8ca8353534bd4ae312e9470155988d209b0b6fed`.
+- Production artifact SHA-256: `e15f41f378af381818ad9ff60bdc154a5c6d6b34395e3a8872a33c0a786e95d5`.
+- Production artifact bytes: `18,761,746`.
 
 ## Delivered behavior
 
@@ -20,7 +20,7 @@
 
 ## Gate evidence
 
-- Phase 7 focused CLI candidate: `309/309` on the frozen production artifact before final package reruns.
+- Phase 7 focused CLI candidate: `325/325` on the frozen production artifact before final package reruns.
 - Phase 6 semantic successor: `511/511` twice, with eight itemized Phase 7 replacements.
 - Package checksums: all `14/14` entries pass.
 - Live Chromium evidence is recorded after the exact package candidate is frozen and run twice at both required mobile sizes.
