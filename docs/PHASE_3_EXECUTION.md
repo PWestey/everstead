@@ -13,7 +13,9 @@ Phase 3 migrates Family from the pre-lock relationship placeholder into the rela
 - One universal Gift inventory, +10 Intimacy per Gift, exact milestone rewards, and shard-only manual ascension.
 - Family assignments and inspectable Building bonus components with the Oath multiplier retained last.
 - Configured Family-to-Fellow bonuses in the existing single Fellow Power pipeline, including Lyra's Elara and Isolde links and one final round.
-- Replay-safe four-hour Building rolls, per-Building ordinals/carry/drought, eighth-roll protection, Hearth Gift rolls, atomic multi-resource collection, sequence, and receipt.
+- Replay-safe four-hour Building rolls, per-Building ordinals/carry/drought, and canonical carry provenance containing the Family assignment and Building level that earned a partial interval.
+- Safe-magnitude fractional Intimacy with exact +10 Gift arithmetic, exact configured Family/drop/receipt map keys, canonical-only collection, and zero-write immediate double claims.
+- Fail-closed schema-4 staging recovery: current mutations remain recoverable, while migratable and missing-active recovery require exact deterministic lineage/source/metadata/state before any of the six slots can be written.
 - Daily deterministic Oath Gifts with a fifth-unique guarantee and scoped Undo protection for inventory/tracker divergence.
 - Family Patrol rewards converted to one universal Gift plus their existing secondary reward.
 - Live Family and Building UI, claim reporting, diagnostics, safe export, and isolated authorized QA controls.
@@ -40,8 +42,8 @@ All other Phase 2 semantics remain required.
 ## Frozen production identity
 
 - Base: `9b4fbc11ad465f83802b7d787756d2d390de0e55`.
-- Production tip: `eb9c3bd827cd1fe89130c4bfc8abfcafa62a89d6`.
-- Artifact: `f2bbaabf42aadfa4b595e236a9dc49d3395db0d0785e6170b0f23c384fe53801` (`18,417,781` bytes).
+- Production tip: `4815efaf0d28e24282aaa835e2d22468f1d932e1`.
+- Artifact: `a4b3e4c870f4f228738e7f8f4bb9a772c64bb863f1a6f7998541f1bbf794a93a` (`18,423,511` bytes).
 - Embedded asset-line aggregate: `9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78`, unchanged from Phase 2.
 
 ## Do not break

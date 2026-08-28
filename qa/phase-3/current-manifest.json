@@ -2,14 +2,14 @@
   "manifestVersion": 1,
   "phase": "3",
   "baseCommit": "9b4fbc11ad465f83802b7d787756d2d390de0e55",
-  "productionCommit": "eb9c3bd827cd1fe89130c4bfc8abfcafa62a89d6",
+  "productionCommit": "4815efaf0d28e24282aaa835e2d22468f1d932e1",
   "sourceRevisions": {
     "lockedCoreDesign": "AIroW34MYqUcG6Q-iOW_AtHMqmrwGj9Nb9AFMEEqxselBNLMox14pJzqh11nWmvHfp6LI-QdrsXi6ruy1TNJJQXiXzh4BgLMN-zh7XtA8-I",
     "implementationRoadmap": "AIroW37XK-kLSvIWAi8bvi_c0B1TCCOIJCp93RQrxiAF8JmMMvgT0A9vnlZGdeAKQ_hSs674e9BNw9beXDa6RApDYcpXuZexshqiy4pvM_U"
   },
   "artifact": {
-    "sha256": "f2bbaabf42aadfa4b595e236a9dc49d3395db0d0785e6170b0f23c384fe53801",
-    "byteLength": 18417781,
+    "sha256": "a4b3e4c870f4f228738e7f8f4bb9a772c64bb863f1a6f7998541f1bbf794a93a",
+    "byteLength": 18423511,
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "baseArtifact": {
@@ -18,7 +18,7 @@
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "scenarios": {
-    "sha256": "7542f14fab1b22fe5ca00532e76c708e71a9592038733d697cad2223375be115",
+    "sha256": "19185954cac97234c14635fad72fb5144dd532f9c4ed43c2d79652528796b1cb",
     "byteLength": 690
   },
   "frozenHistoricalFiles": {
