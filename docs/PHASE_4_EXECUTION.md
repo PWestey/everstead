@@ -7,7 +7,8 @@ Phase 4 migrates the two preserved legacy Companion bindings into canonical sche
 ## Production implementation
 
 - Current schema is 5; the seven protected slots are active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, and staging.
-- The schema-4-to-5 migration initializes exact Companion state in definition order, migrates valid bindings, deterministically clears later duplicate assignments, and records collision details on one migration receipt.
+- The schema-4-to-5 migration rebuilds an exact Companion map in definition order, migrates valid bindings, deterministically clears later duplicate assignments, and records collision details on one migration receipt. Valid predecessor-only Companion IDs remain byte-exact in their protected checkpoint but never leak into canonical schema 5.
+- Every current or staged schema-5 save carrying the schema-4-to-5 receipt requires its exact pre-v5 checkpoint. The expected collision ledger is reconstructed from that checkpoint and compared byte-for-byte in definition order; false, reordered, extra, omitted, or checkpoint-less ledgers fail before any write.
 - Interrupted schema-5 migration and backup recovery use exact schema/source/receipt/target lineage. Pending and already-committed Phase 3 `companion-binding` stages remain narrowly recoverable.
 - Companion EXP, derived Level, rarity, targeted shards, round-once Power, total roster Power, ascension, and assignment are live.
 - The Fellow selector transfers 40% of the assigned Companion's unrounded Power at the existing Companion position, then continues through Family/global multipliers and rounds once at the endpoint.
@@ -28,7 +29,7 @@ Serve the repository root over HTTP, open `qa/phase-4/`, and confirm the live ru
 
 ## Failure-safety coverage
 
-The CLI verifier covers exact schema0–4 committed-stage retries; missing-active recovery from every protected predecessor; all schema-4 checkpoint/stage/active/verification/cleanup fault steps; seven-slot fixture rollback; foreign checkpoints/stages; current-backup retries; cross-tab and occupied-stage refusal; and Phase 3 pending/committed assignment staging. Retry comparisons include exact slots, revision, receipts, rewards, and assignments.
+The CLI verifier covers exact schema0–4 committed-stage retries; missing-active recovery from every protected predecessor; all schema-4 checkpoint/stage/active/verification/cleanup fault steps; seven-slot fixture rollback; foreign checkpoints/stages; current-backup retries; cross-tab and occupied-stage refusal; and Phase 3 pending/committed assignment staging. It also proves deterministic collision-ledger ancestry, schema0–4 extra-Companion canonicalization, and that every fixture-preimage slot read failure refuses both replacement and removal payloads with zero storage/runtime/UI mutation. Retry comparisons include exact slots, revision, receipts, rewards, and assignments.
 
 ## Preserved residual risks
 

@@ -2,7 +2,7 @@
 
 This additive gate verifies schema-5 Companion expansion without rewriting historical Phase 0–3 evidence.
 
-- `verify.mjs` evaluates production mechanics, UI strings, migration, seven-slot persistence, adversarial lineage, and injected failure/retry behavior.
+- `verify.mjs` evaluates production mechanics, UI strings, migration, seven-slot persistence, exact collision-ledger ancestry, fixture-preimage read safety, predecessor extra-key canonicalization, adversarial lineage, and injected failure/retry behavior.
 - `regress-phase-3.mjs` checks retained Phase 3 semantic contracts and itemizes six intended replacements.
 - `index.html`, `runner.js`, `realm.html`, and `realm.js` form the live mobile Chromium gate.
 - `scenarios.json` pins the base, production commit, clock, storage keys, and viewports.
