@@ -1,15 +1,16 @@
 # Everstead Phase 3 — Result
 
-Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `2d348d640f8c0a8b2d09c3849c7a44f44b5689be`. This supersedes the independently rejected candidate `cea999a4c3c8d48f70ee4858cff55cfdb568e1c3`.
+Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `991c42fd47adecf5623c264af078f39e6340f7c5`. This supersedes the independently rejected candidate `cea999a4c3c8d48f70ee4858cff55cfdb568e1c3`.
 
 ## Accepted implementation
 
 - Schema 4 with the write-once schema-3 checkpoint and deterministic schema 0/1/2/3 migration.
 - Exact recovery of authenticated Phase 1 schema-2, Phase 2 schema-3, and Phase 3 schema-4 interrupted staging payloads. A generic-valid schema-4 envelope is not recovery authority: migratable and missing-active paths require exact reconstructed lineage, source, metadata, and state, while corrupt, invalid, and future active payloads fail closed without offering generic staging recovery.
 - New transaction staging requires an empty slot or exact authenticated ownership of the payload being replaced. A foreign staging payload inserted after boot is retained; the attempted mutation leaves persistence, runtime state, revision, modal, toast, and rendered UI unchanged.
+- A schema-4 active write that became durable before verification or staging cleanup can resume without replaying migration rewards. Schema 0/1/2/3 migrations authenticate the exact active target, predecessor checkpoint/raw identity, base revision, source, and deterministic receipt/hop replay; fresh and missing-active recoveries use their exact source-specific replay; ordinary one-hop mutations retain their target revision path. Foreign source, hop, and target lookalikes are preserved with zero writes.
 - Family Intimacy, one Gift inventory, targeted shards, rarity, once-only milestones, free unique Building assignments, Building production bonuses, and linked Fellow Power bonuses.
 - Replay-safe four-hour Village rolls with per-Building ordinal/carry/drought state, including persisted carry assignment/Building-level provenance so a split roll cannot be rerouted or repriced after mutation or reload.
-- Exact migration of every schema-3-valid finite Building level, including fractional and greater-than-safe-integer values, into matching carry provenance. Schema-4 carry levels must be finite, at least one, and no greater than the current Building; settlement also caps provenance at the current level so impossible upward carry cannot reprice a roll.
+- A provisional Building level cap of 52 keeps upgrade costs and forward Gold accrual in the safe finite economy range. Schema-3 fractional levels through 52 migrate exactly; larger finite levels, including `Number.MAX_SAFE_INTEGER + 1` and `Number.MAX_VALUE`, canonicalize deterministically to 52 before initial carry or accrual. Schema-4 current/carry levels must remain within the cap and carry cannot exceed current level; settlement clamps defensively and upgrades beyond 52 are refused.
 - Safe-magnitude fractional Intimacy, exact +10 Gift arithmetic, exact configured Family map keys, canonical-only collection, and immediate double-claim zero-write behavior.
 - Deterministic daily Oath Gift miss/hit behavior, fifth-unique guarantee, maximum one Gift per day, and Gift/tracker-aware scoped Undo.
 - Live Family, Building, Fellow, collection, diagnostics, safe-export, and isolated QA surfaces.
@@ -17,11 +18,11 @@ Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `
 ## Immutable evidence
 
 - Base: `9b4fbc11ad465f83802b7d787756d2d390de0e55`.
-- Production commits: `0bb4b235e367e0f2bb7fbda2b315ff29b2fdb47e`, `b802644d4b78974cabea208bb009e0f693fd462b`, `eb9c3bd827cd1fe89130c4bfc8abfcafa62a89d6`, reward/staging repair `4815efaf0d28e24282aaa835e2d22468f1d932e1`, staging-ownership repair `b0beeb862fa20b6246da43120ba9a654013a449a`, and carry-level repair `2d348d640f8c0a8b2d09c3849c7a44f44b5689be`.
-- Production artifact SHA-256: `885524c7f5d3a5f7dd68bc82834fa3b1ff7b8ecb09dfe6fde1946f29076c0907`; byte length: `18,424,014`.
+- Production commits: `0bb4b235e367e0f2bb7fbda2b315ff29b2fdb47e`, `b802644d4b78974cabea208bb009e0f693fd462b`, `eb9c3bd827cd1fe89130c4bfc8abfcafa62a89d6`, reward/staging repair `4815efaf0d28e24282aaa835e2d22468f1d932e1`, staging-ownership repair `b0beeb862fa20b6246da43120ba9a654013a449a`, carry-level repair `2d348d640f8c0a8b2d09c3849c7a44f44b5689be`, and retry/cap hardening `991c42fd47adecf5623c264af078f39e6340f7c5`.
+- Production artifact SHA-256: `f5a87b2900e244b12aea8ba0b3a7747642115ee852795066e126d5425fa3b26e`; byte length: `18,427,570`.
 - Base artifact SHA-256: `c41b6729725e2e50aee84e93d65cc8cdbc9f78d432dfb8cd703ff2060a11a2b3`; byte length: `18,380,433`.
 - Embedded asset-line aggregate SHA-256: `9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78`, identical to the base.
-- Phase 3 CLI: `289/289`, twice.
+- Phase 3 CLI: `316/316`, twice.
 - Phase 2 semantic successor: `294/294`, twice, with exactly six itemized supersessions.
 - Phase 3 checksum manifest: `13/13`, twice; `90` Phase 0/1/2 QA and result artifacts byte-frozen.
 - Live Chromium: pending two final-tip passes from the root browser binding across 320×568 and 390×844 realms. Required evidence remains blank fatal output, no failed rows, no horizontal overflow, zero native-storage calls, and zero warning/error console entries.
@@ -38,9 +39,10 @@ Status: **REPAIR CANDIDATE — CLI PASS; LIVE GATE PENDING** at production tip `
 - Migrated members begin at rarity 1, zero shards, and no Building assignment. Already-crossed Intimacy milestones are marked claimed without retroactive shard grants.
 - Migrated and fresh schema-4 saves receive exactly one starter Gift. Existing pending schema-3 Oath Undo is converted to the Gift-aware schema-4 inverse/expected shape.
 - Fresh and migrated Building drop state receives a canonical carry context. A partial interval keeps the assigned Family ID and Building level that earned it for its first completed roll; later complete rolls and any remainder use the current context.
-- Schema-3 finite Building levels migrate exactly into schema 4 and their initial carry context, including `1.5` and `Number.MAX_SAFE_INTEGER + 1`. Natural old-level carry remains valid only while `carryContext.buildingLevel <= buildings[id].level`; impossible upward provenance is invalid and cannot raise the settlement chance even if settlement is probed directly with fabricated state.
+- Schema-3 Building level `1.5` remains exact through migration and 24-hour accrual. Values above the provisional cap canonicalize to 52 before initial carry and Gold calculation; `Number.MAX_SAFE_INTEGER + 1` and `Number.MAX_VALUE` pass exact-checkpoint migration at both one millisecond and 24 hours forward without non-finite state. Natural old-level carry remains valid only while `carryContext.buildingLevel <= buildings[id].level`; impossible upward provenance is invalid and cannot raise the settlement chance even if settlement is probed directly with fabricated state.
 - Write-once checkpoints preserve exact bytes. Receipt order, save ID, creation time, hop revisions, and staged/checkpoint payloads are validated before any migration write. Same-schema saves that legitimately progressed after an earlier raw backup additionally require stable save identity, an unchanged exact migration-receipt set, and monotonic revision/time ancestry.
 - Missing-active schema-4 staging is accepted only when it is the exact fresh state or the exact deterministic successor of the highest-precedence authenticated backup with the required recovery source. Resource-modified or foreign-source envelopes preserve all six slots with zero writes.
+- Once such a candidate is already the durable active state, its retained staging envelope is authenticated against the original named recovery source even when deterministic migration created later checkpoints before the interruption. This permits cleanup without changing rewards, receipts, or revision.
 - A corrupt or invalid active payload cannot authenticate generic staging, even when the envelope names the exact corrupt raw identity. A post-boot occupied staging slot likewise cannot be overwritten by a normal mutation; only explicit, exact replacement ownership is accepted.
 - Offline Gold and Family drops settle before assignments, upgrades, Gifts, ascension, claims, and other mutations, so elapsed time uses the old assignment and old Building level.
 
