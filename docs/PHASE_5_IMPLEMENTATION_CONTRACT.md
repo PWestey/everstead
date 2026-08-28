@@ -98,6 +98,7 @@ fellowCampaign: {
 - Normal schema-6 play and migration keep cleared and first-clear-claimed prefixes identical. Ambiguous legacy stage 10 remains neither cleared nor first-clear claimed.
 - `runOrdinal` increments once per successful run only.
 - `lastReceipt.sequence` equals the post-run ordinal and records stage ID, completion time, first-clear/replay, Gold/base/recommended/total-Power snapshot, effective cost, exact-key reward maps for every Fellow plus Rank EXP and Gifts, and an exact reward identity version/salt derived from save ID + stage ID + pre-run ordinal.
+- The schema-5-to-6 migration receipt is the sole migration baseline: its cleared and claimed prefixes are identical and contain at most stages 1–9; current progress extends that prefix; post-migration new clears cannot exceed `runOrdinal`; Rank EXP equals exactly the configured first-clear Rank EXP for those new clears; any replay requires Rank 2. A null last receipt is valid only at ordinal zero, a first-clear receipt is the newest post-baseline clear, and a replay receipt targets an already-cleared stage.
 - Do not persist derived efficiency, unlock selectors, stage definitions, player Rank thresholds, walking progress, calculated Fellow Power, or RNG state.
 
 ## Deterministic Campaign rewards
@@ -115,6 +116,7 @@ fellowCampaign: {
 - For a schema-5 active predecessor, pre-v6 is that exact active raw. For schema 0–4 or legacy migration, pre-v6 is the exact canonical schema-5 intermediate. If its write/verification succeeds and boot then fails before schema-6 staging, a retry at a later clock must authenticate and reuse those exact bytes by reconstructing migrations 0→5 from the receipt IDs and original receipt timestamps stored in the checkpoint; it must not regenerate the intermediate using the retry clock or reject the authentic checkpoint.
 - Protected slots become: active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, and staging.
 - Preserve exact ordered migration from legacy schema 0 and schemas 1–5, all earlier checkpoints/receipts, and append exactly one `schema-5-to-6` receipt.
+- Bind that receipt to the exact byte identities (including whitespace and null slots) of raw v0.1 plus pre-v2 through pre-v6 and to the canonical migration/recovery source used for the schema-5-to-6 successor. Current boot, staged migration, committed cleanup, and recovery exact-compare those attestations.
 - Fresh schema 6 starts Wayfarer, Rank EXP 0/Rank 1, stage 1 selected, no clears, ordinal 0, and no receipt.
 - For schema-5 migration, let `mappedOrdinal = clamp(floor(storyStage), 1, 10)`. Mark and first-clear-consume only stages strictly before `mappedOrdinal`, then select `mappedOrdinal`. Never infer legacy stage 10 complete or consumed, including when legacy `storyStage >= 10`.
 - Every migrated player starts Rank EXP `0` / Rank `1`. Story position migration grants no retroactive Rank EXP, Fellow EXP, shards, Gifts, Gold, or other rewards. First-clear progression is never Rank-gated, so a migrated high-position player can clear the selected stage normally; replay remains locked until Rank 2.
@@ -127,12 +129,15 @@ fellowCampaign: {
 
 - Extend classification, migration, staging, committed-current cleanup, missing-active recovery, export, diagnostics, safe reset, fixture installation, and storage-event handling to all eight protected slots.
 - A current schema-6 state carrying the schema-5-to-6 receipt requires its exact pre-v6 checkpoint. Receipt mapping and canonical Player/Campaign initialization must reconstruct exactly from that checkpoint.
+- Missing-active recovery may use pre-v6 only when an exact pre-v5 schema-4 predecessor deterministically reproduces it under an allowlisted canonical migration/recovery source, or an authenticated staged schema-6 successor attests it. A lone, evolved, foreign-source, or field-modified pre-v6 checkpoint is retained with zero writes.
 - An authenticated pending schema-6 migration stage may reconstruct the write-once pre-v6 checkpoint only from the still-active exact schema-5 predecessor. Missing/foreign/unrelated material fails closed.
 - Extend staged schema-6 lineage across schema0–5 with exact source, save ID/revision, receipt chain, checkpoint bytes, transaction class/binding, target identity, and canonical migration result.
 - Preserve prior-build unbound committed ordinary mutation compatibility narrowly and keep every reserved migration/recovery/fresh source disjoint from it.
 - All preflight read faults, occupied foreign staging, injected writes/readbacks/conflicts/cleanup faults, malformed state/receipt/checkpoint, and retry paths preserve exact bytes and cannot duplicate costs or rewards.
 - Safe export and diagnostics report the pre-v6 slot and all eight read errors. QA fixture installation refuses before any write if any preimage read fails.
 - The isolated fixture installer pre-reads all eight slots before its first mutation. Exercise every replacement and null-removal boundary, including pre-v6: if any later set/remove fails, restore all eight raw slots byte-for-byte plus in-memory state, revision/identity, blocked/stale/write flags, QA clock/random/log state, toast/modal, and rendered UI. Rollback performs no boot/save. Report the original installation error plus every rollback failure explicitly.
+- Fixture installation also treats any post-write boot/read failure or blocked load as installation failure and performs that same exact rollback for each of the eight boot-read boundaries.
+- Safe reset with retained authenticated checkpoints persists a durable exact-slot lineage marker: exact marker keys, reset save ID/time, pre-reset active identity, and every permanent slot identity including nulls. The marker survives ordinary mutations; immediate and later reloads authenticate only byte-identical retained material. Pending and already-committed reset staging are recognized at every staging/active/cleanup fault boundary without duplicating or discarding the reset.
 
 ## Feature-flag and action boundary
 
@@ -150,6 +155,7 @@ fellowCampaign: {
 - Stage preview shows first-clear/replay status, target Fellow, total roster Power, recommended Power, base cost, efficiency discount, actual cost, EXP, targeted shard outcome rules, Gift chance, Rank EXP, and Rank/replay gate.
 - Confirmation names the actual Gold cost. Cancellation, insufficient Power/Gold, locked stage, or locked replay leaves state and storage untouched.
 - Fellow cards/profiles and top-bar Gift/Gold/Rank values update immediately after a run.
+- The top bar exposes Gifts, Gold, and Rank; the quarantined Patrol badge and More-screen Auto Resolve selector are absent.
 - No active UI copy may mention Story Negotiations, Resolve, Story Gold/Prosperity/Bond rewards, selected-squad Campaign Power, Tower, or Trading as playable Phase 5 content.
 
 ## Diagnostics and isolated QA
