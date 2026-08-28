@@ -37,3 +37,5 @@ The production artifact remains the self-contained single-file `index.html`; the
 Web Storage still has no atomic compare-and-swap. Exact rereads, save identity/revision checks, transaction-owned staging, same-tab exclusion, and storage-event stale marking narrow the race but cannot eliminate the final reread-to-write window.
 
 Local-midnight segmentation follows the host browser’s local calendar and therefore intentionally reflects daylight-saving day lengths where the host timezone observes them.
+
+If a corrupt active payload exactly matches its write-once raw backup while a separate valid schema-1 backup also exists, Everstead preserves all payloads and offers Reload, Export, and Safe Reset rather than automatically trusting the schema-1 backup. The corrupt bytes cannot prove that backup’s lineage, so automatic recovery would risk adopting an unrelated save.
