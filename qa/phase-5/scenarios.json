@@ -1,0 +1,20 @@
+{
+  "phase": 5,
+  "baseCommit": "48fcc560336b3e716c728c818fe22274f2f2b410",
+  "productionCommit": "1968fd4f85003449abfcff93c0f9a8c0a44e7f81",
+  "frozenNow": "2026-08-27T18:00:00.000Z",
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backupV0": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "backupV1": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "backupV2": "oathforge_new_world_proto_v01__raw_backup_v2",
+    "backupV3": "oathforge_new_world_proto_v01__raw_backup_v3",
+    "backupV4": "oathforge_new_world_proto_v01__raw_backup_v4",
+    "backupV5": "oathforge_new_world_proto_v01__raw_backup_v5",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  },
+  "viewports": [
+    {"id":"phone-320","width":320,"height":568},
+    {"id":"phone-390","width":390,"height":844}
+  ]
+}
