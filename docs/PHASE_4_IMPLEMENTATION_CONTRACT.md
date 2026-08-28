@@ -81,7 +81,7 @@ Both start owned, Level 1, zero EXP, rarity 1, and zero shards.
 ## Schema 4 → 5 migration
 
 - Set `CURRENT_SCHEMA_VERSION = 5`.
-- Add the sixth schema checkpoint key `oathforge_new_world_proto_v01__raw_backup_v4`; it is an exact, write-once copy of the schema-4 active raw payload made only after complete zero-write preflight succeeds and before any active/staging mutation.
+- Add the next write-once schema-4 checkpoint key `oathforge_new_world_proto_v01__raw_backup_v4`; it is an exact copy of the schema-4 active raw payload made only after complete zero-write preflight succeeds and before any active/staging mutation.
 - Include the schema-4 checkpoint in read-only export, recovery, diagnostics, manifest tests, and safe-reset retention. The relevant slot set is now active, raw-v0.1, pre-v2, pre-v3, pre-v4, pre-v5, and staging.
 - Retain exact ordered migration from legacy schema 0 and schemas 1, 2, 3, and 4. Preserve all earlier migration receipts and append exactly one `schema-4-to-5` receipt.
 - For each Companion in `COMPANION_DEFS` order, initialize Level 1 / zero EXP / rarity 1 / zero shards and migrate a valid `bound` to `assignedFellowId`.
@@ -203,4 +203,3 @@ Phase 4 may merge only after:
 3. One independent reviewer passes exact Companion design/math/UI behavior.
 4. A second independent reviewer passes migration, staging, atomicity, and failure recovery.
 5. The exact reviewed commit is fast-forwarded to `main`, pushed, and verified byte-identical on GitHub Pages.
-
