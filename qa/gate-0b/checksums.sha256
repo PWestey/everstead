@@ -1,5 +1,5 @@
 1613f9c91daa5ad91b312c5dfa376b6cabb315d7ba9dc03bba807455b6555b92  index.html
-d931caafad4638e4aa521405290d34f0f31590609aa03090cc98778833f10271  docs/PHASE_0B_RESULT.md
+d1498dd858c16cfd090dc3de64fd669d243c1ac6a32c25b7992e472759ce07ea  docs/PHASE_0B_RESULT.md
 9f0534236866957431ac04d410a0665a9d097e9d224d103540c62f27085cefb2  qa/gate-0b/current-manifest.json
 b98c50cdf2663c5d4341c2d7e79fd14605b7fcf623ebe9c841216bd015141e81  qa/gate-0b/scenarios.json
 8e80d6d89e9489ee33cc5ab77227dc7c625935e8ba1b9ba0063a07ce5f7da5f7  qa/fixtures/representative-v0.1.txt
@@ -32,5 +32,5 @@ d9edb7782969baa0a91c1d62f365642e2e19a7bfd26a3be3902a2c935266dbf7  qa/gate-0b/ind
 261daf929fbdacdadb3140001c45b5553e9f2468bef217d9008a98a56d810187  qa/gate-0b/README.md
 40736bc95ee9b8956712fc5a3c5704db585cf1845aacef07f3c8f72409e42d13  qa/gate-0b/build-contract.mjs
 242f3743ae2b6fdd0c657e27f4e1a72fb96110b3e06e828f6a4e553482eca5cb  qa/gate-0b/build-fixtures.mjs
-2cd0485f25dcacd08db0bca57a7c028884df17e5cfff802330e13fd86f6238b4  qa/gate-0b/runner.js
-96c6e21bb5738425588a3e72b6f9e9dcfd8fe2c88799ef730209a12ec90fc62d  qa/gate-0b/verify.mjs
+f4f0695c30aca5a12cf89fbdd5172dab439b055a73fbead28adfa088418da9de  qa/gate-0b/runner.js
+a0bb71f2c251eb60ef6596e6010bc9a5e178b0db39f2c12943adfd5ad93fde6c  qa/gate-0b/verify.mjs

@@ -29,7 +29,7 @@ The additive contract is under `qa/gate-0b/`; all historical Gate 0A fixtures, s
 
 Two consecutive final command-line runs completed with:
 
-- `600/600 Gate 0B checks passed` on each run.
+- `601/601 Gate 0B checks passed` on each run.
 - Every entry in `qa/gate-0b/checksums.sha256` passed on each run.
 - Production artifact SHA-256: `1613f9c91daa5ad91b312c5dfa376b6cabb315d7ba9dc03bba807455b6555b92`.
 - Production artifact byte length: `18323270`.
@@ -41,6 +41,8 @@ The matrix covers fresh/current/legacy/twice-migrated/future/corrupt/invalid roo
 The live browser runner uses callback-based production-script injection, memory-only storage, a mobile-width iframe, and publishes separately as `window.__EVERSTEAD_GATE_0B_RESULT__`.
 
 An independent live Chromium run of the original contract reported `296/297`; the only failure was `offline-2h-summary`, caused by the harness checking after 30 ms while production intentionally opens the modal after 250 ms. The harness now condition-polls for the rendered offline list with a one-second bound and waits for all offline timers to settle.
+
+A later external Chromium run of committed `a20909c` reported `453/454`; the sole failure was `scoped-undo-diverged-refuses-without-write`. Production correctly refused without writing, but the harness captured its raw/revision baseline before the persisted navigation back to Oaths. The current harness captures both immediately after navigation and before the completed-Oath click. A post-fix external Chromium rerun is not claimed here.
 
 Live Chromium execution of the corrected and expanded browser contract was attempted through this task's in-app browser, but localhost was refused because its admin-enforced security policy could not be verified. No browser-security bypass or standalone replacement was used. A live rerun, including the actual rendered modal Undo, Patrol-divergence, and Oath-deletion paths, remains an explicit handoff check; it is not claimed here.
 

@@ -218,6 +218,7 @@ for (const [path, expected] of Object.entries(manifest.historicalFiles ?? {})) {
 }
 check('production-script-present', Boolean(productionSource));
 check('browser-offline-condition-wait', browserRunnerSource.includes("scenario.id.startsWith('current-offline-')") && browserRunnerSource.includes("waitFor(()=>Boolean(document.querySelector('#overlay .offline-list')))"));
+check('browser-diverged-undo-baseline-order', browserRunnerSource.includes("document.querySelector('[data-nav=\"oaths\"]')?.click();beforeRefusal=clone(current(run.slots.get(activeKey)));rawBeforeRefusal=run.slots.get(activeKey);document.querySelector('[data-oath=\"o1\"]')?.click()"));
 check('current-reference-validation-source', productionSource.includes('FELLOW_IDS.has(state.focusFellow)') && productionSource.includes('FELLOW_IDS.has(state.featured)') && productionSource.includes('state.tradeTeam.length===5') && productionSource.includes('validOathUndo(state.undo,state)'));
 check('scoped-undo-current-state-source', productionSource.includes('validOathUndo(record,S)') && productionSource.includes("fields.oath.doneKey===null||typeof fields.oath.doneKey==='string'") && productionSource.includes('fields.resolve.had?finite(fields.resolve.value):fields.resolve.value===null') && productionSource.includes('oathUndoMatches(record,S)') && browserRunnerSource.includes("document.querySelector('[data-modal-act=\"undo-oath\"]')?.click()"));
 check('schema-literal', productionSource.includes('CURRENT_SCHEMA_VERSION=1'));
