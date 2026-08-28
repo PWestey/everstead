@@ -135,7 +135,7 @@ fellowCampaign: {
 ## Feature-flag and action boundary
 
 - Add `fellowCampaign` as an explicit production feature flag, enabled only in the Phase 5 accepted build.
-- Default legacy `story`, `tower`, and `trading` flags false and remove their active tabs. Keep their code/source names only where required for historical recovery/regression until safe deletion after successor acceptance.
+- Default legacy `story`, `tower`, `trading`, `patrol`, and `operations` flags false. Remove the legacy Adventure tabs and disable/remove Patrol and Operations controls/copy from the production path. Keep their code/source names only where required for historical recovery and isolated QA/regression until safe deletion after successor acceptance.
 - A disabled/missing/malformed Campaign flag fails before rendering a runnable control or entering a handler.
 - Add authoritative `runFellowCampaign(stageId)` and `selectFellowCampaignStage(stageId)` helpers with allowlisted current transaction sources.
 - Campaign run and all Campaign QA actions are declaratively destructive. Isolated QA requires the existing explicit non-native storage attestations; exact native storage, missing flags, false flags, encoded-query tricks, or all-disabled realms perform zero writes/UI mutations.
