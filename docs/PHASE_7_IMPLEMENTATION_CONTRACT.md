@@ -108,6 +108,7 @@ fellowCampaign: {
 fellowExpedition: {
   highestStage: integer 0…50,
   bestRunSequence: non-negative safe integer,
+  bestStagesBySequence: ordered exact [{ sequence, highestStage }] record history,
   lastBestReceipt: null | exact Fellow Expedition best-run receipt,
   idle: {
     cursorAt: non-negative safe-integer Expedition tick,
@@ -148,7 +149,7 @@ fellowProgressLedger: {
 ```
 
 - `highestStage` is the all-time best, not a spendable resource and not a current daily run. `bestRunSequence` counts only persisted all-time-high replacements.
-- `highestStage === 0`, `bestRunSequence === 0`, and `lastBestReceipt === null` are all true together. Otherwise `lastBestReceipt.sequence === bestRunSequence` and `lastBestReceipt.highestStage === highestStage`.
+- `highestStage === 0`, `bestRunSequence === 0`, an empty `bestStagesBySequence`, and `lastBestReceipt === null` are all true together. Otherwise `bestStagesBySequence` has exactly `bestRunSequence` entries, entry sequences are exactly `1…bestRunSequence`, stages are strictly increasing, its final stage equals `highestStage`, and `lastBestReceipt` exactly matches the final entry and the preceding entry's stage. The history is bounded to 50 entries because only a strictly higher stage can persist.
 - `runCountsByStage` counts only Fellow Campaign runs performed after schema-8 creation/migration. Its safe-integer sum equals `fellowCampaign.runOrdinal - fellowProgressLedger.campaignBaseline.runOrdinal`.
 - Current Campaign cleared/claimed prefixes extend the exact baseline prefix. Every stage newly cleared after the baseline has at least one post-baseline run; its first post-baseline run is the sole first clear. Baseline-cleared stages have only replay runs.
 - If every post-baseline run count is zero, current `fellowCampaign.lastReceipt` exactly equals the preserved `campaignBaseline.lastReceipt`. After any post-baseline run it is an exact version-2 receipt whose global sequence equals current `runOrdinal` and whose stage-local sequence equals that stage's current run count.
@@ -166,6 +167,8 @@ fellowProgressLedger: {
 - `claimedIntervalsByStage` is the authoritative idle history. Its exact key set is stages `1…50`; its safe-integer sum equals `intervalOrdinal`. Deterministic replay visits stages in ascending order and replays each stage count before the next because all-time progress never decreases.
 - Replaying that canonical history from ordinal zero derives pity, nominal Might, random Fellow shards, and `claimedTotals` exactly.
 - The last idle receipt is the newest claim, not the source of all history. Its ordinal range and per-stage counts are an exact suffix of cumulative history and replay exactly to its Might/shard rewards and pity result.
+- Every retained idle receipt's `preClaimBestRunSequence` and `preClaimHighestStage` pair must equal the corresponding immutable entry in `bestStagesBySequence`, including after later record pushes. Its sequence is also bound to the claimed-history prefix: sequence 1 has an empty prefix, while every later sequence has at least one prior interval per prior claim.
+- Phase 7 freezes an explicit deterministic replay/integrity safety ceiling of 100,000 post-schema-8 Fellow Campaign runs and 100,000 Expedition idle intervals per lane. Counts remain non-negative safe integers, but validation rejects histories above the ceiling to prevent unbounded replay of hostile saves. Preview/action paths refuse before crossing it, display used/remaining capacity, perform zero persistence writes on refusal, and diagnostics expose exact usage. Because a normal save can only approach the ceiling through successful actions, a later schema/config migration must checkpoint or aggregate the history before shipping a build in which ordinary play could reach it; silently raising or reinterpreting this ceiling is forbidden.
 - Do not persist stage requirements, Might Level/multiplier, Fellow Power, Total Fellow Roster Power, push preview, claim preview, recipient random units, or runtime presentation state.
 - Phase 7 intentionally does not claim complete global Gift-inventory reconstruction. Gifts already have independent Building, Oath, Family-claim, Campaign, and Family-spend paths whose pre-Phase-7 history is not a complete source ledger. Every post-schema-8 Campaign Gift roll and latest receipt is still deterministic and validated from stage-local sequence, but current `gifts` is not equated solely to Campaign-derived Gifts. A future global Gift ledger requires its own migration rather than an overclaim here.
 
@@ -253,6 +256,7 @@ Resolution is deterministic and contains no RNG:
 - Stage zero accrues nothing. A claim with no complete interval is a true zero-write/no-UI-mutation no-op.
 - At the Might cap, complete intervals are still consumed because they can change shard/pity history. Receipt nominal Might may be positive while actual awarded Might is zero.
 - `lastClaimAt`, `claimOrdinal`, and `lastReceipt` are all empty together. Otherwise receipt sequence/time equals claim state and `lastClaimAt ≤ cursorAt`.
+- Positive `intervalOrdinal`/claimed history and positive `claimOrdinal` are equivalent. A state cannot retain claimed rewards without a canonical last-claim time and receipt.
 
 ## Schema 7 → 8 migration
 
@@ -276,6 +280,7 @@ Resolution is deterministic and contains no RNG:
 - Retry reuses an authentic pre-v8 checkpoint byte-for-byte. An authenticated schema-8 staged/candidate payload fixes the exact initialization bytes and time, baselines, cursor, migration receipt, and target bytes. Schema-7-to-8 migration construction is reward-neutral and never settles predecessor entitlement.
 - If failure occurs after pre-v8 verify but before any schema-8 candidate/stage is durable, a later retry may capture one new monotonic initialization time and rebuild from the exact unchanged pre-v8 checkpoint. It grants no Expedition or other reward, does not replace pre-v8, and does not duplicate any claim, Campaign run, best run, or revision. After migration is durably adopted, the accepted post-migration `boot` path may separately settle pre-existing Village, Family, and Companion Tower clocks under unchanged Phase 6 rules; that settlement is not part of the migration candidate or its receipt.
 - Historical schema-2 through schema-7 fresh/migration/ordinary-current/safe-reset pending and committed transactions complete or clean their authenticated owner/active boundary before schema-8 migration. Pre-v8/reserved/lineage preflight occurs before any historical active write or staging cleanup.
+- When an authenticated historical safe reset retained older checkpoint bytes as archival material, its exact marker remains the authority for those bytes. Forward migration writes only the still-empty checkpoints from that reset schema onward, preserves every marker-attested archival byte, removes the old marker from the forward successor, and binds the resulting safe-reset-root chain into the schema-7 and schema-8 migration receipts. Immediate reload and later ordinary mutation must authenticate that bounded root chain; any changed archival or forward-checkpoint byte remains fail-closed.
 - A lone evolved schema-7 pre-v8 checkpoint with active and schema-8 staging both missing remains fail-closed unless it is an exact deterministic immediate successor reconstructable from protected origin. Recovery requires the exact active predecessor, an authenticated staged schema-8 successor, or deterministic reconstruction.
 - Generic valid schema-8 staging never recovers missing/corrupt active. Only exact fresh default, authenticated migration/recovery successor, authenticated safe reset, or reconstructable current mutation may be adopted.
 - Invalid highest occupied protected material blocks fallback. Foreign source/save/revision/raw identity, changed whitespace, checkpoint swap, forged baseline/receipt, reward-map mismatch, and unrelated staging retain every byte and perform zero writes.
@@ -302,6 +307,7 @@ Resolution is deterministic and contains no RNG:
 - The best-run preview lists owned Fellows weakest-first with exact Power and status: `clears stage N`, `exhausted`, `below next requirement`, or `unused after cap`. It shows the exact predicted stage, next unmet requirement, Total Fellow Roster Power, and whether pushing would set a new record.
 - The push result summarizes the new all-time stage and exact exhausted Fellow order. Equal/worse results do not show a success toast/modal or alter presentation.
 - Idle result copy distinguishes nominal/actual Might at cap and names every shard recipient. Persist and render durable last-best and last-claim summaries after reload.
+- Campaign and Expedition surfaces disclose the 100,000-entry replay ceiling when reached and disable or refuse the next history-producing action without a persistence write.
 - Fellow roster header/profile shows Might Level/multiplier and the updated effective Power formula. Remove neutral-global copy.
 - Fellow Campaign preview updates immediately after a Might claim. Village/Building rate details remain unchanged and must not imply Expedition generates or modifies Gold.
 - Preserve Companion Campaign/Tower, Fellow Campaign walking presentation, and mobile layout. Expedition may use static Fellow rows and lightweight sequential emphasis; no new art or battle animation is required.
@@ -324,6 +330,7 @@ Resolution is deterministic and contains no RNG:
 - Construct equal-Total-Power concentrated and balanced rosters whose Expedition results differ in the expected direction. Increasing a low/mid Fellow across a requirement boundary must increase predicted/actual progress when raising the strongest by the same irrelevant amount does not.
 - Push preview is read-only. New high commits once; equal/lower/canceled/stale/disabled pushes are byte-exact zero-write/no-UI-mutation. Reload preserves exact highest stage, sequence, receipt, and exhausted order.
 - New-high push grants zero Gold, pending Gold, Prosperity, EXP, shards, Gifts, Rank EXP, Bond, Intimacy, Companion/Family resources, and direct Might.
+- Best chronology rejects first receipts with a nonzero prior stage, later receipts without the exact preceding record, sequence renumbering, and retained idle pre-claim sequence/stage pairs that do not match the bounded record history.
 - Might thresholds `19/20`, `79/80`, `49,999/50,000`, cap truncation, overflow refusal, exact Level/multiplier, and no persisted derived shadows.
 - Effective Fellow Power order and one final round; Total Fellow Roster Power safe sum; Companion Mastery transfer then Might exactly once; Campaign eligibility/efficiency update once.
 - `ECONOMY_CONFIG.neutralHooks.fellowRoster` stays neutral. At identical state/time, migration and Might claims leave every Building rate component and total Village Gold rate unchanged; Expedition never becomes a direct or indirect Gold source.
@@ -343,6 +350,7 @@ Resolution is deterministic and contains no RNG:
 - Interval `-1 / exact / +1`, multiple intervals, cap `-1 / exact / +1`, `>24h`, stage zero, multiple best-stage changes, cross-stage partial interval, split/combined settlement, reload, and immediate double claim.
 - Exact Might rate changes by stage; shard chance boundaries/cap; uniform owned-recipient boundaries; misses 1–7; forced eighth; success reset; deterministic close/reopen result; no runtime RNG consumption.
 - At Might cap, intervals still consume and pity/shards advance while actual Might award is zero. Empty/sub-hour claim remains pure zero-write.
+- Replay-ceiling boundaries: 99,999 → 100,000 succeeds once; the next Campaign run or Expedition claim is refused with zero writes and clear copy; diagnostics report 100,000 used and zero remaining.
 - Source history rejects changed segments/counts/ordinals/pity/totals, claim-versus-push reorder, non-prefix best-run snapshot, altered nominal/actual Might, extra/foreign shard keys, stale pending identity, sequence rollback, and duplicate claim.
 - At frozen time, Expedition push/claim never changes Gold/pending Gold. With advancing time, ordinary Village accrual may change pending Gold independently, but no Expedition receipt/UI may attribute it to Expedition.
 
