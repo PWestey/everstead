@@ -12,7 +12,7 @@ Status: **CLI PASS — LIVE REVALIDATION PENDING** at production tip `bb6a94d605
 
 ## Gate result
 
-- Phase 5 CLI: `918/918`, twice.
+- Phase 5 CLI: `1136/1136`, twice.
 - Phase 4 semantic successor: `410/410`, twice, with seven intentional supersessions.
 - Checksums: `14/14`, twice; all 118 historical artifacts remained byte-frozen.
 - Superseded-tip live Chromium: `482/482`, twice at `c9a250fd10542848a9ceafb193e6441657767c4e`, with blank fatal output and zero warning/error console entries.
@@ -23,6 +23,8 @@ Status: **CLI PASS — LIVE REVALIDATION PENDING** at production tip `bb6a94d605
 Schema 6 adds one exact pre-v6 checkpoint to the seven-slot Phase 4 persistence set. A schema5 source is retained byte-for-byte. Schema0–4 sources retain the deterministic canonical schema5 intermediate, including its existing migration receipt IDs and timestamps, so an interrupted later-clock retry can authenticate and reuse the exact bytes. The schema-5-to-6 receipt is assembled from exact post-write reads and binds every permanent slot plus its canonical migration source; schema0–5 immediate reload, later mutation, and every interruption retry retain exact receipt-to-slot identity. Altered, missing, lone, evolved, or foreign-source predecessor material fails closed without writes.
 
 Safe reset now records a durable exact identity for every retained checkpoint, including null slots, plus the independent pre-reset active raw identity/save ID/revision. It can replace a valid current state blocked by raw-backup or pre-v6 whitespace, semantic, foreign, or malformed archival bytes without parsing or trusting them. The marker survives ordinary mutations and authenticates pending current-base or already-committed reset staging across the complete fault/retry matrix; the exact archives remain immutable. Fixture installation also rolls back all eight slots and the complete runtime/UI snapshot when any post-write boot read fails or leaves persistence blocked.
+
+The committed verifier exercises all 12 initial protected-slot reads, all 12 backup/checkpoint writes and verifies, all six receipt-assembly reads, every staging/active/cleanup boundary including owner and cleanup verification, and the corresponding safe-reset boundaries. Each retry proves zero-or-once schema-6 receipt creation, exact preservation of every already-written slot, exact receipt-to-live-slot identity, and clean staging.
 
 Legacy Story progress seeds position only. `mappedOrdinal` is the clamped integer Story stage from 1 through 10; only stages strictly before it are cleared and first-clear-consumed. The mapped stage remains uncleared and reward-eligible, including legacy values at or beyond stage 10. Every migrated Player begins Rank 1 with zero Rank EXP, and migration invents no Fellow EXP, shards, Gifts, Gold, or Rank rewards.
 

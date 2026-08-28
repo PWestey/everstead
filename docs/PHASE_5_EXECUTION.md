@@ -31,11 +31,11 @@ Serve the repository root over HTTP, open `qa/phase-5/`, and confirm the live ru
 
 ## Failure-safety coverage
 
-The CLI verifier covers exact schema0–5 migration and retry paths, receipt-to-live-slot equality, immediate and post-mutation reload, every migration staging/active/cleanup fault boundary, pre-v6 byte/source attestation, durable reset lineage from corrupt and current blocked bases, archival malformed/foreign/whitespace bytes, the full reset staging fault matrix, all eight fixture pre-read/write/remove/post-write-boot-read rollback boundaries, motion-sensitive presentation, occupied or foreign persistence material, Campaign ledger forgery, malformed current saves, receipt tampering, insufficient Gold, underpowered and locked runs, safe-integer overflow, reload idempotence, and legacy feature override attempts. Every refused or faulted path asserts exact storage, runtime, revision, identity, UI, clock/random/log, toast, modal, and blocked/stale/write-flag preservation where applicable.
+The CLI verifier covers exact schema0–5 migration and retry paths, receipt-to-live-slot equality, immediate and post-mutation reload, all 12 initial protected-slot read/read-verify boundaries, all 12 backup/checkpoint write/verify boundaries, all six post-checkpoint receipt-assembly reads, staging owner/write/verify, active conflict/write/verify, and staging cleanup owner/remove/verify. It also covers pre-v6 byte/source attestation, durable reset lineage from corrupt and current blocked bases, archival malformed/foreign/whitespace bytes, the full reset staging fault matrix including owner-read and cleanup-verify, all eight fixture pre-read/write/remove/post-write-boot-read rollback boundaries, motion-sensitive presentation, occupied or foreign persistence material, Campaign ledger forgery, malformed current saves, receipt tampering, insufficient Gold, underpowered and locked runs, safe-integer overflow, reload idempotence, and legacy feature override attempts. Every refused or faulted path asserts exact storage, runtime, revision, identity, UI, clock/random/log, toast, modal, and blocked/stale/write-flag preservation where applicable.
 
 ## Observed final gate
 
-- Phase 5 CLI: `918/918`, twice.
+- Phase 5 CLI: `1136/1136`, twice.
 - Phase 4 semantic successor: `410/410`, twice, with exactly seven expected supersessions.
 - Checksums: `14/14`, twice; all 118 historical artifacts remained byte-frozen.
 - Superseded-tip live Chromium: `482/482`, twice at `c9a250fd10542848a9ceafb193e6441657767c4e`, across 320×568 and 390×844 with blank fatal output, no failed rows, zero isolated-action native-storage calls, and zero warning/error console entries.
