@@ -21,7 +21,8 @@
 
 - Phase 6 CLI: `258/258` on the production candidate before package generation.
 - Phase 5 semantic successor: `515/515` with eight itemized Phase 6 replacements.
-- The first live pass reached `616/620`; all four failures were the two Tower history-copy requirements repeated at both mobile sizes. Production now states `Floor N cleared` and shows aggregate idle EXP alongside per-recipient EXP. Final live reruns are required on the frozen package tip.
+- The first live pass reached `616/620`; all four failures were the two Tower history-copy requirements repeated at both mobile sizes. Production now states `Floor N cleared` and shows aggregate idle EXP alongside per-recipient EXP.
+- Two final live Chromium runs on the frozen package tip each reached `620/620`, with a blank fatal field, zero failed rows, and zero warning/error console entries across both configured mobile sizes.
 
 ## Intentional fail-closed boundary
 
