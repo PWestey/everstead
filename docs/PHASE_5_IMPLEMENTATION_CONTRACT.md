@@ -95,7 +95,7 @@ fellowCampaign: {
 ```
 
 - `selectedStageId` must be cleared/replayable or the first uncleared stage; it cannot skip locked progression.
-- Normal schema-6 play makes cleared and first-clear-claimed prefixes advance together. Migration may conservatively mark a legacy ambiguous final stage first-clear-claimed without marking it cleared.
+- Normal schema-6 play and migration keep cleared and first-clear-claimed prefixes identical. Ambiguous legacy stage 10 remains neither cleared nor first-clear claimed.
 - `runOrdinal` increments once per successful run only.
 - `lastReceipt.sequence` equals the post-run ordinal and records stage ID, completion time, first-clear/replay, Gold/base/recommended/total-Power snapshot, effective cost, exact-key reward maps for every Fellow plus Rank EXP and Gifts, and an exact reward identity version/salt derived from save ID + stage ID + pre-run ordinal.
 - Do not persist derived efficiency, unlock selectors, stage definitions, player Rank thresholds, walking progress, calculated Fellow Power, or RNG state.
