@@ -27,7 +27,7 @@ Released schema 0–8 saves are supported. Final schema-9 compatibility begins w
 
 ## Live evidence
 
-Exact live package `3fcfa3c914b721295a22a86b4291cda3bc10c44d` completed two full Chromium passes: `520/520` at outer 320×568 and `520/520` at outer 390×844. Each pass internally exercised both required phone realms and normal/reduced motion, with a blank fatal field and zero captured warning/error console entries.
+Initial live package `3fcfa3c914b721295a22a86b4291cda3bc10c44d` completed two full Chromium passes: `520/520` at outer 320×568 and `520/520` at outer 390×844. After the QA-only persistence-evidence expansion and EOF hygiene repair, final tested package `13bcf9e1e386ae0bd9f8ce6a9394ffa2c9dfd882` repeated both passes with the same `520/520` result at each outer viewport. Every pass internally exercised both required phone realms and normal/reduced motion, with a blank fatal field and zero captured warning/error console entries. The subsequent final seal changes only this evidence metadata and its derived hashes.
 
 ## Do not perform here
 

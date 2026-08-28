@@ -57,7 +57,9 @@
     "observedAt": "2026-08-28T21:00:00.000Z"
   },
   "liveEvidence": {
-    "packageCommit": "3fcfa3c914b721295a22a86b4291cda3bc10c44d",
+    "packageCommit": "13bcf9e1e386ae0bd9f8ce6a9394ffa2c9dfd882",
+    "priorPackageCommit": "3fcfa3c914b721295a22a86b4291cda3bc10c44d",
+    "priorPasses": 2,
     "passes": 2,
     "totalPerPass": 520,
     "passedPerPass": 520,
