@@ -111,7 +111,8 @@ fellowCampaign: {
 ## Schema 5 → 6 migration
 
 - Set `CURRENT_SCHEMA_VERSION = 6`.
-- Add write-once `PRE_V6_BACKUP_KEY = oathforge_new_world_proto_v01__raw_backup_v5`, containing the exact schema-5 active raw payload after complete eight-slot zero-write preflight and before staging/active writes.
+- Add write-once `PRE_V6_BACKUP_KEY = oathforge_new_world_proto_v01__raw_backup_v5`, containing the exact schema-5 predecessor/intermediate payload after complete eight-slot zero-write preflight and before staging/active writes.
+- For a schema-5 active predecessor, pre-v6 is that exact active raw. For schema 0–4 or legacy migration, pre-v6 is the exact canonical schema-5 intermediate. If its write/verification succeeds and boot then fails before schema-6 staging, a retry at a later clock must authenticate and reuse those exact bytes by reconstructing migrations 0→5 from the receipt IDs and original receipt timestamps stored in the checkpoint; it must not regenerate the intermediate using the retry clock or reject the authentic checkpoint.
 - Protected slots become: active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, and staging.
 - Preserve exact ordered migration from legacy schema 0 and schemas 1–5, all earlier checkpoints/receipts, and append exactly one `schema-5-to-6` receipt.
 - Fresh schema 6 starts Wayfarer, Rank EXP 0/Rank 1, stage 1 selected, no clears, ordinal 0, and no receipt.
@@ -131,6 +132,7 @@ fellowCampaign: {
 - Preserve prior-build unbound committed ordinary mutation compatibility narrowly and keep every reserved migration/recovery/fresh source disjoint from it.
 - All preflight read faults, occupied foreign staging, injected writes/readbacks/conflicts/cleanup faults, malformed state/receipt/checkpoint, and retry paths preserve exact bytes and cannot duplicate costs or rewards.
 - Safe export and diagnostics report the pre-v6 slot and all eight read errors. QA fixture installation refuses before any write if any preimage read fails.
+- The isolated fixture installer pre-reads all eight slots before its first mutation. Exercise every replacement and null-removal boundary, including pre-v6: if any later set/remove fails, restore all eight raw slots byte-for-byte plus in-memory state, revision/identity, blocked/stale/write flags, QA clock/random/log state, toast/modal, and rendered UI. Rollback performs no boot/save. Report the original installation error plus every rollback failure explicitly.
 
 ## Feature-flag and action boundary
 
