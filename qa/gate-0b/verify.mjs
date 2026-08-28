@@ -11,6 +11,7 @@ const manifest = JSON.parse(readFileSync(resolve(qaRoot, 'current-manifest.json'
 const htmlBytes = readFileSync(resolve(repoRoot, 'index.html'));
 const html = htmlBytes.toString('utf8');
 const productionSource = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+const browserRunnerSource = readFileSync(resolve(qaRoot, 'runner.js'), 'utf8');
 const checks = [];
 
 const sha256 = value => createHash('sha256').update(value).digest('hex');
@@ -24,6 +25,20 @@ const fixturePaths = {
   'current-v1': resolve(qaRoot, 'fixtures/current-v1.txt'),
   'future-v99': resolve(qaRoot, 'fixtures/future-v99.txt'),
   'invalid-current-v1': resolve(qaRoot, 'fixtures/invalid-current-v1.txt'),
+  'invalid-current-featured-ref': resolve(qaRoot, 'fixtures/invalid-current-featured-ref.txt'),
+  'invalid-current-focus-ref': resolve(qaRoot, 'fixtures/invalid-current-focus-ref.txt'),
+  'invalid-current-operator-ref': resolve(qaRoot, 'fixtures/invalid-current-operator-ref.txt'),
+  'invalid-current-companion-ref': resolve(qaRoot, 'fixtures/invalid-current-companion-ref.txt'),
+  'invalid-current-trade-member-ref': resolve(qaRoot, 'fixtures/invalid-current-trade-member-ref.txt'),
+  'invalid-current-trade-shape': resolve(qaRoot, 'fixtures/invalid-current-trade-shape.txt'),
+  'invalid-current-operation-ref': resolve(qaRoot, 'fixtures/invalid-current-operation-ref.txt'),
+  'invalid-current-undo-oath-ref': resolve(qaRoot, 'fixtures/invalid-current-undo-oath-ref.txt'),
+  'invalid-current-undo-building-ref': resolve(qaRoot, 'fixtures/invalid-current-undo-building-ref.txt'),
+  'invalid-current-undo-fellow-ref': resolve(qaRoot, 'fixtures/invalid-current-undo-fellow-ref.txt'),
+  'invalid-current-undo-family-ref': resolve(qaRoot, 'fixtures/invalid-current-undo-family-ref.txt'),
+  'invalid-current-undo-done-key': resolve(qaRoot, 'fixtures/invalid-current-undo-done-key.txt'),
+  'invalid-current-undo-resolve-value': resolve(qaRoot, 'fixtures/invalid-current-undo-resolve-value.txt'),
+  'invalid-current-undo-expected-value': resolve(qaRoot, 'fixtures/invalid-current-undo-expected-value.txt'),
   'invalid-root': resolve(qaRoot, 'fixtures/invalid-root.txt'),
   'corrupt-json': resolve(qaRoot, 'fixtures/corrupt-json.txt'),
   'staging-successor-v1': resolve(qaRoot, 'fixtures/staging-successor-v1.txt'),
@@ -93,8 +108,14 @@ function dynamicFixture(id) {
 function instrument(source, action) {
   if (!action) return source;
   const hook = action === 'scoped-undo' ? `
-    const __beforeUndoTest=clone(S);completeOath('o1');const __afterCompletion=clone(S);collectGold();const __afterCollect=clone(S);applyOathUndo();
+    const __beforeUndoTest=clone(S);completeOath('o1');const __afterCompletion=clone(S);collectGold();const __afterCollect=clone(S);modalAction('undo-oath');
     PERSISTENCE_TEST.status.scopedUndo={before:__beforeUndoTest,afterCompletion:__afterCompletion,afterCollect:__afterCollect,final:clone(S)};
+  ` : action === 'scoped-undo-diverged' ? `
+    const __beforeDivergedUndo=clone(S);completeOath('o1');const __afterDivergedCompletion=clone(S);patrolChoice(S.patrolIndex%PATROLS.length,0);const __afterSameField=clone(S),__rawBeforeRefusal=PERSISTENCE_STORAGE.getItem(NS);modalAction('undo-oath');
+    PERSISTENCE_TEST.status.scopedUndoDiverged={before:__beforeDivergedUndo,afterCompletion:__afterDivergedCompletion,afterSameField:__afterSameField,rawBeforeRefusal:__rawBeforeRefusal,rawAfterRefusal:PERSISTENCE_STORAGE.getItem(NS),final:clone(S),toast:document.querySelector('#toast')?.innerHTML||''};
+  ` : action === 'delete-oath-with-undo' ? `
+    completeOath('o1');const __afterDeleteUndoCompletion=clone(S);openOathForm('o1');deleteOath('o1');
+    PERSISTENCE_TEST.status.deleteOathUndo={afterCompletion:__afterDeleteUndoCompletion,final:clone(S),raw:PERSISTENCE_STORAGE.getItem(NS)};
   ` : action === 'gameplay-regressions' ? `
     const __gameplayBefore=clone(S),__nav=[];for(const __view of ['village','oaths','fellows','adventure','more']){nav(__view);__nav.push(S.ui.view)}
     const __upgradeCost=Math.round(15000*Math.pow(1.7,S.buildings.training.level-1));modalAction('upgrade-building','training');
@@ -138,7 +159,7 @@ function runRealm({ active = null, backup = null, staging = null, faultPlan = nu
   }
   let saveCounter = idSeed;
   let transactionCounter = idSeed;
-  const plan = faultPlan ? { ...faultPlan, enabled: faultPlan.enabled !== false, used: false } : null;
+  const plan = faultPlan ? { ...faultPlan, enabled: faultPlan.enabled !== false, used: false, matches: 0 } : null;
   const operationLog = [];
   const testConfig = {
     storage,
@@ -149,7 +170,19 @@ function runRealm({ active = null, backup = null, staging = null, faultPlan = nu
     transactionIdFactory: () => `${scenarios.deterministicIds.transactionIdPrefix}${++transactionCounter}`,
     fault(context) {
       if (!plan?.enabled || plan.used || context.step !== plan.step || context.phase !== plan.phase) return null;
+      plan.matches += 1;
+      if (plan.matches !== (plan.occurrence ?? 1)) return null;
       plan.used = true;
+      if (plan.type === 'foreign-staging') {
+        let foreign;
+        try { foreign = JSON.parse(slots.get(keys.staging) ?? '{}'); } catch { foreign = {}; }
+        foreign.stagingVersion ??= 1;
+        foreign.transactionId = 'tx-foreign-later';
+        foreign.source = 'foreign-tab';
+        plan.foreignRaw = JSON.stringify(foreign);
+        slots.set(keys.staging, plan.foreignRaw);
+        return null;
+      }
       return plan.type === 'mismatch' ? { type: 'mismatch', value: `${context.value ?? ''}__fault_mismatch__` } : { type: 'throw', message: `fault ${plan.phase} ${plan.step}` };
     }
   };
@@ -184,10 +217,16 @@ for (const [path, expected] of Object.entries(manifest.historicalFiles ?? {})) {
   check(`historical-${path.replaceAll('/', '-')}`, actual === expected, actual);
 }
 check('production-script-present', Boolean(productionSource));
+check('browser-offline-condition-wait', browserRunnerSource.includes("scenario.id.startsWith('current-offline-')") && browserRunnerSource.includes("waitFor(()=>Boolean(document.querySelector('#overlay .offline-list')))"));
+check('current-reference-validation-source', productionSource.includes('FELLOW_IDS.has(state.focusFellow)') && productionSource.includes('FELLOW_IDS.has(state.featured)') && productionSource.includes('state.tradeTeam.length===5') && productionSource.includes('validOathUndo(state.undo,state)'));
+check('scoped-undo-current-state-source', productionSource.includes('validOathUndo(record,S)') && productionSource.includes("fields.oath.doneKey===null||typeof fields.oath.doneKey==='string'") && productionSource.includes('fields.resolve.had?finite(fields.resolve.value):fields.resolve.value===null') && productionSource.includes('oathUndoMatches(record,S)') && browserRunnerSource.includes("document.querySelector('[data-modal-act=\"undo-oath\"]')?.click()"));
 check('schema-literal', productionSource.includes('CURRENT_SCHEMA_VERSION=1'));
 check('receipt-literal', productionSource.includes("id:'legacy-v0.1-to-1'"));
 check('metadata-literals', ['saveId', 'createdAt', 'updatedAt', 'revision', 'source', 'appliedMigrations'].every(key => productionSource.includes(key)));
-check('transaction-order-source', ['backup-write', 'backup-verify', 'staging-write', 'staging-verify', 'active-conflict-check', 'active-write', 'active-verify', 'staging-cleanup'].every(step => productionSource.includes(step)));
+check('transaction-order-source', ['backup-write', 'backup-verify', 'staging-write', 'staging-verify', 'active-conflict-check', 'active-write', 'active-verify', 'staging-cleanup-owner', 'staging-cleanup'].every(step => productionSource.includes(step)));
+check('exact-raw-replacement-guard-source', productionSource.includes('function requireExactRawBackup(') && productionSource.includes("'raw-backup-mismatch'"));
+check('recovery-staging-owner-source', productionSource.includes("storageGet(STAGING_KEY,'recovery-staging-cleanup-owner')") && productionSource.includes("'recovery-staging-cleanup-foreign'"));
+check('oath-delete-expires-undo-source', productionSource.includes("if(S.undo?.oathId===id)S.undo=null"));
 check('coordinator-source', productionSource.includes('function mutatePersisted(') && productionSource.includes('const before=S,draft=clone(S)'));
 check('three-part-conflict-source', productionSource.includes('expected.saveId!==current.saveId') && productionSource.includes('expected.revision!==current.revision') && productionSource.includes('expected.rawIdentity!==current.rawIdentity'));
 check('storage-event-source', productionSource.includes("window.addEventListener('storage'") && productionSource.includes('PERSISTENCE_STALE=true'));
@@ -221,13 +260,14 @@ for (const scenario of scenarios.scenarios) {
   check(`${scenario.id}-no-uncaught`, run.thrown == null, run.thrown?.stack ?? '');
   check(`${scenario.id}-outcome`, run.status.outcome === scenario.expectedOutcome, run.status.outcome);
 
-  if (scenario.expectedOutcome === 'REJECT_PRESERVE' && !scenario.action) {
+  const foreignStagingScenario = scenario.id === 'foreign-staging-before-commit-cleanup' || scenario.id === 'foreign-staging-before-recovery-cleanup';
+  if (scenario.expectedOutcome === 'REJECT_PRESERVE' && !scenario.action && !foreignStagingScenario) {
     check(`${scenario.id}-active-preserved`, slots.active === dynamicFixture(scenario.active));
-    check(`${scenario.id}-backup-exact`, slots.backup === dynamicFixture(scenario.active));
+    check(`${scenario.id}-backup-exact`, slots.backup === dynamicFixture(scenario.backup ?? scenario.active));
     check(`${scenario.id}-recovery-render`, run.nodes['#app'].innerHTML.includes('Save Needs Attention'));
   } else if (scenario.expectedOutcome !== 'REJECT_PRESERVE') {
     check(`${scenario.id}-current-active`, Boolean(activeState));
-    check(`${scenario.id}-staging-clean`, slots.staging == null);
+    if (!foreignStagingScenario) check(`${scenario.id}-staging-clean`, slots.staging == null);
   }
 
   if (scenario.id === 'legacy-representative') {
@@ -241,6 +281,7 @@ for (const scenario of scenarios.scenarios) {
     check('legacy-representative-receipt', activeState.saveMeta.appliedMigrations.length === 1 && activeState.saveMeta.appliedMigrations[0].id === 'legacy-v0.1-to-1');
     check('legacy-representative-undo-migrated', activeState.undo?.version === 1 && activeState.undo?.kind === 'oath-completion' && activeState.undo?.snapshot == null);
   }
+  if (scenario.id === 'legacy-mismatched-backup-preserve') check('legacy-mismatched-backup-no-active-write', !run.operationLog.some(entry => entry.step === 'active-write' && entry.status === 'begin'));
   if (scenario.id === 'twice-migrated') {
     check('twice-migrated-idempotent-receipts', activeState.saveMeta.appliedMigrations.length === 1);
     check('twice-migrated-stable-id', activeState.saveMeta.saveId === JSON.parse(fixtures['current-v1']).saveMeta.saveId);
@@ -251,7 +292,12 @@ for (const scenario of scenarios.scenarios) {
   if (['staged-stale', 'staged-conflicting-save', 'staged-invalid-state'].includes(scenario.id)) check(`${scenario.id}-active-precedence`, activeState.gold === JSON.parse(fixtures['current-v1']).gold);
   if (scenario.id === 'missing-active-backup-recovery') check('backup-recovery-preserved', slots.backup === fixtures['legacy-representative']);
   if (scenario.id === 'corrupt-safe-reset') check('safe-reset-retains-backup', slots.backup === fixtures['corrupt-json'] && activeState.saveMeta.source === 'safe-reset');
-  if (scenario.id === 'corrupt-backup-recovery') check('explicit-backup-recovery-retains-backup', slots.backup === fixtures['legacy-representative']);
+  if (['corrupt-backup-recovery', 'corrupt-safe-reset-mismatched-backup', 'invalid-safe-reset-mismatched-backup'].includes(scenario.id)) {
+    check(`${scenario.id}-mismatched-active-preserved`, slots.active === dynamicFixture(scenario.active));
+    check(`${scenario.id}-mismatched-backup-preserved`, slots.backup === dynamicFixture(scenario.backup));
+    check(`${scenario.id}-no-active-write`, !run.operationLog.some(entry => entry.step === 'active-write' && entry.status === 'begin'));
+    check(`${scenario.id}-recovery-remains`, run.nodes['#app'].innerHTML.includes('Save Needs Attention'));
+  }
   if (scenario.id === 'scoped-oath-undo') {
     const data = run.status.scopedUndo;
     const beforeOath = data?.before.oaths.find(item => item.id === 'o1');
@@ -260,6 +306,34 @@ for (const scenario of scenarios.scenarios) {
     check('scoped-undo-unrelated-gold-preserved', data?.final.gold === data?.afterCollect.gold && data?.final.gold > data?.before.gold);
     check('scoped-undo-timestamps-not-reverted', data?.final.saveMeta.revision > data?.afterCollect.saveMeta.revision && data?.final.lastGoldAt === data?.afterCollect.lastGoldAt);
     check('scoped-undo-cleared', data?.final.undo === null);
+  }
+  if (scenario.id === 'scoped-oath-undo-diverged') {
+    const data = run.status.scopedUndoDiverged;
+    const completed = data?.afterCompletion.oaths.find(item => item.id === 'o1');
+    const finalOath = data?.final.oaths.find(item => item.id === 'o1');
+    check('scoped-undo-diverged-same-field-changed', data?.afterSameField.prosperity > data?.afterCompletion.prosperity);
+    check('scoped-undo-diverged-refuses-without-write', data?.rawAfterRefusal === data?.rawBeforeRefusal && data?.final.saveMeta.revision === data?.afterSameField.saveMeta.revision);
+    check('scoped-undo-diverged-keeps-completion', finalOath?.doneKey === completed?.doneKey && finalOath?.streak === completed?.streak);
+    check('scoped-undo-diverged-keeps-record', data?.final.undo?.oathId === 'o1');
+    check('scoped-undo-diverged-not-blocked', run.status.outcome === 'NORMAL' && !run.nodes['#app'].innerHTML.includes('Save Needs Attention'));
+    check('scoped-undo-diverged-explains-refusal', String(data?.toast).includes('Undo refused'));
+  }
+  if (scenario.id === 'delete-oath-clears-undo') {
+    const data = run.status.deleteOathUndo;
+    const saved = currentState(data?.raw);
+    check('delete-oath-created-targeted-undo', data?.afterCompletion.undo?.oathId === 'o1');
+    check('delete-oath-target-removed', !data?.final.oaths.some(item => item.id === 'o1'));
+    check('delete-oath-undo-cleared', data?.final.undo === null);
+    check('delete-oath-valid-committed-save', Boolean(saved) && saved.undo === null && !saved.oaths.some(item => item.id === 'o1'));
+  }
+  if (foreignStagingScenario) {
+    check(`${scenario.id}-fault-triggered`, run.plan?.used === true);
+    check(`${scenario.id}-foreign-staging-retained`, slots.staging === run.plan?.foreignRaw && JSON.parse(slots.staging).transactionId === 'tx-foreign-later');
+    const logStep = scenario.id.includes('recovery') ? 'recovery-staging-cleanup-foreign' : 'staging-cleanup-foreign';
+    check(`${scenario.id}-retention-logged`, run.operationLog.some(entry => entry.step === logStep && entry.operation === 'retain'));
+    const foreignIndex = run.operationLog.findIndex(entry => entry.step === logStep && entry.operation === 'retain');
+    check(`${scenario.id}-no-later-staging-overwrite`, !run.operationLog.slice(foreignIndex + 1).some(entry => entry.step === 'staging-write' && entry.status === 'begin'));
+    check(`${scenario.id}-valid-active-recovery-screen`, Boolean(activeState) && run.nodes['#app'].innerHTML.includes('Save Needs Attention'));
   }
   if (scenario.id === 'gameplay-regressions') {
     const data = run.status.gameplay;
@@ -313,8 +387,11 @@ for (const faultCase of scenarios.faultMatrix) {
     check(`${id}-recoverable`, slots.active === fixtures['legacy-representative'] || Boolean(active));
     if (active) check(`${id}-changed-active-has-backup`, slots.backup === fixtures['legacy-representative']);
   }
-  const errorEntry = run.operationLog.find(entry => entry.step === faultCase.step && ['error', 'mismatch'].includes(entry.status));
+  const errorEntry = faultCase.type === 'foreign-staging'
+    ? run.operationLog.find(entry => entry.step === 'staging-cleanup-foreign' && entry.operation === 'retain')
+    : run.operationLog.find(entry => entry.step === faultCase.step && ['error', 'mismatch'].includes(entry.status));
   check(`${id}-logged`, Boolean(errorEntry));
+  if (faultCase.foreignStagingExpected) check(`${id}-foreign-staging-retained`, slots.staging === run.plan?.foreignRaw && JSON.parse(slots.staging).transactionId === 'tx-foreign-later');
   const backupWrite = run.operationLog.findIndex(entry => entry.step === 'backup-write' && entry.status === 'begin');
   const stagingWrite = run.operationLog.findIndex(entry => entry.step === 'staging-write' && entry.status === 'begin');
   const activeWrite = run.operationLog.findIndex(entry => entry.step === 'active-write' && entry.status === 'begin');

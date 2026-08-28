@@ -15,8 +15,8 @@
   },
   "artifact": {
     "path": "index.html",
-    "sha256": "be525eb6e8aa44c3a29bcb1b7f3f6dfcb6237e25a154c5dc169d3afcdb6f2570",
-    "byteLength": 18318745,
+    "sha256": "1613f9c91daa5ad91b312c5dfa376b6cabb315d7ba9dc03bba807455b6555b92",
+    "byteLength": 18323270,
     "visibleVersion": "v0.1",
     "stateVersion": "0.1.0",
     "schemaVersion": 1,
@@ -26,8 +26,8 @@
   },
   "scenarios": {
     "path": "qa/gate-0b/scenarios.json",
-    "sha256": "59453b6a584afd2a83cb0cf24215defbc420875b638f527206eabdf507837597",
-    "byteLength": 6594
+    "sha256": "b98c50cdf2663c5d4341c2d7e79fd14605b7fcf623ebe9c841216bd015141e81",
+    "byteLength": 10646
   },
   "fixtures": [
     {
@@ -57,25 +57,137 @@
     {
       "id": "current-v1",
       "path": "qa/gate-0b/fixtures/current-v1.txt",
-      "sha256": "59b30e83db848ddbdcd3c290b774398025ee8d12654cb4ccf71e4389205603b6",
-      "byteLength": 4032,
-      "codeUnitLength": 4017,
+      "sha256": "6c67c8bb7d9622eedf00311e00532aeede011c6e86da6e50cc472301f063df2b",
+      "byteLength": 4315,
+      "codeUnitLength": 4300,
       "trailingNewline": false
     },
     {
       "id": "future-v99",
       "path": "qa/gate-0b/fixtures/future-v99.txt",
-      "sha256": "777d5dcada831a6f7c51bebe0404e8587b960ade44d787fa73267b46e7dfaee1",
-      "byteLength": 4033,
-      "codeUnitLength": 4018,
+      "sha256": "dbfaed7f4968d44d2afcb01f55216cb7e84c112c1b9b127fbae5d3483a95ab2f",
+      "byteLength": 4316,
+      "codeUnitLength": 4301,
       "trailingNewline": false
     },
     {
       "id": "invalid-current-v1",
       "path": "qa/gate-0b/fixtures/invalid-current-v1.txt",
-      "sha256": "8c56f7f068b4ba35be96d2547201c370c98ebf259ffb1eaab4ebf529f4731254",
-      "byteLength": 4019,
-      "codeUnitLength": 4004,
+      "sha256": "42fd6fd1e466e85db5f5d2b1eb1c0314726b085ed5bbd3f61262934fd589d68d",
+      "byteLength": 4302,
+      "codeUnitLength": 4287,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-featured-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-featured-ref.txt",
+      "sha256": "f6fb2f704dc378e2871a1054bb5064fd8853171a407629b5ea3c2e58ab071214",
+      "byteLength": 4325,
+      "codeUnitLength": 4310,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-focus-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-focus-ref.txt",
+      "sha256": "c42f2cefd4f456fec66f150804dc1183bf9d47547bd7a8a212e97c1586621d6e",
+      "byteLength": 4323,
+      "codeUnitLength": 4308,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-operator-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-operator-ref.txt",
+      "sha256": "6cb5bf970723296e9c1b611f44ef11b1728f53308831689a57525a1002c6d5a7",
+      "byteLength": 4325,
+      "codeUnitLength": 4310,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-companion-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-companion-ref.txt",
+      "sha256": "1b3ac2836611c65acda500a59e2a454e4f1e7f363a6daf87e1935ab531f92245",
+      "byteLength": 4325,
+      "codeUnitLength": 4310,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-trade-member-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-trade-member-ref.txt",
+      "sha256": "f44918b9cb101094ad5778337fc0ea399b28db8a19cf0df546f6ec98d8f895a8",
+      "byteLength": 4323,
+      "codeUnitLength": 4308,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-trade-shape",
+      "path": "qa/gate-0b/fixtures/invalid-current-trade-shape.txt",
+      "sha256": "224d2d84f523f5b0e130ebc7db8ed757b0026db0705f41a69108ce8d0363e74a",
+      "byteLength": 4308,
+      "codeUnitLength": 4293,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-operation-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-operation-ref.txt",
+      "sha256": "1e3920bb2fe302a369c1e1468692fb2a2fa2eae6aa324f3888468e71ca29c170",
+      "byteLength": 4316,
+      "codeUnitLength": 4301,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-oath-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-oath-ref.txt",
+      "sha256": "1828aecef9b650a419a111c8f9b4d92fb0be285a3849aa58e9162000ae18701e",
+      "byteLength": 4325,
+      "codeUnitLength": 4310,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-building-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-building-ref.txt",
+      "sha256": "de2cd5778f33d17ecdb174b4d4e43fcbbc796a5a02462c95ed068220f740c2f2",
+      "byteLength": 4323,
+      "codeUnitLength": 4308,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-fellow-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-fellow-ref.txt",
+      "sha256": "7f13367d9509ea692fa5d2f04f75cc77dab5323a8ef1d9bb732383ad64a892f7",
+      "byteLength": 4335,
+      "codeUnitLength": 4320,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-family-ref",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-family-ref.txt",
+      "sha256": "be72b283eddeeb1b5ed29e36a9a55982f4d30ca82e2e99209281576ca6bd533f",
+      "byteLength": 4348,
+      "codeUnitLength": 4333,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-done-key",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-done-key.txt",
+      "sha256": "5c2adac9c0968dd31fe27eb1adaa5deec2b01ee94fd5a304d82592d3ec29787e",
+      "byteLength": 4313,
+      "codeUnitLength": 4298,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-resolve-value",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-resolve-value.txt",
+      "sha256": "b611c07ba5d547d034dee8f427bfbf704c9ab66e5f3f67cb015fb1f159f49285",
+      "byteLength": 4320,
+      "codeUnitLength": 4305,
+      "trailingNewline": false
+    },
+    {
+      "id": "invalid-current-undo-expected-value",
+      "path": "qa/gate-0b/fixtures/invalid-current-undo-expected-value.txt",
+      "sha256": "fa4ebe47b641937bc019dd1adae68ececa80de020e39de6219bb07530d26306d",
+      "byteLength": 4321,
+      "codeUnitLength": 4306,
       "trailingNewline": false
     },
     {
@@ -97,33 +209,33 @@
     {
       "id": "staging-successor-v1",
       "path": "qa/gate-0b/fixtures/staging-successor-v1.txt",
-      "sha256": "c71e0f92cea73a35532aef56d1afba58989549e9a1aa9c4d36996a1d4c09283d",
-      "byteLength": 4248,
-      "codeUnitLength": 4233,
+      "sha256": "c43d2f6059f279bcf4f47ff6dfd9243828332c9395a90562f58fb50b7728d523",
+      "byteLength": 4531,
+      "codeUnitLength": 4516,
       "trailingNewline": false
     },
     {
       "id": "staging-stale-v1",
       "path": "qa/gate-0b/fixtures/staging-stale-v1.txt",
-      "sha256": "fd3fbc1a010bdd76c25c4cafd6be529844b63a9f9d88fed15a1188ab94bed513",
-      "byteLength": 4228,
-      "codeUnitLength": 4213,
+      "sha256": "502002e0decf199ee00bdf77f07f87cd654de0fa7c156e825999baee9125251a",
+      "byteLength": 4511,
+      "codeUnitLength": 4496,
       "trailingNewline": false
     },
     {
       "id": "staging-conflicting-save-v1",
       "path": "qa/gate-0b/fixtures/staging-conflicting-save-v1.txt",
-      "sha256": "f8fd81aac324cbc73bca6a8fcf915f9bcf57310e810087648ba3f904334da5b6",
-      "byteLength": 4256,
-      "codeUnitLength": 4241,
+      "sha256": "eda15fdb1a9482d24609511c5df1f87d78a6f36d4c9aa787e19da62aff1de215",
+      "byteLength": 4539,
+      "codeUnitLength": 4524,
       "trailingNewline": false
     },
     {
       "id": "staging-invalid-state-v1",
       "path": "qa/gate-0b/fixtures/staging-invalid-state-v1.txt",
-      "sha256": "b01500685edc7e0011ca701e90adf4ce3a42b22a0e0549373a55ada2d93eb6da",
-      "byteLength": 4235,
-      "codeUnitLength": 4220,
+      "sha256": "4a5cfcc677060648821fd89aabb53b888f5e6941517cd71099909597abf535e9",
+      "byteLength": 4518,
+      "codeUnitLength": 4503,
       "trailingNewline": false
     }
   ]

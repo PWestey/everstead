@@ -12,7 +12,7 @@ node qa/gate-0b/verify.mjs
 shasum -a 256 -c qa/gate-0b/checksums.sha256
 ```
 
-For live Chromium, serve the repository over HTTP and open `qa/gate-0b/`. The disposable iframe receives the production script through a callback replacement, uses memory-only storage, and publishes the completed result at `window.__EVERSTEAD_GATE_0B_RESULT__`.
+For live Chromium, serve the repository over HTTP and open `qa/gate-0b/`. The disposable iframe receives the production script through a callback replacement, uses memory-only storage, and publishes the completed result at `window.__EVERSTEAD_GATE_0B_RESULT__`. Offline scenarios poll for the production modal condition with a one-second bound so the intentional 250 ms delay is observed without a blind long wait or timer leakage into later cases.
 
 ## Frozen persistence contract
 
@@ -26,7 +26,11 @@ For live Chromium, serve the repository over HTTP and open `qa/gate-0b/`. The di
 
 The synchronous transaction sequence is backup/write-once verification, migration or current-state validation, staged write and readback, active pre-commit reread, active write and readback, then transaction-owned staging cleanup. Staging provenance includes transaction ID, base save ID and revision, source raw identity, and source.
 
-The test seam is local to persistence. It records ordered operations and can throw before or after reads, writes, and removals, or inject a mismatched readback. It does not add a general Phase 0C adapter or feature-flag layer.
+The test seam is local to persistence. It records ordered operations and can throw before or after reads, writes, and removals, inject a mismatched readback, or place a foreign staging envelope immediately before cleanup. It does not add a general Phase 0C adapter or feature-flag layer.
+
+Current-schema validation rejects dangling persisted references rather than silently normalizing them. The raw fixture matrix covers featured/focus Fellows, Building operators, Companion bindings, the required five-member Trading team, Operation participants, and all Oath undo targets and values that the inverse can write. The Oath undo record also carries expected post-completion values: unrelated Gold can advance, but a later mutation to any touched field causes a write-free refusal. Deleting the target Oath clears its pending undo. Legacy normalization remains unchanged.
+
+Legacy/corrupt/invalid active bytes may be replaced only when the fixed write-once backup contains those exact bytes. A mismatched pre-existing backup is preserved and the operation resolves to `REJECT_PRESERVE`. Both normal and recovery staging cleanup reread the exact envelope before removal; a foreign envelope is retained, logged, and stops later writes from this stale tab.
 
 ## Concurrency boundary
 
