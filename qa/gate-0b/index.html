@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Everstead Gate 0B QA</title>
+  <style>
+    body{margin:0;background:#071019;color:#e9f0f1;font:14px/1.45 system-ui,sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px}button{border:0;border-radius:8px;padding:10px 14px;font-weight:700}.summary{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}.summary span{background:#122431;border:1px solid #ffffff20;border-radius:10px;padding:10px}.result{display:grid;grid-template-columns:minmax(230px,1fr) 3fr 90px;gap:12px;padding:10px;border-bottom:1px solid #ffffff14}.pass{color:#75e6a8}.fail{color:#ff8b8b}code{font-size:12px}@media(max-width:700px){.result{grid-template-columns:1fr}.status{justify-self:start}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Gate 0B — Transactional Save Foundation</h1>
+    <p>This disposable runner uses memory-only storage and the separate current-artifact contract.</p>
+    <button id="run">Run Gate 0B</button>
+    <div class="summary"><span>Total <b id="total">0</b></span><span>Passed <b id="passed">0</b></span><span>Failed <b id="failed">0</b></span></div>
+    <pre id="fatal"></pre><section id="results"></section>
+  </main>
+  <script src="./runner.js"></script>
+</body>
+</html>
