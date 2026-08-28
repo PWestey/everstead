@@ -27,7 +27,7 @@ Released schema 0–8 saves are supported. Final schema-9 compatibility begins w
 
 ## Live evidence
 
-The final exact package commit and two live Chromium results are recorded in `PHASE_8_RESULT.md` and `qa/phase-8/current-manifest.json` after the frozen package runs.
+Exact live package `3fcfa3c914b721295a22a86b4291cda3bc10c44d` completed two full Chromium passes: `520/520` at outer 320×568 and `520/520` at outer 390×844. Each pass internally exercised both required phone realms and normal/reduced motion, with a blank fatal field and zero captured warning/error console entries.
 
 ## Do not perform here
 

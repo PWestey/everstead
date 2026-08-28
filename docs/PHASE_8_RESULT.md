@@ -21,10 +21,11 @@
 
 ## Gate evidence
 
-- Phase 8 focused CLI: `142/142` on the repaired production artifact.
-- Phase 7 semantic successor: `585/585`, with seven itemized Phase 8 replacements.
+- Phase 8 focused CLI: `142/142` twice on the repaired production artifact.
+- Phase 7 semantic successor: `585/585` twice, with seven itemized Phase 8 replacements.
 - Independent reviews: exact gameplay/receipts `19/19`; persistence/recovery `46/46`.
-- Final double-run checksums and live Chromium evidence are added at exact package seal.
+- Package checksums: all `14/14` entries pass twice.
+- Exact live package `3fcfa3c914b721295a22a86b4291cda3bc10c44d` passed Chromium twice: `520/520` at outer 320×568 and `520/520` at outer 390×844. Each pass internally exercised both configured phone realms and normal/reduced motion, with blank fatal, zero failed rows, and zero warning/error console entries.
 
 ## Compatibility boundary
 

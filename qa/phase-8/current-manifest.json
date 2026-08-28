@@ -37,7 +37,40 @@
     "phaseEightMarkersPresent": false,
     "observedAt": "2026-08-28T21:00:00.000Z"
   },
-  "liveEvidence": null,
+  "liveEvidence": {
+    "packageCommit": "3fcfa3c914b721295a22a86b4291cda3bc10c44d",
+    "passes": 2,
+    "totalPerPass": 520,
+    "passedPerPass": 520,
+    "failedPerPass": 0,
+    "blankFatal": true,
+    "failedRowsPerPass": 0,
+    "consoleWarnErrorPerPass": 0,
+    "outerViewports": [
+      {
+        "width": 320,
+        "height": 568
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "internalViewports": [
+      {
+        "width": 320,
+        "height": 568
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "motionModes": [
+      "normal",
+      "reduced"
+    ]
+  },
   "sourceRevisions": {
     "lockedCoreDesign": "AIroW34MYqUcG6Q-iOW_AtHMqmrwGj9Nb9AFMEEqxselBNLMox14pJzqh11nWmvHfp6LI-QdrsXi6ruy1TNJJQXiXzh4BgLMN-zh7XtA8-I",
     "implementationRoadmap": "AIroW37XK-kLSvIWAi8bvi_c0B1TCCOIJCp93RQrxiAF8JmMMvgT0A9vnlZGdeAKQ_hSs674e9BNw9beXDa6RApDYcpXuZexshqiy4pvM_U"
