@@ -8,14 +8,14 @@ Phase 5 replaces the active legacy Story loop with the first canonical Fellow Ca
 
 - Current schema is 6; the eight protected slots are active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, and staging.
 - The pre-v6 slot is a write-once exact schema-5 checkpoint. For schema0–4 sources it is the deterministic canonical schema-5 intermediate; for schema5 it is the exact active raw. Interrupted migrations authenticate and reuse the same checkpoint bytes instead of regenerating time-sensitive receipts.
-- The schema-5-to-6 receipt also binds the exact raw identities of every permanent protected slot and the canonical migration source. Missing-active recovery accepts pre-v6 only when exact pre-v5 bytes deterministically reproduce it, while altered fields, foreign sources, lone/evolved checkpoints, and missing attestations remain byte-preserved with zero writes.
-- A safe reset that retains checkpoints now carries a durable exact-slot marker. Immediate reload, ordinary post-reset mutations, pending reset staging, and already-committed reset cleanup authenticate the same retained bytes across every staging/active/cleanup interruption.
+- The schema-5-to-6 receipt also binds the exact raw identities of every permanent protected slot and the canonical migration source. Receipt assembly re-reads the post-write slot set, so schema0–4 migrations attest newly created intermediate checkpoints instead of stale pre-migration nulls. Immediate reload, later mutation, and all staging/active/cleanup retries reproduce the same exact lineage. Missing-active recovery accepts pre-v6 only when exact pre-v5 bytes deterministically reproduce it, while altered fields, foreign sources, lone/evolved checkpoints, and missing attestations remain byte-preserved with zero writes.
+- A safe reset that retains checkpoints now carries a durable exact-slot marker with the independent pre-reset active save ID/revision/raw identity and every archival slot identity. The reset can recover a valid current save blocked by whitespace, semantic, foreign, or malformed raw-backup/checkpoint bytes without parsing or trusting those archives. Immediate reload, ordinary post-reset mutations, pending current-base reset staging, and already-committed reset cleanup authenticate the same retained bytes across every staging/active/cleanup interruption; any later archive byte change still fails closed.
 - The central Player starts with the static/CSS `wayfarer` avatar hook, Rank EXP, and derived Rank. Rank is capped at 5 for the foundation while cumulative safe-integer Rank EXP is retained in full. Rank 2 safely unlocks stage replay; first-clear progression is never Rank-gated.
 - Fellow Campaign contains ten seeded Broken Roads stages. Eligibility and the efficiency discount use total owned Fellow roster Power. Each successful run atomically spends the effective Gold cost, grants target-Fellow EXP, first-clear or deterministic replay shards, a deterministic Gift chance, and first-clear Rank EXP.
 - Receipts bind save, stage, pre-run ordinal, first-clear status, configured costs, roster snapshot, reward values, deterministic rolls, version, and salt. Validation reconstructs the expected result exactly and refuses altered or inconsistent ledgers.
 - Schema5 Story position migrates conservatively: only stages strictly before the mapped ordinal are cleared and first-clear-consumed; the mapped stage remains eligible, including ambiguous legacy stage 10. Migration grants no retroactive Rank EXP, Fellow EXP, shards, Gifts, or Gold.
 - The active Story, Tower, Trading, Patrol, and Operations surfaces and reward leaves are retired and fail closed even if a runtime override explicitly requests them. Compatibility data and recovery scaffolding remain intact.
-- The live campaign screen includes the Wayfarer hook, changing/scrolling stage backgrounds, walking/bobbing motion, encounter interruption, stage nodes, reward preview, first-clear/replay labels, and deterministic refusal messaging. The top bar shows Gifts, Gold, and Rank; the Patrol badge and Auto Resolve selector are removed from active UI.
+- The live campaign screen includes the Wayfarer hook, changing/scrolling stage backgrounds, walking/bobbing motion, encounter interruption, stage nodes, reward preview, first-clear/replay labels, and deterministic refusal messaging. A captured, guarded reduced-motion preference presents the persisted result synchronously without a running class or presentation timer; normal motion preserves the walk and delayed result. The top bar shows Gifts, Gold, and Rank; the Patrol badge and Auto Resolve selector are removed from active UI.
 
 ## Verification commands
 
@@ -27,18 +27,19 @@ node qa/phase-5/regress-phase-4.mjs
 sha256sum -c qa/phase-5/checksums.sha256
 ```
 
-Serve the repository root over HTTP, open `qa/phase-5/`, and confirm the live runner has a blank fatal field and zero failed rows. At both 320×568 and 390×844 it covers fresh, schema-5, legacy, ambiguous stage 10, deterministic replay hit/miss, reduced motion, all-retired-overridden, all-disabled, and exact-native-storage refusal, plus unattested-destructive and encoded-query-negative realms.
+Serve the repository root over HTTP, open `qa/phase-5/`, and confirm the live runner has a blank fatal field and zero failed rows. At both 320×568 and 390×844 it covers fresh, schema-5, legacy, ambiguous stage 10, deterministic replay hit/miss, normal-motion delayed and reduced-motion immediate production-button runs, all-retired-overridden, all-disabled, and exact-native-storage refusal, plus unattested-destructive and encoded-query-negative realms.
 
 ## Failure-safety coverage
 
-The CLI verifier covers exact schema0–5 migration and retry paths, pre-v6 byte/source attestation, durable reset lineage and its full staging fault matrix, all eight fixture pre-read/write/remove/post-write-boot-read rollback boundaries, occupied or foreign persistence material, Campaign ledger forgery, malformed current saves, receipt tampering, insufficient Gold, underpowered and locked runs, safe-integer overflow, reload idempotence, and legacy feature override attempts. Every refused or faulted path asserts exact storage, runtime, revision, identity, UI, clock/random/log, toast, modal, and blocked/stale/write-flag preservation where applicable.
+The CLI verifier covers exact schema0–5 migration and retry paths, receipt-to-live-slot equality, immediate and post-mutation reload, every migration staging/active/cleanup fault boundary, pre-v6 byte/source attestation, durable reset lineage from corrupt and current blocked bases, archival malformed/foreign/whitespace bytes, the full reset staging fault matrix, all eight fixture pre-read/write/remove/post-write-boot-read rollback boundaries, motion-sensitive presentation, occupied or foreign persistence material, Campaign ledger forgery, malformed current saves, receipt tampering, insufficient Gold, underpowered and locked runs, safe-integer overflow, reload idempotence, and legacy feature override attempts. Every refused or faulted path asserts exact storage, runtime, revision, identity, UI, clock/random/log, toast, modal, and blocked/stale/write-flag preservation where applicable.
 
 ## Observed final gate
 
-- Phase 5 CLI: `666/666`, twice.
+- Phase 5 CLI: `918/918`, twice.
 - Phase 4 semantic successor: `410/410`, twice, with exactly seven expected supersessions.
 - Checksums: `14/14`, twice; all 118 historical artifacts remained byte-frozen.
-- Live Chromium: `482/482`, twice, across 320×568 and 390×844 with blank fatal output, no failed rows, zero isolated-action native-storage calls, and zero warning/error console entries.
+- Superseded-tip live Chromium: `482/482`, twice at `c9a250fd10542848a9ceafb193e6441657767c4e`, across 320×568 and 390×844 with blank fatal output, no failed rows, zero isolated-action native-storage calls, and zero warning/error console entries.
+- Refreshed live Chromium is pending on the final candidate. The expanded runner expects `536` rows after adding real production-button normal-motion and reduced-motion result checks.
 
 ## Preserved residual risks
 
