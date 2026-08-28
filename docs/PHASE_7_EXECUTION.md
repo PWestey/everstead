@@ -26,6 +26,10 @@ The released compatibility surface is schema 0–7 through sealed Phase 6. Final
 
 Historical schema 2–7 pending and committed fresh, migration, ordinary-current, and safe-reset transactions finish or clean only after full ten-slot preflight. For an older safe reset, marker-attested checkpoint bytes remain immutable archival material while forward migration fills only later empty checkpoints and binds the resulting bounded root chain into schema-7/schema-8 receipts.
 
+## Final live evidence
+
+Exact package `98edfa95b8d006f07b1e3dcb77d45351e2821ab7` completed two full live Chromium passes. Each pass rendered `620/620` passing rows across 320×568 and 390×844, with a blank fatal field, zero failed rows, and zero captured warning/error console entries.
+
 ## Do not perform here
 
 Do not merge, push, publish, rebalance Phase 10 tunables, activate retired Story/Tower/Trading/Patrol/Operations, add Relics, or add deferred automation, audio, events, advanced animation, or Post-V1 systems from this implementation worktree.

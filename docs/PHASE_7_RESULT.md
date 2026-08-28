@@ -23,7 +23,7 @@
 - Phase 7 focused CLI candidate: `325/325` on the frozen production artifact before final package reruns.
 - Phase 6 semantic successor: `511/511` twice, with eight itemized Phase 7 replacements.
 - Package checksums: all `14/14` entries pass.
-- Live Chromium evidence is recorded after the exact package candidate is frozen and run twice at both required mobile sizes.
+- Exact package `98edfa95b8d006f07b1e3dcb77d45351e2821ab7` passed live Chromium twice: `620/620` each pass at 320×568 and 390×844, blank fatal, zero failed rows, and zero warning/error console entries.
 
 ## Compatibility boundary
 
