@@ -17,11 +17,12 @@
 - Phase 8 Campaign epoch that preserves the accepted v2 reward stream and pairs each live run with an exact authenticated Relic side receipt.
 - Immutable normal-motion result snapshots, so delayed Campaign modals cannot be mispaired by a later run.
 - Strict schema-8 lineage, migration-source, staging-class, missing-active recovery, retry, safe-reset, and native storage-event protections.
+- Executable regression coverage for every final production repair, eleven genuine persistence hooks with positive fault-trigger evidence, and all eleven fixture post-write boot-read rollback positions. Unsupported synthetic “validation fault” labels are not claimed.
 - Relics as the fourth Fellowship tab with inventory, source, equipment, upgrade, Power, and durable receipt feedback; no new adventure mode.
 
 ## Gate evidence
 
-- Phase 8 focused CLI: `142/142` twice on the repaired production artifact.
+- Phase 8 focused CLI: `186/186` twice on the repaired production artifact, including explicit trigger proof for every claimed persistence hook and eleven-slot fixture rollback.
 - Phase 7 semantic successor: `585/585` twice, with seven itemized Phase 8 replacements.
 - Independent reviews: exact gameplay/receipts `19/19`; persistence/recovery `46/46`.
 - Package checksums: all `14/14` entries pass twice.

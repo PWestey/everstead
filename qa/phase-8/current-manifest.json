@@ -27,6 +27,25 @@
       "total": 46
     }
   },
+  "executablePersistenceCoverage": {
+    "focusedCliRows": 186,
+    "migrationFaultHooks": [
+      "pre-v9-backup-write",
+      "pre-v9-backup-verify",
+      "staging-new-owner",
+      "staging-write",
+      "staging-verify",
+      "active-conflict-check",
+      "active-write",
+      "active-verify",
+      "staging-cleanup-owner",
+      "staging-cleanup",
+      "staging-cleanup-verify"
+    ],
+    "repairedProductionBlockers": 8,
+    "fixturePostWriteBootReadSlots": 11,
+    "syntheticValidationFaultsClaimed": false
+  },
   "preSealReleaseEvidence": {
     "canonicalMainCommit": "6bbb2eccc1f79dd985bfde827bf9eb0753fb0845",
     "originMainCommit": "6bbb2eccc1f79dd985bfde827bf9eb0753fb0845",
