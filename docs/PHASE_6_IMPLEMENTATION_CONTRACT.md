@@ -57,7 +57,8 @@ The values below are frozen for Phase 6 behavior and QA but remain explicit Phas
 ### Companion Campaign
 
 - Region ID/name: `companion-trail` / `Companion Trail`.
-- Ten linear stages use code-owned IDs and presentation content. Target Companion cycles through `COMPANION_DEFS` order by stage ordinal.
+- Ten linear stages use exact IDs `companion-trail-1` through `companion-trail-10` and exact display names, in order: `Mosslit Gate`, `Whispering Ford`, `Briar Hollow`, `Moonroot Crossing`, `Emberglass Ridge`, `Stormwake Pass`, `Starfall Basin`, `Ashen Canopy`, `Dawnspire Reach`, and `Heart of the Wild`.
+- Target Companion cycles through `COMPANION_DEFS` order by stage ordinal.
 - Recommended Power for ordinal `N`: `round(2000 × 1.18^(N - 1))`, frozen as `[2000, 2360, 2785, 3286, 3878, 4576, 5399, 6371, 7518, 8871]`.
 - Base Gold cost: `8000 + 1500 × (N - 1)`.
 - Reuse the accepted efficiency formula with Total Companion Roster Power: `surplusRatio = max(0, totalPower / recommendedPower - 1)`; `discountRate = min(0.35, surplusRatio × 0.25)`; `effectiveCost = max(1, ceil(baseCost × (1 - discountRate)))`.
@@ -114,13 +115,14 @@ companionTower: {
     cursorAt: finite non-negative monotonic timestamp,
     lastClaimAt: null | finite non-negative timestamp,
     segments: ordered bounded [{ floor, elapsedMs }],
+    claimedIntervalsByFloor: exact floor keys "1"…"50" → non-negative safe integers,
     intervalOrdinal: non-negative safe integer,
     pityMisses: integer 0…7,
     claimOrdinal: non-negative safe integer,
     claimedTotals: {
       companionExp: exact Companion keys → non-negative safe integers,
       companionShards: exact Companion keys → non-negative safe integers,
-      mastery: non-negative safe integer
+      masteryNominal: non-negative safe integer
     },
     lastReceipt: null | exact Tower idle receipt
   }
@@ -140,22 +142,24 @@ companionProgressLedger: {
 ```
 
 - `runCountsByStage` is the authoritative Campaign source ledger. Cleared/claimed prefixes, ordinal, last receipt, cumulative targeted EXP, and cumulative targeted shards must agree exactly with it.
-- Tower first-clear cumulative EXP/Mastery/shards derive exactly from `highestFloor`, frozen configuration, save ID, and fifth-floor roll identities.
-- Tower idle cumulative awards equal `claimedTotals`; the last receipt is only the newest claim, not the source of all history.
+- Tower first-clear cumulative EXP, nominal Mastery entitlement, and shards derive exactly from `highestFloor`, frozen configuration, save ID, and fifth-floor roll identities.
+- `claimedIntervalsByFloor` is the authoritative idle history. Its exact key set is floors `1…50`; its safe-integer sum equals `intervalOrdinal`. Deterministic replay visits floors in ascending order and replays each floor's count before the next floor. Because Tower progress never decreases, this is the exact chronological interval order.
+- Replaying that canonical interval history from ordinal zero derives pity, idle EXP, nominal idle Mastery, random shards, and `claimedTotals` exactly. `claimedTotals.masteryNominal` stores entitlement before the global cap, not the cap-truncated inventory increase.
+- The last idle receipt is only the newest claim, not the source of all history. Its interval-ordinal range and per-floor counts must be an exact suffix of the cumulative history and must replay to its reward maps and pity result.
 - `companionProgressLedger.schema6Baseline` is immutable after migration/fresh creation. Existing QA EXP/shard helpers add exact credits to `qaCredits`.
 - Current Companion EXP equals baseline + derived Campaign EXP + derived Tower first-clear EXP + claimed idle EXP + QA EXP credits.
 - Current Companion shards plus the exact configured ascension spend from baseline rarity through current rarity equals baseline + derived Campaign shards + derived Tower first-clear shards + claimed idle shards + QA shard credits.
-- Current Mastery points equal derived Tower first-clear Mastery + claimed idle Mastery, capped exactly. Phase 6 exposes no production or QA grant that bypasses those sources.
+- Current Mastery points equal `min(50,000, nominal Tower first-clear Mastery + claimedTotals.masteryNominal)`. Phase 6 exposes no production or QA grant that bypasses those sources.
 - Do not persist calculated costs, stage/floor definitions, Mastery Level/multiplier, Power, next floor, claim preview, random units, assignment inverse shadows, or runtime presentation state.
 
 ## Receipt and deterministic identity rules
 
 - Companion Campaign, Tower first clear, Tower idle hit, and Tower idle recipient use disjoint versioned channel salts.
 - Campaign identity binds save ID + stage ID + pre-run global ordinal + pre-run stage count. A receipt records mode, identity version/string, stage, completion time, sequence, stage-run sequence, first-clear/replay, target, base/recommended/total Power/effective cost, and exact Companion EXP/shard reward maps.
-- Tower-clear identity binds save ID + floor + pre-clear sequence. A receipt records floor, time, sequence, requirement/total Power, identity, exact Companion EXP/shard maps, and actual Mastery award.
+- Tower-clear identity binds save ID + floor + pre-clear sequence. A receipt records floor, time, sequence, requirement/total Power, identity, exact Companion EXP/shard maps, nominal Mastery entitlement, pre/post Mastery points, and the actual cap-truncated Mastery award. `post = min(50,000, pre + nominal)` and `actual = post - pre`.
 - Fifth-floor shard recipients derive from the Tower-clear identity and canonical owned Companion order.
 - Tower idle rolls bind save ID + interval ordinal + earned floor + channel salt. Hit and recipient use separate salts.
-- Tower idle receipts record claim sequence/time, consumed elapsed, interval ordinal range, interval counts by floor, actual EXP/Mastery/shard maps, pity after claim, identity version, and a pending-snapshot identity. A stale preview cannot commit after another transaction.
+- Tower idle receipts record claim sequence/time, consumed elapsed, interval ordinal range, interval counts by floor, actual EXP/shard maps, nominal Mastery entitlement, pre/post Mastery points, actual cap-truncated Mastery award, pity after claim, identity version, and a pending-snapshot identity. `post = min(50,000, pre + nominal)` and `actual = post - pre`. A stale preview cannot commit after another transaction.
 - Rendering, diagnostics, preview, cancellation, reload, and rejected actions consume no runtime RNG and cannot alter deterministic outcomes.
 
 ## Shared encounter coordinator and mode isolation
@@ -188,12 +192,13 @@ Mode, roster selector, reward table, state ledger, receipt shape, RNG salt, tran
 ## Tower elapsed-time provenance
 
 - Use one captured transaction timestamp. Extend central accrual so every persisted mutation settles eligible Tower elapsed under the old `highestFloor` before changing state.
-- `segments` preserves chronological eligible elapsed by floor. Adjacent equal-floor entries merge; floor values never decrease; floor-zero time is discarded; total eligible queued time never exceeds 24 hours.
+- `segments` preserves chronological eligible elapsed by floor. Every entry has the exact key set `{floor, elapsedMs}`; `floor` is an integer `1…highestFloor`; `elapsedMs` is a positive safe integer; entries are strictly increasing by floor after adjacent equal floors merge; length is at most 50; and the safe-integer elapsed sum is at most `86,400,000`.
 - Claim preview virtually appends elapsed from `cursorAt` to the captured time under current `highestFloor`, capped without mutating state.
 - Consume chronological one-hour intervals. An interval spanning a floor boundary uses the floor at its first millisecond. Preserve the exact unconsumed sub-hour suffix.
 - A floor clear first settles old-floor elapsed, then changes the floor. Split versus combined settlement at one floor and explicit settle-then-clear versus crossing a floor boundary must produce identical segments, ordinals, pity, and rewards.
 - On elapsed beyond the cap, credit only the first eligible 24 hours and discard excess when settlement commits. Clock rollback adds no elapsed and never lowers `cursorAt`, `lastClaimAt`, `saveMeta.updatedAt`, or `lastSeen`.
 - A claim with no complete interval and no already-creditable reward is a true zero-write no-op: no receipt, clock, ordinal, revision, toast/modal state, or storage mutation.
+- `lastClaimAt`, `claimOrdinal`, and `lastReceipt` are all empty together. Otherwise `lastReceipt.sequence === claimOrdinal`, `lastReceipt.claimedAt === lastClaimAt`, and `lastClaimAt ≤ cursorAt`. The last receipt's interval count equals the length of its half-open ordinal range and is an exact suffix of `claimedIntervalsByFloor`.
 
 ## Schema 6 → 7 migration
 
@@ -202,8 +207,9 @@ Mode, roster selector, reward table, state ledger, receipt shape, RNG salt, tran
 - Protected slots become active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, pre-v7, and staging.
 - Preserve exact ordered migration from schema 0 through 6 and append exactly one final `schema-6-to-7` receipt. Bind it to exact raw identities, including whitespace and nulls, of raw v0.1 plus pre-v2 through pre-v7 and to the canonical migration/recovery source.
 - Preserve all Companion EXP/derived Level/rarity/shards/assignments, Fellow Campaign/Player state and reward identity, Village/Family ledgers, Oaths/Undo, Unicode, and every schema-6 field except explicitly replaced `towerFloor` and the Adventure route value.
+- Schema 0–6 sources/intermediates must have no own root property named `companionMastery`, `companionCampaign`, `companionTower`, or `companionProgressLedger`. Any reserved-name collision, regardless of value or apparent shape, fails closed during complete zero-write preflight before any checkpoint/staging/active write. Preserve all existing raw bytes for export; never silently overwrite or relocate a collision.
 - Copy each Companion's exact schema-6 EXP/rarity/shards into the immutable progression baseline. Initialize QA credits to zero.
-- Initialize Mastery zero, Companion Campaign empty, Tower floor zero, no clears/claims/rewards, and Tower `cursorAt` at `max(captured migration time, predecessor saveMeta.updatedAt, predecessor lastSeen, valid protected claim timestamps)`.
+- Initialize Mastery zero, Companion Campaign empty, Tower floor zero, no clears/claims/rewards, and Tower `cursorAt` at the exact maximum of captured migration time and these four schema-6 fields only: `saveMeta.updatedAt`, `lastSeen`, `lastGoldAt`, and `familyDrops.eligibleAt`. Each is already required finite/non-negative by schema-6 validation; no receipt or other catch-all timestamp participates.
 - Record the validated legacy `towerFloor` value as ignored migration evidence, then remove it. Negative, fractional, zero, one, and large finite values all map to zero Companion Tower progress; invalid/non-finite predecessor state still fails validation.
 - Map `ui.adventure: "campaign"` to `"fellowCampaign"`. Reject foreign routes.
 - Migration grants no Gold, EXP, shards, Mastery, clears, claims, Rank, Gifts, or other rewards.
@@ -212,7 +218,7 @@ Mode, roster selector, reward table, state ledger, receipt shape, RNG salt, tran
 ## Persistence, recovery, export, and reset
 
 - Expand every preflight, migration, staging, committed-current cleanup, missing-active recovery, export, diagnostics, fixture installation, rollback, safe reset, and storage-event path from eight to nine protected slots.
-- Retry at a later clock must reuse an authentic pre-v7 checkpoint and migration/staging timestamps exactly; it must not regenerate bytes or duplicate a receipt/revision/reward.
+- Retry always reuses an authentic pre-v7 checkpoint byte-for-byte. When an authenticated schema-7 staging/candidate payload exists, retry also reuses its exact migration timestamp, cursor, receipt, and candidate bytes. If failure occurred after pre-v7 verification but before any schema-7 stage/candidate was durably written, a later retry may capture exactly one new monotonic migration time and build a new candidate from the unchanged checkpoint; it must not replace the checkpoint or duplicate a receipt/revision/reward.
 - Historical schema-2 through schema-6 pending/committed transactions finish their authenticated owner/active/cleanup boundary before schema-7 migration proceeds.
 - A generic valid schema-7 stage cannot recover missing/corrupt active state. Only exact fresh default, authenticated migration/recovery successor, or reconstructable committed current mutation may be adopted.
 - Invalid highest occupied protected material blocks unsafe fallback. Foreign source/save/revision/raw identity, changed whitespace, checkpoint swaps, forged receipt/reward identity, and unrelated staging fail closed with zero writes.
@@ -260,11 +266,11 @@ Mode, roster selector, reward table, state ledger, receipt shape, RNG salt, tran
 - Tower next-floor-only progression, floor cap, exact cumulative first-clear rewards, deterministic fifth-floor shard, no replay/duplicate clear, and no Gold/Prosperity mutation.
 - Idle at `0/1 ms`, interval `-1 / exact / +1`, multiple intervals, cap `-1 / exact / +1`, `>24h`, epoch zero, clock rollback, local midnight, DST boundaries, multiple floor changes, cross-floor partial interval, reload, split/combined equivalence, pity misses 1–7/forced eighth/reset, chance cap, recipient boundaries, stale preview, immediate double claim, and safe-integer overflow.
 - At frozen time, Tower never changes Gold/pending Gold. When time advances during an ordinary central transaction, existing Village accrual may change pending Gold independently, but no Tower receipt or UI reward may attribute it to Tower.
-- Source ledger rejects internally consistent forged receipts, extra/missing reward keys, sequence rollback, foreign save/stage/floor identities, claimed-without-clear, skipped progression, replay-before-clear, and unexplained Companion EXP/shards/rarity/Mastery.
+- Source ledger rejects internally consistent forged receipts/totals, altered claimed interval counts, derived pity/roll/reward mismatches, extra/missing reward keys, sequence rollback, foreign save/stage/floor identities, claimed-without-clear, skipped progression, replay-before-clear, and unexplained Companion EXP/shards/rarity/Mastery.
 
 ### Migration, persistence, and recovery
 
-- Fresh schema 7 and exact schema 0/1/2/3/4/5/6 → 7 migrations; later-clock retry; exact hop revisions/receipts; no retroactive rewards; no legacy Tower mapping; no current timestamp regression.
+- Fresh schema 7 and exact schema 0/1/2/3/4/5/6 → 7 migrations; reserved-name collision refusal at every origin; later-clock retry both before and after durable schema-7 staging; exact hop revisions/receipts; no retroactive rewards; no legacy Tower mapping; no current timestamp regression.
 - Exact pre-v7 write-once checkpoint; all nine-slot read/readback/write/verify/replacement/removal faults; occupied malformed/foreign/byte-changed checkpoints; full staged lineage and target-identity negatives.
 - Historical pending/committed transaction completion, current mutation faults, missing-active recovery, cleanup ownership races, cross-tab staleness, and safe-reset interruption produce no duplication or unsafe fallback.
 - Nine-slot export/fixture/rollback/reset matrices restore exact raw/runtime/UI state, including explicit combined rollback failures.
