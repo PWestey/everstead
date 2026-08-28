@@ -97,12 +97,12 @@ fellowCampaign: {
 - `selectedStageId` must be cleared/replayable or the first uncleared stage; it cannot skip locked progression.
 - Normal schema-6 play makes cleared and first-clear-claimed prefixes advance together. Migration may conservatively mark a legacy ambiguous final stage first-clear-claimed without marking it cleared.
 - `runOrdinal` increments once per successful run only.
-- `lastReceipt.sequence` equals the post-run ordinal and records stage ID, completion time, first-clear/replay, Gold/base/recommended/total-Power snapshot, effective cost, and exact-key reward maps for every Fellow plus Rank EXP and Gifts.
+- `lastReceipt.sequence` equals the post-run ordinal and records stage ID, completion time, first-clear/replay, Gold/base/recommended/total-Power snapshot, effective cost, exact-key reward maps for every Fellow plus Rank EXP and Gifts, and an exact reward identity version/salt derived from save ID + stage ID + pre-run ordinal.
 - Do not persist derived efficiency, unlock selectors, stage definitions, player Rank thresholds, walking progress, calculated Fellow Power, or RNG state.
 
 ## Deterministic Campaign rewards
 
-- Campaign reward rolls use a stable unit derived from `saveId`, pre-run `runOrdinal`, stage ID, and a distinct reward-channel salt.
+- Campaign reward rolls use a versioned stable identity derived from `saveId`, stage ID, and pre-run `runOrdinal`, plus a distinct reward-channel salt. The receipt persists the identity version and exact non-secret identity string, and validation reconstructs both exactly.
 - Recomputing a candidate after any interrupted persistence attempt produces the same shard/Gift outcome.
 - All Gold, EXP, shard, Gift, Rank EXP, Rank, clear-ledger, ordinal, and receipt changes use checked safe-integer operations and validate before the first write.
 - Reward maps require the exact configured Fellow key set. Foreign keys cannot grant rewards or survive canonical validation.
@@ -115,8 +115,8 @@ fellowCampaign: {
 - Protected slots become: active, raw v0.1, pre-v2, pre-v3, pre-v4, pre-v5, pre-v6, and staging.
 - Preserve exact ordered migration from legacy schema 0 and schemas 1–5, all earlier checkpoints/receipts, and append exactly one `schema-5-to-6` receipt.
 - Fresh schema 6 starts Wayfarer, Rank EXP 0/Rank 1, stage 1 selected, no clears, ordinal 0, and no receipt.
-- For schema-5 migration, let `mapped = clamp(floor(storyStage) - 1, 0, 9)`. Mark stages `1…mapped` cleared and first-clear claimed, select stage `mapped + 1`, and seed Rank EXP with the sum of configured first-clear Rank EXP for those stages, capped only by the Rank-5 threshold. Never infer legacy stage 10 complete.
-- If finite legacy `storyStage >= 10`, suppress a possible duplicate stage-10 first-clear reward by including stage 10 in `firstClearClaimedStageIds` while leaving it uncleared and selected. This grants no stage-10 completion, unlock, EXP, shards, Gift, or Rank EXP.
+- For schema-5 migration, let `mappedOrdinal = clamp(floor(storyStage), 1, 10)`. Mark and first-clear-consume only stages strictly before `mappedOrdinal`, then select `mappedOrdinal`. Never infer legacy stage 10 complete or consumed, including when legacy `storyStage >= 10`.
+- Every migrated player starts Rank EXP `0` / Rank `1`. Story position migration grants no retroactive Rank EXP, Fellow EXP, shards, Gifts, Gold, or other rewards. First-clear progression is never Rank-gated, so a migrated high-position player can clear the selected stage normally; replay remains locked until Rank 2.
 - Add Wayfarer, ordinal 0, and null receipt. Remove active `storyStage`, `currentWall`, and `resolve`.
 - Transform a valid pending Oath Undo by removing only its legacy Resolve inverse/expected fields while retaining all Oath, Building, Prosperity, Bond, and Gift semantics; a valid pending Undo must remain usable.
 - Map `ui.adventure: "story"` to `"campaign"`; reject impossible/foreign routes. Preserve all unrelated state exactly.
@@ -164,7 +164,7 @@ fellowCampaign: {
 - Fresh Player/Campaign state; first-clear and replay eligibility; Rank-2 replay gate; atomic Gold spend; target-only EXP/shards; deterministic replay chance; Gift chance; receipt/ordinal; immediate Level/Power update.
 - Underpowered, insufficient-Gold, locked, cancelled, invalid, overflow, disabled-feature, and persistence-failure attempts perform zero mutation/write.
 - Selected squad, Types, counters, Roles, Resolve, and Oaths cannot change Campaign eligibility/cost/rewards.
-- Schema0–5 migration, conservative Story boundaries (negative/fractional/1/2/9/10/>10/large finite), no inferred stage-10 clear, no duplicate first-clear, exact Rank seed, valid Oath Undo continuity, and `story` route mapping.
+- Schema0–5 migration, conservative Story boundaries (negative/fractional/1/2/9/10/>10/large finite), no inferred stage-10 clear/claim, zero retroactive rewards/Rank EXP, valid Oath Undo continuity, and `story` route mapping.
 - Exact pre-v6 write-once checkpoint; all eight-slot preflight/fault/retry/recovery paths; exact schema-6 staging lineage; forged receipt/mapping/checkpoint negatives; no duplicate cost/reward/revision/receipt.
 - Phase 4 semantic successor passes with every intentional schema/checkpoint/Story/feature/UI supersession itemized and backed by a Phase 5 replacement.
 
