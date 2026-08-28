@@ -10,9 +10,24 @@
     let randomIndex = 0;
     let saveIndex = 0;
     let transactionIndex = 0;
+    const nativeStorageAccesses = [];
+    let nativeStorageInstrumented = false;
+    try {
+      const nativeStorage = window.localStorage;
+      for (const name of ['getItem','setItem','removeItem']) {
+        const original = Storage.prototype[name];
+        Storage.prototype[name] = function(...args) {
+          if (this === nativeStorage) nativeStorageAccesses.push(name + ':' + String(args[0]));
+          return original.apply(this, args);
+        };
+      }
+      nativeStorageInstrumented = true;
+    } catch {}
     window.__PHASE_1_CONFIG__ = config;
     window.__PHASE_1_SLOTS__ = slots;
     window.__PHASE_1_ERRORS__ = [];
+    window.__PHASE_1_NATIVE_STORAGE_ACCESSES__ = nativeStorageAccesses;
+    window.__PHASE_1_NATIVE_STORAGE_INSTRUMENTED__ = nativeStorageInstrumented;
     window.addEventListener('error', event => window.__PHASE_1_ERRORS__.push(String(event.error?.stack || event.message)));
     window.addEventListener('unhandledrejection', event => window.__PHASE_1_ERRORS__.push(String(event.reason?.stack || event.reason)));
     const runtime = {
@@ -79,9 +94,23 @@
       const first = bridge.snapshot();
       add('schema-2-snapshot', first.ok && first.state.schemaVersion === 2);
       add('active-operators-absent', first.ok && Object.values(first.state.buildings).every(building => !Object.hasOwn(building, 'operators')));
-      add('offline-2h-modal', Boolean(document.querySelector('#overlay .offline-list')));
+      if (config.mode === 'fresh') add('fresh-offline-modal-absent', !document.querySelector('#overlay .offline-list'));
+      else add('offline-2h-modal', Boolean(document.querySelector('#overlay .offline-list')));
 
-      if (config.mode === 'disabled') {
+      if (config.mode === 'fresh') {
+        add('fresh-active-created', current(slots.get(config.keys.active))?.schemaVersion === 2);
+        add('fresh-protected-backups-empty', !slots.has(config.keys.backupV0) && !slots.has(config.keys.backupV1));
+        const diagnostic = bridge.diagnostics({ at:config.now });
+        add('fresh-neutral-rate', diagnostic.ok && diagnostic.diagnostics.totalVillageGoldPerHour === 25_400 && Object.values(diagnostic.diagnostics.buildingRateComponents).every(item => item.characterEconomyMultiplier === 1));
+        const navigation = [];
+        for (const view of ['village','oaths','fellows','adventure','more']) {
+          click('[data-nav="' + view + '"]');
+          navigation.push(Boolean(document.querySelector('[data-nav="' + view + '"].on')));
+        }
+        add('fresh-navigation-renders-all-views', navigation.every(Boolean));
+        add('fresh-native-storage-instrumented', window.__PHASE_1_NATIVE_STORAGE_INSTRUMENTED__ === true);
+        add('fresh-no-native-storage-calls', window.__PHASE_1_NATIVE_STORAGE_ACCESSES__.length === 0, window.__PHASE_1_NATIVE_STORAGE_ACCESSES__.join(','));
+      } else if (config.mode === 'disabled') {
         const flags = bridge.flags();
         add('all-disabled-flags', flags.ok && Object.values(flags.features).every(value => value === false));
         click('[data-nav="adventure"]');

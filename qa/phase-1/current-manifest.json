@@ -78,8 +78,8 @@
   },
   "artifact": {
     "path": "index.html",
-    "sha256": "0c82f82c65d1913beda144cca6a878327340601d40a659471676103b2b95658f",
-    "byteLength": 18352803,
+    "sha256": "234273148d1dd40d38dc3ced87992ae719d923d4ce02e4e953cb7c64905ecee9",
+    "byteLength": 18355746,
     "visibleVersion": "v0.1",
     "stateVersion": "0.1.0",
     "schemaVersion": 2,

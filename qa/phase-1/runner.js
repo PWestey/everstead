@@ -39,8 +39,8 @@
       const nonce = crypto.randomUUID();
       const frame = document.createElement('iframe');
       const now = Date.parse(contract.scenarios.frozenNow);
-      let activeRaw = mode === 'legacy' ? contract.legacyRaw : contract.currentRaw;
-      if (mode !== 'encoded-negative') {
+      let activeRaw = mode === 'fresh' ? null : mode === 'legacy' ? contract.legacyRaw : contract.currentRaw;
+      if (mode !== 'encoded-negative' && activeRaw !== null) {
         const value = JSON.parse(activeRaw);
         value.pendingGold = 0.75;
         value.lastGoldAt = now - 7_200_000;
@@ -58,7 +58,7 @@
         keys:contract.scenarios.storageKeys,
         randomSequence:Array.from({ length:96 }, (_, index) => contract.scenarios.randomSequence[index % contract.scenarios.randomSequence.length]),
         originalActiveRaw:activeRaw,
-        slots:{ [contract.scenarios.storageKeys.active]:activeRaw }
+        slots:activeRaw === null ? {} : { [contract.scenarios.storageKeys.active]:activeRaw }
       };
       frame.name = JSON.stringify(config);
       frame.setAttribute('sandbox', 'allow-scripts allow-same-origin');
@@ -99,6 +99,7 @@
       const contract = await loadContract();
       const results = [...contract.staticResults];
       for (const viewport of contract.scenarios.viewports) {
+        results.push(...await executeRealm(contract, viewport, 'fresh'));
         results.push(...await executeRealm(contract, viewport, 'current-v1'));
         results.push(...await executeRealm(contract, viewport, 'legacy'));
         results.push(...await executeRealm(contract, viewport, 'disabled'));

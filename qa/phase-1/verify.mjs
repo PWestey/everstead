@@ -16,6 +16,8 @@ const futureRaw = read('qa/gate-0b/fixtures/future-v99.txt').toString('utf8');
 const corruptRaw = read('qa/gate-0b/fixtures/corrupt-json.txt').toString('utf8');
 const manifest = JSON.parse(read('qa/phase-1/current-manifest.json'));
 const scenarios = JSON.parse(read('qa/phase-1/scenarios.json'));
+const browserRunnerSource = read('qa/phase-1/runner.js').toString('utf8');
+const browserRealmSource = read('qa/phase-1/realm.js').toString('utf8');
 const keys = scenarios.storageKeys;
 const checks = [];
 const check = (id, pass, detail = '') => checks.push({ id, pass: Boolean(pass), detail: String(detail) });
@@ -205,7 +207,7 @@ check('scenario-sha256', sha256(read('qa/phase-1/scenarios.json')) === manifest.
 for (const [path, expected] of Object.entries(manifest.frozenHistoricalFiles)) check('frozen-' + path.replaceAll('/', '-'), sha256(read(path)) === expected, path);
 check('embedded-assets-frozen', manifest.artifact.embeddedAssetLinesSha256 === manifest.baseArtifact.embeddedAssetLinesSha256, manifest.artifact.embeddedAssetLinesSha256);
 check('schema-2-static', source.includes('CURRENT_SCHEMA_VERSION=2') && source.includes("id:'schema-1-to-2'"));
-check('backup-v1-static', source.includes("PRE_V2_BACKUP_KEY=NS+'__raw_backup_v1'") && source.indexOf('ensurePreV2Backup(schemaOneRaw)') < source.indexOf("runMigrations(schemaOne,1,context,2)"));
+check('backup-v1-static', source.includes("PRE_V2_BACKUP_KEY=NS+'__raw_backup_v1'") && source.includes('preparePreV2Migration(') && source.includes('legacySchemaOneForActive(') && source.includes('migrationStagingMatchesPreV2('));
 check('active-key-compatible', source.includes("NS='oathforge_new_world_proto_v01'"));
 check('everstead-title', /<title>Everstead/.test(html));
 check('everstead-brand-ui', source.includes('<b>EVERSTEAD</b>'));
@@ -215,6 +217,9 @@ check('bridge-debug-actions-retained', source.includes("'add-patrol':()=>addPatr
 check('operator-ui-absent', !source.includes('data-operator') && !source.includes('Operators</h3>'));
 check('formula-config-static', source.includes('familyAssignmentMultiplier') && source.includes('fellowRosterMultiplier') && source.includes('companionRosterMultiplier') && source.includes('overallDayMultiplier') && source.includes("'oathMultiplier']"));
 check('offline-segmentation-static', source.includes('nextLocalMidnight') && source.includes('segments.push') && source.includes('S.pendingGold-=n'));
+check('rollback-rollover-monotonic-static', source.includes('function dayOrder(') && source.includes('at<S.lastGoldAt') && source.includes('next<=previous'));
+check('browser-fresh-realm-static', browserRunnerSource.includes("executeRealm(contract, viewport, 'fresh')") && browserRunnerSource.includes("mode === 'fresh' ? null"));
+check('browser-fresh-native-storage-guard-static', browserRealmSource.includes('__PHASE_1_NATIVE_STORAGE_ACCESSES__') && browserRealmSource.includes('fresh-no-native-storage-calls'));
 
 const fresh = runRealm({ activeRaw: null, backupRaw: null, preV2BackupRaw: null, stagingRaw: null });
 const freshState = state(activeRaw(fresh));
@@ -250,6 +255,59 @@ const reloadState = state(activeRaw(reload));
 check('schema-2-idempotent-receipt', reloadState?.saveMeta?.appliedMigrations?.filter(item => item.id === 'schema-1-to-2').length === 1);
 check('schema-2-backups-permanent', reload.slots.get(keys.backupV0) === legacyRaw && reload.slots.get(keys.backupV1) === migratedLegacy.slots.get(keys.backupV1));
 
+const legacyT1 = Date.parse(scenarios.frozenNow);
+const legacyT2 = legacyT1 + 65_000;
+const interruptedLegacy = runRealm({ activeRaw:legacyRaw, backupRaw:null, preV2BackupRaw:null, stagingRaw:null, now:legacyT1, fault:{ enabled:true, operation:'setItem', step:'active-write' } });
+const interruptedLegacyPreV2 = interruptedLegacy.slots.get(keys.backupV1);
+const interruptedLegacyStaging = interruptedLegacy.slots.get(keys.staging);
+check('legacy-interrupted-t1-active-exact', activeRaw(interruptedLegacy) === legacyRaw);
+check('legacy-interrupted-t1-v0-backup-exact', interruptedLegacy.slots.get(keys.backupV0) === legacyRaw);
+check('legacy-interrupted-t1-pre-v2-valid', state(interruptedLegacyPreV2) === null && JSON.parse(interruptedLegacyPreV2).schemaVersion === 1);
+check('legacy-interrupted-t1-staging-valid', typeof interruptedLegacyStaging === 'string' && JSON.parse(interruptedLegacyStaging).sourceRawIdentity === rawIdentity(legacyRaw));
+const recoveredLegacyLater = runRealm({ initialSlots:Object.fromEntries(interruptedLegacy.slots), now:legacyT2 });
+const recoveredLegacyLaterState = state(activeRaw(recoveredLegacyLater));
+const directLegacyLater = runRealm({ activeRaw:legacyRaw, backupRaw:null, preV2BackupRaw:null, stagingRaw:null, now:legacyT2 });
+const directLegacyLaterState = state(activeRaw(directLegacyLater));
+const gameplayWithoutMetadata = value => { const next = clone(value); delete next.saveMeta; return next; };
+check('legacy-interrupted-t2-recovers', recoveredLegacyLaterState?.schemaVersion === 2 && recoveredLegacyLater.context.__EVERSTEAD_PERSISTENCE_TEST__.status.outcome === 'RECOVERY');
+check('legacy-interrupted-t2-backups-exact', recoveredLegacyLater.slots.get(keys.backupV0) === legacyRaw && recoveredLegacyLater.slots.get(keys.backupV1) === interruptedLegacyPreV2);
+check('legacy-interrupted-t2-staging-clean', recoveredLegacyLater.slots.get(keys.staging) == null);
+check('legacy-interrupted-t2-receipts-once', recoveredLegacyLaterState?.saveMeta?.appliedMigrations?.filter(item => item.id === 'legacy-v0.1-to-1').length === 1 && recoveredLegacyLaterState?.saveMeta?.appliedMigrations?.filter(item => item.id === 'schema-1-to-2').length === 1);
+check('legacy-interrupted-t2-no-duplicate-rewards', JSON.stringify(gameplayWithoutMetadata(recoveredLegacyLaterState)) === JSON.stringify(gameplayWithoutMetadata(directLegacyLaterState)));
+
+const foreignPreV2Slots = Object.fromEntries(interruptedLegacy.slots);
+foreignPreV2Slots[keys.backupV1] = currentV1Raw;
+const foreignPreV2Retry = runRealm({ initialSlots:foreignPreV2Slots, now:legacyT2 });
+check('legacy-retry-foreign-pre-v2-refuses', /does not correspond to the exact active legacy payload/i.test(foreignPreV2Retry.nodes['#app'].innerHTML));
+check('legacy-retry-foreign-pre-v2-preserves-all', activeRaw(foreignPreV2Retry) === legacyRaw && foreignPreV2Retry.slots.get(keys.backupV0) === legacyRaw && foreignPreV2Retry.slots.get(keys.backupV1) === currentV1Raw && foreignPreV2Retry.slots.get(keys.staging) === interruptedLegacyStaging);
+check('legacy-retry-foreign-pre-v2-no-write', !foreignPreV2Retry.storageLog.some(entry => entry[0] === 'set'));
+
+const semanticallyForeignEnvelope = JSON.parse(interruptedLegacyStaging);
+semanticallyForeignEnvelope.state.gold += 1;
+const semanticallyForeignStaging = JSON.stringify(semanticallyForeignEnvelope);
+const semanticallyForeignRetry = runRealm({ activeRaw:legacyRaw, backupRaw:legacyRaw, preV2BackupRaw:interruptedLegacyPreV2, stagingRaw:semanticallyForeignStaging, now:legacyT2 });
+check('legacy-retry-semantic-staging-refuses', /does not correspond to the protected schema-1 migration intermediate/i.test(semanticallyForeignRetry.nodes['#app'].innerHTML));
+check('legacy-retry-semantic-staging-preserves-all', activeRaw(semanticallyForeignRetry) === legacyRaw && semanticallyForeignRetry.slots.get(keys.backupV0) === legacyRaw && semanticallyForeignRetry.slots.get(keys.backupV1) === interruptedLegacyPreV2 && semanticallyForeignRetry.slots.get(keys.staging) === semanticallyForeignStaging);
+check('legacy-retry-semantic-staging-no-write', !semanticallyForeignRetry.storageLog.some(entry => entry[0] === 'set'));
+
+const foreignEnvelope = JSON.parse(interruptedLegacyStaging);
+foreignEnvelope.sourceRawIdentity = 'fnv1a32:7:foreign0';
+const foreignStaging = JSON.stringify(foreignEnvelope);
+const foreignStagingRetry = runRealm({ activeRaw:legacyRaw, backupRaw:legacyRaw, preV2BackupRaw:interruptedLegacyPreV2, stagingRaw:foreignStaging, now:legacyT2 });
+check('legacy-retry-foreign-staging-refuses', /unverified staging payload was preserved/i.test(foreignStagingRetry.nodes['#app'].innerHTML));
+check('legacy-retry-foreign-staging-preserves-all', activeRaw(foreignStagingRetry) === legacyRaw && foreignStagingRetry.slots.get(keys.backupV0) === legacyRaw && foreignStagingRetry.slots.get(keys.backupV1) === interruptedLegacyPreV2 && foreignStagingRetry.slots.get(keys.staging) === foreignStaging);
+check('legacy-retry-foreign-staging-no-write', !foreignStagingRetry.storageLog.some(entry => entry[0] === 'set'));
+
+const invalidLegacyStaging = '{invalid-legacy-staging';
+const invalidLegacyStagingRetry = runRealm({ activeRaw:legacyRaw, backupRaw:legacyRaw, preV2BackupRaw:interruptedLegacyPreV2, stagingRaw:invalidLegacyStaging, now:legacyT2 });
+check('legacy-retry-invalid-staging-refuses', /unverified staging payload was preserved/i.test(invalidLegacyStagingRetry.nodes['#app'].innerHTML));
+check('legacy-retry-invalid-staging-preserves-all', activeRaw(invalidLegacyStagingRetry) === legacyRaw && invalidLegacyStagingRetry.slots.get(keys.backupV0) === legacyRaw && invalidLegacyStagingRetry.slots.get(keys.backupV1) === interruptedLegacyPreV2 && invalidLegacyStagingRetry.slots.get(keys.staging) === invalidLegacyStaging);
+check('legacy-retry-invalid-staging-no-write', !invalidLegacyStagingRetry.storageLog.some(entry => entry[0] === 'set'));
+
+const lineagedBackupRecovery = runRealm({ activeRaw:null, backupRaw:legacyRaw, preV2BackupRaw:interruptedLegacyPreV2, stagingRaw:null, now:legacyT2 });
+check('lineaged-pre-v2-recovery-candidate-current', state(activeRaw(lineagedBackupRecovery))?.schemaVersion === 2 && lineagedBackupRecovery.context.__EVERSTEAD_PERSISTENCE_TEST__.status.outcome === 'RECOVERY');
+check('lineaged-pre-v2-recovery-candidate-backups-exact', lineagedBackupRecovery.slots.get(keys.backupV0) === legacyRaw && lineagedBackupRecovery.slots.get(keys.backupV1) === interruptedLegacyPreV2);
+
 const v1Unknown = JSON.parse(currentV1Raw);
 v1Unknown.futureField = { label: '未知 🌵', nested: [1, { ok: true }] };
 v1Unknown.buildings.training.futureBuildingField = 'keep-me';
@@ -268,8 +326,31 @@ check('pre-v2-write-precedes-staging', !backupFaultRun.storageLog.some(entry => 
 const interrupted = runRealm({ activeRaw: currentV1Raw, backupRaw: currentV1Raw, preV2BackupRaw: null, stagingRaw: null, fault: { enabled: true, operation: 'setItem', step: 'active-write' } });
 check('interrupted-active-preserved', activeRaw(interrupted) === currentV1Raw);
 check('interrupted-staging-retained', typeof interrupted.slots.get(keys.staging) === 'string');
-const recovered = runRealm({ initialSlots: Object.fromEntries(interrupted.slots) });
+const recovered = runRealm({ initialSlots: Object.fromEntries(interrupted.slots), now:legacyT2 });
 check('interrupted-staging-recovered', state(activeRaw(recovered))?.schemaVersion === 2 && recovered.slots.get(keys.staging) == null);
+check('interrupted-staging-exact-lineage-only', recovered.slots.get(keys.backupV0) === currentV1Raw && recovered.slots.get(keys.backupV1) === currentV1Raw);
+
+const v1SemanticEnvelope = JSON.parse(interrupted.slots.get(keys.staging));
+v1SemanticEnvelope.state.gold += 1;
+const v1SemanticStaging = JSON.stringify(v1SemanticEnvelope);
+const v1SemanticRetry = runRealm({ activeRaw:currentV1Raw, backupRaw:currentV1Raw, preV2BackupRaw:currentV1Raw, stagingRaw:v1SemanticStaging, now:legacyT2 });
+check('v1-retry-semantic-staging-refuses', /does not correspond to the protected schema-1 migration intermediate/i.test(v1SemanticRetry.nodes['#app'].innerHTML));
+check('v1-retry-semantic-staging-preserves-all', activeRaw(v1SemanticRetry) === currentV1Raw && v1SemanticRetry.slots.get(keys.backupV0) === currentV1Raw && v1SemanticRetry.slots.get(keys.backupV1) === currentV1Raw && v1SemanticRetry.slots.get(keys.staging) === v1SemanticStaging);
+check('v1-retry-semantic-staging-no-write', !v1SemanticRetry.storageLog.some(entry => entry[0] === 'set'));
+
+const v1ForeignEnvelope = JSON.parse(interrupted.slots.get(keys.staging));
+v1ForeignEnvelope.sourceRawIdentity = 'fnv1a32:7:foreign1';
+const v1ForeignStaging = JSON.stringify(v1ForeignEnvelope);
+const v1ForeignRetry = runRealm({ activeRaw:currentV1Raw, backupRaw:currentV1Raw, preV2BackupRaw:currentV1Raw, stagingRaw:v1ForeignStaging, now:legacyT2 });
+check('v1-retry-foreign-staging-refuses', /unverified staging payload was preserved/i.test(v1ForeignRetry.nodes['#app'].innerHTML));
+check('v1-retry-foreign-staging-preserves-all', activeRaw(v1ForeignRetry) === currentV1Raw && v1ForeignRetry.slots.get(keys.backupV0) === currentV1Raw && v1ForeignRetry.slots.get(keys.backupV1) === currentV1Raw && v1ForeignRetry.slots.get(keys.staging) === v1ForeignStaging);
+check('v1-retry-foreign-staging-no-write', !v1ForeignRetry.storageLog.some(entry => entry[0] === 'set'));
+
+const invalidV1Staging = '{invalid-v1-staging';
+const invalidV1StagingRetry = runRealm({ activeRaw:currentV1Raw, backupRaw:currentV1Raw, preV2BackupRaw:currentV1Raw, stagingRaw:invalidV1Staging, now:legacyT2 });
+check('v1-retry-invalid-staging-refuses', /unverified staging payload was preserved/i.test(invalidV1StagingRetry.nodes['#app'].innerHTML));
+check('v1-retry-invalid-staging-preserves-all', activeRaw(invalidV1StagingRetry) === currentV1Raw && invalidV1StagingRetry.slots.get(keys.backupV0) === currentV1Raw && invalidV1StagingRetry.slots.get(keys.backupV1) === currentV1Raw && invalidV1StagingRetry.slots.get(keys.staging) === invalidV1Staging);
+check('v1-retry-invalid-staging-no-write', !invalidV1StagingRetry.storageLog.some(entry => entry[0] === 'set'));
 
 const invalidV2 = clone(freshState);
 invalidV2.focusFellow = 'missing-fellow';
@@ -283,9 +364,11 @@ const recoveryState = clone(freshState);
 recoveryState.saveMeta.source = 'verified-staging';
 const recoveryEnvelope = JSON.stringify({ stagingVersion:1, transactionId:'tx-phase-1-recovery', baseSaveId:null, baseRevision:null, sourceRawIdentity:rawIdentity(corruptRaw), source:'verified-staging', state:recoveryState });
 const safeRecoveryRun = runRealm({ activeRaw:corruptRaw, backupRaw:corruptRaw, preV2BackupRaw:null, stagingRaw:recoveryEnvelope });
+const safeRecoveryUiAvailable = /data-persistence-act="recover"/.test(safeRecoveryRun.nodes['#app'].innerHTML);
 const safeRecoveryResult = evaluate(safeRecoveryRun, '__EVERSTEAD_QA__.recovery.recover()');
 check('schema-2-safe-recovery', safeRecoveryResult.ok === true && state(activeRaw(safeRecoveryRun))?.schemaVersion === 2);
 check('schema-2-safe-recovery-keeps-v0-backup', safeRecoveryRun.slots.get(keys.backupV0) === corruptRaw);
+check('schema-2-safe-recovery-ui-available', safeRecoveryUiAvailable);
 
 const conflictRun = runRealm({ activeRaw:null });
 const conflictBase = state(activeRaw(conflictRun));
@@ -410,6 +493,40 @@ evaluate(rollback, "__EVERSTEAD_QA__.act('roster',{tab:'family'})");
 const rollbackAfter = state(activeRaw(rollback));
 check('rollback-no-gold', rollbackAfter.pendingGold === rollbackBefore.pendingGold);
 check('rollback-last-gold-never-backward', rollbackAfter.lastGoldAt === rollbackAt + 60_000);
+
+const rollbackFuture = rollbackAt + 86_400_000;
+const rollbackProtectedState = clone(freshState);
+rollbackProtectedState.gold = 543_210;
+rollbackProtectedState.pendingGold = 12.75;
+rollbackProtectedState.lastGoldAt = rollbackFuture;
+rollbackProtectedState.lastSeen = rollbackFuture;
+rollbackProtectedState.day = 'D2030-6-18';
+rollbackProtectedState.patrolBank = 0;
+rollbackProtectedState.buildings.training.boost = 0.30;
+rollbackProtectedState.buildings.training.boostDay = rollbackProtectedState.day;
+rollbackProtectedState.oaths.find(item => item.id === 'o4').count = 5;
+rollbackProtectedState.saveMeta.updatedAt = rollbackFuture;
+const rollbackProtectedRaw = JSON.stringify(rollbackProtectedState);
+const rollbackProtected = runRealm({ activeRaw:rollbackProtectedRaw, backupRaw:null, preV2BackupRaw:null, stagingRaw:null, now:rollbackAt });
+const rollbackProtectedAfter = state(activeRaw(rollbackProtected));
+check('rollback-exact-zero-gold', rollbackProtectedAfter.gold === rollbackProtectedState.gold && rollbackProtectedAfter.pendingGold === rollbackProtectedState.pendingGold);
+check('rollback-exact-time-and-day-monotonic', rollbackProtectedAfter.lastGoldAt === rollbackFuture && rollbackProtectedAfter.lastSeen === rollbackFuture && rollbackProtectedAfter.day === rollbackProtectedState.day);
+check('rollback-exact-patrol-unchanged', rollbackProtectedAfter.patrolBank === 0);
+check('rollback-exact-boost-unchanged', rollbackProtectedAfter.buildings.training.boost === 0.30 && rollbackProtectedAfter.buildings.training.boostDay === rollbackProtectedState.day);
+check('rollback-exact-habit-unchanged', rollbackProtectedAfter.oaths.find(item => item.id === 'o4').count === 5);
+const forwardRolloverAt = rollbackFuture + 86_400_000;
+const forwardRollover = runRealm({ initialSlots:Object.fromEntries(rollbackProtected.slots), now:forwardRolloverAt });
+const forwardRolloverState = state(activeRaw(forwardRollover));
+check('rollback-next-forward-rollover-once', forwardRolloverState.day === 'D2030-6-19' && forwardRolloverState.patrolBank === 1 && forwardRolloverState.buildings.training.boost === 0 && forwardRolloverState.oaths.find(item => item.id === 'o4').count === 0);
+const repeatedForwardRollover = runRealm({ initialSlots:Object.fromEntries(forwardRollover.slots), now:forwardRolloverAt });
+const repeatedForwardRolloverState = state(activeRaw(repeatedForwardRollover));
+check('rollback-next-forward-rollover-not-duplicated', repeatedForwardRolloverState.day === 'D2030-6-19' && repeatedForwardRolloverState.patrolBank === 1 && repeatedForwardRolloverState.buildings.training.boost === 0 && repeatedForwardRolloverState.oaths.find(item => item.id === 'o4').count === 0);
+
+const futureDayOnlyState = clone(rollbackProtectedState);
+futureDayOnlyState.lastGoldAt = rollbackAt;
+const futureDayOnly = runRealm({ activeRaw:JSON.stringify(futureDayOnlyState), backupRaw:null, preV2BackupRaw:null, stagingRaw:null, now:rollbackAt });
+const futureDayOnlyAfter = state(activeRaw(futureDayOnly));
+check('rollback-day-chronology-guard', futureDayOnlyAfter.day === 'D2030-6-18' && futureDayOnlyAfter.patrolBank === 0 && futureDayOnlyAfter.buildings.training.boost === 0.30 && futureDayOnlyAfter.oaths.find(item => item.id === 'o4').count === 5);
 
 const zeroTimestamp = runRealm({ activeRaw: null, hook: 'S.lastGoldAt=0;' });
 const zeroPreview = evaluate(zeroTimestamp, '__EVERSTEAD_QA__.diagnostics().diagnostics.offlineClaimPreview');

@@ -19,9 +19,10 @@ The product authority used for this implementation is:
 
 - Schema 0 and schema 1 saves migrate deterministically to schema 2; schema 2 is idempotent.
 - The v0.1 raw backup remains write-once. A separate exact schema-1 backup is written and verified before any `buildings.*.operators` field is removed.
+- A later-clock retry may reuse an existing schema-1 migration intermediate only when its canonical 0→1 receipt metadata and full normalized payload correspond exactly to the protected active legacy bytes. For either schema-0 or schema-1 active data, a staged schema-2 successor must match the complete deterministic 1→2 projection of the exact protected intermediate and retain exact active-raw envelope provenance. Any non-null unverified staging payload blocks migration and is preserved unchanged.
 - Unknown fields, Unicode, pending scoped Undo, active storage identity, staging provenance, and recovery behavior survive migration.
 - Building Gold uses base × level × neutral character/economy hooks × final Oath multiplier. Base rates, ×1.15 levels, upgrade costs, 3/5/8 percent boosts, 30 percent cap, and 2/4/7 Prosperity are exact.
-- Offline accrual uses one captured clock, a 24-hour cap, local-midnight segmentation, rollback protection, valid timestamp zero, safe missing/invalid initialization, fractional retention, and atomic claims.
+- Offline accrual uses one captured clock, a 24-hour cap, local-midnight segmentation, rollback protection, valid timestamp zero, safe missing/invalid initialization, fractional retention, and atomic claims. Clock rollback cannot move timestamps or calendar day backward, replenish Patrol, clear Oath boosts, or reset habits; the next genuinely later local day rolls over once.
 - Active UI branding says Everstead and ordinary production UI exposes no simulate, patrol-grant, or prototype-reset controls/routes.
 - The existing mobile shell, embedded assets, rosters, Oath CRUD/undo, upgrades, feature flags, and unrelated legacy modes remain usable.
 
