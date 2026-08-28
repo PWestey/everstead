@@ -1,19 +1,23 @@
 # Everstead Phase 4 Result
 
-## Candidate
+Status: **PASS — FINAL ACCEPTANCE** at production tip `cea60986dee6185c7319224752b877e4c7917546`.
+
+## Accepted release
 
 - Base: `165d18aaab66370ac959670ef1c7284c6ec95a3c`
 - Production commits: `e9b38ee3e870da8832cd92d2bcbb9ef852e92ddb`, `abe3fc5a72dd4585b57d11f1f72548c9411e256e`, `cea60986dee6185c7319224752b877e4c7917546`
-- Package tip: this result is frozen in the final Phase 4 QA/docs commit; the exact SHA is reported at handoff.
+- Independently reviewed package: `999163d8c7ed588652ce3ee17d98d312828b9a5b`.
 
 ## Gate result
 
-Phase 4 production is implemented and the local evaluated gates are green:
+Phase 4 production passed every required release gate:
 
 - Phase 4 CLI: 460/460.
 - Phase 3 semantic successor: 361/361 with six itemized supersessions.
 - Live Chromium: 290/290 twice, both configured mobile sizes, blank fatal field, zero failed rows, and zero warning/error console entries.
 - Checksums: all 14 Phase 4 package entries pass twice.
+- Independent Companion design/math/UI review: PASS, including 467/467 expanded probes.
+- Independent persistence/migration review: PASS, including 530/530 original and 555/555 expanded adversarial probes.
 
 ## Migration semantics
 

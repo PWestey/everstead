@@ -31,6 +31,15 @@ Serve the repository root over HTTP, open `qa/phase-4/`, and confirm the live ru
 
 The CLI verifier covers exact schema0–4 committed-stage retries; missing-active recovery from every protected predecessor; all schema-4 checkpoint/stage/active/verification/cleanup fault steps; seven-slot fixture rollback; foreign checkpoints/stages; current-backup retries; cross-tab and occupied-stage refusal; and Phase 3 pending/committed assignment staging. It also proves deterministic collision-ledger ancestry, schema0–4 extra-Companion canonicalization, and that every fixture-preimage slot read failure refuses both replacement and removal payloads with zero storage/runtime/UI mutation. Retry comparisons include exact slots, revision, receipts, rewards, and assignments.
 
+## Observed final gate
+
+- Phase 4 CLI: `460/460`, twice.
+- Phase 3 semantic successor: `361/361`, twice, with exactly six expected supersessions.
+- Checksums: `14/14`, twice; all 104 historical artifacts remained byte-frozen.
+- Live Chromium: `290/290`, twice, across 320×568 and 390×844 with blank fatal output, no failed rows, zero native-storage calls, and zero warning/error console entries.
+- Independent design/math/UI review passed with 467/467 expanded probes.
+- Independent persistence/migration review passed with 530/530 original and 555/555 expanded adversarial probes.
+
 ## Preserved residual risks
 
 - Web Storage has no atomic compare-and-swap. Final rereads, raw identity, revisions, source binding, and staging ownership narrow and expose the race but cannot eliminate it.
