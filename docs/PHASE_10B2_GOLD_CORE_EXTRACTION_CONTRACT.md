@@ -468,9 +468,9 @@ The sealed `qa/phase-10b/` package remains byte-identical. The successor imports
 
 ### Exact byte successor
 
-The byte-successor gate contains exactly 225 rows:
+The byte-successor gate contains exactly 224 rows:
 
-- 224 accepted predecessor files remain byte-exact; and
+- 223 accepted predecessor files remain byte-exact; and
 - one explicit `index.html` supersession row verifies the old SHA-256 and byte length, the new reviewed SHA-256 and byte length, the exact allowed production windows, and the unchanged five-asset aggregate.
 
 The predecessor map is literal and reviewed. It does not trust mutable checksum expectations from the candidate package.
@@ -513,7 +513,7 @@ On one clean exact candidate tip, run each of these twice:
 - Phase 9 focused: 355/355; and
 - Phase 8 successor: 703/703.
 
-Also run the exact Phase 10B-2 focused 400, Phase 10B semantic successor 624, byte successor 225, Phase 10B-1 checksums 21/22 with only `index.html` superseded, and Phase 10B-2 checksums 19/19 twice. Tests must finish without writing the repository.
+Also run the exact Phase 10B-2 focused 400, Phase 10B semantic successor 624, byte successor 224, Phase 10B-1 checksums 21/22 with only `index.html` superseded, and Phase 10B-2 checksums 19/19 twice. Tests must finish without writing the repository.
 
 The two named frozen Phase 10A identity failures are required and exhaust the accepted Phase 10A focused failures. A third failure, a different failed ID, or an unexpected pass of either stale identity row fails the gate. No semantic, package, or unexpected checksum failure is acceptable.
 
