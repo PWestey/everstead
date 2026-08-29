@@ -13,4 +13,13 @@ Persistence advances to schema 10 with the single `playerUnlocks` root, exact pr
 - `git diff --check`.
 - Embedded asset aggregate comparison for source lines 12, 18, and 24 against the accepted Phase 8 base.
 
-The additive Phase 9 CLI/browser gate, full fault matrix, Phase 8 semantic-successor verifier, manifests, and final result seal are intentionally deferred to the separate QA package after independent production review.
+## Additive QA package
+
+After both independent production reviews passed exact tip `49e681a4a6d2edacfa1ee401c36590cd301797f6`, the additive package froze all Phase 0–8 evidence and added:
+
+- a 310-row permanent CLI verifier for Rank definitions, access, canonical progression, twelve-slot persistence, deterministic staging, faults, fixture rollback, and storage events;
+- a 702-row Phase 8 semantic-successor verifier with eight explicit replacements;
+- an isolated live browser harness for both required phone dimensions, actual pointer/keyboard controls, normal/reduced-motion Rank-up presentation, grandfather access, Phase 8 reward preservation, and fail-closed authorization realms;
+- a generated manifest, fourteen-file checksum set, and this exact result record.
+
+No QA helper grants Rank EXP directly. The ten canonical first clears are the only executable source used to reach Rank 5 and 475 lifetime Rank EXP.
