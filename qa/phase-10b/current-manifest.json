@@ -10,7 +10,7 @@
   "protectedSlots": 12,
   "timeZone": "America/Phoenix",
   "qaStorage": "none-dashboard; isolated-memory-production-probe",
-  "ownedInputsAggregateSha256": "4c826f9014d4999c7f1efc09b15c4822878fbd5488bb1af7ac6583cc1a8d537f",
+  "ownedInputsAggregateSha256": "c9809c1a09784a1d5000529432a690975998d3d867564dad9d1b4cc02a4f0395",
   "executableCoverage": {
     "focusedCliRows": 624,
     "artifactStaticRows": 20,
@@ -53,12 +53,12 @@
       "byteLength": 28155
     },
     "simulator": {
-      "sha256": "ba5f468c3e8bd218fbadb76ea1b165af5ec80d6ed7c86b24a7f225c501de2e22",
-      "byteLength": 90838
+      "sha256": "551560b0e357a01545b562fa8680294a5f2813db789f45298227287e218f5d25",
+      "byteLength": 102070
     },
     "canonicalReport": {
-      "sha256": "a783944872a6e055f69cdba86ef8a5f192520ce373a2c6a2d18b5f78c2b66c4e",
-      "byteLength": 94525580
+      "sha256": "f337374ea7f5098f57536a845dd659644f75bbe060263d461ff4f46b2b0e8d3e",
+      "byteLength": 94790684
     }
   },
   "deterministicEvidence": {
