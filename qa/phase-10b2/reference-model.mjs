@@ -14,8 +14,8 @@ function familyBuildingBonus(input){
   const method='familyBuildingBonus',keys=['assigned','intimacy','rarity','specialtyMatch','base','intimacyRate','intimacyCap','rarityRate','specialtyAmount','cap'];
   if(!dataFields(input,keys))fail(method,'$input');
   const {assigned,intimacy,rarity,specialtyMatch,base,intimacyRate,intimacyCap,rarityRate,specialtyAmount,cap}=input;
-  if(typeof assigned!=='boolean')fail(method,'$input.assigned');if(!finite(intimacy)||intimacy<0||intimacy>Number.MAX_SAFE_INTEGER)fail(method,'$input.intimacy');if(typeof specialtyMatch!=='boolean')fail(method,'$input.specialtyMatch');
-  if(!Number.isInteger(rarity)||assigned&&(rarity<1||rarity>5)||!assigned&&rarity!==0)fail(method,'$input.rarity');
+  if(typeof assigned!=='boolean')fail(method,'$input.assigned');if(!finite(intimacy)||intimacy<0||intimacy>Number.MAX_SAFE_INTEGER)fail(method,'$input.intimacy');
+  if(!Number.isInteger(rarity)||assigned&&(rarity<1||rarity>5)||!assigned&&rarity!==0)fail(method,'$input.rarity');if(typeof specialtyMatch!=='boolean')fail(method,'$input.specialtyMatch');
   for(const [name,value]of [['base',base],['intimacyRate',intimacyRate],['intimacyCap',intimacyCap],['rarityRate',rarityRate],['specialtyAmount',specialtyAmount],['cap',cap]])if(!bounded(value,1))fail(method,`$input.${name}`);
   if(base>cap)fail(method,'$input.base');if(intimacyCap>cap)fail(method,'$input.intimacyCap');if(rarityRate>cap)fail(method,'$input.rarityRate');if(specialtyAmount>cap)fail(method,'$input.specialtyAmount');
   if(!assigned&&(intimacy!==0||specialtyMatch))fail(method,'$input.assigned');
