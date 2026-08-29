@@ -22,12 +22,14 @@
   "schemaChanged": false,
   "protectedSlots": 12,
   "executableCoverage": {
-    "focusedCliRows": 202,
+    "focusedCliRows": 368,
     "phaseNineFocusedRows": 355,
     "phaseEightSuccessorRows": 703,
     "settlementFaultClasses": 3,
     "transactionBoundariesPerClass": 9,
-    "transactionBoundaryRows": 108,
+    "transactionBoundaryRows": 216,
+    "releasedParityVectors": 36,
+    "liveRows": 154,
     "liveViewports": 2,
     "liveMotionModes": 2
   },

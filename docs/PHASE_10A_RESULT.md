@@ -16,18 +16,18 @@ Initial additive QA candidate; final live evidence and independent review remain
 
 ## Current evidence
 
-- Phase 10A focused CLI: `202/202`
+- Phase 10A focused CLI: `368/368`
 - Phase 9 focused CLI: `355/355`
-- Phase 10A semantic predecessor gate: pending final package run
+- Phase 10A semantic predecessor gate: `22/22`
 - Phase 8 semantic successor: pending sequential parent run after candidate commit
 - Frozen Phase 9 checksums: expected `13/14`, with only `index.html` superseded
-- Phase 10A checksums: pending package seal
-- Pre-seal local Chromium smoke: `106/106`, blank fatal, zero warning/error logs
+- Phase 10A checksums: generated for the unsealed review package; final seal remains pending
+- Pre-seal local Chromium smoke: `154/154`, blank fatal, zero warning/error logs
 - Official live browser: pending exact-candidate parent runs
 
 ## Verified behavior
 
-The focused gate proves exact released behavior for schema-7 Tower and schema-8 Tower/Expedition, restored current behavior for schemas 9–10, unchanged neutral/delegate behavior elsewhere, clock/cap/segment boundaries, lifecycle settlement, cross-lane isolation, canonical schema-10 authority forms, and retry-safe transaction outcomes at all nine named storage boundaries for Tower-only, Expedition-only, and combined-lane mutations.
+The focused gate proves exact released behavior across the full focused vector set for schema-7 Tower and schema-8 Tower/Expedition, restored current behavior for schemas 9–10, unchanged neutral/delegate behavior elsewhere, true split and reload-separated equivalence, partial carry, exact rewards/pity/Gold neutrality, a successful advancing Expedition push with old-stage attribution, both cross-lane claim directions, schema-valid production overflow rollback, canonical schema-10 authority forms, and same/later-clock recovery at all 27 storage-fault cases.
 
 ## Residual risks
 

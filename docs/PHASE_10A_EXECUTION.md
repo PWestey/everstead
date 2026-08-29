@@ -9,11 +9,11 @@ Phase 10A changes only the two released idle-settlement version guards. Companio
 The additive isolated-memory gate separates four concerns:
 
 1. Exact static comparison against published Phase 9 proves the artifact differs only at the two guards and embedded assets are byte-identical.
-2. Direct settlement vectors prove released schema-7/8 parity, new schema-9/10 eligibility, neutral unsupported versions, clock rollback, interval edges, 24-hour cap, segment chronology, split/composed settlement, and safe-add refusal.
-3. Full production lifecycle realms build canonical progressed saves through authorized gameplay/QA actions, then exercise boot, preview, unrelated mutation, route change, Tower clear, Expedition Power change/push, claims, same-tick repeats, reload, and fresh/migrated/safe-reset authority.
-4. The fault matrix injects each named staging/active/cleanup boundary for Tower-only, Expedition-only, and combined-lane elapsed mutations. It distinguishes pre-stage exact preservation, authenticated pending staging, committed target-plus-stage recovery, and cleanup-class outcomes, then proves retry/reload converges to one valid claim without duplicate elapsed or rewards.
+2. Direct settlement vectors prove the complete focused boundary/cap/empty-progress/segment matrix remains equivalent for released schema-7 Tower and schema-8 Tower/Expedition behavior. The same matrix proves new schema-9/10 eligibility, neutral unsupported versions, true split settlement, JSON reload-separated settlement, partial cross-segment carry consumption, and safe-add refusal.
+3. Full production lifecycle realms build canonical progressed saves through authorized gameplay/QA actions, then exercise boot, preview, unrelated mutation, route change, Tower clear, a successful advancing-clock Expedition push, both cross-lane claim directions, exact frozen reward maps/pity/resource deltas, same-tick repeats, production coordinator overflow rollback, reload, and fresh/migrated/safe-reset authority.
+4. The 27-case fault matrix injects all nine named staging/active/cleanup boundaries for Tower-only, Expedition-only, and combined-lane elapsed mutations. Every case verifies the exact stage/commit category, protected-slot image, accepted blocked or cleanup-notice runtime/UI, same-clock recovery, later-clock recovery, and both-lane no-loss/no-double outcome.
 
-The browser gate uses the production claim buttons in isolated iframes at both phone sizes and both motion modes. It captures console warnings/errors and native-storage access.
+The browser gate uses the production claim buttons in isolated iframes at both phone sizes and both motion modes. It verifies exact reward/resource deltas and frozen-time Gold neutrality, then creates a schema-valid maximum-EXP Companion through the authorized isolated QA control and proves the visible Tower claim fails safely with exact rollback, no reward/Gold change, and the accepted save-attention UI. It also captures console warnings/errors and native-storage access.
 
 ## Frozen predecessor gates
 
