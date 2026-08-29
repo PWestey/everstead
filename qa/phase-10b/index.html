@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Everstead Phase 10B-1 Live Gate</title>
+  <style>
+    :root{color-scheme:dark;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07111d;color:#eaf2f5}
+    *{box-sizing:border-box}body{margin:0;padding:18px;min-width:280px}main{max-width:980px;margin:auto}.eyebrow{color:#79dfc8;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;font-weight:800}h1{font-size:clamp(1.45rem,5vw,2.2rem);margin:.35rem 0}.lede{color:#b9c8cf;max-width:68ch;line-height:1.5}.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0}button{appearance:none;border:0;border-radius:10px;background:#79dfc8;color:#062019;padding:11px 18px;font:inherit;font-weight:900;cursor:pointer}button:disabled{opacity:.65;cursor:progress}.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}.metric{background:#101f2d;border:1px solid #ffffff18;border-radius:12px;padding:12px}.metric b{display:block;font-size:1.35rem}.metric span{color:#9fb2bd;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.fatal{white-space:pre-wrap;overflow-wrap:anywhere;color:#ffadad}.result{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;border-top:1px solid #ffffff18;padding:8px 4px;align-items:start}.result code{white-space:normal;overflow-wrap:anywhere;font-size:.76rem}.pass{color:#79dfc8}.fail{color:#ff8d8d}.frames{position:fixed;left:-30000px;top:0;pointer-events:none}@media(max-width:420px){body{padding:12px}.summary{gap:6px}.metric{padding:9px}.result{gap:8px}}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">QA only · no production changes</div>
+    <h1>Phase 10B-1 Economy Oracle</h1>
+    <p class="lede">Checks the frozen report, artifact identities, advisory labels, controls, ledger conservation, Power ownership, and mobile rendering across four isolated display realms.</p>
+    <div class="toolbar"><button id="run" type="button">Run 164 checks</button><span id="state" aria-live="polite">Ready</span></div>
+    <div class="summary" aria-label="Results summary">
+      <div class="metric"><span>Total</span><b id="total">0</b></div>
+      <div class="metric"><span>Passed</span><b id="passed">0</b></div>
+      <div class="metric"><span>Failed</span><b id="failed">0</b></div>
+    </div>
+    <pre class="fatal" id="fatal"></pre>
+    <section id="results" aria-label="Check results"></section>
+    <div class="frames" id="frames" aria-hidden="true"></div>
+  </main>
+  <script src="./runner.js?v=phase10b1"></script>
+</body>
+</html>

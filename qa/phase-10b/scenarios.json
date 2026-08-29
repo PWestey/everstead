@@ -1,0 +1,3195 @@
+{
+  "scenarioVersion": 1,
+  "phase": "10B-1",
+  "timeZone": "America/Phoenix",
+  "fixedSaveId": "phase-10b-reviewed-save",
+  "buildingLevels": [
+    1,
+    2,
+    10,
+    30,
+    52
+  ],
+  "buildingProfiles": [
+    {
+      "id": "unassigned",
+      "familyMode": "none",
+      "intimacy": 0,
+      "rarity": 1,
+      "oathBoost": 0
+    },
+    {
+      "id": "fresh",
+      "familyMode": "fresh",
+      "intimacy": 0,
+      "rarity": 1,
+      "oathBoost": 0
+    },
+    {
+      "id": "mismatch-medium",
+      "familyMode": "mismatch",
+      "intimacy": 250,
+      "rarity": 3,
+      "oathBoost": 0.05
+    },
+    {
+      "id": "capped-oath",
+      "familyMode": "strongest",
+      "intimacy": 1000,
+      "rarity": 5,
+      "oathBoost": 0.3
+    }
+  ],
+  "offlineDurations": [
+    {
+      "id": "zero",
+      "elapsedMs": 0,
+      "startKind": "noon"
+    },
+    {
+      "id": "one-hour",
+      "elapsedMs": 3600000,
+      "startKind": "noon"
+    },
+    {
+      "id": "cap-minus-one",
+      "elapsedMs": 86399999,
+      "startKind": "noon"
+    },
+    {
+      "id": "exact-cap",
+      "elapsedMs": 86400000,
+      "startKind": "noon"
+    },
+    {
+      "id": "over-cap",
+      "elapsedMs": 90000000,
+      "startKind": "noon"
+    },
+    {
+      "id": "cross-midnight",
+      "elapsedMs": 7200000,
+      "startKind": "late"
+    }
+  ],
+  "fellowPowerProfiles": [
+    {
+      "id": "base",
+      "level": 1,
+      "rarity": 1,
+      "bond": 0,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 0,
+      "familyRarity": 1,
+      "mightPoints": 0
+    },
+    {
+      "id": "level",
+      "level": 17,
+      "rarity": 1,
+      "bond": 35,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 0,
+      "familyRarity": 1,
+      "mightPoints": 0
+    },
+    {
+      "id": "rarity",
+      "level": 1,
+      "rarity": 5,
+      "bond": 88,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 0,
+      "familyRarity": 1,
+      "mightPoints": 0
+    },
+    {
+      "id": "relic",
+      "level": 12,
+      "rarity": 3,
+      "bond": 88,
+      "relicId": "emberglass-sigil",
+      "relicLevel": 7,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 0,
+      "familyRarity": 1,
+      "mightPoints": 0
+    },
+    {
+      "id": "companion",
+      "level": 1,
+      "rarity": 1,
+      "bond": 88,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": "bramble",
+      "companionLevel": 2,
+      "companionRarity": 2,
+      "masteryPoints": 20,
+      "familyIntimacy": 200,
+      "familyRarity": 2,
+      "mightPoints": 0
+    },
+    {
+      "id": "family",
+      "level": 9,
+      "rarity": 2,
+      "bond": 88,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 600,
+      "familyRarity": 4,
+      "mightPoints": 0
+    },
+    {
+      "id": "might",
+      "level": 20,
+      "rarity": 3,
+      "bond": 88,
+      "relicId": null,
+      "relicLevel": 0,
+      "companionId": null,
+      "companionLevel": 1,
+      "companionRarity": 1,
+      "masteryPoints": 0,
+      "familyIntimacy": 0,
+      "familyRarity": 1,
+      "mightPoints": 8000
+    },
+    {
+      "id": "combined",
+      "level": 120,
+      "rarity": 5,
+      "bond": 2500,
+      "relicId": "oathkeeper-crest",
+      "relicLevel": 10,
+      "companionId": "cinderwing",
+      "companionLevel": 100,
+      "companionRarity": 5,
+      "masteryPoints": 50000,
+      "familyIntimacy": 1000,
+      "familyRarity": 5,
+      "mightPoints": 50000
+    }
+  ],
+  "companionPowerProfiles": [
+    {
+      "id": "base",
+      "level": 1,
+      "rarity": 1,
+      "masteryPoints": 0
+    },
+    {
+      "id": "level-2",
+      "level": 2,
+      "rarity": 1,
+      "masteryPoints": 0
+    },
+    {
+      "id": "level-17",
+      "level": 17,
+      "rarity": 1,
+      "masteryPoints": 0
+    },
+    {
+      "id": "rarity-3",
+      "level": 1,
+      "rarity": 3,
+      "masteryPoints": 0
+    },
+    {
+      "id": "rarity-5",
+      "level": 1,
+      "rarity": 5,
+      "masteryPoints": 0
+    },
+    {
+      "id": "mastery-1",
+      "level": 5,
+      "rarity": 2,
+      "masteryPoints": 20
+    },
+    {
+      "id": "mastery-mid",
+      "level": 40,
+      "rarity": 4,
+      "masteryPoints": 8000
+    },
+    {
+      "id": "combined-cap",
+      "level": 100,
+      "rarity": 5,
+      "masteryPoints": 50000
+    }
+  ],
+  "candidateConfigs": [
+    "released-schema10",
+    "candidate-growth-120",
+    "candidate-growth-122",
+    "candidate-growth-124"
+  ],
+  "archetypes": [
+    "fresh",
+    "early",
+    "mid",
+    "late",
+    "near-cap",
+    "max-stress"
+  ],
+  "horizons": [
+    "instant",
+    "1-hour",
+    "24-hour",
+    "3-day",
+    "7-day",
+    "30-day"
+  ],
+  "simulation": {
+    "simulatorVersion": 3,
+    "scenarioFormatVersion": 4,
+    "identities": {
+      "productionArtifactSha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
+      "productionArtifactBytes": 18916682,
+      "contractBase": "723492b1e968407f23c7d78deabf66813f14c229",
+      "phase10aBase": "d9c3862f09b7ce702db6985a0ebe569a31edec4b",
+      "releasedConfigId": "schema10-production-9d82db5",
+      "referenceModelId": "phase-10b-independent-reference-v3",
+      "scenarioRegistryId": "phase-10b-canonical-scenarios-v3"
+    },
+    "fixedStartAt": 1788026400000,
+    "timeZone": "America/Phoenix",
+    "saveId": "phase-10b-reviewed-save",
+    "oathBoosts": {
+      "training": 0,
+      "command": 0,
+      "archives": 0,
+      "hearth": 0
+    },
+    "policy": {
+      "id": "claim-then-sequential-campaigns-then-cheapest-building-v3",
+      "claimCadenceHours": 24,
+      "campaignRunsPerClaim": {
+        "fellow": 1,
+        "companion": 1
+      },
+      "campaignOrder": [
+        "fellow",
+        "companion"
+      ],
+      "idleSettlementOrder": "before-campaigns",
+      "familyDropsWithGoldAccrual": true,
+      "buildingTieOrder": [
+        "training",
+        "command",
+        "archives",
+        "hearth"
+      ],
+      "collectWholePendingGoldOnly": true,
+      "upgradeAfterCampaigns": true,
+      "finalPartialHorizonClaim": "settle-and-collect-at-horizon-end",
+      "campaignFirstClearRule": "advance-only-after-paid-power-qualified-first-clear",
+      "campaignReplayRule": "no-replay-in-advisory-policy",
+      "campaignRefusalRule": "insufficient-gold-or-power-stops-that-lane-for-current-claim",
+      "idlePushSettlementRule": "consume-segment-and-family-carry-context-provenance-before-current-progress",
+      "progressionApplicationRule": "consume-canonical-per-roster-state-and-apply-rewards-before-next-action",
+      "stopConditions": [
+        "horizon-complete",
+        "safety-limit",
+        "stage-cap",
+        "no-affordable-action"
+      ]
+    },
+    "safety": {
+      "maxHorizonHours": 720,
+      "maxClaims": 30,
+      "maxCampaignRuns": 60,
+      "maxUpgrades": 240,
+      "maxIdleIntervalsPerLane": 720,
+      "maxFamilyRolls": 720,
+      "maxSegments": 30,
+      "maxSafeInteger": 9007199254740991
+    },
+    "releasedConstants": {
+      "buildingIds": [
+        "training",
+        "command",
+        "archives",
+        "hearth"
+      ],
+      "buildingBaseRates": {
+        "training": 7200,
+        "command": 6500,
+        "archives": 5600,
+        "hearth": 6100
+      },
+      "buildingLevelMultiplier": 1.15,
+      "buildingLevelCap": 52,
+      "upgradeBase": 15000,
+      "oathDailyCap": 0.3,
+      "familyBuildingBase": 0.01,
+      "familyBuildingIntimacyRate": 0.0002,
+      "familyBuildingIntimacyCap": 0.1,
+      "familyBuildingRarityRate": 0.02,
+      "familyBuildingSpecialtyMatch": 0.01,
+      "familyBuildingBonusCap": 0.2,
+      "fellowIds": [
+        "cael",
+        "lyra",
+        "orin",
+        "selene",
+        "rook",
+        "mira"
+      ],
+      "fellowBasePower": {
+        "cael": 6100,
+        "lyra": 6400,
+        "orin": 5900,
+        "selene": 5350,
+        "rook": 6200,
+        "mira": 5200
+      },
+      "fellowFamilyLinkCount": {
+        "cael": 1,
+        "lyra": 2,
+        "orin": 1,
+        "selene": 1,
+        "rook": 1,
+        "mira": 1
+      },
+      "fellowLevelGrowth": 0.115,
+      "fellowRarityGrowth": 0.08,
+      "fellowLevelCap": 120,
+      "fellowExpBase": 100,
+      "fellowExpGrowth": 1.12,
+      "fellowRarityCosts": [
+        20,
+        40,
+        80,
+        160
+      ],
+      "companionIds": [
+        "bramble",
+        "cinderwing"
+      ],
+      "companionBasePower": {
+        "bramble": 1000,
+        "cinderwing": 1200
+      },
+      "companionLevelGrowth": 0.1,
+      "companionRarityGrowth": 0.1,
+      "companionLevelCap": 100,
+      "companionExpBase": 80,
+      "companionExpGrowth": 1.12,
+      "companionRarityCosts": [
+        20,
+        40,
+        80,
+        160
+      ],
+      "companionTransferRate": 0.4,
+      "familyLinkedIntimacyRate": 0.0001,
+      "familyLinkedIntimacyCap": 0.05,
+      "familyLinkedRarityRate": 0.01,
+      "familyLinkedPerFamilyCap": 0.09,
+      "familyLinkedAggregateCap": 0.12,
+      "mightThresholdFactor": 20,
+      "mightLevelCap": 50,
+      "mightPowerPerLevel": 0.01,
+      "masteryThresholdFactor": 20,
+      "masteryLevelCap": 50,
+      "masteryPowerPerLevel": 0.01,
+      "campaignDiscountScale": 0.25,
+      "campaignDiscountCap": 0.35,
+      "towerIntervalMs": 3600000,
+      "towerElapsedCapMs": 86400000,
+      "towerPityForceAt": 8,
+      "expeditionIntervalMs": 3600000,
+      "expeditionElapsedCapMs": 86400000,
+      "expeditionPityForceAt": 8,
+      "familyRollIntervalMs": 14400000,
+      "familyPityForceAt": 8,
+      "familyShardChanceBase": 0.1,
+      "familyShardChancePerLevel": 0.01,
+      "familyShardChanceCap": 0.18,
+      "familyAssignedWeight": 0.75,
+      "hearthGiftChance": 0.02,
+      "offlineGoldCapMs": 86400000,
+      "mightPointsCap": 50000,
+      "masteryPointsCap": 50000,
+      "fellowRarityMax": 5,
+      "companionRarityMax": 5,
+      "familyRarityMax": 5,
+      "bondMilestonePower": 0,
+      "familyIds": [
+        "elara",
+        "tamsin",
+        "isolde"
+      ],
+      "familySpecialties": {
+        "elara": "hearth",
+        "tamsin": "training",
+        "isolde": "archives"
+      },
+      "fellowFamilyLinks": {
+        "cael": [
+          "elara"
+        ],
+        "lyra": [
+          "elara",
+          "isolde"
+        ],
+        "orin": [
+          "tamsin"
+        ],
+        "selene": [
+          "isolde"
+        ],
+        "rook": [
+          "tamsin"
+        ],
+        "mira": [
+          "isolde"
+        ]
+      },
+      "playerRankCap": 5,
+      "playerRankThresholds": [
+        0,
+        50,
+        125,
+        225,
+        350
+      ],
+      "playerStageRankRequirements": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4,
+        5,
+        5
+      ],
+      "relicLevelCap": 10,
+      "relics": {
+        "first-road-lantern": {
+          "tier": 1,
+          "stageId": "broken-roads-1",
+          "baseBonusBps": 100,
+          "perLevelBonusBps": 25,
+          "upgradeCostFactor": 5
+        },
+        "mossbound-compass": {
+          "tier": 1,
+          "stageId": "broken-roads-2",
+          "baseBonusBps": 100,
+          "perLevelBonusBps": 25,
+          "upgradeCostFactor": 5
+        },
+        "emberglass-sigil": {
+          "tier": 2,
+          "stageId": "broken-roads-3",
+          "baseBonusBps": 200,
+          "perLevelBonusBps": 50,
+          "upgradeCostFactor": 10
+        },
+        "tideglass-charm": {
+          "tier": 2,
+          "stageId": "broken-roads-4",
+          "baseBonusBps": 200,
+          "perLevelBonusBps": 50,
+          "upgradeCostFactor": 10
+        },
+        "stormforged-emblem": {
+          "tier": 3,
+          "stageId": "broken-roads-5",
+          "baseBonusBps": 300,
+          "perLevelBonusBps": 75,
+          "upgradeCostFactor": 15
+        },
+        "oathkeeper-crest": {
+          "tier": 3,
+          "stageId": "broken-roads-6",
+          "baseBonusBps": 300,
+          "perLevelBonusBps": 75,
+          "upgradeCostFactor": 15
+        }
+      },
+      "fellowCampaignReplayShardChance": 0.25,
+      "fellowCampaignReplayShards": 1,
+      "fellowCampaignGiftChance": 0.1,
+      "companionCampaignReplayShards": 1,
+      "towerRequirementBase": 2000,
+      "towerRequirementGrowth": 0.06,
+      "towerIdleExpBase": 20,
+      "towerIdleExpPerFloor": 2,
+      "towerIdleMasteryBase": 1,
+      "towerIdleShardChanceBase": 0.08,
+      "towerIdleShardChancePerFloor": 0.005,
+      "expeditionRequirementBase": 5500,
+      "expeditionRequirementGrowth": 0.08,
+      "expeditionRosterGate": "stage-minimum-owned-fellows",
+      "expeditionMightBase": 1,
+      "expeditionShardChanceBase": 0.08,
+      "expeditionShardChancePerStage": 0.02,
+      "stableSalts": {
+        "familySuccess": "family-shard-success",
+        "familyRecipient": "family-shard-recipient",
+        "familyGift": "family-gift",
+        "towerHit": "companion-tower-idle-hit-v1",
+        "towerRecipient": "companion-tower-idle-recipient-v1",
+        "expeditionHit": "fellow-expedition-idle-shard-hit-v1",
+        "expeditionRecipient": "fellow-expedition-idle-shard-recipient-v1"
+      }
+    },
+    "configs": [
+      {
+        "id": "released-schema10",
+        "label": "Released parity",
+        "status": "released parity",
+        "freshGold": 500000,
+        "upgradeGrowth": 1.7,
+        "fellowRosterCurve": {
+          "enabled": false,
+          "numeratorBps": 0,
+          "kneePower": 100000,
+          "capBps": 0
+        },
+        "companionRosterCurve": {
+          "enabled": false,
+          "numeratorBps": 0,
+          "kneePower": 25000,
+          "capBps": 0
+        }
+      },
+      {
+        "id": "candidate-growth-120",
+        "label": "Advisory candidate · growth 1.20",
+        "status": "advisory candidate",
+        "freshGold": 50000,
+        "upgradeGrowth": 1.2,
+        "fellowRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1500,
+          "kneePower": 100000,
+          "capBps": 1500
+        },
+        "companionRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1000,
+          "kneePower": 25000,
+          "capBps": 1000
+        }
+      },
+      {
+        "id": "candidate-growth-122",
+        "label": "Advisory candidate · growth 1.22",
+        "status": "advisory candidate",
+        "freshGold": 50000,
+        "upgradeGrowth": 1.22,
+        "fellowRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1500,
+          "kneePower": 100000,
+          "capBps": 1500
+        },
+        "companionRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1000,
+          "kneePower": 25000,
+          "capBps": 1000
+        }
+      },
+      {
+        "id": "candidate-growth-124",
+        "label": "Advisory candidate · growth 1.24",
+        "status": "advisory candidate",
+        "freshGold": 50000,
+        "upgradeGrowth": 1.24,
+        "fellowRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1500,
+          "kneePower": 100000,
+          "capBps": 1500
+        },
+        "companionRosterCurve": {
+          "enabled": true,
+          "numeratorBps": 1000,
+          "kneePower": 25000,
+          "capBps": 1000
+        }
+      }
+    ],
+    "archetypes": [
+      {
+        "id": "fresh",
+        "buildingLevels": {
+          "training": 1,
+          "command": 1,
+          "archives": 1,
+          "hearth": 1
+        },
+        "upgradeLimitPerClaim": 1,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 88,
+              "equippedRelicId": null
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 0,
+              "level": 1,
+              "rarity": 1,
+              "shards": 0,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 110,
+              "rarity": 1,
+              "shards": 0,
+              "assignedBuildingId": "hearth"
+            },
+            "tamsin": {
+              "intimacy": 76,
+              "rarity": 1,
+              "shards": 0,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 58,
+              "rarity": 1,
+              "shards": 0,
+              "assignedBuildingId": "archives"
+            }
+          },
+          "gifts": 3,
+          "relicStones": 0,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": false,
+              "level": 0
+            },
+            "mossbound-compass": {
+              "owned": false,
+              "level": 0
+            },
+            "emberglass-sigil": {
+              "owned": false,
+              "level": 0
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": false,
+              "level": 0
+            },
+            "oathkeeper-crest": {
+              "owned": false,
+              "level": 0
+            }
+          },
+          "mightPoints": 0,
+          "masteryPoints": 0,
+          "player": {
+            "rankExp": 0,
+            "rank": 1,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.5,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-1",
+            "clearedStageIds": [],
+            "firstClearClaimedStageIds": [],
+            "runOrdinal": 0,
+            "runCountsByStage": {
+              "broken-roads-1": 0,
+              "broken-roads-2": 0,
+              "broken-roads-3": 0,
+              "broken-roads-4": 0,
+              "broken-roads-5": 0,
+              "broken-roads-6": 0,
+              "broken-roads-7": 0,
+              "broken-roads-8": 0,
+              "broken-roads-9": 0,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-1",
+            "clearedStageIds": [],
+            "firstClearClaimedStageIds": [],
+            "runOrdinal": 0,
+            "runCountsByStage": {
+              "companion-trail-1": 0,
+              "companion-trail-2": 0,
+              "companion-trail-3": 0,
+              "companion-trail-4": 0,
+              "companion-trail-5": 0,
+              "companion-trail-6": 0,
+              "companion-trail-7": 0,
+              "companion-trail-8": 0,
+              "companion-trail-9": 0,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 1,
+            "cursorAt": 1788026400000,
+            "segments": [],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 0,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 1,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 0,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 0,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 1
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 0,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 1
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 0,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 1
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 0,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 1
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      },
+      {
+        "id": "early",
+        "buildingLevels": {
+          "training": 3,
+          "command": 2,
+          "archives": 2,
+          "hearth": 3
+        },
+        "upgradeLimitPerClaim": 1,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 1,
+              "bond": 88,
+              "equippedRelicId": "first-road-lantern"
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 2,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 3,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 4,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 5,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 1007,
+              "level": 8,
+              "rarity": 2,
+              "shards": 6,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 508,
+              "level": 6,
+              "rarity": 2,
+              "shards": 1,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 508,
+              "level": 6,
+              "rarity": 2,
+              "shards": 2,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 180,
+              "rarity": 2,
+              "shards": 2,
+              "assignedBuildingId": "hearth"
+            },
+            "tamsin": {
+              "intimacy": 150,
+              "rarity": 2,
+              "shards": 3,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 130,
+              "rarity": 2,
+              "shards": 4,
+              "assignedBuildingId": "archives"
+            }
+          },
+          "gifts": 6,
+          "relicStones": 20,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": true,
+              "level": 1
+            },
+            "mossbound-compass": {
+              "owned": false,
+              "level": 0
+            },
+            "emberglass-sigil": {
+              "owned": false,
+              "level": 0
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": false,
+              "level": 0
+            },
+            "oathkeeper-crest": {
+              "owned": false,
+              "level": 0
+            }
+          },
+          "mightPoints": 180,
+          "masteryPoints": 80,
+          "player": {
+            "rankExp": 50,
+            "rank": 2,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.75,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-2",
+            "clearedStageIds": [
+              "broken-roads-1"
+            ],
+            "firstClearClaimedStageIds": [
+              "broken-roads-1"
+            ],
+            "runOrdinal": 1,
+            "runCountsByStage": {
+              "broken-roads-1": 1,
+              "broken-roads-2": 0,
+              "broken-roads-3": 0,
+              "broken-roads-4": 0,
+              "broken-roads-5": 0,
+              "broken-roads-6": 0,
+              "broken-roads-7": 0,
+              "broken-roads-8": 0,
+              "broken-roads-9": 0,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-2",
+            "clearedStageIds": [
+              "companion-trail-1"
+            ],
+            "firstClearClaimedStageIds": [
+              "companion-trail-1"
+            ],
+            "runOrdinal": 1,
+            "runCountsByStage": {
+              "companion-trail-1": 1,
+              "companion-trail-2": 0,
+              "companion-trail-3": 0,
+              "companion-trail-4": 0,
+              "companion-trail-5": 0,
+              "companion-trail-6": 0,
+              "companion-trail-7": 0,
+              "companion-trail-8": 0,
+              "companion-trail-9": 0,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 5,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "floor": 5,
+                "elapsedMs": 900000
+              }
+            ],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 1,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 2,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "stage": 2,
+                "elapsedMs": 1200000
+              }
+            ],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 1,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 3600000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 3
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 3600000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 2
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 3600000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 2
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 3600000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 3
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      },
+      {
+        "id": "mid",
+        "buildingLevels": {
+          "training": 10,
+          "command": 9,
+          "archives": 8,
+          "hearth": 10
+        },
+        "upgradeLimitPerClaim": 2,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 2,
+              "bond": 88,
+              "equippedRelicId": "mossbound-compass"
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 4,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 6,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 8,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 10,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 11814,
+              "level": 25,
+              "rarity": 3,
+              "shards": 12,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 5074,
+              "level": 20,
+              "rarity": 3,
+              "shards": 2,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 5074,
+              "level": 20,
+              "rarity": 3,
+              "shards": 4,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 300,
+              "rarity": 3,
+              "shards": 4,
+              "assignedBuildingId": "command"
+            },
+            "tamsin": {
+              "intimacy": 350,
+              "rarity": 3,
+              "shards": 6,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 330,
+              "rarity": 3,
+              "shards": 8,
+              "assignedBuildingId": "archives"
+            }
+          },
+          "gifts": 15,
+          "relicStones": 100,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": false,
+              "level": 0
+            },
+            "mossbound-compass": {
+              "owned": true,
+              "level": 7
+            },
+            "emberglass-sigil": {
+              "owned": false,
+              "level": 0
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": false,
+              "level": 0
+            },
+            "oathkeeper-crest": {
+              "owned": false,
+              "level": 0
+            }
+          },
+          "mightPoints": 2000,
+          "masteryPoints": 1280,
+          "player": {
+            "rankExp": 125,
+            "rank": 3,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.25,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-4",
+            "clearedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3"
+            ],
+            "firstClearClaimedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3"
+            ],
+            "runOrdinal": 3,
+            "runCountsByStage": {
+              "broken-roads-1": 1,
+              "broken-roads-2": 1,
+              "broken-roads-3": 1,
+              "broken-roads-4": 0,
+              "broken-roads-5": 0,
+              "broken-roads-6": 0,
+              "broken-roads-7": 0,
+              "broken-roads-8": 0,
+              "broken-roads-9": 0,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-4",
+            "clearedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3"
+            ],
+            "firstClearClaimedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3"
+            ],
+            "runOrdinal": 3,
+            "runCountsByStage": {
+              "companion-trail-1": 1,
+              "companion-trail-2": 1,
+              "companion-trail-3": 1,
+              "companion-trail-4": 0,
+              "companion-trail-5": 0,
+              "companion-trail-6": 0,
+              "companion-trail-7": 0,
+              "companion-trail-8": 0,
+              "companion-trail-9": 0,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 15,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "floor": 15,
+                "elapsedMs": 1800000
+              }
+            ],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 2,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 6,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "stage": 6,
+                "elapsedMs": 2100000
+              }
+            ],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 2,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 10
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 9
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 8
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 10
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      },
+      {
+        "id": "late",
+        "buildingLevels": {
+          "training": 25,
+          "command": 23,
+          "archives": 22,
+          "hearth": 24
+        },
+        "upgradeLimitPerClaim": 3,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 3,
+              "bond": 88,
+              "equippedRelicId": "emberglass-sigil"
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 6,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 9,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 12,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 15,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 667020,
+              "level": 60,
+              "rarity": 4,
+              "shards": 18,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 302496,
+              "level": 55,
+              "rarity": 4,
+              "shards": 3,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 302496,
+              "level": 55,
+              "rarity": 4,
+              "shards": 6,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 760,
+              "rarity": 4,
+              "shards": 6,
+              "assignedBuildingId": "hearth"
+            },
+            "tamsin": {
+              "intimacy": 700,
+              "rarity": 4,
+              "shards": 9,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 650,
+              "rarity": 4,
+              "shards": 12,
+              "assignedBuildingId": "command"
+            }
+          },
+          "gifts": 30,
+          "relicStones": 300,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": false,
+              "level": 0
+            },
+            "mossbound-compass": {
+              "owned": false,
+              "level": 0
+            },
+            "emberglass-sigil": {
+              "owned": true,
+              "level": 7
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": false,
+              "level": 0
+            },
+            "oathkeeper-crest": {
+              "owned": false,
+              "level": 0
+            }
+          },
+          "mightPoints": 12500,
+          "masteryPoints": 9680,
+          "player": {
+            "rankExp": 225,
+            "rank": 4,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.9,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-7",
+            "clearedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6"
+            ],
+            "firstClearClaimedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6"
+            ],
+            "runOrdinal": 6,
+            "runCountsByStage": {
+              "broken-roads-1": 1,
+              "broken-roads-2": 1,
+              "broken-roads-3": 1,
+              "broken-roads-4": 1,
+              "broken-roads-5": 1,
+              "broken-roads-6": 1,
+              "broken-roads-7": 0,
+              "broken-roads-8": 0,
+              "broken-roads-9": 0,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-7",
+            "clearedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6"
+            ],
+            "firstClearClaimedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6"
+            ],
+            "runOrdinal": 6,
+            "runCountsByStage": {
+              "companion-trail-1": 1,
+              "companion-trail-2": 1,
+              "companion-trail-3": 1,
+              "companion-trail-4": 1,
+              "companion-trail-5": 1,
+              "companion-trail-6": 1,
+              "companion-trail-7": 0,
+              "companion-trail-8": 0,
+              "companion-trail-9": 0,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 30,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "floor": 30,
+                "elapsedMs": 2700000
+              }
+            ],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 3,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 14,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "stage": 14,
+                "elapsedMs": 3300000
+              }
+            ],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 3,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 10800000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 25
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 10800000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 23
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 10800000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 22
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 10800000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 24
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      },
+      {
+        "id": "near-cap",
+        "buildingLevels": {
+          "training": 48,
+          "command": 47,
+          "archives": 46,
+          "hearth": 48
+        },
+        "upgradeLimitPerClaim": 4,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 4,
+              "bond": 88,
+              "equippedRelicId": "stormforged-emblem"
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 8,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 12,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 16,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 20,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 193010688,
+              "level": 110,
+              "rarity": 5,
+              "shards": 24,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 20078642,
+              "level": 92,
+              "rarity": 5,
+              "shards": 4,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 20078642,
+              "level": 92,
+              "rarity": 5,
+              "shards": 8,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 8,
+              "assignedBuildingId": "command"
+            },
+            "tamsin": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 12,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 16,
+              "assignedBuildingId": "archives"
+            }
+          },
+          "gifts": 50,
+          "relicStones": 1000,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": false,
+              "level": 0
+            },
+            "mossbound-compass": {
+              "owned": false,
+              "level": 0
+            },
+            "emberglass-sigil": {
+              "owned": false,
+              "level": 0
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": true,
+              "level": 7
+            },
+            "oathkeeper-crest": {
+              "owned": false,
+              "level": 0
+            }
+          },
+          "mightPoints": 40500,
+          "masteryPoints": 36980,
+          "player": {
+            "rankExp": 350,
+            "rank": 5,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.1,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-10",
+            "clearedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6",
+              "broken-roads-7",
+              "broken-roads-8",
+              "broken-roads-9"
+            ],
+            "firstClearClaimedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6",
+              "broken-roads-7",
+              "broken-roads-8",
+              "broken-roads-9"
+            ],
+            "runOrdinal": 9,
+            "runCountsByStage": {
+              "broken-roads-1": 1,
+              "broken-roads-2": 1,
+              "broken-roads-3": 1,
+              "broken-roads-4": 1,
+              "broken-roads-5": 1,
+              "broken-roads-6": 1,
+              "broken-roads-7": 1,
+              "broken-roads-8": 1,
+              "broken-roads-9": 1,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-10",
+            "clearedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6",
+              "companion-trail-7",
+              "companion-trail-8",
+              "companion-trail-9"
+            ],
+            "firstClearClaimedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6",
+              "companion-trail-7",
+              "companion-trail-8",
+              "companion-trail-9"
+            ],
+            "runOrdinal": 9,
+            "runCountsByStage": {
+              "companion-trail-1": 1,
+              "companion-trail-2": 1,
+              "companion-trail-3": 1,
+              "companion-trail-4": 1,
+              "companion-trail-5": 1,
+              "companion-trail-6": 1,
+              "companion-trail-7": 1,
+              "companion-trail-8": 1,
+              "companion-trail-9": 1,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 47,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "floor": 47,
+                "elapsedMs": 3599999
+              }
+            ],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 4,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 40,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "stage": 40,
+                "elapsedMs": 3599999
+              }
+            ],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 4,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 14399999,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 48
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 14399999,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 47
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 14399999,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 46
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 14399999,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 48
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      },
+      {
+        "id": "max-stress",
+        "buildingLevels": {
+          "training": 52,
+          "command": 52,
+          "archives": 52,
+          "hearth": 52
+        },
+        "upgradeLimitPerClaim": 8,
+        "rosterState": {
+          "fellows": {
+            "cael": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 5,
+              "bond": 88,
+              "equippedRelicId": "oathkeeper-crest"
+            },
+            "lyra": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 10,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "orin": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 15,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "selene": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 20,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "rook": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 25,
+              "bond": 35,
+              "equippedRelicId": null
+            },
+            "mira": {
+              "owned": true,
+              "exp": 599463646,
+              "level": 120,
+              "rarity": 5,
+              "shards": 30,
+              "bond": 35,
+              "equippedRelicId": null
+            }
+          },
+          "companions": {
+            "bramble": {
+              "owned": true,
+              "exp": 49714965,
+              "level": 100,
+              "rarity": 5,
+              "shards": 5,
+              "assignedFellowId": "orin"
+            },
+            "cinderwing": {
+              "owned": true,
+              "exp": 49714965,
+              "level": 100,
+              "rarity": 5,
+              "shards": 10,
+              "assignedFellowId": "cael"
+            }
+          },
+          "family": {
+            "elara": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 10,
+              "assignedBuildingId": "command"
+            },
+            "tamsin": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 15,
+              "assignedBuildingId": "training"
+            },
+            "isolde": {
+              "intimacy": 1000,
+              "rarity": 5,
+              "shards": 20,
+              "assignedBuildingId": "archives"
+            }
+          },
+          "gifts": 100,
+          "relicStones": 5000,
+          "relicInventory": {
+            "first-road-lantern": {
+              "owned": false,
+              "level": 0
+            },
+            "mossbound-compass": {
+              "owned": false,
+              "level": 0
+            },
+            "emberglass-sigil": {
+              "owned": false,
+              "level": 0
+            },
+            "tideglass-charm": {
+              "owned": false,
+              "level": 0
+            },
+            "stormforged-emblem": {
+              "owned": false,
+              "level": 0
+            },
+            "oathkeeper-crest": {
+              "owned": true,
+              "level": 10
+            }
+          },
+          "mightPoints": 50000,
+          "masteryPoints": 50000,
+          "player": {
+            "rankExp": 350,
+            "rank": 5,
+            "grandfatheredUnlockIds": []
+          }
+        },
+        "goldClock": {
+          "pendingGold": 0.999,
+          "lastGoldAt": 1788026400000,
+          "pendingContextDay": "D2026-8-29"
+        },
+        "campaignState": {
+          "fellow": {
+            "selectedStageId": "broken-roads-10",
+            "clearedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6",
+              "broken-roads-7",
+              "broken-roads-8",
+              "broken-roads-9"
+            ],
+            "firstClearClaimedStageIds": [
+              "broken-roads-1",
+              "broken-roads-2",
+              "broken-roads-3",
+              "broken-roads-4",
+              "broken-roads-5",
+              "broken-roads-6",
+              "broken-roads-7",
+              "broken-roads-8",
+              "broken-roads-9"
+            ],
+            "runOrdinal": 9,
+            "runCountsByStage": {
+              "broken-roads-1": 1,
+              "broken-roads-2": 1,
+              "broken-roads-3": 1,
+              "broken-roads-4": 1,
+              "broken-roads-5": 1,
+              "broken-roads-6": 1,
+              "broken-roads-7": 1,
+              "broken-roads-8": 1,
+              "broken-roads-9": 1,
+              "broken-roads-10": 0
+            }
+          },
+          "companion": {
+            "selectedStageId": "companion-trail-10",
+            "clearedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6",
+              "companion-trail-7",
+              "companion-trail-8",
+              "companion-trail-9"
+            ],
+            "firstClearClaimedStageIds": [
+              "companion-trail-1",
+              "companion-trail-2",
+              "companion-trail-3",
+              "companion-trail-4",
+              "companion-trail-5",
+              "companion-trail-6",
+              "companion-trail-7",
+              "companion-trail-8",
+              "companion-trail-9"
+            ],
+            "runOrdinal": 9,
+            "runCountsByStage": {
+              "companion-trail-1": 1,
+              "companion-trail-2": 1,
+              "companion-trail-3": 1,
+              "companion-trail-4": 1,
+              "companion-trail-5": 1,
+              "companion-trail-6": 1,
+              "companion-trail-7": 1,
+              "companion-trail-8": 1,
+              "companion-trail-9": 1,
+              "companion-trail-10": 0
+            }
+          }
+        },
+        "idleState": {
+          "tower": {
+            "highestFloor": 50,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "floor": 50,
+                "elapsedMs": 1800000
+              }
+            ],
+            "intervalOrdinal": 3,
+            "pityMisses": 6,
+            "claimOrdinal": 5,
+            "claimedIntervalsByFloor": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "expedition": {
+            "highestStage": 50,
+            "bestRunSequence": 1,
+            "cursorAt": 1788026400000,
+            "segments": [
+              {
+                "stage": 50,
+                "elapsedMs": 600000
+              }
+            ],
+            "intervalOrdinal": 5,
+            "pityMisses": 7,
+            "claimOrdinal": 5,
+            "claimedIntervalsByStage": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "34": 0,
+              "35": 0,
+              "36": 0,
+              "37": 0,
+              "38": 0,
+              "39": 0,
+              "40": 0,
+              "41": 0,
+              "42": 0,
+              "43": 0,
+              "44": 0,
+              "45": 0,
+              "46": 0,
+              "47": 0,
+              "48": 0,
+              "49": 0,
+              "50": 0
+            }
+          },
+          "family": {
+            "training": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 52
+              },
+              "nextRollOrdinal": 1,
+              "shardDrought": 0
+            },
+            "command": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 52
+              },
+              "nextRollOrdinal": 2,
+              "shardDrought": 3
+            },
+            "archives": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 52
+              },
+              "nextRollOrdinal": 3,
+              "shardDrought": 6
+            },
+            "hearth": {
+              "rollCarryMs": 7200000,
+              "carryContext": {
+                "assignedFamilyId": null,
+                "buildingLevel": 52
+              },
+              "nextRollOrdinal": 4,
+              "shardDrought": 7
+            }
+          }
+        }
+      }
+    ],
+    "horizons": [
+      {
+        "id": "instant",
+        "hours": 0
+      },
+      {
+        "id": "1-hour",
+        "hours": 1
+      },
+      {
+        "id": "24-hour",
+        "hours": 24
+      },
+      {
+        "id": "3-day",
+        "hours": 72
+      },
+      {
+        "id": "7-day",
+        "hours": 168
+      },
+      {
+        "id": "30-day",
+        "hours": 720
+      }
+    ],
+    "fellowCampaignStages": [
+      {
+        "id": "broken-roads-1",
+        "ordinal": 1,
+        "recommendedPower": 22000,
+        "baseCost": 10000,
+        "firstClearExp": 120,
+        "targetId": "cael",
+        "firstClearShards": 2,
+        "rankExp": 25
+      },
+      {
+        "id": "broken-roads-2",
+        "ordinal": 2,
+        "recommendedPower": 26000,
+        "baseCost": 12000,
+        "firstClearExp": 150,
+        "targetId": "lyra",
+        "firstClearShards": 2,
+        "rankExp": 30
+      },
+      {
+        "id": "broken-roads-3",
+        "ordinal": 3,
+        "recommendedPower": 30500,
+        "baseCost": 14000,
+        "firstClearExp": 180,
+        "targetId": "orin",
+        "firstClearShards": 2,
+        "rankExp": 35
+      },
+      {
+        "id": "broken-roads-4",
+        "ordinal": 4,
+        "recommendedPower": 35500,
+        "baseCost": 16000,
+        "firstClearExp": 210,
+        "targetId": "selene",
+        "firstClearShards": 2,
+        "rankExp": 40
+      },
+      {
+        "id": "broken-roads-5",
+        "ordinal": 5,
+        "recommendedPower": 42000,
+        "baseCost": 18000,
+        "firstClearExp": 240,
+        "targetId": "rook",
+        "firstClearShards": 2,
+        "rankExp": 45
+      },
+      {
+        "id": "broken-roads-6",
+        "ordinal": 6,
+        "recommendedPower": 49500,
+        "baseCost": 20000,
+        "firstClearExp": 270,
+        "targetId": "mira",
+        "firstClearShards": 2,
+        "rankExp": 50
+      },
+      {
+        "id": "broken-roads-7",
+        "ordinal": 7,
+        "recommendedPower": 58000,
+        "baseCost": 22000,
+        "firstClearExp": 300,
+        "targetId": "cael",
+        "firstClearShards": 2,
+        "rankExp": 55
+      },
+      {
+        "id": "broken-roads-8",
+        "ordinal": 8,
+        "recommendedPower": 68000,
+        "baseCost": 24000,
+        "firstClearExp": 330,
+        "targetId": "lyra",
+        "firstClearShards": 2,
+        "rankExp": 60
+      },
+      {
+        "id": "broken-roads-9",
+        "ordinal": 9,
+        "recommendedPower": 80000,
+        "baseCost": 26000,
+        "firstClearExp": 360,
+        "targetId": "orin",
+        "firstClearShards": 2,
+        "rankExp": 65
+      },
+      {
+        "id": "broken-roads-10",
+        "ordinal": 10,
+        "recommendedPower": 95000,
+        "baseCost": 28000,
+        "firstClearExp": 390,
+        "targetId": "selene",
+        "firstClearShards": 2,
+        "rankExp": 70
+      }
+    ],
+    "companionCampaignStages": [
+      {
+        "id": "companion-trail-1",
+        "ordinal": 1,
+        "recommendedPower": 2000,
+        "baseCost": 8000,
+        "firstClearExp": 100,
+        "targetId": "bramble",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-2",
+        "ordinal": 2,
+        "recommendedPower": 2360,
+        "baseCost": 9500,
+        "firstClearExp": 125,
+        "targetId": "cinderwing",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-3",
+        "ordinal": 3,
+        "recommendedPower": 2785,
+        "baseCost": 11000,
+        "firstClearExp": 150,
+        "targetId": "bramble",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-4",
+        "ordinal": 4,
+        "recommendedPower": 3286,
+        "baseCost": 12500,
+        "firstClearExp": 175,
+        "targetId": "cinderwing",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-5",
+        "ordinal": 5,
+        "recommendedPower": 3878,
+        "baseCost": 14000,
+        "firstClearExp": 200,
+        "targetId": "bramble",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-6",
+        "ordinal": 6,
+        "recommendedPower": 4576,
+        "baseCost": 15500,
+        "firstClearExp": 225,
+        "targetId": "cinderwing",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-7",
+        "ordinal": 7,
+        "recommendedPower": 5399,
+        "baseCost": 17000,
+        "firstClearExp": 250,
+        "targetId": "bramble",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-8",
+        "ordinal": 8,
+        "recommendedPower": 6371,
+        "baseCost": 18500,
+        "firstClearExp": 275,
+        "targetId": "cinderwing",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-9",
+        "ordinal": 9,
+        "recommendedPower": 7518,
+        "baseCost": 20000,
+        "firstClearExp": 300,
+        "targetId": "bramble",
+        "firstClearShards": 4
+      },
+      {
+        "id": "companion-trail-10",
+        "ordinal": 10,
+        "recommendedPower": 8871,
+        "baseCost": 21500,
+        "firstClearExp": 325,
+        "targetId": "cinderwing",
+        "firstClearShards": 4
+      }
+    ],
+    "live": {
+      "runnerRowIds": [
+        "runner-artifact-identity",
+        "runner-scenarios-identity",
+        "runner-golden-identity",
+        "runner-report-identity"
+      ],
+      "realmRowIds": [
+        "realm-boot",
+        "report-version",
+        "report-phase",
+        "report-bundle-count",
+        "report-advisory-only",
+        "production-unchanged",
+        "config-count",
+        "archetype-count",
+        "horizon-count",
+        "bundle-combinations",
+        "released-count",
+        "advisory-count",
+        "bundle-identities",
+        "finite-values",
+        "conserved-ledgers",
+        "safe-values",
+        "nonnegative-values",
+        "caps-respected",
+        "power-disjoint",
+        "labels-correct",
+        "companion-transfer-excluded",
+        "family-bond-excluded",
+        "companion-power-positive",
+        "source-ledger-visible",
+        "sink-ledger-visible",
+        "rate-table-visible",
+        "capped-output-visible",
+        "ending-levels-visible",
+        "pending-collection-visible",
+        "selected-bundle-rendered",
+        "config-control-updates",
+        "archetype-control-updates",
+        "horizon-control-updates",
+        "status-label-updates",
+        "source-sink-render-updates",
+        "power-render-updates",
+        "no-horizontal-overflow",
+        "motion-mode",
+        "zero-prohibited-api-calls",
+        "frozen-registry-visible"
+      ],
+      "viewports": [
+        {
+          "id": "small",
+          "width": 320,
+          "height": 568
+        },
+        {
+          "id": "large",
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "motionModes": [
+        "normal",
+        "reduced"
+      ],
+      "getAllowlist": [
+        "./current-report.json",
+        "./scenarios.json",
+        "./current-manifest.json",
+        "./golden-current.json",
+        "./row-registry.json",
+        "../../index.html"
+      ]
+    }
+  }
+}

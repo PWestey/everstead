@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Phase 10B-1 Economy Realm</title>
+  <style>
+    :root{color-scheme:dark;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#09131f;color:#ecf5f7}*{box-sizing:border-box}html,body{margin:0;max-width:100%;overflow-x:hidden}body{padding:12px;min-width:0}.eyebrow{font-size:.68rem;color:#79dfc8;text-transform:uppercase;letter-spacing:.1em;font-weight:800}h1{font-size:1.25rem;margin:.35rem 0}.identity{font-size:.68rem;color:#9fb2bd;overflow-wrap:anywhere;margin:.25rem 0 1rem}.controls{display:grid;gap:8px}label{display:grid;gap:4px;color:#b7c7cf;font-size:.72rem}select{width:100%;min-width:0;border:1px solid #ffffff25;border-radius:8px;background:#112333;color:#fff;padding:9px;font:inherit}.chip{display:inline-block;border-radius:999px;background:#173246;color:#86e7d1;padding:5px 9px;font-size:.72rem;font-weight:800;margin:10px 0}.card{border:1px solid #ffffff18;background:#0d1d2b;border-radius:10px;padding:10px;margin-top:9px}.card h2{font-size:.82rem;margin:0 0 7px;color:#cce0e7}.grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;font-size:.72rem}.grid span:nth-child(odd){color:#aebfc7}.grid strong{text-align:right;overflow-wrap:anywhere}.ok{color:#79dfc8}.warn{color:#ffd08a}html[data-motion="reduced"] *{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}@media(min-width:380px){.controls{grid-template-columns:1fr 1fr}.controls label:first-child{grid-column:1/-1}}
+  </style>
+</head>
+<body>
+  <div class="eyebrow">Isolated QA realm</div>
+  <h1>Economy comparison</h1>
+  <p class="identity" id="identity">Loading canonical report…</p>
+  <div class="controls">
+    <label>Configuration<select id="config"></select></label>
+    <label>Archetype<select id="archetype"></select></label>
+    <label>Horizon<select id="horizon"></select></label>
+  </div>
+  <div class="chip" id="status">Loading</div>
+  <section class="card"><h2>Gold ledger</h2><div class="grid" id="ledger"></div></section>
+  <section class="card"><h2>Power ownership</h2><div class="grid" id="power"></div></section>
+  <section class="card"><h2>Building output</h2><div class="grid" id="buildings"></div></section>
+  <section class="card"><h2>Invariant status</h2><div class="grid" id="checks"></div></section>
+  <script src="./realm.js?v=phase10b1"></script>
+</body>
+</html>
