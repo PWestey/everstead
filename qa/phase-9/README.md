@@ -16,9 +16,11 @@ Serve the repository root locally and open `qa/phase-9/` for the live gate. The 
 
 ## Evidence boundary
 
-- `verify.mjs` is the permanent 316-row CLI oracle for schema 10, access, progression, migration, deterministic staging, faults, fixture rollback, storage events, and fail-closed QA Adventure authorization.
+- `verify.mjs` is the permanent 355-row CLI oracle for schema 10, access, progression, checked safe-integer addition, canonical stage-10 grandfather migration, twelve-slot export failures, deterministic staging, faults, fixture rollback, storage events, one-shot Rank summaries, and fail-closed QA Adventure authorization.
 - `regress-phase-8.mjs` freezes the complete Phase 8 package and itemizes only nine intended successor changes, including the additive QA Adventure hardening.
 - `current-manifest.json` freezes all Phase 0–8 QA/docs bytes, exact artifact/scenario identities, and independently reviewed production evidence.
 - `checksums.sha256` binds the production artifact, Phase 9 contract/docs, and all Phase 9 package files except itself.
 
 No test grants Rank EXP directly. Canonical first-clear gameplay is the only tested Rank EXP source.
+
+The expanded live harness adds twenty one-shot Rank-summary rows per pass across normal/reduced motion and both phone dimensions. The prior `608/608` runs remain historical evidence for their exact package; the expanded review-sealed candidate requires a fresh `628/628` live pass and therefore keeps manifest `liveEvidence` null.

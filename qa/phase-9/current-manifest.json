@@ -35,7 +35,7 @@
     }
   },
   "executableCoverage": {
-    "focusedCliRows": 316,
+    "focusedCliRows": 355,
     "phaseEightSuccessorRows": 703,
     "itemizedSuccessorReplacements": 9,
     "protectedSlots": 12,
@@ -43,7 +43,12 @@
     "initialProtectedReadFaults": 24,
     "fixturePostWriteBootReadSlots": 12,
     "deterministicStagedTargetTamperVariants": 5,
-    "adventureQaAuthorizationRows": 6
+    "adventureQaAuthorizationRows": 6,
+    "checkedAddRows": 4,
+    "safeExportReadFaultRows": 24,
+    "schemaNineStageTenRows": 5,
+    "rankSummaryCliRows": 6,
+    "rankSummaryLiveRowsPerPass": 20
   },
   "preSealReleaseEvidence": {
     "canonicalMainCommit": "d3ce87a00ff37945e0b61f921092f04a8c808851",
@@ -64,42 +69,7 @@
     "fatal": "",
     "consoleWarnError": 0
   },
-  "liveEvidence": {
-    "packageCommit": "c3c2104ee2fae9cbd8623561a6a849d337b9897f",
-    "passes": 2,
-    "totalPerPass": 608,
-    "passedPerPass": 608,
-    "failedPerPass": 0,
-    "blankFatal": true,
-    "failedRowsPerPass": 0,
-    "consoleWarnErrorPerPass": 0,
-    "viewports": [
-      {
-        "width": 320,
-        "height": 568
-      },
-      {
-        "width": 390,
-        "height": 844
-      }
-    ],
-    "modes": [
-      "fresh",
-      "schema9",
-      "legacy",
-      "locks",
-      "progression",
-      "profile",
-      "grandfathered",
-      "normal-motion",
-      "reduced-motion",
-      "phase8-successor",
-      "all-disabled",
-      "native-storage"
-    ],
-    "observedThrough": "2026-08-29T02:12:18.000Z",
-    "evidenceCommitScope": "docs-manifest-checksums-only"
-  },
+  "liveEvidence": null,
   "sourceRevisions": {
     "lockedCoreDesign": "AIroW34MYqUcG6Q-iOW_AtHMqmrwGj9Nb9AFMEEqxselBNLMox14pJzqh11nWmvHfp6LI-QdrsXi6ruy1TNJJQXiXzh4BgLMN-zh7XtA8-I",
     "implementationRoadmap": "AIroW37XK-kLSvIWAi8bvi_c0B1TCCOIJCp93RQrxiAF8JmMMvgT0A9vnlZGdeAKQ_hSs674e9BNw9beXDa6RApDYcpXuZexshqiy4pvM_U"
