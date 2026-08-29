@@ -2,7 +2,7 @@
 
 ## Verdict
 
-**UNSEALED IMPLEMENTATION CANDIDATE.** The deterministic QA/docs package is implemented and the production artifact remains unchanged. Final acceptance is pending exact repeat evidence, the live gate, inherited regressions, checksums, and two independent read-only reviews on one exact candidate tip.
+**PASS — SEALED QA/DOCS PACKAGE.** The deterministic simulator and permanent acceptance gate are accepted at exact executable package commit `b12395292f7bbdbaa37ef119ff1a96f2ce488775`. The production artifact remains unchanged.
 
 No advisory configuration is accepted, recommended, selected, production-ready, or migration-ready. Phase 10B-2 remains deferred and requires its own contract.
 
@@ -16,47 +16,46 @@ No advisory configuration is accepted, recommended, selected, production-ready, 
 - Embedded assets: five; aggregate SHA-256 `26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a`.
 - Schema/protected slots: 10 / 12.
 - Production changed: no.
-- Candidate package commit: recorded in the writer handoff after the authorized focused local commit; it is not merged or pushed and remains unsealed.
+- Accepted executable package commit: `b12395292f7bbdbaa37ef119ff1a96f2ce488775`.
 
 ## Focused candidate evidence
 
 | Gate | Required | Current evidence |
 | --- | ---: | --- |
-| Phase 10B-1 focused CLI | 624/624 twice | writer diagnostic 624/624 once; two materialized-clone acceptance runs pending |
-| Artifact/static | 20/20 | writer diagnostic 20/20; exact structural and bounded-probe checks pass |
-| Released config | 40/40 | writer diagnostic 40/40 |
-| Golden microvectors | 96/96 | writer diagnostic 96/96 |
-| Released three-way parity | 240/240 | writer diagnostic 240/240; all 240 production vectors passed the repaired exact-shape probe |
-| Advisory bundles | 144/144 | writer diagnostic 144/144; zero bad Gold, Campaign, idle-reward, duplicate, or lost-resource proofs |
-| Invariants | 60/60 | writer diagnostic 60/60, including independent natural reward proofs |
-| Mutation sensitivity | 24/24 | writer diagnostic 24/24 genuine mutation gate |
-| Phase 10A successor | 203/203 twice | exact 203-file literal registry implemented; writer run blocked on local cloud-file hydration, so final parent runs are pending |
-| Live dashboard | 164/164 twice | exact 164-row runner/realm implementation complete; writer browser connection was unavailable, so live evidence is pending |
+| Phase 10B-1 focused CLI | 624/624 twice | PASS twice at exact executable tip; no-write result preserved |
+| Artifact/static | 20/20 | PASS twice; exact structural and bounded-probe checks |
+| Released config | 40/40 | PASS twice |
+| Golden microvectors | 96/96 | PASS twice |
+| Released three-way parity | 240/240 | PASS twice; all 240 production vectors passed the exact-shape probe |
+| Advisory bundles | 144/144 | PASS twice; zero bad Gold, Campaign, idle-reward, duplicate, or lost-resource proofs |
+| Invariants | 60/60 | PASS twice, including independent natural reward proofs |
+| Mutation sensitivity | 24/24 | PASS twice; every genuine mutation detected |
+| Phase 10A successor | 203/203 twice | PASS twice; all 188 historical and 15 Phase 10A-owned bytes exact |
+| Live dashboard | 164/164 twice | PASS twice across four realms; 164 rendered rows, blank fatal, zero failed rows, zero warning/error logs |
 
-Fast repaired-candidate diagnostics show exact rejection of foreign, own-`undefined`, negative-zero, reordered, and changed canonical inputs; exact production-order Gold grouping at the one-ULP discriminating boundary; all 240 valid direct-production vectors accepted; every loop-driving production-probe input bounded before selector execution; Date and pending-Gold additions checked at exact boundaries; and non-finite Campaign intermediates refused before JSON normalization. All 144 bundles are free of bad Gold conservation, Campaign replay, idle reward, duplicate-resource, or lost-resource results. Sixteen verifier-only corruptions are independently detected: wrong Campaign target, Gift, lane sequence, Power/cost/spend, repriced cross-lane order, an execution-side +100,000 Power fault, forced execution RNG/access, retained rewards with false gate fields, false Gold and sequence blocks, an omitted Campaign loop, and duplicate/missing/misdirected/settlement-forged idle events. The Campaign audit owns separate state, progression, rank, economy/combat Power, Gold accrual/collection, efficiency, RNG, reward, recipient, and upgrade formulas. It independently derives every policy attempt, all five gates, exact status/reason, receipt presence, lane order, spend, rewards, upgrades, and completion; missing eligible rewards also invalidate lost-resource safety. The idle oracle enumerates cumulative accepted-time ranges and eligible ordinals instead of sharing the executor's settlement loop. The accepted verifier retains unconditional full 203-predecessor no-write coverage; the parent will run it from a fully materialized clone. This is writer implementation evidence, not final acceptance evidence.
+The sealed evidence confirms exact rejection of foreign, own-`undefined`, negative-zero, reordered, and changed canonical inputs; exact production-order Gold grouping at the one-ULP discriminating boundary; all 240 valid direct-production vectors; bounded production-probe inputs; checked Date and pending-Gold arithmetic; and refusal of non-finite Campaign intermediates before JSON normalization. All 144 bundles are free of bad Gold conservation, Campaign replay, idle reward, duplicate-resource, or lost-resource results. Sixteen verifier-only corruptions are independently detected. The Campaign audit independently derives every policy attempt, all five gates, exact status/reason, receipt presence, lane order, spend, rewards, upgrades, and completion; the idle oracle independently enumerates cumulative accepted-time ranges and eligible ordinals. Missing eligible rewards invalidate lost-resource safety.
 
 ## Canonical artifacts
 
 - Row registry: exact 624 unique ordered IDs; identity recorded by the final manifest/checksum build.
-- Frozen candidate golden: 96 literal microvector outputs plus 240 literal inspectable released-parity outputs with canonical Float64 identities where needed; identity is recorded by the final manifest/checksum build. Its independent review is pending.
+- Frozen golden: 96 literal microvector outputs plus 240 literal inspectable released-parity outputs with canonical Float64 identities where needed; identity is recorded by the sealed manifest/checksum build and covered by both passing independent reviews.
 - Frozen advisory report: exact 144 complete bundles; report identity `d763aeb9cf263b007731b1a8cb2003da7b64978e927bed21368921b4a8c758be`, file SHA-256 `5d7e0f0b81d8e9362e15031480c363f80ee098ef7c7d2deef69c35db7f448e51`, exact byte length 94,974,300, and 210,773 explicit exact Float64 wrappers.
 - Candidate configurations remain `released-schema10`, `candidate-growth-120`, `candidate-growth-122`, and `candidate-growth-124`; the latter three are advisory only.
 - Ordinary verifier/browser/build runs cannot generate or overwrite the golden or report. Candidate generation requires two explicit non-accepted `.candidate.json` paths and refuses overwrite.
 
-## Pending acceptance evidence
+## Sealed acceptance evidence
 
-- Final manifest/checksum build and exact identities after all owned docs and QA bytes are frozen.
-- Two exact 624/624 focused runs after that build.
-- Two exact 203/203 Phase 10A successor runs.
-- Inherited-suite repeats. Previously observed writer candidate passes were Phase 10A focused 371/371, its semantic predecessor/successor 22/22, Phase 10A checksums 14/14, and Phase 9 focused 355/355. Phase 8 successor 703/703 and the exact Phase 10B 203-file successor remain pending completion of locally hydrated reads.
-- Two exact 164/164 live runs across both viewports and motion modes, blank fatal, zero captured warning/error entries, zero measured storage/protected-API calls, and exact same-origin GET allowlists.
-- Independent economy/model/product-ownership review.
-- Independent anti-tautology/probe/no-write/regression review.
-- Exact candidate commit and evidence sealing.
+- Focused CLI: 624/624 twice.
+- Phase 10A successor: 203/203 twice.
+- Inherited suites: Phase 10A focused 371/371 twice; Phase 10A semantic predecessor/successor 22/22 twice; Phase 9 focused 355/355 twice; Phase 8 successor 703/703 twice.
+- Checksums: Phase 10A 14/14 twice; Phase 10B 22/22 twice.
+- Live dashboard: 164/164 twice across 320×568 and 390×844 in normal and reduced-motion modes, with blank fatal evidence, 164 rendered rows, zero failed rows, and zero warning/error console entries per pass.
+- Independent boundary/authority review: PASS by `phase3_implement` at exact executable tip `b12395292f7bbdbaa37ef119ff1a96f2ce488775`.
+- Independent anti-tautology/reward review: PASS by `phase9_bridge_exact` at the same exact executable tip.
 
 ## Residual risks and interpretation limits
 
-- The frozen golden remains a candidate until independently reviewed against hand calculations; matching executable layers alone does not seal it.
+- The frozen golden and three truth layers passed independent review, but they remain a deterministic model of the frozen scenarios rather than player telemetry or a tuning decision.
 - The production probe relies on exact unique source anchors and fails closed on artifact drift. It directly evaluates the accepted artifact after replacing only its unique boot tail, exposes no inherited Phase 6/7/9 hooks, and proves byte-exact restoration.
 - The action policy, archetypes, candidate curves, starting Gold, and growth values are explicit comparison hypotheses, not telemetry or game-feel proof.
 - Exact JavaScript Float64, whole-pending-Gold collection, and Phoenix time-zone semantics remain part of the pinned runtime contract.

@@ -4,13 +4,13 @@
   "phaseTenABaseCommit": "d9c3862f09b7ce702db6985a0ebe569a31edec4b",
   "packageBaseCommit": "723492b1e968407f23c7d78deabf66813f14c229",
   "productionArtifactCommit": "9d82db565ff482a3898e68bd8a6dce8505a9bfe9",
-  "packageCommit": null,
+  "packageCommit": "b12395292f7bbdbaa37ef119ff1a96f2ce488775",
   "productionChanged": false,
   "schemaVersion": 10,
   "protectedSlots": 12,
   "timeZone": "America/Phoenix",
   "qaStorage": "none-dashboard; isolated-memory-production-probe",
-  "ownedInputsAggregateSha256": "8872cf57aff0cd98dff9fac92f8000b63d2d691d77fbc48ef9ee40cfffb88695",
+  "ownedInputsAggregateSha256": "b388a8ae7d9cbed080818091db19ae5d6e5be69af393aae78c9e5fe201a6b221",
   "executableCoverage": {
     "focusedCliRows": 624,
     "artifactStaticRows": 20,
@@ -62,17 +62,94 @@
     }
   },
   "deterministicEvidence": {
-    "status": "PENDING"
+    "status": "PASS",
+    "packageCommit": "b12395292f7bbdbaa37ef119ff1a96f2ce488775",
+    "focusedCli": {
+      "passes": 2,
+      "passedPerPass": 624,
+      "totalPerPass": 624,
+      "failedPerPass": 0,
+      "writePreservedPerPass": true
+    },
+    "phaseTenASuccessor": {
+      "passes": 2,
+      "passedPerPass": 203,
+      "totalPerPass": 203,
+      "failedPerPass": 0
+    },
+    "inherited": {
+      "phaseTenAFocused": {
+        "passes": 2,
+        "passedPerPass": 371,
+        "totalPerPass": 371
+      },
+      "phaseTenASemantic": {
+        "passes": 2,
+        "passedPerPass": 22,
+        "totalPerPass": 22
+      },
+      "phaseNineFocused": {
+        "passes": 2,
+        "passedPerPass": 355,
+        "totalPerPass": 355
+      },
+      "phaseEightSuccessor": {
+        "passes": 2,
+        "passedPerPass": 703,
+        "totalPerPass": 703
+      }
+    },
+    "checksums": {
+      "phaseTenA": {
+        "passes": 2,
+        "passedPerPass": 14,
+        "totalPerPass": 14
+      },
+      "phaseTenB": {
+        "passes": 2,
+        "passedPerPass": 22,
+        "totalPerPass": 22
+      }
+    },
+    "canonicalReport": {
+      "sha256": "5d7e0f0b81d8e9362e15031480c363f80ee098ef7c7d2deef69c35db7f448e51",
+      "byteLength": 94974300,
+      "float64Wrappers": 210773
+    }
   },
   "independentReviewEvidence": {
     "economyAndModel": {
-      "verdict": "PENDING"
+      "verdict": "PASS",
+      "reviewer": "phase3_implement",
+      "scope": "boundary/authority",
+      "exactTip": "b12395292f7bbdbaa37ef119ff1a96f2ce488775"
     },
     "antiTautologyAndRegression": {
-      "verdict": "PENDING"
+      "verdict": "PASS",
+      "reviewer": "phase9_bridge_exact",
+      "scope": "anti-tautology/reward",
+      "exactTip": "b12395292f7bbdbaa37ef119ff1a96f2ce488775"
     }
   },
-  "liveEvidence": null,
+  "liveEvidence": {
+    "status": "PASS",
+    "packageCommit": "b12395292f7bbdbaa37ef119ff1a96f2ce488775",
+    "passes": 2,
+    "passedPerPass": 164,
+    "totalPerPass": 164,
+    "renderedRowsPerPass": 164,
+    "failedPerPass": 0,
+    "fatalPerPass": "",
+    "consoleWarnErrorPerPass": 0,
+    "viewports": [
+      "320x568",
+      "390x844"
+    ],
+    "motionModes": [
+      "normal",
+      "reduced-motion"
+    ]
+  },
   "releaseEvidence": {
     "status": "NOT_REQUIRED_PRODUCTION_UNCHANGED",
     "acceptedPublicArtifactSha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed"
