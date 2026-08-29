@@ -12,7 +12,7 @@ async function run(token){calls.storage=0;calls.save=0;calls.network=0;calls.pro
   controls.forEach((ok,index)=>add(`control-${String(index+1).padStart(2,'0')}`,ok?'PASS':'FAIL',index===19?trapFailures.join('; ')||'all prohibited API traps installed':'read-only authority/control'));
   for(let index=1;index<=36;index++)add(`candidate-${String(index).padStart(2,'0')}`,preimage?'PENDING':'PENDING',preimage?'candidate-only private-kernel browser assertion':'candidate executable browser assertion awaits post-extraction freeze');
   document.getElementById('status').textContent=`${rows.filter(row=>row.status==='PASS').length} pass / ${rows.filter(row=>row.status==='PENDING').length} pending / ${rows.filter(row=>row.status==='FAIL').length} fail`;
-  parent.postMessage({type:'phase10b2-realm',realmId,token,rows,artifactSha,artifactBytes:artifactBytes.byteLength,calls:{...calls},trapFailures:[...trapFailures]},location.origin);
+  parent.postMessage({channel:'everstead-phase-10b2',type:'phase10b2-realm',key:realmId,rows,artifactSha,artifactBytes:artifactBytes.byteLength,calls:{...calls},trapFailures:[...trapFailures]},location.origin);
 }
-addEventListener('message',event=>{if(event.origin!==location.origin)return;if(event.data?.type==='phase10b2-ping'){parent.postMessage({type:'phase10b2-ready',realmId},location.origin);return}if(event.data?.type!=='phase10b2-start'||typeof event.data.token!=='string')return;run(event.data.token).catch(error=>parent.postMessage({type:'phase10b2-realm-fatal',realmId,token:event.data.token,error:String(error.stack||error)},location.origin))});parent.postMessage({type:'phase10b2-ready',realmId},location.origin);
+run().catch(error=>parent.postMessage({channel:'everstead-phase-10b2',type:'phase10b2-realm-fatal',key:realmId,error:String(error.stack||error)},location.origin));
 })();
