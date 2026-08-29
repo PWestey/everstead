@@ -1,7 +1,7 @@
 {
   "phase": 9,
   "baseCommit": "d3ce87a00ff37945e0b61f921092f04a8c808851",
-  "productionCommit": "49e681a4a6d2edacfa1ee401c36590cd301797f6",
+  "productionCommit": "ee516296ddf823ba90b4a85ddc474456fada09f7",
   "frozenNow": "2026-08-28T22:00:00.000Z",
   "storageKeys": {
     "active": "oathforge_new_world_proto_v01",

@@ -1,6 +1,6 @@
 # Everstead Phase 9 QA
 
-This additive gate verifies the sealed Phase 9 Player Rank unlock spine at production commit `49e681a4a6d2edacfa1ee401c36590cd301797f6`. It does not mutate native browser storage; destructive actions run only against the isolated in-memory adapter.
+This additive gate verifies the Phase 9 Player Rank unlock spine at production commit `ee516296ddf823ba90b4a85ddc474456fada09f7`. It does not mutate native browser storage; destructive actions run only against the isolated in-memory adapter.
 
 ## Permanent commands
 
@@ -16,8 +16,8 @@ Serve the repository root locally and open `qa/phase-9/` for the live gate. The 
 
 ## Evidence boundary
 
-- `verify.mjs` is the permanent 310-row CLI oracle for schema 10, access, progression, migration, deterministic staging, faults, fixture rollback, and storage events.
-- `regress-phase-8.mjs` freezes the complete Phase 8 package and itemizes only eight intended successor changes.
+- `verify.mjs` is the permanent 316-row CLI oracle for schema 10, access, progression, migration, deterministic staging, faults, fixture rollback, storage events, and fail-closed QA Adventure authorization.
+- `regress-phase-8.mjs` freezes the complete Phase 8 package and itemizes only nine intended successor changes, including the additive QA Adventure hardening.
 - `current-manifest.json` freezes all Phase 0–8 QA/docs bytes, exact artifact/scenario identities, and independently reviewed production evidence.
 - `checksums.sha256` binds the production artifact, Phase 9 contract/docs, and all Phase 9 package files except itself.
 

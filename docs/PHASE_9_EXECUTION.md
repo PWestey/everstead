@@ -17,9 +17,11 @@ Persistence advances to schema 10 with the single `playerUnlocks` root, exact pr
 
 After both independent production reviews passed exact tip `49e681a4a6d2edacfa1ee401c36590cd301797f6`, the additive package froze all Phase 0–8 evidence and added:
 
-- a 310-row permanent CLI verifier for Rank definitions, access, canonical progression, twelve-slot persistence, deterministic staging, faults, fixture rollback, and storage events;
-- a 702-row Phase 8 semantic-successor verifier with eight explicit replacements;
+- a 316-row permanent CLI verifier for Rank definitions, access, canonical progression, twelve-slot persistence, deterministic staging, faults, fixture rollback, storage events, and QA Adventure authorization;
+- a 703-row Phase 8 semantic-successor verifier with nine explicit replacements, including additive fail-closed QA Adventure hardening;
 - an isolated live browser harness for both required phone dimensions, actual pointer/keyboard controls, normal/reduced-motion Rank-up presentation, grandfather access, Phase 8 reward preservation, and fail-closed authorization realms;
 - a generated manifest, fourteen-file checksum set, and this exact result record.
 
 No QA helper grants Rank EXP directly. The ten canonical first clears are the only executable source used to reach Rank 5 and 475 lifetime Rank EXP.
+
+The first live run then exposed one inherited QA Adventure bridge boundary: it could read native storage before authorization and show a lock toast despite direct presentation suppression. Exact production commit `ee516296ddf823ba90b4a85ddc474456fada09f7` fixes this additively in the Phase 9 layer; the action now authorizes before handler/read and calls the same Rank-gated selector with `present:false`.

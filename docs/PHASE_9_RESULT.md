@@ -2,9 +2,9 @@
 
 ## Candidate
 
-- Production commit: `49e681a4a6d2edacfa1ee401c36590cd301797f6`
-- Production artifact SHA-256: `e24fe46b7ad6500b49ea80fa61165c16ecb7de29b7f4ce3d5001ca32190407d3`
-- Production artifact bytes: `18,915,734`
+- Production commit: `ee516296ddf823ba90b4a85ddc474456fada09f7`
+- Production artifact SHA-256: `1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529`
+- Production artifact bytes: `18,916,650`
 - Embedded asset aggregate: `9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78` (unchanged from Phase 8)
 
 ## Implemented
@@ -15,9 +15,9 @@ Persistence advances to schema 10 with exact pre-v10 schema-9 authority, twelve 
 
 ## Evidence
 
-- Focused Phase 9 CLI verifier: `310/310`.
-- Phase 8 semantic successor: `702/702`, with eight itemized replacements.
-- Both independent production reviews: `PASS` at exact tip `49e681a4a6d2edacfa1ee401c36590cd301797f6`.
+- Focused Phase 9 CLI verifier: `316/316` on the uncommitted hardening candidate.
+- Phase 8 semantic successor: `703/703`, with nine itemized replacements.
+- The original production reviews passed exact tip `49e681a4a6d2edacfa1ee401c36590cd301797f6`; exact-tip re-review is pending for the one-line additive QA Adventure hardening at `ee516296ddf823ba90b4a85ddc474456fada09f7`.
 - Live browser gate: pending final exact-package run.
 
 ## Residual risks

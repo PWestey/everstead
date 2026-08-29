@@ -38,7 +38,8 @@ const replacements={
   'universal-route-stage-access-to-rank-or-grandfather':'New stage and Adventure route access is derived from Player Rank or exact migration grandfathering.',
   'rank-pill-to-wayfarer-profile-roadmap':'The existing Rank presentation opens the shared Wayfarer profile and five-milestone roadmap.',
   'campaign-result-adds-captured-rank-summary':'The unchanged Campaign receipts are presented with an immutable access-only Rank transition snapshot.',
-  'schema9-to10-receipt-last':'The Phase 9 migration receipt is appended last without altering Phase 8 receipt order or reward streams.'
+  'schema9-to10-receipt-last':'The Phase 9 migration receipt is appended last without altering Phase 8 receipt order or reward streams.',
+  'adventure-qa-bridge-hardened':'The inherited QA Adventure action now requires destructive isolated-storage authorization and suppresses presentation during direct bridge calls.'
 };
 for(const[id,detail]of Object.entries(replacements))check('expected-replacement-'+id,true,detail);
 const semanticTokens=['RELIC_DEFS','relicStones','relicUpgradeCost','upgradeRelic','equipRelic','relicSlots','relicProgressLedger','phaseEightCampaignEpoch','FELLOW_CAMPAIGN_V2_VERSION','campaignV2Identity','FELLOW_MIGHT_CONFIG','fellowMightComponents','FELLOW_EXPEDITION_STAGES','previewFellowExpedition','pushFellowExpedition','claimFellowExpedition','claimedIntervalsByStage','COMPANION_MASTERY_CONFIG','companionMasteryComponents','COMPANION_CAMPAIGN_STAGES','runCompanionCampaign','COMPANION_TOWER_CONFIG','clearCompanionTower','claimCompanionTower','PLAYER_CONFIG','playerRankForExp','familyBuildingBonusComponents','settleFamilyDrops','totalVillageGoldPerHour','buildingLevelCap:52','story:false','operations:false','runtimePrefersReducedMotion','safeResetCheckpointLineageAuthenticates','STORAGE_SOURCE!==NATIVE_STORAGE','isolatedStorage','campaign-walk','Relics · one slot per Fellow','Might','Mastery'];

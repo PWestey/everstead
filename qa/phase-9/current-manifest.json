@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "phase": "9",
   "baseCommit": "d3ce87a00ff37945e0b61f921092f04a8c808851",
-  "productionCommit": "49e681a4a6d2edacfa1ee401c36590cd301797f6",
+  "productionCommit": "ee516296ddf823ba90b4a85ddc474456fada09f7",
   "supportedReleasedSchemas": [
     0,
     1,
@@ -19,23 +19,24 @@
   "qaStorage": "isolated-memory-adapter",
   "independentReviewEvidence": {
     "exactProductAndLogic": {
-      "verdict": "PASS",
-      "exactTip": "49e681a4a6d2edacfa1ee401c36590cd301797f6"
+      "verdict": "REVIEW_REQUIRED",
+      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7"
     },
     "persistenceAndRecovery": {
-      "verdict": "PASS",
-      "exactTip": "49e681a4a6d2edacfa1ee401c36590cd301797f6"
+      "verdict": "REVIEW_REQUIRED",
+      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7"
     }
   },
   "executableCoverage": {
-    "focusedCliRows": 310,
-    "phaseEightSuccessorRows": 702,
-    "itemizedSuccessorReplacements": 8,
+    "focusedCliRows": 316,
+    "phaseEightSuccessorRows": 703,
+    "itemizedSuccessorReplacements": 9,
     "protectedSlots": 12,
     "migrationFaultHooks": 12,
     "initialProtectedReadFaults": 24,
     "fixturePostWriteBootReadSlots": 12,
-    "deterministicStagedTargetTamperVariants": 5
+    "deterministicStagedTargetTamperVariants": 5,
+    "adventureQaAuthorizationRows": 6
   },
   "preSealReleaseEvidence": {
     "canonicalMainCommit": "d3ce87a00ff37945e0b61f921092f04a8c808851",
@@ -53,8 +54,8 @@
     "implementationRoadmap": "AIroW37XK-kLSvIWAi8bvi_c0B1TCCOIJCp93RQrxiAF8JmMMvgT0A9vnlZGdeAKQ_hSs674e9BNw9beXDa6RApDYcpXuZexshqiy4pvM_U"
   },
   "artifact": {
-    "sha256": "e24fe46b7ad6500b49ea80fa61165c16ecb7de29b7f4ce3d5001ca32190407d3",
-    "byteLength": 18915734,
+    "sha256": "1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529",
+    "byteLength": 18916650,
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "baseArtifact": {
@@ -63,7 +64,7 @@
     "embeddedAssetLinesSha256": "9d6c4dd1867b9973f27ea8199fb3ce24ba6f99804269fa9218499797e9eefe78"
   },
   "scenarios": {
-    "sha256": "eb5248928ca14ec7af78849dba23b1b5efc36f88c5c143456d8e8d53c6633318",
+    "sha256": "2d946cf56fa0983cb77363d92bd15516ae078c35dccfdd09ef631cd67094a1ff",
     "byteLength": 1074
   },
   "frozenHistoricalFiles": {
@@ -200,17 +201,6 @@
     "qa/phase-7/runner.js": "9f5c799f5db40902ae1720d00a589e9319939a2aea0dfac64206d064ba146b1d",
     "qa/phase-7/scenarios.json": "90db221a9c1b50bf912e2c3e5c540c8d74cf55c8583722c85027e806f0846eca",
     "qa/phase-7/verify.mjs": "b24fcb438988321241ae0209c3121f547443bbeb4fb28996de1455ad586575cc",
-    "qa/phase-8/README.md": "5d26719fa7c5db42544ab0624d26b6cc073deb5a93100818785f337309f3eb4b",
-    "qa/phase-8/build-contract.mjs": "4c6886275f114e5d157b32b4c368c4a945630b92f02ed75de9b7bb07428fb23f",
-    "qa/phase-8/checksums.sha256": "9d6c42e94f46bdf942e12a5db3fd0613cde02a5c88373da969a644a74c52d808",
-    "qa/phase-8/current-manifest.json": "ced8ad16db488cd64f6a275f126b2ba40d67f675bb2cd621d99262e1bd55e63e",
-    "qa/phase-8/index.html": "69c336f554408715f9ac78133aa6cce6b23243f2b90e0a6ffd4fb42c15a8d412",
-    "qa/phase-8/realm.html": "59a26e8e98e3af7f4ec127a792a72eca92eafd0910a4a0aa571eb4d70e747775",
-    "qa/phase-8/realm.js": "1771513604240c1f9432b3e262797c4036d6e435fc9081975882cb5c2fa7ac5b",
-    "qa/phase-8/regress-phase-7.mjs": "243786b1f77cfb35bb089466b2c0bebcd2028c8f7cffd641806133c17f657ce5",
-    "qa/phase-8/runner.js": "3fa234a45e7ae0fb184dd2a9b8658ea44ab7bbfe734e8975df8acadc90fcd3b3",
-    "qa/phase-8/scenarios.json": "00f9140a558df07f010a06a045f08b6131a2795251d9476e985d8162e7152d62",
-    "qa/phase-8/verify.mjs": "22cd6ec936e92a0510d82c665f8a239fa353f2e50e22149319993e78057083e7",
     "qa/runner.js": "fc0ce6ea13c055a52cdbc16df020a9541336115546ae298f2a36d47f7860abff",
     "qa/scenarios.json": "7ccfb47c63b9f9768387af95f35ae66f1dc612b74e43c7acf68cda1808c02a62",
     "qa/verify.mjs": "5802cddb9f94e9c4b658ab7aeb4af10c690848b63777dcde294ad5655c7e5af4",
@@ -238,6 +228,17 @@
     "docs/PHASE_7_EXECUTION.md": "1dd31310536adfb5f46485dbd236300520e07c7233113a7d35fd429b5fba014b",
     "docs/PHASE_7_IMPLEMENTATION_CONTRACT.md": "3d7fa12096f1cc74b5190cf3570dd040a547efa0fcc0db2328279343ff571bd7",
     "docs/PHASE_7_RESULT.md": "9d423a46950d7c186fd6e1247442f3f46697c0f41b1b654388fc1b295fee20af",
+    "qa/phase-8/README.md": "5d26719fa7c5db42544ab0624d26b6cc073deb5a93100818785f337309f3eb4b",
+    "qa/phase-8/build-contract.mjs": "4c6886275f114e5d157b32b4c368c4a945630b92f02ed75de9b7bb07428fb23f",
+    "qa/phase-8/checksums.sha256": "9d6c42e94f46bdf942e12a5db3fd0613cde02a5c88373da969a644a74c52d808",
+    "qa/phase-8/current-manifest.json": "ced8ad16db488cd64f6a275f126b2ba40d67f675bb2cd621d99262e1bd55e63e",
+    "qa/phase-8/index.html": "69c336f554408715f9ac78133aa6cce6b23243f2b90e0a6ffd4fb42c15a8d412",
+    "qa/phase-8/realm.html": "59a26e8e98e3af7f4ec127a792a72eca92eafd0910a4a0aa571eb4d70e747775",
+    "qa/phase-8/realm.js": "1771513604240c1f9432b3e262797c4036d6e435fc9081975882cb5c2fa7ac5b",
+    "qa/phase-8/regress-phase-7.mjs": "243786b1f77cfb35bb089466b2c0bebcd2028c8f7cffd641806133c17f657ce5",
+    "qa/phase-8/runner.js": "3fa234a45e7ae0fb184dd2a9b8658ea44ab7bbfe734e8975df8acadc90fcd3b3",
+    "qa/phase-8/scenarios.json": "00f9140a558df07f010a06a045f08b6131a2795251d9476e985d8162e7152d62",
+    "qa/phase-8/verify.mjs": "22cd6ec936e92a0510d82c665f8a239fa353f2e50e22149319993e78057083e7",
     "docs/PHASE_8_EXECUTION.md": "b683ea4306adea205bbde933132932cc5de32eb7daa78b04ec861f89a436e9e7",
     "docs/PHASE_8_IMPLEMENTATION_CONTRACT.md": "d6cbca1c2e93429117f605e27fff98a843032ed020e2d87e502c8ed228188c8c",
     "docs/PHASE_8_RESULT.md": "8188919ca68dab64581b2d2301b044d18b3a6e415c563959e745288d8d2b507b"
