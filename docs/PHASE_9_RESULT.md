@@ -15,10 +15,12 @@ Persistence advances to schema 10 with exact pre-v10 schema-9 authority, twelve 
 
 ## Evidence
 
-- Focused Phase 9 CLI verifier: `316/316` on the uncommitted hardening candidate.
+- Focused Phase 9 CLI verifier: `316/316`.
 - Phase 8 semantic successor: `703/703`, with nine itemized replacements.
-- The original production reviews passed exact tip `49e681a4a6d2edacfa1ee401c36590cd301797f6`; exact-tip re-review is pending for the one-line additive QA Adventure hardening at `ee516296ddf823ba90b4a85ddc474456fada09f7`.
-- Live browser gate: pending final exact-package run.
+- Independent exact product/logic re-review: PASS `53/53` at exact production tip `ee516296ddf823ba90b4a85ddc474456fada09f7`; artifact SHA/bytes matched and the production delta remained the single additive Phase 9 QA Adventure wrapper.
+- Independent persistence/recovery re-review: PASS `120/120` at the same exact production tip.
+- A corrected pre-seal browser debug run reached `608/608`, blank fatal, and zero warning/error console entries on package commit `35b3a1d69b3c08a084a84af029d55a104d75f043`. This is diagnostic evidence only, not the official final live gate.
+- Official live browser gate: pending the two runs on the exact review-sealed package; manifest `liveEvidence` remains `null` until those runs complete.
 
 ## Residual risks
 

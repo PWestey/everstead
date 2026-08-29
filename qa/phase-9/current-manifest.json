@@ -19,12 +19,19 @@
   "qaStorage": "isolated-memory-adapter",
   "independentReviewEvidence": {
     "exactProductAndLogic": {
-      "verdict": "REVIEW_REQUIRED",
-      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7"
+      "verdict": "PASS",
+      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7",
+      "passed": 53,
+      "total": 53,
+      "artifactSha256": "1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529",
+      "artifactByteLength": 18916650,
+      "scope": "one-line additive Phase 9 QA Adventure wrapper"
     },
     "persistenceAndRecovery": {
-      "verdict": "REVIEW_REQUIRED",
-      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7"
+      "verdict": "PASS",
+      "exactTip": "ee516296ddf823ba90b4a85ddc474456fada09f7",
+      "passed": 120,
+      "total": 120
     }
   },
   "executableCoverage": {
@@ -47,6 +54,15 @@
     "publicSchemaVersion": 9,
     "phaseNineMarkersPresent": false,
     "observedAt": "2026-08-28T22:00:00.000Z"
+  },
+  "preSealDebugLiveEvidence": {
+    "status": "NON_FINAL",
+    "packageCommit": "35b3a1d69b3c08a084a84af029d55a104d75f043",
+    "passed": 608,
+    "total": 608,
+    "failed": 0,
+    "fatal": "",
+    "consoleWarnError": 0
   },
   "liveEvidence": null,
   "sourceRevisions": {

@@ -25,3 +25,7 @@ After both independent production reviews passed exact tip `49e681a4a6d2edacfa1e
 No QA helper grants Rank EXP directly. The ten canonical first clears are the only executable source used to reach Rank 5 and 475 lifetime Rank EXP.
 
 The first live run then exposed one inherited QA Adventure bridge boundary: it could read native storage before authorization and show a lock toast despite direct presentation suppression. Exact production commit `ee516296ddf823ba90b4a85ddc474456fada09f7` fixes this additively in the Phase 9 layer; the action now authorizes before handler/read and calls the same Rank-gated selector with `present:false`.
+
+Independent review then passed the exact hardened production tip: the product/logic reviewer completed `53/53` targeted probes with matching artifact identity and confirmed the production delta is only the one-line additive wrapper; the persistence/recovery reviewer completed `120/120`. The focused Phase 9 verifier remained `316/316`, the Phase 8 semantic successor remained `703/703`, and embedded assets remained byte-identical.
+
+A corrected browser debug run on package commit `35b3a1d69b3c08a084a84af029d55a104d75f043` completed `608/608` with blank fatal and zero warning/error console entries. It is explicitly pre-seal diagnostic evidence, not final live acceptance. The generated manifest therefore keeps `liveEvidence` null until both official runs complete on the exact review-sealed package.
