@@ -1,0 +1,25 @@
+{
+  "phase": "10A",
+  "baseCommit": "068a5a3ea2d9b3b339e96bf3fed0a0c945cf62a5",
+  "productionCommit": "9d82db565ff482a3898e68bd8a6dce8505a9bfe9",
+  "frozenNow": "2026-08-29T03:20:00.000Z",
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backupV0": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "backupV1": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "backupV2": "oathforge_new_world_proto_v01__raw_backup_v2",
+    "backupV3": "oathforge_new_world_proto_v01__raw_backup_v3",
+    "backupV4": "oathforge_new_world_proto_v01__raw_backup_v4",
+    "backupV5": "oathforge_new_world_proto_v01__raw_backup_v5",
+    "backupV6": "oathforge_new_world_proto_v01__raw_backup_v6",
+    "backupV7": "oathforge_new_world_proto_v01__raw_backup_v7",
+    "backupV8": "oathforge_new_world_proto_v01__raw_backup_v8",
+    "backupV9": "oathforge_new_world_proto_v01__raw_backup_v9",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  },
+  "viewports": [
+    {"id":"phone-320","width":320,"height":568},
+    {"id":"phone-390","width":390,"height":844}
+  ],
+  "motionModes": ["normal-motion", "reduced-motion"]
+}

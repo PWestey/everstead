@@ -1,0 +1,28 @@
+# Everstead Phase 10A QA
+
+This additive gate verifies the Phase 10A idle-settlement eligibility repair at production commit `9d82db565ff482a3898e68bd8a6dce8505a9bfe9`. It introduces no production bridge or storage behavior. CLI and browser actions use the inherited fail-closed QA bridge against an isolated in-memory storage adapter.
+
+## Permanent commands
+
+From the repository root:
+
+```text
+node qa/phase-10a/verify.mjs
+node qa/phase-10a/regress-phase-9.mjs
+node qa/phase-9/verify.mjs
+node qa/phase-9/regress-phase-8.mjs
+shasum -a 256 -c qa/phase-10a/checksums.sha256
+```
+
+The frozen Phase 9 checksum file intentionally reports `13/14`: only `index.html` is superseded by the two-guard production repair. Phase 10A's own checksum file must pass every entry.
+
+Serve the repository root and open `qa/phase-10a/` for the live gate. It exercises exact 320×568 and 390×844 realms in normal and reduced motion, production Tower and Expedition controls, one shared captured clock, preview readiness, exact-once claims, same-tick refusal, reload, overflow, isolated storage, and console capture.
+
+## Evidence boundary
+
+- `verify.mjs` is the permanent focused oracle for exact source integrity, schemas 7–10, released-reference parity, time/cap/segment vectors, lifecycle paths, cross-lane settlement, fresh/migrated/safe-reset authority, and all nine transaction boundaries for Tower-only, Expedition-only, and combined elapsed mutations.
+- `regress-phase-9.mjs` proves the Phase 9 production/package successor boundary and the exact `13/14` frozen-checksum result.
+- `current-manifest.json` freezes Phase 0–9 QA/docs bytes and the Phase 10A artifact/scenario identities.
+- The pre-seal local Chromium smoke passed `106/106` with blank fatal and zero warning/error logs. Official evidence remains pending until the parent runs the exact committed candidate twice at both required phone sizes.
+
+No wider Phase 10 economy, Power, balance, claim registry, pity, schema, or UI work is included.
