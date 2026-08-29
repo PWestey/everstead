@@ -22,24 +22,24 @@ No advisory configuration is accepted, recommended, selected, production-ready, 
 
 | Gate | Required | Current evidence |
 | --- | ---: | --- |
-| Phase 10B-1 focused CLI | 624/624 twice | final materialized-clone runs pending; local diagnostic was 623/624 with only the deliberately skipped 203-predecessor snapshot row failing |
-| Artifact/static | 20/20 | 19/20 in the local diagnostic; the skipped full-predecessor row is pending |
-| Released config | 40/40 | 40/40 |
-| Golden microvectors | 96/96 | 96/96 |
-| Released three-way parity | 240/240 | 240/240 |
-| Advisory bundles | 144/144 | 144/144 |
-| Invariants | 60/60 | 60/60 |
-| Mutation sensitivity | 24/24 | 24/24 |
+| Phase 10B-1 focused CLI | 624/624 twice | repaired-candidate materialized-clone runs pending |
+| Artifact/static | 20/20 | pending final verifier; fast strict-validation and production-probe checks pass |
+| Released config | 40/40 | pending final verifier |
+| Golden microvectors | 96/96 | pending final verifier |
+| Released three-way parity | 240/240 | all 240 production vectors passed the repaired exact-shape probe; final three-way row run pending |
+| Advisory bundles | 144/144 | regenerated; zero bad Gold ledgers, Campaign no-replay proofs, or duplicate-resource proofs |
+| Invariants | 60/60 | repaired semantic smoke passes; final fixed-row run pending |
+| Mutation sensitivity | 24/24 | unchanged genuine mutation gate; final row run pending |
 | Phase 10A successor | 203/203 twice | exact 203-file literal registry implemented; writer run blocked on local cloud-file hydration, so final parent runs are pending |
 | Live dashboard | 164/164 twice | exact 164-row runner/realm implementation complete; writer browser connection was unavailable, so live evidence is pending |
 
-The final local diagnostic reported exact 624-row registry order, `writePreserved:true`, clean production-probe metrics, and every Phase 10B-owned executable row green: released config 40/40, microvectors 96/96, released parity 240/240, advisory bundles 144/144, invariants 60/60, and genuine recomputing mutations 24/24. Its only failure was the explicitly skipped full 203-predecessor snapshot while the Documents worktree held cloud placeholders. The accepted verifier has been restored to unconditional full coverage. This is writer implementation evidence, not final acceptance evidence.
+Fast repaired-candidate diagnostics show exact rejection of foreign/changed canonical inputs, exact production-order Gold grouping at the one-ULP discriminating boundary, all 240 valid direct-production vectors accepted, the reviewer’s foreign-key probe rejected, and all 144 bundles free of bad Gold conservation, Campaign replay, or duplicate-resource results. The accepted verifier retains unconditional full 203-predecessor no-write coverage; the parent will run it from a fully materialized clone. This is writer implementation evidence, not final acceptance evidence.
 
 ## Canonical artifacts
 
 - Row registry: exact 624 unique ordered IDs; identity recorded by the final manifest/checksum build.
 - Frozen candidate golden: 96 literal microvector outputs plus 240 literal inspectable released-parity outputs with canonical Float64 identities where needed; identity is recorded by the final manifest/checksum build. Its independent review is pending.
-- Frozen advisory report: exact 144 complete bundles; report identity `804b2a464b469d78471d8e63767cefd3f17b1726c5fcefd6525ebe8a5f1c979e`, file SHA-256 `17466576c0ed824a4107e580ada5223a3342f7835d1208075f4a7dc59dbe183a`, exact byte length 84,307,162, and 167,162 exact Float64 wrappers before the final evidence build.
+- Frozen advisory report: exact 144 complete bundles; report identity `d93ab29bf85ee924086b93d9348027426b05c5d772272437d30e1fb8c03d55e3`, file SHA-256 `041694df5f2c59f101d1d583ee0a8039641d98c0dc069141751c8d450d2919e9`, and exact byte length 93,915,724 before the final evidence build. Every noninteger remains an explicit exact Float64 wrapper.
 - Candidate configurations remain `released-schema10`, `candidate-growth-120`, `candidate-growth-122`, and `candidate-growth-124`; the latter three are advisory only.
 - Ordinary verifier/browser/build runs cannot generate or overwrite the golden or report. Candidate generation requires two explicit non-accepted `.candidate.json` paths and refuses overwrite.
 

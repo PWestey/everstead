@@ -4,8 +4,8 @@ import {readFileSync,readdirSync,statSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {RELEASED_CONFIG,buildMicroVectors,buildParityVectors,canonical,canonicalText,mutationProbe,referenceEvaluate} from './reference-model.mjs';
-import {productionEvaluateBatch,productionProbeIdentity,productionProbeMetrics} from './production-probe.mjs';
-import {buildAdvisoryReport,canonicalReportText,simulateBundle,unwrapCanonical,validateScenarioRegistry} from './simulate.mjs';
+import {productionEvaluateBatch,productionProbeIdentity,productionProbeMetrics,productionProbeRejects} from './production-probe.mjs';
+import {buildAdvisoryReport,buildCanonicalInput,canonicalReportText,simulateBundle,simulateCanonicalInput,unwrapCanonical,validateInput,validateScenarioRegistry} from './simulate.mjs';
 
 process.env.TZ='America/Phoenix';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..','..');
@@ -20,6 +20,10 @@ const walk=path=>{const result=[];for(const name of readdirSync(resolve(root,pat
 const firstDiff=(left,right,path='')=>{if(Object.is(left,right))return null;if(typeof left!==typeof right||left===null||right===null||typeof left!=='object')return path||'/';const leftKeys=Object.keys(left),rightKeys=Object.keys(right);if(!same(leftKeys,rightKeys))return path+'/'+[...new Set([...leftKeys,...rightKeys])].find(key=>!leftKeys.includes(key)||!rightKeys.includes(key));for(const key of leftKeys){const child=firstDiff(left[key],right[key],path+'/'+String(key).replaceAll('~','~0').replaceAll('/','~1'));if(child)return child}return null};
 const collectNumbers=value=>{const output=[];(function visit(item){if(typeof item==='number')output.push(item);else if(Array.isArray(item))item.forEach(visit);else if(item&&typeof item==='object')Object.values(item).forEach(visit)})(value);return output};
 const nondecreasing=values=>values.every((value,index)=>index===0||value>=values[index-1]);
+const floatBits=value=>{const bytes=Buffer.allocUnsafe(8);bytes.writeDoubleBE(value);return bytes.toString('hex')};
+const plainObjectPaths=(value,path=[],rows=[])=>{if(value&&typeof value==='object'&&!Array.isArray(value)){rows.push(path);for(const [key,child]of Object.entries(value))plainObjectPaths(child,path.concat(key),rows)}else if(Array.isArray(value))value.forEach((child,index)=>plainObjectPaths(child,path.concat(index),rows));return rows};
+const mutateAtPath=(value,path,mutate)=>{const copy=structuredClone(value);let cursor=copy;for(const key of path)cursor=cursor[key];mutate(cursor);return copy};
+const rejects=(validator,value)=>{try{validator(value);return false}catch{return true}};
 
 const scenarios=json('qa/phase-10b/scenarios.json');
 const golden=json('qa/phase-10b/golden-current.json');
@@ -43,6 +47,15 @@ const beforeSnapshot=snapshot();
 const assets=[...source.matchAll(/data:image\/[^;"']+;base64,[A-Za-z0-9+/=]+/g)].map(match=>match[0]);
 const assetAggregate=sha(Buffer.from(assets.join('\n'))),registrySha=sha(read('qa/phase-10b/row-registry.json'));
 let scenarioValidation=true;try{validateScenarioRegistry(scenarios)}catch(error){scenarioValidation=error.message}
+const scenarioObjectPaths=plainObjectPaths(scenarios),canonicalInputFixture=buildCanonicalInput(scenarios,'candidate-growth-120','fresh','instant'),inputObjectPaths=plainObjectPaths(canonicalInputFixture);
+const scenarioUnknownRejected=scenarioObjectPaths.every(path=>rejects(validateScenarioRegistry,mutateAtPath(scenarios,path,value=>{value.__phase10bUnknown=true}))),inputUnknownRejected=inputObjectPaths.every(path=>rejects(validateInput,mutateAtPath(canonicalInputFixture,path,value=>{value.__phase10bUnknown=true})));
+const scenarioValueRejections=[value=>value.simulation.releasedConstants.stableSalts.familySuccess='changed',value=>value.simulation.releasedConstants.fellowFamilyLinks.cael.push('tamsin'),value=>value.simulation.live.viewports[0].width=321,value=>value.simulation.live.motionModes.reverse(),value=>value.simulation.live.getAllowlist.reverse(),value=>value.simulation.policy.stopConditions.reverse(),value=>value.buildingProfiles.reverse()].every(mutate=>{const candidate=structuredClone(scenarios);mutate(candidate);return rejects(validateScenarioRegistry,candidate)});
+const inputValueRejections=[value=>value.config.status='accepted production',value=>value.config.label='promoted candidate',value=>value.archetype.rosterState.player.rank=2,value=>value.policy.stopConditions.reverse(),value=>value.identities.scenarioIdentity='0'.repeat(64),value=>value.releasedConstants.stableSalts.foreign='x'].every(mutate=>{const candidate=structuredClone(canonicalInputFixture);mutate(candidate);return rejects(validateInput,candidate)});
+const strictValidation={scenarioObjectCount:scenarioObjectPaths.length,inputObjectCount:inputObjectPaths.length,scenarioPathSha256:sha(Buffer.from(scenarioObjectPaths.map(path=>path.join('/')).join('\n'))),inputPathSha256:sha(Buffer.from(inputObjectPaths.map(path=>path.join('/')).join('\n'))),scenarioUnknownRejected,inputUnknownRejected,scenarioValueRejections,inputValueRejections};
+const strictProbeVectors=buildParityVectors(scenarios),strictProbeRepresentatives=[...new Map(strictProbeVectors.map(vector=>[(vector.kind==='idle'||vector.kind==='progression')?vector.kind+'/'+vector.mode:vector.kind,vector])).values()],topLevelProbeUnknownRejected=strictProbeRepresentatives.every(vector=>productionProbeRejects(root,{...structuredClone(vector),foreign:777}));
+const nestedProbeMutations=[
+  ['building',vector=>vector.profile.foreign=777],['offline',vector=>vector.levels.foreign=777],['fellow-power',vector=>vector.profile.foreign=777],['companion-power',vector=>vector.profile.foreign=777],['idle/tower-settle',vector=>vector.segments=[{floor:2,elapsedMs:1,foreign:777}]],['idle/expedition-settle',vector=>vector.segments=[{stage:3,elapsedMs:1,foreign:777}]],['idle/family-drop',vector=>vector.levels.foreign=777]
+].every(([key,mutate])=>{const vector=structuredClone(strictProbeRepresentatives.find(item=>((item.kind==='idle'||item.kind==='progression')?item.kind+'/'+item.mode:item.kind)===key));mutate(vector);return productionProbeRejects(root,vector)}),productionUnknownRejected=topLevelProbeUnknownRejected&&nestedProbeMutations;
 
 const staticRows=[
  ['static-artifact-sha',sha(artifact)==='717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed',sha(artifact)],
@@ -55,11 +68,11 @@ const staticRows=[
  ['static-production-unchanged',golden.artifactSha256===sha(artifact)&&productionProbeIdentity.artifactSha256===sha(artifact)],
  ['static-phase10a-manifest',sha(read('qa/phase-10a/current-manifest.json'))==='a09b5a6fdbe421247a3b1b2f317b8f13081de438bd153436b5e74e81ba899d18',sha(read('qa/phase-10a/current-manifest.json'))],
  ['static-phase10a-checksum-count',phase10aChecksums.length===14&&predecessorPaths.length===203,phase10aChecksums.length+'/'+predecessorPaths.length],
- ['static-scenarios-version',scenarios.scenarioVersion===1&&scenarios.phase==='10B-1'&&scenarios.simulation.scenarioFormatVersion===4&&scenarioValidation===true,scenarioValidation],
+ ['static-scenarios-version',scenarios.scenarioVersion===1&&scenarios.phase==='10B-1'&&scenarios.simulation.scenarioFormatVersion===4&&scenarioValidation===true&&strictValidation.scenarioObjectCount===369&&strictValidation.inputObjectCount===90&&strictValidation.scenarioPathSha256==='90c61aefc2cb7a97c84328c57b370fdb524b77b2e13f619a9461a3d5bdfcb31c'&&strictValidation.inputPathSha256==='04463628ed85530dc4dcd46d6edcf381584348f1387a3494a19035a73df4f6e5'&&strictValidation.scenarioUnknownRejected&&strictValidation.inputUnknownRejected&&strictValidation.scenarioValueRejections&&strictValidation.inputValueRejections,{scenarioValidation,strictValidation}],
  ['static-golden-version',golden.goldenVersion===2&&golden.phase==='10B-1'&&Object.keys(golden.parity).length===240&&frozenCanonicalReport.reportVersion===3],
  ['static-row-registry-version',registry.registryVersion===1&&registry.exactTotal===624&&registry.ids.length===624&&new Set(registry.ids).size===624&&registrySha==='6f5ddf032a155e3c4c4ca1712dcdca28e8288e7e7bb906561e06cd2f6262c8be',registrySha],
  ['static-reference-separated',!referenceSource.includes("from './production-probe.mjs'")&&!referenceSource.includes("from './simulate.mjs'")&&!referenceSource.includes("readFileSync(resolve(repoRoot,'index.html')")],
- ['static-production-probe-identity',productionProbeIdentity.artifactByteLength===18916682&&productionProbeIdentity.instrumentation==='direct-exact-tail-facade-v2'&&productionProbeIdentity.restoration==='bufferwise-exact'],
+ ['static-production-probe-identity',productionProbeIdentity.artifactByteLength===18916682&&productionProbeIdentity.instrumentation==='direct-exact-tail-facade-v2'&&productionProbeIdentity.restoration==='bufferwise-exact'&&productionUnknownRejected,{productionUnknownRejected}],
  ['static-simulator-advisory-only',simulatorSource.includes("candidateStatus:'advisory-only'")&&!simulatorSource.includes('recommended:true')],
  ['static-verifier-no-write',!/^import\s+\{[^}]*\b(?:write|append|rename|unlink)/m.test(verifierSource)],
  ['static-build-no-golden',text('qa/phase-10b/build-contract.mjs').includes('GOLDEN_WRITE_PROHIBITED')&&!/writeFileSync\([^\n]*golden-current/.test(text('qa/phase-10b/build-contract.mjs'))],
@@ -89,12 +102,12 @@ const configChecks=[
  RELEASED_CONFIG.family.shardChancePerLevel===.01&&source.includes('shardChancePerLevel:.01'),
  RELEASED_CONFIG.family.shardChanceCap===.18&&source.includes('shardChanceCap:.18'),
  RELEASED_CONFIG.family.pityForceAt===8&&source.includes('shardDroughtForceAt:8'),
- RELEASED_CONFIG.fellow.levelCap===120&&source.includes('FELLOW_CONFIG=Object.freeze({levelCap:120'),
+ RELEASED_CONFIG.fellow.levelCap===120&&RELEASED_CONFIG.fellow.rarityMax===5&&same(RELEASED_CONFIG.fellow.rarityCosts,[20,40,80,160])&&source.includes('FELLOW_CONFIG=Object.freeze({levelCap:120')&&source.includes('rarityMax:5,rarityShardCosts:Object.freeze([20,40,80,160])'),
  RELEASED_CONFIG.fellow.expBase===100&&source.includes('expBase:100'),
  RELEASED_CONFIG.fellow.expGrowth===1.12&&source.includes('expGrowth:1.12'),
  RELEASED_CONFIG.fellow.levelPowerGrowth===.115&&source.includes('levelPowerGrowth:.115'),
  RELEASED_CONFIG.fellow.rarityPowerGrowth===.08&&source.includes('rarityPowerGrowth:.08'),
- RELEASED_CONFIG.companion.levelCap===100&&source.includes('COMPANION_CONFIG=Object.freeze({levelCap:100'),
+ RELEASED_CONFIG.companion.levelCap===100&&RELEASED_CONFIG.companion.rarityMax===5&&same(RELEASED_CONFIG.companion.rarityCosts,[20,40,80,160])&&source.includes('COMPANION_CONFIG=Object.freeze({levelCap:100')&&source.includes('rarityMax:5,rarityShardCosts:Object.freeze([20,40,80,160])'),
  RELEASED_CONFIG.companion.expBase===80&&source.includes('expBase:80'),
  RELEASED_CONFIG.companion.expGrowth===1.12&&source.includes('expGrowth:1.12'),
  RELEASED_CONFIG.companion.levelPowerGrowth===.10&&source.includes('levelPowerGrowth:.10'),
@@ -116,7 +129,7 @@ configIds.forEach((id,index)=>check(id,configChecks[index]));
 
 const microVectors=buildMicroVectors(scenarios);
 for(const vector of microVectors){const actual=canonical(referenceEvaluate(vector)),expected=golden.micro[vector.id];check(vector.id,same(actual,expected),{actual,expected})}
-const parityVectors=buildParityVectors(scenarios);
+const parityVectors=strictProbeVectors;
 const production=await productionEvaluateBatch(root,parityVectors),probeMetrics=productionProbeMetrics();
 for(let index=0;index<parityVectors.length;index++){
  const vector=parityVectors[index],reference=canonical(referenceEvaluate(vector)),actual=canonical(production[index].output),expected=golden.parity[vector.id];
@@ -138,17 +151,19 @@ const parityById=Object.fromEntries(parityVectors.map(vector=>[vector.id,referen
 const allBundles=report.bundles,candidates=allBundles.filter(bundle=>bundle.metadata.status==='advisory candidate'),released=allBundles.filter(bundle=>bundle.metadata.status==='released parity'),reportNumbers=collectNumbers(report);
 const crossMidnight=parityById['parity-offline-capped-oath-cross-midnight'],tower7=parityById['parity-idle-tower-history-1-7'],tower8=parityById['parity-idle-tower-history-1-8'],exp7=parityById['parity-idle-expedition-history-1-7'],exp8=parityById['parity-idle-expedition-history-1-8'],towerCarry=parityById['parity-idle-tower-consume-carry'],expCarry=parityById['parity-idle-expedition-consume-carry'],familyExact=parityById['parity-idle-family-fresh'];
 const campaignUnder=referenceEvaluate({kind:'campaign',baseCost:12000,recommendedPower:30000,totalPower:15000}),campaignAt=referenceEvaluate({kind:'campaign',baseCost:12000,recommendedPower:30000,totalPower:30000}),campaignOver=referenceEvaluate({kind:'campaign',baseCost:12000,recommendedPower:30000,totalPower:60000}),campaignHuge=referenceEvaluate({kind:'campaign',baseCost:12000,recommendedPower:30000,totalPower:3000000});
-const freshReleased=allBundles.find(bundle=>bundle.metadata.configId==='released-schema10'&&bundle.metadata.archetypeId==='fresh'&&bundle.metadata.horizonId==='instant'),freshCandidate=allBundles.find(bundle=>bundle.metadata.configId==='candidate-growth-120'&&bundle.metadata.archetypeId==='fresh'&&bundle.metadata.horizonId==='instant');
+const freshReleased=allBundles.find(bundle=>bundle.metadata.configId==='released-schema10'&&bundle.metadata.archetypeId==='fresh'&&bundle.metadata.horizonId==='instant'),freshReleasedThreeDay=allBundles.find(bundle=>bundle.metadata.configId==='released-schema10'&&bundle.metadata.archetypeId==='fresh'&&bundle.metadata.horizonId==='3-day'),freshCandidate=allBundles.find(bundle=>bundle.metadata.configId==='candidate-growth-120'&&bundle.metadata.archetypeId==='fresh'&&bundle.metadata.horizonId==='instant');
 const wrapperCount=value=>{let count=0;(function visit(item){if(Array.isArray(item))item.forEach(visit);else if(item&&typeof item==='object'){if(Object.keys(item).length===2&&Object.hasOwn(item,'$float64')&&Object.hasOwn(item,'decimal'))count++;else Object.values(item).forEach(visit)}})(value);return count};
 const nonIntegerCount=reportNumbers.filter(value=>!Number.isInteger(value)).length;
 const sameProcess=canonicalBytes===secondCanonicalBytes;
 const separateProcess=canonicalBytes===childCanonicalBytes&&sha(canonicalBytes)===sha(childCanonicalBytes)&&Buffer.byteLength(canonicalBytes)===Buffer.byteLength(childCanonicalBytes);
 const frozenExact=canonicalBytes===frozenBytes&&sha(canonicalBytes)===sha(frozenBytes)&&Buffer.byteLength(canonicalBytes)===Buffer.byteLength(frozenBytes)&&wrapperCount(frozenCanonicalReport)===nonIntegerCount;
 const familyDirect=allBundles.every(bundle=>bundle.buildings.familyDirectOnce.passed&&Object.values(bundle.buildings.familyDirectOnce.applicationCounts).every(count=>count===1)&&Object.values(bundle.buildings.rows).every(row=>row.familyApplicationCount===1&&row.componentSequence.filter(component=>component==='familyAssignmentMultiplier').length===1));
+const progressionExpected={fellows:{1:[0,100,100],8:[1007,221,1228],25:[11814,1518,13332],60:[667020,80143,747163],110:[193010688,23161382,216172070],120:[599463646,null,null]},companions:{1:[0,80,80],6:[508,141,649],20:[5074,689,5763],55:[302496,36380,338876],92:[20078642,2409517,22488159],100:[49714965,null,null]}},progressionFormula=(level,base,growth,cap)=>{let threshold=0;for(let current=1;current<level;current++)threshold+=Math.round(base*Math.pow(growth,current-1));const cost=level>=cap?null:Math.round(base*Math.pow(growth,level-1));return[threshold,cost,cost===null?null:threshold+cost]},progressionRowsComplete=['fellows','companions'].every(roster=>{const [base,growth,cap]=roster==='fellows'?[100,1.12,120]:[80,1.12,100];return allBundles.every(bundle=>Object.values(bundle.progression[roster]).every(row=>['starting','ending'].every(side=>{const value=row[side],expected=progressionFormula(value.level,base,growth,cap);return value.currentLevelThreshold===expected[0]&&value.nextLevelCost===expected[1]&&value.nextLevelThreshold===expected[2]&&value.expIntoLevel===value.exp-value.currentLevelThreshold&&value.expRemainingToNext===(value.nextLevelCost===null?null:value.nextLevelCost-value.expIntoLevel)&&value.rarityMax===5&&same(value.rarityShardCosts,[20,40,80,160])&&value.nextRarityCost===(value.rarity===5?null:[20,40,80,160][value.rarity-1])&&value.shardsRemainingToAscend===(value.nextRarityCost===null?null:Math.max(0,value.nextRarityCost-value.shards))&&value.cumulativeRaritySpend===[0,20,60,140,300][value.rarity-1]})))}),progressionAnchorsExact=['fellows','companions'].every(roster=>Object.entries(progressionExpected[roster]).every(([level,expected])=>allBundles.some(bundle=>Object.values(bundle.progression[roster]).some(row=>row.starting.level===Number(level)&&row.starting.currentLevelThreshold===expected[0]&&row.starting.nextLevelCost===expected[1]&&row.starting.nextLevelThreshold===expected[2]))));
+const productionGroupedGold=freshReleasedThreeDay.ledger.claims.length===3&&freshReleasedThreeDay.ledger.claims[2].pendingBeforeCollection===676311.4679999998&&floatBits(freshReleasedThreeDay.ledger.claims[2].pendingBeforeCollection)==='4124a3aeef9db22b'&&freshReleasedThreeDay.ledger.operations.some(operation=>operation.type==='pending-accrual'&&same(operation.reductionOrder,['training','command','archives','hearth']))&&freshReleasedThreeDay.ledger.gold.operationTraceExact;
 const invariantById={
  'invariant-01-gold-buildings-sole-source':source.includes('function totalRate')&&!source.includes('FEATURE_FLAGS.goldSource'),
  'invariant-02-pending-gold-not-source':allBundles.every(bundle=>!Object.hasOwn(bundle.ledger.gold,'pendingGoldSource')),
- 'invariant-03-ledger-conservation':allBundles.every(bundle=>bundle.ledger.gold.conserved&&bundle.safety.sourceSinkConserved),
+ 'invariant-03-ledger-conservation':productionGroupedGold&&allBundles.every(bundle=>bundle.ledger.gold.conserved&&bundle.safety.sourceSinkConserved),
  'invariant-04-upgrade-sink-owned':allBundles.every(bundle=>Object.hasOwn(bundle.ledger.gold,'buildingUpgradeSpent')),
  'invariant-05-fellow-campaign-sink-owned':allBundles.every(bundle=>Object.hasOwn(bundle.ledger.gold,'fellowCampaignSpent')),
  'invariant-06-companion-campaign-sink-owned':allBundles.every(bundle=>Object.hasOwn(bundle.ledger.gold,'companionCampaignSpent')),
@@ -172,8 +187,8 @@ const invariantById={
  'invariant-24-released-companion-order':referenceEvaluate({kind:'companion-power',companionId:'cinderwing',profile:scenarios.companionPowerProfiles[7]}).formulaOrder.join('|')==='basePower|levelMultiplier|rarityMultiplier|masteryMultiplier|round',
  'invariant-25-building-rate-monotonic':nondecreasing(scenarios.buildingLevels.map(level=>referenceEvaluate({kind:'building',buildingId:'training',level,profile:scenarios.buildingProfiles[0]}).rate)),
  'invariant-26-upgrade-cost-monotonic':nondecreasing([1,2,3,10,20,30,51].map(level=>referenceEvaluate({kind:'upgrade',level}).cost)),
- 'invariant-27-fellow-exp-monotonic':nondecreasing([1,2,3,10,50,120].map(level=>referenceEvaluate({kind:'progression',mode:'fellow-exp',level}).threshold)),
- 'invariant-28-companion-exp-monotonic':nondecreasing([1,2,3,10,50,100].map(level=>referenceEvaluate({kind:'progression',mode:'companion-exp',level}).threshold)),
+ 'invariant-27-fellow-exp-monotonic':progressionRowsComplete&&progressionAnchorsExact&&nondecreasing([1,2,3,10,50,120].map(level=>referenceEvaluate({kind:'progression',mode:'fellow-exp',level}).threshold)),
+ 'invariant-28-companion-exp-monotonic':progressionRowsComplete&&progressionAnchorsExact&&nondecreasing([1,2,3,10,50,100].map(level=>referenceEvaluate({kind:'progression',mode:'companion-exp',level}).threshold)),
  'invariant-29-fellow-power-monotonic':referenceEvaluate({kind:'fellow-power',fellowId:'cael',profile:{...scenarios.fellowPowerProfiles[0],level:2}}).effectivePower>=referenceEvaluate({kind:'fellow-power',fellowId:'cael',profile:scenarios.fellowPowerProfiles[0]}).effectivePower,
  'invariant-30-companion-power-monotonic':referenceEvaluate({kind:'companion-power',companionId:'bramble',profile:{...scenarios.companionPowerProfiles[0],level:2}}).effectivePower>=referenceEvaluate({kind:'companion-power',companionId:'bramble',profile:scenarios.companionPowerProfiles[0]}).effectivePower,
  'invariant-31-fellow-curve-capped':allBundles.every(bundle=>bundle.power.ending.fellowBonusBps<=bundle.inputs.config.fellowRosterCurve.capBps),
@@ -198,7 +213,7 @@ const invariantById={
  'invariant-50-finite-no-nan-or-infinity':reportNumbers.every(Number.isFinite),
  'invariant-51-safe-integers':reportNumbers.every(value=>Math.abs(value)<=Number.MAX_SAFE_INTEGER&&(!Number.isInteger(value)||Number.isSafeInteger(value))),
  'invariant-52-no-double-spend':allBundles.every(bundle=>bundle.ledger.gold.totalSpent===bundle.ledger.gold.fellowCampaignSpent+bundle.ledger.gold.companionCampaignSpent+bundle.ledger.gold.buildingUpgradeSpent&&bundle.ledger.gold.totalSpent<=bundle.ledger.gold.startGold+bundle.ledger.gold.claimedGold&&bundle.ledger.gold.conserved),
- 'invariant-53-no-double-reward':allBundles.every(bundle=>bundle.safety.resourceAccounting.noDuplicateRewards&&bundle.safety.resourceAccounting.noLostResources&&bundle.safety.resourceAccounting.duplicateRewardIds.length===0&&bundle.safety.resourceAccounting.lostResources.length===0),
+ 'invariant-53-no-double-reward':allBundles.every(bundle=>bundle.safety.resourceAccounting.noDuplicateRewards&&bundle.safety.resourceAccounting.noLostResources&&bundle.safety.resourceAccounting.campaignNoReplay&&bundle.safety.resourceAccounting.rewardedNonFirstClearReceipts.length===0&&bundle.safety.resourceAccounting.duplicateRewardIds.length===0&&bundle.safety.resourceAccounting.lostResources.length===0&&bundle.progression.campaign.noReplayProof.valid&&bundle.progression.campaign.noReplayProof.campaignAwardsMatch&&Object.values(bundle.progression.campaign.noReplayProof.lanes).every(lane=>lane.uniqueNaturalIds&&lane.blockedZero&&lane.endingMatches&&lane.spendMatches&&lane.postCapNoReceipt)),
  'invariant-54-bounded-steps':allBundles.every(bundle=>Object.values(bundle.safety.stepLimits).every(Boolean)&&bundle.pacing.claimCount<=bundle.inputs.safety.maxClaims&&bundle.pacing.upgradeCount<=bundle.inputs.safety.maxUpgrades&&bundle.pacing.campaignRuns<=bundle.inputs.safety.maxCampaignRuns),
  'invariant-55-fresh-input-cloned':allBundles.filter(bundle=>bundle.metadata.archetypeId==='fresh').every(bundle=>bundle.safety.inputUnchanged),
  'invariant-56-migrated-input-cloned':allBundles.filter(bundle=>bundle.metadata.archetypeId!=='fresh').every(bundle=>bundle.safety.inputUnchanged),
