@@ -1,1 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everstead Phase 10B-2 QA</title><style>body{margin:0;background:#101915;color:#e7f0e9;font:14px system-ui,sans-serif}.wrap{max-width:960px;margin:auto;padding:20px}button{padding:10px 16px;background:#88b693;border:0;border-radius:6px;font-weight:700}button:disabled{opacity:.5}.summary{display:flex;gap:16px;margin:16px 0;font-size:18px}.pass{color:#91d89d}.pending{color:#f0ce78}.fail{color:#ff8b8b}table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:6px;border-bottom:1px solid #2d4135;text-align:left}iframe{position:absolute;left:-10000px;border:0}.fatal{white-space:pre-wrap;color:#ff8b8b}</style></head><body><main class="wrap"><h1>Phase 10B-2 Gold Core Extraction</h1><p>Read-only preimage and candidate browser acceptance dashboard.</p><button id="run" type="button">Run 228 checks</button><div class="summary"><span>Total <b id="total">0</b></span><span class="pass">Passed <b id="passed">0</b></span><span class="pending">Pending <b id="pending">0</b></span><span class="fail">Failed <b id="failed">0</b></span></div><div id="fatal" class="fatal"></div><table><thead><tr><th>Row</th><th>Status</th><th>Evidence</th></tr></thead><tbody id="rows"></tbody></table><div id="realms"></div></main><script src="runner.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Everstead Phase 10B-2 QA</title>
+  <style>
+    :root{color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;background:#101915;color:#e7f0e9;font:14px system-ui,sans-serif}
+    .wrap{max-width:960px;margin:auto;padding:20px}
+    button{padding:10px 16px;background:#88b693;border:0;border-radius:6px;font-weight:700}
+    button:disabled{opacity:.5}
+    .summary{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0;font-size:18px}
+    .pass{color:#91d89d}.pending{color:#f0ce78}.fail{color:#ff8b8b}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    td,th{padding:6px;border-bottom:1px solid #2d4135;text-align:left;vertical-align:top}
+    td:first-child{overflow-wrap:anywhere}
+    #realms{position:absolute;inline-size:1px;block-size:1px;overflow:hidden;clip-path:inset(50%)}
+    #realms iframe{display:block;border:0}
+    .fatal{white-space:pre-wrap;color:#ff8b8b}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Phase 10B-2 Gold Core Extraction</h1>
+    <p>Read-only preimage and candidate browser acceptance dashboard.</p>
+    <button id="run" type="button">Run 228 checks</button>
+    <div class="summary" aria-live="polite">
+      <span>Total <b id="total">0</b></span>
+      <span class="pass">Passed <b id="passed">0</b></span>
+      <span class="pending">Pending <b id="pending">0</b></span>
+      <span class="fail">Failed <b id="failed">0</b></span>
+    </div>
+    <div id="fatal" class="fatal" role="alert"></div>
+    <table>
+      <thead><tr><th>Row</th><th>Status</th><th>Evidence</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div id="realms" aria-hidden="true"></div>
+  </main>
+  <script src="runner.js"></script>
+</body>
+</html>

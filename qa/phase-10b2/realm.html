@@ -1,1 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Phase 10B-2 isolated realm</title><style>html,body{margin:0;min-height:100%;overflow-x:hidden;background:#101915;color:#e7f0e9;font:12px system-ui,sans-serif}#status{padding:8px}</style></head><body><div id="status">Preparing isolated read-only realm…</div><script src="realm.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Phase 10B-2 isolated realm</title>
+  <style>
+    :root{color-scheme:dark;scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;overflow-x:hidden;background:#101915;color:#e7f0e9;font:12px system-ui,sans-serif}
+    main{inline-size:100%;max-inline-size:100%;padding:8px;overflow:hidden}
+    #status{overflow-wrap:anywhere}
+    #controls{display:flex;gap:4px;max-inline-size:100%}
+    select{min-inline-size:0;max-inline-size:70%}
+    button{max-inline-size:30%}
+    #rendered{white-space:pre-wrap;overflow-wrap:anywhere}
+    #motion-probe{position:absolute;inline-size:1px;block-size:1px;transition:opacity 1s linear;animation-duration:1s}
+    html[data-motion="reduced"]{scroll-behavior:auto}
+    html[data-motion="reduced"] #motion-probe{transition-duration:.001s;animation-duration:.001s}
+  </style>
+</head>
+<body>
+  <main>
+    <div id="status">Preparing isolated read-only realm…</div>
+    <div id="controls">
+      <select id="trace-control" aria-label="Trace"></select>
+      <button id="rerender" type="button">Rerender</button>
+    </div>
+    <pre id="rendered"></pre>
+    <div id="motion-probe"></div>
+  </main>
+  <script src="realm.js"></script>
+</body>
+</html>
