@@ -25,7 +25,7 @@ check('expedition-guard-exact',currentExpedition.includes('if(![8,9,10].includes
 const currentAssets=assets(source),publishedAssets=assets(published);check('embedded-assets-count',currentAssets.length===publishedAssets.length,currentAssets.length);check('embedded-assets-byte-exact',same(currentAssets,publishedAssets));
 
 const focusedSettlementVectors=lane=>{const segmentKey=lane==='tower'?'floor':'stage',segments=lane==='tower'?'towerSegments':'expeditionSegments',progress=lane==='tower'?'floor':'stage',current=lane==='tower'?2:3;return[
-  ['zero',{},1000],['rollback',{},999.75],['sub-interval',{},3600999],['exact-interval',{},3601000],['multi-interval',{},10801000],['exact-cap',{},86401000],['over-cap',{},90001000],
+  ['zero',{},1000],['rollback',{},999.75],['sub-interval',{},3600999],['exact-interval',{},3601000],['interval-plus-one',{},3601001],['multi-interval',{},10801000],['exact-cap',{},86401000],['over-cap',{},90001000],
   ['empty-progress',{[progress]:0},5000],['partial-cap',{[segments]:[{[segmentKey]:current,elapsedMs:82800000}]},7201000],['full-cap',{[segments]:[{[segmentKey]:current,elapsedMs:86400000}]},5000],
   ['matching-segment',{[segments]:[{[segmentKey]:current,elapsedMs:100}]},5000],['new-segment',{[segments]:[{[segmentKey]:current-1,elapsedMs:100}]},5000]
 ]};
