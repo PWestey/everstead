@@ -2,7 +2,7 @@
 
 ## Candidate status
 
-Release candidate sealed after two clean exact-tip live runs and two independent PASS reviews.
+Published to `main` after two clean exact-tip live runs and two independent PASS reviews.
 
 ## Production identity
 
@@ -26,6 +26,13 @@ Release candidate sealed after two clean exact-tip live runs and two independent
 - Official live browser: `162/162` twice at `320×568` and `390×844`, normal and reduced motion, blank fatal, zero failed rows, zero warning/error logs
 - Product/settlement independent review: `PASS` at exact tip `0aa03643575be9e0ad845e67e150c9cf3b48ec6f`
 - Persistence/regression independent review: `PASS` at exact tip `0aa03643575be9e0ad845e67e150c9cf3b48ec6f`
+
+## Publication evidence
+
+- Canonical and origin `main`: `c198181fc52d4f5074e0f7c2ea02216c80470884`
+- GitHub Pages deployment: `success`, run `33255187023`
+- Public artifact: `717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed`, `18,916,682` bytes, schema 10 markers present
+- Public UI: Everstead Village loaded with the offline summary visible and zero warning/error console entries
 
 ## Verified behavior
 

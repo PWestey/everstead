@@ -77,6 +77,41 @@
     ],
     "observedThrough": "2026-08-29T13:21:16Z"
   },
+  "releaseEvidence": {
+    "status": "PUBLISHED",
+    "canonicalMainCommit": "c198181fc52d4f5074e0f7c2ea02216c80470884",
+    "originMainCommit": "c198181fc52d4f5074e0f7c2ea02216c80470884",
+    "deployment": {
+      "runId": 33255187023,
+      "runUrl": "https://github.com/PWestey/everstead/actions/runs/33255187023",
+      "workflow": "pages build and deployment",
+      "conclusion": "success",
+      "headCommit": "c198181fc52d4f5074e0f7c2ea02216c80470884",
+      "createdAt": "2026-08-29T13:30:29Z",
+      "startedAt": "2026-08-29T13:30:29Z",
+      "completedAt": "2026-08-29T13:31:17Z"
+    },
+    "publicArtifact": {
+      "url": "https://pwestey.github.io/everstead/",
+      "sha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
+      "byteLength": 18916682,
+      "schemaVersion": 10,
+      "markers": [
+        "CURRENT_SCHEMA_VERSION=10",
+        "[8,9,10].includes(state?.schemaVersion)"
+      ],
+      "observedAt": "2026-08-29T13:33:39Z"
+    },
+    "publicUi": {
+      "status": "PASS",
+      "surface": "in-app Chromium",
+      "title": "Everstead v0.1",
+      "villageLoaded": true,
+      "offlineSummaryVisible": true,
+      "consoleWarnError": 0,
+      "observedAt": "2026-08-29T13:33:39Z"
+    }
+  },
   "artifact": {
     "sha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
     "byteLength": 18916682,
