@@ -1,0 +1,3232 @@
+{
+  "schemaVersion": 1,
+  "phase": "10B-2",
+  "status": "FROZEN ROW AUTHORITY",
+  "source": {
+    "contractCommit": "fc7553c6960080c596d0b4f6da3dd262dff2e31d",
+    "contractSha256": "b458fac750ac92db4e1791e061277d88452c62daef9caae1f979c09e5e0b453b",
+    "preimageSha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
+    "preimageByteLength": 18916682,
+    "traceSha256": "74feec74ff6f9efe07ca47cb2b0fcaaca8ab80dab71961fd2f1625f270209136",
+    "traceByteLength": 557500
+  },
+  "total": 400,
+  "categoryAllocation": {
+    "static/startup": 32,
+    "numeric/operator": 96,
+    "frozen predecessor traces": 128,
+    "fail-closed/persistence": 96,
+    "mutation sensitivity": 48
+  },
+  "preimageTotals": {
+    "PASS": 254,
+    "PENDING": 146
+  },
+  "candidateTotals": {
+    "PASS": 400,
+    "PENDING": 0,
+    "FAIL": 0
+  },
+  "rows": [
+    {
+      "id": "static-01-registry-identity",
+      "ordinal": 1,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "registry-identity"
+    },
+    {
+      "id": "static-02-scenario-identity",
+      "ordinal": 2,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "scenario-identity"
+    },
+    {
+      "id": "static-03-trace-identity",
+      "ordinal": 3,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace-identity"
+    },
+    {
+      "id": "static-04-preimage-artifact-identity",
+      "ordinal": 4,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "preimage-artifact-identity"
+    },
+    {
+      "id": "static-05-embedded-assets",
+      "ordinal": 5,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "embedded-assets"
+    },
+    {
+      "id": "static-06-contract-authority",
+      "ordinal": 6,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "contract-authority"
+    },
+    {
+      "id": "static-07-base-commit-authority",
+      "ordinal": 7,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "base-commit-authority"
+    },
+    {
+      "id": "static-08-package-topology",
+      "ordinal": 8,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "package-topology"
+    },
+    {
+      "id": "static-09-kernel-window-state",
+      "ordinal": 9,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-window-state"
+    },
+    {
+      "id": "static-10-allowed-window-boundary",
+      "ordinal": 10,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "allowed-window-boundary"
+    },
+    {
+      "id": "static-11-family-assignment-wrapper-frozen",
+      "ordinal": 11,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-assignment-wrapper-frozen"
+    },
+    {
+      "id": "static-12-building-rate-wrapper-frozen",
+      "ordinal": 12,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "building-rate-wrapper-frozen"
+    },
+    {
+      "id": "static-13-midnight-wrapper-frozen",
+      "ordinal": 13,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "midnight-wrapper-frozen"
+    },
+    {
+      "id": "static-14-schema-ten-literal",
+      "ordinal": 14,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "schema-ten-literal"
+    },
+    {
+      "id": "static-15-protected-slots-twelve",
+      "ordinal": 15,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "protected-slots-twelve"
+    },
+    {
+      "id": "static-16-no-external-script",
+      "ordinal": 16,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "no-external-script"
+    },
+    {
+      "id": "static-17-no-module-request",
+      "ordinal": 17,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "no-module-request"
+    },
+    {
+      "id": "static-18-no-build-dependency",
+      "ordinal": 18,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "no-build-dependency"
+    },
+    {
+      "id": "static-19-surface-private",
+      "ordinal": 19,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-private"
+    },
+    {
+      "id": "static-20-surface-method-order",
+      "ordinal": 20,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-method-order"
+    },
+    {
+      "id": "static-21-surface-descriptors",
+      "ordinal": 21,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-descriptors"
+    },
+    {
+      "id": "static-22-surface-arrow-functions",
+      "ordinal": 22,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-arrow-functions"
+    },
+    {
+      "id": "static-23-surface-nonconstructible",
+      "ordinal": 23,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-nonconstructible"
+    },
+    {
+      "id": "static-24-surface-no-prototype",
+      "ordinal": 24,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-no-prototype"
+    },
+    {
+      "id": "static-25-shape-guard-location",
+      "ordinal": 25,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "shape-guard-location"
+    },
+    {
+      "id": "static-26-shape-guard-before-runtime",
+      "ordinal": 26,
+      "category": "static/startup",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "shape-guard-before-runtime"
+    },
+    {
+      "id": "static-27-boot-anchor-exact-once",
+      "ordinal": 27,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "boot-anchor-exact-once"
+    },
+    {
+      "id": "static-28-transform-restoration",
+      "ordinal": 28,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "transform-restoration"
+    },
+    {
+      "id": "static-29-output-realm-isolation",
+      "ordinal": 29,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "output-realm-isolation"
+    },
+    {
+      "id": "static-30-call-trace-realm-isolation",
+      "ordinal": 30,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "call-trace-realm-isolation"
+    },
+    {
+      "id": "static-31-mutation-realm-isolation",
+      "ordinal": 31,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "mutation-realm-isolation"
+    },
+    {
+      "id": "static-32-preimage-status-honest",
+      "ordinal": 32,
+      "category": "static/startup",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "preimage-status-honest"
+    },
+    {
+      "id": "numeric-001-familyBuildingBonus-1",
+      "ordinal": 33,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-002-familyBuildingBonus-2",
+      "ordinal": 34,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-003-familyBuildingBonus-3",
+      "ordinal": 35,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-004-familyBuildingBonus-4",
+      "ordinal": 36,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-005-familyBuildingBonus-5",
+      "ordinal": 37,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-006-familyBuildingBonus-6",
+      "ordinal": 38,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-007-familyBuildingBonus-7",
+      "ordinal": 39,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-008-familyBuildingBonus-8",
+      "ordinal": 40,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-009-familyBuildingBonus-9",
+      "ordinal": 41,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-010-familyBuildingBonus-10",
+      "ordinal": 42,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-011-familyBuildingBonus-11",
+      "ordinal": 43,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-012-familyBuildingBonus-12",
+      "ordinal": 44,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-013-familyBuildingBonus-13",
+      "ordinal": 45,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-014-familyBuildingBonus-14",
+      "ordinal": 46,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-015-familyBuildingBonus-15",
+      "ordinal": 47,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-016-familyBuildingBonus-16",
+      "ordinal": 48,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-017-familyBuildingBonus-17",
+      "ordinal": 49,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-018-familyBuildingBonus-18",
+      "ordinal": 50,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-019-familyBuildingBonus-19",
+      "ordinal": 51,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-020-familyBuildingBonus-20",
+      "ordinal": 52,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "familyBuildingBonus independent literal parity"
+    },
+    {
+      "id": "numeric-021-neutralHookBonus-1",
+      "ordinal": 53,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-022-neutralHookBonus-2",
+      "ordinal": 54,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-023-neutralHookBonus-3",
+      "ordinal": 55,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-024-neutralHookBonus-4",
+      "ordinal": 56,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-025-neutralHookBonus-5",
+      "ordinal": 57,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-026-neutralHookBonus-6",
+      "ordinal": 58,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-027-neutralHookBonus-7",
+      "ordinal": 59,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-028-neutralHookBonus-8",
+      "ordinal": 60,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "neutralHookBonus independent literal parity"
+    },
+    {
+      "id": "numeric-029-buildingUpgradeCost-1",
+      "ordinal": 61,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-030-buildingUpgradeCost-2",
+      "ordinal": 62,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-031-buildingUpgradeCost-3",
+      "ordinal": 63,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-032-buildingUpgradeCost-4",
+      "ordinal": 64,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-033-buildingUpgradeCost-5",
+      "ordinal": 65,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-034-buildingUpgradeCost-6",
+      "ordinal": 66,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-035-buildingUpgradeCost-7",
+      "ordinal": 67,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-036-buildingUpgradeCost-8",
+      "ordinal": 68,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-037-buildingUpgradeCost-9",
+      "ordinal": 69,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-038-buildingUpgradeCost-10",
+      "ordinal": 70,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-039-buildingUpgradeCost-11",
+      "ordinal": 71,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-040-buildingUpgradeCost-12",
+      "ordinal": 72,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingUpgradeCost independent literal parity"
+    },
+    {
+      "id": "numeric-041-buildingRateComponents-1",
+      "ordinal": 73,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-042-buildingRateComponents-2",
+      "ordinal": 74,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-043-buildingRateComponents-3",
+      "ordinal": 75,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-044-buildingRateComponents-4",
+      "ordinal": 76,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-045-buildingRateComponents-5",
+      "ordinal": 77,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-046-buildingRateComponents-6",
+      "ordinal": 78,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-047-buildingRateComponents-7",
+      "ordinal": 79,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-048-buildingRateComponents-8",
+      "ordinal": 80,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-049-buildingRateComponents-9",
+      "ordinal": 81,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-050-buildingRateComponents-10",
+      "ordinal": 82,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-051-buildingRateComponents-11",
+      "ordinal": 83,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-052-buildingRateComponents-12",
+      "ordinal": 84,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-053-buildingRateComponents-13",
+      "ordinal": 85,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-054-buildingRateComponents-14",
+      "ordinal": 86,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-055-buildingRateComponents-15",
+      "ordinal": 87,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-056-buildingRateComponents-16",
+      "ordinal": 88,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-057-buildingRateComponents-17",
+      "ordinal": 89,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-058-buildingRateComponents-18",
+      "ordinal": 90,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-059-buildingRateComponents-19",
+      "ordinal": 91,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-060-buildingRateComponents-20",
+      "ordinal": 92,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-061-buildingRateComponents-21",
+      "ordinal": 93,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-062-buildingRateComponents-22",
+      "ordinal": 94,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-063-buildingRateComponents-23",
+      "ordinal": 95,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-064-buildingRateComponents-24",
+      "ordinal": 96,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "buildingRateComponents independent literal parity"
+    },
+    {
+      "id": "numeric-065-durationGold-1",
+      "ordinal": 97,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-066-durationGold-2",
+      "ordinal": 98,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-067-durationGold-3",
+      "ordinal": 99,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-068-durationGold-4",
+      "ordinal": 100,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-069-durationGold-5",
+      "ordinal": 101,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-070-durationGold-6",
+      "ordinal": 102,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-071-durationGold-7",
+      "ordinal": 103,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-072-durationGold-8",
+      "ordinal": 104,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "durationGold independent literal parity"
+    },
+    {
+      "id": "numeric-073-totalRate-1",
+      "ordinal": 105,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-074-totalRate-2",
+      "ordinal": 106,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-075-totalRate-3",
+      "ordinal": 107,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-076-totalRate-4",
+      "ordinal": 108,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-077-totalRate-5",
+      "ordinal": 109,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-078-totalRate-6",
+      "ordinal": 110,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-079-totalRate-7",
+      "ordinal": 111,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-080-totalRate-8",
+      "ordinal": 112,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "totalRate independent literal parity"
+    },
+    {
+      "id": "numeric-081-offlineTotals-1",
+      "ordinal": 113,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-082-offlineTotals-2",
+      "ordinal": 114,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-083-offlineTotals-3",
+      "ordinal": 115,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-084-offlineTotals-4",
+      "ordinal": 116,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-085-offlineTotals-5",
+      "ordinal": 117,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-086-offlineTotals-6",
+      "ordinal": 118,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-087-offlineTotals-7",
+      "ordinal": 119,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-088-offlineTotals-8",
+      "ordinal": 120,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-089-offlineTotals-9",
+      "ordinal": 121,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-090-offlineTotals-10",
+      "ordinal": 122,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-091-offlineTotals-11",
+      "ordinal": 123,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-092-offlineTotals-12",
+      "ordinal": 124,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-093-offlineTotals-13",
+      "ordinal": 125,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-094-offlineTotals-14",
+      "ordinal": 126,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-095-offlineTotals-15",
+      "ordinal": 127,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "numeric-096-offlineTotals-16",
+      "ordinal": 128,
+      "category": "numeric/operator",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "offlineTotals independent literal parity"
+    },
+    {
+      "id": "trace-01-frozen",
+      "ordinal": 129,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 1 frozen"
+    },
+    {
+      "id": "trace-01-reference",
+      "ordinal": 130,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 1 reference"
+    },
+    {
+      "id": "trace-01-wrapper",
+      "ordinal": 131,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 1 wrapper"
+    },
+    {
+      "id": "trace-01-kernel",
+      "ordinal": 132,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 1 kernel"
+    },
+    {
+      "id": "trace-02-frozen",
+      "ordinal": 133,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 2 frozen"
+    },
+    {
+      "id": "trace-02-reference",
+      "ordinal": 134,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 2 reference"
+    },
+    {
+      "id": "trace-02-wrapper",
+      "ordinal": 135,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 2 wrapper"
+    },
+    {
+      "id": "trace-02-kernel",
+      "ordinal": 136,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 2 kernel"
+    },
+    {
+      "id": "trace-03-frozen",
+      "ordinal": 137,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 3 frozen"
+    },
+    {
+      "id": "trace-03-reference",
+      "ordinal": 138,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 3 reference"
+    },
+    {
+      "id": "trace-03-wrapper",
+      "ordinal": 139,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 3 wrapper"
+    },
+    {
+      "id": "trace-03-kernel",
+      "ordinal": 140,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 3 kernel"
+    },
+    {
+      "id": "trace-04-frozen",
+      "ordinal": 141,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 4 frozen"
+    },
+    {
+      "id": "trace-04-reference",
+      "ordinal": 142,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 4 reference"
+    },
+    {
+      "id": "trace-04-wrapper",
+      "ordinal": 143,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 4 wrapper"
+    },
+    {
+      "id": "trace-04-kernel",
+      "ordinal": 144,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 4 kernel"
+    },
+    {
+      "id": "trace-05-frozen",
+      "ordinal": 145,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 5 frozen"
+    },
+    {
+      "id": "trace-05-reference",
+      "ordinal": 146,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 5 reference"
+    },
+    {
+      "id": "trace-05-wrapper",
+      "ordinal": 147,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 5 wrapper"
+    },
+    {
+      "id": "trace-05-kernel",
+      "ordinal": 148,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 5 kernel"
+    },
+    {
+      "id": "trace-06-frozen",
+      "ordinal": 149,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 6 frozen"
+    },
+    {
+      "id": "trace-06-reference",
+      "ordinal": 150,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 6 reference"
+    },
+    {
+      "id": "trace-06-wrapper",
+      "ordinal": 151,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 6 wrapper"
+    },
+    {
+      "id": "trace-06-kernel",
+      "ordinal": 152,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 6 kernel"
+    },
+    {
+      "id": "trace-07-frozen",
+      "ordinal": 153,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 7 frozen"
+    },
+    {
+      "id": "trace-07-reference",
+      "ordinal": 154,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 7 reference"
+    },
+    {
+      "id": "trace-07-wrapper",
+      "ordinal": 155,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 7 wrapper"
+    },
+    {
+      "id": "trace-07-kernel",
+      "ordinal": 156,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 7 kernel"
+    },
+    {
+      "id": "trace-08-frozen",
+      "ordinal": 157,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 8 frozen"
+    },
+    {
+      "id": "trace-08-reference",
+      "ordinal": 158,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 8 reference"
+    },
+    {
+      "id": "trace-08-wrapper",
+      "ordinal": 159,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 8 wrapper"
+    },
+    {
+      "id": "trace-08-kernel",
+      "ordinal": 160,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 8 kernel"
+    },
+    {
+      "id": "trace-09-frozen",
+      "ordinal": 161,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 9 frozen"
+    },
+    {
+      "id": "trace-09-reference",
+      "ordinal": 162,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 9 reference"
+    },
+    {
+      "id": "trace-09-wrapper",
+      "ordinal": 163,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 9 wrapper"
+    },
+    {
+      "id": "trace-09-kernel",
+      "ordinal": 164,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 9 kernel"
+    },
+    {
+      "id": "trace-10-frozen",
+      "ordinal": 165,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 10 frozen"
+    },
+    {
+      "id": "trace-10-reference",
+      "ordinal": 166,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 10 reference"
+    },
+    {
+      "id": "trace-10-wrapper",
+      "ordinal": 167,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 10 wrapper"
+    },
+    {
+      "id": "trace-10-kernel",
+      "ordinal": 168,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 10 kernel"
+    },
+    {
+      "id": "trace-11-frozen",
+      "ordinal": 169,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 11 frozen"
+    },
+    {
+      "id": "trace-11-reference",
+      "ordinal": 170,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 11 reference"
+    },
+    {
+      "id": "trace-11-wrapper",
+      "ordinal": 171,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 11 wrapper"
+    },
+    {
+      "id": "trace-11-kernel",
+      "ordinal": 172,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 11 kernel"
+    },
+    {
+      "id": "trace-12-frozen",
+      "ordinal": 173,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 12 frozen"
+    },
+    {
+      "id": "trace-12-reference",
+      "ordinal": 174,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 12 reference"
+    },
+    {
+      "id": "trace-12-wrapper",
+      "ordinal": 175,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 12 wrapper"
+    },
+    {
+      "id": "trace-12-kernel",
+      "ordinal": 176,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 12 kernel"
+    },
+    {
+      "id": "trace-13-frozen",
+      "ordinal": 177,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 13 frozen"
+    },
+    {
+      "id": "trace-13-reference",
+      "ordinal": 178,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 13 reference"
+    },
+    {
+      "id": "trace-13-wrapper",
+      "ordinal": 179,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 13 wrapper"
+    },
+    {
+      "id": "trace-13-kernel",
+      "ordinal": 180,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 13 kernel"
+    },
+    {
+      "id": "trace-14-frozen",
+      "ordinal": 181,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 14 frozen"
+    },
+    {
+      "id": "trace-14-reference",
+      "ordinal": 182,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 14 reference"
+    },
+    {
+      "id": "trace-14-wrapper",
+      "ordinal": 183,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 14 wrapper"
+    },
+    {
+      "id": "trace-14-kernel",
+      "ordinal": 184,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 14 kernel"
+    },
+    {
+      "id": "trace-15-frozen",
+      "ordinal": 185,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 15 frozen"
+    },
+    {
+      "id": "trace-15-reference",
+      "ordinal": 186,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 15 reference"
+    },
+    {
+      "id": "trace-15-wrapper",
+      "ordinal": 187,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 15 wrapper"
+    },
+    {
+      "id": "trace-15-kernel",
+      "ordinal": 188,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 15 kernel"
+    },
+    {
+      "id": "trace-16-frozen",
+      "ordinal": 189,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 16 frozen"
+    },
+    {
+      "id": "trace-16-reference",
+      "ordinal": 190,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 16 reference"
+    },
+    {
+      "id": "trace-16-wrapper",
+      "ordinal": 191,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 16 wrapper"
+    },
+    {
+      "id": "trace-16-kernel",
+      "ordinal": 192,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 16 kernel"
+    },
+    {
+      "id": "trace-17-frozen",
+      "ordinal": 193,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 17 frozen"
+    },
+    {
+      "id": "trace-17-reference",
+      "ordinal": 194,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 17 reference"
+    },
+    {
+      "id": "trace-17-wrapper",
+      "ordinal": 195,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 17 wrapper"
+    },
+    {
+      "id": "trace-17-kernel",
+      "ordinal": 196,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 17 kernel"
+    },
+    {
+      "id": "trace-18-frozen",
+      "ordinal": 197,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 18 frozen"
+    },
+    {
+      "id": "trace-18-reference",
+      "ordinal": 198,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 18 reference"
+    },
+    {
+      "id": "trace-18-wrapper",
+      "ordinal": 199,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 18 wrapper"
+    },
+    {
+      "id": "trace-18-kernel",
+      "ordinal": 200,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 18 kernel"
+    },
+    {
+      "id": "trace-19-frozen",
+      "ordinal": 201,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 19 frozen"
+    },
+    {
+      "id": "trace-19-reference",
+      "ordinal": 202,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 19 reference"
+    },
+    {
+      "id": "trace-19-wrapper",
+      "ordinal": 203,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 19 wrapper"
+    },
+    {
+      "id": "trace-19-kernel",
+      "ordinal": 204,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 19 kernel"
+    },
+    {
+      "id": "trace-20-frozen",
+      "ordinal": 205,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 20 frozen"
+    },
+    {
+      "id": "trace-20-reference",
+      "ordinal": 206,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 20 reference"
+    },
+    {
+      "id": "trace-20-wrapper",
+      "ordinal": 207,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 20 wrapper"
+    },
+    {
+      "id": "trace-20-kernel",
+      "ordinal": 208,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 20 kernel"
+    },
+    {
+      "id": "trace-21-frozen",
+      "ordinal": 209,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 21 frozen"
+    },
+    {
+      "id": "trace-21-reference",
+      "ordinal": 210,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 21 reference"
+    },
+    {
+      "id": "trace-21-wrapper",
+      "ordinal": 211,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 21 wrapper"
+    },
+    {
+      "id": "trace-21-kernel",
+      "ordinal": 212,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 21 kernel"
+    },
+    {
+      "id": "trace-22-frozen",
+      "ordinal": 213,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 22 frozen"
+    },
+    {
+      "id": "trace-22-reference",
+      "ordinal": 214,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 22 reference"
+    },
+    {
+      "id": "trace-22-wrapper",
+      "ordinal": 215,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 22 wrapper"
+    },
+    {
+      "id": "trace-22-kernel",
+      "ordinal": 216,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 22 kernel"
+    },
+    {
+      "id": "trace-23-frozen",
+      "ordinal": 217,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 23 frozen"
+    },
+    {
+      "id": "trace-23-reference",
+      "ordinal": 218,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 23 reference"
+    },
+    {
+      "id": "trace-23-wrapper",
+      "ordinal": 219,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 23 wrapper"
+    },
+    {
+      "id": "trace-23-kernel",
+      "ordinal": 220,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 23 kernel"
+    },
+    {
+      "id": "trace-24-frozen",
+      "ordinal": 221,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 24 frozen"
+    },
+    {
+      "id": "trace-24-reference",
+      "ordinal": 222,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 24 reference"
+    },
+    {
+      "id": "trace-24-wrapper",
+      "ordinal": 223,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 24 wrapper"
+    },
+    {
+      "id": "trace-24-kernel",
+      "ordinal": 224,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 24 kernel"
+    },
+    {
+      "id": "trace-25-frozen",
+      "ordinal": 225,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 25 frozen"
+    },
+    {
+      "id": "trace-25-reference",
+      "ordinal": 226,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 25 reference"
+    },
+    {
+      "id": "trace-25-wrapper",
+      "ordinal": 227,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 25 wrapper"
+    },
+    {
+      "id": "trace-25-kernel",
+      "ordinal": 228,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 25 kernel"
+    },
+    {
+      "id": "trace-26-frozen",
+      "ordinal": 229,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 26 frozen"
+    },
+    {
+      "id": "trace-26-reference",
+      "ordinal": 230,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 26 reference"
+    },
+    {
+      "id": "trace-26-wrapper",
+      "ordinal": 231,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 26 wrapper"
+    },
+    {
+      "id": "trace-26-kernel",
+      "ordinal": 232,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 26 kernel"
+    },
+    {
+      "id": "trace-27-frozen",
+      "ordinal": 233,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 27 frozen"
+    },
+    {
+      "id": "trace-27-reference",
+      "ordinal": 234,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 27 reference"
+    },
+    {
+      "id": "trace-27-wrapper",
+      "ordinal": 235,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 27 wrapper"
+    },
+    {
+      "id": "trace-27-kernel",
+      "ordinal": 236,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 27 kernel"
+    },
+    {
+      "id": "trace-28-frozen",
+      "ordinal": 237,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 28 frozen"
+    },
+    {
+      "id": "trace-28-reference",
+      "ordinal": 238,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 28 reference"
+    },
+    {
+      "id": "trace-28-wrapper",
+      "ordinal": 239,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 28 wrapper"
+    },
+    {
+      "id": "trace-28-kernel",
+      "ordinal": 240,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 28 kernel"
+    },
+    {
+      "id": "trace-29-frozen",
+      "ordinal": 241,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 29 frozen"
+    },
+    {
+      "id": "trace-29-reference",
+      "ordinal": 242,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 29 reference"
+    },
+    {
+      "id": "trace-29-wrapper",
+      "ordinal": 243,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 29 wrapper"
+    },
+    {
+      "id": "trace-29-kernel",
+      "ordinal": 244,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 29 kernel"
+    },
+    {
+      "id": "trace-30-frozen",
+      "ordinal": 245,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 30 frozen"
+    },
+    {
+      "id": "trace-30-reference",
+      "ordinal": 246,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 30 reference"
+    },
+    {
+      "id": "trace-30-wrapper",
+      "ordinal": 247,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 30 wrapper"
+    },
+    {
+      "id": "trace-30-kernel",
+      "ordinal": 248,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 30 kernel"
+    },
+    {
+      "id": "trace-31-frozen",
+      "ordinal": 249,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 31 frozen"
+    },
+    {
+      "id": "trace-31-reference",
+      "ordinal": 250,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 31 reference"
+    },
+    {
+      "id": "trace-31-wrapper",
+      "ordinal": 251,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 31 wrapper"
+    },
+    {
+      "id": "trace-31-kernel",
+      "ordinal": 252,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 31 kernel"
+    },
+    {
+      "id": "trace-32-frozen",
+      "ordinal": 253,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 32 frozen"
+    },
+    {
+      "id": "trace-32-reference",
+      "ordinal": 254,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 32 reference"
+    },
+    {
+      "id": "trace-32-wrapper",
+      "ordinal": 255,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "trace 32 wrapper"
+    },
+    {
+      "id": "trace-32-kernel",
+      "ordinal": 256,
+      "category": "frozen predecessor traces",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "trace 32 kernel"
+    },
+    {
+      "id": "fail-kernel-shape-01",
+      "ordinal": 257,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 1"
+    },
+    {
+      "id": "fail-kernel-shape-02",
+      "ordinal": 258,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 2"
+    },
+    {
+      "id": "fail-kernel-shape-03",
+      "ordinal": 259,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 3"
+    },
+    {
+      "id": "fail-kernel-shape-04",
+      "ordinal": 260,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 4"
+    },
+    {
+      "id": "fail-kernel-shape-05",
+      "ordinal": 261,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 5"
+    },
+    {
+      "id": "fail-kernel-shape-06",
+      "ordinal": 262,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 6"
+    },
+    {
+      "id": "fail-kernel-shape-07",
+      "ordinal": 263,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 7"
+    },
+    {
+      "id": "fail-kernel-shape-08",
+      "ordinal": 264,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 8"
+    },
+    {
+      "id": "fail-kernel-shape-09",
+      "ordinal": 265,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 9"
+    },
+    {
+      "id": "fail-kernel-shape-10",
+      "ordinal": 266,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 10"
+    },
+    {
+      "id": "fail-kernel-shape-11",
+      "ordinal": 267,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 11"
+    },
+    {
+      "id": "fail-kernel-shape-12",
+      "ordinal": 268,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 12"
+    },
+    {
+      "id": "fail-kernel-shape-13",
+      "ordinal": 269,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 13"
+    },
+    {
+      "id": "fail-kernel-shape-14",
+      "ordinal": 270,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 14"
+    },
+    {
+      "id": "fail-kernel-shape-15",
+      "ordinal": 271,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 15"
+    },
+    {
+      "id": "fail-kernel-shape-16",
+      "ordinal": 272,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 16"
+    },
+    {
+      "id": "fail-kernel-shape-17",
+      "ordinal": 273,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 17"
+    },
+    {
+      "id": "fail-kernel-shape-18",
+      "ordinal": 274,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 18"
+    },
+    {
+      "id": "fail-kernel-shape-19",
+      "ordinal": 275,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 19"
+    },
+    {
+      "id": "fail-kernel-shape-20",
+      "ordinal": 276,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 20"
+    },
+    {
+      "id": "fail-kernel-shape-21",
+      "ordinal": 277,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 21"
+    },
+    {
+      "id": "fail-kernel-shape-22",
+      "ordinal": 278,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 22"
+    },
+    {
+      "id": "fail-kernel-shape-23",
+      "ordinal": 279,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 23"
+    },
+    {
+      "id": "fail-kernel-shape-24",
+      "ordinal": 280,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 24"
+    },
+    {
+      "id": "fail-kernel-shape-25",
+      "ordinal": 281,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 25"
+    },
+    {
+      "id": "fail-kernel-shape-26",
+      "ordinal": 282,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 26"
+    },
+    {
+      "id": "fail-kernel-shape-27",
+      "ordinal": 283,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 27"
+    },
+    {
+      "id": "fail-kernel-shape-28",
+      "ordinal": 284,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 28"
+    },
+    {
+      "id": "fail-kernel-shape-29",
+      "ordinal": 285,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 29"
+    },
+    {
+      "id": "fail-kernel-shape-30",
+      "ordinal": 286,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 30"
+    },
+    {
+      "id": "fail-kernel-shape-31",
+      "ordinal": 287,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 31"
+    },
+    {
+      "id": "fail-kernel-shape-32",
+      "ordinal": 288,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "kernel-shape control 32"
+    },
+    {
+      "id": "fail-startup-side-effects-01",
+      "ordinal": 289,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 1"
+    },
+    {
+      "id": "fail-startup-side-effects-02",
+      "ordinal": 290,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 2"
+    },
+    {
+      "id": "fail-startup-side-effects-03",
+      "ordinal": 291,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 3"
+    },
+    {
+      "id": "fail-startup-side-effects-04",
+      "ordinal": 292,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 4"
+    },
+    {
+      "id": "fail-startup-side-effects-05",
+      "ordinal": 293,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 5"
+    },
+    {
+      "id": "fail-startup-side-effects-06",
+      "ordinal": 294,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 6"
+    },
+    {
+      "id": "fail-startup-side-effects-07",
+      "ordinal": 295,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 7"
+    },
+    {
+      "id": "fail-startup-side-effects-08",
+      "ordinal": 296,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 8"
+    },
+    {
+      "id": "fail-startup-side-effects-09",
+      "ordinal": 297,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 9"
+    },
+    {
+      "id": "fail-startup-side-effects-10",
+      "ordinal": 298,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 10"
+    },
+    {
+      "id": "fail-startup-side-effects-11",
+      "ordinal": 299,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 11"
+    },
+    {
+      "id": "fail-startup-side-effects-12",
+      "ordinal": 300,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 12"
+    },
+    {
+      "id": "fail-startup-side-effects-13",
+      "ordinal": 301,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 13"
+    },
+    {
+      "id": "fail-startup-side-effects-14",
+      "ordinal": 302,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 14"
+    },
+    {
+      "id": "fail-startup-side-effects-15",
+      "ordinal": 303,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 15"
+    },
+    {
+      "id": "fail-startup-side-effects-16",
+      "ordinal": 304,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "startup-side-effects control 16"
+    },
+    {
+      "id": "fail-wrapper-contract-01",
+      "ordinal": 305,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 1"
+    },
+    {
+      "id": "fail-wrapper-contract-02",
+      "ordinal": 306,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 2"
+    },
+    {
+      "id": "fail-wrapper-contract-03",
+      "ordinal": 307,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 3"
+    },
+    {
+      "id": "fail-wrapper-contract-04",
+      "ordinal": 308,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 4"
+    },
+    {
+      "id": "fail-wrapper-contract-05",
+      "ordinal": 309,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 5"
+    },
+    {
+      "id": "fail-wrapper-contract-06",
+      "ordinal": 310,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 6"
+    },
+    {
+      "id": "fail-wrapper-contract-07",
+      "ordinal": 311,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 7"
+    },
+    {
+      "id": "fail-wrapper-contract-08",
+      "ordinal": 312,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 8"
+    },
+    {
+      "id": "fail-wrapper-contract-09",
+      "ordinal": 313,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 9"
+    },
+    {
+      "id": "fail-wrapper-contract-10",
+      "ordinal": 314,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 10"
+    },
+    {
+      "id": "fail-wrapper-contract-11",
+      "ordinal": 315,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 11"
+    },
+    {
+      "id": "fail-wrapper-contract-12",
+      "ordinal": 316,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 12"
+    },
+    {
+      "id": "fail-wrapper-contract-13",
+      "ordinal": 317,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 13"
+    },
+    {
+      "id": "fail-wrapper-contract-14",
+      "ordinal": 318,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 14"
+    },
+    {
+      "id": "fail-wrapper-contract-15",
+      "ordinal": 319,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 15"
+    },
+    {
+      "id": "fail-wrapper-contract-16",
+      "ordinal": 320,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-contract control 16"
+    },
+    {
+      "id": "fail-persistence-equivalence-01",
+      "ordinal": 321,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 1"
+    },
+    {
+      "id": "fail-persistence-equivalence-02",
+      "ordinal": 322,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 2"
+    },
+    {
+      "id": "fail-persistence-equivalence-03",
+      "ordinal": 323,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 3"
+    },
+    {
+      "id": "fail-persistence-equivalence-04",
+      "ordinal": 324,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 4"
+    },
+    {
+      "id": "fail-persistence-equivalence-05",
+      "ordinal": 325,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 5"
+    },
+    {
+      "id": "fail-persistence-equivalence-06",
+      "ordinal": 326,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 6"
+    },
+    {
+      "id": "fail-persistence-equivalence-07",
+      "ordinal": 327,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 7"
+    },
+    {
+      "id": "fail-persistence-equivalence-08",
+      "ordinal": 328,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 8"
+    },
+    {
+      "id": "fail-persistence-equivalence-09",
+      "ordinal": 329,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 9"
+    },
+    {
+      "id": "fail-persistence-equivalence-10",
+      "ordinal": 330,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 10"
+    },
+    {
+      "id": "fail-persistence-equivalence-11",
+      "ordinal": 331,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 11"
+    },
+    {
+      "id": "fail-persistence-equivalence-12",
+      "ordinal": 332,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 12"
+    },
+    {
+      "id": "fail-persistence-equivalence-13",
+      "ordinal": 333,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 13"
+    },
+    {
+      "id": "fail-persistence-equivalence-14",
+      "ordinal": 334,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 14"
+    },
+    {
+      "id": "fail-persistence-equivalence-15",
+      "ordinal": 335,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 15"
+    },
+    {
+      "id": "fail-persistence-equivalence-16",
+      "ordinal": 336,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "persistence-equivalence control 16"
+    },
+    {
+      "id": "fail-probe-build-isolation-01",
+      "ordinal": 337,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 1"
+    },
+    {
+      "id": "fail-probe-build-isolation-02",
+      "ordinal": 338,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 2"
+    },
+    {
+      "id": "fail-probe-build-isolation-03",
+      "ordinal": 339,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 3"
+    },
+    {
+      "id": "fail-probe-build-isolation-04",
+      "ordinal": 340,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 4"
+    },
+    {
+      "id": "fail-probe-build-isolation-05",
+      "ordinal": 341,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 5"
+    },
+    {
+      "id": "fail-probe-build-isolation-06",
+      "ordinal": 342,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 6"
+    },
+    {
+      "id": "fail-probe-build-isolation-07",
+      "ordinal": 343,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 7"
+    },
+    {
+      "id": "fail-probe-build-isolation-08",
+      "ordinal": 344,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 8"
+    },
+    {
+      "id": "fail-probe-build-isolation-09",
+      "ordinal": 345,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 9"
+    },
+    {
+      "id": "fail-probe-build-isolation-10",
+      "ordinal": 346,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 10"
+    },
+    {
+      "id": "fail-probe-build-isolation-11",
+      "ordinal": 347,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 11"
+    },
+    {
+      "id": "fail-probe-build-isolation-12",
+      "ordinal": 348,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 12"
+    },
+    {
+      "id": "fail-probe-build-isolation-13",
+      "ordinal": 349,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 13"
+    },
+    {
+      "id": "fail-probe-build-isolation-14",
+      "ordinal": 350,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 14"
+    },
+    {
+      "id": "fail-probe-build-isolation-15",
+      "ordinal": 351,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 15"
+    },
+    {
+      "id": "fail-probe-build-isolation-16",
+      "ordinal": 352,
+      "category": "fail-closed/persistence",
+      "preimageExpectation": "PASS",
+      "candidateExpectation": "PASS",
+      "detail": "probe-build-isolation control 16"
+    },
+    {
+      "id": "mutation-01-family-base-omitted",
+      "ordinal": 353,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-base-omitted"
+    },
+    {
+      "id": "mutation-02-family-intimacy-rate",
+      "ordinal": 354,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-intimacy-rate"
+    },
+    {
+      "id": "mutation-03-family-intimacy-cap-removed",
+      "ordinal": 355,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-intimacy-cap-removed"
+    },
+    {
+      "id": "mutation-04-family-cap-before-intimacy",
+      "ordinal": 356,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-cap-before-intimacy"
+    },
+    {
+      "id": "mutation-05-family-rarity-offset",
+      "ordinal": 357,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-rarity-offset"
+    },
+    {
+      "id": "mutation-06-family-rarity-rate",
+      "ordinal": 358,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-rarity-rate"
+    },
+    {
+      "id": "mutation-07-family-specialty-inverted",
+      "ordinal": 359,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-specialty-inverted"
+    },
+    {
+      "id": "mutation-08-family-specialty-amount",
+      "ordinal": 360,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-specialty-amount"
+    },
+    {
+      "id": "mutation-09-family-addition-order",
+      "ordinal": 361,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-addition-order"
+    },
+    {
+      "id": "mutation-10-family-cap-moved",
+      "ordinal": 362,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-cap-moved"
+    },
+    {
+      "id": "mutation-11-family-leading-one",
+      "ordinal": 363,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-leading-one"
+    },
+    {
+      "id": "mutation-12-family-unassigned-bonus",
+      "ordinal": 364,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "family-unassigned-bonus"
+    },
+    {
+      "id": "mutation-13-neutral-preserve-negative-zero",
+      "ordinal": 365,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "neutral-preserve-negative-zero"
+    },
+    {
+      "id": "mutation-14-neutral-negative",
+      "ordinal": 366,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "neutral-negative"
+    },
+    {
+      "id": "mutation-15-neutral-nonfinite",
+      "ordinal": 367,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "neutral-nonfinite"
+    },
+    {
+      "id": "mutation-16-neutral-positive-zeroed",
+      "ordinal": 368,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "neutral-positive-zeroed"
+    },
+    {
+      "id": "mutation-17-upgrade-base",
+      "ordinal": 369,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "upgrade-base"
+    },
+    {
+      "id": "mutation-18-upgrade-growth",
+      "ordinal": 370,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "upgrade-growth"
+    },
+    {
+      "id": "mutation-19-upgrade-exponent",
+      "ordinal": 371,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "upgrade-exponent"
+    },
+    {
+      "id": "mutation-20-upgrade-wrong-grouping",
+      "ordinal": 372,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "upgrade-wrong-grouping"
+    },
+    {
+      "id": "mutation-21-upgrade-rounding",
+      "ordinal": 373,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "upgrade-rounding"
+    },
+    {
+      "id": "mutation-22-rate-level-growth",
+      "ordinal": 374,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-level-growth"
+    },
+    {
+      "id": "mutation-23-rate-level-exponent",
+      "ordinal": 375,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-level-exponent"
+    },
+    {
+      "id": "mutation-24-rate-fellow-leading-one",
+      "ordinal": 376,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-fellow-leading-one"
+    },
+    {
+      "id": "mutation-25-rate-companion-leading-one",
+      "ordinal": 377,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-companion-leading-one"
+    },
+    {
+      "id": "mutation-26-rate-day-leading-one",
+      "ordinal": 378,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-day-leading-one"
+    },
+    {
+      "id": "mutation-27-rate-family-moved",
+      "ordinal": 379,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-family-moved"
+    },
+    {
+      "id": "mutation-28-rate-character-grouping",
+      "ordinal": 380,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-character-grouping"
+    },
+    {
+      "id": "mutation-29-rate-oath-leading-one",
+      "ordinal": 381,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-oath-leading-one"
+    },
+    {
+      "id": "mutation-30-rate-oath-moved",
+      "ordinal": 382,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-oath-moved"
+    },
+    {
+      "id": "mutation-31-rate-base",
+      "ordinal": 383,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-base"
+    },
+    {
+      "id": "mutation-32-rate-rounded",
+      "ordinal": 384,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "rate-rounded"
+    },
+    {
+      "id": "mutation-33-duration-divisor",
+      "ordinal": 385,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "duration-divisor"
+    },
+    {
+      "id": "mutation-34-duration-reassociated",
+      "ordinal": 386,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "duration-reassociated"
+    },
+    {
+      "id": "mutation-35-duration-rounded",
+      "ordinal": 387,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "duration-rounded"
+    },
+    {
+      "id": "mutation-36-duration-zero-nonzero",
+      "ordinal": 388,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "duration-zero-nonzero"
+    },
+    {
+      "id": "mutation-37-total-initial",
+      "ordinal": 389,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "total-initial"
+    },
+    {
+      "id": "mutation-38-total-order",
+      "ordinal": 390,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "total-order"
+    },
+    {
+      "id": "mutation-39-total-term",
+      "ordinal": 391,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "total-term"
+    },
+    {
+      "id": "mutation-40-total-rounded",
+      "ordinal": 392,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "total-rounded"
+    },
+    {
+      "id": "mutation-41-offline-direct-pending",
+      "ordinal": 393,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-direct-pending"
+    },
+    {
+      "id": "mutation-42-offline-line-order",
+      "ordinal": 394,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-line-order"
+    },
+    {
+      "id": "mutation-43-offline-line-order-four",
+      "ordinal": 395,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-line-order-four"
+    },
+    {
+      "id": "mutation-44-offline-line-term",
+      "ordinal": 396,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-line-term"
+    },
+    {
+      "id": "mutation-45-offline-pending-early",
+      "ordinal": 397,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-pending-early"
+    },
+    {
+      "id": "mutation-46-offline-rounded",
+      "ordinal": 398,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "offline-rounded"
+    },
+    {
+      "id": "mutation-47-wrapper-bypass",
+      "ordinal": 399,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "wrapper-bypass"
+    },
+    {
+      "id": "mutation-48-surface-structural",
+      "ordinal": 400,
+      "category": "mutation sensitivity",
+      "preimageExpectation": "PENDING",
+      "candidateExpectation": "PASS",
+      "detail": "surface-structural"
+    }
+  ]
+}

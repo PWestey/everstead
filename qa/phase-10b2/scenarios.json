@@ -1,0 +1,6224 @@
+{
+  "schemaVersion": 1,
+  "phase": "10B-2",
+  "status": "FROZEN PREIMAGE INPUT AUTHORITY",
+  "source": {
+    "contractCommit": "fc7553c6960080c596d0b4f6da3dd262dff2e31d",
+    "contractSha256": "b458fac750ac92db4e1791e061277d88452c62daef9caae1f979c09e5e0b453b",
+    "preimageSha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
+    "preimageByteLength": 18916682,
+    "traceSha256": "74feec74ff6f9efe07ca47cb2b0fcaaca8ab80dab71961fd2f1625f270209136",
+    "traceByteLength": 557500
+  },
+  "methodOrder": [
+    "familyBuildingBonus",
+    "neutralHookBonus",
+    "buildingUpgradeCost",
+    "buildingRateComponents",
+    "durationGold",
+    "totalRate",
+    "offlineTotals"
+  ],
+  "numericAllocation": {
+    "familyBuildingBonus": 20,
+    "neutralHookBonus": 8,
+    "buildingUpgradeCost": 12,
+    "buildingRateComponents": 24,
+    "durationGold": 8,
+    "totalRate": 8,
+    "offlineTotals": 16
+  },
+  "numericVectors": [
+    {
+      "id": "numeric-001-familyBuildingBonus-1",
+      "ordinal": 1,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            false
+          ],
+          [
+            "intimacy",
+            0
+          ],
+          [
+            "rarity",
+            0
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            0
+          ],
+          [
+            "intimacyBonus",
+            0
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            0
+          ],
+          [
+            "bonus",
+            0
+          ],
+          [
+            "multiplier",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-002-familyBuildingBonus-2",
+      "ordinal": 2,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            false
+          ],
+          [
+            "intimacy",
+            {
+              "$float64": "8000000000000000",
+              "decimal": "-0"
+            }
+          ],
+          [
+            "rarity",
+            0
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            0
+          ],
+          [
+            "intimacyBonus",
+            0
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            0
+          ],
+          [
+            "bonus",
+            0
+          ],
+          [
+            "multiplier",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-003-familyBuildingBonus-3",
+      "ordinal": 3,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            0
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            0
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff028f5c28f5c29",
+              "decimal": "1.01"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-004-familyBuildingBonus-4",
+      "ordinal": 4,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            {
+              "$float64": "8000000000000000",
+              "decimal": "-0"
+            }
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "8000000000000000",
+              "decimal": "-0"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff028f5c28f5c29",
+              "decimal": "1.01"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-005-familyBuildingBonus-5",
+      "ordinal": 5,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            1
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3f84e3bcd35a8588",
+              "decimal": "0.0102"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3f84e3bcd35a8588",
+              "decimal": "0.0102"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff029c779a6b50b",
+              "decimal": "1.0102"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-006-familyBuildingBonus-6",
+      "ordinal": 6,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            50
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff051eb851eb852",
+              "decimal": "1.02"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-007-familyBuildingBonus-7",
+      "ordinal": 7,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff1c28f5c28f5c3",
+              "decimal": "1.11"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-008-familyBuildingBonus-8",
+      "ordinal": 8,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            5000
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff1c28f5c28f5c3",
+              "decimal": "1.11"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-009-familyBuildingBonus-9",
+      "ordinal": 9,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            2
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc0a3d70a3d70a4",
+              "decimal": "0.13"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc0a3d70a3d70a4",
+              "decimal": "0.13"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff2147ae147ae14",
+              "decimal": "1.13"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-010-familyBuildingBonus-10",
+      "ordinal": 10,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            3
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fa47ae147ae147b",
+              "decimal": "0.04"
+            }
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc3333333333333",
+              "decimal": "0.15"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc3333333333333",
+              "decimal": "0.15"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-011-familyBuildingBonus-11",
+      "ordinal": 11,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            4
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3faeb851eb851eb8",
+              "decimal": "0.06"
+            }
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc5c28f5c28f5c2",
+              "decimal": "0.16999999999999998"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc5c28f5c28f5c2",
+              "decimal": "0.16999999999999998"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff2b851eb851eb8",
+              "decimal": "1.17"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-012-familyBuildingBonus-12",
+      "ordinal": 12,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            5
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fb47ae147ae147b",
+              "decimal": "0.08"
+            }
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc851eb851eb852",
+              "decimal": "0.19"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc851eb851eb852",
+              "decimal": "0.19"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff30a3d70a3d70a",
+              "decimal": "1.19"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-013-familyBuildingBonus-13",
+      "ordinal": 13,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fbeb851eb851eb8",
+              "decimal": "0.12"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fbeb851eb851eb8",
+              "decimal": "0.12"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff1eb851eb851ec",
+              "decimal": "1.12"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-014-familyBuildingBonus-14",
+      "ordinal": 14,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            5000
+          ],
+          [
+            "rarity",
+            5
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fb47ae147ae147b",
+              "decimal": "0.08"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-015-familyBuildingBonus-15",
+      "ordinal": 15,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            9007199254740991
+          ],
+          [
+            "rarity",
+            5
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fb47ae147ae147b",
+              "decimal": "0.08"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-016-familyBuildingBonus-16",
+      "ordinal": 16,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            1
+          ],
+          [
+            "rarity",
+            1
+          ],
+          [
+            "specialtyMatch",
+            false
+          ],
+          [
+            "base",
+            0
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            0
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "rarityBonus",
+            0
+          ],
+          [
+            "specialtyBonus",
+            0
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff000d1b71758e2",
+              "decimal": "1.0002"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-017-familyBuildingBonus-17",
+      "ordinal": 17,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            3
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fa47ae147ae147b",
+              "decimal": "0.04"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff0cccccccccccd",
+              "decimal": "1.05"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-018-familyBuildingBonus-18",
+      "ordinal": 18,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            3
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f1a36e2eb1c432d",
+              "decimal": "0.0001"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fa47ae147ae147b",
+              "decimal": "0.04"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fbc28f5c28f5c29",
+              "decimal": "0.11"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff1c28f5c28f5c3",
+              "decimal": "1.11"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-019-familyBuildingBonus-19",
+      "ordinal": 19,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            3
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc1eb851eb851ec",
+              "decimal": "0.14"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc1eb851eb851ec",
+              "decimal": "0.14"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff23d70a3d70a3e",
+              "decimal": "1.1400000000000001"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-020-familyBuildingBonus-20",
+      "ordinal": 20,
+      "method": "familyBuildingBonus",
+      "input": {
+        "$object": [
+          [
+            "assigned",
+            true
+          ],
+          [
+            "intimacy",
+            500
+          ],
+          [
+            "rarity",
+            3
+          ],
+          [
+            "specialtyMatch",
+            true
+          ],
+          [
+            "base",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyRate",
+            {
+              "$float64": "3f2a36e2eb1c432d",
+              "decimal": "0.0002"
+            }
+          ],
+          [
+            "intimacyCap",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityRate",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "specialtyAmount",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "cap",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "baseBonus",
+            {
+              "$float64": "3f847ae147ae147b",
+              "decimal": "0.01"
+            }
+          ],
+          [
+            "intimacyBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "rarityBonus",
+            {
+              "$float64": "3fa47ae147ae147b",
+              "decimal": "0.04"
+            }
+          ],
+          [
+            "specialtyBonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "uncappedBonus",
+            {
+              "$float64": "3fc5c28f5c28f5c2",
+              "decimal": "0.16999999999999998"
+            }
+          ],
+          [
+            "bonus",
+            {
+              "$float64": "3fc5c28f5c28f5c2",
+              "decimal": "0.16999999999999998"
+            }
+          ],
+          [
+            "multiplier",
+            {
+              "$float64": "3ff2b851eb851eb8",
+              "decimal": "1.17"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-021-neutralHookBonus-1",
+      "ordinal": 21,
+      "method": "neutralHookBonus",
+      "input": {
+        "$undefined": true
+      },
+      "expected": 0
+    },
+    {
+      "id": "numeric-022-neutralHookBonus-2",
+      "ordinal": 22,
+      "method": "neutralHookBonus",
+      "input": null,
+      "expected": 0
+    },
+    {
+      "id": "numeric-023-neutralHookBonus-3",
+      "ordinal": 23,
+      "method": "neutralHookBonus",
+      "input": {
+        "$float64": "8000000000000000",
+        "decimal": "-0"
+      },
+      "expected": 0
+    },
+    {
+      "id": "numeric-024-neutralHookBonus-4",
+      "ordinal": 24,
+      "method": "neutralHookBonus",
+      "input": 0,
+      "expected": 0
+    },
+    {
+      "id": "numeric-025-neutralHookBonus-5",
+      "ordinal": 25,
+      "method": "neutralHookBonus",
+      "input": -1,
+      "expected": 0
+    },
+    {
+      "id": "numeric-026-neutralHookBonus-6",
+      "ordinal": 26,
+      "method": "neutralHookBonus",
+      "input": "not-a-number",
+      "expected": 0
+    },
+    {
+      "id": "numeric-027-neutralHookBonus-7",
+      "ordinal": 27,
+      "method": "neutralHookBonus",
+      "input": {
+        "$float64": "3fc0000000000000",
+        "decimal": "0.125"
+      },
+      "expected": {
+        "$float64": "3fc0000000000000",
+        "decimal": "0.125"
+      }
+    },
+    {
+      "id": "numeric-028-neutralHookBonus-8",
+      "ordinal": 28,
+      "method": "neutralHookBonus",
+      "input": 3,
+      "expected": 3
+    },
+    {
+      "id": "numeric-029-buildingUpgradeCost-1",
+      "ordinal": 29,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            1
+          ]
+        ]
+      },
+      "expected": 15000
+    },
+    {
+      "id": "numeric-030-buildingUpgradeCost-2",
+      "ordinal": 30,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            2
+          ]
+        ]
+      },
+      "expected": 25500
+    },
+    {
+      "id": "numeric-031-buildingUpgradeCost-3",
+      "ordinal": 31,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            3
+          ]
+        ]
+      },
+      "expected": 43350
+    },
+    {
+      "id": "numeric-032-buildingUpgradeCost-4",
+      "ordinal": 32,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            4
+          ]
+        ]
+      },
+      "expected": 73695
+    },
+    {
+      "id": "numeric-033-buildingUpgradeCost-5",
+      "ordinal": 33,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            5
+          ]
+        ]
+      },
+      "expected": 125281
+    },
+    {
+      "id": "numeric-034-buildingUpgradeCost-6",
+      "ordinal": 34,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            10
+          ]
+        ]
+      },
+      "expected": 1778818
+    },
+    {
+      "id": "numeric-035-buildingUpgradeCost-7",
+      "ordinal": 35,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            17
+          ]
+        ]
+      },
+      "expected": 72991788
+    },
+    {
+      "id": "numeric-036-buildingUpgradeCost-8",
+      "ordinal": 36,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            25
+          ]
+        ]
+      },
+      "expected": 5091730070
+    },
+    {
+      "id": "numeric-037-buildingUpgradeCost-9",
+      "ordinal": 37,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            30
+          ]
+        ]
+      },
+      "expected": 72295285816
+    },
+    {
+      "id": "numeric-038-buildingUpgradeCost-10",
+      "ordinal": 38,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            40
+          ]
+        ]
+      },
+      "expected": 14574685523630
+    },
+    {
+      "id": "numeric-039-buildingUpgradeCost-11",
+      "ordinal": 39,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            51
+          ]
+        ]
+      },
+      "expected": 4995021109822017
+    },
+    {
+      "id": "numeric-040-buildingUpgradeCost-12",
+      "ordinal": 40,
+      "method": "buildingUpgradeCost",
+      "input": {
+        "$object": [
+          [
+            "base",
+            15000
+          ],
+          [
+            "growth",
+            {
+              "$float64": "3ffb333333333333",
+              "decimal": "1.7"
+            }
+          ],
+          [
+            "level",
+            52
+          ]
+        ]
+      },
+      "expected": 8491535886697427
+    },
+    {
+      "id": "numeric-041-buildingRateComponents-1",
+      "ordinal": 41,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            7200
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-042-buildingRateComponents-2",
+      "ordinal": 42,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6500
+          ],
+          [
+            "level",
+            2
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3f9eb851eb851eb8",
+              "decimal": "0.03"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff07ae147ae147b",
+              "decimal": "1.03"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40be133fffffffff",
+              "decimal": "7699.249999999999"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-043-buildingRateComponents-3",
+      "ordinal": 43,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            5600
+          ],
+          [
+            "level",
+            10
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff23d70a3d70a3d",
+              "decimal": "1.14"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "400c249c53495bc2",
+              "decimal": "3.5178762919199196"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff23d70a3d70a3d",
+              "decimal": "1.14"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40d5ee87d2e7ab02",
+              "decimal": "22458.122247616768"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-044-buildingRateComponents-4",
+      "ordinal": 44,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6100
+          ],
+          [
+            "level",
+            30
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "404cc9a878fbbdc1",
+              "decimal": "57.57545387546589"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff0cccccccccccd",
+              "decimal": "1.05"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "411b0273c102b119",
+              "decimal": "442524.93848683086"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-045-buildingRateComponents-5",
+      "ordinal": 45,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            52
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "409378d300d25281",
+              "decimal": "1246.2060578215462"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "416ab2a94e205f1e",
+              "decimal": "13997386.441451605"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-046-buildingRateComponents-6",
+      "ordinal": 46,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6500
+          ],
+          [
+            "level",
+            17
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fb47ae147ae147b",
+              "decimal": "0.08"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "4022b71a154869f4",
+              "decimal": "9.357620873536668"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            {
+              "$float64": "3ff199999999999a",
+              "decimal": "1.1"
+            }
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff199999999999a",
+              "decimal": "1.1"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff147ae147ae148",
+              "decimal": "1.08"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40f1a438c62fd260",
+              "decimal": "72259.54838545015"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-047-buildingRateComponents-7",
+      "ordinal": 47,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            5600
+          ],
+          [
+            "level",
+            3
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "3ff528f5c28f5c28",
+              "decimal": "1.3224999999999998"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40c15b9999999999",
+              "decimal": "8887.199999999999"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-048-buildingRateComponents-8",
+      "ordinal": 48,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6100
+          ],
+          [
+            "level",
+            7
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            {
+              "$float64": "3fc3333333333333",
+              "decimal": "0.15"
+            }
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "4002812600b02926",
+              "decimal": "2.313060765624999"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40d4997d4a2c1b0f",
+              "decimal": "21093.95765211718"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-049-buildingRateComponents-9",
+      "ordinal": 49,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            1
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-050-buildingRateComponents-10",
+      "ordinal": 50,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            0
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-051-buildingRateComponents-11",
+      "ordinal": 51,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff028f5c28f5c29",
+              "decimal": "1.01"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff028f5c28f5c29",
+              "decimal": "1.01"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            7272
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-052-buildingRateComponents-12",
+      "ordinal": 52,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            {
+              "$float64": "3fd0000000000000",
+              "decimal": "0.25"
+            }
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            9000
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-053-buildingRateComponents-13",
+      "ordinal": 53,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            {
+              "$float64": "3fd0000000000000",
+              "decimal": "0.25"
+            }
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            9000
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-054-buildingRateComponents-14",
+      "ordinal": 54,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            {
+              "$float64": "3fd0000000000000",
+              "decimal": "0.25"
+            }
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff4000000000000",
+              "decimal": "1.25"
+            }
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            9000
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-055-buildingRateComponents-15",
+      "ordinal": 55,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            9360
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-056-buildingRateComponents-16",
+      "ordinal": 56,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            2
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff1c28f5c28f5c3",
+              "decimal": "1.11"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            {
+              "$float64": "3fb1eb851eb851ec",
+              "decimal": "0.07"
+            }
+          ],
+          [
+            "companionRosterBonus",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ],
+          [
+            "overallDayBonus",
+            {
+              "$float64": "3f947ae147ae147b",
+              "decimal": "0.02"
+            }
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3f9eb851eb851eb8",
+              "decimal": "0.03"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            {
+              "$float64": "3ff11eb851eb851f",
+              "decimal": "1.07"
+            }
+          ],
+          [
+            "companionRosterMultiplier",
+            {
+              "$float64": "3ff0cccccccccccd",
+              "decimal": "1.05"
+            }
+          ],
+          [
+            "overallDayMultiplier",
+            {
+              "$float64": "3ff051eb851eb852",
+              "decimal": "1.02"
+            }
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff45a38ab42388b",
+              "decimal": "1.2720267000000003"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff07ae147ae147b",
+              "decimal": "1.03"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40c5302d1efdc717",
+              "decimal": "10848.352508280002"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-057-buildingRateComponents-17",
+      "ordinal": 57,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6500
+          ],
+          [
+            "level",
+            10
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fa999999999999a",
+              "decimal": "0.05"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "400c249c53495bc2",
+              "decimal": "3.5178762919199196"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff70a3d70a3d70a",
+              "decimal": "1.44"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff0cccccccccccd",
+              "decimal": "1.05"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40e0e1b605b5b11a",
+              "decimal": "34573.688196988966"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-058-buildingRateComponents-18",
+      "ordinal": 58,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            5600
+          ],
+          [
+            "level",
+            20
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            {
+              "$float64": "3fc999999999999a",
+              "decimal": "0.2"
+            }
+          ],
+          [
+            "overallDayBonus",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fb47ae147ae147b",
+              "decimal": "0.08"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "402c76aac5efc3b2",
+              "decimal": "14.231771646040077"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "overallDayMultiplier",
+            {
+              "$float64": "3ff199999999999a",
+              "decimal": "1.1"
+            }
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "3ff51eb851eb851f",
+              "decimal": "1.32"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff147ae147ae148",
+              "decimal": "1.08"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40fbbd15b42ce5e0",
+              "decimal": "113617.35648813052"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-059-buildingRateComponents-19",
+      "ordinal": 59,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            6100
+          ],
+          [
+            "level",
+            35
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            {
+              "$float64": "3ff3333333333333",
+              "decimal": "1.2"
+            }
+          ],
+          [
+            "fellowRosterBonus",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ],
+          [
+            "companionRosterBonus",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ],
+          [
+            "overallDayBonus",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "405cf381e4576742",
+              "decimal": "115.804802975993"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "companionRosterMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "overallDayMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "characterEconomyMultiplier",
+            {
+              "$float64": "40051758e219652c",
+              "decimal": "2.6364"
+            }
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "414278b15b9d9e77",
+              "decimal": "2421090.7157476502"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-060-buildingRateComponents-20",
+      "ordinal": 60,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            1
+          ],
+          [
+            "level",
+            52
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "409378d300d25281",
+              "decimal": "1246.2060578215462"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "4099504581116b42",
+              "decimal": "1620.0678751680102"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-061-buildingRateComponents-21",
+      "ordinal": 61,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            1000000
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            1000000
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-062-buildingRateComponents-22",
+      "ordinal": 62,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            {
+              "$float64": "40934a0000000000",
+              "decimal": "1234.5"
+            }
+          ],
+          [
+            "level",
+            6
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff2666666666666",
+              "decimal": "1.15"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3f9eb851eb851eb8",
+              "decimal": "0.03"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "400017426fe718a7",
+              "decimal": "2.0113571874999994"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff07ae147ae147b",
+              "decimal": "1.03"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40a3fb05a9d74199",
+              "decimal": "2557.5110614078117"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-063-buildingRateComponents-23",
+      "ordinal": 63,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            1
+          ],
+          [
+            "levelGrowth",
+            1
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            1
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            1
+          ],
+          [
+            "rate",
+            7200
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-064-buildingRateComponents-24",
+      "ordinal": 64,
+      "method": "buildingRateComponents",
+      "input": {
+        "$object": [
+          [
+            "base",
+            7200
+          ],
+          [
+            "level",
+            52
+          ],
+          [
+            "levelGrowth",
+            {
+              "$float64": "3ff028f5c28f5c29",
+              "decimal": "1.01"
+            }
+          ],
+          [
+            "familyAssignmentMultiplier",
+            1
+          ],
+          [
+            "fellowRosterBonus",
+            0
+          ],
+          [
+            "companionRosterBonus",
+            0
+          ],
+          [
+            "overallDayBonus",
+            0
+          ],
+          [
+            "oathBoost",
+            {
+              "$float64": "3fd3333333333333",
+              "decimal": "0.3"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "levelMultiplier",
+            {
+              "$float64": "3ffa93c6abfab0dc",
+              "decimal": "1.6610781400623216"
+            }
+          ],
+          [
+            "fellowRosterMultiplier",
+            1
+          ],
+          [
+            "companionRosterMultiplier",
+            1
+          ],
+          [
+            "overallDayMultiplier",
+            1
+          ],
+          [
+            "characterEconomyMultiplier",
+            1
+          ],
+          [
+            "oathMultiplier",
+            {
+              "$float64": "3ff4cccccccccccd",
+              "decimal": "1.3"
+            }
+          ],
+          [
+            "rate",
+            {
+              "$float64": "40ce5dd87f7fef13",
+              "decimal": "15547.69139098333"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-065-durationGold-1",
+      "ordinal": 65,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            7200
+          ],
+          [
+            "durationMs",
+            0
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "id": "numeric-066-durationGold-2",
+      "ordinal": 66,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            7200
+          ],
+          [
+            "durationMs",
+            1
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "3f60624dd2f1a9fc",
+        "decimal": "0.002"
+      }
+    },
+    {
+      "id": "numeric-067-durationGold-3",
+      "ordinal": 67,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            7200
+          ],
+          [
+            "durationMs",
+            1800000
+          ]
+        ]
+      },
+      "expected": 3600
+    },
+    {
+      "id": "numeric-068-durationGold-4",
+      "ordinal": 68,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            7200
+          ],
+          [
+            "durationMs",
+            3600000
+          ]
+        ]
+      },
+      "expected": 7200
+    },
+    {
+      "id": "numeric-069-durationGold-5",
+      "ordinal": 69,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            {
+              "$float64": "40d979a666666666",
+              "decimal": "26086.6"
+            }
+          ],
+          [
+            "durationMs",
+            86400000
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "41231b3ccccccccd",
+        "decimal": "626078.4"
+      }
+    },
+    {
+      "id": "numeric-070-durationGold-6",
+      "ordinal": 70,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            0
+          ],
+          [
+            "durationMs",
+            86400000
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "id": "numeric-071-durationGold-7",
+      "ordinal": 71,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ],
+          [
+            "durationMs",
+            1
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "3e5dd37f5698c2c3",
+        "decimal": "2.777777777777778e-8"
+      }
+    },
+    {
+      "id": "numeric-072-durationGold-8",
+      "ordinal": 72,
+      "method": "durationGold",
+      "input": {
+        "$object": [
+          [
+            "rate",
+            9007199254740991
+          ],
+          [
+            "durationMs",
+            1
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "41e2a42f961f79b9",
+        "decimal": "2501999792.9836087"
+      }
+    },
+    {
+      "id": "numeric-073-totalRate-1",
+      "ordinal": 73,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              7200,
+              6500,
+              5600,
+              6100
+            ]
+          ]
+        ]
+      },
+      "expected": 25400
+    },
+    {
+      "id": "numeric-074-totalRate-2",
+      "ordinal": 74,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "id": "numeric-075-totalRate-3",
+      "ordinal": 75,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ]
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "id": "numeric-076-totalRate-4",
+      "ordinal": 76,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              {
+                "$float64": "3fb999999999999a",
+                "decimal": "0.1"
+              },
+              {
+                "$float64": "3fc999999999999a",
+                "decimal": "0.2"
+              },
+              {
+                "$float64": "3fd3333333333333",
+                "decimal": "0.3"
+              },
+              {
+                "$float64": "3fd999999999999a",
+                "decimal": "0.4"
+              }
+            ]
+          ]
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "id": "numeric-077-totalRate-5",
+      "ordinal": 77,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              9007199254740991,
+              0,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "expected": 9007199254740991
+    },
+    {
+      "id": "numeric-078-totalRate-6",
+      "ordinal": 78,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              {
+                "$float64": "40daae33ca3f53d2",
+                "decimal": "27320.809219199997"
+              },
+              0,
+              0,
+              0
+            ]
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "40daae33ca3f53d2",
+        "decimal": "27320.809219199997"
+      }
+    },
+    {
+      "id": "numeric-079-totalRate-7",
+      "ordinal": 79,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              {
+                "$float64": "40bd1d70a3d70a3d",
+                "decimal": "7453.44"
+              },
+              6500,
+              {
+                "$float64": "40b690f5c28f5c29",
+                "decimal": "5776.96"
+              },
+              {
+                "$float64": "40b8d43333333333",
+                "decimal": "6356.2"
+              }
+            ]
+          ]
+        ]
+      },
+      "expected": {
+        "$float64": "40d979a666666666",
+        "decimal": "26086.6"
+      }
+    },
+    {
+      "id": "numeric-080-totalRate-8",
+      "ordinal": 80,
+      "method": "totalRate",
+      "input": {
+        "$object": [
+          [
+            "orderedRates",
+            [
+              1000000000000,
+              100000000000,
+              10000000000,
+              1000000000
+            ]
+          ]
+        ]
+      },
+      "expected": 1111000000000
+    },
+    {
+      "id": "numeric-081-offlineTotals-1",
+      "ordinal": 81,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              7200,
+              6500,
+              5600,
+              6100
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            25400
+          ],
+          [
+            "pendingAfter",
+            25400
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-082-offlineTotals-2",
+      "ordinal": 82,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            0
+          ],
+          [
+            "pendingAfter",
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-083-offlineTotals-3",
+      "ordinal": 83,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "3fb999999999999a",
+                "decimal": "0.1"
+              },
+              {
+                "$float64": "3fc999999999999a",
+                "decimal": "0.2"
+              },
+              {
+                "$float64": "3fd3333333333333",
+                "decimal": "0.3"
+              },
+              {
+                "$float64": "3fd999999999999a",
+                "decimal": "0.4"
+              }
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "3fe0000000000000",
+              "decimal": "0.5"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            1
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "3ff8000000000000",
+              "decimal": "1.5"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-084-offlineTotals-4",
+      "ordinal": 84,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "4105d6147ae147ae",
+                "decimal": "178882.56"
+              },
+              156000,
+              {
+                "$float64": "4100ecb851eb851f",
+                "decimal": "138647.04"
+              },
+              {
+                "$float64": "41029f2666666666",
+                "decimal": "152548.8"
+              }
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "41231b3ccccccccc",
+              "decimal": "626078.3999999999"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "41231b3ccccccccc",
+              "decimal": "626078.3999999999"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-085-offlineTotals-5",
+      "ordinal": 85,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "8000000000000000",
+              "decimal": "-0"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            0
+          ],
+          [
+            "pendingAfter",
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-086-offlineTotals-6",
+      "ordinal": 86,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "8000000000000000",
+              "decimal": "-0"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            1
+          ],
+          [
+            "pendingAfter",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-087-offlineTotals-7",
+      "ordinal": 87,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          [
+            "pendingBefore",
+            9007199254740992
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            10
+          ],
+          [
+            "pendingAfter",
+            9007199254741002
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-088-offlineTotals-8",
+      "ordinal": 88,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "4124a3aeef9db22b",
+                "decimal": "676311.4679999998"
+              },
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "4124a3aeef9db22b",
+              "decimal": "676311.4679999998"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "4124a3aeef9db22b",
+              "decimal": "676311.4679999998"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-089-offlineTotals-9",
+      "ordinal": 89,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "4124a3aeef9db22a",
+                "decimal": "676311.4679999996"
+              },
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "4124a3aeef9db22a",
+              "decimal": "676311.4679999996"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "4124a3aeef9db22a",
+              "decimal": "676311.4679999996"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-090-offlineTotals-10",
+      "ordinal": 90,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              9007199254740991,
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            9007199254740991
+          ],
+          [
+            "pendingAfter",
+            9007199254740991
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-091-offlineTotals-11",
+      "ordinal": 91,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              1000000000000,
+              100000000000,
+              10000000000,
+              1000000000
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "3fd0000000000000",
+              "decimal": "0.25"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            1111000000000
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "42702acc2a600400",
+              "decimal": "1111000000000.25"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-092-offlineTotals-12",
+      "ordinal": 92,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "3fecccccccc00000",
+                "decimal": "0.8999999999068677"
+              },
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "3fb999999999999a",
+              "decimal": "0.1"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "3fecccccccc00000",
+              "decimal": "0.8999999999068677"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "3feffffffff33333",
+              "decimal": "0.9999999999068677"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-093-offlineTotals-13",
+      "ordinal": 93,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "41231b3ccccccccd",
+                "decimal": "626078.4"
+              },
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "3fe0000000000000",
+              "decimal": "0.5"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "41231b3ccccccccd",
+              "decimal": "626078.4"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "41231b3dcccccccd",
+              "decimal": "626078.9"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-094-offlineTotals-14",
+      "ordinal": 94,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "40da76570a3d70a4",
+                "decimal": "27097.36"
+              },
+              0,
+              0,
+              0
+            ]
+          ],
+          [
+            "pendingBefore",
+            {
+              "$float64": "3fe47ae147ae147b",
+              "decimal": "0.64"
+            }
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "40da76570a3d70a4",
+              "decimal": "27097.36"
+            }
+          ],
+          [
+            "pendingAfter",
+            27098
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-095-offlineTotals-15",
+      "ordinal": 95,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          [
+            "pendingBefore",
+            1.7976931348623157e+308
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            4
+          ],
+          [
+            "pendingAfter",
+            1.7976931348623157e+308
+          ]
+        ]
+      }
+    },
+    {
+      "id": "numeric-096-offlineTotals-16",
+      "ordinal": 96,
+      "method": "offlineTotals",
+      "input": {
+        "$object": [
+          [
+            "orderedLineTotals",
+            [
+              {
+                "$float64": "0000000000000001",
+                "decimal": "5e-324"
+              },
+              {
+                "$float64": "0000000000000001",
+                "decimal": "5e-324"
+              },
+              {
+                "$float64": "0000000000000001",
+                "decimal": "5e-324"
+              },
+              {
+                "$float64": "0000000000000001",
+                "decimal": "5e-324"
+              }
+            ]
+          ],
+          [
+            "pendingBefore",
+            0
+          ]
+        ]
+      },
+      "expected": {
+        "$object": [
+          [
+            "total",
+            {
+              "$float64": "0000000000000004",
+              "decimal": "2e-323"
+            }
+          ],
+          [
+            "pendingAfter",
+            {
+              "$float64": "0000000000000004",
+              "decimal": "2e-323"
+            }
+          ]
+        ]
+      }
+    }
+  ],
+  "failClosedAllocation": {
+    "kernel-shape": 32,
+    "startup-side-effects": 16,
+    "wrapper-contract": 16,
+    "persistence-equivalence": 16,
+    "probe-build-isolation": 16
+  },
+  "mutationRows": [
+    {
+      "id": 1,
+      "name": "family-base-omitted",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "family-intimacy-rate",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "family-intimacy-cap-removed",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "family-cap-before-intimacy",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "family-rarity-offset",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "family-rarity-rate",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "family-specialty-inverted",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "family-specialty-amount",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "family-addition-order",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "family-cap-moved",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "family-leading-one",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "family-unassigned-bonus",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "neutral-preserve-negative-zero",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "neutral-negative",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "neutral-nonfinite",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "neutral-positive-zeroed",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "upgrade-base",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "upgrade-growth",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "upgrade-exponent",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "upgrade-wrong-grouping",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "upgrade-rounding",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "rate-level-growth",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "rate-level-exponent",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "rate-fellow-leading-one",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "rate-companion-leading-one",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "rate-day-leading-one",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "rate-family-moved",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "rate-character-grouping",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "rate-oath-leading-one",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "rate-oath-moved",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "rate-base",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "rate-rounded",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "duration-divisor",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "duration-reassociated",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "duration-rounded",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "duration-zero-nonzero",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 37,
+      "name": "total-initial",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 38,
+      "name": "total-order",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 39,
+      "name": "total-term",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 40,
+      "name": "total-rounded",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 41,
+      "name": "offline-direct-pending",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 42,
+      "name": "offline-line-order",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 43,
+      "name": "offline-line-order-four",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 44,
+      "name": "offline-line-term",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 45,
+      "name": "offline-pending-early",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 46,
+      "name": "offline-rounded",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 47,
+      "name": "wrapper-bypass",
+      "subcases": [
+        "ordinary-one-defect"
+      ]
+    },
+    {
+      "id": 48,
+      "name": "surface-structural",
+      "subcases": [
+        "surface-export",
+        "surface-mutability",
+        "ambient-state",
+        "guard-relocation"
+      ]
+    }
+  ],
+  "live": {
+    "total": 228,
+    "runnerRows": 4,
+    "realmRows": 56,
+    "realms": [
+      {
+        "width": 320,
+        "height": 568,
+        "motion": "normal"
+      },
+      {
+        "width": 320,
+        "height": 568,
+        "motion": "reduced"
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "motion": "normal"
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "motion": "reduced"
+      }
+    ],
+    "preimage": {
+      "PASS": 84,
+      "PENDING": 144,
+      "FAIL": 0
+    },
+    "candidate": {
+      "PASS": 228,
+      "PENDING": 0,
+      "FAIL": 0
+    }
+  }
+}
