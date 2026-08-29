@@ -20,7 +20,8 @@ Persistence advances to schema 10 with exact pre-v10 schema-9 authority, twelve 
 - Independent exact product/logic re-review: PASS `53/53` at exact production tip `ee516296ddf823ba90b4a85ddc474456fada09f7`; artifact SHA/bytes matched and the production delta remained the single additive Phase 9 QA Adventure wrapper.
 - Independent persistence/recovery re-review: PASS `120/120` at the same exact production tip.
 - A corrected pre-seal browser debug run reached `608/608`, blank fatal, and zero warning/error console entries on package commit `35b3a1d69b3c08a084a84af029d55a104d75f043`. This is diagnostic evidence only, not the official final live gate.
-- Official live browser gate: pending the two runs on the exact review-sealed package; manifest `liveEvidence` remains `null` until those runs complete.
+- Official live browser gate: PASS twice on exact review-sealed package `c3c2104ee2fae9cbd8623561a6a849d337b9897f`. Each independent full run rendered `608/608`, Failed `0`, blank `#fatal`, zero failed rows, and zero warning/error console entries. Both runs directly rendered all required fresh/schema-9/legacy, lock/progression/profile/grandfathered, normal/reduced-motion, Phase 8 successor, all-disabled, and native-storage rows at `320×568` and `390×844`. Evidence was observed through `2026-08-29T02:12:18Z`.
+- The subsequent evidence-seal commit changes only this documentation, the generated manifest, and checksums; production and executable QA bytes remain the exact browser-tested candidate.
 
 ## Residual risks
 
