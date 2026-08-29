@@ -59,6 +59,8 @@ Restore Companion Tower and Fellow Expedition elapsed-time settlement for every 
 - One outer action captures one time and passes it through the existing `accrue` chain. Tower or Expedition settlement must not execute twice because of wrapper chaining.
 - Preview remains clone-only. Claim remains one atomic persisted mutation. Immediate repeated preview or claim at the same captured time cannot create elapsed time, rewards, RNG consumption, pity movement, receipt changes, or persistence.
 - Any action that changes a Tower floor, Expedition stage, Power input, assignment, or other progression state continues to settle elapsed time under the old state before applying the change.
+- A persisted action may settle both idle lanes at the shared captured time. Claiming one lane may therefore advance the other lane's cursor and pending segment chronology, but it must not consume or alter the other lane's claimed history, rewards, pity, last receipt, or claim sequence.
+- Tower and Expedition remain unable to create spendable Gold. Because their actions enter the shared `accrue` chain, an advancing captured time may independently increase Village pending Gold and Family pending drops. At a frozen captured time, Tower and Expedition actions do not change Gold or pending Gold, and no Tower/Expedition receipt or presentation attributes Village/Family accrual to either idle lane.
 
 ## Implementation constraint
 
@@ -92,13 +94,16 @@ Restore Companion Tower and Fellow Expedition elapsed-time settlement for every 
 
 - Cover boot accrual, preview, Tower clear, Expedition push, ordinary unrelated persisted mutation, claim, reload, route change, and same-time repeated action.
 - On current schema 10, Tower and Expedition previews advance from their saved cursors; claims transfer the resulting accepted rewards exactly once; reload preserves the committed state and receipt.
-- Claiming Tower does not change Expedition rewards, history, pity, receipt, or claim sequence. Claiming Expedition does not change the corresponding Tower fields. Neither lane creates Gold.
+- Use fixtures with both lanes progressed and both cursors behind for schema 9 and schema 10, including canonical fresh, migrated, and safe-reset schema-10 authority forms. For boot, unrelated mutation, Tower claim, Expedition claim, Tower clear, and Expedition push, prove Village, Tower, and Expedition receive the same captured clock; each idle cursor advances once; no segment receives double elapsed; and clear/push elapsed is attributed to the old floor/stage.
+- Prove preview preserves exact durable raw/revision, runtime, and UI. Prove immediate same-tick repeat claims consume no interval, reward, RNG, pity, or receipt and perform no persistence.
+- Claiming Tower does not consume or alter Expedition claimed rewards, history, pity, receipt, or claim sequence. Claiming Expedition does not consume or alter the corresponding Tower fields. At an advancing clock the non-claimed lane may settle only its cursor and pending segment chronology, and Village/Family may accrue independently under their existing rules.
 
 ### Persistence and refusal
 
 - The Phase 9 protected-slot, staging, validation, recovery, export, reset, storage-event, conflict, and no-CAS residual-risk contract remains an exact semantic successor.
 - Invalid, non-finite, unsafe, negative, overflow, malformed, stale, or unauthorized paths refuse with zero partial reward and preserve durable state under the existing coordinator guarantees.
 - No Phase 10A action creates a migration receipt, checkpoint, additional protected slot, revision without a legitimate mutation, or retroactive reward.
+- Exercise nonzero elapsed Tower-only, Expedition-only, and combined-lane mutations at staging ownership/write/verify, active conflict/write/verify, and cleanup ownership/remove/verify fault boundaries. Pre-active failures restore the exact twelve slots, active raw/revision, in-memory state, runtime, and UI. Post-active interruption/recovery adopts the committed target exactly once. A later-clock retry continues from the authenticated staged/committed cursor without duplicate credited elapsed or lost elapsed.
 
 ### Live browser
 
@@ -112,6 +117,7 @@ Restore Companion Tower and Fellow Expedition elapsed-time settlement for every 
 - Freeze the contract in its own commit before production implementation.
 - Keep production repair and QA/evidence in focused commits.
 - Record exact base, production commit, candidate/evidence commits, artifact SHA-256/bytes, embedded-asset aggregate, CLI totals, live totals, historical-regression results, and known residual risks in `docs/PHASE_10A_RESULT.md`.
+- Run the complete frozen Phase 9 focused CLI verifier, Phase 8 semantic-successor verifier, and Phase 9 checksum gate twice on the clean candidate tip; document only the expected current-artifact identity replacements introduced by the two-guard repair.
 - Require two independent read-only reviews: one focused on product/settlement semantics and one focused on persistence/regression integrity.
 - Merge and publish only from a clean exact reviewed tip. Verify GitHub Pages serves the exact production artifact and exercise both schema-10 idle lanes publicly before beginning Phase 10B.
 
