@@ -20,8 +20,8 @@ Persistence advances to schema 10 with exact pre-v10 schema-9 authority, twelve 
 - Independent exact product/logic re-review: PASS `53/53` at exact production tip `ee516296ddf823ba90b4a85ddc474456fada09f7`; artifact SHA/bytes matched and the production delta remained the single additive Phase 9 QA Adventure wrapper.
 - Independent persistence/recovery re-review: PASS `120/120` at the same exact production tip.
 - A corrected pre-seal browser debug run reached `608/608`, blank fatal, and zero warning/error console entries on package commit `35b3a1d69b3c08a084a84af029d55a104d75f043`. This is diagnostic evidence only, not the official final live gate.
-- Historical browser evidence: PASS twice on package `c3c2104ee2fae9cbd8623561a6a849d337b9897f`, each `608/608`, Failed `0`, blank `#fatal`, zero failed rows, and zero warning/error console entries through `2026-08-29T02:12:18Z`.
-- The expanded harness now permanently verifies that the threshold Rank-up summary occurs once and is not replayed after reload, replay, navigation, or unrelated mutation in normal and reduced motion at both phone dimensions. This changes the expected live total to `628`; official live evidence for the expanded review-sealed candidate is pending and manifest `liveEvidence` is reset to `null`.
+- Official expanded browser gate: PASS twice on exact independently audited package `4f810268d5be82954dbbe8cb825f758a079405e8`. Each independent full in-app Chromium run rendered `628/628`, Failed `0`, blank `#fatal`, zero failed rows, and zero warning/error console entries. Every required `320×568` and `390×844` realm row passed, including the threshold Rank-up summary occurring once and not replaying after reload, replay, navigation, or unrelated mutation across both normal and reduced motion. Evidence was observed through `2026-08-29T02:43:59Z`.
+- The subsequent evidence-seal commit changes only the Phase 9 README/result/execution documentation, generated manifest, and checksum file; production and executable QA bytes remain the exact browser-tested candidate.
 - Phase 9 has not been published to GitHub Pages; release evidence remains pending.
 
 ## Residual risks

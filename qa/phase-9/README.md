@@ -23,4 +23,4 @@ Serve the repository root locally and open `qa/phase-9/` for the live gate. The 
 
 No test grants Rank EXP directly. Canonical first-clear gameplay is the only tested Rank EXP source.
 
-The expanded live harness adds twenty one-shot Rank-summary rows per pass across normal/reduced motion and both phone dimensions. The prior `608/608` runs remain historical evidence for their exact package; the expanded review-sealed candidate requires a fresh `628/628` live pass and therefore keeps manifest `liveEvidence` null.
+The expanded live harness adds twenty one-shot Rank-summary rows per pass across normal/reduced motion and both phone dimensions. Exact review-sealed package `4f810268d5be82954dbbe8cb825f758a079405e8` passed two independent full in-app Chromium runs at `628/628`, Failed `0`, blank fatal, zero failed rows, and zero warning/error console entries. Every required `320×568` and `390×844` realm row passed, including all four Rank-summary non-replay assertions in both motion modes and sizes.
