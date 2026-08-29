@@ -72,7 +72,7 @@ Phase 10B-1 must inventory and reproduce the accepted source, order, boundaries,
 ### Fellow and Companion progression and Power
 
 - Fellows have level cap 120, EXP base 100, EXP growth 1.12, +11.5% Power per level above 1, rarity cap 5, rarity shard costs `[20,40,80,160]`, and +8% Power per rarity step. Released Bond milestone Power is neutral.
-- Released effective Fellow Power order is base, level, rarity, neutral Bond milestone, Relic, assigned-Companion transfer, Family-to-Fellow Bond, global Might, then one final round. The assigned Companion contributes 40% of its effective Power before Family and Might multiplication.
+- Released effective Fellow Power order is base, level, rarity, neutral Bond milestone, Relic, assigned-Companion transfer, Family-to-Fellow Bond, global Might, then one final round. The assigned Companion contributes 40% of its unrounded post-Mastery Power before Family and Might multiplication; its separately rounded displayed effective Power is not the transfer input.
 - Companions have level cap 100, EXP base 80, EXP growth 1.12, base Power Bramble 1,000 and Cinderwing 1,200, +10% Power per level above 1, rarity cap 5, rarity shard costs `[20,40,80,160]`, and +10% Power per rarity step.
 - Released effective Companion Power order is base, level, rarity, Mastery, then one final round.
 - Might and Mastery each cap at 50,000 points and level 50, use threshold `20 × level^2`, and add 1% Power per level. They are progression resources, never spendable Gold.
@@ -190,7 +190,7 @@ Every released-parity vector must satisfy exact three-way equality: frozen golde
 - The config inventory compares production source observations to literal reviewed expected values, but those observations cannot be fed back as reference inputs.
 - Hand-worked microvectors must pin boundary values on both sides of every relevant round, ceil, threshold, cap, interval, pity, and multiplier-order decision.
 - The focused verifier includes exactly 24 in-memory mutation-sensitivity rows. Each row mutates one production-probe or reference input/implementation and passes only when the ordinary parity/invariant gate detects that mutation.
-- The mutation set must cover at least: Building base rate; Building level multiplier; upgrade growth; upgrade rounding; Family bonus cap or component; Oath final position; Oath cap; offline 24-hour cap; local-midnight segmentation; Fellow EXP rounding/threshold; Companion EXP rounding/threshold; Fellow Power rounding/order; Companion Power rounding/order; Relic placement; Companion transfer inclusion; Family Bond exclusion from candidate economy Power; Might or Mastery placement; Campaign ceil; efficiency cap; Tower interval or reward; Expedition interval or reward; stable reward identity/channel; and forced-eighth pity ordinal.
+- The mutation registry freezes exactly these 24 targets and expected failure classes: (1) Building base rate; (2) Building level multiplier; (3) upgrade growth; (4) upgrade rounding; (5) Family assignment component/cap; (6) Oath final position; (7) Oath cap; (8) offline 24-hour cap; (9) local-midnight segmentation; (10) Fellow EXP rounding/threshold; (11) Companion EXP rounding/threshold; (12) Fellow Power rounding/order; (13) Companion Power rounding/order; (14) Relic placement; (15) Companion transfer inclusion and unrounded input; (16) Family Bond exclusion from candidate economy Power; (17) Might placement; (18) Mastery placement; (19) Campaign ceil; (20) efficiency cap; (21) Tower interval/reward; (22) Expedition interval/reward; (23) stable reward identity/channel; and (24) forced-eighth pity ordinal. The implementation row registry may refine labels but cannot merge, split, substitute, or omit these targets without a contract amendment.
 - Mutation rows cannot pass merely because a mutation throws. The row must identify the expected parity/invariant failure class and prove the unmutated control passes.
 - A row-registry file freezes all 624 stable IDs and their category. The verifier asserts exact count, uniqueness, order, category totals, and registry SHA-256; it never accepts `>= 624`.
 
@@ -250,7 +250,7 @@ The exact 60-row invariant registry must collectively prove:
 
 - Phase 10B-1 adds no production QA bridge method and changes no authorization boundary.
 - CLI simulation and probing use only cloned inputs and an isolated in-memory adapter. Exact native `localStorage` is unavailable to the calculator and probe.
-- The browser dashboard must not read or write production localStorage, sessionStorage, IndexedDB, cookies, Cache Storage, service workers, downloads, clipboard, network endpoints, or the production save namespace.
+- The browser dashboard may make immutable same-origin `GET` reads only for its exact `qa/phase-10b/` package files and `../../index.html` for artifact-identity verification. It must not access any other production or external endpoint, and it must not read or write production localStorage, sessionStorage, IndexedDB, cookies, Cache Storage, service workers, downloads, clipboard, beacons, WebSockets, or the production save namespace.
 - Loading, running, rerunning, filtering, or changing a dashboard display cannot change any file, save, protected slot, active revision, staging state, runtime application state, or accepted evidence.
 - The focused verifier snapshots all Phase 10B-1 inputs and the repository-owned output set before execution and proves no test-generated write afterward. The verifier itself emits results only to standard output unless an explicit non-gate report-generation command is invoked.
 - A report-generation command must require an explicit output path outside accepted goldens, refuse to overwrite an existing file by default, and produce a candidate artifact that is not acceptance evidence until reviewed and frozen.
@@ -308,11 +308,11 @@ Run each applicable gate twice from the exact clean Phase 10B-1 candidate:
 - Phase 10B-1 focused verifier: exact 624/624.
 - Phase 10B-1 checksum file: every entry passes.
 - Phase 10A focused verifier: exact 371/371.
-- Phase 10A semantic predecessor/successor gate: exact accepted result.
+- Phase 10A semantic predecessor/successor gate: exact `22/22`.
 - Phase 10A checksum file: exact 14/14.
 - Phase 9 focused verifier: exact 355/355.
 - Phase 8 semantic-successor verifier: exact 703/703.
-- A new Phase 10B-1 successor runner proves `index.html`, every accepted Phase 10A-owned path, Phase 10A manifest identities/evidence, and all historical frozen files remain exact.
+- A new Phase 10B-1 successor runner passes exact `203/203`: 188 entries from the accepted Phase 10A `frozenHistoricalFiles` map plus 15 exact accepted Phase 10A-owned paths (`index.html`, three Phase 10A docs, and eleven `qa/phase-10a/` files including its checksum). Byte-exact Phase 10A manifest preservation proves its recorded identities and evidence without adding self-referential semantic rows.
 
 Do not fold inherited rows into the 624 focused total. Report every suite separately and preserve intentionally superseded historical checksum expectations exactly as documented by its owning phase.
 
