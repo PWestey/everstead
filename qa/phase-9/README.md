@@ -24,3 +24,7 @@ Serve the repository root locally and open `qa/phase-9/` for the live gate. The 
 No test grants Rank EXP directly. Canonical first-clear gameplay is the only tested Rank EXP source.
 
 The expanded live harness adds twenty one-shot Rank-summary rows per pass across normal/reduced motion and both phone dimensions. Exact review-sealed package `4f810268d5be82954dbbe8cb825f758a079405e8` passed two independent full in-app Chromium runs at `628/628`, Failed `0`, blank fatal, zero failed rows, and zero warning/error console entries. Every required `320×568` and `390×844` realm row passed, including all four Rank-summary non-replay assertions in both motion modes and sizes.
+
+## Public release
+
+Phase 9 is published from exact canonical and origin head `843ce328f898781ff2729c1eaf67253d471fc1be`. GitHub Pages deployment [run 33229894273](https://github.com/PWestey/everstead/actions/runs/33229894273) completed successfully at `2026-08-29T02:50:13Z`. The public [Everstead application](https://pwestey.github.io/everstead/) was verified at `2026-08-29T02:52:31Z`: SHA-256 `1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529`, `18,916,650` bytes, schema 10, with `schema-9-to-10` and `The Wayfarer` present. Independent in-app Chromium verification also loaded Everstead v0.1, opened The Wayfarer profile, rendered Rank 1/5 and the complete Rank 2–5 roadmap, and recorded zero warning/error console entries.

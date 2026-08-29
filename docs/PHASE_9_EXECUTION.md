@@ -40,4 +40,12 @@ The final package audit reopened QA only and added four permanent evidence famil
 
 The expanded candidate received an independent package-audit PASS at exact tip `4f810268d5be82954dbbe8cb825f758a079405e8`, followed by two independent full in-app Chromium runs. Each rendered `628/628`, Failed `0`, blank fatal, zero failed rows, and zero warning/error console entries. Every required `320×568` and `390×844` realm row passed, including all four Rank-summary non-replay assertions across both normal and reduced motion. Evidence was observed through `2026-08-29T02:43:59Z`.
 
-The subsequent evidence-seal commit changes only the Phase 9 README/result/execution documents, generated manifest, and checksum file. Production and all executable QA files remain byte-identical to the exact browser-tested candidate. Phase 9 has not been published to GitHub Pages.
+The subsequent evidence-seal commit changes only the Phase 9 README/result/execution documents, generated manifest, and checksum file. Production and all executable QA files remain byte-identical to the exact browser-tested candidate.
+
+## Gate 17 · public release
+
+Canonical `main` and `origin/main` reached exact clean head `843ce328f898781ff2729c1eaf67253d471fc1be`. GitHub Pages deployment [run 33229894273](https://github.com/PWestey/everstead/actions/runs/33229894273) completed successfully at `2026-08-29T02:50:13Z`. At `2026-08-29T02:52:31Z`, the public [Everstead application](https://pwestey.github.io/everstead/) matched the Phase 9 artifact exactly: SHA-256 `1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529`, `18,916,650` bytes, with `CURRENT_SCHEMA_VERSION=10`, `schema-9-to-10`, and `The Wayfarer` present.
+
+Independent in-app Chromium verification also loaded Everstead v0.1, opened The Wayfarer profile, rendered Rank 1/5 and the complete Rank 2–5 roadmap, and recorded zero warning/error console entries.
+
+The manifest now marks schemas 0–10 as released and schema 10 as published. Its pre-seal release snapshot remains permanently fixed at `d3ce87a00ff37945e0b61f921092f04a8c808851`; regeneration no longer derives that historical evidence from moving branch refs. Official `628/628` live evidence remains preserved.

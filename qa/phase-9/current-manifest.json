@@ -13,9 +13,10 @@
     6,
     7,
     8,
-    9
+    9,
+    10
   ],
-  "provisionalSchema10Published": false,
+  "provisionalSchema10Published": true,
   "qaStorage": "isolated-memory-adapter",
   "independentReviewEvidence": {
     "exactProductAndLogic": {
@@ -59,6 +60,48 @@
     "publicSchemaVersion": 9,
     "phaseNineMarkersPresent": false,
     "observedAt": "2026-08-28T22:00:00.000Z"
+  },
+  "releaseEvidence": {
+    "status": "PUBLISHED",
+    "canonicalMainCommit": "843ce328f898781ff2729c1eaf67253d471fc1be",
+    "originMainCommit": "843ce328f898781ff2729c1eaf67253d471fc1be",
+    "deployment": {
+      "runId": 33229894273,
+      "runUrl": "https://github.com/PWestey/everstead/actions/runs/33229894273",
+      "workflow": "pages build and deployment",
+      "conclusion": "success",
+      "headCommit": "843ce328f898781ff2729c1eaf67253d471fc1be",
+      "createdAt": "2026-08-29T02:49:27.000Z",
+      "startedAt": "2026-08-29T02:49:27.000Z",
+      "completedAt": "2026-08-29T02:50:13.000Z"
+    },
+    "publicArtifact": {
+      "url": "https://pwestey.github.io/everstead/",
+      "sha256": "1e9d22150a5a0d2b2b4fbec403a5a50bf81c3b22153e688b659bda9b6bc67529",
+      "byteLength": 18916650,
+      "schemaVersion": 10,
+      "markers": [
+        "CURRENT_SCHEMA_VERSION=10",
+        "schema-9-to-10",
+        "The Wayfarer"
+      ],
+      "observedAt": "2026-08-29T02:52:31.000Z"
+    },
+    "publicUi": {
+      "status": "PASS",
+      "surface": "in-app Chromium",
+      "title": "Everstead v0.1",
+      "wayfarerProfileOpened": true,
+      "playerRank": "1/5",
+      "roadmapRanks": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "consoleWarnError": 0,
+      "observedThrough": "2026-08-29T02:53:52.000Z"
+    }
   },
   "preSealDebugLiveEvidence": {
     "status": "NON_FINAL",
