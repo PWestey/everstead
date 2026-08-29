@@ -23,6 +23,6 @@ Serve the repository root and open `qa/phase-10a/` for the live gate. Its `162` 
 - `verify.mjs` is the `371`-row permanent focused oracle for exact source integrity, complete released-reference parity vectors, true split/reload equivalence, partial carry, lifecycle and cross-lane paths, exact rewards, real overflow rollback, fresh/migrated/safe-reset authority, and all 27 transaction-fault cases with same/later recovery.
 - `regress-phase-9.mjs` proves the Phase 9 production/package successor boundary and the exact `13/14` frozen-checksum result.
 - `current-manifest.json` freezes Phase 0–9 QA/docs bytes and the Phase 10A artifact/scenario identities.
-- The pre-seal local Chromium smoke passed `162/162` with blank fatal and zero warning/error logs. Official evidence remains pending until the parent runs the exact committed candidate twice at both required phone sizes.
+- The exact reviewed package `0aa03643575be9e0ad845e67e150c9cf3b48ec6f` passed two official Chromium runs at `162/162`, with blank fatal, zero failed rows, and zero warning/error logs. Both independent read-only reviews passed that same exact tip.
 
 No wider Phase 10 economy, Power, balance, claim registry, pity, schema, or UI work is included.

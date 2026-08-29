@@ -4,7 +4,7 @@
   "baseCommit": "068a5a3ea2d9b3b339e96bf3fed0a0c945cf62a5",
   "productionCommit": "9d82db565ff482a3898e68bd8a6dce8505a9bfe9",
   "contractCommit": "c986665bb936d3a14ea513d5ceeca87bcdc03425",
-  "packageCommit": null,
+  "packageCommit": "0aa03643575be9e0ad845e67e150c9cf3b48ec6f",
   "qaStorage": "isolated-memory-adapter",
   "supportedReleasedSchemas": [
     0,
@@ -40,13 +40,43 @@
   },
   "independentReviewEvidence": {
     "productAndSettlement": {
-      "verdict": "PENDING"
+      "verdict": "PASS",
+      "exactTip": "0aa03643575be9e0ad845e67e150c9cf3b48ec6f",
+      "focusedPassed": 371,
+      "focusedTotal": 371,
+      "successorPassed": 22,
+      "successorTotal": 22
     },
     "persistenceAndRegression": {
-      "verdict": "PENDING"
+      "verdict": "PASS",
+      "exactTip": "0aa03643575be9e0ad845e67e150c9cf3b48ec6f",
+      "focusedPassed": 371,
+      "focusedTotal": 371,
+      "phaseNinePassed": 355,
+      "phaseNineTotal": 355,
+      "transactionFaultCases": 27,
+      "transactionBoundaryRows": 216
     }
   },
-  "liveEvidence": null,
+  "liveEvidence": {
+    "status": "PASS",
+    "packageCommit": "0aa03643575be9e0ad845e67e150c9cf3b48ec6f",
+    "passes": 2,
+    "passedPerPass": 162,
+    "totalPerPass": 162,
+    "failedPerPass": 0,
+    "fatalPerPass": "",
+    "consoleWarnErrorPerPass": 0,
+    "viewports": [
+      "320x568",
+      "390x844"
+    ],
+    "motionModes": [
+      "normal",
+      "reduced-motion"
+    ],
+    "observedThrough": "2026-08-29T13:21:16Z"
+  },
   "artifact": {
     "sha256": "717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed",
     "byteLength": 18916682,
