@@ -1,0 +1,97 @@
+{
+  "manifestVersion": 1,
+  "phase": "11A",
+  "status": "PASS_LOCAL",
+  "baseCommit": "ac7592348c1a11668822b0355ae86ab6db1b2688",
+  "candidateCommit": "7c9e370f37830eaf9f756972dbbc1744d68e0270",
+  "productionChanged": true,
+  "browserFiles": true,
+  "artifact": {
+    "sha256": "fe0fd5a75cd32053861c9572d58f990b86f8d562c84173f8e9ea70967f2f0321",
+    "byteLength": 18985643
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "schemaRows": 47,
+  "engineRows": 100,
+  "focusedProbeRows": 168,
+  "sealedCliRows": 180,
+  "liveRows": 70,
+  "viewports": [
+    "320x568",
+    "390x667",
+    "390x844"
+  ],
+  "packageFiles": {
+    "qa/phase-11a/README.md": {
+      "sha256": "537f0be1d034820d6954c4e08291217196b5e29a4dce4361d52584db6e0ea9c9",
+      "byteLength": 873
+    },
+    "qa/phase-11a/build-contract.mjs": {
+      "sha256": "70842d6d094fa9dd32cf3fa4fa95541b4462137a209f62e5c0073a056d6b796d",
+      "byteLength": 4381
+    },
+    "qa/phase-11a/index.html": {
+      "sha256": "afff3af2563b9fb19b5834eebabf1108594812e0c2bd41d4a5b26551579187f5",
+      "byteLength": 1285
+    },
+    "qa/phase-11a/probe.mjs": {
+      "sha256": "0284806be1b0277a58c4f9a0d38f4c5d3e1160774e919d79b97e14035344a9c3",
+      "byteLength": 8826
+    },
+    "qa/phase-11a/realm.html": {
+      "sha256": "3795135ecb877f5cc099d873aaf42bf43ae611d705c3a9f77020ca54f5b89fab",
+      "byteLength": 178
+    },
+    "qa/phase-11a/realm.js": {
+      "sha256": "29c15795f589f56001c939fe7bf352add5350d5701d601f392623746839fd4e2",
+      "byteLength": 11558
+    },
+    "qa/phase-11a/runner.js": {
+      "sha256": "00f9071aa6969abe8bdea6f6edcf9c62a6b2c846d29bacd138b66bd3886aab26",
+      "byteLength": 4127
+    },
+    "qa/phase-11a/scenarios.json": {
+      "sha256": "a3275adc4e33582d6ccfc5ce136a65cbdc71c4533eda8db6d27f87c49d95e527",
+      "byteLength": 1701
+    },
+    "qa/phase-11a/verify.mjs": {
+      "sha256": "57c37565dc87909814e8a9c168b8427d94d531898b54e0c6731530db9d8519c6",
+      "byteLength": 5190
+    }
+  },
+  "expectedGate": {
+    "focusedCli": "168/168",
+    "sealedCli": "180/180 twice",
+    "liveBrowser": "70/70 twice with zero console warnings/errors and zero native-storage accesses"
+  },
+  "observedGate": {
+    "focusedCli": {
+      "total": 168,
+      "passed": 168,
+      "failed": 0
+    },
+    "sealedCli": {
+      "total": 180,
+      "passed": 180,
+      "failed": 0,
+      "runs": 2
+    },
+    "liveBrowser": {
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageAccesses": 0,
+      "observedAt": "2026-08-30T23:48:17Z"
+    }
+  }
+}

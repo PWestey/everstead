@@ -1,0 +1,38 @@
+{
+  "authority": {
+    "baseCommit": "ac7592348c1a11668822b0355ae86ab6db1b2688",
+    "candidateCommit": "7c9e370f37830eaf9f756972dbbc1744d68e0270"
+  },
+  "artifact": {
+    "sha256": "fe0fd5a75cd32053861c9572d58f990b86f8d562c84173f8e9ea70967f2f0321",
+    "byteLength": 18985643,
+    "assetCount": 5,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "fixture": {
+    "path": "../fixtures/representative-v0.1.txt",
+    "lastGoldAt": 1907953200000,
+    "gold": 246810,
+    "questId": "fixture-custom"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "offlineElapsed": 299999, "offlineModal": false},
+    {"id": "phone-390x667", "width": 390, "height": 667, "offlineElapsed": 300000, "offlineModal": true},
+    {"id": "phone-390x844", "width": 390, "height": 844, "offlineElapsed": 7200000, "offlineModal": true}
+  ],
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backup": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "preV2": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "preV3": "oathforge_new_world_proto_v01__raw_backup_v2",
+    "preV4": "oathforge_new_world_proto_v01__raw_backup_v3",
+    "preV5": "oathforge_new_world_proto_v01__raw_backup_v4",
+    "preV6": "oathforge_new_world_proto_v01__raw_backup_v5",
+    "preV7": "oathforge_new_world_proto_v01__raw_backup_v6",
+    "preV8": "oathforge_new_world_proto_v01__raw_backup_v7",
+    "preV9": "oathforge_new_world_proto_v01__raw_backup_v8",
+    "preV10": "oathforge_new_world_proto_v01__raw_backup_v9",
+    "preV11": "oathforge_new_world_proto_v01__raw_backup_v10",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  }
+}
