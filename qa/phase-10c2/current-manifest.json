@@ -1,0 +1,59 @@
+{
+  "manifestVersion": 1,
+  "phase": "10C-2",
+  "status": "ENGINE_QA_READY",
+  "baseCommit": "2901ee49054a75c92af6c810599a54ae6b98b499",
+  "candidateCommit": "722e91b80ee1cc8f1c51ff52ebc2f49be8335a88",
+  "productionChanged": true,
+  "browserFiles": false,
+  "artifact": {
+    "sha256": "cd9efc6946acc31223e4b00fbb5e21aae3d7748fc47a56b0d433c9ab12c2e3ca",
+    "byteLength": 18972079
+  },
+  "selectedProfile": {
+    "id": "everstead-economy-v1",
+    "identity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f"
+  },
+  "additiveProductionLines": 29,
+  "privateGoldCoreByteExact": true,
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "engineRows": 100,
+  "schemaRows": 47,
+  "predecessorGate": {
+    "total": 117,
+    "passingBehaviorAndAuthorityRows": 115,
+    "expectedSupersessions": [
+      "build-manifest-authority",
+      "phase10c1-checksums"
+    ]
+  },
+  "packageFiles": {
+    "qa/phase-10c2/README.md": {
+      "sha256": "bd668d5ea628b90b718b91eae1281b743319aab3079a689cf9488a515f54552a",
+      "byteLength": 1863
+    },
+    "qa/phase-10c2/build-contract.mjs": {
+      "sha256": "e9e5dc68007f575c523e422bfffc3c9587fd3264451689c9e7f6e3abdaba198f",
+      "byteLength": 3951
+    },
+    "qa/phase-10c2/engine-probe.mjs": {
+      "sha256": "a7c44c161df7120e022334d07db87fff14411e1023e062e68eecbdb837939b84",
+      "byteLength": 26404
+    },
+    "qa/phase-10c2/predecessor-excludes": {
+      "sha256": "d4488398c9ecfc1ece0d1ec888ecb530778ed2709966c2abf4988a892bb2a09c",
+      "byteLength": 35
+    },
+    "qa/phase-10c2/verify.mjs": {
+      "sha256": "efc0d6240e08c8d3b264a50f754bab9a056c051237b2d88fe53c5ab13f21e7d6",
+      "byteLength": 9364
+    }
+  },
+  "expectedGate": {
+    "focusedCli": "PASS twice",
+    "liveBrowser": "DEFERRED TO PHASE 10C-3"
+  }
+}
