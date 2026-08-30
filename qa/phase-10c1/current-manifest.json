@@ -1,18 +1,22 @@
 {
   "manifestVersion": 1,
   "phase": "10C-1",
-  "mode": "PREIMAGE",
-  "status": "PREIMAGE_QA_READY",
+  "mode": "SCHEMA_CANDIDATE",
+  "status": "SCHEMA_CANDIDATE_QA_READY",
   "baseCommit": "56b99f86a95f95fd1822da0331204f5d8ea33656",
-  "productionChanged": false,
+  "productionChanged": true,
   "browserFiles": false,
-  "artifact": {
+  "baseArtifact": {
     "sha256": "40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd",
-    "byteLength": 18933604,
+    "byteLength": 18933604
+  },
+  "artifact": {
+    "sha256": "1eee527d2515ccc4195d94df2ae13bb9935b3e4982302cd48206cfe359ea7aa1",
+    "byteLength": 18964625,
     "embeddedAssetCount": 5,
     "embeddedAssetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a",
-    "schemaVersion": 10,
-    "protectedSlots": 12
+    "schemaVersion": 11,
+    "protectedSlots": 13
   },
   "selectedProfile": {
     "id": "everstead-economy-v1",
@@ -58,29 +62,34 @@
   },
   "packageFiles": {
     "qa/phase-10c1/README.md": {
-      "sha256": "7eb1c4b033efb8c8d57e079ee832cb426709b6cacf7c5cd143e9bbc55a134215",
-      "byteLength": 1304
+      "sha256": "b14c01b2ef79f70c2b5d50355284d567fa4ab58fecd6f8584db0c13f9ca45a40",
+      "byteLength": 1870
     },
     "qa/phase-10c1/build-contract.mjs": {
-      "sha256": "cb5cbf20b010eb4c885ca9df8796121b25a0240888c25e1171bed7f054ab1b66",
-      "byteLength": 3915
+      "sha256": "cbc4cb44a75fa887781556e3b98f9ccdea7d4f02e22cb648019a953d8b1414db",
+      "byteLength": 4855
     },
     "qa/phase-10c1/profile.json": {
       "sha256": "76a7858c83c36a82eb76829c506c97adbd03041eda2c3028e8547f2cb6e99a86",
       "byteLength": 274
+    },
+    "qa/phase-10c1/schema-probe.mjs": {
+      "sha256": "b7ea1b17b04a1b9b88ae0d0af6f719e7e8d0c987334d4508aa69153448cd4339",
+      "byteLength": 18551
     },
     "qa/phase-10c1/vectors.json": {
       "sha256": "0681b00834e42855e859fd14cd3a272cbabff807581b338610f0c193d7c92d40",
       "byteLength": 2925
     },
     "qa/phase-10c1/verify.mjs": {
-      "sha256": "bc135099de9a448c466eed432cbde11062411065f085377bb6c183ad28d33407",
-      "byteLength": 13277
+      "sha256": "859eeb90c5f77c21dd8fcc52b2c9f20d40ea699ff520e778382f0c1adb145689",
+      "byteLength": 16882
     }
   },
   "expectedGate": {
     "focusedCli": "PASS twice",
     "phaseTenBSelectedBundles": 36,
-    "liveBrowser": "DEFERRED UNTIL PRODUCTION CANDIDATE"
+    "schemaRows": 47,
+    "liveBrowser": "DEFERRED UNTIL ECONOMY-RATE ACTIVATION"
   }
 }

@@ -4,6 +4,7 @@ import {existsSync,readFileSync,readdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {simulateBundle} from '../phase-10b/simulate.mjs';
+import {runSchemaCandidate} from './schema-probe.mjs';
 
 const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const QA=resolve(ROOT,'qa/phase-10c1');
@@ -11,7 +12,7 @@ const BASE='56b99f86a95f95fd1822da0331204f5d8ea33656';
 const PROFILE_IDENTITY='6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f';
 const ARTIFACT={sha256:'40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd',byteLength:18933604,assetCount:5,assetAggregate:'26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a'};
 const PHASE_TEN_B={checksums:'4926ee6438a21947312ee37e0747c49949be4abaa46764c4dff5f5b9de595ca4',scenario:'89b2a717058e64f533aeafe8fa0c64df02de3d278b98a3f7269eb814c430e8d0',simulator:'e56082005c5e10112628c214ba09a3838216e46b5c16e4dfe26303e0d47110dc',report:'5d7e0f0b81d8e9362e15031480c363f80ee098ef7c7d2deef69c35db7f448e51',reportIdentity:'d763aeb9cf263b007731b1a8cb2003da7b64978e927bed21368921b4a8c758be',historicalArtifact:'717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed'};
-const EXPECTED_NAMES=['README.md','build-contract.mjs','checksums.sha256','current-manifest.json','profile.json','vectors.json','verify.mjs'];
+const EXPECTED_NAMES=['README.md','build-contract.mjs','checksums.sha256','current-manifest.json','profile.json','schema-probe.mjs','vectors.json','verify.mjs'];
 const OWNED_PREFIXES=['docs/PHASE_10C1_ECONOMY_ACTIVATION_CONTRACT.md','docs/PHASE_10C1_EXECUTION.md'];
 const results=[];
 const record=(id,pass,detail='')=>results.push({id,pass:Boolean(pass),detail:String(detail)});
@@ -23,24 +24,39 @@ const exactKeys=(value,keys)=>ordinary(value)&&same(Object.keys(value),keys);
 
 const source=read('index.html');
 const sourceText=source.toString('utf8');
+const sourceIdentity={sha256:sha(source),byteLength:source.length};
+const exactPreimage=sourceIdentity.sha256===ARTIFACT.sha256&&sourceIdentity.byteLength===ARTIFACT.byteLength;
+const schemaCandidate=sourceText.includes('CURRENT_SCHEMA_VERSION=11')&&sourceText.includes("id:'everstead-economy-v1'")&&sourceText.includes(PROFILE_IDENTITY);
+const MODE=exactPreimage?'PREIMAGE':schemaCandidate?'SCHEMA_CANDIDATE':'UNKNOWN';
+const baseSource=execFileSync('git',['show',`${BASE}:index.html`],{cwd:ROOT,encoding:'utf8',maxBuffer:32*1024*1024,timeout:30000});
 const assetMatches=[...sourceText.matchAll(/data:image\/[^;]+;base64,[A-Za-z0-9+/=]+/g)].map(match=>match[0]);
 const assetAggregate=sha(Buffer.from(assetMatches.join('\n')));
-record('exact-base-artifact',sha(source)===ARTIFACT.sha256&&source.length===ARTIFACT.byteLength,`${sha(source)} · ${source.length}`);
+record('recognized-artifact-mode',MODE!=='UNKNOWN',`${MODE} · ${sourceIdentity.sha256} · ${sourceIdentity.byteLength}`);
+record('base-artifact-authority',sha(Buffer.from(baseSource))===ARTIFACT.sha256&&Buffer.byteLength(baseSource)===ARTIFACT.byteLength,`${sha(Buffer.from(baseSource))} · ${Buffer.byteLength(baseSource)}`);
 record('exact-five-asset-preimage',assetMatches.length===ARTIFACT.assetCount&&assetAggregate===ARTIFACT.assetAggregate,`${assetMatches.length} · ${assetAggregate}`);
-record('schema-10-preimage',sourceText.includes('CURRENT_SCHEMA_VERSION=10'));
+record('current-schema-by-mode',MODE==='PREIMAGE'?sourceText.includes('CURRENT_SCHEMA_VERSION=10')&&!sourceText.includes('CURRENT_SCHEMA_VERSION=11'):MODE==='SCHEMA_CANDIDATE'&&sourceText.includes('CURRENT_SCHEMA_VERSION=11'),MODE);
 const slots=['NS','RAW_BACKUP_KEY','PRE_V2_BACKUP_KEY','PRE_V3_BACKUP_KEY','PRE_V4_BACKUP_KEY','PRE_V5_BACKUP_KEY','PRE_V6_BACKUP_KEY','PRE_V7_BACKUP_KEY','PRE_V8_BACKUP_KEY','PRE_V9_BACKUP_KEY','PRE_V10_BACKUP_KEY','STAGING_KEY'];
-record('twelve-protected-slot-identifiers',slots.every(name=>sourceText.includes(name)),slots.length);
-record('released-economy-still-production',sourceText.includes('upgradeGrowth:1.7')&&sourceText.includes('gold:500000')&&sourceText.includes('fellowRoster:0,companionRoster:0,overallDay:0'));
-record('selected-profile-not-yet-production',!sourceText.includes('everstead-economy-v1')&&!sourceText.includes(PROFILE_IDENTITY));
+const expectedSlots=MODE==='SCHEMA_CANDIDATE'?[...slots.slice(0,-1),'PRE_V11_BACKUP_KEY','STAGING_KEY']:slots;
+record('protected-slot-identifiers-by-mode',expectedSlots.every(name=>sourceText.includes(name))&&expectedSlots.length===(MODE==='SCHEMA_CANDIDATE'?13:12),expectedSlots.length);
+record('released-rates-and-hooks-still-production',sourceText.includes('upgradeGrowth:1.7')&&sourceText.includes('fellowRoster:0,companionRoster:0,overallDay:0'));
+record('selected-profile-presence-by-mode',MODE==='PREIMAGE'?!sourceText.includes('everstead-economy-v1')&&!sourceText.includes(PROFILE_IDENTITY):MODE==='SCHEMA_CANDIDATE'&&sourceText.includes("id:'everstead-economy-v1'")&&sourceText.includes(PROFILE_IDENTITY));
+if(MODE==='SCHEMA_CANDIDATE'){
+  const marker='\n/* Phase 10C-1 · schema-11 economy-profile authority and thirteen-slot persistence. */',start=sourceText.indexOf(marker),resume=sourceText.indexOf('\nconst report=load();',start);
+  let preexisting=start>=0&&resume>start?sourceText.slice(0,start)+sourceText.slice(resume+1):'';
+  preexisting=preexisting.replaceAll('![10,11].includes(S?.schemaVersion)','S?.schemaVersion!==10').replaceAll('![10,11].includes(state?.schemaVersion)','state?.schemaVersion!==10').replaceAll('[10,11].includes(S?.schemaVersion)','S?.schemaVersion===10');
+  record('schema-candidate-additive-preexisting-source',preexisting===baseSource,`${sha(Buffer.from(preexisting))} · ${sha(Buffer.from(baseSource))}`);
+  const broadened=[...sourceText.matchAll(/!?\[10,11\]\.includes\((?:S|state)\?\.schemaVersion\)/g)].length;
+  record('schema-candidate-compatibility-guards-only',broadened===17,broadened);
+}
 record('phase-package-topology',same(readdirSync(QA).sort(),EXPECTED_NAMES),readdirSync(QA).sort().join(','));
-record('no-preimage-browser-files',!readdirSync(QA).some(name=>/^(index\.html|realm|runner)/.test(name)));
+record('no-live-browser-files',!readdirSync(QA).some(name=>/^(index\.html|realm|runner)/.test(name)));
 record('contract-and-execution-present',OWNED_PREFIXES.every(path=>existsSync(resolve(ROOT,path))));
 const changed=execFileSync('git',['diff','--name-only',BASE,'--'],{cwd:ROOT,encoding:'utf8'}).trim().split('\n').filter(Boolean);
 const untracked=execFileSync('git',['ls-files','--others','--exclude-standard'],{cwd:ROOT,encoding:'utf8'}).trim().split('\n').filter(Boolean);
 const touched=[...new Set([...changed,...untracked])].sort();
-const owned=path=>OWNED_PREFIXES.includes(path)||path.startsWith('qa/phase-10c1/');
-record('additive-owned-paths-only',touched.length>0&&touched.every(owned),touched.join(','));
-record('production-path-untouched',!touched.includes('index.html'));
+const owned=path=>OWNED_PREFIXES.includes(path)||path.startsWith('qa/phase-10c1/')||(MODE==='SCHEMA_CANDIDATE'&&path==='index.html');
+record('phase-owned-paths-only',touched.length>0&&touched.every(owned),touched.join(','));
+record('production-path-mode-consistent',MODE==='PREIMAGE'?!touched.includes('index.html'):MODE==='SCHEMA_CANDIDATE'&&touched.includes('index.html'));
 
 const profile=JSON.parse(read('qa/phase-10c1/profile.json'));
 const canonicalProfile='{"id":"everstead-economy-v1","freshGold":50000,"upgradeGrowth":1.24,"fellowRoster":{"numeratorBps":1500,"kneePower":100000,"capBps":1500},"companionRoster":{"numeratorBps":1000,"kneePower":25000,"capBps":1000}}';
@@ -97,15 +113,28 @@ let safeSelected=0;
 for(const archetype of scenarios.simulation.archetypes)for(const horizon of scenarios.simulation.horizons){const item=simulateBundle(scenarios,'candidate-growth-124',archetype.id,horizon.id);if(item.metadata.comparisonStatus==='advisory candidate'&&item.safety.finite&&item.safety.safe&&item.safety.nonnegative&&item.safety.sourceSinkConserved&&item.safety.noDoubleCount&&item.safety.familyDirectOnce&&item.safety.resourceAccounting.noDuplicateRewards&&item.safety.resourceAccounting.noLostResources)safeSelected++}
 record('selected-phase10b-bundles-36-of-36',safeSelected===36,safeSelected);
 
+for(const [phase,path,expectedCount] of [['phase-9','qa/phase-9/checksums.sha256',14],['phase-10b2','qa/phase-10b2/checksums.sha256',19],['phase-10b3','qa/phase-10b3/checksums.sha256',12]]){
+  const lines=read(path).toString('utf8').trim().split('\n').map(line=>line.match(/^([0-9a-f]{64})  (.+)$/)).filter(Boolean),mismatches=lines.filter(match=>!existsSync(resolve(ROOT,match[2]))||sha(read(match[2]))!==match[1]).map(match=>match[2]);
+  record(`${phase}-expected-artifact-supersession`,lines.length===expectedCount&&same(mismatches,['index.html']),`${lines.length} · ${mismatches.join(',')}`);
+}
+
+let schemaEvidence=null;
+if(MODE==='SCHEMA_CANDIDATE'){
+  const schemaGate=await runSchemaCandidate();
+  for(const row of schemaGate.rows)record(`schema-${row.id}`,row.pass,row.detail);
+  schemaEvidence=schemaGate.evidence;
+}else record('schema-candidate-probe-deferred',MODE==='PREIMAGE',MODE);
+
 const manifest=JSON.parse(read('qa/phase-10c1/current-manifest.json'));
-record('build-manifest-authority',manifest.phase==='10C-1'&&manifest.mode==='PREIMAGE'&&manifest.baseCommit===BASE&&manifest.productionChanged===false&&manifest.browserFiles===false&&manifest.selectedProfile.identity===PROFILE_IDENTITY);
+const expectedStatus=MODE==='SCHEMA_CANDIDATE'?'SCHEMA_CANDIDATE_QA_READY':'PREIMAGE_QA_READY';
+record('build-manifest-authority',manifest.phase==='10C-1'&&manifest.mode===MODE&&manifest.status===expectedStatus&&manifest.baseCommit===BASE&&manifest.productionChanged===(MODE==='SCHEMA_CANDIDATE')&&manifest.browserFiles===false&&manifest.selectedProfile.identity===PROFILE_IDENTITY&&manifest.artifact.sha256===sourceIdentity.sha256&&manifest.artifact.byteLength===sourceIdentity.byteLength&&manifest.artifact.schemaVersion===(MODE==='SCHEMA_CANDIDATE'?11:10)&&manifest.artifact.protectedSlots===(MODE==='SCHEMA_CANDIDATE'?13:12),manifest.mode);
 const packagePaths=Object.keys(manifest.packageFiles);
 const manifestFailures=packagePaths.filter(path=>{const raw=read(path),entry=manifest.packageFiles[path];return sha(raw)!==entry.sha256||raw.length!==entry.byteLength});
-record('build-manifest-package-identities',packagePaths.length===5&&manifestFailures.length===0,manifestFailures.join(','));
+record('build-manifest-package-identities',packagePaths.length===6&&manifestFailures.length===0,manifestFailures.join(','));
 const checksumLines=read('qa/phase-10c1/checksums.sha256').toString('utf8').trim().split('\n'),checksumFailures=[];
 for(const line of checksumLines){const match=line.match(/^([0-9a-f]{64})  (.+)$/);if(!match||!existsSync(resolve(ROOT,match[2]))||sha(read(match[2]))!==match[1])checksumFailures.push(match?.[2]||line)}
-record('phase10c1-checksums',checksumLines.length===16&&checksumFailures.length===0,checksumFailures.join(','));
+record('phase10c1-checksums',checksumLines.length===17&&checksumFailures.length===0,checksumFailures.join(','));
 
 const passed=results.filter(item=>item.pass).length,failed=results.length-passed;
-console.log(JSON.stringify({phase:'10C-1',mode:'PREIMAGE',artifact:{sha256:sha(source),byteLength:source.length,assetAggregate},selectedProfile:{id:profile.id,identity:PROFILE_IDENTITY},phaseTenBSelectedBundles:safeSelected,total:results.length,passed,failed,results},null,2));
+console.log(JSON.stringify({phase:'10C-1',mode:MODE,artifact:{...sourceIdentity,assetAggregate},selectedProfile:{id:profile.id,identity:PROFILE_IDENTITY},phaseTenBSelectedBundles:safeSelected,schemaEvidence,total:results.length,passed,failed,results},null,2));
 if(failed)process.exitCode=1;
