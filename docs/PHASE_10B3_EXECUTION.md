@@ -2,9 +2,9 @@
 
 ## Current status
 
-**PREIMAGE QA READY — PRODUCTION IMPLEMENTATION NOT STARTED.**
+**LOCAL PASS — READY TO MERGE AND PUBLISH.**
 
-The Phase 10B-3 contract and additive QA package were prepared from exact clean `main` commit `14efe7f0c85c91c78d3bb3e79049694fd0975d07` in the dedicated branch `migration/phase-10b3-ui-corrections`. Production `index.html` remains byte-identical to the accepted Phase 10B-2 artifact.
+Phase 10B-3 was implemented from exact clean `main` commit `14efe7f0c85c91c78d3bb3e79049694fd0975d07` in the dedicated branch `migration/phase-10b3-ui-corrections`. The bounded production correction is commit `4317b97289a743241beae013fa07f3d590e003d9`; the exact reviewed executable/QA tip is `2923a26500a35cac9a186bf7638a96ad5c59dc39`.
 
 ## Bounded outcome
 
@@ -36,27 +36,36 @@ From the repository root:
 ```text
 node qa/phase-10b3/verify.mjs
 node qa/phase-10b3/build-contract.mjs
-sha256sum -c qa/phase-10b3/checksums.sha256
+shasum -a 256 -c qa/phase-10b3/checksums.sha256
 ```
 
 Serve the repository with any static server and open `qa/phase-10b3/`. The live dashboard starts automatically and executes isolated realms at all three exact viewport sizes.
 
-## Preimage authority
+## Candidate authority
 
-- Commit: `14efe7f0c85c91c78d3bb3e79049694fd0975d07`
-- Artifact SHA-256: `faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75`
-- Artifact byte length: `18,928,361`
+- Candidate commit: `2923a26500a35cac9a186bf7638a96ad5c59dc39`
+- Production commit: `4317b97289a743241beae013fa07f3d590e003d9`
+- Artifact SHA-256: `40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd`
+- Artifact byte length: `18,933,604`
 - Embedded-asset aggregate SHA-256: `26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a`
 - Schema: 10
 - Protected slots: 12
+- Accepted base commit: `14efe7f0c85c91c78d3bb3e79049694fd0975d07`
+- Accepted base artifact: `faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75`, `18,928,361` bytes
 
-Candidate and final evidence remain pending until a separately reviewed production commit implements the authorized contract.
+## Local candidate verification
 
-## Local preimage verification
+- Focused CLI: 32/32 twice.
+- Live in-app Chromium: 73/73 twice across exact 320×568, 390×667, and 390×844 realms.
+- Live console: zero warnings or errors; blank fatal field; zero native-storage calls.
+- Phase 9 behavior: 355/355 twice.
+- Phase 8 semantic successor: 703/703 twice.
+- Phase 10A: 369/371 twice; only the expected whole-artifact SHA and byte-length identities are superseded.
+- Phase 10B-2 private Gold core and six wrappers remain byte-identical. The older exact-artifact gate intentionally refuses the Phase 10B-3 successor identity.
+- Embedded assets: five exact assets with unchanged aggregate.
+- Diff hygiene and JavaScript syntax: pass.
+- Independent UX/accessibility review: PASS.
+- Independent architecture/persistence review: PASS.
+- Independent economy/save-boundary review: PASS.
 
-- Focused CLI: 29/29 twice.
-- Exact checksum manifest: 12/12 twice.
-- Package/topology builder: `PREIMAGE_QA_READY`, zero writes in check mode.
-- JavaScript syntax: runner and realm accepted by the bundled Node runtime.
-- Diff hygiene: clean.
-- Live browser: pending. The browser-control runtime reported that no browser surface was available in this subtask, so no live result is claimed here. The permanent dashboard is ready for the primary integrator or an available in-app browser to run.
+Public deployment verification remains pending until this locally accepted package is merged and GitHub Pages completes.

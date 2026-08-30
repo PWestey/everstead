@@ -1,13 +1,18 @@
 {
-  "manifestVersion": 1,
+  "manifestVersion": 2,
   "phase": "10B-3",
-  "status": "PREIMAGE_QA_READY",
-  "mode": "BASELINE_GAPS_CONFIRMED",
+  "status": "LOCAL_PASS_READY_TO_MERGE",
+  "mode": "CANDIDATE",
   "baseCommit": "14efe7f0c85c91c78d3bb3e79049694fd0975d07",
-  "contractCommit": "d47057f",
+  "contractCommit": "d47057fff74ddd6a459bc2843cab73c9a23de6a2",
+  "productionCommit": "4317b97289a743241beae013fa07f3d590e003d9",
+  "candidateCommit": "2923a26500a35cac9a186bf7638a96ad5c59dc39",
   "artifact": {
-    "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
-    "byteLength": 18928361
+    "sha256": "40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd",
+    "byteLength": 18933604,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a",
+    "schemaVersion": 10,
+    "protectedSlots": 12
   },
   "baseArtifact": {
     "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
@@ -20,12 +25,12 @@
   },
   "executableFiles": {
     "qa/phase-10b3/README.md": {
-      "sha256": "6a73f6cf93a0ea0e1d2159030bce825f68c9c163e6056500d65fb494335e7563",
-      "byteLength": 1362
+      "sha256": "f21690f713a65fda41ce4e343807fc2635a6ad08247f22222394e4ed8c5d2fd2",
+      "byteLength": 1800
     },
     "qa/phase-10b3/build-contract.mjs": {
-      "sha256": "65f92ff4b485a2704f15bc31fc02fb9022822e9972f7e60b30509c73b68ee634",
-      "byteLength": 3533
+      "sha256": "7f7af2af10de580166742beef654bf4abff1c2149e5f1401f1824310123b5c9d",
+      "byteLength": 5069
     },
     "qa/phase-10b3/index.html": {
       "sha256": "94d23ea5f2de4368a024d194a502583f58bbfff1219700cb828d524909b09aec",
@@ -36,8 +41,8 @@
       "byteLength": 276
     },
     "qa/phase-10b3/realm.js": {
-      "sha256": "2f2713b56d30ac064c0b6cc8dcddd6112270ebc7125441eca5dc737cc693484b",
-      "byteLength": 17836
+      "sha256": "9f2eeae97208c5d69c49c228ce133b3ee25bc3d601b2226f82ead834bf9bbafb",
+      "byteLength": 19892
     },
     "qa/phase-10b3/runner.js": {
       "sha256": "91b2762236bb15d2407d86d11894c4ffd48b8aeef1c03c638d035de82038211b",
@@ -48,16 +53,55 @@
       "byteLength": 2832
     },
     "qa/phase-10b3/verify.mjs": {
-      "sha256": "f4b160be0280337a529cc66e49f576f7b312f45bf687fedcb135391c915a00b2",
-      "byteLength": 7812
+      "sha256": "f24d537ddfd26c9e82ae5b60b0ba2ed4381c72642be7c0b6209c871fbdaac6c5",
+      "byteLength": 8095
     }
   },
   "evidence": {
-    "cli": "29/29 twice",
-    "checksums": "12/12 twice",
-    "live": "PENDING — browser runtime unavailable in the contract-authoring subtask",
-    "inherited": "UNCHANGED PRODUCTION PREIMAGE",
-    "reviews": "PENDING",
-    "public": "PENDING"
+    "cli": {
+      "status": "PASS",
+      "rows": "32/32",
+      "runs": 2
+    },
+    "checksums": {
+      "status": "PASS",
+      "entries": "12/12",
+      "runs": 2
+    },
+    "live": {
+      "status": "PASS",
+      "rows": "73/73",
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageCalls": 0
+    },
+    "inherited": {
+      "phase9": "355/355 twice",
+      "phase8SemanticSuccessor": "703/703 twice",
+      "phase10a": "369/371 twice; only whole-artifact SHA and byte-length identities superseded",
+      "phase10b2": "Exact-artifact gate intentionally refuses the successor identity; protected Gold core and wrappers remain byte-identical"
+    },
+    "protected": {
+      "goldCoreSha256": "bab0e261d2d614db37fdacb724e16200e77173ae582b63595d90d6c733fe30f4",
+      "goldWrappersSha256": "e59d82caf96bd2c5239a525d8c797255cea167cb95c1e590e3c1c40359208789",
+      "economyPowerRewardOfflineCoreSha256": "9c43a617cd75667e82bfb6d90318ef723584f001881401b55f503a410a95223a",
+      "protectedExportTailSha256": "8d7fb9c2f9873cbc615003b08f5f3fd95156bb144eed298dbc7c07b1c58ac2a3",
+      "protectedSlotReadSha256": "d534830afd8ec896985ba7389767181629577303310c34f9ae06969e81bac735"
+    },
+    "reviews": {
+      "uxAccessibility": "PASS",
+      "architecturePersistence": "PASS",
+      "economySaveBoundary": "PASS",
+      "reviewedTip": "2923a26500a35cac9a186bf7638a96ad5c59dc39"
+    },
+    "public": {
+      "status": "PENDING",
+      "reason": "Awaiting merge and GitHub Pages deployment"
+    }
   }
 }
