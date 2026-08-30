@@ -1,0 +1,65 @@
+{
+  "phase": "10B-3",
+  "baseCommit": "14efe7f0c85c91c78d3bb3e79049694fd0975d07",
+  "baseArtifact": {
+    "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
+    "byteLength": 18928361,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "frozenNow": "2026-08-30T17:00:00.000Z",
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backupV0": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "backupV1": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "backupV2": "oathforge_new_world_proto_v01__raw_backup_v2",
+    "backupV3": "oathforge_new_world_proto_v01__raw_backup_v3",
+    "backupV4": "oathforge_new_world_proto_v01__raw_backup_v4",
+    "backupV5": "oathforge_new_world_proto_v01__raw_backup_v5",
+    "backupV6": "oathforge_new_world_proto_v01__raw_backup_v6",
+    "backupV7": "oathforge_new_world_proto_v01__raw_backup_v7",
+    "backupV8": "oathforge_new_world_proto_v01__raw_backup_v8",
+    "backupV9": "oathforge_new_world_proto_v01__raw_backup_v9",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x667", "width": 390, "height": 667},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "starterOaths": [
+    {"id": "o1", "title": "Morning prayer", "type": "daily"},
+    {"id": "o2", "title": "Exercise session", "type": "daily", "restDay": true},
+    {"id": "o3", "title": "Finish the priority task", "type": "daily", "restDay": true},
+    {"id": "o4", "title": "Reset one room", "type": "habit", "count": 0},
+    {"id": "o5", "title": "Undistracted family hour", "type": "daily"},
+    {"id": "o6", "title": "Intentional check-in", "type": "weekly"},
+    {"id": "o7", "title": "Read or create for 20 minutes", "type": "daily"},
+    {"id": "o8", "title": "Review the month", "type": "monthly"}
+  ],
+  "forbiddenVisiblePatterns": [
+    "Phase\\s+\\d+",
+    "schema",
+    "epoch",
+    "deterministic",
+    "Campaign history capacity",
+    "neutral hooks?",
+    "formula order",
+    "\\bnominal\\b",
+    "Actual Gold"
+  ],
+  "relicFixture": {"fellowId": "cael", "relicId": "first-road-lantern", "stageId": "broken-roads-1"},
+  "baselineExpected": {
+    "relic-summary-unequipped": false,
+    "relic-summary-equipped": false,
+    "fellowship-bottom-label": false,
+    "oath-accessible-names": false,
+    "habit-visible-action-and-count": false,
+    "dialog-semantics-focus-lifecycle": false,
+    "roster-tab-semantics-keyboard": false,
+    "collect-readable-contrast": false,
+    "player-copy-qa-terminology-absent": false,
+    "village-hotspots-unobstructed:phone-320x568": false,
+    "village-hotspots-unobstructed:phone-390x667": false,
+    "village-hotspots-unobstructed:phone-390x844": true
+  }
+}

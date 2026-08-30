@@ -1,0 +1,63 @@
+{
+  "manifestVersion": 1,
+  "phase": "10B-3",
+  "status": "PREIMAGE_QA_READY",
+  "mode": "BASELINE_GAPS_CONFIRMED",
+  "baseCommit": "14efe7f0c85c91c78d3bb3e79049694fd0975d07",
+  "contractCommit": "d47057f",
+  "artifact": {
+    "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
+    "byteLength": 18928361
+  },
+  "baseArtifact": {
+    "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
+    "byteLength": 18928361,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "scenarios": {
+    "sha256": "3fb783e395af41cce987d921467c7bef7d8aa818a864242511471c8463613154",
+    "byteLength": 2832
+  },
+  "executableFiles": {
+    "qa/phase-10b3/README.md": {
+      "sha256": "a4d14b9cfa84a1e621bf17b832fd1bd2eff81fe36165636873e6364a85f30a25",
+      "byteLength": 869
+    },
+    "qa/phase-10b3/build-contract.mjs": {
+      "sha256": "65f92ff4b485a2704f15bc31fc02fb9022822e9972f7e60b30509c73b68ee634",
+      "byteLength": 3533
+    },
+    "qa/phase-10b3/index.html": {
+      "sha256": "94d23ea5f2de4368a024d194a502583f58bbfff1219700cb828d524909b09aec",
+      "byteLength": 880
+    },
+    "qa/phase-10b3/realm.html": {
+      "sha256": "e721bf4b22e5b274f55b486041473bd7dd53a24a7b0fcb8a57a5a54872ea59cf",
+      "byteLength": 276
+    },
+    "qa/phase-10b3/realm.js": {
+      "sha256": "ea3d0495f08f90fce77d4eb870a1adda6d11703d6a2fe8b5eac58eaeee148d2d",
+      "byteLength": 17702
+    },
+    "qa/phase-10b3/runner.js": {
+      "sha256": "91b2762236bb15d2407d86d11894c4ffd48b8aeef1c03c638d035de82038211b",
+      "byteLength": 4917
+    },
+    "qa/phase-10b3/scenarios.json": {
+      "sha256": "3fb783e395af41cce987d921467c7bef7d8aa818a864242511471c8463613154",
+      "byteLength": 2832
+    },
+    "qa/phase-10b3/verify.mjs": {
+      "sha256": "66eee2f886f7f3d52986cadc17711d92925411c350f114f8376bac6a4ebd0c5a",
+      "byteLength": 6846
+    }
+  },
+  "evidence": {
+    "cli": "29/29 twice",
+    "checksums": "12/12 twice",
+    "live": "PENDING — browser runtime unavailable in the contract-authoring subtask",
+    "inherited": "UNCHANGED PRODUCTION PREIMAGE",
+    "reviews": "PENDING",
+    "public": "PENDING"
+  }
+}
