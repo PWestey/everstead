@@ -3,8 +3,8 @@
 
   const CHANNEL='everstead-phase-10b2-v1';
   const PROTOCOL='opaque-attested-v2';
-  const CANDIDATE_SHA='__PHASE_10B2_CANDIDATE_SHA256__';
-  const CANDIDATE_BYTES=-1;
+  const CANDIDATE_SHA='faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75';
+  const CANDIDATE_BYTES=18928361;
   const REALM_ROW_COUNT=56;
   const SPECS=Object.freeze([
     Object.freeze({key:'320x568-normal',width:320,height:568,motion:'normal'}),
@@ -17,8 +17,8 @@
     Object.freeze({key:'scenarios',path:'scenarios.json',sha256:'d3dd215cbfd229d58ed4f7d5264a79cc64d3224860be430d324ec0b7d893a8dd',byteLength:126405}),
     Object.freeze({key:'registry',path:'row-registry.json',sha256:'9e6282b2374e7ec263c3e4c9cc64873458b6e74fc356c470aabe23aac6ca394e',byteLength:96921}),
     Object.freeze({key:'traces',path:'predecessor-traces.json',sha256:'74feec74ff6f9efe07ca47cb2b0fcaaca8ab80dab71961fd2f1625f270209136',byteLength:557500}),
-    Object.freeze({key:'realmHtml',path:'realm.html',sha256:'713d5714638a7b133bc87fd97e63f12aca0f6e3482855a0a59a7e70e7b7b9e7f',byteLength:1695}),
-    Object.freeze({key:'realmScript',path:'realm.js',sha256:'7115d79cb553703aa9dd152b1b5f74cc591031f2f91d3825011710f5fb47e9da',byteLength:51340})
+    Object.freeze({key:'realmHtml',path:'realm.html',sha256:'04a059ebe1048112e48240de877c6dbb5d26b272bf44f809022c75be8f8a6342',byteLength:1696}),
+    Object.freeze({key:'realmScript',path:'realm.js',sha256:'4fab0f3498f647920dc542e6573a4d55bf88a5dfed5778984caaf312c8799e60',byteLength:55924})
   ]);
   const button=document.getElementById('run');
   const tbody=document.getElementById('rows');

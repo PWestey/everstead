@@ -5,9 +5,8 @@
   const PROTOCOL='opaque-attested-v2';
   const PREIMAGE_SHA='717160cdddc5fa540532cdebd29f30d127ded2f761edd677684a2609fde9a4ed';
   const PREIMAGE_BYTES=18916682;
-  // Replaced with literal reviewed values when the executable candidate is frozen.
-  const CANDIDATE_SHA='__PHASE_10B2_CANDIDATE_SHA256__';
-  const CANDIDATE_BYTES=-1;
+  const CANDIDATE_SHA='faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75';
+  const CANDIDATE_BYTES=18928361;
   const SCENARIO_SHA='d3dd215cbfd229d58ed4f7d5264a79cc64d3224860be430d324ec0b7d893a8dd';
   const SCENARIO_BYTES=126405;
   const REGISTRY_SHA='9e6282b2374e7ec263c3e4c9cc64873458b6e74fc356c470aabe23aac6ca394e';
@@ -22,6 +21,7 @@
   const PAYLOAD_KEYS=Object.freeze(['artifact','scenarios','registry','traces']);
   const EXPECTED_ALLOCATION=Object.freeze({family:6,neutral:2,upgrade:4,'building-rate':8,'duration-gold':4,'total-rate':3,'offline-totals':5});
   const NESTED_HOOK='__P10B2_BROWSER_PROBE__';
+  const NESTED_READY_TIMEOUT_MS=30000;
   const nativeConsoleWarn=console.warn.bind(console);
   const nativeConsoleError=console.error.bind(console);
   let config;
@@ -181,20 +181,22 @@ const __p10b2Decode=value=>{if(value===null||typeof value==='string'||typeof val
 const __p10b2Local=value=>__p10b2Decode(JSON.parse(JSON.stringify(value)));
 const __p10b2Freeze=(value,seen=new Set())=>{if(value===null||typeof value!=='object')return value;if(seen.has(value))throw new Error('cycle');seen.add(value);for(const key of Reflect.ownKeys(value))__p10b2Freeze(value[key],seen);seen.delete(value);return Object.freeze(value)};
 const __p10b2Path=(fixture,path)=>{if(typeof path!=='string'||!path.startsWith('$.'))throw new TypeError('invalid path');let value=fixture;for(const key of path.slice(2).split('.')){if(value===null||typeof value!=='object'||!__p10b2Own(value,key))throw new TypeError('unresolved path');value=value[key]}return value};
+const __p10b2TraceControl=value=>{if(!__p10b2Ordinary(value)||Reflect.ownKeys(value).join('|')!=='selector|argumentPaths'||!__p10b2Data(value,'selector',true)||!__p10b2Data(value,'argumentPaths',true))throw new TypeError('invalid wrapper trace control');const selector=value.selector,argumentPaths=value.argumentPaths;if(typeof selector!=='string'||!__p10b2Dense(argumentPaths,true)||argumentPaths.length<1||argumentPaths.length>3||argumentPaths.some(path=>typeof path!=='string'||path.length<3||path.length>128||!path.startsWith('$.')))throw new TypeError('invalid wrapper trace control');return Object.freeze({selector,argumentPaths:Object.freeze(argumentPaths.slice())})};
 `;
 
   const nestedShim=`
 (()=>{'use strict';
-const effects={storage:[],save:[],network:[],ui:[],timer:[],listeners:[],console:[],errors:[],trapFailures:[],runtimeReads:0};
+const effects={storage:[],save:[],network:[],ui:[],timer:[],listeners:[],console:[],errors:[],trapFailures:[],runtimeReads:0,nativeStorageCaptures:0};
 Object.defineProperty(window,'__P10B2_EFFECTS__',{value:effects,configurable:false,enumerable:false,writable:false});
 const nativeAdd=window.addEventListener.bind(window);nativeAdd('error',event=>effects.errors.push({name:event.error?.name||'Error',message:String(event.error?.message||event.message)}));nativeAdd('unhandledrejection',event=>effects.errors.push({name:event.reason?.name||'Error',message:String(event.reason?.message||event.reason)}));
 Object.defineProperty(window,'__P10B2_RECORD_ERROR__',{configurable:false,enumerable:false,writable:false,value:error=>effects.errors.push({name:error?.name||'Error',message:String(error?.message||error)})});
 const stop=(bucket,name)=>function(){effects[bucket].push(name);throw new Error('prohibited '+name)};
 const install=(object,key,descriptor,name=String(key))=>{try{Object.defineProperty(object,key,{configurable:true,...descriptor});return true}catch(error){effects.trapFailures.push(name+': '+error.message);return false}};
 const storage=Object.freeze({getItem:stop('storage','getItem'),setItem:stop('storage','setItem'),removeItem:stop('storage','removeItem')});
+const nativeStorageSentinel=Object.freeze({getItem:stop('storage','localStorage.getItem'),setItem:stop('storage','localStorage.setItem'),removeItem:stop('storage','localStorage.removeItem')});
 const runtime=Object.freeze({storage,clock:Object.freeze({now:()=>1788026400000,setTimeout:stop('timer','runtimeSetTimeout'),clearTimeout:stop('timer','runtimeClearTimeout')})});
 install(window,'__EVERSTEAD_RUNTIME__',{enumerable:false,get(){effects.runtimeReads++;return runtime}},'runtime adapter');
-install(window,'localStorage',{get:stop('storage','localStorage')});install(window,'sessionStorage',{get:stop('storage','sessionStorage')});
+install(window,'localStorage',{get(){effects.nativeStorageCaptures++;return nativeStorageSentinel}});install(window,'sessionStorage',{get:stop('storage','sessionStorage')});
 install(window,'indexedDB',{value:Object.freeze({open:stop('storage','indexedDB.open'),deleteDatabase:stop('storage','indexedDB.deleteDatabase'),databases:stop('storage','indexedDB.databases')})});install(window,'caches',{value:Object.freeze({open:stop('storage','caches.open'),delete:stop('storage','caches.delete'),keys:stop('storage','caches.keys'),match:stop('storage','caches.match')})});
 install(navigator,'serviceWorker',{value:Object.freeze({register:stop('storage','serviceWorker.register'),getRegistration:stop('storage','serviceWorker.getRegistration'),getRegistrations:stop('storage','serviceWorker.getRegistrations'),get ready(){return stop('storage','serviceWorker.ready')()}})});install(navigator,'clipboard',{value:Object.freeze({read:stop('save','clipboard.read'),write:stop('save','clipboard.write'),readText:stop('save','clipboard.readText'),writeText:stop('save','clipboard.writeText')})});
 install(navigator,'sendBeacon',{value:stop('network','sendBeacon')});install(window,'fetch',{value:stop('network','fetch')});install(window,'XMLHttpRequest',{value:stop('network','XMLHttpRequest')});install(window,'WebSocket',{value:stop('network','WebSocket')});install(window,'EventSource',{value:stop('network','EventSource')});
@@ -208,7 +210,9 @@ install(console,'warn',{value:(...args)=>effects.console.push(['warn',args.map(S
 const rpcToken=__P10B2_NESTED_TOKEN_JSON__,rpcChannel='everstead-phase-10b2-probe-v1',copy=value=>JSON.parse(JSON.stringify(value));
 const dispatch=(operation,args)=>{const probe=window.__P10B2_BROWSER_PROBE__;if(operation==='snapshot')return{effects:copy(effects),probePresent:Boolean(probe)};if(!probe)throw new Error('candidate probe unavailable');if(operation==='surface')return probe.surface();if(operation==='kernel')return probe.kernel(args.method,args.input);if(operation==='wrapper')return probe.wrapper(args.trace,args.fixture);if(operation==='calls')return probe.calls();if(operation==='resetCalls'){probe.resetCalls();return null}throw new Error('unknown probe operation')};
 nativeAdd('message',event=>{const data=event.data;if(event.source!==parent||event.origin!=='null'||data?.channel!==rpcChannel||data?.token!==rpcToken||data?.type!=='phase10b2-probe-command'||!Number.isInteger(data.id))return;try{parent.postMessage({channel:rpcChannel,type:'phase10b2-probe-result',token:rpcToken,id:data.id,ok:true,value:dispatch(data.operation,data.args||{})},'*')}catch(error){parent.postMessage({channel:rpcChannel,type:'phase10b2-probe-result',token:rpcToken,id:data.id,ok:false,error:{name:error?.name||'Error',message:String(error?.message||error)}},'*')}});
-Object.defineProperty(window,'__P10B2_PROBE_READY__',{configurable:false,enumerable:false,writable:false,value:()=>parent.postMessage({channel:rpcChannel,type:'phase10b2-probe-ready',token:rpcToken},'*')});
+const probeBootStarted=performance.now();
+Object.defineProperty(window,'__P10B2_PROBE_READY__',{configurable:false,enumerable:false,writable:false,value:()=>parent.postMessage({channel:rpcChannel,type:'phase10b2-probe-ready',token:rpcToken,bootMs:performance.now()-probeBootStarted},'*')});
+parent.postMessage({channel:rpcChannel,type:'phase10b2-probe-stage',token:rpcToken,stage:'shim-ready'},'*');
 })();
 `;
 
@@ -217,7 +221,7 @@ ${nestedCodec}
 const __p10b2Core=typeof ${CORE_NAME}==='object'&&${CORE_NAME}!==null?${CORE_NAME}:null;
 const __p10b2Calls=[];window.__P10B2_CAPTURE_SINK__=(method,input)=>__p10b2Calls.push({ordinal:__p10b2Calls.length+1,method,argument:__p10b2Encode(input)});
 const __p10b2Wrappers=Object.freeze({familyBuildingBonusComponents,economyHookBonus,buildingUpgradeCost,buildingRateComponents,totalRate,offlineClaimPreview});
-const __p10b2Invoke=(trace,fixture)=>{const args=trace.wrapper.argumentPaths.map(path=>__p10b2Path(fixture,path));return __p10b2Wrappers[trace.wrapper.selector](...args)};
+const __p10b2Invoke=(trace,fixture)=>{if(!Object.prototype.hasOwnProperty.call(__p10b2Wrappers,trace.selector))throw new TypeError('invalid wrapper trace selector');const args=trace.argumentPaths.map(path=>__p10b2Path(fixture,path));return __p10b2Wrappers[trace.selector](...args)};
 const __p10b2Surface=()=>({
   coreFrozen:Object.isFrozen(__p10b2Core),keys:Reflect.ownKeys(__p10b2Core),
   descriptors:Reflect.ownKeys(__p10b2Core).map(key=>{const descriptor=Object.getOwnPropertyDescriptor(__p10b2Core,key),fn=descriptor.value;let constructible=true;try{Reflect.construct(fn,[])}catch{constructible=false}return{key,enumerable:descriptor.enumerable,writable:descriptor.writable,configurable:descriptor.configurable,type:typeof fn,name:fn.name,length:fn.length,frozen:Object.isFrozen(fn),constructible,ownPrototype:Object.prototype.hasOwnProperty.call(fn,'prototype'),arrow:!/^function\\b/.test(Function.prototype.toString.call(fn))}}),
@@ -228,7 +232,7 @@ const __p10b2Surface=()=>({
 Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,configurable:false,value:Object.freeze({
   surface:()=>JSON.parse(JSON.stringify(__p10b2Surface())),
   kernel:(method,input)=>__p10b2Encode(__p10b2Core[method](__p10b2Freeze(__p10b2Local(input))),true),
-  wrapper:(trace,fixture)=>__p10b2Encode(__p10b2Invoke(__p10b2Freeze(__p10b2Local(trace)),__p10b2Freeze(__p10b2Local(fixture))),true),
+  wrapper:(trace,fixture)=>__p10b2Encode(__p10b2Invoke(__p10b2TraceControl(trace),__p10b2Freeze(__p10b2Local(fixture))),true),
   calls:()=>JSON.parse(JSON.stringify(__p10b2Calls)),
   resetCalls:()=>{__p10b2Calls.length=0}
 })});
@@ -253,7 +257,7 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
   }
   function mutationTransform(script){
     const records=[];
-    const transformed=replaceExact(script,'Object.freeze(familyBuildingBonus)','familyBuildingBonus','startup-shape mutation',records);
+    const transformed=replaceExact(script,'Object.freeze(familyBuildingBonus);','familyBuildingBonus;','startup-shape mutation',records);
     if(!inverseExact(transformed,records,script))throw new Error('mutation transform inverse mismatch');
     return{script:transformed,restored:true};
   }
@@ -264,17 +268,20 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
   };
   function executeProductionRealm(script,kind){
     return new Promise((resolve,reject)=>{
-      const frame=document.createElement('iframe'),token=`${config.token}:${kind}`,pending=new Map();let settled=false,sequence=0;
-      const timeout=setTimeout(()=>finish(new Error(`${kind} production realm timeout`)),30000);
-      const cleanup=()=>{removeEventListener('message',onMessage);frame.remove();URL.revokeObjectURL(blobUrl);for(const item of pending.values()){clearTimeout(item.timeout);item.reject(new Error(`${kind} production realm removed`))}pending.clear()};
+      const frame=document.createElement('iframe'),token=`${config.token}:${kind}`,pending=new Map(),diagnostics={startedAt:performance.now(),loadCount:0,frameErrors:[],stage:'created',lastMessage:null,bootMs:null};let settled=false,sequence=0;
+      const evidence=()=>JSON.stringify({elapsedMs:Math.round(performance.now()-diagnostics.startedAt),loadCount:diagnostics.loadCount,frameErrors:diagnostics.frameErrors,stage:diagnostics.stage,lastMessage:diagnostics.lastMessage,bootMs:diagnostics.bootMs,navigation:'srcdoc'});
+      const timeout=setTimeout(()=>finish(new Error(`${kind} production realm timeout ${evidence()}`)),NESTED_READY_TIMEOUT_MS);
+      const cleanup=()=>{removeEventListener('message',onMessage);frame.remove();for(const item of pending.values()){clearTimeout(item.timeout);item.reject(new Error(`${kind} production realm removed`))}pending.clear()};
       const finish=(error,value)=>{if(settled)return;settled=true;clearTimeout(timeout);if(error)cleanup();error?reject(error):resolve(value)};
-      const onMessage=event=>{const data=event.data;if(event.source!==frame.contentWindow||event.origin!=='null'||data?.channel!=='everstead-phase-10b2-probe-v1'||data?.token!==token)return;if(data.type==='phase10b2-probe-ready'){metrics.nestedRealms++;const command=(operation,args={})=>new Promise((resolveCommand,rejectCommand)=>{const id=++sequence,commandTimeout=setTimeout(()=>{pending.delete(id);rejectCommand(new Error(`${kind} ${operation} timeout`))},30000);pending.set(id,{resolve:resolveCommand,reject:rejectCommand,timeout:commandTimeout});frame.contentWindow.postMessage({channel:'everstead-phase-10b2-probe-v1',type:'phase10b2-probe-command',token,id,operation,args},'*')});finish(null,{command,cleanup});return}if(data.type!=='phase10b2-probe-result')return;const item=pending.get(data.id);if(!item)return;pending.delete(data.id);clearTimeout(item.timeout);data.ok?item.resolve(data.value):item.reject(Object.assign(new Error(data.error?.message||'probe command failed'),{name:data.error?.name||'Error'}))};
+      const onMessage=event=>{const data=event.data;if(event.source!==frame.contentWindow)return;diagnostics.lastMessage={origin:event.origin,type:typeof data?.type==='string'?data.type:null,channelMatch:data?.channel==='everstead-phase-10b2-probe-v1',tokenMatch:data?.token===token};if(data?.channel==='everstead-phase-10b2-probe-v1'&&data?.token===token&&event.origin!=='null')return finish(new Error(`${kind} production realm non-opaque origin ${evidence()}`));if(event.origin!=='null'||data?.channel!=='everstead-phase-10b2-probe-v1'||data?.token!==token)return;if(data.type==='phase10b2-probe-stage'){diagnostics.stage=String(data.stage||'unknown');return}if(data.type==='phase10b2-probe-ready'){diagnostics.stage='probe-ready';diagnostics.bootMs=Number.isFinite(data.bootMs)?data.bootMs:null;metrics.nestedRealms++;const command=(operation,args={})=>new Promise((resolveCommand,rejectCommand)=>{const contextId=typeof args?.traceId==='string'?args.traceId:typeof args?.vectorId==='string'?args.vectorId:null,safeId=contextId&&/^[A-Za-z0-9-]{1,80}$/.test(contextId)?contextId:null,label=safeId?`${operation}:${safeId}`:operation,id=++sequence,commandTimeout=setTimeout(()=>{pending.delete(id);rejectCommand(new Error(`${kind} ${label} timeout ${evidence()}`))},30000);pending.set(id,{resolve:resolveCommand,reject:rejectCommand,timeout:commandTimeout,label});frame.contentWindow.postMessage({channel:'everstead-phase-10b2-probe-v1',type:'phase10b2-probe-command',token,id,operation,args},'*')});finish(null,{command,cleanup,diagnostics:Object.freeze({...diagnostics})});return}if(data.type!=='phase10b2-probe-result')return;const item=pending.get(data.id);if(!item)return;pending.delete(data.id);clearTimeout(item.timeout);data.ok?item.resolve(data.value):item.reject(Object.assign(new Error(`${kind} ${item.label} failed: ${data.error?.message||'probe command failed'} [${evidence()}]`),{name:data.error?.name||'Error'}))};
       addEventListener('message',onMessage);
+      frame.addEventListener('load',()=>{diagnostics.loadCount++;diagnostics.stage=diagnostics.stage==='created'?'frame-loaded':diagnostics.stage});
+      frame.addEventListener('error',event=>{diagnostics.frameErrors.push(String(event?.message||event?.type||'frame error'));diagnostics.stage='frame-error'});
       frame.title=`Phase 10B-2 ${kind} production probe`;frame.sandbox='allow-scripts';frame.referrerPolicy='no-referrer';
       frame.style.display='none';
       const policy="default-src 'none'; script-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; style-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'";
-      const shim=safeInline(nestedShim.replace('__P10B2_NESTED_TOKEN_JSON__',JSON.stringify(token))),html=`<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${policy}"><script>${shim}<\/script><script>try{${safeInline(script)}}catch(error){window.__P10B2_RECORD_ERROR__(error)}<\/script><script>window.__P10B2_PROBE_READY__()<\/script>`,blobUrl=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-      frame.src=blobUrl;
+      const shim=safeInline(nestedShim.replace('__P10B2_NESTED_TOKEN_JSON__',JSON.stringify(token))),html=`<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${policy}"><script>${shim}<\/script><script>try{${safeInline(script)}}catch(error){window.__P10B2_RECORD_ERROR__(error)}<\/script><script>window.__P10B2_PROBE_READY__()<\/script>`;
+      frame.srcdoc=html;
       document.body.append(frame);
     });
   }
@@ -295,25 +302,26 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
     const selected=vectors.filter(vector=>vector.method===method);
     if(selected.length!==numericGroups[method])return false;
     for(const vector of selected){
-      const frozen=deepFreeze(decode(clone(vector.input))),expected=vector.expected,referenceValue=encode(reference(method,frozen)),candidate=clone(await probe.command('kernel',{method,input:vector.input}));
+      const frozen=deepFreeze(decode(clone(vector.input))),expected=vector.expected,referenceValue=encode(reference(method,frozen)),candidate=clone(await probe.command('kernel',{method,input:vector.input,vectorId:vector.id}));
       if(!exact(referenceValue,expected)||!exact(candidate,expected))return false;
     }
     return true;
   }
   async function traceParity(trace,outputProbe,callProbe){
     const referenceProjection=encode(reference(trace.arithmetic.method,deepFreeze(decode(clone(trace.arithmetic.input)))));
-    const direct=clone(await outputProbe.command('kernel',{method:trace.arithmetic.method,input:trace.arithmetic.input}));
-    const full=clone(await outputProbe.command('wrapper',{trace,fixture:trace.fixture}));
-    await callProbe.command('resetCalls');
-    const callFull=clone(await callProbe.command('wrapper',{trace,fixture:trace.fixture}));
-    const calls=clone(await callProbe.command('calls'));
+    const traceControl={selector:trace.wrapper.selector,argumentPaths:trace.wrapper.argumentPaths};
+    const direct=clone(await outputProbe.command('kernel',{method:trace.arithmetic.method,input:trace.arithmetic.input,traceId:trace.id}));
+    const full=clone(await outputProbe.command('wrapper',{trace:traceControl,fixture:trace.fixture,traceId:trace.id}));
+    await callProbe.command('resetCalls',{traceId:trace.id});
+    const callFull=clone(await callProbe.command('wrapper',{trace:traceControl,fixture:trace.fixture,traceId:trace.id}));
+    const calls=clone(await callProbe.command('calls',{traceId:trace.id}));
     return{
       reference:exact(referenceProjection,trace.arithmetic.projection),
       direct:exact(direct,trace.arithmetic.projection),
       wrapper:exact(full,trace.predecessor.fullReturn)&&exact(callFull,trace.predecessor.fullReturn)&&exact(full,callFull),
       calls:exact(calls,trace.expectedKernelCalls),
       aggregate:METHODS.every(method=>calls.filter(call=>call.method===method).length===trace.aggregateCallCounts[method]),
-      full,direct,calls
+      actualFull:full,actualDirect:direct,actualCalls:calls
     };
   }
 
@@ -396,9 +404,13 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
       const traceResults=[];for(const trace of traces)traceResults.push(await traceParity(trace,outputRealm,callRealm));
       const traceGroup=operation=>traces.map((trace,index)=>({trace,result:traceResults[index]})).filter(item=>item.trace.operation===operation);
       const groupOk=operation=>traceGroup(operation).every(item=>item.result.reference&&item.result.direct&&item.result.wrapper&&item.result.calls&&item.result.aggregate);
-      const totalActualCalls=traceResults.reduce((sum,result)=>sum+result.calls.length,0);
+      const resultOk=result=>result.reference&&result.direct&&result.wrapper&&result.calls&&result.aggregate;
+      const bounded=value=>{const text=JSON.stringify(value);return text.length<=96?text:`${text.slice(0,93)}...`};
+      const traceFailureEvidence=operation=>{const failed=traceGroup(operation).filter(item=>!resultOk(item.result)).map(({trace,result})=>`${trace.id}{r${+result.reference}d${+result.direct}w${+result.wrapper}c${+result.calls}a${+result.aggregate};direct=${bounded(result.actualDirect)};projection=${bounded(trace.arithmetic.projection)};calls=${bounded(result.actualCalls)};expectedCalls=${bounded(trace.expectedKernelCalls)}}`);return failed.length?failed.join('|').slice(0,1200):`${traceGroup(operation).length}/${traceGroup(operation).length} exact`};
+      const allTraceFailures=()=>traces.map((trace,index)=>({trace,result:traceResults[index]})).filter(item=>!resultOk(item.result)).map(({trace,result})=>`${trace.id}:r${+result.reference}d${+result.direct}w${+result.wrapper}c${+result.calls}a${+result.aggregate}`).join('|').slice(0,1200);
+      const totalActualCalls=traceResults.reduce((sum,result)=>sum+result.actualCalls.length,0);
       const totalExpectedCalls=traces.reduce((sum,trace)=>sum+trace.expectedKernelCalls.length,0);
-      const aggregateActual=Object.fromEntries(METHODS.map(method=>[method,traceResults.reduce((sum,result)=>sum+result.calls.filter(call=>call.method===method).length,0)]));
+      const aggregateActual=Object.fromEntries(METHODS.map(method=>[method,traceResults.reduce((sum,result)=>sum+result.actualCalls.filter(call=>call.method===method).length,0)]));
       const aggregateExpected=Object.fromEntries(METHODS.map(method=>[method,traces.reduce((sum,trace)=>sum+trace.aggregateCallCounts[method],0)]));
       const oneUlp=traces.find(trace=>trace.id==='offline-one-ulp-discriminator');
       const oneUlpResult=traceResults[traces.indexOf(oneUlp)];
@@ -410,13 +422,14 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
       const descriptorOk=surface.coreFrozen&&exact(surface.keys,METHODS)&&surface.descriptors.every((item,index)=>item.key===METHODS[index]&&item.enumerable===true&&item.writable===false&&item.configurable===false&&item.type==='function');
       const functionOk=surface.descriptors.every((item,index)=>item.name===METHODS[index]&&item.length===1&&item.frozen===true&&item.constructible===false&&item.ownPrototype===false&&item.arrow===true);
       const wrapperShapeOk=surface.wrappers.length===6&&surface.wrappers.every((item,index)=>item.key===WRAPPERS[index]&&item.name===WRAPPERS[index]&&item.type==='function');
-      const ordinaryEffects=effectsClean(outputEffects)&&effectsClean(callEffects)&&outputEffects.runtimeReads===3&&callEffects.runtimeReads===3;
+      const nativeCaptureExact=outputEffects.nativeStorageCaptures===1&&callEffects.nativeStorageCaptures===1&&mutationEffects.nativeStorageCaptures===0;
+      const ordinaryEffects=effectsClean(outputEffects)&&effectsClean(callEffects)&&outputEffects.runtimeReads===3&&callEffects.runtimeReads===3&&nativeCaptureExact;
       const listenerExact=exact(outputEffects.listeners,[['window','storage','function'],['window','storage','function'],['window','storage','function']])&&exact(callEffects.listeners,[['window','storage','function'],['window','storage','function'],['window','storage','function']]);
-      const mutationOk=effectsClean(mutationEffects,{mutation:true})&&mutationEffects.runtimeReads===0&&!mutationSnapshot.probePresent&&mutationEffects.errors.some(error=>/shape|surface|kernel|PHASE_TEN_B_TWO/i.test(`${error.name} ${error.message}`));
+      const mutationOk=effectsClean(mutationEffects,{mutation:true})&&mutationEffects.runtimeReads===0&&mutationEffects.nativeStorageCaptures===0&&!mutationSnapshot.probePresent&&mutationEffects.errors.some(error=>/shape|surface|kernel|PHASE_TEN_B_TWO/i.test(`${error.name} ${error.message}`));
       const candidateRows=[
         [true,`candidate ${artifactSha}/${artifactBytes} matched literal identity`],
         [count(artifactText,`const ${CORE_NAME}=`)===1&&!artifactText.includes(`window.${CORE_NAME}`)&&!artifactText.includes(`globalThis.${CORE_NAME}`),'private core declaration occurs exact-once without ambient export'],
-        [effectsClean(outputEffects),`uninstrumented output realm side effects ${JSON.stringify(outputEffects)}`],
+        [effectsClean(outputEffects)&&outputEffects.nativeStorageCaptures===1,`uninstrumented output realm captured native storage sentinel exactly once without method access ${JSON.stringify(outputEffects)}`],
         [output.restored===true,'output transform inverse-restores exact source'],
         [surface.coreFrozen&&exact(surface.keys,METHODS),'frozen core and exact seven-key order'],
         [descriptorOk,'own enumerable/nonwritable/nonconfigurable function descriptors'],
@@ -433,16 +446,16 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
         [numeric.durationGold,'8/8 direct/reference/literal durationGold vectors'],
         [numeric.totalRate,'8/8 direct/reference/literal totalRate vectors'],
         [numeric.offlineTotals,'16/16 direct/reference/literal offlineTotals vectors'],
-        [groupOk('family'),'6/6 family full-wrapper/direct/reference/call traces'],
-        [groupOk('neutral'),'2/2 neutral full-wrapper/direct/reference/call traces'],
-        [groupOk('upgrade'),'4/4 upgrade full-wrapper/direct/reference/call traces'],
-        [groupOk('building-rate'),'8/8 building-rate full-wrapper/direct/reference/call traces'],
-        [groupOk('duration-gold'),'4/4 duration-gold full-wrapper/direct/reference/call traces including zero exception'],
-        [groupOk('total-rate'),'3/3 total-rate full-wrapper/direct/reference/call traces'],
-        [groupOk('offline-totals'),'5/5 offline-totals full-wrapper/direct/reference/call traces'],
+        [groupOk('family'),traceFailureEvidence('family')],
+        [groupOk('neutral'),traceFailureEvidence('neutral')],
+        [groupOk('upgrade'),traceFailureEvidence('upgrade')],
+        [groupOk('building-rate'),traceFailureEvidence('building-rate')],
+        [groupOk('duration-gold'),traceFailureEvidence('duration-gold')],
+        [groupOk('total-rate'),traceFailureEvidence('total-rate')],
+        [groupOk('offline-totals'),traceFailureEvidence('offline-totals')],
         [traceResults.every(result=>result.wrapper),'32/32 exact predecessor full returns in both candidate realms'],
-        [traceResults.every(result=>result.reference&&result.direct),'32/32 independent-reference and direct-kernel projections'],
-        [effectsClean(callEffects)&&listenerExact,'call-trace realm zero side effects and exact listener capture'],
+        [traceResults.every(result=>result.reference&&result.direct),allTraceFailures()||'32/32 independent-reference and direct-kernel projections'],
+        [effectsClean(callEffects)&&listenerExact&&callEffects.nativeStorageCaptures===1,`call-trace realm captured native storage sentinel exactly once without method access; effects=${JSON.stringify(callEffects)}`],
         [call.restored===true&&exact(surface,callSurface),'call transform exact restoration and unchanged surface'],
         [traceResults.every(result=>result.calls)&&totalActualCalls===totalExpectedCalls,`${totalActualCalls}/${totalExpectedCalls} exact ordered call records`],
         [traceResults.every(result=>result.aggregate)&&exact(aggregateActual,aggregateExpected),`aggregate call counts ${JSON.stringify(aggregateActual)}`],
@@ -459,7 +472,7 @@ Object.defineProperty(window,'${NESTED_HOOK}',{enumerable:false,writable:false,c
     if(rows.length!==56||new Set(rows.map(row=>row.id)).size!==56)throw new Error('realm row topology drift');
     const pass=rows.filter(row=>row.status==='PASS').length,pending=rows.filter(row=>row.status==='PENDING').length,fail=rows.filter(row=>row.status==='FAIL').length;
     const exactModeTotals=preimage?pass===20&&pending===36&&fail===0:pass===56&&pending===0&&fail===0;
-    if(!exactModeTotals)throw new Error(`${mode} realm totals ${pass}/${pending}/${fail} are not exact`);
+    if(!exactModeTotals){const failedRows=rows.filter(row=>row.status==='FAIL').slice(0,12).map(row=>({id:String(row.id).slice(0,120),evidence:String(row.evidence).replace(/\s+/g,' ').slice(0,320)}));throw new Error(`${mode} realm totals ${pass}/${pending}/${fail} are not exact; failedRows=${JSON.stringify(failedRows)}`)}
     document.getElementById('status').textContent=`${pass} pass / ${pending} pending / ${fail} fail`;
     post('phase10b2-realm',{rows,mode,artifactSha,artifactBytes,viewport:{width:innerWidth,height:innerHeight,motion:config.motion},attestation:{protocol:PROTOCOL,realmHtml:config.realmHtml,realmScript:config.realmScript},metrics:clone(metrics)});
   }
