@@ -12,7 +12,7 @@ Correct the highest-impact misleading or noisy player-facing details after Phase
 
 ## In scope
 
-- State that a locked Relic is acquired on the first clear of its source Campaign stage.
+- State that a fresh locked Relic is acquired on the first clear of its source Campaign stage. A retained pre-Relic clear uses neutral completion wording because the next successful completion acquires it.
 - Distinguish Village economy Power from full combat Power wherever the two totals are explained.
 - Raise the automatic offline-summary threshold from one minute to five minutes while preserving all accrued rewards and the 24-hour cap.
 - Format offline elapsed time without displaying `0.0 hours`.
@@ -30,7 +30,7 @@ Correct the highest-impact misleading or noisy player-facing details after Phase
 
 ## Acceptance criteria
 
-1. Locked Relic cards and details name first-clear acquisition and never instruct the player to replay for the initial copy.
+1. Fresh locked Relic cards and details name first-clear acquisition. Retained legacy clears say to complete the stage; no locked Relic instructs the player to replay for the initial copy.
 2. Village economy summaries identify their narrower formula; Campaign continues to identify full combat roster Power.
 3. Offline accrual below five minutes remains claimable but does not auto-open the summary. Exactly five minutes or more does.
 4. Offline duration copy uses minutes below one hour and a human-readable hour/minute form afterward.
