@@ -927,6 +927,7 @@ defaultState=function(at){
  return state
 };
 schemaScopedDefaultState=function(meta,schemaVersion){
+ if(schemaVersion===10){const state=defaultStateThroughTen(meta.createdAt);state.schemaVersion=10;state.saveMeta=clone(meta);state.undo=null;return state}
  if(schemaVersion!==11)return schemaScopedDefaultStateThroughTen(meta,schemaVersion);
  const state=defaultState(meta.createdAt);state.schemaVersion=11;state.saveMeta=clone(meta);state.undo=null;return state
 };
