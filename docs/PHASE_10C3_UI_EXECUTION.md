@@ -1,6 +1,6 @@
 # Phase 10C-3 · Player-facing economy UI execution
 
-Status: **Expanded live acceptance pending.**
+Status: **PASS locally.**
 
 ## Boundary
 
