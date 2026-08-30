@@ -2,7 +2,7 @@
 
 ## Current status
 
-**LOCAL PASS — READY TO MERGE AND PUBLISH.**
+**PUBLISHED PASS.**
 
 Phase 10B-3 was implemented from exact clean `main` commit `14efe7f0c85c91c78d3bb3e79049694fd0975d07` in the dedicated branch `migration/phase-10b3-ui-corrections`. The bounded production correction is commit `4317b97289a743241beae013fa07f3d590e003d9`; the exact reviewed executable/QA tip is `2923a26500a35cac9a186bf7638a96ad5c59dc39`.
 
@@ -68,4 +68,13 @@ Serve the repository with any static server and open `qa/phase-10b3/`. The live 
 - Independent architecture/persistence review: PASS.
 - Independent economy/save-boundary review: PASS.
 
-Public deployment verification remains pending until this locally accepted package is merged and GitHub Pages completes.
+## Publication verification
+
+- Canonical and origin head at publication: `b77b567e83cdbcb3ba0f24defe901099452b32bc`.
+- GitHub Pages deployment: run `33323243445`, completed successfully from the exact sealed head.
+- Public URL: `https://pwestey.github.io/everstead/`.
+- Cache-bypassed public response: HTTP 200, `x-proxy-cache: MISS`, `x-cache: MISS`, `age: 1`.
+- Public artifact observed at `2026-08-30T16:44:41Z`: SHA-256 `40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd`, 18,933,604 bytes.
+- Public embedded assets: five exact assets with aggregate SHA-256 `26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a`.
+
+The following metadata-only publication seal does not alter `index.html` or the accepted executable QA package. Its redeploy must reproduce the same public artifact identity.

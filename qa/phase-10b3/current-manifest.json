@@ -1,12 +1,13 @@
 {
   "manifestVersion": 2,
   "phase": "10B-3",
-  "status": "LOCAL_PASS_READY_TO_MERGE",
+  "status": "PASS_PUBLISHED",
   "mode": "CANDIDATE",
   "baseCommit": "14efe7f0c85c91c78d3bb3e79049694fd0975d07",
   "contractCommit": "d47057fff74ddd6a459bc2843cab73c9a23de6a2",
   "productionCommit": "4317b97289a743241beae013fa07f3d590e003d9",
   "candidateCommit": "2923a26500a35cac9a186bf7638a96ad5c59dc39",
+  "localSealCommit": "b77b567e83cdbcb3ba0f24defe901099452b32bc",
   "artifact": {
     "sha256": "40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd",
     "byteLength": 18933604,
@@ -25,12 +26,12 @@
   },
   "executableFiles": {
     "qa/phase-10b3/README.md": {
-      "sha256": "f21690f713a65fda41ce4e343807fc2635a6ad08247f22222394e4ed8c5d2fd2",
-      "byteLength": 1800
+      "sha256": "c55bdfd8078b2a98e7be97f7587ae15ddb8ad718fe22ff9755810ade13fb5d47",
+      "byteLength": 1888
     },
     "qa/phase-10b3/build-contract.mjs": {
-      "sha256": "7f7af2af10de580166742beef654bf4abff1c2149e5f1401f1824310123b5c9d",
-      "byteLength": 5069
+      "sha256": "b939dc9c0c92e15378f4bd0e0ca35fc8579b7d598fa399ca8200fad3da1ccff4",
+      "byteLength": 5599
     },
     "qa/phase-10b3/index.html": {
       "sha256": "94d23ea5f2de4368a024d194a502583f58bbfff1219700cb828d524909b09aec",
@@ -100,8 +101,24 @@
       "reviewedTip": "2923a26500a35cac9a186bf7638a96ad5c59dc39"
     },
     "public": {
-      "status": "PENDING",
-      "reason": "Awaiting merge and GitHub Pages deployment"
+      "status": "PASS",
+      "deploymentRunId": 33323243445,
+      "deploymentHead": "b77b567e83cdbcb3ba0f24defe901099452b32bc",
+      "deploymentUrl": "https://github.com/PWestey/everstead/actions/runs/33323243445",
+      "publicUrl": "https://pwestey.github.io/everstead/",
+      "observedAt": "2026-08-30T16:44:41Z",
+      "httpCode": 200,
+      "cache": {
+        "xProxyCache": "MISS",
+        "xCache": "MISS",
+        "age": 1
+      },
+      "artifact": {
+        "sha256": "40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd",
+        "byteLength": 18933604,
+        "assetCount": 5,
+        "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+      }
     }
   }
 }
