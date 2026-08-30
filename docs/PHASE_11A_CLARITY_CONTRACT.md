@@ -14,7 +14,7 @@ Correct the highest-impact misleading or noisy player-facing details after Phase
 
 - State that a locked Relic is acquired on the first clear of its source Campaign stage.
 - Distinguish Village economy Power from full combat Power wherever the two totals are explained.
-- Raise the automatic offline-summary threshold from one minute to fifteen minutes while preserving all accrued rewards and the 24-hour cap.
+- Raise the automatic offline-summary threshold from one minute to five minutes while preserving all accrued rewards and the 24-hour cap.
 - Format offline elapsed time without displaying `0.0 hours`.
 - Give the top-bar collection, Gift, Gold, and Player Rank controls explicit accessible names and visible abbreviations.
 - Remove `quest` from the new/edit Oath type chooser. Existing saved Quest Oaths remain loadable and are identified as legacy daily-cycle Oaths.
@@ -32,10 +32,10 @@ Correct the highest-impact misleading or noisy player-facing details after Phase
 
 1. Locked Relic cards and details name first-clear acquisition and never instruct the player to replay for the initial copy.
 2. Village economy summaries identify their narrower formula; Campaign continues to identify full combat roster Power.
-3. Offline accrual below fifteen minutes remains claimable but does not auto-open the summary. Exactly fifteen minutes or more does.
+3. Offline accrual below five minutes remains claimable but does not auto-open the summary. Exactly five minutes or more does.
 4. Offline duration copy uses minutes below one hour and a human-readable hour/minute form afterward.
 5. Top-bar collection, Gift, Gold, and Player Rank values have explicit accessible labels; visible currency text is understandable without relying on symbols alone.
-6. New Oaths cannot be created as Quest. A legacy Quest remains editable without silent data conversion and is labelled as a daily-cycle legacy type.
+6. New Oaths cannot be created as Quest. Editing a legacy Quest requires choosing a supported schedule before save; cancelling preserves it without silent data conversion.
 7. Phase 10C schema, economy, persistence, reward, and embedded-asset checks remain unchanged except for the expected production artifact identity.
 8. The affected surfaces pass live browser checks at 320×568, 390×667, and 390×844 with no horizontal overflow, fatal page errors, console warnings/errors, or native storage access in the isolated QA realm.
 
