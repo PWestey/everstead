@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "phase": "10C-3",
-  "status": "PASS_LOCAL",
+  "status": "PASS_LOCAL_EXPANDED",
   "baseCommit": "069afc0fffdcbdc513dae5780f67848a49bbad7d",
   "engineCommit": "722e91b80ee1cc8f1c51ff52ebc2f49be8335a88",
   "candidateCommit": "729ac10114fa75f0fa66a93438aeed281f0e78f7",
@@ -12,8 +12,8 @@
     "byteLength": 18975720
   },
   "scenarios": {
-    "sha256": "0b2f6cbc11273ba1e2035c811e3ec16441f325f1a8571c916ec381046c4d296e",
-    "byteLength": 1627
+    "sha256": "953c6c70ddfeabe624e11300c86529fb080ebe9782f89bf2d01b16169fa2888b",
+    "byteLength": 3186
   },
   "selectedProfile": {
     "id": "everstead-economy-v1",
@@ -30,6 +30,7 @@
   "schemaRows": 47,
   "engineRows": 100,
   "uiProbeRows": 19,
+  "liveRows": 86,
   "viewports": [
     "320x568",
     "390x667",
@@ -37,12 +38,12 @@
   ],
   "packageFiles": {
     "qa/phase-10c3/README.md": {
-      "sha256": "325397c757460bf17b019d25d2884a60833004c6d884ad929fbb656d98e0004d",
-      "byteLength": 1055
+      "sha256": "aad6e098a8ee165e9c31d9ecd5ade9dee824685aa9c20d16de6add7edd7a09de",
+      "byteLength": 1244
     },
     "qa/phase-10c3/build-contract.mjs": {
-      "sha256": "962a1924909ff327b278aa8c44f19a31e0d89b21692f84ceb1989b35a4660e70",
-      "byteLength": 4624
+      "sha256": "5a45039bfd8104db11d09e9afabe3ed3de12760a47a1dfb60e2376c8fea78324",
+      "byteLength": 4843
     },
     "qa/phase-10c3/index.html": {
       "sha256": "51f9a5562d12638f110e75a88efc40023ee66d87ba469ac0d9b35d40977a99b4",
@@ -53,38 +54,38 @@
       "byteLength": 178
     },
     "qa/phase-10c3/realm.js": {
-      "sha256": "23de6d92d4d74ca76df4498848ee551f27eab57bcf41b649bbe3d1ebf800411f",
-      "byteLength": 14679
+      "sha256": "fa7d9cf5d092a91b91f72e15fd4e8c13693b81d9450c912f12cdb3edfa21061f",
+      "byteLength": 22025
     },
     "qa/phase-10c3/runner.js": {
-      "sha256": "05a31027f01fdde73d8b53c2b2ea5127df0524a0b920e046a3fe892a39b0dfbd",
-      "byteLength": 4703
+      "sha256": "4b98d92759344213055a38499f0c3c0444aa270bff58a65127d8e2ffd47faf00",
+      "byteLength": 4740
     },
     "qa/phase-10c3/scenarios.json": {
-      "sha256": "0b2f6cbc11273ba1e2035c811e3ec16441f325f1a8571c916ec381046c4d296e",
-      "byteLength": 1627
+      "sha256": "953c6c70ddfeabe624e11300c86529fb080ebe9782f89bf2d01b16169fa2888b",
+      "byteLength": 3186
     },
     "qa/phase-10c3/ui-probe.mjs": {
       "sha256": "0b46f8cef09696ac6ba6413b069a66d2295370e52b2840a2e544dbcee5388018",
       "byteLength": 10096
     },
     "qa/phase-10c3/verify.mjs": {
-      "sha256": "c185911b4991ff01173292c5d2e4838b115392d0b8e138fc1936c83b65bfe851",
-      "byteLength": 7266
+      "sha256": "08705c8d0cf893a01c763567b3fff42cab2f2db42be7b50466f9483a28a06f7b",
+      "byteLength": 8376
     }
   },
   "expectedGate": {
-    "focusedCli": "PASS twice",
-    "liveBrowser": "PASS twice with zero console warnings/errors and zero native-storage writes"
+    "focusedCli": "143/143 twice",
+    "liveBrowser": "86/86 twice with zero console warnings/errors and zero native-storage writes"
   },
   "observedGate": {
     "focusedCli": {
-      "total": 142,
-      "passed": 142,
+      "total": 143,
+      "passed": 143,
       "failed": 0,
       "runs": 2
     },
-    "liveBrowser": {
+    "predecessorLiveBrowser": {
       "total": 79,
       "passed": 79,
       "failed": 0,
@@ -97,6 +98,20 @@
       "consoleWarningsOrErrors": 0,
       "nativeStorageAccesses": 0,
       "observedAt": "2026-08-30T19:04:27Z"
+    },
+    "expandedLiveBrowser": {
+      "total": 86,
+      "passed": 86,
+      "failed": 0,
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageAccesses": 0,
+      "observedAt": "2026-08-30T19:23:19Z"
     }
   }
 }

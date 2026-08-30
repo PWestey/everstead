@@ -32,5 +32,44 @@
     "staging": "oathforge_new_world_proto_v01__staging"
   },
   "level51Cost": 703356519,
-  "deepGoldGrant": 8000000000
+  "deepGoldGrant": 8000000000,
+  "liveOracle": {
+    "freshRates": {
+      "training": 7806.077153279999,
+      "command": 6807.528,
+      "archives": 6050.279531519999,
+      "hearth": 6656.9245344
+    },
+    "freshTotalRate": 27320.8092192,
+    "buildingLevelGrowth": 1.15,
+    "preActivationRates": {
+      "training": 7453.44,
+      "command": 6500,
+      "archives": 5776.96,
+      "hearth": 6356.2
+    },
+    "freshHotspots": [
+      {"id": "training", "name": "Training Grounds", "visible": "7.8K/hr · Tamsin", "aria": "Training Grounds, 7.8K Gold per hour, Tamsin Reed assigned"},
+      {"id": "command", "name": "Command Center", "visible": "6.8K/hr", "aria": "Command Center, 6.8K Gold per hour"},
+      {"id": "archives", "name": "Archives", "visible": "6.0K/hr · Isolde", "aria": "Archives, 6.0K Gold per hour, Isolde Marren assigned"},
+      {"id": "hearth", "name": "Hearth", "visible": "6.7K/hr · Elara", "aria": "Hearth, 6.7K Gold per hour, Elara Voss assigned"}
+    ],
+    "hudVisible": "Village production · 27.3K Gold/hr",
+    "hudAria": "Village production, 27.3K Gold per hour",
+    "trainingFactors": {
+      "Building level": "×1.00",
+      "Family": "×1.035",
+      "Fellow roster": "×1.0390",
+      "Companion roster": "×1.0080",
+      "Oaths": "×1.00",
+      "Final Gold/hr": "7.8K"
+    },
+    "trainingPreview": {
+      "Current Gold/hr": "7.8K",
+      "Next Gold/hr": "9.0K",
+      "Gain Gold/hr": "+1.2K"
+    },
+    "fellowSummary": {"multiplier": "×1.0390", "power": "35.1K"},
+    "companionSummary": {"multiplier": "×1.0080", "power": "2.2K"}
+  }
 }
