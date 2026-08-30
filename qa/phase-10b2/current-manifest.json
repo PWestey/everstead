@@ -1,0 +1,137 @@
+{
+  "manifestVersion": 1,
+  "phase": "10B-2",
+  "status": "LOCAL_PASS_PUBLIC_PENDING",
+  "packageCommit": "a3c72f87521b6ae1c097ce738733b98a10489da8",
+  "contractCommit": "fc7553c6960080c596d0b4f6da3dd262dff2e31d",
+  "artifact": {
+    "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
+    "byteLength": 18928361,
+    "embeddedAssetCount": 5,
+    "embeddedAssetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a",
+    "schemaVersion": 10,
+    "protectedSlots": 12
+  },
+  "executableOwnedAggregate": "38ac73a847111b2509bfba9aaf33e9a58dda7c4ff205a7f91b5cb8d813fb428b",
+  "executableFiles": {
+    "index.html": {
+      "sha256": "faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75",
+      "byteLength": 18928361
+    },
+    "qa/phase-10b2/predecessor-traces.json": {
+      "sha256": "74feec74ff6f9efe07ca47cb2b0fcaaca8ab80dab71961fd2f1625f270209136",
+      "byteLength": 557500
+    },
+    "qa/phase-10b2/scenarios.json": {
+      "sha256": "d3dd215cbfd229d58ed4f7d5264a79cc64d3224860be430d324ec0b7d893a8dd",
+      "byteLength": 126405
+    },
+    "qa/phase-10b2/row-registry.json": {
+      "sha256": "9e6282b2374e7ec263c3e4c9cc64873458b6e74fc356c470aabe23aac6ca394e",
+      "byteLength": 96921
+    },
+    "qa/phase-10b2/reference-model.mjs": {
+      "sha256": "5492fa98dfb0975ff77c50e89a57cdccad2768e6051a2ae766c8ea1befd68873",
+      "byteLength": 13921
+    },
+    "qa/phase-10b2/production-probe.mjs": {
+      "sha256": "2c25ae798f6a76cc77aa0508701fc150bcf42a9bdb08e803702e8d94dd4eddfe",
+      "byteLength": 54820
+    },
+    "qa/phase-10b2/verify.mjs": {
+      "sha256": "3876ec88fa0cea184d12fafe62a4bc7f946ab5b436a8df5ce98726dfdf28dd32",
+      "byteLength": 64878
+    },
+    "qa/phase-10b2/regress-phase-10b1.mjs": {
+      "sha256": "79eb459546cb01163206aa06af4174c66e5a728cf60c43e36753702c2440a4e9",
+      "byteLength": 11887
+    },
+    "qa/phase-10b2/phase10b1-successor-hashes.json": {
+      "sha256": "c3607a47e0c0c5831eb7fb4d0af9e98e9e51bde31c465131f06b62936e76cb67",
+      "byteLength": 23717
+    },
+    "qa/phase-10b2/index.html": {
+      "sha256": "93bf853874bf27ab890021502db0227adffeac4aef768a06b2a67d1991ace954",
+      "byteLength": 2064
+    },
+    "qa/phase-10b2/realm.html": {
+      "sha256": "04a059ebe1048112e48240de877c6dbb5d26b272bf44f809022c75be8f8a6342",
+      "byteLength": 1696
+    },
+    "qa/phase-10b2/realm.js": {
+      "sha256": "4fab0f3498f647920dc542e6573a4d55bf88a5dfed5778984caaf312c8799e60",
+      "byteLength": 55924
+    },
+    "qa/phase-10b2/runner.js": {
+      "sha256": "1b14763041dc97021c3c59962f8f1caebe261959d72cc04197cbe6244f189241",
+      "byteLength": 17496
+    }
+  },
+  "evidence": {
+    "focused": {
+      "status": "PASS",
+      "passes": 2,
+      "passedPerPass": 400,
+      "totalPerPass": 400,
+      "pendingPerPass": 0,
+      "failedPerPass": 0
+    },
+    "successors": {
+      "status": "PASS",
+      "passes": 2,
+      "phaseTenBSemanticPerPass": "624/624",
+      "bytePerPass": "224/224",
+      "phaseTenACheckPerPass": "22/22",
+      "phaseTenBChecksumsPerPass": "21/22",
+      "soleSupersededPath": "index.html"
+    },
+    "inherited": {
+      "status": "PASS",
+      "passes": 2,
+      "phaseTenAFocusedPerPass": "369/371",
+      "phaseTenAExpectedFailures": [
+        "artifact-repair-sha",
+        "artifact-repair-bytes"
+      ],
+      "phaseNineFocusedPerPass": "355/355",
+      "phaseEightSuccessorPerPass": "703/703"
+    },
+    "live": {
+      "status": "PASS",
+      "passes": 2,
+      "passedPerPass": 228,
+      "totalPerPass": 228,
+      "pendingPerPass": 0,
+      "failedPerPass": 0,
+      "fatalPerPass": "",
+      "consoleWarnErrorPerPass": 0,
+      "retainedFramesPerPass": 0,
+      "viewports": [
+        "320x568",
+        "390x844"
+      ],
+      "motionModes": [
+        "normal",
+        "reduced-motion"
+      ]
+    },
+    "reviews": {
+      "status": "PASS",
+      "boundaryAndPersistence": {
+        "reviewer": "p10b2_final_boundary_review",
+        "verdict": "PASS",
+        "exactTip": "a3c72f87521b6ae1c097ce738733b98a10489da8"
+      },
+      "arithmeticAndOracle": {
+        "reviewer": "p10b2_final_oracle_review",
+        "verdict": "PASS",
+        "exactTip": "a3c72f87521b6ae1c097ce738733b98a10489da8"
+      }
+    },
+    "public": {
+      "status": "PENDING",
+      "reason": "Canonical merge, GitHub Pages identity, disposable-profile smoke, and cleanup evidence are not yet complete."
+    },
+    "sealedAt": "2026-08-30T00:59:59Z"
+  }
+}
