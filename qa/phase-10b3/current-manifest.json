@@ -20,8 +20,8 @@
   },
   "executableFiles": {
     "qa/phase-10b3/README.md": {
-      "sha256": "a4d14b9cfa84a1e621bf17b832fd1bd2eff81fe36165636873e6364a85f30a25",
-      "byteLength": 869
+      "sha256": "6a73f6cf93a0ea0e1d2159030bce825f68c9c163e6056500d65fb494335e7563",
+      "byteLength": 1362
     },
     "qa/phase-10b3/build-contract.mjs": {
       "sha256": "65f92ff4b485a2704f15bc31fc02fb9022822e9972f7e60b30509c73b68ee634",
@@ -36,8 +36,8 @@
       "byteLength": 276
     },
     "qa/phase-10b3/realm.js": {
-      "sha256": "ea3d0495f08f90fce77d4eb870a1adda6d11703d6a2fe8b5eac58eaeee148d2d",
-      "byteLength": 17702
+      "sha256": "2f2713b56d30ac064c0b6cc8dcddd6112270ebc7125441eca5dc737cc693484b",
+      "byteLength": 17836
     },
     "qa/phase-10b3/runner.js": {
       "sha256": "91b2762236bb15d2407d86d11894c4ffd48b8aeef1c03c638d035de82038211b",
@@ -48,8 +48,8 @@
       "byteLength": 2832
     },
     "qa/phase-10b3/verify.mjs": {
-      "sha256": "66eee2f886f7f3d52986cadc17711d92925411c350f114f8376bac6a4ebd0c5a",
-      "byteLength": 6846
+      "sha256": "f4b160be0280337a529cc66e49f576f7b312f45bf687fedcb135391c915a00b2",
+      "byteLength": 7812
     }
   },
   "evidence": {
