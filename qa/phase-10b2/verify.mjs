@@ -84,8 +84,8 @@ const staticChecks=[
   boundary.restorationExact===true,
   realm.effects.storage.length===0&&realm.effects.ui.length===0&&realm.effects.network.length===0&&realm.effects.timer.length===0,
   callTraceControl.restoredSha256===identity.artifactSha256&&callTraceControl.effects.storage.length===0&&callTraceControl.effects.ui.length===0&&callTraceControl.effects.timer.length===0&&callTraceControl.effects.network.length===0,
-  mutationControl.restoredSha256===identity.artifactSha256&&mutationControl.effects.storage.length===0&&mutationControl.effects.ui.length===0&&mutationControl.effects.timer.length===0&&mutationControl.effects.network.length===0,
-  preimage&&!identity.corePresent&&registry.preimageTotals.PASS===206&&registry.preimageTotals.PENDING===194
+  mutationControl.restoredSha256===identity.artifactSha256&&mutationControl.effects.storage.length===0&&mutationControl.effects.ui.length===0&&mutationControl.effects.timer.length===0&&mutationControl.effects.network.length===0&&mutationControl.controlEffects.storage.length===0&&mutationControl.controlEffects.ui.length===0&&mutationControl.controlEffects.timer.length===0&&mutationControl.controlEffects.network.length===0,
+  preimage?!identity.corePresent&&registry.preimageTotals.PASS===206&&registry.preimageTotals.PENDING===194:identity.corePresent&&identity.candidateReviewed&&registry.candidateTotals.PASS===400&&registry.candidateTotals.PENDING===0&&registry.candidateTotals.FAIL===0
 ];if(staticChecks.length!==32)throw new Error('Static implementation count drift');
 for(let i=0;i<32;i++){const authority=registry.rows[i],pending=preimage&&authority.preimageExpectation==='PENDING';record(authority.id,pending?'PENDING':staticChecks[i]?'PASS':'FAIL',pending?'candidate-only source/surface assertion':'static assertion')}
 
@@ -201,7 +201,7 @@ let buildCheck=null;try{buildCheck=JSON.parse(execFileSync(process.execPath,[res
   [callTraceControl.effects.network.length===0,'call-trace realm zero network'],
   [JSON.stringify(callTraceControl.effects.listeners)===JSON.stringify(expectedListeners),'call-trace realm exact inherited listeners only'],
   [callTraceControl.restoredSha256===identity.artifactSha256&&callTraceControl.restoredByteLength===identity.artifactByteLength&&probeControl.realmSeparation===true,'call-trace inverse and realm separation'],
-  [noEffects(mutationControl.effects)&&JSON.stringify(mutationControl.effects.listeners)===JSON.stringify(expectedListeners),'mutation realm zero effects and exact listeners'],
+  [noEffects(mutationControl.effects)&&noEffects(mutationControl.controlEffects)&&JSON.stringify(mutationControl.effects.listeners)===JSON.stringify(expectedListeners)&&JSON.stringify(mutationControl.controlEffects.listeners)===JSON.stringify(expectedListeners),'mutant and control realms zero effects and exact listeners'],
   [mutationControl.restoredSha256===identity.artifactSha256&&probeControl.definitions===true,'mutation inverse and exact 48/51 definitions'],
   [buildCheck?.writes===0&&buildCheck?.artifact?.artifactSha256===identity.artifactSha256&&buildCheck?.executableFiles===13,'ordinary builder read-only and identity-bound'],
   [true,'full owned plus 224-file predecessor snapshot checked after execution']

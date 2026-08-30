@@ -1,26 +1,26 @@
 # Phase 10B-2 Gold Core extraction QA
 
-This additive, read-only package proves the unchanged production preimage and is designed to become the permanent extraction gate after the single authorized production commit.
+This additive, read-only package is now bound to the reviewed production-only Gold-core extraction candidate at commit `8b0ac531def1e59bd38e6305006c322cb1082825`.
 
-The preimage state is deliberately reported as `PREIMAGE_READY`, never as a release pass:
+The executable candidate is deliberately reported as `CANDIDATE_UNSEALED` until live runs, independent reviews, public verification, and the metadata-only evidence seal are complete:
 
-- focused registry: exact 400 rows, currently 206 PASS / 194 candidate-only PENDING / 0 FAIL;
-- live registry: exact 228 rows; the repaired browser package is statically ready for a fresh 84 PASS / 144 candidate-only PENDING / 0 FAIL preimage run;
-- Phase 10B-1 semantic successor: 620 unchanged meanings may baseline-pass, while four revised candidate identity/source rows remain PENDING;
-- byte successor: exact 224 literal paths, 224/224 on the unchanged preimage and ultimately 223 unchanged plus one reviewed `index.html` supersession;
-- sealed Phase 10B-1 checksums: 22/22 on the preimage and ultimately 21/22 with only `index.html` superseded.
+- focused registry: exact 400/400 candidate rows;
+- live registry: exact 228 rows with all four mobile/motion realms bound to candidate SHA-256 `faa5c5fb11785a620f51de5864ec4cda4433bfbc27faaa2359247d9b39c07e75`, 18,928,361 bytes; official live execution is still pending;
+- Phase 10B-1 semantic successor: exact 624/624, including four reviewed Phase 10B-2 static replacements and 620 unchanged meanings;
+- byte successor: exact 224/224, comprising 223 unchanged predecessor paths and one reviewed `index.html` supersession;
+- sealed Phase 10B-1 checksums: exact 21/22 with only `index.html` superseded.
 
 Run the focused preimage verifier with:
 
 ```text
-node qa/phase-10b2/verify.mjs
+node qa/phase-10b2/verify.mjs --release
 ```
 
-`--release` fails closed until a reviewed candidate exists. The successor runner accepts explicit `--byte`, `--checksums`, `--semantic`, or `--all`. Ordinary verifier and browser runs never write repository state. `build-contract.mjs` is read-only unless explicitly invoked with `--seal` and the reviewed package commit plus exact candidate SHA/byte length; it refuses to seal the preimage.
+The successor runner accepts explicit `--byte`, `--checksums`, `--semantic`, `--phase10a-semantic`, or `--all`. Ordinary verifier and browser runs never write repository state. `build-contract.mjs` remains read-only unless explicitly invoked with `--seal` and the final reviewed package commit plus exact candidate SHA/byte length.
 
 The browser dashboard is `qa/phase-10b2/index.html`. It uses four sandboxed mobile realms, same-origin credential-free GETs, prohibited-API traps, exact row IDs, and explicit PENDING state for candidate-only checks.
 
-The focused verifier preserves the accepted strict trace codec, freezes independent fixture and expected authorities, binds each arithmetic input to the exact operation-specific planned call, captures actual candidate call records in a separate realm, exercises realm-native malformed values without descriptor loss, and defines 19 isolated persistence fixtures across 16 rows. The persistence set explicitly includes maximum-valid state, the 24-hour cap, fractional pending Gold, migrations, recovery, and injected faults; comparisons preserve descriptors, types, signed Float64 values, all 12 slots, UI, runtime, and logs. Candidate wrapper/call-record observations and every base-versus-candidate persistence comparison remain honestly PENDING while the private kernel is absent. The no-write snapshot includes absence sentinels for uncreated evidence files and covers every owned path plus the exact 224-file predecessor union. The builder's seal mode also proves that the explicit reviewed package commit owns every byte in the current 13-file executable aggregate.
+The focused verifier preserves the accepted strict trace codec, freezes independent fixture and expected authorities, binds each arithmetic input to the exact operation-specific planned call, recursively freezes actual candidate call arguments/records/counts, exercises realm-native malformed values without descriptor loss, and defines 19 isolated persistence fixtures across 16 rows. The persistence set explicitly includes maximum-valid state, the 24-hour cap, fractional pending Gold, migrations, recovery, and injected faults; comparisons preserve descriptors, types, signed Float64 values, all 12 slots, UI, runtime, and logs. The no-write snapshot includes absence sentinels for uncreated evidence files and covers every owned path plus the exact 224-file predecessor union. The builder's seal mode also proves that the explicit reviewed package commit owns every byte in the current 13-file executable aggregate.
 
 Frozen authorities are never generated by ordinary QA:
 
