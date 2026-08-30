@@ -1,0 +1,15 @@
+{
+  "id": "everstead-economy-v1",
+  "freshGold": 50000,
+  "upgradeGrowth": 1.24,
+  "fellowRoster": {
+    "numeratorBps": 1500,
+    "kneePower": 100000,
+    "capBps": 1500
+  },
+  "companionRoster": {
+    "numeratorBps": 1000,
+    "kneePower": 25000,
+    "capBps": 1000
+  }
+}

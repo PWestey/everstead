@@ -1,0 +1,86 @@
+{
+  "manifestVersion": 1,
+  "phase": "10C-1",
+  "mode": "PREIMAGE",
+  "status": "PREIMAGE_QA_READY",
+  "baseCommit": "56b99f86a95f95fd1822da0331204f5d8ea33656",
+  "productionChanged": false,
+  "browserFiles": false,
+  "artifact": {
+    "sha256": "40a1b21c62745d7b3c96fc4c2bea7ee56763a109a40b3535178277e26aca19fd",
+    "byteLength": 18933604,
+    "embeddedAssetCount": 5,
+    "embeddedAssetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a",
+    "schemaVersion": 10,
+    "protectedSlots": 12
+  },
+  "selectedProfile": {
+    "id": "everstead-economy-v1",
+    "identity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+    "source": {
+      "sha256": "76a7858c83c36a82eb76829c506c97adbd03041eda2c3028e8547f2cb6e99a86",
+      "byteLength": 274
+    }
+  },
+  "vectors": {
+    "sha256": "0681b00834e42855e859fd14cd3a272cbabff807581b338610f0c193d7c92d40",
+    "byteLength": 2925
+  },
+  "phaseTenBSimulator": {
+    "docs/PHASE_10B_SIMULATOR_CONTRACT.md": {
+      "sha256": "0804717ecb383e779de9ea2801cb71726280b86b9ae1f41021fc8fbb17bbfb86",
+      "byteLength": 36725
+    },
+    "docs/PHASE_10B_RESULT.md": {
+      "sha256": "75584c8c1693bbbc315c36173e1b308a4c2265d3822c2c5289e9d8b3eb55f169",
+      "byteLength": 6161
+    },
+    "qa/phase-10b/checksums.sha256": {
+      "sha256": "4926ee6438a21947312ee37e0747c49949be4abaa46764c4dff5f5b9de595ca4",
+      "byteLength": 2094
+    },
+    "qa/phase-10b/current-manifest.json": {
+      "sha256": "e9390a50783da02d03a004c7f1abbe15eecb11cae0d3568d71d98bf63fd59235",
+      "byteLength": 25692
+    },
+    "qa/phase-10b/current-report.json": {
+      "sha256": "5d7e0f0b81d8e9362e15031480c363f80ee098ef7c7d2deef69c35db7f448e51",
+      "byteLength": 94974300
+    },
+    "qa/phase-10b/scenarios.json": {
+      "sha256": "89b2a717058e64f533aeafe8fa0c64df02de3d278b98a3f7269eb814c430e8d0",
+      "byteLength": 82626
+    },
+    "qa/phase-10b/simulate.mjs": {
+      "sha256": "e56082005c5e10112628c214ba09a3838216e46b5c16e4dfe26303e0d47110dc",
+      "byteLength": 111323
+    }
+  },
+  "packageFiles": {
+    "qa/phase-10c1/README.md": {
+      "sha256": "7eb1c4b033efb8c8d57e079ee832cb426709b6cacf7c5cd143e9bbc55a134215",
+      "byteLength": 1304
+    },
+    "qa/phase-10c1/build-contract.mjs": {
+      "sha256": "cb5cbf20b010eb4c885ca9df8796121b25a0240888c25e1171bed7f054ab1b66",
+      "byteLength": 3915
+    },
+    "qa/phase-10c1/profile.json": {
+      "sha256": "76a7858c83c36a82eb76829c506c97adbd03041eda2c3028e8547f2cb6e99a86",
+      "byteLength": 274
+    },
+    "qa/phase-10c1/vectors.json": {
+      "sha256": "0681b00834e42855e859fd14cd3a272cbabff807581b338610f0c193d7c92d40",
+      "byteLength": 2925
+    },
+    "qa/phase-10c1/verify.mjs": {
+      "sha256": "bc135099de9a448c466eed432cbde11062411065f085377bb6c183ad28d33407",
+      "byteLength": 13277
+    }
+  },
+  "expectedGate": {
+    "focusedCli": "PASS twice",
+    "phaseTenBSelectedBundles": 36,
+    "liveBrowser": "DEFERRED UNTIL PRODUCTION CANDIDATE"
+  }
+}

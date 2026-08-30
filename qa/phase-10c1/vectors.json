@@ -1,0 +1,80 @@
+{
+  "vectorVersion": 1,
+  "phase": "10C-1-preimage",
+  "profileIdentity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+  "upgrade": {
+    "base": 15000,
+    "growth": 1.24,
+    "levelCap": 52,
+    "cases": [
+      { "level": 1, "arithmeticCost": 15000, "upgradeAvailable": true },
+      { "level": 2, "arithmeticCost": 18600, "upgradeAvailable": true },
+      { "level": 5, "arithmeticCost": 35463, "upgradeAvailable": true },
+      { "level": 10, "arithmeticCost": 103965, "upgradeAvailable": true },
+      { "level": 20, "arithmeticCost": 893518, "upgradeAvailable": true },
+      { "level": 30, "arithmeticCost": 7679273, "upgradeAvailable": true },
+      { "level": 40, "arithmeticCost": 65998943, "upgradeAvailable": true },
+      { "level": 51, "arithmeticCost": 703356519, "upgradeAvailable": true },
+      { "level": 52, "arithmeticCost": 872162084, "upgradeAvailable": false }
+    ]
+  },
+  "curves": {
+    "fellow": {
+      "numeratorBps": 1500,
+      "kneePower": 100000,
+      "capBps": 1500,
+      "cases": [
+        { "power": 0, "bps": 0 },
+        { "power": 35150, "bps": 390 },
+        { "power": 100000, "bps": 750 },
+        { "power": 900000, "bps": 1350 },
+        { "power": 9007199254740991, "bps": 1499 }
+      ]
+    },
+    "companion": {
+      "numeratorBps": 1000,
+      "kneePower": 25000,
+      "capBps": 1000,
+      "cases": [
+        { "power": 0, "bps": 0 },
+        { "power": 2200, "bps": 80 },
+        { "power": 25000, "bps": 500 },
+        { "power": 225000, "bps": 900 },
+        { "power": 9007199254740991, "bps": 999 }
+      ]
+    }
+  },
+  "freshRate": {
+    "fellowEconomyPower": 35150,
+    "companionEconomyPower": 2200,
+    "fellowBonusBps": 390,
+    "companionBonusBps": 80,
+    "combinedRosterMultiplier": 1.047312,
+    "buildingOrder": ["training", "command", "archives", "hearth"],
+    "buildings": {
+      "training": { "base": 7200, "familyMultiplier": 1.0352, "rate": 7806.07715328 },
+      "command": { "base": 6500, "familyMultiplier": 1, "rate": 6807.528 },
+      "archives": { "base": 5600, "familyMultiplier": 1.0316, "rate": 6050.27953152 },
+      "hearth": { "base": 6100, "familyMultiplier": 1.042, "rate": 6656.9245344 }
+    },
+    "totalRate": 27320.809219200004,
+    "direct24HourOutput": 655699.4212608001,
+    "trainingAtOathCap": 10147.900299264
+  },
+  "phaseTenBSimulator": {
+    "configId": "candidate-growth-124",
+    "archetypeId": "fresh",
+    "horizonId": "24-hour",
+    "bundleIdentity": "6f4f0f306aef652cd41cf3d5e5db8ae6a89d0855508ae93ce7d2bcdffd00a6ac",
+    "buildingGeneratedTotal": 655699.4212607999,
+    "claimedGold": 655699,
+    "fellowCampaignSpent": 8274,
+    "companionCampaignSpent": 6667,
+    "buildingUpgradeSpent": 15000,
+    "totalSpent": 29941,
+    "endGold": 675758,
+    "pendingEnd": 0.9212607998633757,
+    "upgradeCount": 1,
+    "endingLevels": { "training": 2, "command": 1, "archives": 1, "hearth": 1 }
+  }
+}
