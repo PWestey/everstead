@@ -1,0 +1,102 @@
+{
+  "manifestVersion": 1,
+  "phase": "10C-3",
+  "status": "PASS_LOCAL",
+  "baseCommit": "069afc0fffdcbdc513dae5780f67848a49bbad7d",
+  "engineCommit": "722e91b80ee1cc8f1c51ff52ebc2f49be8335a88",
+  "candidateCommit": "729ac10114fa75f0fa66a93438aeed281f0e78f7",
+  "productionChanged": true,
+  "browserFiles": true,
+  "artifact": {
+    "sha256": "1cd8004e4f6e0734100f5d8fd77dd14f88f0b22d5fd1bbb5d027be6c70a6be35",
+    "byteLength": 18975720
+  },
+  "scenarios": {
+    "sha256": "0b2f6cbc11273ba1e2035c811e3ec16441f325f1a8571c916ec381046c4d296e",
+    "byteLength": 1627
+  },
+  "selectedProfile": {
+    "id": "everstead-economy-v1",
+    "identity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f"
+  },
+  "privateGoldCore": {
+    "sha256": "6c309bc7e4a7e28e8336c29f2fea4366d47bf89642afabbf5abe6d0bb985ef8b",
+    "byteLength": 10630
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "schemaRows": 47,
+  "engineRows": 100,
+  "uiProbeRows": 19,
+  "viewports": [
+    "320x568",
+    "390x667",
+    "390x844"
+  ],
+  "packageFiles": {
+    "qa/phase-10c3/README.md": {
+      "sha256": "325397c757460bf17b019d25d2884a60833004c6d884ad929fbb656d98e0004d",
+      "byteLength": 1055
+    },
+    "qa/phase-10c3/build-contract.mjs": {
+      "sha256": "962a1924909ff327b278aa8c44f19a31e0d89b21692f84ceb1989b35a4660e70",
+      "byteLength": 4624
+    },
+    "qa/phase-10c3/index.html": {
+      "sha256": "51f9a5562d12638f110e75a88efc40023ee66d87ba469ac0d9b35d40977a99b4",
+      "byteLength": 1282
+    },
+    "qa/phase-10c3/realm.html": {
+      "sha256": "3795135ecb877f5cc099d873aaf42bf43ae611d705c3a9f77020ca54f5b89fab",
+      "byteLength": 178
+    },
+    "qa/phase-10c3/realm.js": {
+      "sha256": "23de6d92d4d74ca76df4498848ee551f27eab57bcf41b649bbe3d1ebf800411f",
+      "byteLength": 14679
+    },
+    "qa/phase-10c3/runner.js": {
+      "sha256": "05a31027f01fdde73d8b53c2b2ea5127df0524a0b920e046a3fe892a39b0dfbd",
+      "byteLength": 4703
+    },
+    "qa/phase-10c3/scenarios.json": {
+      "sha256": "0b2f6cbc11273ba1e2035c811e3ec16441f325f1a8571c916ec381046c4d296e",
+      "byteLength": 1627
+    },
+    "qa/phase-10c3/ui-probe.mjs": {
+      "sha256": "0b46f8cef09696ac6ba6413b069a66d2295370e52b2840a2e544dbcee5388018",
+      "byteLength": 10096
+    },
+    "qa/phase-10c3/verify.mjs": {
+      "sha256": "c185911b4991ff01173292c5d2e4838b115392d0b8e138fc1936c83b65bfe851",
+      "byteLength": 7266
+    }
+  },
+  "expectedGate": {
+    "focusedCli": "PASS twice",
+    "liveBrowser": "PASS twice with zero console warnings/errors and zero native-storage writes"
+  },
+  "observedGate": {
+    "focusedCli": {
+      "total": 142,
+      "passed": 142,
+      "failed": 0,
+      "runs": 2
+    },
+    "liveBrowser": {
+      "total": 79,
+      "passed": 79,
+      "failed": 0,
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageAccesses": 0,
+      "observedAt": "2026-08-30T19:04:27Z"
+    }
+  }
+}
