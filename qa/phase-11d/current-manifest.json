@@ -1,0 +1,64 @@
+{
+  "manifestVersion": 1,
+  "phase": "11D",
+  "status": "PASS_LOCAL",
+  "baseCommit": "eb6736ccae99b5228a0de52c49a6b079ef40789c",
+  "contractCommit": "4a7e24ac919a80152c93d78599cd51bddbdcb055",
+  "productionCommit": "416054ab179c5543f246a544e9e603f4c1c0f81c",
+  "packageCommit": "127efa070e7126ab23ebdbf2db6a27c88e8e538e",
+  "schemaVersion": 11,
+  "artifact": {
+    "sha256": "0becf11341806bef29c25b4d253c19dbd5f236af940a42c5f55b2ec90d94166a",
+    "byteLength": 19146920
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "focusedRows": {
+    "phase11d": 103,
+    "phase11c": 83,
+    "phase11b": 286,
+    "phase11bBreakdown": [42, 8, 103, 133]
+  },
+  "liveRows": {
+    "total": 385,
+    "passed": 385,
+    "failed": 0,
+    "runs": 2,
+    "realms": 6,
+    "nativeStorageAccesses": 0,
+    "consoleWarnError": 0
+  },
+  "reviews": [
+    {
+      "role": "design-authority-and-codex",
+      "status": "PASS",
+      "productionCommit": "416054ab179c5543f246a544e9e603f4c1c0f81c",
+      "artifactSha256": "0becf11341806bef29c25b4d253c19dbd5f236af940a42c5f55b2ec90d94166a"
+    },
+    {
+      "role": "ux-accessibility-and-mobile",
+      "status": "PASS",
+      "productionCommit": "416054ab179c5543f246a544e9e603f4c1c0f81c",
+      "artifactSha256": "0becf11341806bef29c25b4d253c19dbd5f236af940a42c5f55b2ec90d94166a"
+    },
+    {
+      "role": "qa-adequacy",
+      "status": "PASS",
+      "productionCommit": "416054ab179c5543f246a544e9e603f4c1c0f81c",
+      "artifactSha256": "0becf11341806bef29c25b4d253c19dbd5f236af940a42c5f55b2ec90d94166a"
+    }
+  ],
+  "packageFiles": {
+    "qa/phase-11d/README.md": {"sha256":"8082e7de0b07085dc9bb39d19f8f84243d303b1e3f6139d4ab24343952344ece","byteLength":1584},
+    "qa/phase-11d/build-contract.mjs": {"sha256":"5f384fee65220fbb820270f312f8f5604da39a52d6d065b55729e1017d405a96","byteLength":1115},
+    "qa/phase-11d/index.html": {"sha256":"aedea65a1270bb521d3e7c3e083289df4e7ac58f5acdb4ee547f27c5ffe2fcda","byteLength":1201},
+    "qa/phase-11d/probe.mjs": {"sha256":"b382b2b91b6f4540e62e6e808755593fdd537f7e17b8c5bddca50c449bb36426","byteLength":25049},
+    "qa/phase-11d/realm.html": {"sha256":"684f1690c191f9d82b207c2932c90974035602d7913bc3b77a8d5076750cf9c7","byteLength":190},
+    "qa/phase-11d/realm.js": {"sha256":"42e388772cb705e0beb72bc21706378dfc6f09dcfdda517f286c7ea135d5bbed","byteLength":19944},
+    "qa/phase-11d/runner.js": {"sha256":"c8d03da0d7fc3eea6619c419ddf8b074573ed5bb2e6f709dc6e7ebb9f79fcf0c","byteLength":4776},
+    "qa/phase-11d/scenarios.json": {"sha256":"d9d91bfd154f95f7ae55eac4c84b12489bc83cb413c7af9e38a1c856cb8c11d0","byteLength":1023},
+    "qa/phase-11d/verify.mjs": {"sha256":"6bb0f0f70ccaec51834f867878b48f3b1865132f8c4626ea128054877fa7ea11","byteLength":7781}
+  }
+}
