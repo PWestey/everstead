@@ -1,0 +1,35 @@
+{
+  "manifestVersion": 1,
+  "phase": "11E",
+  "status": "PASS_LOCAL",
+  "baseCommit": "2203b4cc94eaa3a00421aaaca4d0e1dcf9c0ecc4",
+  "schemaVersion": 11,
+  "releaseVersion": "1.0.0-rc.1",
+  "compatibilityVersion": "0.1.0",
+  "artifact": {
+    "sha256": "b1d6b3d9486e3951a62c1defe1dbf4c56c62af733143318b173e2b3a3e56272e",
+    "byteLength": 19154249
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "focusedRows": {
+    "phase11e": 36,
+    "phase11d": 103,
+    "phase11c": 83,
+    "phase11b": 286,
+    "total": 508
+  },
+  "releaseChecks": {
+    "passed": 20,
+    "failed": 0
+  },
+  "liveBrowser": {
+    "passed": 42,
+    "failed": 0,
+    "viewports": ["320x568", "390x844"],
+    "consoleWarnError": 0,
+    "horizontalOverflowPx": 0
+  }
+}
