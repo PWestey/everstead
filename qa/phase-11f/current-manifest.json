@@ -1,0 +1,40 @@
+{
+  "manifestVersion": 1,
+  "phase": "11F",
+  "status": "PASS_LOCAL",
+  "baseCommit": "210c1ce21cea8b9061d17ac1456617905a59701b",
+  "schemaVersion": 12,
+  "releaseVersion": "1.0.0-rc.1",
+  "compatibilityVersion": "0.1.0",
+  "artifact": {
+    "sha256": "662eeaf17f2a975311a1e5d3ddf8effac6fe36cfd707d63e34d92c21733d2fb6",
+    "byteLength": 983701,
+    "embeddedRasterCount": 0
+  },
+  "portraitManifest": {
+    "sha256": "cb0d11ebe4e1ea93bd5610cd8cfeb979cfddc9770f3df30d62738ecd9b9a7f0f",
+    "fellows": 18,
+    "family": 20,
+    "fullPortraits": 38,
+    "thumbnails": 38,
+    "portraitBytes": 8055818
+  },
+  "focusedProbe": {
+    "passed": 34,
+    "failed": 0
+  },
+  "successorGate": {
+    "passed": 20,
+    "failed": 0
+  },
+  "liveBrowser": {
+    "viewports": ["320x568", "390x844"],
+    "horizontalOverflowPx": 0,
+    "consoleWarnError": 0,
+    "fullFellowPortraitLoaded": true,
+    "fullFamilyPortraitLoaded": true,
+    "codexColumnsAt320": 2,
+    "claimReadyNormalHeightAt320": 103.5,
+    "navigationScrollReset": "832.5px to 0px"
+  }
+}
