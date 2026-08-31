@@ -1,0 +1,32 @@
+{
+  "frozenNow": "2030-06-17T12:00:00.000Z",
+  "fixture": {
+    "path": "../fixtures/representative-v0.1.txt",
+    "privateSentinel": "PHASE_11B2C_PRIVATE_SOURCE_MUST_NOT_RENDER",
+    "targetPrivateSentinel": "PHASE_11B2C_PRIVATE_TARGET_MUST_NOT_RENDER",
+    "corruptRaw": "{\"schemaVersion\":11,\"phase11b2c\":\"deliberately-corrupt-private\"}",
+    "foreignStaging": "PHASE_11B2C_FOREIGN_STAGING_PRIVATE"
+  },
+  "viewports": [
+    {"id":"phone-320x568","width":320,"height":568},
+    {"id":"phone-390x667","width":390,"height":667},
+    {"id":"phone-390x844","width":390,"height":844}
+  ],
+  "storageKeys": {
+    "active":"oathforge_new_world_proto_v01",
+    "rawBackup":"oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "preV2":"oathforge_new_world_proto_v01__raw_backup_v1",
+    "preV3":"oathforge_new_world_proto_v01__raw_backup_v2",
+    "preV4":"oathforge_new_world_proto_v01__raw_backup_v3",
+    "preV5":"oathforge_new_world_proto_v01__raw_backup_v4",
+    "preV6":"oathforge_new_world_proto_v01__raw_backup_v5",
+    "preV7":"oathforge_new_world_proto_v01__raw_backup_v6",
+    "preV8":"oathforge_new_world_proto_v01__raw_backup_v7",
+    "preV9":"oathforge_new_world_proto_v01__raw_backup_v8",
+    "preV10":"oathforge_new_world_proto_v01__raw_backup_v9",
+    "preV11":"oathforge_new_world_proto_v01__raw_backup_v10",
+    "ordinaryStaging":"oathforge_new_world_proto_v01__staging",
+    "journal":"oathforge_new_world_proto_v01__save_tool_journal_v1",
+    "rollback":"oathforge_new_world_proto_v01__previous_installation_v1"
+  }
+}
