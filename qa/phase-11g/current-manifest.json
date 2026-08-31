@@ -1,0 +1,56 @@
+{
+  "manifestVersion": 1,
+  "phase": "11G",
+  "status": "PASS_LOCAL",
+  "baseCommit": "23da8504cf9fb6994a0242e74603be0bfe2e18a6",
+  "schemaVersion": 12,
+  "releaseVersion": "1.0.0-rc.2",
+  "compatibilityVersion": "0.1.0",
+  "artifact": {
+    "sha256": "8d14fbd4f87968eed2f7e1f85cfff305c429a6d143ae7a61c42eac742e2657a4",
+    "byteLength": 1019590,
+    "embeddedRasterCount": 0
+  },
+  "portraitManifest": {
+    "fellows": 18,
+    "family": 20,
+    "fullPortraits": 38,
+    "thumbnails": 38,
+    "portraitBytes": 8055818
+  },
+  "focusedProbe": {
+    "passed": 28,
+    "failed": 0
+  },
+  "successorGate": {
+    "passed": 23,
+    "failed": 0,
+    "passes": 2
+  },
+  "liveBrowser": {
+    "viewports": ["320x568", "390x844"],
+    "horizontalOverflowPx": 0,
+    "consoleWarnError": 0,
+    "freshJoinedFellows": 6,
+    "rankTwoJoinedFellows": 9,
+    "freshCampaignPower": "36.4K",
+    "freshVillageEconomyPower": "35.1K",
+    "firstStageCost": "8.4K",
+    "firstStageEfficiencyDiscount": "16%",
+    "freshImmediateCampaignClears": 4,
+    "rankTwoJoinResult": ["Zamorak", "Darrow", "Deadpool"]
+  },
+  "predecessorGate": {
+    "phase": "11F",
+    "behavioralFocusedPassed": 31,
+    "behavioralFocusedTotal": 34,
+    "successorRowsPassed": 18,
+    "successorRowsTotal": 20,
+    "expectedSupersededAssertions": [
+      "release identity",
+      "18/18 starting-roster language",
+      "last migration receipt identity",
+      "recovery source before Phase 11G profile activation"
+    ]
+  }
+}
