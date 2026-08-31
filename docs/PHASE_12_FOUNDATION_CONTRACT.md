@@ -36,14 +36,19 @@ Required namespaces:
 - `chronicle.*`
 - `legacy.achievement.*`
 - `legacy.feat.*`
+- `legacy.*.tier-*`
+- `metric.*`
 - `tutorial.*`
 - `facility.*`
+- `activity.*`
 - `opportunity.*`
 - `reward.offer.*`
 - `reward.receipt.*`
 - `fellow.*` and `family.*` for dialogue actors
 
 The external `src/phase12-foundation.js` file owns the pure ID, reward-bundle, claim-offer, and receipt contracts. The inline app owns save mutation, roster-derived dialogue definitions, and integration with existing persistence.
+
+Definition validation is relational, not merely syntactic. Story/Chronicle, Feature/Tutorial, Legacy/Metric/Reward, and Facility/Activity references must resolve and agree in both directions where the relationship is reciprocal. Reserved story-node and Chronicle-entry registries are intentionally empty in Phase 12; Phase 13 extends those immutable arrays before it may save their IDs.
 
 ## Activation and migration contract
 
@@ -139,6 +144,10 @@ The shared claim path:
 
 Phase 12 supplies the path but does not enqueue live story or facility rewards.
 
+Pending offers must reference a declared Story/node, Legacy/tier, Facility, or Facility activity appropriate to their source type. Pending opportunities use the same registry rule. A linked `rewardOfferId` must name a live pending offer whose source type and source ID exactly match the opportunity, and one offer cannot be linked to multiple pending opportunities.
+
+Saved narrative, Chronicle, and Legacy arrays accept only declared IDs. A dialogue event's content ID must belong to its selected actor; a valid ID owned by another actor is rejected.
+
 ## Independent QA boundary
 
 The Phase 12 QA bridge is absent unless the page has the exact localhost `?qa=1` URL, the runtime explicitly grants destructive QA access, isolated storage is explicitly attested, and the selected adapter is distinct from captured native `localStorage`. The whole bridge—not only its mutators—fails closed outside that boundary.
@@ -149,6 +158,7 @@ Its deterministic fixtures exercise fresh activation, an established schema-12 a
 
 - The pure foundation module loads before the app and publishes an immutable contract.
 - All stable IDs are unique and contract-valid.
+- Every saved content/source reference resolves to its immutable definition or roster registry; syntactically valid dangling IDs are rejected.
 - Every shipped Fellow and Family member appears exactly once in the dialogue registry and is eligible for Village quotes, story, and dialogue.
 - A fresh or existing valid schema-12 save activates once with empty Phase 12 progress and a frozen baseline.
 - Reload does not add another activation receipt or change baseline values.
@@ -161,6 +171,7 @@ Its deterministic fixtures exercise fresh activation, an established schema-12 a
 - Legacy Story data is clearly named as legacy source data while Fellow Campaign behavior remains unchanged.
 - Story, Tower, Trading, Patrol, and Operations remain disabled even when runtime feature overrides request them.
 - Existing save/recovery, Oaths, Village Gold, rosters, Campaign, offline settlement, the 24-hour cap, mobile navigation, feature flags, and Phase 11H cutouts continue to work.
+- A missing external Phase 12 module leaves the schema-12 predecessor running without partial activation; a malformed present module fails closed before boot.
 
 ## Do not break
 

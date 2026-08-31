@@ -15,12 +15,14 @@ Phase 12 adds the dormant story, Chronicle, Legacy, tutorial, facility, opportun
 - Five gradual, Rank-based, optional tutorials covering every Phase 12 user-facing feature contract.
 - Persisted trigger, completion, skip, completion-receipt, and replay state; tutorials never gate ordinary play.
 - Canonical positive-integer reward bundles, banked offers, atomic reward application, durable claim receipts, and write-free replay refusal.
+- Registry-backed validation for every saved Story/node, Chronicle entry, Legacy tier/feat, dialogue content, offer source, opportunity source, and opportunity-to-offer link.
+- Relational pure-module validation for Story/Chronicle, Feature/Tutorial, Legacy/Metric/Reward, and Facility/Activity definitions.
 - Dormant legacy Story source rename and fail-closed Story, Tower, Trading, Patrol, and Operations feature flags.
 - A fully attested QA-only bridge that is absent outside exact localhost, explicit destructive authorization, isolated storage, and a non-native adapter.
 
 ## Verification
 
-- Phase 12 focused deterministic probe: **35/35**.
+- Phase 12 focused deterministic probe: **57/57**, including correctly signed dangling-source and mismatched-link adversarial states, declared-reference acceptance, and missing/malformed external-module behavior.
 - Phase 11G focused regression: **28/28**.
 - Independent live mobile/reduced-motion gate: **141/141** across 320×568, 390×844, and 390×844 reduced-motion realms.
 - Independent realms reported zero native-storage accesses and zero warning/error console entries.

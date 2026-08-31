@@ -64,6 +64,15 @@
       {id:'legacy.feat.first-campaign-clear',kind:'feat',metricId:'metric.campaign-clears-after-activation',mode:'one-time'},
       {id:'legacy.feat.first-facility-claim',kind:'feat',metricId:'metric.facility-claims-after-activation',mode:'one-time'}
     ],
+    legacyTiers:[
+      {id:'legacy.oathkeeper.tier-1',legacyId:'legacy.achievement.oaths-kept',rewardId:'reward.gold',rewardVersion:1}
+    ],
+    statistics:[
+      {id:'metric.oaths-completed-after-activation'},
+      {id:'metric.gold-claimed-after-activation'},
+      {id:'metric.campaign-clears-after-activation'},
+      {id:'metric.facility-claims-after-activation'}
+    ],
     tutorials:[
       {id:'tutorial.first-covenant-objective.intro',featureIds:['feature.first-covenant-objective'],skipAllowed:true,replayAllowed:true,rewardVersion:1,steps:[
         {id:'tutorial.first-covenant-objective.intro.open',minRank:1,minStageOrdinal:0}
@@ -95,6 +104,20 @@
       {id:'facility.gardens',activityId:'activity.cultivation',mapAnchor:'lower-right-gardens',targetPhase:21},
       {id:'facility.forge',activityId:'activity.relic-commissions',mapAnchor:'village-forge',targetPhase:21}
     ],
+    activities:[
+      {id:'activity.petitions',facilityId:'facility.command-center'},
+      {id:'activity.research',facilityId:'facility.archives'},
+      {id:'activity.drills',facilityId:'facility.training-grounds'},
+      {id:'activity.gatherings',facilityId:'facility.hearth'},
+      {id:'activity.legacy-claims',facilityId:'facility.waystone'},
+      {id:'activity.restaurant-service',facilityId:'facility.restaurant'},
+      {id:'activity.apothecary-cases',facilityId:'facility.apothecary'},
+      {id:'activity.school-lessons',facilityId:'facility.schoolhouse'},
+      {id:'activity.orders-and-crafting',facilityId:'facility.market-workshop'},
+      {id:'activity.caravans-and-road-events',facilityId:'facility.gatehouse'},
+      {id:'activity.cultivation',facilityId:'facility.gardens'},
+      {id:'activity.relic-commissions',facilityId:'facility.forge'}
+    ],
     opportunityKinds:[
       {id:'opportunity.story.reward',sourceKind:'story'},
       {id:'opportunity.legacy.reward',sourceKind:'legacy'},
@@ -106,15 +129,18 @@
   function definitionSnapshot(){return copy({contractVersion:CONTRACT_VERSION,configId:CONFIG_ID,definitions:DEFINITIONS})}
 
   function validateDefinitions(definitions=DEFINITIONS){
-    const errors=[],allIds=[],featureTutorials=new Map(definitions.tutorials.map(item=>[item.id,item]));
+    const errors=[],allIds=[],featureTutorials=new Map(definitions.tutorials.map(item=>[item.id,item])),featureIds=new Set(definitions.features.map(item=>item.id)),storyIds=new Set(definitions.stories.map(item=>item.id)),chronicleIds=new Set(definitions.chronicle.map(item=>item.id)),legacyIds=new Set(definitions.legacy.map(item=>item.id)),statisticIds=new Set(definitions.statistics.map(item=>item.id)),facilityIds=new Set(definitions.facilities.map(item=>item.id)),activityIds=new Set(definitions.activities.map(item=>item.id)),rewardIds=new Map(definitions.rewardKinds.map(item=>[item.id,item.version]));
     const add=(id,prefix,path)=>{if(!validId(id,prefix))errors.push(path+'.id');else allIds.push(id)};
-    definitions.features.forEach((item,index)=>{add(item.id,null,`features.${index}`);if(!validId(item.tutorialId,'tutorial')||!featureTutorials.has(item.tutorialId))errors.push(`features.${index}.tutorialId`);if(!Number.isSafeInteger(item.introductionRank)||item.introductionRank<1||item.introductionRank>5)errors.push(`features.${index}.introductionRank`)});
-    definitions.stories.forEach((item,index)=>{add(item.id,'story',`stories.${index}`);if(!validId(item.chronicleId,'chronicle'))errors.push(`stories.${index}.chronicleId`);if(!Array.isArray(item.nodeIds)||item.nodeIds.some(id=>!validId(id,'story')))errors.push(`stories.${index}.nodeIds`)});
-    definitions.chronicle.forEach((item,index)=>{add(item.id,'chronicle',`chronicle.${index}`);if(!validId(item.storyId,'story'))errors.push(`chronicle.${index}.storyId`);if(!Array.isArray(item.entryIds)||item.entryIds.some(id=>!validId(id,'chronicle')))errors.push(`chronicle.${index}.entryIds`)});
-    definitions.legacy.forEach((item,index)=>{add(item.id,item.kind==='achievement'?'legacy.achievement':'legacy.feat',`legacy.${index}`);if(!['achievement','feat'].includes(item.kind)||!validId(item.metricId,'metric')||!['continuing','one-time'].includes(item.mode))errors.push(`legacy.${index}.contract`)});
-    definitions.tutorials.forEach((item,index)=>{add(item.id,'tutorial',`tutorials.${index}`);if(!Array.isArray(item.featureIds)||item.featureIds.length!==1||!definitions.features.some(feature=>feature.id===item.featureIds[0]))errors.push(`tutorials.${index}.featureIds`);if(item.skipAllowed!==true||item.replayAllowed!==true||!Number.isSafeInteger(item.rewardVersion)||item.rewardVersion<1)errors.push(`tutorials.${index}.policy`);if(!Array.isArray(item.steps)||!item.steps.length)errors.push(`tutorials.${index}.steps`);for(const [stepIndex,step] of (item.steps||[]).entries()){add(step.id,item.id,`tutorials.${index}.steps.${stepIndex}`);if(!Number.isSafeInteger(step.minRank)||step.minRank<1||!Number.isSafeInteger(step.minStageOrdinal)||step.minStageOrdinal<0)errors.push(`tutorials.${index}.steps.${stepIndex}.trigger`)}});
-    definitions.facilities.forEach((item,index)=>{add(item.id,'facility',`facilities.${index}`);if(!validId(item.activityId,'activity')||typeof item.mapAnchor!=='string'||!item.mapAnchor||!Number.isSafeInteger(item.targetPhase)||item.targetPhase<15)errors.push(`facilities.${index}.contract`)});
-    definitions.opportunityKinds.forEach((item,index)=>add(item.id,'opportunity',`opportunityKinds.${index}`));
+    definitions.features.forEach((item,index)=>{add(item.id,null,`features.${index}`);if(!validId(item.tutorialId,'tutorial')||!featureTutorials.has(item.tutorialId)||!featureTutorials.get(item.tutorialId)?.featureIds?.includes(item.id))errors.push(`features.${index}.tutorialId`);if(!Number.isSafeInteger(item.introductionRank)||item.introductionRank<1||item.introductionRank>5)errors.push(`features.${index}.introductionRank`)});
+    definitions.stories.forEach((item,index)=>{add(item.id,'story',`stories.${index}`);if(!validId(item.chronicleId,'chronicle')||!chronicleIds.has(item.chronicleId)||definitions.chronicle.find(chronicle=>chronicle.id===item.chronicleId)?.storyId!==item.id)errors.push(`stories.${index}.chronicleId`);if(!Array.isArray(item.nodeIds))errors.push(`stories.${index}.nodeIds`);else for(const [nodeIndex,id] of item.nodeIds.entries())add(id,'story',`stories.${index}.nodeIds.${nodeIndex}`)});
+    definitions.chronicle.forEach((item,index)=>{add(item.id,'chronicle',`chronicle.${index}`);if(!validId(item.storyId,'story')||!storyIds.has(item.storyId)||definitions.stories.find(story=>story.id===item.storyId)?.chronicleId!==item.id)errors.push(`chronicle.${index}.storyId`);if(!Array.isArray(item.entryIds))errors.push(`chronicle.${index}.entryIds`);else for(const [entryIndex,id] of item.entryIds.entries())add(id,'chronicle',`chronicle.${index}.entryIds.${entryIndex}`)});
+    definitions.statistics.forEach((item,index)=>add(item.id,'metric',`statistics.${index}`));
+    definitions.legacy.forEach((item,index)=>{add(item.id,item.kind==='achievement'?'legacy.achievement':'legacy.feat',`legacy.${index}`);if(!['achievement','feat'].includes(item.kind)||!validId(item.metricId,'metric')||!statisticIds.has(item.metricId)||!['continuing','one-time'].includes(item.mode))errors.push(`legacy.${index}.contract`)});
+    definitions.legacyTiers.forEach((item,index)=>{add(item.id,'legacy',`legacyTiers.${index}`);if(!legacyIds.has(item.legacyId)||!rewardIds.has(item.rewardId)||rewardIds.get(item.rewardId)!==item.rewardVersion)errors.push(`legacyTiers.${index}.references`)});
+    definitions.tutorials.forEach((item,index)=>{add(item.id,'tutorial',`tutorials.${index}`);if(!Array.isArray(item.featureIds)||item.featureIds.length!==1||!featureIds.has(item.featureIds[0])||definitions.features.find(feature=>feature.id===item.featureIds[0])?.tutorialId!==item.id)errors.push(`tutorials.${index}.featureIds`);if(item.skipAllowed!==true||item.replayAllowed!==true||!Number.isSafeInteger(item.rewardVersion)||item.rewardVersion<1)errors.push(`tutorials.${index}.policy`);if(!Array.isArray(item.steps)||!item.steps.length)errors.push(`tutorials.${index}.steps`);for(const [stepIndex,step] of (item.steps||[]).entries()){add(step.id,item.id,`tutorials.${index}.steps.${stepIndex}`);if(!Number.isSafeInteger(step.minRank)||step.minRank<1||!Number.isSafeInteger(step.minStageOrdinal)||step.minStageOrdinal<0)errors.push(`tutorials.${index}.steps.${stepIndex}.trigger`)}});
+    definitions.facilities.forEach((item,index)=>{add(item.id,'facility',`facilities.${index}`);if(!validId(item.activityId,'activity')||!activityIds.has(item.activityId)||typeof item.mapAnchor!=='string'||!item.mapAnchor||!Number.isSafeInteger(item.targetPhase)||item.targetPhase<15)errors.push(`facilities.${index}.contract`)});
+    definitions.activities.forEach((item,index)=>{add(item.id,'activity',`activities.${index}`);if(!facilityIds.has(item.facilityId)||definitions.facilities.find(facility=>facility.id===item.facilityId)?.activityId!==item.id)errors.push(`activities.${index}.facilityId`)});
+    definitions.opportunityKinds.forEach((item,index)=>{add(item.id,'opportunity',`opportunityKinds.${index}`);if(!['story','legacy','facility'].includes(item.sourceKind))errors.push(`opportunityKinds.${index}.sourceKind`)});
     definitions.rewardKinds.forEach((item,index)=>{add(item.id,'reward',`rewardKinds.${index}`);if(!Object.hasOwn(REWARD_KINDS,item.kind)||REWARD_KINDS[item.kind].target!==item.target||!Number.isSafeInteger(item.version)||item.version<1)errors.push(`rewardKinds.${index}.contract`)});
     const duplicates=allIds.filter((id,index)=>allIds.indexOf(id)!==index);
     if(duplicates.length)errors.push('ids.duplicate:'+Array.from(new Set(duplicates)).join(','));
@@ -136,12 +162,30 @@
     return result;
   }
 
+  function definitionRegistry(definitions=DEFINITIONS){
+    return{
+      stories:new Set(definitions.stories.flatMap(item=>[item.id,...item.nodeIds])),
+      legacy:new Set([...definitions.legacy.map(item=>item.id),...definitions.legacyTiers.map(item=>item.id)]),
+      facilities:new Set(definitions.facilities.map(item=>item.id)),
+      activities:new Map(definitions.activities.map(item=>[item.id,item.facilityId]))
+    };
+  }
+  function rewardSourceValid(sourceType,sourceId,facilityId=undefined,definitions=DEFINITIONS){
+    const kind=definitions.opportunityKinds.find(item=>item.id===sourceType),registry=definitionRegistry(definitions);
+    if(!kind||!validId(sourceId))return false;
+    if(kind.sourceKind==='story')return facilityId==null&&registry.stories.has(sourceId);
+    if(kind.sourceKind==='legacy')return facilityId==null&&registry.legacy.has(sourceId);
+    if(kind.sourceKind==='facility'&&facilityId===undefined)return registry.facilities.has(sourceId)||registry.activities.has(sourceId);
+    if(kind.sourceKind!=='facility'||typeof facilityId!=='string'||!registry.facilities.has(facilityId))return false;
+    return sourceId===facilityId||registry.activities.get(sourceId)===facilityId;
+  }
+
   function offerIdentity(saveId,offer){
     if(typeof saveId!=='string'||!saveId)return null;
     return identity(['phase-12-reward-offer-v1',saveId,offer.id,offer.sourceType,offer.sourceId,offer.offeredAt,offer.rewards]);
   }
   function createOffer(input,context){
-    if(!exactKeys(input,['id','sourceType','sourceId','offeredAt','rewards'])||!validId(input.id,'reward.offer')||!DEFINITIONS.opportunityKinds.some(item=>item.id===input.sourceType)||!validId(input.sourceId)||!Number.isSafeInteger(input.offeredAt)||input.offeredAt<0)throw new TypeError('Reward offer contract is invalid');
+    if(!exactKeys(input,['id','sourceType','sourceId','offeredAt','rewards'])||!validId(input.id,'reward.offer')||!rewardSourceValid(input.sourceType,input.sourceId)||!Number.isSafeInteger(input.offeredAt)||input.offeredAt<0)throw new TypeError('Reward offer contract is invalid');
     const offer={id:input.id,sourceType:input.sourceType,sourceId:input.sourceId,offeredAt:input.offeredAt,rewards:canonicalRewards(input.rewards,context.targets),identity:''};
     offer.identity=offerIdentity(context.saveId,offer);return offer;
   }
@@ -167,8 +211,7 @@
     return identity(['phase-12-opportunity-v1',saveId,opportunity.id,opportunity.kindId,opportunity.facilityId,opportunity.sourceId,opportunity.createdAt,opportunity.sequence,opportunity.rewardOfferId]);
   }
   function createOpportunity(input,{saveId}){
-    if(!exactKeys(input,['id','kindId','facilityId','sourceId','createdAt','sequence','rewardOfferId'])||!validId(input.id,'opportunity.instance')||!DEFINITIONS.opportunityKinds.some(item=>item.id===input.kindId)||!(input.facilityId===null||DEFINITIONS.facilities.some(item=>item.id===input.facilityId))||!validId(input.sourceId)||!Number.isSafeInteger(input.createdAt)||input.createdAt<0||!Number.isSafeInteger(input.sequence)||input.sequence<1||!(input.rewardOfferId===null||validId(input.rewardOfferId,'reward.offer')))throw new TypeError('Opportunity contract is invalid');
-    if(input.kindId==='opportunity.facility.activity'&&input.facilityId===null)throw new TypeError('Facility opportunities require a Facility ID');
+    if(!exactKeys(input,['id','kindId','facilityId','sourceId','createdAt','sequence','rewardOfferId'])||!validId(input.id,'opportunity.instance')||!rewardSourceValid(input.kindId,input.sourceId,input.facilityId)||!Number.isSafeInteger(input.createdAt)||input.createdAt<0||!Number.isSafeInteger(input.sequence)||input.sequence<1||!(input.rewardOfferId===null||validId(input.rewardOfferId,'reward.offer')))throw new TypeError('Opportunity contract is invalid');
     const opportunity={...copy(input),identity:''};opportunity.identity=opportunityIdentity(saveId,opportunity);return opportunity;
   }
   function validateOpportunity(opportunity,{saveId}){
@@ -193,6 +236,8 @@
     definitions:DEFINITIONS,
     definitionSnapshot,
     validateDefinitions,
+    definitionRegistry,
+    rewardSourceValid,
     validId,
     identity,
     canonicalRewards,

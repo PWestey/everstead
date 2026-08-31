@@ -7,6 +7,9 @@ This deterministic probe covers the dormant Phase 12 foundation:
 - gradual, replay-safe, non-gating tutorial progress;
 - durable one-time tutorial completion receipts and write-free duplicate refusal;
 - canonical reward bundles and the shared exactly-once claim transaction;
+- registry-backed dangling-reference rejection, including correctly signed offer/opportunity sources and linked-offer mismatches;
+- relational pure-module definition validation;
+- graceful missing-module behavior and fail-closed malformed-module behavior;
 - legacy-mode denial and the pre-existing 24-hour offline cap.
 
 Run from the repository root:
