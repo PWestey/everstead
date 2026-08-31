@@ -1,0 +1,48 @@
+{
+  "authority": {
+    "productionParentCommit": "f36a84eca29820dfc1a29efbe93309bef6e9f762",
+    "phase11aCandidateCommit": "7c9e370f37830eaf9f756972dbbc1744d68e0270",
+    "candidateCommit": "ccf7fed6ccb84b15388900fbb79f01b4b13b0162"
+  },
+  "artifact": {
+    "sha256": "00b22dc1d4689e330cc0d5551ac182f7b3dd6c436ebf75d5bf22d34b646e3aee",
+    "byteLength": 18997464,
+    "assetCount": 5,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "bundle": {
+    "format": "everstead-recovery-bundle",
+    "formatVersion": 1,
+    "maxBytes": 33554432,
+    "topLevelKeys": ["product", "format", "formatVersion", "exportedAt", "appVersion", "slots", "integrity"],
+    "slotKeys": ["active", "rawBackup", "preV2", "preV3", "preV4", "preV5", "preV6", "preV7", "preV8", "preV9", "preV10", "preV11"]
+  },
+  "fixture": {
+    "path": "../fixtures/representative-v0.1.txt",
+    "lastGoldAt": 1907953200000,
+    "gold": 246810,
+    "privateSentinel": "PHASE_11B1_PRIVATE_MEMO_MUST_NOT_RENDER",
+    "maliciousSaveId": "<img data-health-xss src=x>phase-11b1-save",
+    "corruptRaw": "{\"schemaVersion\":11,\"phase11b1\":\"deliberately-corrupt\"}"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "offlineElapsed": 299999, "offlineModal": false},
+    {"id": "phone-390x667", "width": 390, "height": 667, "offlineElapsed": 300000, "offlineModal": true},
+    {"id": "phone-390x844", "width": 390, "height": 844, "offlineElapsed": 7200000, "offlineModal": true}
+  ],
+  "storageKeys": {
+    "active": "oathforge_new_world_proto_v01",
+    "backup": "oathforge_new_world_proto_v01__raw_backup_v0_1",
+    "preV2": "oathforge_new_world_proto_v01__raw_backup_v1",
+    "preV3": "oathforge_new_world_proto_v01__raw_backup_v2",
+    "preV4": "oathforge_new_world_proto_v01__raw_backup_v3",
+    "preV5": "oathforge_new_world_proto_v01__raw_backup_v4",
+    "preV6": "oathforge_new_world_proto_v01__raw_backup_v5",
+    "preV7": "oathforge_new_world_proto_v01__raw_backup_v6",
+    "preV8": "oathforge_new_world_proto_v01__raw_backup_v7",
+    "preV9": "oathforge_new_world_proto_v01__raw_backup_v8",
+    "preV10": "oathforge_new_world_proto_v01__raw_backup_v9",
+    "preV11": "oathforge_new_world_proto_v01__raw_backup_v10",
+    "staging": "oathforge_new_world_proto_v01__staging"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "manifestVersion": 1,
+  "phase": "11B-1",
+  "status": "PASS_LOCAL",
+  "productionParentCommit": "f36a84eca29820dfc1a29efbe93309bef6e9f762",
+  "phase11aCandidateCommit": "7c9e370f37830eaf9f756972dbbc1744d68e0270",
+  "candidateCommit": "ccf7fed6ccb84b15388900fbb79f01b4b13b0162",
+  "productionChanged": true,
+  "browserFiles": true,
+  "artifact": {
+    "sha256": "00b22dc1d4689e330cc0d5551ac182f7b3dd6c436ebf75d5bf22d34b646e3aee",
+    "byteLength": 18997464
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "phase11aSemanticRows": 168,
+  "focusedProbeRows": 189,
+  "sealedCliRows": 203,
+  "liveRows": 115,
+  "viewports": [
+    "320x568",
+    "390x667",
+    "390x844"
+  ],
+  "packageFiles": {
+    "qa/phase-11b1/README.md": {
+      "sha256": "127c124be7fc53f37eaf77eb116aee5756338f3e16528becab516515ca2fb8b2",
+      "byteLength": 1373
+    },
+    "qa/phase-11b1/build-contract.mjs": {
+      "sha256": "dc7f4fddbb3714d067f33f1511fe4c4afba983f706ca552499a1e333b61b1bff",
+      "byteLength": 4496
+    },
+    "qa/phase-11b1/index.html": {
+      "sha256": "3ff3f20990066c6995ed0fce4e38e67011b1fbcff228def99e99de169a54cccb",
+      "byteLength": 1287
+    },
+    "qa/phase-11b1/probe.mjs": {
+      "sha256": "75017922964916d06bc9a26f1c22afe65a5ea2b44191de4099ea96d9f07b3d20",
+      "byteLength": 10184
+    },
+    "qa/phase-11b1/realm.html": {
+      "sha256": "3795135ecb877f5cc099d873aaf42bf43ae611d705c3a9f77020ca54f5b89fab",
+      "byteLength": 178
+    },
+    "qa/phase-11b1/realm.js": {
+      "sha256": "e3e52a798c3920a38a333a73b4364d966a462a7c493a56a2d5e5827e0ea0b688",
+      "byteLength": 14656
+    },
+    "qa/phase-11b1/runner.js": {
+      "sha256": "dd87e6d90f53665b74d321d91219ebf196b0723be27d44ac13ab7636fb2d6176",
+      "byteLength": 4504
+    },
+    "qa/phase-11b1/scenarios.json": {
+      "sha256": "dda2d263402ba12ce6d72fb86eec1e774d67277aa83393ca1e8fcf2d86f16771",
+      "byteLength": 2327
+    },
+    "qa/phase-11b1/verify.mjs": {
+      "sha256": "454f2f96677c8f062caa94847d675562cbaac7644dda23b9cbd8724659268a0f",
+      "byteLength": 5451
+    }
+  },
+  "expectedGate": {
+    "focusedCli": "189/189",
+    "sealedCli": "203/203 twice",
+    "liveBrowser": "115/115 twice at three phone sizes with zero console warnings/errors and zero native-storage accesses"
+  },
+  "observedGate": {
+    "focusedCli": {
+      "total": 189,
+      "passed": 189,
+      "failed": 0
+    },
+    "sealedCli": {
+      "total": 203,
+      "passed": 203,
+      "failed": 0,
+      "runs": 2
+    },
+    "liveBrowser": {
+      "total": 115,
+      "passed": 115,
+      "failed": 0,
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageAccesses": 0,
+      "observedAt": "2026-08-31T00:31:05Z"
+    }
+  }
+}
