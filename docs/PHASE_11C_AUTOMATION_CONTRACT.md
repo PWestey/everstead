@@ -68,7 +68,7 @@ The Locked Core Design v1.2 requires idle-friendly progression. The implementati
 - Use native disabled controls plus visible reasons. Locked or unavailable states cannot rely on color alone.
 - Foreground automation controls are at least 44 by 44 CSS pixels and stack at 360 px and below.
 - Aggregate summaries become one column on narrow phones and cannot overflow horizontally.
-- Normal motion may use one short progress treatment. Reduced motion has no walk, bob, transition, or per-unit delay.
+- Normal motion may use one short progress treatment. Reduced motion has no walk, bob, or transition. A short, fixed safety pause between committed runs remains in both modes so Stop is human-operable; it does not change rewards.
 
 ## Transaction and recovery invariants
 
@@ -83,6 +83,6 @@ The Locked Core Design v1.2 requires idle-friendly progression. The implementati
 - Pure/focused checks prove access, ready-state, stop-reason, aggregation, and bounded-job behavior.
 - Fault checks prove manual-equivalent receipts and state for every completed unit, no extra unit after stop/failure/reload, and no duplicate claim.
 - Live checks run at 320×568, 390×667, and 390×844 in normal and reduced motion.
-- Live coverage includes locked and unlocked controls; 1-, 3-, and 5-run repeat; the exact 30,000 Gold reserve boundary; insufficient Gold/Power; history cap; user stop; stale/conflict and persistence failure; zero, one, and 24 ready intervals; a failure after an earlier successful claim; focus trap/return; Escape; badge counts; no overflow; and zero unexpected console errors.
+- Combined focused and live coverage includes locked and unlocked controls; 1-, 3-, and 5-run repeat; the exact 30,000 Gold reserve boundary; insufficient Gold/Power; history cap; user stop; stale/conflict and persistence failure; zero, one, and 24 ready intervals; terminal readiness failures; a failure after an earlier successful claim; focus trap/return; Escape and backdrop stop; badge counts; touch targets; no overflow; and zero unexpected console errors.
 - Regression proves there is no sixth automated run, no first-clear automation, no automatic stage advance, no Tower auto-clear, no automatic Expedition push, and no boot/background/interval claim timer.
 - Phase 11B Save & Recovery, the exact schema-11 storage topology, all three independent claim ledgers, manual single-run actions, and production QA isolation remain regression-clean.
