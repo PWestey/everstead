@@ -1,0 +1,36 @@
+{
+  "manifestVersion": 1,
+  "phase": "11H",
+  "status": "PASS_LOCAL",
+  "baseCommit": "17245dedecd675297afc77ebfad0b5aa6e686689",
+  "schemaVersion": 12,
+  "releaseVersion": "1.0.0-rc.3",
+  "compatibilityVersion": "0.1.0",
+  "artifact": {
+    "sha256": "fb4d3f024307db2f01a9931a7f6ac3cde8245b3be6ab130d05c2c53d8a099df8",
+    "byteLength": 1020510,
+    "embeddedRasterCount": 0
+  },
+  "cutouts": {
+    "count": 9,
+    "totalBytes": 17176923,
+    "allRgba": true,
+    "allTransparent": true
+  },
+  "focusedProbe": {
+    "phase": "11G",
+    "passed": 28,
+    "failed": 0
+  },
+  "successorGate": {
+    "passed": 74,
+    "failed": 0
+  },
+  "liveBrowser": {
+    "viewports": ["320x568", "390x844"],
+    "horizontalOverflowPx": 0,
+    "consoleWarnError": 0,
+    "rotationSamples": 12,
+    "profileSourcePreserved": true
+  }
+}
