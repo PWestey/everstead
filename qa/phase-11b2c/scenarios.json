@@ -1,4 +1,17 @@
 {
+  "authority": {
+    "phase11aBaselineCommit": "f36a84eca29820dfc1a29efbe93309bef6e9f762",
+    "phase11b1SealCommit": "f791ad31aea65ecfa0050a04a327818f45676af2",
+    "contractCommit": "0fa2c256b38f17565b608f21e8478ca6580f0758",
+    "contractAmendmentCommit": "e24bbf5aa9ba6e4bf4a2b854e7988b3651fc5c80",
+    "productionCommit": "7aa4c197e98adc6a3a6b056d4f4568e4a2f33f89"
+  },
+  "artifact": {
+    "sha256": "ba4205453a1728e9c00fe1a83c279ab9731ee1f9e9209872e29758e34f5ec099",
+    "byteLength": 19082731,
+    "assetCount": 5,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
   "frozenNow": "2030-06-17T12:00:00.000Z",
   "fixture": {
     "path": "../fixtures/representative-v0.1.txt",
