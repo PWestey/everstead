@@ -1,0 +1,90 @@
+{
+  "manifestVersion": 1,
+  "phase": "11C",
+  "status": "PASS_LOCAL",
+  "baseCommit": "6934bb7c346d9b2bba840531d779c6c417df0896",
+  "contractCommit": "077d2bb9ac65d6531981d9c040f8ff208f3253e4",
+  "productionCommit": "f9afe2344b13dd2bcd58699098a2b11b37c1a7fc",
+  "packageCommit": "785190e57be4d6f8487caf7415adad0306337ba7",
+  "schemaVersion": 11,
+  "artifact": {
+    "sha256": "bbd0b00c61466c7797599a1b28814583c1d8643bb3099d2193f55d48969f3a4c",
+    "byteLength": 19116351
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "focusedRows": {
+    "phase11c": 83,
+    "phase11b": 286,
+    "phase11bBreakdown": [42, 8, 103, 133]
+  },
+  "liveRows": {
+    "total": 217,
+    "passed": 217,
+    "failed": 0,
+    "runs": 2,
+    "realms": 6,
+    "nativeStorageAccesses": 0,
+    "consoleWarnError": 0
+  },
+  "reviews": [
+    {
+      "role": "architecture-and-safety",
+      "status": "PASS",
+      "productionCommit": "f9afe2344b13dd2bcd58699098a2b11b37c1a7fc",
+      "artifactSha256": "bbd0b00c61466c7797599a1b28814583c1d8643bb3099d2193f55d48969f3a4c"
+    },
+    {
+      "role": "ux-accessibility-and-mobile",
+      "status": "PASS",
+      "productionCommit": "f9afe2344b13dd2bcd58699098a2b11b37c1a7fc",
+      "artifactSha256": "bbd0b00c61466c7797599a1b28814583c1d8643bb3099d2193f55d48969f3a4c"
+    },
+    {
+      "role": "qa-adequacy",
+      "status": "PASS",
+      "productionCommit": "f9afe2344b13dd2bcd58699098a2b11b37c1a7fc",
+      "artifactSha256": "bbd0b00c61466c7797599a1b28814583c1d8643bb3099d2193f55d48969f3a4c"
+    }
+  ],
+  "packageFiles": {
+    "qa/phase-11c/README.md": {
+      "sha256": "857259c690e26c40d5a70211fd94c49157e343f3a03f46ec2975cbb9f8375520",
+      "byteLength": 1458
+    },
+    "qa/phase-11c/build-contract.mjs": {
+      "sha256": "3afd33c3f07e937ee9cab4bff926730c4c3b0010a39edf94cc52d399b4ca2724",
+      "byteLength": 1111
+    },
+    "qa/phase-11c/index.html": {
+      "sha256": "fe371687114d5fc346fae07d91ec6c5873f93db8de05eb0b1e52ee1981682e8a",
+      "byteLength": 1203
+    },
+    "qa/phase-11c/probe.mjs": {
+      "sha256": "61f6f0accd8773385c1f37d3b8ec764173cb6e9d642b25aab030a32ac16fc9cd",
+      "byteLength": 30244
+    },
+    "qa/phase-11c/realm.html": {
+      "sha256": "70faf071da7047e4e3fec7bf9d1fe5d3cbcc9439ef700a042281db33c03c8fd7",
+      "byteLength": 191
+    },
+    "qa/phase-11c/realm.js": {
+      "sha256": "458090aaea5ca13cb9a703ceceb5e2acae5d9b7a9d5a443585595d582e828a8b",
+      "byteLength": 14572
+    },
+    "qa/phase-11c/runner.js": {
+      "sha256": "3d775d7445f50953f24ef3d1fd5c35f7343bf7b89fd69a3b6e3dcab72ec5be78",
+      "byteLength": 4138
+    },
+    "qa/phase-11c/scenarios.json": {
+      "sha256": "c3838c6e428aa1259c4aac555ffe18da08da4f980a507af015074dacddca356a",
+      "byteLength": 961
+    },
+    "qa/phase-11c/verify.mjs": {
+      "sha256": "80c7ea40b28a6b14f75490094ee0b57859c50d2602ece6511096ffdc0e0d748c",
+      "byteLength": 6760
+    }
+  }
+}
