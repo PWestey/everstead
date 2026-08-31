@@ -1,0 +1,224 @@
+{
+  "manifestVersion": 1,
+  "phase": "11B-2",
+  "status": "PASS_LOCAL",
+  "phase11aBaselineCommit": "f36a84eca29820dfc1a29efbe93309bef6e9f762",
+  "phase11b1SealCommit": "f791ad31aea65ecfa0050a04a327818f45676af2",
+  "contractCommit": "0fa2c256b38f17565b608f21e8478ca6580f0758",
+  "contractAmendmentCommit": "e24bbf5aa9ba6e4bf4a2b854e7988b3651fc5c80",
+  "productionCommit": "7aa4c197e98adc6a3a6b056d4f4568e4a2f33f89",
+  "packageCommit": "d305457085aea8bc6096cf2a71c9eaee2692396d",
+  "stepCommits": {
+    "inspection": "6376a26",
+    "idlePrerequisite": "e24bbf5",
+    "transactionEngine": "3667d1d",
+    "finalProduction": "7aa4c197e98adc6a3a6b056d4f4568e4a2f33f89"
+  },
+  "schemaVersion": 11,
+  "runtimeSlots": {
+    "installation": 12,
+    "ordinaryStaging": 1,
+    "journal": 1,
+    "rollback": 1,
+    "total": 15
+  },
+  "artifact": {
+    "sha256": "ba4205453a1728e9c00fe1a83c279ab9731ee1f9e9209872e29758e34f5ec099",
+    "byteLength": 19082731
+  },
+  "embeddedAssets": {
+    "count": 5,
+    "aggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "fixture": {
+    "sha256": "8e80d6d89e9489ee33cc5ab77227dc7c625935e8ba1b9ba0063a07ce5f7da5f7",
+    "byteLength": 7526
+  },
+  "executableFiles": {
+    "index.html": {
+      "sha256": "ba4205453a1728e9c00fe1a83c279ab9731ee1f9e9209872e29758e34f5ec099",
+      "byteLength": 19082731
+    },
+    "qa/phase-11b2a/README.md": {
+      "sha256": "1a6c9db53ded1eabbaf065d3767ac5d7af1cd3905f9901228dea65278b83e2ba",
+      "byteLength": 962
+    },
+    "qa/phase-11b2a/idle-probe.mjs": {
+      "sha256": "45dd83306d5e201cf0d7feffa13e7ba3dae8c80aacb208e77016c3b9aed3915c",
+      "byteLength": 3696
+    },
+    "qa/phase-11b2a/probe.mjs": {
+      "sha256": "082b7c67aeaafa011fe8a062c91c43b67e7df9f64e08f8761d02244b5b52636a",
+      "byteLength": 8404
+    },
+    "qa/phase-11b2b/README.md": {
+      "sha256": "2df7ef5e35877522f9836c19951464b324a083c0da30aee886fe7f24d168d6d0",
+      "byteLength": 870
+    },
+    "qa/phase-11b2b/engine-probe.mjs": {
+      "sha256": "88bc297698d768aa07e543282b6ccbc64392c7d6df475e29f1f42572d070786b",
+      "byteLength": 36861
+    },
+    "qa/phase-11b2c/README.md": {
+      "sha256": "686d5966391ba3636938cfcf3dddc9577f01ddbda7aa55571f35dcf9efbbf301",
+      "byteLength": 1310
+    },
+    "qa/phase-11b2c/build-contract.mjs": {
+      "sha256": "6501d8ac7c11dba768d22cf292750d87f4998f49c22d0c24dc51571aa3568c03",
+      "byteLength": 6908
+    },
+    "qa/phase-11b2c/final-probe.mjs": {
+      "sha256": "ea695da920b3261a4eefc73817b5d8a0b9eed7c12bdfc2efbf5f8499c046b3fc",
+      "byteLength": 13052
+    },
+    "qa/phase-11b2c/index.html": {
+      "sha256": "aa4d808e924b849d0da2eab4da0febeb84d3d587946b93804cbd2c6049399708",
+      "byteLength": 1209
+    },
+    "qa/phase-11b2c/realm.html": {
+      "sha256": "1540168dae052f016bea330d90c9701d215e5c892a41dfa06cb67f0323d7dc60",
+      "byteLength": 186
+    },
+    "qa/phase-11b2c/realm.js": {
+      "sha256": "ead393890d5ccfd9d7cf6962fed2827b3a3e98ca8291be9279e1c480562a6275",
+      "byteLength": 26082
+    },
+    "qa/phase-11b2c/runner.js": {
+      "sha256": "eaccc696426dfe7f398adf8184fcd68e1a35045216db9347af7e465b941e293b",
+      "byteLength": 4701
+    },
+    "qa/phase-11b2c/scenarios.json": {
+      "sha256": "19f4792be08ae223d6670ad68588005e81761f9081bd37c5f57f1edfc69d98df",
+      "byteLength": 2160
+    },
+    "qa/phase-11b2c/verify.mjs": {
+      "sha256": "fa3dd71a25fc1db60cc9eaba1f3a0f24b9fe6956e6afd3b727e3360e081d030d",
+      "byteLength": 16563
+    }
+  },
+  "packageFiles": {
+    "qa/phase-11b2c/README.md": {
+      "sha256": "686d5966391ba3636938cfcf3dddc9577f01ddbda7aa55571f35dcf9efbbf301",
+      "byteLength": 1310
+    },
+    "qa/phase-11b2c/build-contract.mjs": {
+      "sha256": "6501d8ac7c11dba768d22cf292750d87f4998f49c22d0c24dc51571aa3568c03",
+      "byteLength": 6908
+    },
+    "qa/phase-11b2c/final-probe.mjs": {
+      "sha256": "ea695da920b3261a4eefc73817b5d8a0b9eed7c12bdfc2efbf5f8499c046b3fc",
+      "byteLength": 13052
+    },
+    "qa/phase-11b2c/index.html": {
+      "sha256": "aa4d808e924b849d0da2eab4da0febeb84d3d587946b93804cbd2c6049399708",
+      "byteLength": 1209
+    },
+    "qa/phase-11b2c/realm.html": {
+      "sha256": "1540168dae052f016bea330d90c9701d215e5c892a41dfa06cb67f0323d7dc60",
+      "byteLength": 186
+    },
+    "qa/phase-11b2c/realm.js": {
+      "sha256": "ead393890d5ccfd9d7cf6962fed2827b3a3e98ca8291be9279e1c480562a6275",
+      "byteLength": 26082
+    },
+    "qa/phase-11b2c/runner.js": {
+      "sha256": "eaccc696426dfe7f398adf8184fcd68e1a35045216db9347af7e465b941e293b",
+      "byteLength": 4701
+    },
+    "qa/phase-11b2c/scenarios.json": {
+      "sha256": "19f4792be08ae223d6670ad68588005e81761f9081bd37c5f57f1edfc69d98df",
+      "byteLength": 2160
+    },
+    "qa/phase-11b2c/verify.mjs": {
+      "sha256": "fa3dd71a25fc1db60cc9eaba1f3a0f24b9fe6956e6afd3b727e3360e081d030d",
+      "byteLength": 16563
+    }
+  },
+  "focusedRows": {
+    "inspection": 42,
+    "idlePrerequisite": 8,
+    "transactionEngine": 103,
+    "finalRecovery": 133,
+    "total": 286
+  },
+  "sealedCliRows": 29,
+  "liveRows": 198,
+  "viewports": [
+    "320x568",
+    "390x667",
+    "390x844"
+  ],
+  "predecessorSupersessions": {
+    "phase11aSemantic": [
+      "engine-idle-cursors-independent-from-gold",
+      "engine-probe-100-of-100"
+    ],
+    "phase11aVerifier": [
+      "candidate-last-production-commit",
+      "exact-candidate-artifact",
+      "historical-qa-byte-frozen",
+      "additive-owned-paths-only",
+      "focused-engine-idle-cursors-independent-from-gold",
+      "focused-engine-probe-100-of-100",
+      "focused-probe-168-of-168",
+      "phase11a-checksums"
+    ],
+    "phase11aChecksums": [
+      "index.html"
+    ],
+    "phase11b1Checksums": [
+      "docs/PHASE_11B_SAVE_RECOVERY_CONTRACT.md",
+      "index.html"
+    ]
+  },
+  "reviews": [
+    {
+      "role": "transaction-architecture",
+      "status": "PASS",
+      "artifactSha256": "ba4205453a1728e9c00fe1a83c279ab9731ee1f9e9209872e29758e34f5ec099",
+      "probeSha256": "ea695da920b3261a4eefc73817b5d8a0b9eed7c12bdfc2efbf5f8499c046b3fc"
+    },
+    {
+      "role": "ux-accessibility",
+      "status": "PASS",
+      "artifactSha256": "ba4205453a1728e9c00fe1a83c279ab9731ee1f9e9209872e29758e34f5ec099",
+      "liveRows": 198
+    }
+  ],
+  "expectedGate": {
+    "focusedCli": "286/286",
+    "sealedCli": "29/29 twice",
+    "liveBrowser": "198/198 twice at three phone sizes with zero warning/error console entries and zero native-storage access"
+  },
+  "observedGate": {
+    "focusedCli": {
+      "total": 286,
+      "passed": 286,
+      "failed": 0
+    },
+    "sealedCli": {
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "runs": 2
+    },
+    "liveBrowser": {
+      "total": 198,
+      "passed": 198,
+      "failed": 0,
+      "runs": 2,
+      "viewports": [
+        "320x568",
+        "390x667",
+        "390x844"
+      ],
+      "consoleWarningsOrErrors": 0,
+      "nativeStorageAccesses": 0,
+      "observedAt": "2026-08-31T02:20:00Z"
+    }
+  },
+  "residualRisks": [
+    "Web Storage has no atomic compare-and-swap; the narrow final-read-to-write race is detected and narrowed but cannot be eliminated.",
+    "Real-device storage quotas and Safari-specific behavior remain outside the isolated Chromium gate."
+  ]
+}
