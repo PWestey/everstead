@@ -1,0 +1,96 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-12-independent-qa-v1",
+  "frozenNow": 1788202800000,
+  "laterNow": 1788292800000,
+  "offline": {
+    "requestedMs": 93600000,
+    "capMs": 86400000
+  },
+  "schema": {
+    "predecessor": 12,
+    "candidate": 12,
+    "activationId": "phase-12-foundation-activation"
+  },
+  "fixtures": {
+    "fresh": "p12.fixture.fresh.v1",
+    "schema12Established": "p12.fixture.schema12-established.v1",
+    "claimReady": "p12.fixture.claim-ready.v1",
+    "tutorialReady": "p12.fixture.tutorial-ready.v1"
+  },
+  "examples": {
+    "claimId": "legacy.oathkeeper.tier-1",
+    "tutorialId": "tutorial.first-covenant-objective.intro"
+  },
+  "requiredLegacyModes": [
+    "story",
+    "tower",
+    "trading",
+    "patrol",
+    "operations"
+  ],
+  "requiredFeatureIds": [
+    "feature.first-covenant-objective",
+    "feature.dialogue-scenes",
+    "feature.chronicle",
+    "feature.legacy",
+    "feature.manual-claims"
+  ],
+  "fellowIds": [
+    "cael",
+    "lyra",
+    "orin",
+    "selene",
+    "rook",
+    "mira",
+    "zamorak",
+    "darrow",
+    "deadpool",
+    "star-lord",
+    "iron-man",
+    "daredevil",
+    "thor",
+    "captain-america",
+    "spider-man",
+    "wolverine",
+    "obi-wan",
+    "anakin"
+  ],
+  "familyIds": [
+    "elara",
+    "tamsin",
+    "isolde",
+    "violet",
+    "virginia",
+    "captain-marvel",
+    "scarlet-witch",
+    "ahsoka",
+    "rey",
+    "syl",
+    "shallan",
+    "yennefer",
+    "jaina",
+    "tyrande",
+    "shadowheart",
+    "amara",
+    "aerith",
+    "tifa",
+    "hermione",
+    "misty"
+  ],
+  "buildingIds": [
+    "training",
+    "command",
+    "archives",
+    "hearth"
+  ],
+  "companionIds": [
+    "bramble",
+    "cinderwing"
+  ],
+  "viewports": [
+    {"id": "phone-320", "width": 320, "height": 568, "reducedMotion": false},
+    {"id": "phone-390", "width": 390, "height": 844, "reducedMotion": false},
+    {"id": "phone-390-reduced", "width": 390, "height": 844, "reducedMotion": true}
+  ]
+}
