@@ -4,8 +4,11 @@ This focused gate exercises the pure recovery-file boundary before any transacti
 
 It covers the private synchronous SHA-256 implementation, strict JSON duplicate/depth/whitespace rules, exact recovery-bundle topology, checksum validation, schema and lineage refusal, opaque historical checkpoint handling, safe summaries, declared size limits, and fatal UTF-8 decoding.
 
+The companion idle prerequisite probe proves schema 11 advances Companion Tower and Fellow Expedition clocks exactly once under their existing 24-hour caps, without changing their reward formulas.
+
 Run with the bundled Node.js runtime:
 
 ```sh
 /Users/westmanfamily/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node qa/phase-11b2a/probe.mjs
+/Users/westmanfamily/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node qa/phase-11b2a/idle-probe.mjs
 ```

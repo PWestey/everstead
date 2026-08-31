@@ -48,6 +48,7 @@ refusal('bundle-duplicate-key',()=>p.inspect(bundleFor().replace('{','{"product"
 refusal('bundle-product',()=>p.inspect(bundleFor(slots,{product:'Other'})),'bundle-version');
 refusal('bundle-future-format',()=>p.inspect(bundleFor(slots,{formatVersion:2})),'bundle-version');
 refusal('bundle-negative-time',()=>p.inspect(bundleFor(slots,{exportedAt:-1})),'bundle-time');
+refusal('bundle-fractional-time',()=>p.inspect(bundleFor(slots,{exportedAt:1.5})),'bundle-time');
 refusal('bundle-long-version',()=>p.inspect(bundleFor(slots,{appVersion:'x'.repeat(129)})),'bundle-app-version');
 const reorderedSlots={rawBackup:null,active:activeRaw,...Object.fromEntries(SLOT_KEYS.slice(2).map(name=>[name,slots[name]]))};
 refusal('bundle-slot-order',()=>p.inspect(bundleFor(reorderedSlots)),'bundle-slots');
