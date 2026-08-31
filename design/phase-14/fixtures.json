@@ -1,0 +1,351 @@
+{
+  "contractId": "phase-14-facility-fixtures-v1",
+  "releasedSourceCommit": "4ee1ee4dcaa1b6eb190ed65d8cf81623c49bc28c",
+  "purpose": "Implementation and QA inputs only; none of these values are approved production economy values.",
+  "syntheticPolicy": {
+    "facilityId": "facility.restaurant",
+    "activityId": "activity.restaurant-service",
+    "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+    "definitionVersion": 1,
+    "rewardPolicyId": "reward-policy.fixture.facility.restaurant.customer",
+    "rewardPolicyVersion": 1,
+    "intervalMs": 3600000,
+    "bankCapacity": 4,
+    "unattendedTargetMs": 14400000,
+    "globalRewards": [
+      { "kind": "gold", "targetId": null, "amount": 100 },
+      { "kind": "prosperity", "targetId": null, "amount": 2 }
+    ],
+    "localDeltas": [
+      { "kind": "facilityProgress", "trackId": "facility-progress.restaurant.reputation", "amount": 1 }
+    ]
+  },
+  "fixtures": [
+    {
+      "id": "p14.fixture.phase12-fresh-inactive.v1",
+      "covers": ["fresh-migration", "no-retroactive-history"],
+      "preconditions": {
+        "profile": "valid fresh schema-12 profile",
+        "phase12Active": true,
+        "facilityUnlocked": false,
+        "capturedAt": 1000000
+      },
+      "action": { "kind": "activate-phase14-contract" },
+      "assertions": [
+        "production feature remains disabled while economy inputs are null",
+        "no facility is unlocked by the contract alone",
+        "no opportunity, offer, reward, local progression, or receipt is created",
+        "existing Phase 12 state and passive Gold are byte-equivalent"
+      ]
+    },
+    {
+      "id": "p14.fixture.established-qualified-unlock-now.v1",
+      "covers": ["established-migration", "unlock-cursor"],
+      "preconditions": {
+        "profile": "valid schema-12 profile already beyond an approved facility unlock condition",
+        "facilityUnlocked": false,
+        "historicalQualificationAt": 1000000,
+        "capturedAt": 100000000
+      },
+      "action": { "kind": "unlock-facility", "facilityId": "facility.restaurant" },
+      "assertions": [
+        "unlockedAt equals 100000000",
+        "cursorAt equals 100000000",
+        "historicalQualificationAt is not used for accrual",
+        "bank, engagement, outcomes, offers, rewards, local progression, and receipts remain empty"
+      ]
+    },
+    {
+      "id": "p14.fixture.restaurant-unlocked-empty.v1",
+      "covers": ["initial-state", "identity"],
+      "preconditions": {
+        "facilityId": "facility.restaurant",
+        "unlockedAt": 1000000,
+        "capturedAt": 1000000,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "create-initial-facility-state" },
+      "assertions": [
+        "contract, config, facility, definition, and saved settlement-context identities are exact",
+        "cursorAt and unlockedAt equal 1000000",
+        "carryMs and nextOrdinal equal zero",
+        "bank, engagement, outcomes, claimed ranges, offers, rewards, local progression, and receipts are empty"
+      ]
+    },
+    {
+      "id": "p14.fixture.restaurant-six-hours.v1",
+      "covers": ["offline-settlement", "capacity-saturation", "no-auto-credit"],
+      "preconditions": {
+        "cursorAt": 1000000,
+        "capturedAt": 22600000,
+        "elapsedAllowanceMs": 21600000,
+        "carryMs": 0,
+        "bankedCount": 0,
+        "claimReadyCount": 0,
+        "nextOrdinal": 0,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle" },
+      "assertions": [
+        "exactly four opportunities and four detail records are created",
+        "created facility-local ordinals are 1 through 4",
+        "nextOrdinal equals 4",
+        "cursorAt equals 22600000",
+        "carryMs equals zero and two excess whole intervals are not saved as debt",
+        "no offer, outcome, reward, local progression, or receipt is created"
+      ]
+    },
+    {
+      "id": "p14.fixture.restaurant-partial-carry.v1",
+      "covers": ["offline-settlement", "partial-interval"],
+      "preconditions": {
+        "cursorAt": 1000000,
+        "capturedAt": 10000000,
+        "elapsedAllowanceMs": 9000000,
+        "carryMs": 0,
+        "bankedCount": 0,
+        "claimReadyCount": 0,
+        "nextOrdinal": 0,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle" },
+      "assertions": [
+        "exactly two opportunities and detail records are created",
+        "carryMs equals 1800000",
+        "nextOrdinal equals 2",
+        "cursorAt equals 10000000",
+        "no offer, outcome, reward, local progression, or receipt is created"
+      ]
+    },
+    {
+      "id": "p14.fixture.bank-saturated.v1",
+      "covers": ["capacity-saturation", "no-hidden-debt", "non-expiry"],
+      "preconditions": {
+        "cursorAt": 1000000,
+        "capturedAt": 19000000,
+        "elapsedAllowanceMs": 18000000,
+        "carryMs": 1200000,
+        "bankedCount": 4,
+        "claimReadyCount": 0,
+        "nextOrdinal": 4,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle" },
+      "assertions": [
+        "zero opportunities are created",
+        "all four existing opportunity and detail identities remain byte-equivalent",
+        "cursorAt equals 19000000",
+        "carryMs is less than 3600000 and stores no whole-interval debt",
+        "nextOrdinal remains 4",
+        "no offer, outcome, reward, local progression, or receipt is created"
+      ]
+    },
+    {
+      "id": "p14.fixture.over-twenty-four-hours.v1",
+      "covers": ["offline-cap", "clock-independence"],
+      "preconditions": {
+        "cursorAt": 1000000,
+        "capturedAt": 173800000,
+        "elapsedAllowanceMs": 172800000,
+        "carryMs": 0,
+        "bankedCount": 0,
+        "claimReadyCount": 0,
+        "nextOrdinal": 0,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle" },
+      "assertions": [
+        "eligible elapsed is capped to 86400000",
+        "exactly four opportunities are created because the bank saturates",
+        "elapsed beyond the approved allowance and capacity is diagnostic only and never debt",
+        "no offer, outcome, reward, local progression, or receipt is created"
+      ]
+    },
+    {
+      "id": "p14.fixture.midnight-dst-neutral.v1",
+      "covers": ["midnight", "daylight-saving", "timezone-independence"],
+      "preconditions": {
+        "twoSnapshots": "identical epoch timestamps and state, different local timezone and calendar labels",
+        "elapsedAllowanceMs": 9000000,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle-both" },
+      "assertions": [
+        "both plans are byte-equivalent",
+        "local midnight and daylight-saving boundaries create no reset or segmentation",
+        "all previously instantiated opportunity identities remain unchanged",
+        "no rewards are created or credited"
+      ]
+    },
+    {
+      "id": "p14.fixture.clock-rollback.v1",
+      "covers": ["clock-rollback", "write-free-noop"],
+      "preconditions": {
+        "cursorAt": 10000000,
+        "capturedAt": 9000000,
+        "elapsedAllowanceMs": 0,
+        "carryMs": 1800000,
+        "bankedCount": 1,
+        "nextOrdinal": 1,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "settle" },
+      "assertions": [
+        "zero opportunities are created",
+        "cursorAt is not moved backward",
+        "carry, ordinal, bank, details, offers, rewards, progression, and receipts are byte-equivalent",
+        "mutation adapter performs no persistence write"
+      ]
+    },
+    {
+      "id": "p14.fixture.engaged-reload.v1",
+      "covers": ["begin", "resume", "reload", "safe-cancel"],
+      "preconditions": {
+        "oneBankedOpportunity": true,
+        "commitBoundaryReached": false,
+        "rewardTotals": { "gold": 0, "prosperity": 0, "restaurantReputation": 0 }
+      },
+      "action": { "kind": "begin-reload-cancel" },
+      "assertions": [
+        "engagement identity survives reload",
+        "resume payload validates against its captured definition",
+        "safe cancel returns the same opportunity identity to banked state",
+        "no outcome, offer, reward, local progression, completion, or receipt is created"
+      ]
+    },
+    {
+      "id": "p14.fixture.resolved-claim-ready.v1",
+      "covers": ["resolution", "manual-claim-boundary"],
+      "preconditions": {
+        "oneValidEngagedOpportunity": true,
+        "submittedChoice": "valid fixture recipe selection",
+        "rewardTotals": { "gold": 0, "prosperity": 0, "restaurantReputation": 0 }
+      },
+      "action": { "kind": "resolve" },
+      "assertions": [
+        "one immutable outcome is created with captured definition and reward-policy versions",
+        "one Phase 12 offer is queued and identity-bound to the outcome and opportunity",
+        "the opportunity is claim-ready and remains non-expiring",
+        "global reward totals, local progression, claimed ranges, claim count, and receipts are unchanged"
+      ]
+    },
+    {
+      "id": "p14.fixture.claimed-reload.v1",
+      "covers": ["manual-claim", "exactly-once", "reload"],
+      "preconditions": {
+        "oneValidClaimReadyOpportunity": true,
+        "initialTotals": { "gold": 10, "prosperity": 3, "restaurantReputation": 4, "claimCount": 0 }
+      },
+      "action": { "kind": "claim-reload-claim-again" },
+      "assertions": [
+        "the first explicit claim changes totals to gold 110, prosperity 5, restaurantReputation 5, and claimCount 1",
+        "one bound receipt is committed",
+        "the ordinal is present once in canonical claimed ranges",
+        "the opportunity, detail, outcome, engagement, and pending offer are absent after claim",
+        "reload preserves the committed totals and identity lineage",
+        "the repeated claim is refused with no write and no duplicate effect"
+      ]
+    },
+    {
+      "id": "p14.fixture.concurrent-settlement.v1",
+      "covers": ["two-tab", "settlement-conflict"],
+      "preconditions": {
+        "twoTabs": "same active raw, revision, cursor, nextOrdinal, and capturedAt",
+        "wholeIntervals": 2,
+        "syntheticPolicy": true
+      },
+      "action": { "kind": "race-identical-settlement-plans" },
+      "assertions": [
+        "both pure plans derive the same ordinals and identities",
+        "one mutation commit wins",
+        "the losing tab writes nothing and reports stale state",
+        "exactly two total opportunities exist and no rewards are created"
+      ]
+    },
+    {
+      "id": "p14.fixture.concurrent-resolution.v1",
+      "covers": ["two-tab", "resolution-conflict"],
+      "preconditions": {
+        "twoTabs": "same engaged opportunity and expected identities",
+        "submittedChoice": "same valid fixture selection"
+      },
+      "action": { "kind": "race-resolution" },
+      "assertions": [
+        "one mutation commit wins",
+        "the losing tab writes nothing and reports stale state",
+        "exactly one outcome and one pending offer exist",
+        "global rewards, local progression, claimed ranges, and receipts remain unchanged"
+      ]
+    },
+    {
+      "id": "p14.fixture.concurrent-claim.v1",
+      "covers": ["two-tab", "claim-conflict", "exactly-once"],
+      "preconditions": {
+        "twoTabs": "same claim-ready result, offer, active raw, revision, and expected identities",
+        "initialTotals": { "gold": 10, "prosperity": 3, "restaurantReputation": 4, "claimCount": 0 }
+      },
+      "action": { "kind": "race-claim" },
+      "assertions": [
+        "one mutation commit wins",
+        "the losing tab writes nothing and reports stale state",
+        "final totals are gold 110, prosperity 5, restaurantReputation 5, and claimCount 1",
+        "exactly one bound receipt and one claimed ordinal exist"
+      ]
+    },
+    {
+      "id": "p14.fixture.wrong-version-identity.v1",
+      "covers": ["fail-closed", "version-binding", "identity-binding"],
+      "preconditions": {
+        "claimReadyOpportunity": "valid except one tested mutation",
+        "mutations": [
+          "future definitionVersion",
+          "wrong rewardPolicyVersion",
+          "wrong facilityId",
+          "wrong opportunityIdentity",
+          "wrong detailIdentity",
+          "wrong outcomeIdentity",
+          "wrong offerIdentity",
+          "wrong save binding"
+        ]
+      },
+      "action": { "kind": "attempt-each-invalid-claim" },
+      "assertions": [
+        "every mutation is rejected before reward application",
+        "active raw, revision, staging, opportunity, offer, totals, local progression, ranges, metrics, and receipts remain unchanged",
+        "no success presentation is emitted"
+      ]
+    },
+    {
+      "id": "p14.fixture.receipt-cap.v1",
+      "covers": ["receipt-retention", "safe-cap-failure"],
+      "preconditions": {
+        "oneValidClaimReadyOpportunity": true,
+        "phase12ReceiptCapacityAvailable": false
+      },
+      "action": { "kind": "claim" },
+      "assertions": [
+        "claim is refused without a persistence write",
+        "the claim-ready opportunity, detail, outcome, and offer remain intact",
+        "no global reward, local progression, range, metric, or claim-count delta is applied",
+        "the UI may explain capacity but may not discard or auto-credit the result"
+      ]
+    },
+    {
+      "id": "p14.fixture.tutorial-state-isolation.v1",
+      "covers": ["tutorial", "skip", "replay", "non-blocking"],
+      "preconditions": {
+        "oneBankedOpportunity": true,
+        "oneClaimReadyOpportunity": true,
+        "tutorialId": "tutorial.restaurant.first-customer"
+      },
+      "action": { "kind": "present-skip-replay-tutorial" },
+      "assertions": [
+        "tutorial state and its Phase 12 receipt follow the Phase 13 tutorial contract",
+        "the banked and claim-ready identities remain byte-equivalent",
+        "no opportunity is begun, resolved, consumed, or claimed",
+        "no reward or local progression is applied",
+        "the player can close the tutorial and continue the facility"
+      ]
+    }
+  ]
+}

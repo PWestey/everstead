@@ -1,0 +1,593 @@
+{
+  "contractId": "phase-14-facility-definition-set-v1",
+  "releasedSourceCommit": "4ee1ee4dcaa1b6eb190ed65d8cf81623c49bc28c",
+  "phase13DesignCommit": "73b807a36cb0ddb12fe726b3d271f7c4779e5ba9",
+  "configId": "phase-14-facility-framework-v1",
+  "definitionSetId": "definition-set.phase-14-facilities.v1",
+  "phase12ConfigId": "phase-12-foundation-v1",
+  "phase12DefinitionSetId": "definition-set.phase-12-foundation.v1",
+  "productionEnabled": false,
+  "speakerPresentationPolicy": {
+    "editorBlockedActorIds": [
+      "fellow.deadpool",
+      "family.elara",
+      "family.tamsin",
+      "family.isolde"
+    ],
+    "lookupRule": "Use a registered approved transparent cutout when available; otherwise use one of the allowed fallbacks.",
+    "allowedFallbacks": [
+      "approved-framed-treatment",
+      "text-only"
+    ],
+    "forbiddenFallback": "unframed-full-background-overlay"
+  },
+  "facilities": [
+    {
+      "id": "facility.command-center",
+      "definitionVersion": 1,
+      "activityId": "activity.petitions",
+      "mapAnchor": "upper-left-hall",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production",
+      "localProgressTrackIds": ["facility-progress.command-center.influence"],
+      "participantKinds": ["workers", "residents", "petitioners"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.command.first-petition",
+        "tutorial.facility.command.consequences",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.command-center.petition"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.lyra", "roles": ["tutorial-guide", "story-hook"] },
+        { "actorId": "fellow.darrow", "roles": ["activity-presenter", "result-comment"] },
+        { "actorId": "fellow.captain-america", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.daredevil", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.virginia", "roles": ["activity-presenter", "claim-acknowledgement"] },
+        { "actorId": "family.amara", "roles": ["ambient", "named-visitor"] },
+        { "actorId": "family.misty", "roles": ["ambient", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.archives",
+      "definitionVersion": 1,
+      "activityId": "activity.research",
+      "mapAnchor": "upper-right-tower",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production",
+      "localProgressTrackIds": ["facility-progress.archives.discovery"],
+      "participantKinds": ["workers", "researchers", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.archives.first-research",
+        "tutorial.facility.archives.mastery",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.archives.research"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.selene", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "fellow.obi-wan", "roles": ["ambient", "result-comment"] },
+        { "actorId": "fellow.iron-man", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.isolde", "roles": ["activity-presenter", "story-hook"] },
+        { "actorId": "family.violet", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.shallan", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.hermione", "roles": ["tutorial-guide", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.training-grounds",
+      "definitionVersion": 1,
+      "activityId": "activity.drills",
+      "mapAnchor": "lower-left-arena",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production",
+      "localProgressTrackIds": ["facility-progress.training-grounds.readiness"],
+      "participantKinds": ["trainers", "trainees", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.training.first-drill",
+        "tutorial.facility.training.mastery",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.training-grounds.drill"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.cael", "roles": ["tutorial-guide", "story-hook"] },
+        { "actorId": "fellow.orin", "roles": ["activity-presenter", "claim-acknowledgement"] },
+        { "actorId": "fellow.thor", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.wolverine", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.captain-marvel", "roles": ["activity-presenter", "named-visitor"] },
+        { "actorId": "family.ahsoka", "roles": ["tutorial-guide", "result-comment"] },
+        { "actorId": "family.tifa", "roles": ["ambient", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.hearth",
+      "definitionVersion": 1,
+      "activityId": "activity.gatherings",
+      "mapAnchor": "lower-right-manor",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production",
+      "localProgressTrackIds": ["facility-progress.hearth.community"],
+      "participantKinds": ["residents", "workers", "guests"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.hearth.first-gathering",
+        "tutorial.facility.hearth.relationship-results",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.hearth.gathering"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.spider-man", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.elara", "roles": ["tutorial-guide", "story-hook"] },
+        { "actorId": "family.syl", "roles": ["activity-presenter", "claim-acknowledgement"] },
+        { "actorId": "family.tyrande", "roles": ["ambient", "named-visitor"] },
+        { "actorId": "family.shadowheart", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.aerith", "roles": ["ambient", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.waystone",
+      "definitionVersion": 1,
+      "activityId": "activity.legacy-claims",
+      "mapAnchor": "central-crystal",
+      "targetPhase": 15,
+      "passivePolicy": "shared-objective-and-claim-hub",
+      "localProgressTrackIds": ["facility-progress.waystone.legacy"],
+      "participantKinds": ["residents", "delegates", "visitors"],
+      "operational": {
+        "generationMode": "authored-event",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "event-only"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.story.objective.first-covenant",
+        "tutorial.legacy.claim.first-ready",
+        "tutorial.legacy.claim.major"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.waystone.legacy-milestone"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.lyra", "roles": ["tutorial-guide", "activity-presenter", "story-hook"] },
+        { "actorId": "family.isolde", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.virginia", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.syl", "roles": ["claim-acknowledgement", "story-hook"] }
+      ]
+    },
+    {
+      "id": "facility.restaurant",
+      "definitionVersion": 1,
+      "activityId": "activity.restaurant-service",
+      "mapAnchor": "western-plaza",
+      "targetPhase": 16,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.restaurant.reputation"],
+      "participantKinds": ["workers", "customers", "named-visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.restaurant.first-customer",
+        "tutorial.restaurant.recipes-and-stations",
+        "tutorial.restaurant.first-claim",
+        "tutorial.restaurant.reputation",
+        "tutorial.restaurant.named-visitors"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.restaurant.customer"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.deadpool", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.star-lord", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.spider-man", "roles": ["ambient", "named-visitor"] },
+        { "actorId": "family.tamsin", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "family.jaina", "roles": ["named-visitor", "claim-acknowledgement"] },
+        { "actorId": "family.tifa", "roles": ["activity-presenter", "result-comment"] },
+        { "actorId": "family.misty", "roles": ["ambient", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.apothecary",
+      "definitionVersion": 1,
+      "activityId": "activity.apothecary-cases",
+      "mapAnchor": "eastern-plaza",
+      "targetPhase": 18,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.apothecary.mastery"],
+      "participantKinds": ["workers", "patients", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.apothecary.first-case",
+        "tutorial.facility.apothecary.diagnosis",
+        "tutorial.facility.apothecary.mastery",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.apothecary.case"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.rook", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.daredevil", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.scarlet-witch", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "family.yennefer", "roles": ["activity-presenter", "claim-acknowledgement"] },
+        { "actorId": "family.shadowheart", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.aerith", "roles": ["named-visitor", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.schoolhouse",
+      "definitionVersion": 1,
+      "activityId": "activity.school-lessons",
+      "mapAnchor": "eastern-plaza",
+      "targetPhase": 19,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.schoolhouse.education"],
+      "participantKinds": ["teachers", "pupils", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.schoolhouse.first-lesson",
+        "tutorial.facility.schoolhouse.pupil-progress",
+        "tutorial.facility.schoolhouse.graduation",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.schoolhouse.lesson"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.obi-wan", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "fellow.spider-man", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.ahsoka", "roles": ["activity-presenter", "result-comment"] },
+        { "actorId": "family.aerith", "roles": ["ambient", "claim-acknowledgement"] },
+        { "actorId": "family.hermione", "roles": ["tutorial-guide", "story-hook"] }
+      ]
+    },
+    {
+      "id": "facility.market-workshop",
+      "definitionVersion": 1,
+      "activityId": "activity.orders-and-crafting",
+      "mapAnchor": "western-plaza",
+      "targetPhase": 21,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.market-workshop.craftsmanship"],
+      "participantKinds": ["workers", "customers", "traders"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.workshop.first-order",
+        "tutorial.facility.workshop.mastery",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.market-workshop.order"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.star-lord", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.iron-man", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "family.rey", "roles": ["ambient", "claim-acknowledgement"] },
+        { "actorId": "family.hermione", "roles": ["activity-presenter", "result-comment"] }
+      ]
+    },
+    {
+      "id": "facility.gatehouse",
+      "definitionVersion": 1,
+      "activityId": "activity.caravans-and-road-events",
+      "mapAnchor": "lower-bridge",
+      "targetPhase": 21,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.gatehouse.route-trust"],
+      "participantKinds": ["workers", "caravans", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.gatehouse.first-caravan",
+        "tutorial.facility.gatehouse.road-events",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.gatehouse.caravan"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.mira", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "fellow.star-lord", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.captain-america", "roles": ["story-hook", "result-comment"] },
+        { "actorId": "fellow.wolverine", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.jaina", "roles": ["named-visitor", "claim-acknowledgement"] },
+        { "actorId": "family.misty", "roles": ["activity-presenter", "ambient"] }
+      ]
+    },
+    {
+      "id": "facility.gardens",
+      "definitionVersion": 1,
+      "activityId": "activity.cultivation",
+      "mapAnchor": "lower-right-gardens",
+      "targetPhase": 21,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.gardens.cultivation"],
+      "participantKinds": ["workers", "growers", "residents"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.gardens.first-plot",
+        "tutorial.facility.gardens.harvest",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.gardens.plot"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.thor", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "family.rey", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "family.tyrande", "roles": ["ambient", "result-comment"] },
+        { "actorId": "family.aerith", "roles": ["activity-presenter", "claim-acknowledgement"] }
+      ]
+    },
+    {
+      "id": "facility.forge",
+      "definitionVersion": 1,
+      "activityId": "activity.relic-commissions",
+      "mapAnchor": "village-forge",
+      "targetPhase": 21,
+      "passivePolicy": "future-facility-production-plus-active-bonus",
+      "localProgressTrackIds": ["facility-progress.forge.commission-mastery"],
+      "participantKinds": ["workers", "commissioners", "visitors"],
+      "operational": {
+        "generationMode": "interval",
+        "intervalMs": null,
+        "bankCapacity": null,
+        "unattendedTargetMs": null,
+        "economyStatus": "requires-approval"
+      },
+      "tutorialIds": [
+        "tutorial.facility.board.discover-hotspots",
+        "tutorial.facility.opportunities.banking",
+        "tutorial.facility.forge.first-commission",
+        "tutorial.facility.forge.mastery",
+        "tutorial.facility.claim.first-ready"
+      ],
+      "opportunityDefinitionIds": [
+        "opportunity.facility.forge.commission"
+      ],
+      "dialogueHooks": [
+        { "actorId": "fellow.rook", "roles": ["tutorial-guide", "activity-presenter"] },
+        { "actorId": "fellow.zamorak", "roles": ["named-visitor", "result-comment"] },
+        { "actorId": "fellow.darrow", "roles": ["ambient", "result-comment"] },
+        { "actorId": "fellow.anakin", "roles": ["named-visitor", "claim-acknowledgement"] },
+        { "actorId": "family.captain-marvel", "roles": ["activity-presenter", "result-comment"] },
+        { "actorId": "family.yennefer", "roles": ["tutorial-guide", "story-hook"] },
+        { "actorId": "family.tifa", "roles": ["ambient", "claim-acknowledgement"] }
+      ]
+    }
+  ],
+  "opportunityDefinitions": [
+    {
+      "id": "opportunity.facility.command-center.petition",
+      "definitionVersion": 1,
+      "facilityId": "facility.command-center",
+      "activityId": "activity.petitions",
+      "generation": "interval",
+      "interactionKind": "bounded-petition-choice",
+      "rewardPolicyId": "reward-policy.facility.command-center.petition",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.archives.research",
+      "definitionVersion": 1,
+      "facilityId": "facility.archives",
+      "activityId": "activity.research",
+      "generation": "interval",
+      "interactionKind": "research-lead-reconstruction",
+      "rewardPolicyId": "reward-policy.facility.archives.research",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.training-grounds.drill",
+      "definitionVersion": 1,
+      "facilityId": "facility.training-grounds",
+      "activityId": "activity.drills",
+      "generation": "interval",
+      "interactionKind": "participant-and-formation-drill",
+      "rewardPolicyId": "reward-policy.facility.training-grounds.drill",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.hearth.gathering",
+      "definitionVersion": 1,
+      "facilityId": "facility.hearth",
+      "activityId": "activity.gatherings",
+      "generation": "interval",
+      "interactionKind": "attendees-and-gathering",
+      "rewardPolicyId": "reward-policy.facility.hearth.gathering",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.waystone.legacy-milestone",
+      "definitionVersion": 1,
+      "facilityId": "facility.waystone",
+      "activityId": "activity.legacy-claims",
+      "generation": "authored-event",
+      "interactionKind": "objective-and-legacy-claim-review",
+      "rewardPolicyId": "reward-policy.facility.waystone.legacy-milestone",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.restaurant.customer",
+      "definitionVersion": 1,
+      "facilityId": "facility.restaurant",
+      "activityId": "activity.restaurant-service",
+      "generation": "interval",
+      "interactionKind": "preference-and-recipe",
+      "rewardPolicyId": "reward-policy.facility.restaurant.customer",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.apothecary.case",
+      "definitionVersion": 1,
+      "facilityId": "facility.apothecary",
+      "activityId": "activity.apothecary-cases",
+      "generation": "interval",
+      "interactionKind": "clue-diagnosis-remedy",
+      "rewardPolicyId": "reward-policy.facility.apothecary.case",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.schoolhouse.lesson",
+      "definitionVersion": 1,
+      "facilityId": "facility.schoolhouse",
+      "activityId": "activity.school-lessons",
+      "generation": "interval",
+      "interactionKind": "pupil-and-lesson",
+      "rewardPolicyId": "reward-policy.facility.schoolhouse.lesson",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.market-workshop.order",
+      "definitionVersion": 1,
+      "facilityId": "facility.market-workshop",
+      "activityId": "activity.orders-and-crafting",
+      "generation": "interval",
+      "interactionKind": "requirements-and-fulfillment",
+      "rewardPolicyId": "reward-policy.facility.market-workshop.order",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.gatehouse.caravan",
+      "definitionVersion": 1,
+      "facilityId": "facility.gatehouse",
+      "activityId": "activity.caravans-and-road-events",
+      "generation": "interval",
+      "interactionKind": "route-assessment-and-reception",
+      "rewardPolicyId": "reward-policy.facility.gatehouse.caravan",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.gardens.plot",
+      "definitionVersion": 1,
+      "facilityId": "facility.gardens",
+      "activityId": "activity.cultivation",
+      "generation": "interval",
+      "interactionKind": "plot-choice-and-nonexpiring-harvest",
+      "rewardPolicyId": "reward-policy.facility.gardens.plot",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    },
+    {
+      "id": "opportunity.facility.forge.commission",
+      "definitionVersion": 1,
+      "facilityId": "facility.forge",
+      "activityId": "activity.relic-commissions",
+      "generation": "interval",
+      "interactionKind": "requirements-and-relic-commission",
+      "rewardPolicyId": "reward-policy.facility.forge.commission",
+      "rewardPolicyVersion": 1,
+      "expires": false,
+      "claimMode": "manual"
+    }
+  ]
+}
