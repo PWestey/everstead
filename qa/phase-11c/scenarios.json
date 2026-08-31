@@ -1,0 +1,21 @@
+{
+  "authority": {
+    "contractCommit": "077d2bb9ac65d6531981d9c040f8ff208f3253e4",
+    "productionCommit": "f9afe2344b13dd2bcd58699098a2b11b37c1a7fc"
+  },
+  "artifact": {
+    "sha256": "bbd0b00c61466c7797599a1b28814583c1d8643bb3099d2193f55d48969f3a4c",
+    "byteLength": 19116351,
+    "assetCount": 5,
+    "assetAggregateSha256": "26d0c15d43ab9f7f98467f22f51aab8336f78ae84a016abc981733f7d5df5e7a"
+  },
+  "frozenNow": "2030-06-17T12:00:00.000Z",
+  "viewports": [
+    {"id":"phone-320x568-normal","width":320,"height":568,"reducedMotion":false},
+    {"id":"phone-320x568-reduced","width":320,"height":568,"reducedMotion":true},
+    {"id":"phone-390x667-normal","width":390,"height":667,"reducedMotion":false},
+    {"id":"phone-390x667-reduced","width":390,"height":667,"reducedMotion":true},
+    {"id":"phone-390x844-normal","width":390,"height":844,"reducedMotion":false},
+    {"id":"phone-390x844-reduced","width":390,"height":844,"reducedMotion":true}
+  ]
+}

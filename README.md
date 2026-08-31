@@ -8,9 +8,9 @@ Everstead is a mobile-first, single-file browser RPG evolving from the original 
 
 ## Current status
 
-`main` is a runnable schema-11 build through Phase 10C. The locked Oath, Building, Family, Fellow, Companion, Campaign, Tower, Expedition, Relic, Player Rank, offline-reward, and activated economy systems are implemented behind the preserved mobile shell. Phase 11 is improving daily-use clarity, save management, automation, roster tools, balance evidence, and maintainability.
+`main` is a runnable schema-11 build through Phase 11C. The locked Oath, Building, Family, Fellow, Companion, Campaign, Tower, Expedition, Relic, Player Rank, offline-reward, and activated economy systems are implemented behind the preserved mobile shell. Phase 11A clarifies daily progression, Phase 11B adds normal-player save/recovery tools, and Phase 11C adds bounded Campaign repeat plus player-invoked Claim Ready collection.
 
-The Locked Core Design controls product behavior; the roadmap controls migration order. See the [latest accepted Phase 10C UI result](docs/PHASE_10C3_UI_RESULT.md) and the [current Phase 11A clarity contract](docs/PHASE_11A_CLARITY_CONTRACT.md).
+The Locked Core Design controls product behavior; the roadmap controls migration order. See the [Phase 11C automation contract](docs/PHASE_11C_AUTOMATION_CONTRACT.md) and [Phase 11C result](docs/PHASE_11C_AUTOMATION_RESULT.md).
 
 ## Local preview
 
@@ -28,4 +28,4 @@ python3 -m http.server 8000
 - Review and integrate changes centrally rather than allowing parallel tasks to edit the same checkout.
 - Follow [AGENTS.md](AGENTS.md) for authority, safety, and acceptance rules.
 - Preserve historical phase gates; add a successor gate for each new behavioral phase.
-- Follow the [Phase 11A clarity contract](docs/PHASE_11A_CLARITY_CONTRACT.md) for the current implementation scope.
+- Preserve the [Phase 11C automation contract](docs/PHASE_11C_AUTOMATION_CONTRACT.md) when extending repeat or collection behavior.
