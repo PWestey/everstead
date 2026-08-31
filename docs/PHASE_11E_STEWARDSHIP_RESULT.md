@@ -33,8 +33,8 @@ Phase 11E is schema-neutral. It does not add a storage key, migration, reward so
 
 Production artifact at local verification:
 
-- SHA-256: `b1d6b3d9486e3951a62c1defe1dbf4c56c62af733143318b173e2b3a3e56272e`
-- byte length: `19,154,249`
+- SHA-256: `d45cd134addf9b70ea92886b885fa77ea05badfa91ba5eaf12958cf9af7723aa`
+- byte length: `19,154,577`
 
 ## Live mobile evidence
 
@@ -42,7 +42,8 @@ Observed in the in-app Chromium browser against the local static artifact:
 
 - **42/42** visual/interaction observations passed
 - exact viewports: **320×568** and **390×844**
-- horizontal overflow: **0 px** at both sizes
+- release matrix: **6/6** isolated realms at **320×568**, **390×667**, and **390×844**, each in normal and reduced-motion modes
+- horizontal overflow: **0 px** across all matrix sizes
 - compact Claim Ready height: **104 px** at 320×568 and **85 px** at 390×844
 - Claim Ready action height: **44 px** at both sizes
 - route tabs precede Claim Ready; Campaign content follows it
@@ -50,7 +51,7 @@ Observed in the in-app Chromium browser against the local static artifact:
 - Codex category tabs are 44 px tall
 - Codex counts: Fellows 6/6 art and quotes; Family 3/3 art and quotes plus 7 relationship chips; Companions 2/2 art; Relics 6/6 marks
 - Codex ArrowRight navigation wrapped Journey → Overview and moved focus correctly
-- console warnings/errors: **0**
+- console warnings/errors and failed resources: **0**
 
 ## Deferred by authority
 

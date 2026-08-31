@@ -7,8 +7,8 @@
   "releaseVersion": "1.0.0-rc.1",
   "compatibilityVersion": "0.1.0",
   "artifact": {
-    "sha256": "b1d6b3d9486e3951a62c1defe1dbf4c56c62af733143318b173e2b3a3e56272e",
-    "byteLength": 19154249
+    "sha256": "d45cd134addf9b70ea92886b885fa77ea05badfa91ba5eaf12958cf9af7723aa",
+    "byteLength": 19154577
   },
   "embeddedAssets": {
     "count": 5,
