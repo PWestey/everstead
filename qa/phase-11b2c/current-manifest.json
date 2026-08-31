@@ -7,7 +7,7 @@
   "contractCommit": "0fa2c256b38f17565b608f21e8478ca6580f0758",
   "contractAmendmentCommit": "e24bbf5aa9ba6e4bf4a2b854e7988b3651fc5c80",
   "productionCommit": "7aa4c197e98adc6a3a6b056d4f4568e4a2f33f89",
-  "packageCommit": "d305457085aea8bc6096cf2a71c9eaee2692396d",
+  "packageCommit": "590245270cf268d26701db68ae9fbeb0a6f8329d",
   "stepCommits": {
     "inspection": "6376a26",
     "idlePrerequisite": "e24bbf5",
@@ -92,8 +92,8 @@
       "byteLength": 2160
     },
     "qa/phase-11b2c/verify.mjs": {
-      "sha256": "fa3dd71a25fc1db60cc9eaba1f3a0f24b9fe6956e6afd3b727e3360e081d030d",
-      "byteLength": 16563
+      "sha256": "8f6dee351aa636fa3b5fbdacad2ba8d9ab696e0c91547d3e028e222a0ab4b32a",
+      "byteLength": 16431
     }
   },
   "packageFiles": {
@@ -130,8 +130,8 @@
       "byteLength": 2160
     },
     "qa/phase-11b2c/verify.mjs": {
-      "sha256": "fa3dd71a25fc1db60cc9eaba1f3a0f24b9fe6956e6afd3b727e3360e081d030d",
-      "byteLength": 16563
+      "sha256": "8f6dee351aa636fa3b5fbdacad2ba8d9ab696e0c91547d3e028e222a0ab4b32a",
+      "byteLength": 16431
     }
   },
   "focusedRows": {
