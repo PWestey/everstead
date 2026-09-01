@@ -13,10 +13,13 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 SOURCE_COMMIT = "7beccb88676b75910e99c43bb78bc895553dfe5f"
-SOURCE_TREES = {
-    "design/phase-13": "cb5ce45d24835666323ea466860f001ec6e161cd",
-    "design/phase-15-16": "c817f3e023835528113df40d7cbebc37f4831e9c",
-    "design/phases-14-21-audit": "2fde246e9a631abf0af9f527932773a3dd407046",
+SOURCE_TREE_ALLOWLISTS = {
+    "design/phase-13": {"cb5ce45d24835666323ea466860f001ec6e161cd"},
+    "design/phase-15-16": {"c817f3e023835528113df40d7cbebc37f4831e9c"},
+    "design/phases-14-21-audit": {
+        "2fde246e9a631abf0af9f527932773a3dd407046",
+        "9864cee002436b0d652c4514d1272c3761facf45",
+    },
 }
 REQUIRED_FILES = {
     "README.md",
@@ -92,9 +95,12 @@ def main() -> int:
     check(present == REQUIRED_FILES, "package has exactly the bounded documented files")
     check(policy["sourceCommit"] == SOURCE_COMMIT, "policy names the accepted integration tip")
     check(tutorials["sourceCommit"] == SOURCE_COMMIT and copy["sourceCommit"] == SOURCE_COMMIT, "content names the accepted integration tip")
-    for path, expected in SOURCE_TREES.items():
-        check(git("rev-parse", f"HEAD:{path}") == expected, f"frozen source tree unchanged: {path}")
-        check(not git("diff", "--name-only", SOURCE_COMMIT, "--", path), f"no working-tree edits in frozen source: {path}")
+    for path, allowed_trees in SOURCE_TREE_ALLOWLISTS.items():
+        current_tree = git("rev-parse", f"HEAD:{path}")
+        check(current_tree in allowed_trees, f"source tree is an exact reviewed identity: {path}")
+        clean_unstaged = not git("diff", "--name-only", "HEAD", "--", path)
+        clean_staged = not git("diff", "--cached", "--name-only", "HEAD", "--", path)
+        check(clean_unstaged and clean_staged, f"no working-tree edits in reviewed source: {path}")
 
     check(policy["status"] == "candidate-root-review-required", "policy status is candidate")
     check(policy["authoritative"] is False and policy["productionEnabled"] is False, "candidate policy is non-authoritative and disabled")

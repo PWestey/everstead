@@ -34,3 +34,5 @@ python3 design/phase-15-16-policy-candidate/validate.py
 ```
 
 The validator is intentionally limited to design/data. It does not test runtime integration, UI layout, browser behavior, localization rendering, editorial approval, save migration, or exact-once persistence in the shipped app. Those remain release gates after product approval and implementation.
+
+Phase 13 and the frozen Phase 15–16 contract each accept one exact source-tree identity. The cross-phase audit dependency accepts exactly its original reviewed tree and the reviewed `a12d52e` integration-portability successor tree; any other audit mutation fails validation.
