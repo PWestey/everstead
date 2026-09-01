@@ -1,0 +1,118 @@
+{
+  "contractId": "phase-20-21-cast-bindings-v1",
+  "sourceCastContractId": "phase-13-cast-plan-v1",
+  "sourceHookContractId": "phase-15-21-cast-facility-hooks-v1",
+  "productionEnabled": false,
+  "coveragePolicy": "Use the exact later Phase 15 hook registry for these eight facilities. Phase 14's broader candidate roles are not automatically activated. The 28-actor subset complements earlier phases and does not replace any actor's Phase 13 primary authored assignment.",
+  "writingPolicy": "Use original Everstead functional roles and localization keys; never imitate recognizable external-franchise voices, cadence, catchphrases, or scenes.",
+  "presentationPolicy": "Village dialogue uses transparent cutout, approved framed, or text-only treatment; unframed full-background profile art is forbidden.",
+  "facilityBindings": [
+    {
+      "facilityId": "facility.command-center",
+      "openingContentId": "facility.command.resolve-petition",
+      "primaryContentIds": ["facility.command.resolve-petition"],
+      "hookIds": [
+        "dialogue.facility.command-center.darrow.activity-presenter",
+        "dialogue.facility.command-center.daredevil.result-comment",
+        "dialogue.facility.command-center.captain-america.named-visitor",
+        "dialogue.facility.command-center.virginia.activity-presenter",
+        "dialogue.facility.command-center.amara.ambient",
+        "dialogue.facility.command-center.amara.named-visitor"
+      ]
+    },
+    {
+      "facilityId": "facility.archives",
+      "openingContentId": "facility.archives.first-research",
+      "primaryContentIds": ["facility.archives.first-research", "facility.archives.light-map"],
+      "hookIds": [
+        "dialogue.facility.archives.selene.tutorial-guide",
+        "dialogue.facility.archives.selene.activity-presenter",
+        "dialogue.facility.archives.obi-wan.result-comment",
+        "dialogue.facility.archives.violet.ambient",
+        "dialogue.facility.archives.violet.result-comment",
+        "dialogue.facility.archives.shallan.named-visitor",
+        "dialogue.facility.archives.shallan.result-comment"
+      ]
+    },
+    {
+      "facilityId": "facility.training-grounds",
+      "openingContentId": "facility.training.first-drill",
+      "primaryContentIds": ["facility.training.first-drill", "facility.training.starward-drill"],
+      "hookIds": [
+        "dialogue.facility.training-grounds.cael.tutorial-guide",
+        "dialogue.facility.training-grounds.cael.story-hook",
+        "dialogue.facility.training-grounds.orin.activity-presenter",
+        "dialogue.facility.training-grounds.orin.claim-acknowledgement",
+        "dialogue.facility.training-grounds.thor.named-visitor",
+        "dialogue.facility.training-grounds.captain-marvel.activity-presenter",
+        "dialogue.facility.training-grounds.ahsoka.result-comment"
+      ]
+    },
+    {
+      "facilityId": "facility.hearth",
+      "openingContentId": "facility.hearth.quiet-trust",
+      "primaryContentIds": ["facility.hearth.quiet-trust"],
+      "hookIds": [
+        "dialogue.facility.hearth.elara.tutorial-guide",
+        "dialogue.facility.hearth.elara.story-hook",
+        "dialogue.facility.hearth.tyrande.named-visitor",
+        "dialogue.facility.hearth.shadowheart.result-comment"
+      ]
+    },
+    {
+      "facilityId": "facility.gatehouse",
+      "openingContentId": "facility.gatehouse.first-road-watch",
+      "primaryContentIds": ["facility.gatehouse.first-road-watch", "facility.gatehouse.river-caravan"],
+      "hookIds": [
+        "dialogue.facility.gatehouse.mira.tutorial-guide",
+        "dialogue.facility.gatehouse.mira.activity-presenter",
+        "dialogue.facility.gatehouse.star-lord.result-comment",
+        "dialogue.facility.gatehouse.wolverine.ambient",
+        "dialogue.facility.gatehouse.wolverine.result-comment",
+        "dialogue.facility.gatehouse.misty.activity-presenter"
+      ]
+    },
+    {
+      "facilityId": "facility.market-workshop",
+      "openingContentId": "facility.workshop.salvage-order",
+      "primaryContentIds": ["facility.workshop.salvage-order"],
+      "hookIds": [
+        "dialogue.facility.market-workshop.iron-man.tutorial-guide",
+        "dialogue.facility.market-workshop.iron-man.activity-presenter",
+        "dialogue.facility.market-workshop.rey.ambient",
+        "dialogue.facility.market-workshop.hermione.result-comment"
+      ]
+    },
+    {
+      "facilityId": "facility.gardens",
+      "openingContentId": "facility.gardens.first-cultivation",
+      "primaryContentIds": ["facility.gardens.first-cultivation"],
+      "hookIds": [
+        "dialogue.facility.gardens.thor.result-comment",
+        "dialogue.facility.gardens.rey.tutorial-guide",
+        "dialogue.facility.gardens.tyrande.ambient"
+      ]
+    },
+    {
+      "facilityId": "facility.forge",
+      "openingContentId": "facility.forge.first-commission",
+      "primaryContentIds": ["facility.forge.first-commission"],
+      "hookIds": [
+        "dialogue.facility.forge.rook.tutorial-guide",
+        "dialogue.facility.forge.zamorak.named-visitor",
+        "dialogue.facility.forge.zamorak.result-comment",
+        "dialogue.facility.forge.darrow.ambient",
+        "dialogue.facility.forge.anakin.named-visitor",
+        "dialogue.facility.forge.anakin.claim-acknowledgement",
+        "dialogue.facility.forge.captain-marvel.result-comment",
+        "dialogue.facility.forge.yennefer.story-hook"
+      ]
+    }
+  ],
+  "globalRules": [
+    "A hook cannot change roster ownership, Player Rank, primary authored assignment, or another facility's hook schedule.",
+    "Opening scenes may be watched, skipped, or replayed without creating/claiming opportunities.",
+    "A result/claim line is presentation after persistence and cannot serve as finalizer authority.",
+    "Actors without one of these exact Phase 15 hooks retain their earlier Phase 13–19 schedule and are not forced into Phases 20–21."
+  ]
+}

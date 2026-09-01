@@ -1,0 +1,40 @@
+{
+  "contractId": "phase-20-21-tutorial-bindings-v1",
+  "sourceLedgerId": "phase-13-tutorial-matrix-v1",
+  "sourceLedgerCount": 79,
+  "predecessorRegistryId": "tutorial-registry.phase-19-successor.v1",
+  "registryId": "tutorial-registry.phase-21-successor.v1",
+  "productionEnabled": false,
+  "bindings": [
+    { "tutorialId": "tutorial.facility.board.discover-hotspots", "scope": "shared", "canonicalSpeakerActorId": "fellow.lyra", "context": "first still-unseen physical-map discovery", "stepSegments": [{ "trigger": "facility-first-discovered", "stepIds": ["physical-location", "icon-states", "tap-for-status"] }] },
+    { "tutorialId": "tutorial.facility.opportunities.banking", "scope": "shared", "canonicalSpeakerActorId": "family.tamsin", "context": "first still-unseen banked facility opportunity", "stepSegments": [{ "trigger": "facility-first-opportunity-ready", "stepIds": ["ready-opportunities", "bank-cap", "no-expiry", "passive-baseline"] }] },
+    { "tutorialId": "tutorial.facility.claim.first-ready", "scope": "shared", "canonicalSpeakerActorId": "family.tamsin", "context": "first still-unseen manual facility claim", "stepSegments": [{ "trigger": "facility-first-claim-ready", "stepIds": ["result-ready", "claim", "local-progress", "receipt"] }] },
+
+    { "tutorialId": "tutorial.facility.command.first-petition", "scope": "facility.command-center", "canonicalSpeakerActorId": "family.virginia", "context": "first Command active visit after Resolve Petition", "stepSegments": [{ "trigger": "command-first-visit", "stepIds": ["petition", "interests", "choice-preview", "resolve"] }] },
+    { "tutorialId": "tutorial.facility.command.consequences", "scope": "facility.command-center", "canonicalSpeakerActorId": "family.amara", "context": "after first committed petition claim", "stepSegments": [{ "trigger": "command-first-claim", "stepIds": ["result", "claim", "chronicle-note", "approved-effects-only"] }], "enablementStatus": "Prosperity text/effect remains hidden while policy is null" },
+    { "tutorialId": "tutorial.facility.archives.first-research", "scope": "facility.archives", "canonicalSpeakerActorId": "fellow.selene", "context": "first Archives active visit after First Research", "stepSegments": [{ "trigger": "archives-first-visit", "stepIds": ["research-lead", "banked-progress", "discovery", "claim"] }] },
+    { "tutorialId": "tutorial.facility.archives.mastery", "scope": "facility.archives", "canonicalSpeakerActorId": "family.violet", "context": "first approved Archives level-2 transition", "stepSegments": [{ "trigger": "archives-level-2", "stepIds": ["mastery", "research-branches", "chronicle-discoveries"] }], "enablementStatus": "blocked-until-mastery-curve-approved" },
+    { "tutorialId": "tutorial.facility.training.first-drill", "scope": "facility.training-grounds", "canonicalSpeakerActorId": "fellow.orin", "context": "first Training active visit after First Drill", "stepSegments": [{ "trigger": "training-first-visit", "stepIds": ["drill-type", "participants", "bounded-reward", "begin"] }] },
+    { "tutorialId": "tutorial.facility.training.mastery", "scope": "facility.training-grounds", "canonicalSpeakerActorId": "fellow.thor", "context": "first approved Training level-2 transition", "stepSegments": [{ "trigger": "training-level-2", "stepIds": ["drill-mastery", "formations", "reward-bounds"] }], "enablementStatus": "blocked-until-mastery-and-reward-bounds-approved" },
+    { "tutorialId": "tutorial.facility.hearth.first-gathering", "scope": "facility.hearth", "canonicalSpeakerActorId": "family.shadowheart", "context": "first Hearth active visit after Quiet Trust", "stepSegments": [{ "trigger": "hearth-first-visit", "stepIds": ["gathering-type", "attendees", "relationship-preview", "host"] }] },
+    { "tutorialId": "tutorial.facility.hearth.relationship-results", "scope": "facility.hearth", "canonicalSpeakerActorId": "family.shadowheart", "context": "after first committed gathering claim", "stepSegments": [{ "trigger": "hearth-first-claim", "stepIds": ["relationship-progress", "interlude", "gift-chance", "no-expiry"] }], "enablementStatus": "blocked-until-relationship-interlude-and-Gift-policies-approved" },
+
+    { "tutorialId": "tutorial.facility.gatehouse.first-caravan", "scope": "facility.gatehouse", "canonicalSpeakerActorId": "fellow.mira", "context": "first Gatehouse visit after First Road Watch", "stepSegments": [{ "trigger": "gatehouse-first-visit", "stepIds": ["caravan-queue", "route-condition", "visitor-needs", "receive"] }] },
+    { "tutorialId": "tutorial.facility.gatehouse.road-events", "scope": "facility.gatehouse", "canonicalSpeakerActorId": "family.misty", "context": "first approved Gatehouse level-2 transition", "stepSegments": [{ "trigger": "gatehouse-level-2", "stepIds": ["event", "clues", "bounded-choice", "record"] }], "enablementStatus": "blocked-until-progression-curve-approved" },
+    { "tutorialId": "tutorial.facility.workshop.first-order", "scope": "facility.market-workshop", "canonicalSpeakerActorId": "family.rey", "context": "first Workshop visit after Salvage Order", "stepSegments": [{ "trigger": "workshop-first-visit", "stepIds": ["order-queue", "requirements", "fulfill", "claim"] }] },
+    { "tutorialId": "tutorial.facility.workshop.mastery", "scope": "facility.market-workshop", "canonicalSpeakerActorId": "fellow.iron-man", "context": "first approved Workshop level-2 transition", "stepSegments": [{ "trigger": "workshop-level-2", "stepIds": ["mastery", "complexity", "trade-and-craft", "local-stock"] }], "enablementStatus": "blocked-until-mastery-stock-and-capacity-policies-approved" },
+    { "tutorialId": "tutorial.facility.gardens.first-plot", "scope": "facility.gardens", "canonicalSpeakerActorId": "family.tyrande", "context": "first Gardens visit after First Cultivation", "stepSegments": [{ "trigger": "gardens-first-visit", "stepIds": ["plot", "crop-or-herb", "growth", "ready-state"] }] },
+    { "tutorialId": "tutorial.facility.gardens.harvest", "scope": "facility.gardens", "canonicalSpeakerActorId": "family.tyrande", "context": "first non-expiring harvest-ready result", "stepSegments": [{ "trigger": "gardens-first-harvest-ready", "stepIds": ["harvest-ready", "claim", "local-ingredients", "no-spoilage"] }], "enablementStatus": "blocked-until-growth-and-harvest-policies-approved" },
+    { "tutorialId": "tutorial.facility.forge.first-commission", "scope": "facility.forge", "canonicalSpeakerActorId": "fellow.rook", "context": "first Forge visit after First Commission", "stepSegments": [{ "trigger": "forge-first-visit", "stepIds": ["commission", "requirements", "work-choice", "claim"] }] },
+    { "tutorialId": "tutorial.facility.forge.mastery", "scope": "facility.forge", "canonicalSpeakerActorId": "fellow.anakin", "context": "first approved Forge level-2 transition", "stepSegments": [{ "trigger": "forge-level-2", "stepIds": ["mastery", "commission-tier", "relic-integration", "deferred-affixes"] }], "enablementStatus": "blocked-until-mastery-policy-approved; affixes/reforging remain deferred" }
+  ],
+  "globalRules": [
+    "No tutorial or step ID is invented; every binding resolves to the exact 79-ID ledger.",
+    "Shared tutorials never repeat after predecessor completion/dismissal.",
+    "Facility-specific tutorials wait for their exact surface and do not stack over story, result, or another tutorial.",
+    "Skip/replay changes tutorial or neutral UI state only and never blocks an opportunity, claim, passive Building, story, or offline progress.",
+    "A tutorial cannot present a null/disabled effect as active; the relevant step is hidden or explicitly marked unavailable until approved.",
+    "Dialogue presentation is transparent cutout, approved framed, or text-only; never unframed full-background profile art.",
+    "Every step remains usable at 320 by 568, 390 by 844, keyboard-only input, reduced motion, and 30 percent text expansion."
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "contractId": "phase-20-original-four-active-definitions-v1",
+  "sourceCommit": "44c8cc0c06079ae7e141fb1ec2de71d352d282a6",
+  "configId": "phase-20-original-four-active-v1",
+  "definitionSetId": "definition-set.phase-20-original-four-active.v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "productionEnabled": false,
+  "presentationPolicy": { "artTreatmentByFacilityId": null, "cssTreatmentByFacilityId": null, "useExistingVillageArtFallback": true, "enablementStatus": "blocked-art" },
+  "passiveBoundary": {
+    "policy": "Active facility state is additive and cannot gate or mutate the released passive Building system.",
+    "preserve": ["building-visibility", "building-levels", "building-upgrades", "passive-gold-production", "oath-multipliers", "offline-gold", "family-assignment"],
+    "forbid": ["active-lock-disables-building", "facility-level-replaces-building-level", "activity-participant-replaces-family-assignment", "claim-recomputes-passive-gold"]
+  },
+  "facilities": [
+    {
+      "id": "facility.command-center",
+      "definitionVersion": 1,
+      "activityId": "activity.petitions",
+      "opportunityDefinitionId": "opportunity.facility.command-center.petition",
+      "mapAnchor": "upper-left-hall",
+      "capabilityId": "capability.command-petitions.v1",
+      "storyDiscoveryContentId": "story.book1.chapter3.council-of-ash.resolution",
+      "openingContentId": "facility.command.resolve-petition",
+      "localProgressTrackId": "facility-progress.command-center.influence",
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.command.first-petition", "tutorial.facility.command.consequences"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.archives",
+      "definitionVersion": 1,
+      "activityId": "activity.research",
+      "opportunityDefinitionId": "opportunity.facility.archives.research",
+      "mapAnchor": "upper-right-tower",
+      "capabilityId": "capability.archives-research.v1",
+      "storyDiscoveryContentId": "story.book1.chapter2.records-in-rain",
+      "openingContentId": "facility.archives.first-research",
+      "localProgressTrackId": "facility-progress.archives.discovery",
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.archives.first-research", "tutorial.facility.archives.mastery"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.training-grounds",
+      "definitionVersion": 1,
+      "activityId": "activity.drills",
+      "opportunityDefinitionId": "opportunity.facility.training-grounds.drill",
+      "mapAnchor": "lower-left-arena",
+      "capabilityId": "capability.training-drills.v1",
+      "storyDiscoveryContentId": "story.book1.chapter4.quarry-claim.resolution",
+      "openingContentId": "facility.training.first-drill",
+      "localProgressTrackId": "facility-progress.training-grounds.readiness",
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "minimumParticipants": null, "maximumParticipants": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.training.first-drill", "tutorial.facility.training.mastery"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.hearth",
+      "definitionVersion": 1,
+      "activityId": "activity.gatherings",
+      "opportunityDefinitionId": "opportunity.facility.hearth.gathering",
+      "mapAnchor": "lower-right-manor",
+      "capabilityId": "capability.hearth-gatherings.v1",
+      "storyDiscoveryContentId": "story.book1.chapter3.river-accord.resolution",
+      "openingContentId": "facility.hearth.quiet-trust",
+      "localProgressTrackId": "facility-progress.hearth.community",
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "minimumAttendees": null, "maximumAttendees": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.hearth.first-gathering", "tutorial.facility.hearth.relationship-results"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    }
+  ],
+  "opportunityDefinitions": [
+    { "id": "opportunity.facility.command-center.petition", "definitionVersion": 1, "facilityId": "facility.command-center", "activityId": "activity.petitions", "generation": "interval", "interactionKind": "bounded-petition-choice", "rewardPolicyId": "reward-policy.facility.command-center.petition", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.archives.research", "definitionVersion": 1, "facilityId": "facility.archives", "activityId": "activity.research", "generation": "interval", "interactionKind": "research-lead-reconstruction", "rewardPolicyId": "reward-policy.facility.archives.research", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.training-grounds.drill", "definitionVersion": 1, "facilityId": "facility.training-grounds", "activityId": "activity.drills", "generation": "interval", "interactionKind": "participant-and-formation-drill", "rewardPolicyId": "reward-policy.facility.training-grounds.drill", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.hearth.gathering", "definitionVersion": 1, "facilityId": "facility.hearth", "activityId": "activity.gatherings", "generation": "interval", "interactionKind": "attendees-and-gathering", "rewardPolicyId": "reward-policy.facility.hearth.gathering", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" }
+  ],
+  "commandCenter": {
+    "petitionTemplates": [
+      { "id": "command.petition.shared-road-use", "definitionVersion": 1, "interestIds": ["command.interest.travelers", "command.interest.residents"], "choiceIds": ["command.choice.shared-road.scheduled", "command.choice.shared-road.open"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "command.petition.plaza-stalls", "definitionVersion": 1, "interestIds": ["command.interest.merchants", "command.interest.residents"], "choiceIds": ["command.choice.plaza.rotating", "command.choice.plaza.fixed"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "command.petition.river-access", "definitionVersion": 1, "interestIds": ["command.interest.growers", "command.interest.caravans"], "choiceIds": ["command.choice.river.shared", "command.choice.river.priority"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "choicePolicy": {
+      "choiceIds": ["command.choice.shared-road.scheduled", "command.choice.shared-road.open", "command.choice.plaza.rotating", "command.choice.plaza.fixed", "command.choice.river.shared", "command.choice.river.priority"],
+      "previewImmediateEffects": true,
+      "hiddenPermanentBranches": false,
+      "mechanicalDivergence": null,
+      "prosperityDeltaByChoiceId": null,
+      "rewardByChoiceId": null,
+      "influenceProgressByChoiceId": null,
+      "chronicleFlavorRecord": true,
+      "enablementStatus": "blocked-economy"
+    },
+    "outcomeBands": [
+      { "id": "command.outcome.recorded", "definitionVersion": 1, "terminal": true, "rewards": null, "influenceProgress": null, "enablementStatus": "blocked-economy" }
+    ]
+  },
+  "archives": {
+    "branches": [
+      { "id": "archives.branch.maps", "definitionVersion": 1 },
+      { "id": "archives.branch.lore", "definitionVersion": 1 },
+      { "id": "archives.branch.relics", "definitionVersion": 1 }
+    ],
+    "researchLeads": [
+      { "id": "archives.lead.faded-road-map", "definitionVersion": 1, "branchId": "archives.branch.maps", "storyGateContentId": "facility.archives.first-research", "evidenceIds": ["archives.evidence.route-mark", "archives.evidence.weather-note", "archives.evidence.bridge-seal"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "archives.lead.covenant-fragment", "definitionVersion": 1, "branchId": "archives.branch.lore", "storyGateContentId": "story.book1.finale.first-covenant", "evidenceIds": ["archives.evidence.witness-list", "archives.evidence.margin-oath", "archives.evidence.date-mark"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "archives.lead.relic-maker-mark", "definitionVersion": 1, "branchId": "archives.branch.relics", "storyGateContentId": "facility.archives.light-map", "evidenceIds": ["archives.evidence.maker-mark", "archives.evidence.stone-residue", "archives.evidence.old-catalog"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "reconstructionPolicy": { "minimumEvidenceSelections": null, "maximumEvidenceSelections": null, "invalidSelectionReturnsToResearch": true, "chronicleDiscoveryOnClaim": true, "relicMutationAllowed": false },
+    "outcomeBands": [
+      { "id": "archives.outcome.documented", "definitionVersion": 1, "terminal": true, "rewards": null, "discoveryProgress": null, "enablementStatus": "blocked-economy" },
+      { "id": "archives.outcome.breakthrough", "definitionVersion": 1, "terminal": true, "rewards": null, "discoveryProgress": null, "enablementStatus": "blocked-economy" }
+    ],
+    "masteryPolicy": { "levelThresholds": null, "branchUnlockRules": null, "chronicleRevealRules": null, "enablementStatus": "blocked-progression" }
+  },
+  "trainingGrounds": {
+    "drills": [
+      { "id": "training.drill.controlled-spar", "definitionVersion": 1, "kind": "sparring", "formationIds": ["training.formation.paired"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "training.drill.bridge-formation", "definitionVersion": 1, "kind": "formation", "formationIds": ["training.formation.line", "training.formation.guard"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "training.drill.readiness-circuit", "definitionVersion": 1, "kind": "readiness", "formationIds": ["training.formation.rotation"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "participantPolicy": { "eligibleActorRuleId": null, "minimumParticipants": null, "maximumParticipants": null, "duplicateActorAllowed": false, "consumesActorAvailability": false, "injurySystem": false, "campaignOrTowerPowerMutation": false, "presentationSquadOnly": true, "enablementStatus": "blocked-capacity" },
+    "outcomeBands": [
+      { "id": "training.outcome.completed", "definitionVersion": 1, "terminal": true, "rewards": null, "readinessProgress": null, "enablementStatus": "blocked-economy" },
+      { "id": "training.outcome.refined", "definitionVersion": 1, "terminal": true, "rewards": null, "readinessProgress": null, "enablementStatus": "blocked-economy" }
+    ],
+    "masteryPolicy": { "levelThresholds": null, "formationUnlockRules": null, "developmentRewardBounds": null, "enablementStatus": "blocked-progression" }
+  },
+  "hearth": {
+    "gatherings": [
+      { "id": "hearth.gathering.shared-table", "definitionVersion": 1, "attendeeThemeIds": ["hearth.theme.neighbors"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "hearth.gathering.story-circle", "definitionVersion": 1, "attendeeThemeIds": ["hearth.theme.travelers", "hearth.theme.residents"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "hearth.gathering.quiet-evening", "definitionVersion": 1, "attendeeThemeIds": ["hearth.theme.trusted-company"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "attendeePolicy": { "eligibleActorRuleId": null, "minimumAttendees": null, "maximumAttendees": null, "duplicateActorAllowed": false, "romanceChecklist": false, "forcedPairing": false, "consumesRelationship": false, "enablementStatus": "blocked-capacity" },
+    "outcomeBands": [
+      { "id": "hearth.outcome.warm", "definitionVersion": 1, "terminal": true, "rewards": null, "relationshipProgress": null, "giftChance": null, "enablementStatus": "blocked-economy" },
+      { "id": "hearth.outcome.deepened", "definitionVersion": 1, "terminal": true, "rewards": null, "relationshipProgress": null, "giftChance": null, "enablementStatus": "blocked-economy" }
+    ],
+    "relationshipPolicy": { "targetRelationshipRuleId": null, "progressByOutcomeBandId": null, "interludeThresholds": null, "giftChanceByOutcomeBandId": null, "giftRewardPolicyId": null, "claimTimeDeterministicRoll": true, "enablementStatus": "blocked-relationship-and-economy" }
+  },
+  "metrics": [
+    { "id": "metric.command.petitions-claimed.v1", "definitionVersion": 1, "authority": "committed-command-petition-claim" },
+    { "id": "metric.archives.discoveries-claimed.v1", "definitionVersion": 1, "authority": "committed-archives-research-claim" },
+    { "id": "metric.training.drills-claimed.v1", "definitionVersion": 1, "authority": "committed-training-drill-claim" },
+    { "id": "metric.hearth.gatherings-claimed.v1", "definitionVersion": 1, "authority": "committed-hearth-gathering-claim" }
+  ],
+  "economyPolicy": {
+    "id": "economy-policy.phase-20-facilities.v1",
+    "version": 1,
+    "rewardByOutcomeId": null,
+    "localProgressByOutcomeId": null,
+    "activeProfitTargetShareByFacilityId": null,
+    "enablementStatus": "blocked-economy"
+  }
+}

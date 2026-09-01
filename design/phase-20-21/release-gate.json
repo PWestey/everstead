@@ -1,0 +1,55 @@
+{
+  "contractId": "phase-21-facility-release-gate-v1",
+  "sourceCommit": "44c8cc0c06079ae7e141fb1ec2de71d352d282a6",
+  "productionReleaseAllowed": false,
+  "gatePolicy": {
+    "allRequiredMustPass": true,
+    "nullOrProvisionalIsFailure": true,
+    "designValidationIsNotRuntimeEvidence": true,
+    "waiverRequiresExplicitProductAndSecurityApproval": true,
+    "waiverEvidence": null
+  },
+  "gates": [
+    { "id": "release.facilities.definitions.references", "category": "definitions", "required": true, "status": "blocked", "evidence": null, "blocker": "Runtime immutable registries and historical loaders are not implemented." },
+    { "id": "release.facilities.definitions.complete-policies", "category": "definitions", "required": true, "status": "blocked", "evidence": null, "blocker": "Cadence, capacities, rewards, progression, relationship, stock, growth, integration, and profit values are null." },
+    { "id": "release.facilities.definitions.no-deferred-systems", "category": "definitions", "required": true, "status": "blocked", "evidence": null, "blocker": "Runtime proof must show Forge does not enable affixes/reforging/advanced sets." },
+
+    { "id": "release.facilities.migration.fresh-and-lineage", "category": "migration", "required": true, "status": "blocked", "evidence": null, "blocker": "Phase 20/21 successor migrations and lineage validator are not implemented." },
+    { "id": "release.facilities.migration.passive-byte-preservation", "category": "migration", "required": true, "status": "blocked", "evidence": null, "blocker": "Need exact original-four passive Building and Family-assignment byte comparison." },
+    { "id": "release.facilities.migration.import-recovery-idempotence", "category": "migration", "required": true, "status": "blocked", "evidence": null, "blocker": "Need malformed/future/import/recovery and repeated-migration runtime evidence." },
+
+    { "id": "release.facilities.claims.eight-finalizers", "category": "claims", "required": true, "status": "blocked", "evidence": null, "blocker": "Eight trusted finalizers are not implemented or registered." },
+    { "id": "release.facilities.claims.exact-once-and-fold", "category": "claims", "required": true, "status": "blocked", "evidence": null, "blocker": "Need replay, stale-tab, archive-fold, and permanent domain-authority evidence." },
+    { "id": "release.facilities.claims.allowlists", "category": "claims", "required": true, "status": "blocked", "evidence": null, "blocker": "Stock, relationship, Gift, Chronicle, and Relic mutation allowlists are not implemented." },
+
+    { "id": "release.facilities.economy.passive-baseline", "category": "economy", "required": true, "status": "blocked", "evidence": null, "blocker": "Approved passive-versus-active acceleration target is absent." },
+    { "id": "release.facilities.economy.facility-parity", "category": "economy", "required": true, "status": "blocked", "evidence": null, "blocker": "Combined facility reward/progression parity simulation cannot run with null policies." },
+    { "id": "release.facilities.economy.integration-caps", "category": "economy", "required": true, "status": "blocked", "evidence": null, "blocker": "Cross-facility thresholds/formulas/caps are null." },
+    { "id": "release.facilities.economy.safe-integers", "category": "economy", "required": true, "status": "blocked", "evidence": null, "blocker": "Maximum approved cadence/reward/progression simulation has not run." },
+
+    { "id": "release.facilities.longevity.five-year-archive", "category": "longevity", "required": true, "status": "blocked", "evidence": null, "blocker": "Null cadence prevents five-year receipt/range/checkpoint proof." },
+    { "id": "release.facilities.longevity.save-size", "category": "longevity", "required": true, "status": "blocked", "evidence": null, "blocker": "Combined 12-facility serialized save-size budget is unapproved and untested." },
+
+    { "id": "release.facilities.concurrency.multi-tab", "category": "concurrency", "required": true, "status": "blocked", "evidence": null, "blocker": "Need live multi-tab settlement, choice, reservation, Garden-ready, and claim races." },
+    { "id": "release.facilities.concurrency.no-cas-disclosure", "category": "concurrency", "required": true, "status": "blocked", "evidence": null, "blocker": "Residual Web Storage no-CAS risk must remain documented in release result." },
+
+    { "id": "release.facilities.offline.cap-and-nonexpiry", "category": "offline", "required": true, "status": "blocked", "evidence": null, "blocker": "Need 24-hour cap, saturation, clock rollback, non-expiry, and no-auto-action runtime proof." },
+    { "id": "release.facilities.offline.gardens-only-maturity", "category": "offline", "required": true, "status": "blocked", "evidence": null, "blocker": "Need proof that offline may mature Gardens only and never harvest/claim/replant." },
+
+    { "id": "release.facilities.ux.mobile-physical-board", "category": "ux-accessibility", "required": true, "status": "blocked", "evidence": null, "blocker": "Eight physical anchors and compact state icons are not implemented/tested at both mobile sizes." },
+    { "id": "release.facilities.ux.keyboard-screenreader", "category": "ux-accessibility", "required": true, "status": "blocked", "evidence": null, "blocker": "Keyboard/focus/screen-reader validation is absent." },
+    { "id": "release.facilities.ux.reduced-motion-localization", "category": "ux-accessibility", "required": true, "status": "blocked", "evidence": null, "blocker": "Reduced-motion, resize, and 30-percent text expansion evidence is absent." },
+
+    { "id": "release.facilities.content.original-copy", "category": "content-art", "required": true, "status": "blocked", "evidence": null, "blocker": "Final original Everstead dialogue/localization is unapproved." },
+    { "id": "release.facilities.content.art-and-speaker-policy", "category": "content-art", "required": true, "status": "blocked", "evidence": null, "blocker": "Map treatments are null and public character/art authorization is unresolved." },
+
+    { "id": "release.facilities.regression.phase-0-through-19", "category": "regression", "required": true, "status": "blocked", "evidence": null, "blocker": "All released CLI/live gates must pass on the integrated candidate." },
+    { "id": "release.facilities.regression.phase-20-21-behavior", "category": "regression", "required": true, "status": "blocked", "evidence": null, "blocker": "New behavioral/browser suites do not exist in this design-only package." },
+    { "id": "release.facilities.regression.clean-console", "category": "regression", "required": true, "status": "blocked", "evidence": null, "blocker": "Integrated static-server mobile/wide clean-console evidence is absent." }
+  ],
+  "releaseDecision": {
+    "status": "BLOCKED",
+    "reason": "Every required production/runtime/economy/content gate lacks evidence or approved values.",
+    "nextDecisionOwner": "primary-integrator-and-product-owner"
+  }
+}

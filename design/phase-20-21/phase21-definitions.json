@@ -1,0 +1,162 @@
+{
+  "contractId": "phase-21-expansion-facility-definitions-v1",
+  "sourceCommit": "44c8cc0c06079ae7e141fb1ec2de71d352d282a6",
+  "configId": "phase-21-expansion-facilities-v1",
+  "definitionSetId": "definition-set.phase-21-expansion-facilities.v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "productionEnabled": false,
+  "presentationPolicy": { "artTreatmentByFacilityId": null, "cssTreatmentByFacilityId": null, "useExistingVillageArtFallback": true, "enablementStatus": "blocked-art" },
+  "facilities": [
+    {
+      "id": "facility.gatehouse",
+      "definitionVersion": 1,
+      "activityId": "activity.caravans-and-road-events",
+      "opportunityDefinitionId": "opportunity.facility.gatehouse.caravan",
+      "mapAnchor": "lower-bridge-entrance",
+      "capabilityId": "capability.gatehouse-road-events.v1",
+      "storyDiscoveryContentId": "story.book1.chapter4.skybridge-terms.resolution",
+      "openingContentId": "facility.gatehouse.first-road-watch",
+      "localProgressTrackId": "facility-progress.gatehouse.route-trust",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.gatehouse.first-caravan", "tutorial.facility.gatehouse.road-events"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.market-workshop",
+      "definitionVersion": 1,
+      "activityId": "activity.orders-and-crafting",
+      "opportunityDefinitionId": "opportunity.facility.market-workshop.order",
+      "mapAnchor": "western-plaza-workshop",
+      "capabilityId": "capability.market-workshop-orders.v1",
+      "storyDiscoveryContentId": "story.book1.chapter4.quarry-claim.resolution",
+      "openingContentId": "facility.workshop.salvage-order",
+      "localProgressTrackId": "facility-progress.market-workshop.craftsmanship",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "stockCapacityById": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.workshop.first-order", "tutorial.facility.workshop.mastery"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.gardens",
+      "definitionVersion": 1,
+      "activityId": "activity.cultivation",
+      "opportunityDefinitionId": "opportunity.facility.gardens.plot",
+      "mapAnchor": "lower-right-gardens",
+      "capabilityId": "capability.gardens-cultivation.v1",
+      "storyDiscoveryContentId": "story.book1.chapter4.harbor-compact.resolution",
+      "openingContentId": "facility.gardens.first-cultivation",
+      "localProgressTrackId": "facility-progress.gardens.cultivation",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "activePlotCapacity": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.gardens.first-plot", "tutorial.facility.gardens.harvest"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    },
+    {
+      "id": "facility.forge",
+      "definitionVersion": 1,
+      "activityId": "activity.relic-commissions",
+      "opportunityDefinitionId": "opportunity.facility.forge.commission",
+      "mapAnchor": "eastern-edge-forge",
+      "capabilityId": "capability.forge-commissions.v1",
+      "storyDiscoveryContentId": "story.book1.rank5.covenant-arrivals",
+      "openingContentId": "facility.forge.first-commission",
+      "localProgressTrackId": "facility-progress.forge.commission-mastery",
+      "operational": { "intervalMs": null, "bankCapacity": null, "unattendedTargetMs": null, "stockCapacityById": null, "selectionWeightPolicyId": null, "activeProfitTargetShare": null },
+      "tutorialIds": ["tutorial.facility.forge.first-commission", "tutorial.facility.forge.mastery"],
+      "enablementStatus": "blocked-policy-and-runtime"
+    }
+  ],
+  "opportunityDefinitions": [
+    { "id": "opportunity.facility.gatehouse.caravan", "definitionVersion": 1, "facilityId": "facility.gatehouse", "activityId": "activity.caravans-and-road-events", "generation": "interval", "interactionKind": "route-assessment-and-reception", "rewardPolicyId": "reward-policy.facility.gatehouse.caravan", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.market-workshop.order", "definitionVersion": 1, "facilityId": "facility.market-workshop", "activityId": "activity.orders-and-crafting", "generation": "interval", "interactionKind": "requirements-and-fulfillment", "rewardPolicyId": "reward-policy.facility.market-workshop.order", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.gardens.plot", "definitionVersion": 1, "facilityId": "facility.gardens", "activityId": "activity.cultivation", "generation": "interval", "interactionKind": "plot-choice-growth-and-harvest", "rewardPolicyId": "reward-policy.facility.gardens.plot", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" },
+    { "id": "opportunity.facility.forge.commission", "definitionVersion": 1, "facilityId": "facility.forge", "activityId": "activity.relic-commissions", "generation": "interval", "interactionKind": "requirements-and-relic-commission", "rewardPolicyId": "reward-policy.facility.forge.commission", "rewardPolicyVersion": 1, "expires": false, "claimMode": "manual" }
+  ],
+  "gatehouse": {
+    "routeConditions": [
+      { "id": "gatehouse.route.clear", "definitionVersion": 1 },
+      { "id": "gatehouse.route.weathered", "definitionVersion": 1 },
+      { "id": "gatehouse.route.crowded", "definitionVersion": 1 }
+    ],
+    "visitorNeeds": [
+      { "id": "gatehouse.need.rest", "definitionVersion": 1 },
+      { "id": "gatehouse.need.trade", "definitionVersion": 1 },
+      { "id": "gatehouse.need.guidance", "definitionVersion": 1 }
+    ],
+    "caravanTemplates": [
+      { "id": "gatehouse.caravan.river-merchants", "definitionVersion": 1, "storyGateContentId": "story.book1.chapter4.harbor-compact.resolution", "routeConditionPoolIds": ["gatehouse.route.clear", "gatehouse.route.crowded"], "visitorNeedPoolIds": ["gatehouse.need.trade", "gatehouse.need.rest"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "gatehouse.caravan.skybridge-couriers", "definitionVersion": 1, "storyGateContentId": "story.book1.chapter4.skybridge-terms.resolution", "routeConditionPoolIds": ["gatehouse.route.clear", "gatehouse.route.weathered"], "visitorNeedPoolIds": ["gatehouse.need.guidance", "gatehouse.need.rest"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "gatehouse.caravan.covenant-envoys", "definitionVersion": 1, "storyGateContentId": "story.book1.finale.first-covenant", "routeConditionPoolIds": ["gatehouse.route.crowded", "gatehouse.route.weathered"], "visitorNeedPoolIds": ["gatehouse.need.guidance", "gatehouse.need.trade"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "receptionChoices": ["gatehouse.reception.direct", "gatehouse.reception.host", "gatehouse.reception.inspect"],
+    "resolutionPolicy": { "invalidCombinationReturnsToAssessment": true, "hiddenPermanentBranch": false, "routeTrustByOutcomeId": null, "rewardByOutcomeId": null, "chronicleRecordRules": null, "enablementStatus": "blocked-economy" },
+    "outcomeBands": [
+      { "id": "gatehouse.outcome.welcomed", "definitionVersion": 1, "terminal": true, "rewards": null, "routeTrustProgress": null, "enablementStatus": "blocked-economy" },
+      { "id": "gatehouse.outcome.prepared", "definitionVersion": 1, "terminal": true, "rewards": null, "routeTrustProgress": null, "enablementStatus": "blocked-economy" }
+    ]
+  },
+  "marketWorkshop": {
+    "stockDefinitions": [
+      { "id": "workshop.stock.salvaged-parts", "definitionVersion": 1, "capacity": null, "sourcePolicyId": null, "enablementStatus": "blocked-capacity-and-source" },
+      { "id": "workshop.stock.trade-goods", "definitionVersion": 1, "capacity": null, "sourcePolicyId": null, "enablementStatus": "blocked-capacity-and-source" },
+      { "id": "workshop.stock.finished-components", "definitionVersion": 1, "capacity": null, "sourcePolicyId": null, "enablementStatus": "blocked-capacity-and-source" }
+    ],
+    "orders": [
+      { "id": "workshop.order.road-repair-kit", "definitionVersion": 1, "storyGateContentId": "facility.workshop.salvage-order", "requirementByStockId": { "workshop.stock.salvaged-parts": null }, "fulfillmentChoiceIds": ["workshop.fulfillment.repair", "workshop.fulfillment.reuse"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "workshop.order.market-fixtures", "definitionVersion": 1, "storyGateContentId": "story.book1.chapter4.quarry-claim.resolution", "requirementByStockId": { "workshop.stock.finished-components": null }, "fulfillmentChoiceIds": ["workshop.fulfillment.craft", "workshop.fulfillment.trade"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "workshop.order.caravan-supplies", "definitionVersion": 1, "storyGateContentId": "facility.gatehouse.first-road-watch", "requirementByStockId": { "workshop.stock.trade-goods": null }, "fulfillmentChoiceIds": ["workshop.fulfillment.trade", "workshop.fulfillment.reuse"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "fulfillmentChoices": ["workshop.fulfillment.repair", "workshop.fulfillment.reuse", "workshop.fulfillment.craft", "workshop.fulfillment.trade"],
+    "reservationPolicy": { "reserveAtEngagement": true, "cancelBeforeCommitRestoresStock": true, "closeAfterCommitPreservesEngagement": true, "callerSuppliedQuantityAllowed": false },
+    "outcomeBands": [
+      { "id": "workshop.outcome.fulfilled", "definitionVersion": 1, "terminal": true, "rewards": null, "craftsmanshipProgress": null, "stockDeltas": null, "enablementStatus": "blocked-economy" },
+      { "id": "workshop.outcome.exacting", "definitionVersion": 1, "terminal": true, "rewards": null, "craftsmanshipProgress": null, "stockDeltas": null, "enablementStatus": "blocked-economy" }
+    ],
+    "masteryPolicy": { "levelThresholds": null, "complexityUnlockRules": null, "tradeCraftBranchRules": null, "enablementStatus": "blocked-progression" }
+  },
+  "gardens": {
+    "plotPolicy": { "initialActivePlotCapacity": null, "maximumActivePlotCapacity": null, "plotUnlockRules": null, "plotIdPattern": "gardens.plot.<positive-ordinal>", "enablementStatus": "blocked-capacity" },
+    "crops": [
+      { "id": "gardens.crop.road-herbs", "definitionVersion": 1, "storyGateContentId": "facility.gardens.first-cultivation", "growthDurationMs": null, "inputRequirement": null, "harvestRewards": null, "cultivationProgress": null, "selectionWeight": null, "enablementStatus": "blocked-cadence-and-economy" },
+      { "id": "gardens.crop.river-greens", "definitionVersion": 1, "storyGateContentId": "story.book1.chapter3.river-accord.resolution", "growthDurationMs": null, "inputRequirement": null, "harvestRewards": null, "cultivationProgress": null, "selectionWeight": null, "enablementStatus": "blocked-cadence-and-economy" },
+      { "id": "gardens.crop.waystone-bloom", "definitionVersion": 1, "storyGateContentId": "story.book1.finale.first-covenant", "growthDurationMs": null, "inputRequirement": null, "harvestRewards": null, "cultivationProgress": null, "selectionWeight": null, "enablementStatus": "blocked-cadence-and-economy" }
+    ],
+    "lifecycle": ["banked-open-plot", "growing", "harvest-ready", "claimed"],
+    "growthPolicy": { "offlineMayAdvanceToReady": true, "offlineMayClaim": false, "harvestExpires": false, "spoilage": false, "autoReplant": false, "clockRollbackRejects": true },
+    "outcomeBands": [
+      { "id": "gardens.outcome.harvest", "definitionVersion": 1, "terminal": true, "rewards": null, "cultivationProgress": null, "enablementStatus": "blocked-economy" },
+      { "id": "gardens.outcome.special-harvest", "definitionVersion": 1, "terminal": true, "rewards": null, "cultivationProgress": null, "specialResultChance": null, "enablementStatus": "blocked-economy" }
+    ]
+  },
+  "forge": {
+    "stockDefinitions": [
+      { "id": "forge.stock.relic-stones", "definitionVersion": 1, "capacity": null, "sourceAuthority": "existing-relic-stone-state", "sourceAdapterId": null, "storageMode": "authoritative-external-reference", "persistedLocalBalance": false, "enablementStatus": "blocked-capacity-and-adapter" },
+      { "id": "forge.stock.workshop-components", "definitionVersion": 1, "capacity": null, "sourceAuthority": "approved-local-or-cross-facility-claim", "sourcePolicyId": null, "storageMode": "facility-local", "persistedLocalBalance": true, "enablementStatus": "blocked-capacity-and-source" }
+    ],
+    "commissions": [
+      { "id": "forge.commission.village-toolwork", "definitionVersion": 1, "outputClass": "facility-reward-only", "storyGateContentId": "facility.forge.first-commission", "requirementByStockId": { "forge.stock.workshop-components": null }, "workChoiceIds": ["forge.work.steady", "forge.work.economical"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "forge.commission.relic-restoration", "definitionVersion": 1, "outputClass": "existing-relic-system", "storyGateContentId": "story.book1.rank5.covenant-arrivals", "requirementByStockId": { "forge.stock.relic-stones": null }, "workChoiceIds": ["forge.work.steady", "forge.work.precise"], "selectionWeight": null, "enablementStatus": "blocked-policy" },
+      { "id": "forge.commission.stone-shaping", "definitionVersion": 1, "outputClass": "existing-relic-stone-system", "storyGateContentId": "facility.archives.light-map", "requirementByStockId": { "forge.stock.relic-stones": null }, "workChoiceIds": ["forge.work.precise", "forge.work.economical"], "selectionWeight": null, "enablementStatus": "blocked-policy" }
+    ],
+    "workChoices": ["forge.work.steady", "forge.work.precise", "forge.work.economical"],
+    "reservationPolicy": { "reserveAtEngagement": true, "cancelBeforeCommitRestoresStock": true, "closeAfterCommitPreservesEngagement": true, "callerSuppliedQuantityAllowed": false },
+    "outcomeBands": [
+      { "id": "forge.outcome.completed", "definitionVersion": 1, "terminal": true, "rewards": null, "commissionMasteryProgress": null, "enablementStatus": "blocked-economy" },
+      { "id": "forge.outcome.fine-work", "definitionVersion": 1, "terminal": true, "rewards": null, "commissionMasteryProgress": null, "enablementStatus": "blocked-economy" }
+    ],
+    "masteryPolicy": { "levelThresholds": null, "commissionTierRules": null, "qualityMultipliers": null, "advancedAffixes": false, "reforging": false, "advancedRelicSets": false, "enablementStatus": "blocked-progression" }
+  },
+  "metrics": [
+    { "id": "metric.gatehouse.caravans-claimed.v1", "definitionVersion": 1, "authority": "committed-gatehouse-caravan-claim" },
+    { "id": "metric.workshop.orders-claimed.v1", "definitionVersion": 1, "authority": "committed-workshop-order-claim" },
+    { "id": "metric.gardens.harvests-claimed.v1", "definitionVersion": 1, "authority": "committed-gardens-harvest-claim" },
+    { "id": "metric.forge.commissions-claimed.v1", "definitionVersion": 1, "authority": "committed-forge-commission-claim" }
+  ],
+  "economyPolicy": {
+    "id": "economy-policy.phase-21-facilities.v1",
+    "version": 1,
+    "rewardByOutcomeId": null,
+    "localProgressByOutcomeId": null,
+    "stockDeltaByOutcomeId": null,
+    "activeProfitTargetShareByFacilityId": null,
+    "enablementStatus": "blocked-economy"
+  }
+}

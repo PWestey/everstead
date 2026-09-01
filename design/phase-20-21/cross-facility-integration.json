@@ -1,0 +1,159 @@
+{
+  "contractId": "phase-21-cross-facility-integration-v1",
+  "sourceCommit": "44c8cc0c06079ae7e141fb1ec2de71d352d282a6",
+  "configId": "phase-21-cross-facility-integration-v1",
+  "definitionSetId": "definition-set.phase-21-cross-facility-integration.v1",
+  "productionEnabled": false,
+  "globalRules": {
+    "baselineIndependence": "Every facility must generate, resolve, and claim its baseline opportunity without another facility.",
+    "positiveOnly": true,
+    "mandatoryInputs": false,
+    "sourceAuthority": "committed-source-facility-claim",
+    "sameTransactionCascade": false,
+    "offlineAutoConsumption": false,
+    "autoClaim": false,
+    "callerSuppliedSignal": false,
+    "crossFacilityFormula": null,
+    "crossFacilityCap": null,
+    "activeProfitTargetShare": null,
+    "enablementStatus": "blocked-integration-and-economy"
+  },
+  "hooks": [
+    {
+      "id": "integration.gatehouse.restaurant.route-visitors",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.gatehouse",
+      "sourceMetricId": "metric.gatehouse.caravans-claimed.v1",
+      "targetFacilityId": "facility.restaurant",
+      "variantDefinitionId": "integration-variant.restaurant.route-visitor",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.gatehouse.market-workshop.trade-goods",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.gatehouse",
+      "sourceMetricId": "metric.gatehouse.caravans-claimed.v1",
+      "targetFacilityId": "facility.market-workshop",
+      "variantDefinitionId": "integration-variant.workshop.route-order",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.gardens.apothecary.herb-cases",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.gardens",
+      "sourceMetricId": "metric.gardens.harvests-claimed.v1",
+      "targetFacilityId": "facility.apothecary",
+      "variantDefinitionId": "integration-variant.apothecary.garden-herb-case",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.gardens.restaurant.ingredients",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.gardens",
+      "sourceMetricId": "metric.gardens.harvests-claimed.v1",
+      "targetFacilityId": "facility.restaurant",
+      "variantDefinitionId": "integration-variant.restaurant.garden-ingredient",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.archives.forge.relic-leads",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.archives",
+      "sourceMetricId": "metric.archives.discoveries-claimed.v1",
+      "targetFacilityId": "facility.forge",
+      "variantDefinitionId": "integration-variant.forge.archival-relic-commission",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.market-workshop.forge.components",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.market-workshop",
+      "sourceMetricId": "metric.workshop.orders-claimed.v1",
+      "targetFacilityId": "facility.forge",
+      "variantDefinitionId": "integration-variant.forge.workshop-component-commission",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.training-grounds.gatehouse.readiness",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.training-grounds",
+      "sourceMetricId": "metric.training.drills-claimed.v1",
+      "targetFacilityId": "facility.gatehouse",
+      "variantDefinitionId": "integration-variant.gatehouse.prepared-watch",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.hearth.schoolhouse.community-stories",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.hearth",
+      "sourceMetricId": "metric.hearth.gatherings-claimed.v1",
+      "targetFacilityId": "facility.schoolhouse",
+      "variantDefinitionId": "integration-variant.schoolhouse.community-story-lesson",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.command-center.market-workshop.civic-orders",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.command-center",
+      "sourceMetricId": "metric.command.petitions-claimed.v1",
+      "targetFacilityId": "facility.market-workshop",
+      "variantDefinitionId": "integration-variant.workshop.civic-order",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "integration.forge.training-grounds.practice-equipment",
+      "definitionVersion": 1,
+      "sourceFacilityId": "facility.forge",
+      "sourceMetricId": "metric.forge.commissions-claimed.v1",
+      "targetFacilityId": "facility.training-grounds",
+      "variantDefinitionId": "integration-variant.training.practice-equipment-drill",
+      "eligibilityThreshold": null,
+      "modifierFormula": null,
+      "modifierCap": null,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "statePolicy": {
+    "metricProjectionOnly": true,
+    "persistedSignalInventory": false,
+    "targetEligibilityDerivedAtSettlement": true,
+    "capturedVariantVersionInOpportunityDetail": true,
+    "definitionRemovalRequiresHistoricalLoader": true,
+    "sourceClaimReplayDoesNotDuplicateEligibility": true
+  },
+  "validationRules": [
+    "Every source and target facility exists in the captured Phase 14–21 registry.",
+    "Every source metric is updated only inside its trusted source-claim finalizer.",
+    "A target baseline remains valid with every integration hook disabled.",
+    "No hook settles or claims another facility in the source transaction.",
+    "No cyclic hook may be mandatory, consumptive, or a prerequisite for a baseline opportunity.",
+    "Null threshold, formula, or cap blocks production enablement."
+  ]
+}
