@@ -53,10 +53,10 @@
       {id:'feature.manual-claims',kind:'claims',tutorialId:'tutorial.manual-claims.intro',introductionRank:5,status:'reserved'}
     ],
     stories:[
-      {id:'story.first-covenant',chronicleId:'chronicle.first-covenant',status:'reserved',nodeIds:[]}
+      {id:'story.first-covenant',chronicleId:'chronicle.first-covenant',status:'active',nodeIds:['story.book1.prologue.waystone-call','story.book1.prologue.council','story.book1.chapter1.village-toll.intro','story.book1.chapter1.village-toll.resolution','story.book1.rank2.roadbound-arrivals']}
     ],
     chronicle:[
-      {id:'chronicle.first-covenant',storyId:'story.first-covenant',status:'reserved',entryIds:[]}
+      {id:'chronicle.first-covenant',storyId:'story.first-covenant',status:'active',entryIds:['chronicle.book1.prologue.waystone-call','chronicle.book1.prologue.council','chronicle.book1.chapter1.village-toll.intro','chronicle.book1.chapter1.village-toll.resolution','chronicle.book1.rank2.roadbound-arrivals']}
     ],
     legacy:[
       {id:'legacy.achievement.oaths-kept',kind:'achievement',metricId:'metric.oaths-completed-after-activation',mode:'continuing'},
