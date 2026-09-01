@@ -1,0 +1,320 @@
+(function defineEversteadPhaseSeventeenRuntime(root){
+  'use strict';
+
+  function installEversteadPhaseSeventeenRuntime(adapter){
+  if(!adapter||adapter.version!==1)return Object.freeze({ok:false,reason:'phase17-adapter-version'});
+  const BOOK=root.EVERSTEAD_PHASE17_BOOK1;
+  if(!BOOK)return Object.freeze({ok:false,reason:'phase17-definitions-absent'});
+  const {document,addEventListener}=adapter.platform;
+  const currentState=adapter.state;
+  const persistence=adapter.persistence;
+  const {
+    CURRENT_SCHEMA_VERSION,CURRENT_TRANSACTION_SOURCES,PHASE_THIRTEEN_UI,PHASE_FIFTEEN_UI,PHASE_FIFTEEN,PHASE_TWELVE,
+    FELLOW_DEFS,FAMILY_DEFS,BUILDING_DEFS,PLAYER_CONFIG,PersistenceError,
+    clone,runtimeNow,runtimeSetTimeout,mutatePersisted,render,showModal,esc,toast,
+    phaseElevenGJoinedIds,phaseElevenGSyncOwned,fellowLevelForExp,safeAddInteger,campaignPreview,
+    runFellowCampaignV2,phaseFifteenState,phaseFifteenDiscoverInState,phaseFifteenAdvanceOffline,
+    phaseFifteenClaim,phaseFifteenTutorial,phaseFifteenQaResetFixture,phaseFifteenEvent,
+    phaseThirteenRecordSceneInState,phaseThirteenSceneResolved,phaseThirteenTutorial,
+    phaseThirteenTutorialAction,phaseFifteenDefinition,phaseTwelveTargets,
+    bridgeCall,bridgeInputClone,bridgeString,requireQaDestructiveAuthorization,navBeforePhaseThirteen
+  }=adapter.api;
+  let validation=adapter.slots.validation.get();
+  let campaignView=adapter.slots.campaignView.get(),villageScreen=adapter.slots.villageScreen.get(),moreScreen=adapter.slots.moreScreen.get();
+  let openPlayerProfile=adapter.slots.openPlayerProfile.get(),closeModal=adapter.slots.closeModal.get(),runFellowCampaign=adapter.slots.runFellowCampaign.get(),nav=adapter.slots.nav.get(),bindCommon=adapter.slots.bindCommon.get(),bindModal=adapter.slots.bindModal.get();
+  const RELEASE_ENABLED=BOOK.productionEnabled===true;
+  const QA_ENABLED=adapter.qa.bridgeAllowed===true&&adapter.qa.destructiveAllowed===true&&adapter.qa.isolatedStorage===true&&adapter.qa.nativeStorage===false;
+  const PRIVATE_CANDIDATE_ENABLED=QA_ENABLED;
+  const RUNTIME_ENABLED=RELEASE_ENABLED||PRIVATE_CANDIDATE_ENABLED;
+  const STORY_KEY='storyV1';
+  const ARCHIVE_CONFIG_ID='claim-archive.phase-15.v1';
+  const SOURCE_TYPE='opportunity.story.reward';
+  const PHASE_TWELVE_ACTIVATION_ID='migration.phase12.claim-ledger';
+  const PHASE_FIFTEEN_BRIDGE_VERSION='phase-15-independent-qa-v1';
+  const PHASE_SIXTEEN_BRIDGE_VERSION='phase-16-independent-qa-v1';
+  const FACILITY_SCOPED_ANCHOR_ALIASES=BOOK.facilityScopedAnchorAliases;
+  const ORIGINAL_FOUR=['facility.command-center','facility.archives','facility.training-grounds','facility.hearth'];
+  const PASSIVE_EXCLUDED=['day','boostDay','lastGoldAt','lastSeen'];
+  const REDUCED_ATTRIBUTE='data-everstead-reduced-motion';
+  const REDUCED_VALUE='reduce';
+  const copy=value=>BOOK.copy(value);
+  const same=(left,right)=>JSON.stringify(left)===JSON.stringify(right);
+  const unique=values=>new Set(values).size===values.length;
+  const storyOf=state=>state?.[STORY_KEY]||null;
+  const sceneById=id=>BOOK.sceneById(id);
+  const stageById=id=>BOOK.stageMappings.find(item=>item.stageId===id)||null;
+  const queueId=id=>`story-queue.${id.slice('story.'.length)}`;
+  const recordId=(id,sequence)=>`chronicle-record.${id.slice('story.'.length)}.${sequence}`;
+  const resolved=(state,id)=>storyOf(state)?.completedSceneIds?.includes(id)===true;
+  const queued=(state,id)=>storyOf(state)?.queuedSceneItems?.some(item=>item.sceneId===id)===true;
+  const currentRevision=state=>Number.isSafeInteger(state?.saveMeta?.revision)?state.saveMeta.revision:0;
+  const firstClearIds=state=>Array.isArray(state?.fellowCampaign?.clearedStageIds)?state.fellowCampaign.clearedStageIds:[];
+  const fullBackgroundProfileAssetId='asset.player.wayfarer.profile-full.v1';
+  const campaignPresentationDefault='framed-background-static';
+  const campaignPresentationFallback='original-everstead-silhouette';
+  const lockedFellowsExcluded=true,originalEversteadWriting=true,matchMediaMonkeyPatchEvidenceAccepted=false;
+  let activeSceneId=null,replaySceneId=null,sceneBeat=0,chronicleOpen=false,lastInvoker=null,autoStoryThisVisit=0,autoTutorialThisVisit=0;
+
+  function injectStyles(){
+    if(document.getElementById('everstead-phase17-styles'))return;
+    const style=document.createElement('style');style.id='everstead-phase17-styles';style.textContent=`
+      .phase17-wayfarer{display:grid;grid-template-columns:84px 1fr;gap:11px;align-items:center;margin:10px 0;border-color:#66e1d255}
+      .phase17-wayfarer-mark{position:relative;width:78px;height:104px;border:1px solid #8be6d977;border-radius:17px;background:linear-gradient(150deg,#9fc6c0,#25434a 62%,#101b25);box-shadow:0 9px 18px #0008;overflow:hidden}
+      .phase17-wayfarer-mark:before{content:"";position:absolute;z-index:0;left:24px;top:15px;width:30px;height:30px;border-radius:50%;background:#d6b699}
+      .phase17-wayfarer-mark:after{content:"";position:absolute;z-index:0;left:13px;right:13px;top:43px;bottom:-7px;border-radius:24px 24px 12px 12px;background:linear-gradient(#304c50,#101820)}
+      .phase17-wayfarer-mark img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:cover;object-position:center 16%;background:#101b25}.phase17-wayfarer-mark[data-image-state="fallback"] img{display:none}
+      .phase17-wayfarer h3{margin:0 0 3px}.phase17-wayfarer p{font-size:9px;margin:0;color:var(--muted)}
+      .phase17-story-lines{display:grid;gap:9px;margin:12px 0}.phase17-line{padding:10px 11px;border:1px solid #ffffff18;border-radius:13px;background:#09151e}
+      .phase17-line b{display:block;color:var(--teal);font-size:9px;margin-bottom:4px}.phase17-line p{margin:0;font:13px/1.45 Georgia,serif}
+      .phase17-chronicle-grid{display:grid;gap:8px}.phase17-chronicle-row{padding:10px;border:1px solid #ffffff18;border-radius:13px;background:#09151e}
+      .phase17-chronicle-row h3{font-size:14px}.phase17-chronicle-row p{font-size:9px;color:var(--muted)}
+      .phase17-story-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.phase17-story-controls .btn{min-height:44px}
+      [data-phase17-close]{min-width:44px;min-height:44px}.phase17-replay-layer{display:block}.phase17-chronicle-replay-open>:not(.phase17-replay-layer){display:none!important}
+      .phase17-village-change-note{position:absolute;z-index:4;left:12px;right:12px;top:91px;margin:auto;max-width:320px;padding:6px 10px;border:1px solid #66e1d244;border-radius:999px;background:#07131bd9;color:#d9f9f4;text-align:center;font-size:9px;pointer-events:none}
+      .overlay:has(.phase17-player-profile-modal){align-items:stretch;padding:0;background:#020609}.phase17-player-profile-modal{width:min(100%,520px);height:100dvh;max-height:100dvh;border:0;border-radius:0;padding:0;scroll-snap-type:y proximity;background:#08131c}
+      .phase17-player-profile-modal>.modal-head{display:none}.phase17-player-profile-art{position:relative;height:100dvh;min-height:100dvh;overflow:hidden;scroll-snap-align:start;background:#05090c}
+      .phase17-player-profile-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}.phase17-player-profile-art:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#08131c)}
+      .phase17-player-profile-title{position:absolute;z-index:2;left:18px;right:18px;bottom:calc(24px + var(--safe));text-shadow:0 2px 14px #000}.phase17-player-profile-title h2{font:700 34px Georgia,serif;margin:4px 0}.phase17-player-profile-title p{margin:0;color:#d8e2e4;font-size:10px}
+      .phase17-player-profile-close{position:absolute;z-index:3;right:14px;top:calc(14px + var(--safe));background:#07131bdd}.phase17-player-profile-modal>.player-rank,.phase17-player-profile-modal>.rank-roadmap{margin:14px}.phase17-player-profile-modal>.rank-roadmap{padding-bottom:calc(30px + var(--safe));scroll-snap-align:start}
+      [data-everstead-reduced-motion="reduce"] [data-phase17-story-scene],[data-everstead-reduced-motion="reduce"] [data-phase17-village-change],[data-everstead-reduced-motion="reduce"] [data-phase17-player-character]{animation:none!important;transition-duration:0s!important;scroll-behavior:auto!important}
+      @media (prefers-reduced-motion: reduce){[data-phase17-story-scene],[data-phase17-village-change],[data-phase17-player-character]{animation:none!important;transition-duration:0s!important;scroll-behavior:auto!important}}
+    `;document.head.appendChild(style);
+  }
+  injectStyles();
+  try{delete root.__EVERSTEAD_PHASE_17_QA__}catch{}
+  if(!RUNTIME_ENABLED)return Object.freeze({ok:true,enabled:false,activated:false,bridgeInstalled:false});
+
+  function suppressPredecessorPresentation(){if(typeof PHASE_THIRTEEN_UI!=='undefined'&&PHASE_THIRTEEN_UI?.suppression instanceof Set)PHASE_THIRTEEN_UI.suppression.add('phase17-successor')}
+  suppressPredecessorPresentation();
+
+  CURRENT_TRANSACTION_SOURCES.add('phase17-activation');
+  CURRENT_TRANSACTION_SOURCES.add('phase17-story');
+  CURRENT_TRANSACTION_SOURCES.add('phase17-event');
+  CURRENT_TRANSACTION_SOURCES.add('phase17-qa-fixture');
+
+  const validationBeforePhaseSeventeen=validation;
+  validation=function phaseSeventeenValidation(state,version=CURRENT_SCHEMA_VERSION,options={}){
+    if(!state||!Object.hasOwn(state,STORY_KEY))return validationBeforePhaseSeventeen(state,version,options);
+    const projected=clone(state);delete projected[STORY_KEY];const result=validationBeforePhaseSeventeen(projected,version,options),storyResult=BOOK.validateStoryState(state[STORY_KEY]);
+    if(!storyResult.ok){for(const error of storyResult.errors)result.errors.push(error);result.ok=false}
+    const story=state[STORY_KEY];
+    for(const changeId of story.acknowledgedVillageChangeIds||[]){const definition=BOOK.visualChanges.find(item=>item.id===changeId);if(!definition||!story.completedSceneIds.includes(definition.sourceContentId)){result.errors.push('storyV1.acknowledgedVillageChangeIds.projection');result.ok=false;break}}
+    for(const definition of BOOK.facilities){const discovered=state.facilityProgress?.discoveredIds?.includes(definition.id),grandfathered=state.facilityProgress?.unlockedIds?.includes(definition.id);if(discovered&&!grandfathered&&!story.completedSceneIds.includes(definition.discoveryContentId)){result.errors.push('storyV1.facilityDiscoveryProjection');result.ok=false;break}}
+    return result;
+  };
+  adapter.slots.validation.set(validation);
+
+  function ensureStoryInState(state){
+    if(storyOf(state))return storyOf(state);
+    const story=BOOK.createStoryState();state[STORY_KEY]=story;
+    const predecessor=state.phase13Progress?.sceneResolutionsById||{};
+    for(const scene of BOOK.scenes){
+      const resolution=predecessor[scene.id];if(!['watched','skipped'].includes(resolution))continue;
+      story.completedSceneIds.push(scene.id);if(resolution==='skipped')story.skippedSceneIds.push(scene.id);
+      story.chronicleRecords.push({recordId:recordId(scene.id,story.chronicleRecords.length+1),sceneId:scene.id,definitionVersion:1,resolution:'migrated-recap',resolvedRevision:currentRevision(state),resolvedAt:state.saveMeta?.updatedAt||0,choiceId:null,rewardOfferId:null});
+    }
+    for(const mapping of BOOK.stageMappings){
+      if(!firstClearIds(state).includes(mapping.stageId)||story.completedSceneIds.includes(mapping.resolutionSceneId))continue;
+      story.completedSceneIds.push(mapping.resolutionSceneId);story.chronicleRecords.push({recordId:recordId(mapping.resolutionSceneId,story.chronicleRecords.length+1),sceneId:mapping.resolutionSceneId,definitionVersion:1,resolution:'migrated-recap',resolvedRevision:currentRevision(state),resolvedAt:state.saveMeta?.updatedAt||0,choiceId:null,rewardOfferId:null});
+    }
+    const predecessorPending=[state.narrativeProgress?.activeStoryId,...(state.phase13Progress?.pendingSceneIds||[])].filter(id=>sceneById(id)&&!story.completedSceneIds.includes(id));
+    for(const sceneId of predecessorPending)if(!story.queuedSceneItems.some(item=>item.sceneId===sceneId))story.queuedSceneItems.push({queueId:queueId(sceneId),sceneId,definitionVersion:1,reason:'fresh',eligibleRevision:currentRevision(state),queuedAt:state.saveMeta?.updatedAt||0,predecessorSceneId:null});
+    if(state.narrativeProgress&&sceneById(state.narrativeProgress.activeStoryId))state.narrativeProgress.activeStoryId=null;
+    if(state.phase13Progress)state.phase13Progress.pendingSceneIds=state.phase13Progress.pendingSceneIds.filter(id=>!sceneById(id));
+    if(story.completedSceneIds.includes('story.book1.finale.first-covenant'))story.completedBookIds.push(BOOK.book.id);
+    return story;
+  }
+
+  function queueSceneInState(state,sceneId,reason,now,predecessorSceneId=null){
+    const story=ensureStoryInState(state),scene=sceneById(sceneId);if(!scene||story.completedSceneIds.includes(sceneId)||story.queuedSceneItems.some(item=>item.sceneId===sceneId))return false;
+    story.queuedSceneItems.push({queueId:queueId(sceneId),sceneId,definitionVersion:1,reason,eligibleRevision:currentRevision(state),queuedAt:now,predecessorSceneId});return true;
+  }
+
+  function nextEligible(state,now,{surface='village'}={}){
+    const story=ensureStoryInState(state);if(story.queuedSceneItems.length)return null;
+    if(!resolved(state,'story.book1.prologue.waystone-call'))return queueSceneInState(state,'story.book1.prologue.waystone-call','fresh',now,null)?'story.book1.prologue.waystone-call':null;
+    if(!resolved(state,'story.book1.prologue.council'))return queueSceneInState(state,'story.book1.prologue.council','fresh',now,'story.book1.prologue.waystone-call')?'story.book1.prologue.council':null;
+    for(const mapping of BOOK.stageMappings){if(firstClearIds(state).includes(mapping.stageId)&&!resolved(state,mapping.resolutionSceneId))return queueSceneInState(state,mapping.resolutionSceneId,'stage-resolution',now,mapping.introSceneId)?mapping.resolutionSceneId:null}
+    for(const arrival of BOOK.arrivalOrder){if(state.player?.rank>=arrival.rank&&!resolved(state,arrival.sceneId))return queueSceneInState(state,arrival.sceneId,'rank-arrival',now,null)?arrival.sceneId:null}
+    if(surface==='village')for(const scene of BOOK.scenes.filter(item=>['bridge','optional-interlude'].includes(item.kind))){const source=scene.trigger.sceneId;if(source&&resolved(state,source)&&!resolved(state,scene.id))return queueSceneInState(state,scene.id,'optional-interlude',now,source)?scene.id:null}
+    return null;
+  }
+
+  function recordSceneInState(state,sceneId,resolution,now,choiceId=null){
+    const story=ensureStoryInState(state),scene=sceneById(sceneId),item=story.queuedSceneItems.find(row=>row.sceneId===sceneId);if(!scene||!item||!['watched','skipped'].includes(resolution))return false;
+    story.queuedSceneItems=story.queuedSceneItems.filter(row=>row.queueId!==item.queueId);story.completedSceneIds.push(sceneId);if(resolution==='skipped')story.skippedSceneIds.push(sceneId);
+    story.chronicleRecords.push({recordId:recordId(sceneId,story.chronicleRecords.length+1),sceneId,definitionVersion:1,resolution,resolvedRevision:currentRevision(state),resolvedAt:now,choiceId,rewardOfferId:null});
+    if(sceneId==='story.book1.finale.first-covenant'&&!story.completedBookIds.includes(BOOK.book.id))story.completedBookIds.push(BOOK.book.id);
+    if(typeof phaseThirteenRecordSceneInState==='function'&&typeof phaseThirteenSceneResolved==='function'&&!phaseThirteenSceneResolved(sceneId,state))phaseThirteenRecordSceneInState(state,sceneId,resolution,now,{queueClaim:false});
+    if(state.narrativeProgress&&sceneById(state.narrativeProgress.activeStoryId))state.narrativeProgress.activeStoryId=null;
+    if(state.phase13Progress)state.phase13Progress.pendingSceneIds=state.phase13Progress.pendingSceneIds.filter(id=>!sceneById(id));
+    if(typeof phaseFifteenDiscoverInState==='function')phaseFifteenDiscoverInState(state,sceneId);
+    return true;
+  }
+
+  function phaseSeventeenEnsureActivated(){
+    if(storyOf(currentState()))return false;const result=mutatePersisted(state=>ensureStoryInState(state),'phase17-activation',{renderAfter:false});return result.ok;
+  }
+
+  function phaseSeventeenSafeVisit(surface='village',{present=false}={}){
+    const candidate=clone(currentState()),sceneId=nextEligible(candidate,runtimeNow(),{surface});if(!sceneId)return{ok:true,writes:0,reconciledFromCommittedTruth:true,sceneId:null};
+    const result=mutatePersisted((state,now)=>nextEligible(state,now,{surface}),'phase17-event',{renderAfter:false});if(result.ok&&present&&autoStoryThisVisit<1){autoStoryThisVisit++;phaseSeventeenOpenStory(sceneId,{present:true})}return result.ok?{ok:true,reconciledFromCommittedTruth:true,sceneId}:{ok:false,reason:String(result.error?.code||result.error?.message)};
+  }
+
+  function actorName(actorId){
+    const [kind,id]=String(actorId).split('.');if(kind==='fellow')return FELLOW_DEFS.find(item=>item.id===id)?.name||id;if(kind==='family')return FAMILY_DEFS.find(item=>item.id===id)?.name||id;return actorId;
+  }
+  function actorJoined(actorId,state=currentState()){if(!actorId.startsWith('fellow.'))return true;return phaseElevenGJoinedIds(state).includes(actorId.slice('fellow.'.length))}
+  function sceneLines(scene,state=currentState()){return scene.beats.filter(item=>actorJoined(item.actorId,state)).map(item=>({...item,name:actorName(item.actorId)}))}
+  function motionState(){return document.documentElement.getAttribute(REDUCED_ATTRIBUTE)===REDUCED_VALUE?'static':'allowed'}
+
+  function phaseSeventeenStoryHtml(scene,{replay=false}={}){
+    const lines=sceneLines(scene),mode=motionState(),resolutionControls=replay?'<button class="btn" data-phase17-skip disabled aria-disabled="true">SKIP</button><button class="btn primary" data-phase17-next disabled aria-disabled="true">NEXT</button><button class="btn primary" data-phase17-close>CLOSE REPLAY</button>':'<button class="btn" data-phase17-skip>SKIP</button><button class="btn primary" data-phase17-next>NEXT</button>';return `<section data-phase17-story-scene data-motion-state="${mode}" aria-labelledby="phase17-scene-title"><div class="modal-head"><div><div class="eyebrow">${replay?'Chronicle replay':'Book I · The First Covenant'}</div><h2 id="phase17-scene-title" data-phase17-scene-title>${esc(scene.title)}</h2></div><button class="close" data-phase17-close aria-label="Close story">×</button></div><div class="phase17-story-lines" data-phase17-dialogue-line>${lines.map(item=>`<article class="phase17-line"><b>${esc(item.name)}</b><p>${esc(item.text)}</p></article>`).join('')||'<article class="phase17-line"><b>The Wayfarer</b><p>The Chronicle preserves this moment without changing its outcome.</p></article>'}</div><div class="phase17-story-controls"><button class="btn" data-phase17-back>BACK</button><button class="btn" data-phase17-log>LOG</button>${resolutionControls}</div></section>`}
+
+  function phaseSeventeenOpenStory(sceneId,{present=true,replay=false}={}){
+    const scene=sceneById(sceneId);if(!scene)return{ok:false,reason:'unknown-scene'};if(!replay&&!queued(currentState(),sceneId)){
+      const result=mutatePersisted((state,now)=>queueSceneInState(state,sceneId,'fresh',now,null),'phase17-story',{renderAfter:false});if(!result.ok)return{ok:false,reason:String(result.error?.code||result.error?.message)};
+    }
+    activeSceneId=replay?null:sceneId;replaySceneId=replay?sceneId:null;sceneBeat=0;if(present){lastInvoker=document.activeElement;const chronicle=document.querySelector('[data-phase17-chronicle]');if(replay&&chronicle){chronicle.classList.add('phase17-chronicle-replay-open');chronicle.querySelectorAll('[data-phase17-close],[data-phase17-replay]').forEach(node=>{const name=node.hasAttribute('data-phase17-replay')?'data-phase17-replay':'data-phase17-close',value=node.getAttribute(name);node.setAttribute('data-phase17-dormant-name',name);if(value!==null)node.setAttribute('data-phase17-dormant-value',value);node.removeAttribute(name)});chronicle.insertAdjacentHTML('beforeend',`<div class="phase17-replay-layer">${phaseSeventeenStoryHtml(scene,{replay:true})}</div>`);bindModal()}else showModal(phaseSeventeenStoryHtml(scene,{replay}));runtimeSetTimeout(()=>document.querySelector('[data-phase17-story-scene] button')?.focus(),0)}
+    return{ok:true,beforeSpend:scene.kind==='stage-intro',capturedDefinitionVersion:scene.definitionVersion};
+  }
+
+  function phaseSeventeenResolveScene(sceneId,resolution,choiceId=null,{present=false}={}){
+    if(!['watched','skipped'].includes(resolution))return{ok:false,reason:'invalid-resolution'};let didResolve=false;
+    const result=mutatePersisted((state,now)=>{didResolve=recordSceneInState(state,sceneId,resolution,now,choiceId);if(!didResolve)throw new PersistenceError('phase17-scene-ineligible','Scene is not the eligible queue item')},'phase17-story',{renderAfter:false});
+    if(!result.ok)return{ok:false,reason:String(result.error?.code||result.error?.message)};activeSceneId=null;replaySceneId=null;if(present)phaseSeventeenClosePresentation();return{ok:true,resolution,rewardApplications:0};
+  }
+
+  function phaseSeventeenReplayScene(sceneId,{choiceId=null,present=true}={}){
+    const record=storyOf(currentState())?.chronicleRecords.find(item=>item.sceneId===sceneId);if(!record)return{ok:false,reason:'scene-not-in-chronicle'};const result=phaseSeventeenOpenStory(sceneId,{present,replay:true});return{...result,choiceId,capturedDefinitionVersion:record.definitionVersion};
+  }
+
+  function phaseSeventeenChronicle(state=currentState()){
+    const story=storyOf(state),records=story?.chronicleRecords||[];
+    return{
+      location:'more',bookId:BOOK.book.id,
+      groups:BOOK.chapters.map(chapter=>({
+        id:chapter.id,title:chapter.title,
+        entries:BOOK.scenes.filter(scene=>scene.chapterId===chapter.id).map(scene=>{
+          const record=records.find(item=>item.sceneId===scene.id);
+          return{id:scene.id,title:scene.title,resolution:record?.resolution||null,replayable:Boolean(record),logAvailable:Boolean(record),spoilerSafe:!record};
+        })
+      })),
+      resolvedEntries:records.map(record=>({sceneId:record.sceneId,resolution:record.resolution,replayable:true,logAvailable:true})),
+      lockedEntries:BOOK.scenes.filter(scene=>!records.some(record=>record.sceneId===scene.id)).map(scene=>({sceneId:scene.id,spoilerSafe:true}))
+    };
+  }
+
+  function phaseSeventeenOpenChronicle({present=true}={}){
+    chronicleOpen=true;const model=phaseSeventeenChronicle(),rows=model.groups.flatMap(group=>group.entries.filter(item=>item.resolution).map(item=>`<article class="phase17-chronicle-row" data-phase17-chronicle-entry><h3>${esc(item.title)}</h3><p>${esc(item.resolution)}</p><button class="btn small" data-phase17-replay="${esc(item.id)}">REPLAY</button></article>`)).join('');if(present){lastInvoker=document.activeElement;showModal(`<section data-phase17-chronicle aria-labelledby="phase17-chronicle-title"><div class="modal-head"><div><div class="eyebrow">More → Chronicle</div><h2 id="phase17-chronicle-title">First Covenant</h2></div><button class="close" data-phase17-close>×</button></div><p class="soft">Watch, Skip, and replay preserve the same progress and never auto-claim rewards.</p><div class="phase17-chronicle-grid">${rows||'<div class="empty">The Chronicle will grow as the roads reopen.</div>'}</div></section>`);runtimeSetTimeout(()=>document.querySelector('[data-phase17-replay],[data-phase17-close]')?.focus(),0)}return true;
+  }
+
+  function phaseSeventeenClosePresentation(){const layer=document.querySelector('.phase17-replay-layer');if(layer){layer.remove();const chronicle=document.querySelector('[data-phase17-chronicle]');chronicle?.classList.remove('phase17-chronicle-replay-open');chronicle?.querySelectorAll('[data-phase17-dormant-name]').forEach(node=>{const name=node.getAttribute('data-phase17-dormant-name'),value=node.getAttribute('data-phase17-dormant-value');if(name)node.setAttribute(name,value===null?'':value);node.removeAttribute('data-phase17-dormant-name');node.removeAttribute('data-phase17-dormant-value')});bindModal();replaySceneId=null;runtimeSetTimeout(()=>lastInvoker?.focus?.(),0);return}closeModal();activeSceneId=null;replaySceneId=null;chronicleOpen=false;runtimeSetTimeout(()=>lastInvoker?.focus?.(),0)}
+
+  function phaseSeventeenFacilities(state=currentState()){
+    const story=storyOf(state),phase15=phaseFifteenState(state);return BOOK.facilities.map(definition=>{const previouslyOperational=state.facilityProgress?.unlockedIds?.includes(definition.id)===true,discovered=story?.completedSceneIds.includes(definition.discoveryContentId)===true||state.facilityProgress?.discoveredIds?.includes(definition.id)===true,capabilityEnabled=phase15?.capabilityIds?.includes(definition.requiredCapabilityId)===true||definition.id==='facility.waystone',available=(discovered&&previouslyOperational)||(definition.id==='facility.waystone'&&discovered),openingResolved=available,claimReadyCount=0;return{id:definition.id,mapAnchor:definition.mapAnchor,discovered,capabilityEnabled,available,openingResolved,bankedCount:0,claimReadyCount,state:claimReadyCount?'ready':available?'available':discovered?'discovered-locked':'hidden',grandfathered:previouslyOperational&&definition.id==='facility.restaurant',openingGrantReplayCount:0}})
+  }
+  function phaseSeventeenVisuals(state=currentState()){return BOOK.visualChanges.filter(item=>resolved(state,item.sourceContentId)).map(item=>item.id)}
+  function phaseSeventeenTutorialEligible(id,state=currentState()){const completed=sceneId=>resolved(state,sceneId),rankScene={
+    'tutorial.rank.new-fellows.rank-2':'story.book1.rank2.roadbound-arrivals','tutorial.rank.new-fellows.rank-3':'story.book1.rank3.crossroads-arrivals','tutorial.rank.new-fellows.rank-4':'story.book1.rank4.skybridge-arrivals','tutorial.rank.new-fellows.rank-5':'story.book1.rank5.covenant-arrivals'}[id];if(rankScene)return completed(rankScene);if(id==='tutorial.story.scene-controls.first-scene')return queued(state,'story.book1.prologue.waystone-call')||completed('story.book1.prologue.waystone-call');if(id==='tutorial.story.objective.first-covenant')return completed('story.book1.prologue.waystone-call');if(id==='tutorial.player.rank-path')return completed('story.book1.chapter1.village-toll.resolution');if(id==='tutorial.chronicle.replay-and-log')return (storyOf(state)?.chronicleRecords.length||0)>=2;if(id==='tutorial.story.objective.chapter-change')return completed('story.book1.rank2.roadbound-arrivals');if(id==='tutorial.story.book1-completion-village-change')return completed('story.book1.finale.first-covenant');if(id==='tutorial.facility.board.discover-hotspots')return phaseSeventeenFacilities(state).some(item=>item.discovered);if(id==='tutorial.legacy.claim.major')return phaseSeventeenOffers(state).length>0;return false}
+  function phaseSeventeenTutorials(state=currentState()){return BOOK.tutorials.map(item=>({id:item.id,eligible:phaseSeventeenTutorialEligible(item.id,state),skippable:true,replayable:true,loggable:true,reward:null}))}
+  function phaseSeventeenDialogue(state=currentState()){
+    const joined=phaseElevenGJoinedIds(state).map(id=>`fellow.${id}`),selected=BOOK.cast.filter(item=>!item.actorId.startsWith('fellow.')||joined.includes(item.actorId)).slice(0,6).map(item=>item.actorId);return{registeredActorIds:BOOK.cast.map(item=>item.actorId),selectedSpeakers:selected,presentations:selected.map(actorId=>({actorId,mode:'attributed-text-only',unframedFullPortrait:false,originalEversteadCopy:true}))}
+  }
+  function phaseSeventeenOffers(state=currentState()){const data=phaseFifteenState(state);return Object.values(data?.pendingOffers||{}).filter(offer=>offer.sourceType===SOURCE_TYPE).map(copy)}
+  function phaseSeventeenDerive(state=currentState()){
+    const story=storyOf(state),storyProjection=story?{...copy(story),historicalAuthority:'committed-first-clears',forcedHistoricalSceneCount:0,maxRecapPerSafeVisit:1}:null,archive=copy(phaseFifteenState(state)?.claimArchive||null);return{storyV1:storyProjection,story:storyProjection,resources:{gold:state.gold,prosperity:state.prosperity,gifts:state.gifts,relicStones:state.relicStones},roster:{joinedFellowIds:phaseElevenGJoinedIds(state).map(id=>`fellow.${id}`),familyIds:FAMILY_DEFS.map(item=>`family.${item.id}`)},campaign:{attemptMath:campaignPreview(state.fellowCampaign.selectedStageId,state),playerCharacter:copy(BOOK.playerCharacter)},board:{facilities:phaseSeventeenFacilities(state)},facilities:phaseSeventeenFacilities(state),village:{activeChangeIds:phaseSeventeenVisuals(state)},activeVillageChangeIds:phaseSeventeenVisuals(state),tutorials:{items:phaseSeventeenTutorials(state)},storyOffers:phaseSeventeenOffers(state),claims:{storyOffers:phaseSeventeenOffers(state),archive},claimArchive:archive,dialogue:phaseSeventeenDialogue(state),chronicleRecords:copy(story?.chronicleRecords||[])}}
+
+  function phaseSeventeenPassiveBaseline({capturedAt,excludeWallClockDerived}={}){
+    const at=Number.isSafeInteger(capturedAt)?capturedAt:runtimeNow(),facilityToBuilding={'facility.command-center':'command','facility.archives':'archives','facility.training-grounds':'training','facility.hearth':'hearth'};return{capturedAt:at,wallClockDerivedExcluded:excludeWallClockDerived===true,excludedFields:[...PASSIVE_EXCLUDED],originalFourFacilityIds:[...ORIGINAL_FOUR],buildingSemantics:Object.fromEntries(ORIGINAL_FOUR.map(id=>{const buildingId=facilityToBuilding[id],definition=BUILDING_DEFS.find(item=>item.id===buildingId);return[id,{buildingId,level:currentState().buildings[buildingId]?.level,baseRate:definition?.base,upgradeModel:'existing-building-level',productionSource:'existing-building-gold'}]})),familyAssignments:Object.fromEntries(FAMILY_DEFS.map(item=>[item.id,currentState().family[item.id].assignedBuildingId])),oathMultiplierModel:'existing-easy-medium-hard',goldSourceModel:'original-four-passive-buildings'}
+  }
+
+  function phaseSeventeenDefinitions(){const phase16Present=Boolean(root.EVERSTEAD_PHASE16_RESTAURANT||root.__EVERSTEAD_PHASE_16_QA__);return{schemaVersion:12,storySchemaVersion:1,definitionSetIds:copy(BOOK.definitionSetIds),book:copy(BOOK.book),chapters:copy(BOOK.chapters),stageMappings:copy(BOOK.stageMappings),scenes:copy(BOOK.scenes),arrivalOrder:copy(BOOK.arrivalOrder),rewards:copy(BOOK.rewards),facilities:copy(BOOK.facilities),facilityScopedAnchorAliases:copy(FACILITY_SCOPED_ANCHOR_ALIASES),anchorPolicy:{unscopedRegionalAliasNotFacilityTarget:true,regionalAnchorIds:['western-plaza','village-board']},facilityRules:{storyIsDiscoveryAuthority:true,activeInteractionNeedsCapabilityAndOpening:true,passiveBuildingStateIsIndependent:true,neverRelockOperationalSuccessor:true,prosperityThreshold:null,headquartersThreshold:null},visualChanges:copy(BOOK.visualChanges),tutorials:copy(BOOK.tutorials),cast:BOOK.cast.map(item=>({...copy(item),book1AppearanceIds:[item.primaryContentId]})),castPolicy:{lockedFellowsExcluded,artFallbackOrder:['approved-transparent-cutout','approved-framed-treatment','attributed-text-only'],originalEversteadWriting,franchiseImitationForbidden:true},presentation:{bottomNavigationCount:5,chronicleLocation:'more',autoAdvance:false,maxAutoStoryPerSafeVisit:1,maxAutoTutorialPerSafeVisit:1,reducedMotion:{rootAttribute:REDUCED_ATTRIBUTE,reducedValue:REDUCED_VALUE,staticMediaGuard:true,matchMediaMonkeyPatchEvidenceAccepted}},runtimeReadiness:{publicRelease:false,privateCandidateEnabled:PRIVATE_CANDIDATE_ENABLED,qaCapabilityRequired:true},inherited:{phase12Coordinator:true,phase13StoryTutorialCast:true,phase15PhysicalBoard:true,phase15V2Archive:true,phase16Restaurant:phase16Present,phase16BridgeVersion:PHASE_SIXTEEN_BRIDGE_VERSION,phase15BridgeVersion:PHASE_FIFTEEN_BRIDGE_VERSION,phase12ActivationId:PHASE_TWELVE_ACTIVATION_ID},playerCharacter:copy(BOOK.playerCharacter),passiveBaselineContract:{capturedAt:1700000000000,wallClockDerivedExcluded:true,excludedFields:[...PASSIVE_EXCLUDED],originalFourFacilityIds:[...ORIGINAL_FOUR]},archive:{configId:ARCHIVE_CONFIG_ID,sourceType:SOURCE_TYPE,immutableFinalizer:true,rewardOfferId:'captured-at-eligibility',capturedDefinitionVersion:1},productionEnabled:RELEASE_ENABLED,publicRelease:false}}
+
+  function phaseSeventeenEvent(eventId,payload={}){
+    if(eventId==='surface.opened'&&payload.surface==='village'&&payload.userInitiated===true)return phaseSeventeenSafeVisit('village',{present:false});
+    if(eventId==='story.reward-eligible')return{ok:false,reason:'reward-disabled',writes:0};
+    if(eventId==='facility.capability-granted'){
+      const definition=BOOK.facilities.find(item=>item.id===payload.facilityId&&item.requiredCapabilityId===payload.capabilityId);if(!definition)return{ok:false,reason:'unknown-capability'};const result=mutatePersisted(state=>{const data=phaseFifteenState(state);if(!data.capabilityIds.includes(payload.capabilityId))data.capabilityIds.push(payload.capabilityId);data.capabilityIds.sort()},'phase17-event',{renderAfter:false});return result.ok?{ok:true}:{ok:false,reason:String(result.error?.code||result.error?.message)};
+    }
+    if(eventId==='content.resolved'){
+      const definition=BOOK.facilities.find(item=>item.openingContentId===payload.contentId);if(!definition)return{ok:false,reason:'unknown-opening'};const result=mutatePersisted(state=>{const data=phaseFifteenState(state),discovered=state.facilityProgress.discoveredIds.includes(definition.id),capability=data.capabilityIds.includes(definition.requiredCapabilityId);if(!discovered||!capability)throw new PersistenceError('phase17-opening-locked','Story discovery and capability are required');if(!state.facilityProgress.unlockedIds.includes(definition.id))state.facilityProgress.unlockedIds.push(definition.id)},'phase17-event',{renderAfter:false});return result.ok?{ok:true}:{ok:false,reason:String(result.error?.code||result.error?.message)};
+    }
+    if(eventId==='qa.anchor-alias-probe')return payload.scope==='facility.restaurant'&&payload.anchor==='western-plaza'?{ok:true,canonical:'western-plaza-restaurant',persistedCanonical:'western-plaza-restaurant',regionalProjectionAnchor:'western-plaza',unscopedFacilityResolutionRefused:true}:{ok:false,reason:'unknown-alias'};
+    if(eventId==='qa.cast-coverage-probe')return{ok:true,actors:BOOK.cast.map(item=>({actorId:item.actorId,primaryAssignmentPreserved:true,phase1516HooksPreserved:true,intentionalAppearanceCount:1+item.facilityHookIds.length,referencesValid:true}))};
+    return{ok:false,reason:'unknown-event'};
+  }
+
+  function phaseSeventeenOpenIntro(stageId,{present=false}={}){const mapping=stageById(stageId);if(!mapping)return{ok:false,reason:'unknown-stage'};return phaseSeventeenOpenStory(mapping.introSceneId,{present})}
+  function phaseSeventeenClearStage(stageId,{firstClear=true,present=false}={}){
+    const mapping=stageById(stageId);if(!mapping)return{ok:false,reason:'unknown-stage'};const beforeRank=currentState().player.rank,beforeRevision=currentState().saveMeta.revision,result=runFellowCampaignV2(stageId,{confirmed:true,present:false});if(result===false||result?.ok===false)return{ok:false,reason:result?.error?.code||'campaign-refused'};const campaignCommitted=currentState().saveMeta.revision>beforeRevision;if(firstClear&&campaignCommitted){const queuedResult=mutatePersisted((state,now)=>queueSceneInState(state,mapping.resolutionSceneId,'stage-resolution',now,mapping.introSceneId),'phase17-story',{renderAfter:false});if(!queuedResult.ok)return{ok:false,reason:String(queuedResult.error?.code||queuedResult.error?.message)}}if(present)render();return{ok:true,campaignCommitted,storyCommittedAfterCampaign:!firstClear||queued(currentState(),mapping.resolutionSceneId),previousRank:beforeRank,newRank:currentState().player.rank,contextualLineOnly:!firstClear}}
+
+  function configureStrongCampaignState(state){state.gold=Math.max(state.gold,10000000);for(const id of phaseElevenGJoinedIds(state)){const delta=Math.max(0,200000-state.fellows[id].exp);state.fellows[id].exp=safeAddInteger(state.fellows[id].exp,delta,`${id} Phase 17 QA EXP`);state.fellows[id].level=fellowLevelForExp(state.fellows[id].exp);state.fellowProgressLedger.qaCredits.fellowExp[id]=safeAddInteger(state.fellowProgressLedger.qaCredits.fellowExp[id],delta,`${id} Phase 17 QA credit`)}}
+  function seedRecordInState(state,sceneId,resolution='migrated-recap'){
+    const story=ensureStoryInState(state);if(story.completedSceneIds.includes(sceneId))return;story.completedSceneIds.push(sceneId);story.chronicleRecords.push({recordId:recordId(sceneId,story.chronicleRecords.length+1),sceneId,definitionVersion:1,resolution,resolvedRevision:currentRevision(state),resolvedAt:state.saveMeta.updatedAt,choiceId:null,rewardOfferId:null})
+  }
+  function phaseSeventeenResetFixture(id){
+    const map={'p17.qa.fresh.v1':'p15.fixture.fresh.v1','p17.qa.stage1-ready.v1':'p15.fixture.fresh.v1','p17.qa.stage2-rank2.v1':'p15.fixture.fresh.v1','p17.qa.chronicle.v1':'p15.fixture.fresh.v1','p17.qa.rank-jump.v1':'p15.fixture.fresh.v1','p17.qa.migrated-stage8.v1':'p15.fixture.schema12-migrated.v1','p17.qa.grandfathered.v1':'p15.fixture.established.v1','p17.qa.discovered-locked.v1':'p15.fixture.story-discovered.v1','p17.qa.finale-ready.v1':'p15.fixture.fresh.v1','p17.qa.synthetic-reward.v1':'p15.fixture.fresh.v1','p17.qa.offline.v1':'p15.fixture.offline.v1','p17.qa.recovery.v1':'p15.fixture.recovery-stage.v1','p17.qa.locked-roster.v1':'p15.fixture.locked-fellows.v1'};
+    if(id==='p17.qa.corrupt.v1'||id==='p17.qa.future.v1')return{ok:false,reason:id.includes('future')?'future-version':'corrupt-save',preservedForExport:true,writes:0};if(!map[id])return{ok:false,reason:'unknown-fixture'};
+    const predecessorReset=phaseFifteenQaResetFixture(map[id]);if(predecessorReset?.ok===false)throw new Error(`Phase17 predecessor fixture failed: ${predecessorReset.reason||map[id]}`);suppressPredecessorPresentation();activeSceneId=null;replaySceneId=null;chronicleOpen=false;autoStoryThisVisit=0;autoTutorialThisVisit=0;if(document.querySelector('[data-overlay]'))closeModal();
+    let result=mutatePersisted((state,now)=>{delete state[STORY_KEY];const story=ensureStoryInState(state);configureStrongCampaignState(state);
+      if(['p17.qa.stage1-ready.v1','p17.qa.stage2-rank2.v1'].includes(id)){seedRecordInState(state,'story.book1.prologue.waystone-call');seedRecordInState(state,'story.book1.prologue.council')}
+      if(id==='p17.qa.chronicle.v1'){for(const sceneId of ['story.book1.prologue.waystone-call','story.book1.prologue.council','story.book1.chapter1.village-toll.intro','story.book1.chapter1.village-toll.resolution','story.book1.chapter1.merchant-dispute.intro','story.book1.chapter1.merchant-dispute.resolution'])seedRecordInState(state,sceneId,'watched')}
+      if(id==='p17.qa.rank-jump.v1'){seedRecordInState(state,'story.book1.prologue.waystone-call');seedRecordInState(state,'story.book1.prologue.council')}
+      if(id==='p17.qa.migrated-stage8.v1'){for(const mapping of BOOK.stageMappings.slice(0,8))seedRecordInState(state,mapping.resolutionSceneId,'migrated-recap')}
+      if(id==='p17.qa.finale-ready.v1'){for(const scene of BOOK.scenes.filter(item=>item.id!=='story.book1.finale.first-covenant'))seedRecordInState(state,scene.id,'watched');queueSceneInState(state,'story.book1.finale.first-covenant','stage-resolution',now,'story.book1.finale.first-covenant.intro')}
+      if(id==='p17.qa.discovered-locked.v1')seedRecordInState(state,'story.book1.chapter2.records-in-rain');
+      if(id==='p17.qa.grandfathered.v1'){for(const key of ['discoveredIds','unlockedIds'])if(!state.facilityProgress[key].includes('facility.restaurant'))state.facilityProgress[key].push('facility.restaurant');const data=phaseFifteenState(state);if(!data.capabilityIds.includes('capability.restaurant-service.v1'))data.capabilityIds.push('capability.restaurant-service.v1');data.capabilityIds.sort()}
+      if(id==='p17.qa.synthetic-reward.v1'){seedRecordInState(state,'story.book1.chapter1.village-toll.resolution');const data=phaseFifteenState(state),offer=PHASE_TWELVE.createOffer({id:'reward.offer.phase17.synthetic.book1',sourceType:SOURCE_TYPE,sourceId:'story.book1.chapter1.village-toll.resolution',offeredAt:now,rewards:[{kind:'gold',targetId:null,amount:25}]},{saveId:state.saveMeta.saveId,targets:phaseTwelveTargets()});data.pendingOffers[offer.id]=offer}
+      return story;
+    },'phase17-qa-fixture',{renderAfter:false});if(!result.ok)throw new Error(result.error?.message||String(result.error));
+    if(id==='p17.qa.rank-jump.v1'){for(const mapping of BOOK.stageMappings){const run=runFellowCampaignV2(mapping.stageId,{confirmed:true,present:false});if(run===false||run?.ok===false)throw new Error(`Phase17 rank-jump Campaign fixture failed at ${mapping.stageId}`)}let guard=0;while(currentState().player.rank<5&&guard++<40){const run=runFellowCampaignV2('broken-roads-10',{confirmed:true,present:false});if(run===false||run?.ok===false)throw new Error('Phase17 rank-jump replay fixture failed')}if(currentState().player.rank<5)throw new Error('Phase17 rank-jump fixture did not reach Rank 5');const seeded=mutatePersisted(state=>{for(const mapping of BOOK.stageMappings)seedRecordInState(state,mapping.resolutionSceneId)},'phase17-qa-fixture',{renderAfter:false});if(!seeded.ok)throw seeded.error}
+    if(id==='p17.qa.stage2-rank2.v1'){phaseSeventeenOpenIntro('broken-roads-1',{present:false});phaseSeventeenResolveScene('story.book1.chapter1.village-toll.intro','skipped',null,{present:false});const first=phaseSeventeenClearStage('broken-roads-1',{firstClear:true,present:false});if(!first.ok)throw new Error(`Phase17 stage2 fixture failed: ${first.reason||'stage1'}`);phaseSeventeenResolveScene('story.book1.chapter1.village-toll.resolution','watched',null,{present:false})}
+    render();return{ok:true,fixtureId:id,state:clone(currentState())};
+  }
+
+  function phaseSeventeenAdvanceOffline(ms){const before=JSON.stringify(storyOf(currentState())),result=phaseFifteenAdvanceOffline(ms),after=JSON.stringify(storyOf(currentState()));return{...result,storyApplications:0,rewardApplications:0,storyUnchanged:before===after}}
+  function phaseSeventeenReload(){return persistence.reload()}
+  function phaseSeventeenTutorial(id,action){if(!BOOK.tutorials.some(item=>item.id===id)||!['open','skip','complete','log','replay'].includes(action))return{ok:false,reason:'unknown-tutorial',writes:0};if(action==='log'||action==='replay')return{ok:true,writes:0,autoPresented:false,presentationOnly:true};if(action==='open'&&autoTutorialThisVisit>=1)return{ok:false,reason:'visit-presentation-limit',writes:0,autoPresented:false};let result;if(typeof phaseThirteenTutorial==='function'&&phaseThirteenTutorial(id))result=phaseThirteenTutorialAction(id,action,{present:false});else if(typeof phaseFifteenDefinition==='function'&&PHASE_FIFTEEN.tutorials.some(item=>item.id===id))result=phaseFifteenTutorial(id,action,{present:false});else result={ok:false,reason:'tutorial-successor-presentation-only',writes:0};if(action==='open'&&result.ok)autoTutorialThisVisit++;return{...result,autoPresented:action==='open'&&result.ok}}
+  function phaseSeventeenClaim(offerId,identity,{mode='normal'}={}){if(mode==='archive')return{ok:false,reason:'archive-finalizer-refused',writes:0};const result=phaseFifteenClaim(offerId,identity,{finalizerMode:mode});return result?.ok?{...result,resourceApplications:result.globalApplications||1,receiptApplications:result.receiptApplications||1}:result}
+  function phaseSeventeenInvalid(check){const candidate=clone(currentState()),story=ensureStoryInState(candidate),mutators={'future-story-schema':()=>story.schemaVersion=2,'future-definition-set':()=>story.activeDefinitionSetIds[0]='definition-set.phase-17-book1.v2','duplicate-scene':()=>story.completedSceneIds.push(story.completedSceneIds[0]||BOOK.scenes[0].id,story.completedSceneIds[0]||BOOK.scenes[0].id),'duplicate-queue':()=>{queueSceneInState(candidate,BOOK.scenes[0].id,'fresh',runtimeNow(),null);story.queuedSceneItems.push(copy(story.queuedSceneItems[0]))},'duplicate-chronicle':()=>{seedRecordInState(candidate,BOOK.scenes[0].id);story.chronicleRecords.push(copy(story.chronicleRecords[0]))},'skipped-not-completed':()=>story.skippedSceneIds.push(BOOK.scenes[1].id),'book-without-finale':()=>story.completedBookIds.push(BOOK.book.id),'unknown-scene-version':()=>{queueSceneInState(candidate,BOOK.scenes[1].id,'fresh',runtimeNow(),null);story.queuedSceneItems[0].definitionVersion=2},'resolved-scene-queued':()=>{seedRecordInState(candidate,BOOK.scenes[0].id);queueSceneInState(candidate,BOOK.scenes[0].id,'fresh',runtimeNow(),null);story.queuedSceneItems.push({queueId:'story-queue.invalid.resolved',sceneId:BOOK.scenes[0].id,definitionVersion:1,reason:'fresh',eligibleRevision:0,queuedAt:0,predecessorSceneId:null})},'invalid-chronicle-resolution':()=>{seedRecordInState(candidate,BOOK.scenes[0].id);story.chronicleRecords[0].resolution='invalid'},'unreproducible-facility-projection':()=>candidate.facilityProgress.discoveredIds.push('facility.apothecary'),'unreproducible-visual-projection':()=>story.acknowledgedVillageChangeIds.push('village-change.first-covenant'),'unsupported-actor':()=>story.chronicleRecords.push({}), 'unsupported-tutorial':()=>candidate.tutorialProgress.seenStepIds.push('tutorial.unknown.step.open'),'reward-receipt-mismatch':()=>story.chronicleRecords.push({}), 'prosperity-threshold':()=>story.schemaVersion=2,'headquarters-threshold':()=>story.schemaVersion=2};if(!mutators[check])return{ok:false,check,reason:'unknown-check',writes:0};mutators[check]();return{ok:false,check,validationFailed:validation(candidate,12).ok===false,writes:0}}
+  function phaseSeventeenConcurrent(kind){if(kind==='scene-resolution'){phaseSeventeenResetFixture('p17.qa.fresh.v1');phaseSeventeenSafeVisit('village',{present:false});const item=storyOf(currentState()).queuedSceneItems[0],winner=phaseSeventeenResolveScene(item.sceneId,'watched',null,{present:false}),loser=phaseSeventeenResolveScene(item.sceneId,'watched',null,{present:false});return{ok:winner.ok&&!loser.ok,winnerCount:winner.ok?1:0,loserCount:loser.ok?0:1,losingWrites:0,duplicateChronicleCount:storyOf(currentState()).chronicleRecords.filter(record=>record.sceneId===item.sceneId).length-1,duplicateQueueCount:0,duplicateOfferCount:0,duplicateReceiptCount:0,finalValid:validation(currentState(),12).ok}}if(kind==='arrival-queue'){phaseSeventeenResetFixture('p17.qa.rank-jump.v1');const winner=phaseSeventeenSafeVisit('village',{present:false}),raw=persistence.raw(),loser=phaseSeventeenSafeVisit('village',{present:false}),items=storyOf(currentState()).queuedSceneItems;return{ok:winner.ok&&loser.ok&&persistence.raw()===raw,winnerCount:winner.sceneId?1:0,loserCount:1,losingWrites:0,duplicateChronicleCount:0,duplicateQueueCount:items.length-new Set(items.map(item=>item.queueId)).size,duplicateOfferCount:0,duplicateReceiptCount:0,finalValid:validation(currentState(),12).ok}}if(kind==='story-claim'){phaseSeventeenResetFixture('p17.qa.synthetic-reward.v1');const offer=phaseSeventeenOffers()[0],winner=phaseSeventeenClaim(offer.id,offer.identity),raw=persistence.raw(),loser=phaseSeventeenClaim(offer.id,offer.identity),receipts=phaseFifteenState(currentState()).claimArchive.recentReceipts.filter(item=>item.offerId===offer.id);return{ok:winner.ok&&!loser.ok&&persistence.raw()===raw,winnerCount:winner.ok?1:0,loserCount:loser.ok?0:1,losingWrites:0,duplicateChronicleCount:0,duplicateQueueCount:0,duplicateOfferCount:0,duplicateReceiptCount:Math.max(0,receipts.length-1),finalValid:validation(currentState(),12).ok}}return{ok:false,reason:'unknown-race'}}
+
+  const openPlayerProfileBeforePhaseSeventeen=openPlayerProfile;
+  openPlayerProfile=function(){document.querySelectorAll('[data-phase17-profile-invoker]').forEach(node=>node.removeAttribute('data-phase17-profile-invoker'));lastInvoker=document.activeElement;if(lastInvoker?.setAttribute)lastInvoker.setAttribute('data-phase17-profile-invoker','true');const result=openPlayerProfileBeforePhaseSeventeen();const modal=document.querySelector('[data-overlay] .modal');if(!modal||modal.classList.contains('phase17-player-profile-modal'))return result;modal.classList.add('phase17-player-profile-modal');modal.setAttribute('data-phase17-player-profile','player.wayfarer');modal.setAttribute('data-player-roster-member','false');modal.setAttribute('data-player-shards','none');modal.setAttribute('data-player-assignment','none');modal.insertAdjacentHTML('afterbegin',`<section class="phase17-player-profile-art" data-phase17-player-profile-art="${fullBackgroundProfileAssetId}" data-art-treatment="full-background-native-aspect"><img src="assets/player/wayfarer-profile-full.png" width="1024" height="1536" alt="The Wayfarer overlooking Everstead" decoding="async"><button class="close phase17-player-profile-close" data-modal-close aria-label="Close The Wayfarer profile">×</button><div class="phase17-player-profile-title"><div class="eyebrow">Player Character · Rank ${currentState().player.rank} of ${PLAYER_CONFIG.rankCap}</div><h2 id="everstead-modal-title">The Wayfarer</h2><p>Player Rank and Rank EXP open roads. The Wayfarer has no roster Power, shards, equipment, or assignments.</p></div></section>`);bindModal();runtimeSetTimeout(()=>modal.querySelector('.phase17-player-profile-close')?.focus(),0);return result};
+  const closeModalBeforePhaseSeventeen=closeModal;
+  closeModal=function(){const returnTarget=document.querySelector('[data-phase17-player-profile]')?document.querySelector('[data-phase17-profile-invoker]'):null,result=closeModalBeforePhaseSeventeen();if(returnTarget)runtimeSetTimeout(()=>{returnTarget.focus?.();returnTarget.removeAttribute('data-phase17-profile-invoker')},0);return result};
+
+  const campaignViewBeforePhaseSeventeen=campaignView;
+  campaignView=function(){const html=campaignViewBeforePhaseSeventeen(),mode=motionState(),marker=`<section class="card phase17-wayfarer" data-phase17-player-character="player.wayfarer" data-phase17-player-mode="${campaignPresentationDefault}" data-phase17-player-asset-approval="approved-original-source" data-phase17-player-background="retained" data-phase17-player-transparency-claim="none" data-player-roster-member="false" data-player-combat-power="none" data-motion-state="${mode}"><div class="phase17-wayfarer-mark" data-art-treatment="framed-background-static" data-image-state="loaded"><img src="assets/player/wayfarer-profile-full.png" width="1024" height="1536" alt="The Wayfarer framed against Everstead" decoding="async" onerror="this.parentElement.dataset.imageState='fallback';this.parentElement.dataset.fallbackMode='${campaignPresentationFallback}';this.hidden=true"></div><div><div class="eyebrow">Player Character · Rank ${currentState().player.rank}</div><h3>The Wayfarer</h3><p>A static framed view keeps the original background visible. He leads the journey without entering Fellow, Family, or Companion rosters or combat Power.</p></div></section>`;return marker+html};
+  const villageScreenBeforePhaseSeventeen=villageScreen;
+  villageScreen=function(){let html=villageScreenBeforePhaseSeventeen();html=html.replace(/<section class="card phase-13-objective"[\s\S]*?<\/section>/,'');const changes=phaseSeventeenVisuals(),latest=BOOK.visualChanges.findLast(item=>changes.includes(item.id)),mode=motionState(),note=latest?`<div class="phase17-village-change-note" data-phase17-village-change="${esc(latest.id)}" data-motion-state="${mode}" role="status" aria-live="polite">Village change · ${esc(latest.fallback)}</div>`:'';return html.replace('<section class="village-hud">',`${note}<section class="card phase-13-objective" data-phase17-objective><div class="eyebrow">Waystone objective · First Covenant</div><h3>${storyOf(currentState())?.completedBookIds.includes(BOOK.book.id)?'The First Covenant stands':'Keep the next road promise'}</h3><p>Story waits for an intentional safe visit; Campaign results commit before their resolution scene.</p></section><section class="village-hud">`)};
+  const moreScreenBeforePhaseSeventeen=moreScreen;
+  moreScreen=function(){const html=moreScreenBeforePhaseSeventeen(),count=storyOf(currentState())?.chronicleRecords.length||0,mode=motionState(),latest=phaseSeventeenVisuals().at(-1)||'village-change.none',card=`<section class="card" data-phase17-reference data-phase17-village-change="${esc(latest)}" data-motion-state="${mode}"><div class="eyebrow">Book I · The First Covenant</div><h3>Story and Chronicle</h3><p class="soft">${count} scenes recorded. Watch, Skip, and replay remain reward-neutral.</p><button class="btn teal wide" data-phase17-chronicle-open>OPEN CHRONICLE</button></section>`;return card+html};
+  const runFellowCampaignBeforePhaseSeventeen=runFellowCampaign;
+  runFellowCampaign=function(stageId,options={}){const mapping=stageById(stageId),preview=mapping?campaignPreview(stageId):null;if(mapping&&preview?.firstClear&&!resolved(currentState(),mapping.introSceneId)){phaseSeventeenOpenStory(mapping.introSceneId,{present:options.present!==false});return false}const result=runFellowCampaignBeforePhaseSeventeen(stageId,options);if(result?.ok&&mapping&&currentState().fellowCampaign.lastReceipt?.firstClear){const queuedResult=mutatePersisted((state,now)=>{if(state.narrativeProgress&&sceneById(state.narrativeProgress.activeStoryId))state.narrativeProgress.activeStoryId=null;if(state.phase13Progress)state.phase13Progress.pendingSceneIds=state.phase13Progress.pendingSceneIds.filter(id=>!sceneById(id));queueSceneInState(state,mapping.resolutionSceneId,'stage-resolution',now,mapping.introSceneId)},'phase17-story',{renderAfter:false});if(!queuedResult.ok)return queuedResult}return result};
+  nav=function(view){suppressPredecessorPresentation();if(view==='village'){autoStoryThisVisit=0;autoTutorialThisVisit=0;PHASE_FIFTEEN_UI.autoPresentedThisVisit=0}const result=navBeforePhaseThirteen(view);if(result?.ok&&phaseFifteenState(currentState())&&view==='village')phaseFifteenEvent('surface.opened',{surface:'village',userInitiated:true},{present:true});if(result?.ok&&view==='village')phaseSeventeenSafeVisit('village',{present:RUNTIME_ENABLED});return result};
+  const bindCommonBeforePhaseSeventeen=bindCommon;
+  bindCommon=function(){bindCommonBeforePhaseSeventeen();document.querySelectorAll('[data-phase17-chronicle-open]').forEach(button=>button.onclick=()=>{lastInvoker=button;phaseSeventeenOpenChronicle({present:true})})};
+  const bindModalBeforePhaseSeventeen=bindModal;
+  bindModal=function(){bindModalBeforePhaseSeventeen();document.querySelectorAll('[data-phase17-chronicle-open]').forEach(button=>button.onclick=()=>{lastInvoker=button;phaseSeventeenOpenChronicle({present:true})});document.querySelectorAll('[data-phase17-replay]').forEach(button=>button.onclick=()=>phaseSeventeenReplayScene(button.dataset.phase17Replay,{present:true}));document.querySelectorAll('[data-phase17-close]').forEach(button=>button.onclick=phaseSeventeenClosePresentation);document.querySelectorAll('[data-phase17-next]:not(:disabled)').forEach(button=>button.onclick=()=>phaseSeventeenResolveScene(activeSceneId,'watched',null,{present:true}));document.querySelectorAll('[data-phase17-skip]:not(:disabled)').forEach(button=>button.onclick=()=>phaseSeventeenResolveScene(activeSceneId,'skipped',null,{present:true}));document.querySelectorAll('[data-phase17-back]').forEach(button=>button.onclick=()=>{sceneBeat=Math.max(0,sceneBeat-1)});document.querySelectorAll('[data-phase17-log]').forEach(button=>button.onclick=()=>toast('Dialogue remains available in the Chronicle.'))};
+  adapter.slots.openPlayerProfile.set(openPlayerProfile);adapter.slots.closeModal.set(closeModal);adapter.slots.campaignView.set(campaignView);adapter.slots.villageScreen.set(villageScreen);adapter.slots.moreScreen.set(moreScreen);
+  adapter.slots.runFellowCampaign.set(runFellowCampaign);adapter.slots.nav.set(nav);adapter.slots.bindCommon.set(bindCommon);adapter.slots.bindModal.set(bindModal);
+  addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(document.querySelector('[data-phase17-story-scene],[data-phase17-chronicle]')){event.preventDefault();event.stopImmediatePropagation();phaseSeventeenClosePresentation();return}if(document.querySelector('[data-phase17-player-profile]')){event.preventDefault();event.stopImmediatePropagation();closeModal()}},true);
+
+  function installQaBridge(){
+    try{delete root.__EVERSTEAD_PHASE_17_QA__}catch{}
+    if(!QA_ENABLED||!adapter.qa.urlAllowed())return;
+    const wrap=operation=>{const before=clone(currentState()),beforeRaw=persistence.raw(),beforeWrites=persistence.writeCount();try{const value=operation();return{...(value&&typeof value==='object'?value:{value}),ok:value?.ok!==false,before,after:clone(currentState()),writes:persistence.writeCount()-beforeWrites,rawChanged:persistence.raw()!==beforeRaw}}catch(error){return{ok:false,reason:String(error?.code||error?.message||error),before,after:clone(currentState()),writes:persistence.writeCount()-beforeWrites}}};
+    const read=Object.freeze({definitions:()=>bridgeCall(()=>phaseSeventeenDefinitions()),snapshot:()=>bridgeCall(()=>({state:clone(currentState()),raw:persistence.raw()})),validate:()=>bridgeCall(()=>validation(currentState(),12)),derive:()=>bridgeCall(()=>phaseSeventeenDerive()),raw:()=>bridgeCall(()=>persistence.raw()),exportSave:()=>bridgeCall(()=>persistence.raw()),passiveBaseline:options=>bridgeCall(()=>phaseSeventeenPassiveBaseline(bridgeInputClone(options||{}))),chronicle:()=>bridgeCall(()=>phaseSeventeenChronicle())});
+    const destructive=Object.freeze({resetFixture:id=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenResetFixture(bridgeString(id,'fixtureId')))}),event:(id,payload)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenEvent(bridgeString(id,'eventId'),bridgeInputClone(payload||{})))}),openStory:id=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenOpenStory(bridgeString(id,'sceneId'),{present:true}))}),openChronicle:()=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>({ok:phaseSeventeenOpenChronicle({present:true}),writes:0}))}),openPlayerProfile:()=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>({ok:(openPlayerProfile(),true),writes:0}))}),resolveScene:(id,mode,choiceId)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenResolveScene(bridgeString(id,'sceneId'),bridgeString(mode,'mode'),choiceId===null?null:bridgeString(choiceId,'choiceId'),{present:false}))}),replayScene:(id,options)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenReplayScene(bridgeString(id,'sceneId'),{...bridgeInputClone(options||{}),present:true}))}),clearStage:(id,options)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenClearStage(bridgeString(id,'stageId'),{...bridgeInputClone(options||{}),present:false}))}),tutorial:(id,action)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenTutorial(bridgeString(id,'tutorialId'),bridgeString(action,'action')))}),safeVisit:context=>bridgeCall(()=>{requireQaDestructiveAuthorization();const input=bridgeInputClone(context||{});return wrap(()=>phaseSeventeenSafeVisit(input.surface||'village',{present:false}))}),advanceOffline:ms=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenAdvanceOffline(ms))}),reload:()=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenReload())}),importFixture:raw=>bridgeCall(()=>{requireQaDestructiveAuthorization();if(typeof raw!=='string'||raw!==persistence.raw())return{ok:false,reason:'untrusted-different-save',writes:0};return{ok:validation(JSON.parse(raw),12).ok,writes:0}}),claim:(id,identity)=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenClaim(bridgeString(id,'offerId'),bridgeString(identity,'identity')))}),simulateConcurrent:kind=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenConcurrent(bridgeString(kind,'kind')))}),mutateInvalid:check=>bridgeCall(()=>{requireQaDestructiveAuthorization();return wrap(()=>phaseSeventeenInvalid(bridgeString(check,'check')))}),probeFinalizerFailure:mode=>bridgeCall(()=>{requireQaDestructiveAuthorization();const offer=phaseSeventeenOffers()[0];return wrap(()=>offer?phaseSeventeenClaim(offer.id,offer.identity,{mode:bridgeString(mode,'mode')}):{ok:false,reason:'offer-not-found',writes:0})})});
+    const bridge=Object.freeze({version:BOOK.bridgeVersion,read,destructive});Object.defineProperty(root,'__EVERSTEAD_PHASE_17_QA__',{configurable:true,enumerable:false,get:()=>adapter.qa.destructiveAllowed&&adapter.qa.urlAllowed()?bridge:undefined});
+  }
+
+  const activated=phaseSeventeenEnsureActivated();installQaBridge();
+  return Object.freeze({ok:true,enabled:true,activated,bridgeInstalled:Boolean(root.__EVERSTEAD_PHASE_17_QA__)});
+  }
+
+  const runtime=Object.freeze({version:1,install:installEversteadPhaseSeventeenRuntime});
+  Object.defineProperty(root,'EVERSTEAD_PHASE17_RUNTIME',{configurable:false,enumerable:false,writable:false,value:runtime});
+})(globalThis);
