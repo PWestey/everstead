@@ -27,4 +27,6 @@ Open `http://127.0.0.1:8784/qa/phase-14-independent/`. The page runs automatical
 
 The exact base `c8c63b378ad9523b7d12be965335ff4ee6b81b4f` is expected to fail candidate/live verification because it contains the Phase 13 QA package but not the Phase 13 production runtime bridge. That is the intended fail-closed preimplementation result.
 
+Base provenance and inherited asset hashes are resolved from that exact Git object, not the live candidate. This makes the package portable across later accepted implementation and design commits while candidate mode continues to inspect the current production build.
+
 See `docs/PHASE_14_INDEPENDENT_QA_CONTRACT.md` for the frozen contract and `docs/PHASE_14_INDEPENDENT_QA_RESULT.md` for evidence and blind spots.

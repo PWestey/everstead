@@ -20,6 +20,8 @@ const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const unique=values=>new Set(values).size===values.length;
 const sorted=values=>[...new Set(values)].sort();
 const git=args=>execFileSync('/usr/bin/git',args,{cwd:ROOT,encoding:'utf8',maxBuffer:128*1024*1024});
+const gitBytes=args=>execFileSync('/usr/bin/git',args,{cwd:ROOT,maxBuffer:256*1024*1024});
+const baseRead=path=>gitBytes(['show',`${BASE}:${path}`]);
 const fixtures=json('qa/phase-14-independent/fixtures/contract-fixtures.json');
 const inherited=json('qa/phase-14-independent/fixtures/inherited-hashes.json');
 const p13=json('qa/phase-13-independent/fixtures/contract-fixtures.json');
@@ -96,10 +98,10 @@ record('facility-static-fixture-identities',designFixtures.fixtures.length===18&
 record('facility-synthetic-values-stay-qa-only',designFixtures.purpose.includes('none of these values are approved production economy values')&&designFixtures.syntheticPolicy.facilityId===fixtures.syntheticPolicy.facilityId&&designFixtures.syntheticPolicy.intervalMs===fixtures.syntheticPolicy.intervalMs);
 record('facility-contract-requires-phase12-finalizer',text('design/phase-14/PHASE_14_FACILITY_CONTRACT.md').includes('Phase 12 shared claim path')&&text('design/phase-14/PHASE_14_FACILITY_CONTRACT.md').includes('Finalizers come only from an immutable source-adapter registry'));
 
-const inheritedFailures=Object.entries(inherited.files).filter(([path,expected])=>!existsSync(resolve(ROOT,path))||sha(read(path))!==expected).map(([path])=>path);
+const inheritedFailures=Object.entries(inherited.files).filter(([path,expected])=>{try{return sha(baseRead(path))!==expected}catch{return true}}).map(([path])=>path);
 record('inherited-contracts-byte-frozen',inherited.baseCommit===BASE&&inheritedFailures.length===0,{count:Object.keys(inherited.files).length,failures:inheritedFailures});
-const assets=json('qa/phase-13-independent/fixtures/phase11h-assets.json');
-const assetFailures=Object.entries(assets.files).filter(([path,expected])=>!existsSync(resolve(ROOT,path))||sha(read(path))!==expected).map(([path])=>path);
+const assets=JSON.parse(baseRead('qa/phase-13-independent/fixtures/phase11h-assets.json').toString('utf8'));
+const assetFailures=Object.entries(assets.files).filter(([path,expected])=>{try{return sha(baseRead(path))!==expected}catch{return true}}).map(([path])=>path);
 record('phase11h-assets-byte-preserved',Object.keys(assets.files).length===47&&assetFailures.length===0,{count:Object.keys(assets.files).length,failures:assetFailures});
 record('runner-isolated-and-fail-closed',text('qa/phase-14-independent/realm.js').includes('allowDestructive:true')&&text('qa/phase-14-independent/realm.js').includes('isolatedStorage:true')&&text('qa/phase-14-independent/realm.js').includes('phase13-contract-unavailable')&&text('qa/phase-14-independent/realm.js').includes('if(!qa){'));
 record('runner-does-not-require-facility-runtime',!text('qa/phase-14-independent/realm.js').includes('__EVERSTEAD_PHASE_14_QA__')&&!text('qa/phase-14-independent/runner.js').includes('__EVERSTEAD_PHASE_14_QA__'));
@@ -115,7 +117,7 @@ for(const path of ['verify.mjs','runner.js','realm.js']){
 }
 
 if(PACKAGE_ONLY){
-  const artifact={sha256:sha(read('index.html')),byteLength:read('index.html').length};
+  const baseArtifact=baseRead('index.html'),artifact={sha256:sha(baseArtifact),byteLength:baseArtifact.length};
   record('exact-integration-base-artifact',artifact.sha256==='e0060a2185da3a775cebfbda253c608d1e4ce7e84d5ba59e5aeaf07a04f72c45'&&artifact.byteLength===1060212,artifact);
   const probe=spawnSync(NODE,['qa/phase-12/probe.mjs'],{cwd:ROOT,encoding:'utf8',maxBuffer:256*1024*1024});
   record('phase12-focused-probe-57-of-57',probe.status===0&&probe.stdout.includes('Phase 12 focused probe: 57/57'),{status:probe.status,tail:probe.stdout.trim().slice(-300),stderr:probe.stderr.trim().slice(-300)});
@@ -136,10 +138,14 @@ if(PACKAGE_ONLY){
   record('candidate-facility-runtime-not-required',true,'Phase 15 owns player-visible facility runtime.');
 }
 
-let changed=[];
-try{changed=git(['diff-tree','--no-commit-id','--name-only','-r',BASE,'HEAD']).trim().split('\n').filter(Boolean)}catch{}
 const owned=path=>['docs/PHASE_14_INDEPENDENT_QA_CONTRACT.md','docs/PHASE_14_INDEPENDENT_QA_RESULT.md'].includes(path)||path.startsWith('qa/phase-14-independent/');
-record('committed-qa-paths-owned',!PACKAGE_ONLY||changed.length===0||changed.every(owned),PACKAGE_ONLY?changed:'Candidate mode intentionally permits implementation files; package ownership is enforced by --package-only.');
+const packageCommits=git(['log','--format=%H',`${BASE}..HEAD`,'--','docs/PHASE_14_INDEPENDENT_QA_CONTRACT.md','docs/PHASE_14_INDEPENDENT_QA_RESULT.md','qa/phase-14-independent']).trim().split('\n').filter(Boolean);
+const ownershipViolations=[];
+for(const commit of packageCommits){
+  const changed=git(['diff-tree','--root','--no-commit-id','--name-only','-r',commit]).trim().split('\n').filter(Boolean);
+  for(const path of changed)if(!owned(path))ownershipViolations.push({commit,path});
+}
+record('committed-qa-paths-owned',packageCommits.length>=1&&ownershipViolations.length===0,{packageCommits,violations:ownershipViolations});
 const passed=rows.filter(row=>row.pass).length,failed=rows.length-passed;
 const result={phase:'14-independent-validation',mode:PACKAGE_ONLY?'PACKAGE_ONLY':'CANDIDATE',status:failed?'FAIL':'PASS',baseCommit:BASE,designCommit:DESIGN,total:rows.length,passed,failed,rows};
 console.log(JSON.stringify(result,null,2));

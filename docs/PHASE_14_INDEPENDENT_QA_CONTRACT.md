@@ -135,6 +135,8 @@ The live runner covers 320×568, 390×844, 1024×768, and 390×844 reduced motio
 
 ## Inherited regression boundary
 
+Frozen provenance is read from exact Git objects at `c8c63b378ad9523b7d12be965335ff4ee6b81b4f`, never from whichever later candidate happens to be checked out. This keeps the base artifact, inherited contracts, and inherited asset proof immutable while the Phase 12 probes and candidate assertions still execute against current production. Package ownership examines only commits that touch the Phase 14 independent paths and rejects any such commit that also changes an unowned path; unrelated accepted production/design commits after the base do not make the QA package appear impure.
+
 - Schema remains 12 and the `phase-12-foundation-activation` receipt remains unique.
 - Phase 12 definitions, unknown-history baselines, shared claim transaction, offline Gold, recovery authority, and dormant legacy modes remain valid.
 - The Phase 12 focused probe remains 57/57 and the independent static gate remains 25/25 at the base.
@@ -161,10 +163,13 @@ No `src/phase14-facilities.js`, Phase 14 facility bridge, live hotspot, opportun
 
 Exact integration commit `c8c63b3` must fail candidate/live Phase 14 validation because the Phase 13 story/Legacy/tutorial runtime bridge is absent. Facility design files cannot satisfy Phase 13 production assertions. A candidate with the complete Phase 13 runtime passes without any Phase 15 facility runtime.
 
+After accepted Phase 13 production is integrated, static candidate mode must fail only while the Phase 14 pacing/reward-impact measurement contract is genuinely absent. A changed live candidate may not invalidate exact-base provenance merely because its current `index.html` or Phase 12 module differs from the frozen base.
+
 ## Blind spots
 
 - The automated gate cannot judge whether the player emotionally understands Everstead, prose quality, celebration satisfaction, artwork aesthetics, public-use rights, or final localization.
 - Pacing/reward simulations identify consequences but do not approve tuning values.
 - The in-app Chromium matrix does not replace Safari/WebKit or physical-device testing.
+- Layout, focus, and keyboard assertions consume the QA bridge's normalized `renderModel`; release review must also inspect the actual DOM and physical focus movement rather than treating the model as browser geometry.
 - Web Storage has no atomic compare-and-swap; supported two-client probes cannot eliminate the platform's final reread-to-write race.
 - Facility framework runtime, facility economy, and Village-board interaction remain Phase 15 work.
