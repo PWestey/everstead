@@ -20,16 +20,16 @@
     "story.book1.finale"
   ],
   "stageMappings": [
-    ["broken-roads-1", "Village Toll", "story.book1.chapter1.village-toll.intro", "story.book1.chapter1.village-toll.resolution"],
-    ["broken-roads-2", "Merchant Dispute", "story.book1.chapter1.merchant-dispute.intro", "story.book1.chapter1.merchant-dispute.resolution"],
-    ["broken-roads-3", "Broken Contract", "story.book1.chapter2.broken-contract.intro", "story.book1.chapter2.broken-contract.resolution"],
-    ["broken-roads-4", "Old Road Ambush", "story.book1.chapter2.old-road-ambush.intro", "story.book1.chapter2.old-road-ambush.resolution"],
-    ["broken-roads-5", "Council of Ash", "story.book1.chapter3.council-of-ash", "story.book1.chapter3.council-of-ash.resolution"],
-    ["broken-roads-6", "River Accord", "story.book1.chapter3.river-accord.intro", "story.book1.chapter3.river-accord.resolution"],
-    ["broken-roads-7", "Quarry Claim", "story.book1.chapter4.quarry-claim.intro", "story.book1.chapter4.quarry-claim.resolution"],
-    ["broken-roads-8", "Skybridge Terms", "story.book1.chapter4.skybridge-terms.intro", "story.book1.chapter4.skybridge-terms.resolution"],
-    ["broken-roads-9", "Harbor Compact", "story.book1.chapter4.harbor-compact.intro", "story.book1.chapter4.harbor-compact.resolution"],
-    ["broken-roads-10", "The First Covenant", "story.book1.finale.first-covenant.intro", "story.book1.finale.first-covenant"]
+    ["broken-roads-1", "Village Toll", "story.book1.chapter1.a-road-worth-keeping", "story.book1.chapter1.village-toll.intro", "story.book1.chapter1.village-toll.resolution"],
+    ["broken-roads-2", "Merchant Dispute", "story.book1.chapter1.a-road-worth-keeping", "story.book1.chapter1.merchant-dispute.intro", "story.book1.chapter1.merchant-dispute.resolution"],
+    ["broken-roads-3", "Broken Contract", "story.book1.chapter2.promises-with-teeth", "story.book1.chapter2.broken-contract.intro", "story.book1.chapter2.broken-contract.resolution"],
+    ["broken-roads-4", "Old Road Ambush", "story.book1.chapter2.promises-with-teeth", "story.book1.chapter2.old-road-ambush.intro", "story.book1.chapter2.old-road-ambush.resolution"],
+    ["broken-roads-5", "Council of Ash", "story.book1.chapter3.divided-claims", "story.book1.chapter3.council-of-ash", "story.book1.chapter3.council-of-ash.resolution"],
+    ["broken-roads-6", "River Accord", "story.book1.chapter3.divided-claims", "story.book1.chapter3.river-accord.intro", "story.book1.chapter3.river-accord.resolution"],
+    ["broken-roads-7", "Quarry Claim", "story.book1.chapter4.roads-between-worlds", "story.book1.chapter4.quarry-claim.intro", "story.book1.chapter4.quarry-claim.resolution"],
+    ["broken-roads-8", "Skybridge Terms", "story.book1.chapter4.roads-between-worlds", "story.book1.chapter4.skybridge-terms.intro", "story.book1.chapter4.skybridge-terms.resolution"],
+    ["broken-roads-9", "Harbor Compact", "story.book1.chapter4.roads-between-worlds", "story.book1.chapter4.harbor-compact.intro", "story.book1.chapter4.harbor-compact.resolution"],
+    ["broken-roads-10", "The First Covenant", "story.book1.finale", "story.book1.finale.first-covenant.intro", "story.book1.finale.first-covenant"]
   ],
   "sceneCount": 31,
   "sceneIds": [
@@ -108,6 +108,35 @@
     "family.hermione", "family.misty"
   ],
   "approvedVisualFallbacks": ["approved-transparent-cutout", "approved-framed-treatment", "attributed-text-only"],
+  "playerCharacter": {
+    "id": "player.wayfarer",
+    "kind": "player-character",
+    "avatarId": "wayfarer",
+    "rankSource": "player.rank-and-rankExp",
+    "titleProfileAsset": {
+      "assetId": "asset.player.wayfarer.profile-full.v1",
+      "sha256": "a34c2d3a858f46be58450048b77c53965d4644690c2eb9a9c7649bd1b5139aaf",
+      "width": 1024,
+      "height": 1536,
+      "mode": "rgb-full-background",
+      "use": "title-profile-only"
+    },
+    "campaignAllowedModes": ["approved-transparent-cutout", "original-everstead-silhouette", "attributed-static-marker"],
+    "campaignDefaultUntilCutoutApproved": "original-everstead-silhouette",
+    "excludedDomains": ["fellow-roster", "family-roster", "companion-roster", "roster-count", "shards", "rarity", "assignments", "facility-speaker-eligibility", "combat-power"]
+  },
+  "passiveBaselineContract": {
+    "capturedAt": 1700000000000,
+    "wallClockDerivedExcluded": true,
+    "excludedFields": ["day", "boostDay", "lastGoldAt", "lastSeen"],
+    "originalFourFacilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"]
+  },
+  "reducedMotionContract": {
+    "rootAttribute": "data-everstead-reduced-motion",
+    "reducedValue": "reduce",
+    "requiresStaticMediaGuard": true,
+    "forbiddenTestTechnique": "javascript-matchMedia-monkey-patch-only"
+  },
   "saveFixtures": {
     "fresh":"p17.qa.fresh.v1", "stage1Ready":"p17.qa.stage1-ready.v1", "stage2Rank2":"p17.qa.stage2-rank2.v1",
     "chronicle":"p17.qa.chronicle.v1", "rankJump":"p17.qa.rank-jump.v1", "migrated":"p17.qa.migrated-stage8.v1",
@@ -141,8 +170,8 @@
   "requiredDomSelectors": [
     "[data-phase17-story-scene]", "[data-phase17-scene-title]", "[data-phase17-dialogue-line]",
     "[data-phase17-next]", "[data-phase17-skip]", "[data-phase17-log]", "[data-phase17-back]",
-    "[data-phase17-close]", "[data-phase17-chronicle]", "[data-phase17-chronicle-entry]",
-    "[data-phase17-replay]", "[data-phase17-village-change]"
+    "[data-phase17-close]", "[data-phase17-chronicle-open]", "[data-phase17-chronicle]", "[data-phase17-chronicle-entry]",
+    "[data-phase17-replay]", "[data-phase17-village-change]", "[data-phase17-player-character=\"player.wayfarer\"]"
   ],
   "viewports": [
     {"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},

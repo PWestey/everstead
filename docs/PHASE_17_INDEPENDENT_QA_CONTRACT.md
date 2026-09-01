@@ -14,7 +14,7 @@ Read-only surface:
 
 - `definitions()` returns exact definition-set lineage, six Book sections, ten stage mappings, 31 scenes, arrival ordering, five disabled reward definitions, twelve facility unlock records, scoped aliases, eight Village changes, twelve tutorials, 38 cast actors, inherited seam attestations, and presentation rules.
 - `snapshot()`, `validate()`, `derive()`, `raw()`, and `exportSave()` expose normalized observations without mutation.
-- `passiveBaseline()` returns original four Building production/upgrades, global Gold/Oaths, and Family assignments.
+- `passiveBaseline({capturedAt,excludeWallClockDerived:true})` returns immutable original four Building production/upgrades, global Gold/Oath semantics, and Family assignments at one captured time. It declares `day`, `boostDay`, `lastGoldAt`, and `lastSeen` excluded so legitimate day-rollover or clock drift is never mistaken for a story regression.
 - `chronicle()` returns Book → chapter → scene grouping, spoiler-safe locked entries, replay/log availability, and captured definition versions.
 
 Isolated destructive surface:
@@ -39,6 +39,8 @@ When a clear crosses Rank, ordering is Campaign commit → stage resolution → 
 
 Watching and Skip both complete a queued scene; Skip never claims. Replay and dialogue log are byte-neutral. Offline time never watches, skips, resolves, completes, tutorials, offers, rewards, claims, facilities, or Village projections. Eligibility reconciliation occurs only on a safe foreground visit from already committed stage/Rank truth.
 
+Campaign walking/slideshow presentation identifies the stable **`player.wayfarer`** as a separate `player-character` linked only to existing `player.rank` and `player.rankExp`. The Wayfarer never enters Fellow, Family, or Companion roster counts; never has shards, rarity, assignments, facility-speaker eligibility, or combat Power; and never displaces any of the 38 accepted cast hooks. The exact 1024×1536 RGB full-background source (`asset.player.wayfarer.profile-full.v1`, SHA-256 `a34c2d3a858f46be58450048b77c53965d4644690c2eb9a9c7649bd1b5139aaf`) is reserved for title/profile only. Campaign uses an explicitly approved transparent cutout or, until one exists, an original Everstead silhouette or attributed static marker. It must never overlay the RGB title art as a fake cutout.
+
 Migration infers history only from committed first clears, never Rank guesses. Historical content becomes bounded `migrated-recap` Chronicle records or optional recap eligibility, with no forced scene dump and no retroactive reward. Newly inserted scenes in cleared chapters are recaps. Unknown evidence yields less completion. Import, recovery, and migration are additive, idempotent, version-bound, and preserve predecessor tutorial/claim history and the exact backup.
 
 ## Village unlocks, aliases, and projections
@@ -47,9 +49,11 @@ All twelve facilities have one unique canonical physical anchor. Story completio
 
 Anchor aliases are facility-scoped. Specifically, legacy `western-plaza` resolves to `western-plaza-restaurant` only in `facility.restaurant` scope. Unscoped `western-plaza` remains a regional visual-projection anchor and must never ambiguously select Restaurant or Market/Workshop. Canonical persisted facility anchors are never rewritten to a regional alias.
 
-The Command Center, Archives, Training Grounds, and Hearth retain passive production, upgrades, Oath multipliers, Gold, and Family assignments independently of story or active-activity state. Prosperity and Headquarters thresholds remain null and forbidden.
+The Command Center, Archives, Training Grounds, and Hearth retain passive production, upgrades, Oath multipliers, Gold, and Family assignments independently of story or active-activity state. QA compares these immutable semantics before and after story work inside the same fixture at one captured time; it does not compare wall-clock-derived fields across fixture resets. Prosperity and Headquarters thresholds remain null and forbidden.
 
-Eight Village changes are derived solely from committed scene resolution. They survive reload/import/migration, cannot be independently granted, and use approved static accessible text fallbacks while art/CSS treatment IDs are null. Reduced motion disables looping glow, parallax, camera movement, and automatic pan.
+Eight Village changes are derived solely from committed scene resolution. They survive reload/import/migration, cannot be independently granted, and use approved static accessible text fallbacks while art/CSS treatment IDs are null. Reduced motion disables looping glow, parallax, camera movement, automatic pan, walking, and long transitions.
+
+The live reduced-motion realm sets the production-observable root attribute `data-everstead-reduced-motion="reduce"`; production must also retain a static `@media (prefers-reduced-motion: reduce)` CSS guard. The gate reads actual computed animation and transition styles plus a `data-motion-state="static"` attestation on story, Village-change, and Campaign-player nodes. The runner must not monkey-patch `matchMedia` and then treat its own patch as proof of CSS behavior.
 
 ## Chronicle, rewards, tutorials, and cast
 
@@ -69,6 +73,6 @@ Scene resolution, arrival queue mutation, and native story claim use revision/ra
 
 ## Actual-DOM gate and blind spots
 
-Five isolated browser realms cover 320×568, 390×844, 1024×768, reduced motion, keyboard-only use, and 30 percent localized-copy expansion. The runner queries actual nodes and styles for five navigation items, Chronicle under More, spoiler-safe entries, replay, scene title/dialogue, Next, Skip, Log, Back, Close, 44×44 targets, focus entry/return, Escape, status announcements, non-color labels, overflow, and static reduced-motion presentation.
+Five isolated browser realms cover 320×568, 390×844, 1024×768, reduced motion, keyboard-only use, and 30 percent localized-copy expansion. The runner queries actual nodes and styles for five navigation items, Chronicle under More, spoiler-safe entries, replay, scene title/dialogue, Next, Skip, Log, Back, Close, 44×44 targets, focus entry/return, Escape, status announcements, non-color labels, overflow, static reduced-motion presentation, and the separate `player.wayfarer` Campaign marker with an approved/fallback asset mode.
 
 Normalized output alone cannot prove visual hierarchy, story writing quality, art authorization, real-device behavior, or every focus path. Root review must inspect changed production code, actual DOM at all target realms, original-four passive baselines, Phase 12–16 regressions, localized copy, and visible fallback composition before integration.

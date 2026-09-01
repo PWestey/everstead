@@ -15,6 +15,8 @@
     rows.push(row('fixture-save-and-invalid-matrices',Object.keys(f.saveFixtures).length===15&&f.invalidMutationChecks.length===17&&unique(Object.values(f.saveFixtures))));
     rows.push(row('fixture-thirty-four-design-scenarios',f.fixtureIds.length===34&&unique(f.fixtureIds)));
     rows.push(row('fixture-five-browser-realms',f.viewports.length===5&&f.viewports.some(item=>item.width===320&&item.height===568)&&f.viewports.some(item=>item.width===1024)&&f.viewports.some(item=>item.reducedMotion)&&f.viewports.some(item=>item.copyScale===1.3)));
+    rows.push(row('fixture-wayfarer-separate-player',f.playerCharacter?.id==='player.wayfarer'&&f.playerCharacter?.kind==='player-character'&&f.playerCharacter?.titleProfileAsset?.use==='title-profile-only'&&f.playerCharacter?.campaignDefaultUntilCutoutApproved==='original-everstead-silhouette'&&f.playerCharacter?.excludedDomains?.includes('roster-count')&&f.playerCharacter?.excludedDomains?.includes('facility-speaker-eligibility')));
+    rows.push(row('fixture-passive-and-motion-hardening',f.passiveBaselineContract?.capturedAt===f.frozenNow&&f.passiveBaselineContract?.wallClockDerivedExcluded===true&&f.reducedMotionContract?.rootAttribute==='data-everstead-reduced-motion'&&f.reducedMotionContract?.forbiddenTestTechnique==='javascript-matchMedia-monkey-patch-only'));
     for(const viewport of f.viewports)rows.push(...await realm(f,viewport));render('CANDIDATE',rows)
   }catch(error){byId('fatal').textContent=error.stack||error.message;render('FATAL',[row('runner-fatal',false,error.stack||error.message)])}finally{byId('run').disabled=false}}
   byId('run').onclick=run;run();
