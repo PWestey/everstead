@@ -1,0 +1,23 @@
+{
+  "approvalId": "approval.phase-18-19-policy.v1",
+  "sourceCandidateCommit": "513b2f0e4d9aa8498770e48ea3faf04c515f2aa9",
+  "sourceCandidateHashes": {
+    "policy-candidate.json": "209c644bc933445511b061f1f00be757fa06f068619c6469a806dc67a8fd9675",
+    "fixed-reward-table.json": "4a1bc420b164343e26c0168ba93dd81a737f434743fe970a06a191a22455ff09",
+    "tutorial-timing.json": "056b60784a6f7c3ade88682622504b966bb1b28babd4c5de4efe217c6c2164fc",
+    "cast-schedule.json": "5527f94163c2e09a984a65ab0a4f205c1b8e73ae1312d7915b2a9b572c3666ca"
+  },
+  "decision": "approved-private-release",
+  "approvedValuesChanged": false,
+  "approvedPolicyId": "phase-18-19-product-policy-approved-v1",
+  "approvedTableId": "reward-table.phase-18-19.structural-rate.approved-v1",
+  "approvedTutorialScheduleId": "tutorial-schedule.phase-18-19-policy-approved-v1",
+  "approvedCastScheduleId": "cast-schedule.phase-18-19-policy-approved-v1",
+  "publicReleaseAllowed": false,
+  "releaseReviewStillRequired": [
+    "final-localized-wording",
+    "final-visual-wording-and-presentation",
+    "live-five-realm-runtime-gate",
+    "root-integration-review"
+  ]
+}

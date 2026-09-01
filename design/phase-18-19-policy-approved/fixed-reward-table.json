@@ -1,0 +1,808 @@
+{
+  "tableId": "reward-table.phase-18-19.structural-rate.approved-v1",
+  "version": 1,
+  "status": "approved-private-release",
+  "productionEnabled": true,
+  "runtimeFormulaAllowed": false,
+  "generationAuthority": {
+    "buildingBaseRates": [
+      7200,
+      6500,
+      5600,
+      6100
+    ],
+    "releasedLevelGrowth": 1.15,
+    "releasedLevelRange": [
+      1,
+      52
+    ],
+    "calibrationFloorGoldPerHour": 25400,
+    "rounding": "nearest-integer-half-up-positive-values",
+    "generatorPath": "design/phase-18-19-policy-approved/promote_approved.py"
+  },
+  "bands": [
+    {
+      "id": "structural-band.phase-18-19.01",
+      "minimumGoldPerHourInclusive": 0,
+      "maximumGoldPerHourInclusive": 29209,
+      "calibrationGoldPerHour": 25400,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 762,
+        "apothecary.outcome.precise": 1270
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 953,
+        "schoolhouse.outcome.resonant": 1524
+      },
+      "schoolhouseGraduationGold": 6350
+    },
+    {
+      "id": "structural-band.phase-18-19.02",
+      "minimumGoldPerHourInclusive": 29210,
+      "maximumGoldPerHourInclusive": 33590,
+      "calibrationGoldPerHour": 29210,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 876,
+        "apothecary.outcome.precise": 1461
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1095,
+        "schoolhouse.outcome.resonant": 1753
+      },
+      "schoolhouseGraduationGold": 7303
+    },
+    {
+      "id": "structural-band.phase-18-19.03",
+      "minimumGoldPerHourInclusive": 33591,
+      "maximumGoldPerHourInclusive": 38629,
+      "calibrationGoldPerHour": 33591,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 1008,
+        "apothecary.outcome.precise": 1680
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1260,
+        "schoolhouse.outcome.resonant": 2015
+      },
+      "schoolhouseGraduationGold": 8398
+    },
+    {
+      "id": "structural-band.phase-18-19.04",
+      "minimumGoldPerHourInclusive": 38630,
+      "maximumGoldPerHourInclusive": 44424,
+      "calibrationGoldPerHour": 38630,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 1159,
+        "apothecary.outcome.precise": 1932
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1449,
+        "schoolhouse.outcome.resonant": 2318
+      },
+      "schoolhouseGraduationGold": 9658
+    },
+    {
+      "id": "structural-band.phase-18-19.05",
+      "minimumGoldPerHourInclusive": 44425,
+      "maximumGoldPerHourInclusive": 51088,
+      "calibrationGoldPerHour": 44425,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 1333,
+        "apothecary.outcome.precise": 2221
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1666,
+        "schoolhouse.outcome.resonant": 2666
+      },
+      "schoolhouseGraduationGold": 11106
+    },
+    {
+      "id": "structural-band.phase-18-19.06",
+      "minimumGoldPerHourInclusive": 51089,
+      "maximumGoldPerHourInclusive": 58751,
+      "calibrationGoldPerHour": 51089,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 1533,
+        "apothecary.outcome.precise": 2554
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1916,
+        "schoolhouse.outcome.resonant": 3065
+      },
+      "schoolhouseGraduationGold": 12772
+    },
+    {
+      "id": "structural-band.phase-18-19.07",
+      "minimumGoldPerHourInclusive": 58752,
+      "maximumGoldPerHourInclusive": 67563,
+      "calibrationGoldPerHour": 58752,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 1763,
+        "apothecary.outcome.precise": 2938
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 2203,
+        "schoolhouse.outcome.resonant": 3525
+      },
+      "schoolhouseGraduationGold": 14688
+    },
+    {
+      "id": "structural-band.phase-18-19.08",
+      "minimumGoldPerHourInclusive": 67564,
+      "maximumGoldPerHourInclusive": 77699,
+      "calibrationGoldPerHour": 67564,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 2027,
+        "apothecary.outcome.precise": 3378
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 2534,
+        "schoolhouse.outcome.resonant": 4054
+      },
+      "schoolhouseGraduationGold": 16891
+    },
+    {
+      "id": "structural-band.phase-18-19.09",
+      "minimumGoldPerHourInclusive": 77700,
+      "maximumGoldPerHourInclusive": 89353,
+      "calibrationGoldPerHour": 77700,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 2331,
+        "apothecary.outcome.precise": 3885
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 2914,
+        "schoolhouse.outcome.resonant": 4662
+      },
+      "schoolhouseGraduationGold": 19425
+    },
+    {
+      "id": "structural-band.phase-18-19.10",
+      "minimumGoldPerHourInclusive": 89354,
+      "maximumGoldPerHourInclusive": 102756,
+      "calibrationGoldPerHour": 89354,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 2681,
+        "apothecary.outcome.precise": 4468
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 3351,
+        "schoolhouse.outcome.resonant": 5361
+      },
+      "schoolhouseGraduationGold": 22339
+    },
+    {
+      "id": "structural-band.phase-18-19.11",
+      "minimumGoldPerHourInclusive": 102757,
+      "maximumGoldPerHourInclusive": 118170,
+      "calibrationGoldPerHour": 102757,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 3083,
+        "apothecary.outcome.precise": 5138
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 3853,
+        "schoolhouse.outcome.resonant": 6165
+      },
+      "schoolhouseGraduationGold": 25689
+    },
+    {
+      "id": "structural-band.phase-18-19.12",
+      "minimumGoldPerHourInclusive": 118171,
+      "maximumGoldPerHourInclusive": 135896,
+      "calibrationGoldPerHour": 118171,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 3545,
+        "apothecary.outcome.precise": 5909
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 4431,
+        "schoolhouse.outcome.resonant": 7090
+      },
+      "schoolhouseGraduationGold": 29543
+    },
+    {
+      "id": "structural-band.phase-18-19.13",
+      "minimumGoldPerHourInclusive": 135897,
+      "maximumGoldPerHourInclusive": 156280,
+      "calibrationGoldPerHour": 135897,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 4077,
+        "apothecary.outcome.precise": 6795
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 5096,
+        "schoolhouse.outcome.resonant": 8154
+      },
+      "schoolhouseGraduationGold": 33974
+    },
+    {
+      "id": "structural-band.phase-18-19.14",
+      "minimumGoldPerHourInclusive": 156281,
+      "maximumGoldPerHourInclusive": 179722,
+      "calibrationGoldPerHour": 156281,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 4688,
+        "apothecary.outcome.precise": 7814
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 5861,
+        "schoolhouse.outcome.resonant": 9377
+      },
+      "schoolhouseGraduationGold": 39070
+    },
+    {
+      "id": "structural-band.phase-18-19.15",
+      "minimumGoldPerHourInclusive": 179723,
+      "maximumGoldPerHourInclusive": 206681,
+      "calibrationGoldPerHour": 179723,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 5392,
+        "apothecary.outcome.precise": 8986
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 6740,
+        "schoolhouse.outcome.resonant": 10783
+      },
+      "schoolhouseGraduationGold": 44931
+    },
+    {
+      "id": "structural-band.phase-18-19.16",
+      "minimumGoldPerHourInclusive": 206682,
+      "maximumGoldPerHourInclusive": 237683,
+      "calibrationGoldPerHour": 206682,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 6200,
+        "apothecary.outcome.precise": 10334
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 7751,
+        "schoolhouse.outcome.resonant": 12401
+      },
+      "schoolhouseGraduationGold": 51671
+    },
+    {
+      "id": "structural-band.phase-18-19.17",
+      "minimumGoldPerHourInclusive": 237684,
+      "maximumGoldPerHourInclusive": 273335,
+      "calibrationGoldPerHour": 237684,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 7131,
+        "apothecary.outcome.precise": 11884
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 8913,
+        "schoolhouse.outcome.resonant": 14261
+      },
+      "schoolhouseGraduationGold": 59421
+    },
+    {
+      "id": "structural-band.phase-18-19.18",
+      "minimumGoldPerHourInclusive": 273336,
+      "maximumGoldPerHourInclusive": 314335,
+      "calibrationGoldPerHour": 273336,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 8200,
+        "apothecary.outcome.precise": 13667
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 10250,
+        "schoolhouse.outcome.resonant": 16400
+      },
+      "schoolhouseGraduationGold": 68334
+    },
+    {
+      "id": "structural-band.phase-18-19.19",
+      "minimumGoldPerHourInclusive": 314336,
+      "maximumGoldPerHourInclusive": 361487,
+      "calibrationGoldPerHour": 314336,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 9430,
+        "apothecary.outcome.precise": 15717
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 11788,
+        "schoolhouse.outcome.resonant": 18860
+      },
+      "schoolhouseGraduationGold": 78584
+    },
+    {
+      "id": "structural-band.phase-18-19.20",
+      "minimumGoldPerHourInclusive": 361488,
+      "maximumGoldPerHourInclusive": 415709,
+      "calibrationGoldPerHour": 361488,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 10845,
+        "apothecary.outcome.precise": 18074
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 13556,
+        "schoolhouse.outcome.resonant": 21689
+      },
+      "schoolhouseGraduationGold": 90372
+    },
+    {
+      "id": "structural-band.phase-18-19.21",
+      "minimumGoldPerHourInclusive": 415710,
+      "maximumGoldPerHourInclusive": 478066,
+      "calibrationGoldPerHour": 415710,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 12471,
+        "apothecary.outcome.precise": 20786
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 15589,
+        "schoolhouse.outcome.resonant": 24943
+      },
+      "schoolhouseGraduationGold": 103928
+    },
+    {
+      "id": "structural-band.phase-18-19.22",
+      "minimumGoldPerHourInclusive": 478067,
+      "maximumGoldPerHourInclusive": 549776,
+      "calibrationGoldPerHour": 478067,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 14342,
+        "apothecary.outcome.precise": 23903
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 17928,
+        "schoolhouse.outcome.resonant": 28684
+      },
+      "schoolhouseGraduationGold": 119517
+    },
+    {
+      "id": "structural-band.phase-18-19.23",
+      "minimumGoldPerHourInclusive": 549777,
+      "maximumGoldPerHourInclusive": 632241,
+      "calibrationGoldPerHour": 549777,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 16493,
+        "apothecary.outcome.precise": 27489
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 20617,
+        "schoolhouse.outcome.resonant": 32987
+      },
+      "schoolhouseGraduationGold": 137444
+    },
+    {
+      "id": "structural-band.phase-18-19.24",
+      "minimumGoldPerHourInclusive": 632242,
+      "maximumGoldPerHourInclusive": 727079,
+      "calibrationGoldPerHour": 632242,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 18967,
+        "apothecary.outcome.precise": 31612
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 23709,
+        "schoolhouse.outcome.resonant": 37935
+      },
+      "schoolhouseGraduationGold": 158061
+    },
+    {
+      "id": "structural-band.phase-18-19.25",
+      "minimumGoldPerHourInclusive": 727080,
+      "maximumGoldPerHourInclusive": 836140,
+      "calibrationGoldPerHour": 727080,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 21812,
+        "apothecary.outcome.precise": 36354
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 27266,
+        "schoolhouse.outcome.resonant": 43625
+      },
+      "schoolhouseGraduationGold": 181770
+    },
+    {
+      "id": "structural-band.phase-18-19.26",
+      "minimumGoldPerHourInclusive": 836141,
+      "maximumGoldPerHourInclusive": 961561,
+      "calibrationGoldPerHour": 836141,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 25084,
+        "apothecary.outcome.precise": 41807
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 31355,
+        "schoolhouse.outcome.resonant": 50168
+      },
+      "schoolhouseGraduationGold": 209035
+    },
+    {
+      "id": "structural-band.phase-18-19.27",
+      "minimumGoldPerHourInclusive": 961562,
+      "maximumGoldPerHourInclusive": 1105796,
+      "calibrationGoldPerHour": 961562,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 28847,
+        "apothecary.outcome.precise": 48078
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 36059,
+        "schoolhouse.outcome.resonant": 57694
+      },
+      "schoolhouseGraduationGold": 240391
+    },
+    {
+      "id": "structural-band.phase-18-19.28",
+      "minimumGoldPerHourInclusive": 1105797,
+      "maximumGoldPerHourInclusive": 1271664,
+      "calibrationGoldPerHour": 1105797,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 33174,
+        "apothecary.outcome.precise": 55290
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 41467,
+        "schoolhouse.outcome.resonant": 66348
+      },
+      "schoolhouseGraduationGold": 276449
+    },
+    {
+      "id": "structural-band.phase-18-19.29",
+      "minimumGoldPerHourInclusive": 1271665,
+      "maximumGoldPerHourInclusive": 1462415,
+      "calibrationGoldPerHour": 1271665,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 38150,
+        "apothecary.outcome.precise": 63583
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 47687,
+        "schoolhouse.outcome.resonant": 76300
+      },
+      "schoolhouseGraduationGold": 317916
+    },
+    {
+      "id": "structural-band.phase-18-19.30",
+      "minimumGoldPerHourInclusive": 1462416,
+      "maximumGoldPerHourInclusive": 1681779,
+      "calibrationGoldPerHour": 1462416,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 43872,
+        "apothecary.outcome.precise": 73121
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 54841,
+        "schoolhouse.outcome.resonant": 87745
+      },
+      "schoolhouseGraduationGold": 365604
+    },
+    {
+      "id": "structural-band.phase-18-19.31",
+      "minimumGoldPerHourInclusive": 1681780,
+      "maximumGoldPerHourInclusive": 1934045,
+      "calibrationGoldPerHour": 1681780,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 50453,
+        "apothecary.outcome.precise": 84089
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 63067,
+        "schoolhouse.outcome.resonant": 100907
+      },
+      "schoolhouseGraduationGold": 420445
+    },
+    {
+      "id": "structural-band.phase-18-19.32",
+      "minimumGoldPerHourInclusive": 1934046,
+      "maximumGoldPerHourInclusive": 2224151,
+      "calibrationGoldPerHour": 1934046,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 58021,
+        "apothecary.outcome.precise": 96702
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 72527,
+        "schoolhouse.outcome.resonant": 116043
+      },
+      "schoolhouseGraduationGold": 483512
+    },
+    {
+      "id": "structural-band.phase-18-19.33",
+      "minimumGoldPerHourInclusive": 2224152,
+      "maximumGoldPerHourInclusive": 2557775,
+      "calibrationGoldPerHour": 2224152,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 66725,
+        "apothecary.outcome.precise": 111208
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 83406,
+        "schoolhouse.outcome.resonant": 133449
+      },
+      "schoolhouseGraduationGold": 556038
+    },
+    {
+      "id": "structural-band.phase-18-19.34",
+      "minimumGoldPerHourInclusive": 2557776,
+      "maximumGoldPerHourInclusive": 2941441,
+      "calibrationGoldPerHour": 2557776,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 76733,
+        "apothecary.outcome.precise": 127889
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 95917,
+        "schoolhouse.outcome.resonant": 153467
+      },
+      "schoolhouseGraduationGold": 639444
+    },
+    {
+      "id": "structural-band.phase-18-19.35",
+      "minimumGoldPerHourInclusive": 2941442,
+      "maximumGoldPerHourInclusive": 3382658,
+      "calibrationGoldPerHour": 2941442,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 88243,
+        "apothecary.outcome.precise": 147072
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 110304,
+        "schoolhouse.outcome.resonant": 176487
+      },
+      "schoolhouseGraduationGold": 735361
+    },
+    {
+      "id": "structural-band.phase-18-19.36",
+      "minimumGoldPerHourInclusive": 3382659,
+      "maximumGoldPerHourInclusive": 3890055,
+      "calibrationGoldPerHour": 3382659,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 101480,
+        "apothecary.outcome.precise": 169133
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 126850,
+        "schoolhouse.outcome.resonant": 202960
+      },
+      "schoolhouseGraduationGold": 845665
+    },
+    {
+      "id": "structural-band.phase-18-19.37",
+      "minimumGoldPerHourInclusive": 3890056,
+      "maximumGoldPerHourInclusive": 4473564,
+      "calibrationGoldPerHour": 3890056,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 116702,
+        "apothecary.outcome.precise": 194503
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 145877,
+        "schoolhouse.outcome.resonant": 233403
+      },
+      "schoolhouseGraduationGold": 972514
+    },
+    {
+      "id": "structural-band.phase-18-19.38",
+      "minimumGoldPerHourInclusive": 4473565,
+      "maximumGoldPerHourInclusive": 5144600,
+      "calibrationGoldPerHour": 4473565,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 134207,
+        "apothecary.outcome.precise": 223678
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 167759,
+        "schoolhouse.outcome.resonant": 268414
+      },
+      "schoolhouseGraduationGold": 1118391
+    },
+    {
+      "id": "structural-band.phase-18-19.39",
+      "minimumGoldPerHourInclusive": 5144601,
+      "maximumGoldPerHourInclusive": 5916289,
+      "calibrationGoldPerHour": 5144601,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 154338,
+        "apothecary.outcome.precise": 257230
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 192923,
+        "schoolhouse.outcome.resonant": 308676
+      },
+      "schoolhouseGraduationGold": 1286150
+    },
+    {
+      "id": "structural-band.phase-18-19.40",
+      "minimumGoldPerHourInclusive": 5916290,
+      "maximumGoldPerHourInclusive": 6803734,
+      "calibrationGoldPerHour": 5916290,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 177489,
+        "apothecary.outcome.precise": 295815
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 221861,
+        "schoolhouse.outcome.resonant": 354977
+      },
+      "schoolhouseGraduationGold": 1479073
+    },
+    {
+      "id": "structural-band.phase-18-19.41",
+      "minimumGoldPerHourInclusive": 6803735,
+      "maximumGoldPerHourInclusive": 7824293,
+      "calibrationGoldPerHour": 6803735,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 204112,
+        "apothecary.outcome.precise": 340187
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 255140,
+        "schoolhouse.outcome.resonant": 408224
+      },
+      "schoolhouseGraduationGold": 1700934
+    },
+    {
+      "id": "structural-band.phase-18-19.42",
+      "minimumGoldPerHourInclusive": 7824294,
+      "maximumGoldPerHourInclusive": 8997937,
+      "calibrationGoldPerHour": 7824294,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 234729,
+        "apothecary.outcome.precise": 391215
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 293411,
+        "schoolhouse.outcome.resonant": 469458
+      },
+      "schoolhouseGraduationGold": 1956074
+    },
+    {
+      "id": "structural-band.phase-18-19.43",
+      "minimumGoldPerHourInclusive": 8997938,
+      "maximumGoldPerHourInclusive": 10347628,
+      "calibrationGoldPerHour": 8997938,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 269938,
+        "apothecary.outcome.precise": 449897
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 337423,
+        "schoolhouse.outcome.resonant": 539876
+      },
+      "schoolhouseGraduationGold": 2249485
+    },
+    {
+      "id": "structural-band.phase-18-19.44",
+      "minimumGoldPerHourInclusive": 10347629,
+      "maximumGoldPerHourInclusive": 11899773,
+      "calibrationGoldPerHour": 10347629,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 310429,
+        "apothecary.outcome.precise": 517381
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 388036,
+        "schoolhouse.outcome.resonant": 620858
+      },
+      "schoolhouseGraduationGold": 2586907
+    },
+    {
+      "id": "structural-band.phase-18-19.45",
+      "minimumGoldPerHourInclusive": 11899774,
+      "maximumGoldPerHourInclusive": 13684739,
+      "calibrationGoldPerHour": 11899774,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 356993,
+        "apothecary.outcome.precise": 594989
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 446242,
+        "schoolhouse.outcome.resonant": 713986
+      },
+      "schoolhouseGraduationGold": 2974944
+    },
+    {
+      "id": "structural-band.phase-18-19.46",
+      "minimumGoldPerHourInclusive": 13684740,
+      "maximumGoldPerHourInclusive": 15737449,
+      "calibrationGoldPerHour": 13684740,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 410542,
+        "apothecary.outcome.precise": 684237
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 513178,
+        "schoolhouse.outcome.resonant": 821084
+      },
+      "schoolhouseGraduationGold": 3421185
+    },
+    {
+      "id": "structural-band.phase-18-19.47",
+      "minimumGoldPerHourInclusive": 15737450,
+      "maximumGoldPerHourInclusive": 18098066,
+      "calibrationGoldPerHour": 15737450,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 472124,
+        "apothecary.outcome.precise": 786873
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 590154,
+        "schoolhouse.outcome.resonant": 944247
+      },
+      "schoolhouseGraduationGold": 3934363
+    },
+    {
+      "id": "structural-band.phase-18-19.48",
+      "minimumGoldPerHourInclusive": 18098067,
+      "maximumGoldPerHourInclusive": 20812777,
+      "calibrationGoldPerHour": 18098067,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 542942,
+        "apothecary.outcome.precise": 904903
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 678678,
+        "schoolhouse.outcome.resonant": 1085884
+      },
+      "schoolhouseGraduationGold": 4524517
+    },
+    {
+      "id": "structural-band.phase-18-19.49",
+      "minimumGoldPerHourInclusive": 20812778,
+      "maximumGoldPerHourInclusive": 23934694,
+      "calibrationGoldPerHour": 20812778,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 624383,
+        "apothecary.outcome.precise": 1040639
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 780479,
+        "schoolhouse.outcome.resonant": 1248767
+      },
+      "schoolhouseGraduationGold": 5203195
+    },
+    {
+      "id": "structural-band.phase-18-19.50",
+      "minimumGoldPerHourInclusive": 23934695,
+      "maximumGoldPerHourInclusive": 27524898,
+      "calibrationGoldPerHour": 23934695,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 718041,
+        "apothecary.outcome.precise": 1196735
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 897551,
+        "schoolhouse.outcome.resonant": 1436082
+      },
+      "schoolhouseGraduationGold": 5983674
+    },
+    {
+      "id": "structural-band.phase-18-19.51",
+      "minimumGoldPerHourInclusive": 27524899,
+      "maximumGoldPerHourInclusive": 31653633,
+      "calibrationGoldPerHour": 27524899,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 825747,
+        "apothecary.outcome.precise": 1376245
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1032184,
+        "schoolhouse.outcome.resonant": 1651494
+      },
+      "schoolhouseGraduationGold": 6881225
+    },
+    {
+      "id": "structural-band.phase-18-19.52",
+      "minimumGoldPerHourInclusive": 31653634,
+      "maximumGoldPerHourInclusive": null,
+      "calibrationGoldPerHour": 31653634,
+      "apothecaryGoldByOutcomeBandId": {
+        "apothecary.outcome.supportive": 949609,
+        "apothecary.outcome.precise": 1582682
+      },
+      "schoolhouseGoldByOutcomeBandId": {
+        "schoolhouse.outcome.guided": 1187011,
+        "schoolhouse.outcome.resonant": 1899218
+      },
+      "schoolhouseGraduationGold": 7913409
+    }
+  ],
+  "privateReleaseOnly": true,
+  "publicReleaseAllowed": false,
+  "sourceCandidateCommit": "513b2f0e4d9aa8498770e48ea3faf04c515f2aa9"
+}
