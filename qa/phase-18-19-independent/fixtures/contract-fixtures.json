@@ -6,8 +6,8 @@
   "predecessor": {
     "phase12ActivationId": "migration.phase12.claim-ledger",
     "phase15ArchiveConfigId": "claim-archive.phase-15.v1",
-    "phase15OfferVersion": 2,
-    "phase15ReceiptVersion": 2,
+    "phase15OfferShape": "phase12-canonical",
+    "phase15ReceiptEnvelopeVersion": 2,
     "phase17StoryRegistryId": "definition-set.phase-17-book1-story.v1"
   },
   "facilities": {
@@ -17,7 +17,7 @@
       "facilityId": "facility.apothecary",
       "activityId": "activity.apothecary-cases",
       "opportunityDefinitionId": "opportunity.facility.apothecary.case",
-      "mapAnchor": "eastern-plaza",
+      "mapAnchor": "eastern-plaza-apothecary",
       "discoveryContentId": "story.book1.chapter2.records-in-rain",
       "openingContentId": "facility.apothecary.possibility-case"
     },
@@ -27,7 +27,7 @@
       "facilityId": "facility.schoolhouse",
       "activityId": "activity.school-lessons",
       "opportunityDefinitionId": "opportunity.facility.schoolhouse.lesson",
-      "mapAnchor": "eastern-plaza",
+      "mapAnchor": "eastern-plaza-schoolhouse",
       "discoveryContentId": "story.book1.chapter3.river-accord.resolution",
       "openingContentId": "facility.schoolhouse.first-mentor-lesson"
     }
@@ -54,9 +54,9 @@
     "seatIdPattern": "schoolhouse.seat.<positive-ordinal>"
   },
   "finalizers": [
-    {"sourceId":"activity.apothecary-cases","domainClaimKind":"apothecary-case","finalizerId":"apothecaryFinalizerV1"},
-    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-lesson","finalizerId":"schoolhouseLessonFinalizerV1"},
-    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-graduation","finalizerId":"schoolhouseGraduationFinalizerV1"}
+    {"sourceId":"activity.apothecary-cases","domainClaimKind":"apothecary-case","finalizerId":"apothecaryFinalizerV1","immutable":true,"callerSupplied":false},
+    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-lesson","finalizerId":"schoolhouseLessonFinalizerV1","immutable":true,"callerSupplied":false},
+    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-graduation","finalizerId":"schoolhouseGraduationFinalizerV1","immutable":true,"callerSupplied":false}
   ],
   "tutorialIds": [
     "tutorial.facility.board.discover-hotspots",
@@ -113,6 +113,7 @@
     "apothecaryRecheck":"p18.qa.apothecary-recheck.v1",
     "apothecaryPreciseReady":"p18.qa.apothecary-precise-ready.v1",
     "apothecaryNamedReady":"p18.qa.apothecary-named-ready.v1",
+    "apothecaryIntroduction":"p18.qa.apothecary-introduction.v1",
     "schoolhouseUnlocked":"p19.qa.schoolhouse-unlocked.v1",
     "schoolhouseCandidate":"p19.qa.schoolhouse-candidate.v1",
     "schoolhouseSeated":"p19.qa.schoolhouse-seated.v1",
@@ -120,6 +121,7 @@
     "schoolhouseEngaged":"p19.qa.schoolhouse-engaged.v1",
     "schoolhouseResonantReady":"p19.qa.schoolhouse-resonant-ready.v1",
     "schoolhouseGraduationReady":"p19.qa.schoolhouse-graduation-ready.v1",
+    "schoolhouseIntroduction":"p19.qa.schoolhouse-introduction.v1",
     "archiveWindow":"p18-19.qa.archive-window.v1",
     "offline":"p18-19.qa.offline.v1",
     "recovery":"p18-19.qa.recovery.v1",
@@ -149,7 +151,7 @@
   "requiredDomSelectors": {
     "shared": ["[data-phase15-facility-board]", "[data-phase15-facility-id=\"facility.apothecary\"]", "[data-phase15-facility-id=\"facility.schoolhouse\"]"],
     "apothecary": ["[data-phase18-apothecary-sheet]", "[data-phase18-case-id]", "[data-phase18-clue-id]", "[data-phase18-diagnosis-id]", "[data-phase18-remedy-id]", "[data-phase18-resolve]", "[data-phase18-recheck]", "[data-phase18-claim]", "[data-phase18-close]"],
-    "schoolhouse": ["[data-phase19-schoolhouse-sheet]", "[data-phase19-seat-id]", "[data-phase19-pupil-id]", "[data-phase19-lesson-id]", "[data-phase19-approach-id]", "[data-phase19-teach]", "[data-phase19-claim]", "[data-phase19-graduation-claim]", "[data-phase19-close]"]
+    "schoolhouse": ["[data-phase19-schoolhouse-sheet]", "[data-phase19-seat-id]", "[data-phase19-pupil-id]", "[data-phase19-lesson-id]", "[data-phase19-mentor-id]", "[data-phase19-approach-id]", "[data-phase19-teach]", "[data-phase19-claim]", "[data-phase19-graduation-claim]", "[data-phase19-close]"]
   },
   "viewports": [
     {"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},
@@ -160,7 +162,7 @@
   ],
   "offlineCapMs": 86400000,
   "frozenNow": 200000000,
-  "expectedCandidateFailureIds": [
+  "requiredCandidateBoundaryIds": [
     "candidate-phase18-19-bridge-contract",
     "candidate-predecessor-v2-runtime-seams",
     "candidate-apothecary-config-runtime",
@@ -174,5 +176,6 @@
     "candidate-finalizer-archive-runtime",
     "candidate-cast-tutorial-runtime",
     "candidate-phase18-19-dom-contract"
-  ]
+  ],
+  "expectedCandidateFailureIds": []
 }

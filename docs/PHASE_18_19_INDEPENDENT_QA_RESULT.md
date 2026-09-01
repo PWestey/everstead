@@ -1,79 +1,105 @@
-# Everstead Phases 18–19 — Independent QA Result
+# Everstead Phases 18–19 — Private Runtime Verification Result
 
 ## Verdict
 
-**PREIMPLEMENTATION GATE READY.** The independent package is valid and deliberately rejects the exact integration baseline because Apothecary and Schoolhouse production runtime do not yet exist. This is a truthful red gate, not a simulated implementation.
+**SEQUENTIAL PRIVATE CANDIDATE PASSES ROOT'S CURRENT BROWSER GATE; DIFF REVIEW
+AND PUBLIC RELEASE REMAIN BLOCKED.** Apothecary and Schoolhouse use the
+exact approved private-policy values, the accepted Phase 17 story successor,
+and the released Phase 15 pending-offer/V2 receipt/archive authority.
+`publicReleaseAllowed` remains false. No merge, push, deployment, or public
+enablement is authorized by this result.
 
-The gate is based on exact integration commit `70201ab52e6e3510747bee1a977794a8c900bdd1`. It modifies only `qa/phase-18-19-independent/*` and the two independent QA documents. Production, accepted design, art, CSS, deployment, and remotes are unchanged.
+The current sequential branch starts from exact accepted Phase 17 tip
+`a6b168f`. The approved-policy, generated-definition, runtime/adaptor, and QA
+changes remain reviewable as focused commits. The former parallel candidate is
+historical provenance only.
 
-## Repeated static evidence
+## Implemented private slice
 
-From the committed package tip:
+- The Village story discovers Apothecary and Schoolhouse before either becomes
+  operational. Discovery grants only the exact capability.
+- The first explicit pointer or keyboard activation presents an original
+  Everstead introduction. Watch or Skip atomically commits Phase 17 unlock
+  truth, the Phase 18–19 projection, an explicit durable outcome, and its actual
+  Tutorial Log entry. Fixed failures after unlock, projection, or outcome roll
+  the whole transaction back.
+- Established Phase 17 saves with a preexisting operational facility migrate as
+  an honest `migrated-recap`; they are never rewritten as watched or skipped.
+- Tutorial Log rows survive reload, remain replayable, and replay without
+  rewards, persistence writes, or revision changes. Pointer and keyboard flows
+  return focus to the exact Village hotspot.
+- Apothecary cases bank every approved 60 minutes to cap 8, never expire, and
+  progress through clues, diagnosis, remedy, forgiving Recheck, supportive or
+  precise resolution, and a separate manual Claim.
+- A named patient exists in exactly one of pending schedule, live case, or
+  claimed history. Reloading a live Rook case creates no duplicate and no
+  active-save or revision change; safe staging cleanup is not treated as a
+  committed save write.
+- Schoolhouse lessons bank every approved 90 minutes to cap 8 independently of
+  pupils. Persistent seats, three development domains, positive teaching,
+  positive-only Family mentoring, and local Education are implemented.
+- Graduation is a distinct manual one-shot through the canonical Phase 15 V2
+  receipt/archive and claimed-range authority. It does not reuse a lesson
+  ordinal, pays exactly once, records fold-safe trigger lineage, and frees the
+  pupil's seat.
+- Every case, lesson, and graduation plan is bound to the exact owner record,
+  captured policy/band, save identity, canonical offer, facility/domain
+  ordinal, and deterministic rewards before any effect or deletion.
+- The original four Buildings' passive production and Family assignments are
+  unchanged. Restaurant policy IDs and values are not reused. The Player
+  Character remains outside collectible rosters and shards.
 
-- package-only verifier: `56/56` twice;
-- accepted Phase 18–19 design validator: `40/40` within every verifier run and twice directly;
-- inherited checksum fixture: 45 accepted Phase 13–19, predecessor QA, runtime, and artifact files byte-frozen to the exact base;
-- package checksums: all 10 owned files pass twice;
-- JavaScript syntax: verifier, coordinator, and isolated realm all pass;
-- exact baseline artifact: SHA-256 `199826ea2d07612e4f76fb6ef103d6bbe82d8bc429e103559c45d125445efdbc`, 1,126,624 bytes.
+## Current non-browser evidence
 
-Default candidate verification reports `55/68` with exactly these 13 expected preimplementation failures, twice:
+The current working candidate reproduces:
 
-1. `candidate-phase18-19-bridge-contract`;
-2. `candidate-predecessor-v2-runtime-seams`;
-3. `candidate-apothecary-config-runtime`;
-4. `candidate-apothecary-distinct-lifecycle`;
-5. `candidate-schoolhouse-config-runtime`;
-6. `candidate-schoolhouse-persistent-lifecycle`;
-7. `candidate-graduation-v2-one-shot-runtime`;
-8. `candidate-family-mentor-positive-only-runtime`;
-9. `candidate-null-policy-fail-closed-runtime`;
-10. `candidate-successor-migration-validation-runtime`;
-11. `candidate-finalizer-archive-runtime`;
-12. `candidate-cast-tutorial-runtime`;
-13. `candidate-phase18-19-dom-contract`.
+- focused runtime verifier: `34/34`;
+- approved-policy validator: `16/16`;
+- accepted design validator: `40/40`;
+- historical candidate validator: expected `65/66`, with only
+  `achievement-source-ids-no-released-collision` failing because the approved
+  successor now intentionally publishes those IDs;
+- all 21 real-coordinator claim/finalizer refusal probes atomic;
+- connected five-realm browser gate: `425/425`, with zero captured
+  warning/error console entries;
+- JavaScript syntax for generated definitions, both runtimes, the focused
+  verifier, independent verifier, runner, and browser realm;
+- private release only, with public release false.
 
-`candidate-failure-boundaries-exact` passes, proving that there are no unexplained static failures outside those declared implementation boundaries.
+The historical candidate's collision scan is now bounded to real production
+text surfaces (`index.html` and supported `src/` text files), rather than the
+giant art/report tree. Independent child validator calls have a 120-second
+timeout so any future stall fails visibly.
 
-## What the gate proves before implementation
+The final package hashes pass for all 23 frozen entries. Package-only validation
+is `71/71`; the full sequential static gate is `84/84`. These totals were
+captured after the introduction fixtures, explicit rollback row, bounded
+collision scan, and validator timeout were all in place.
 
-The package freezes and cross-checks the accepted contracts for:
+## Browser gate
 
-- distinct Apothecary clue → diagnosis → remedy → forgiving Recheck/Supportive/Precise flow;
-- distinct Schoolhouse seating → banked lesson → persistent multi-lesson pupil development → graduation flow;
-- non-expiring opportunity banks, manual claims, and no automatic offline choices or credit;
-- a separate graduation V2 one-shot offer identity and immutable finalizer;
-- a positive-only, one-mentor Family relationship modifier that cannot mutate Family state;
-- null production policy remaining disabled with no QA or Restaurant-value fallback;
-- ordered migrations, V2 archive folding, import, recovery, malformed-state refusal, and eight two-client race classes;
-- exact nine tutorial IDs with contextual First Lesson segmentation;
-- exact ten-actor Phase 18–19 subset, locked-Fellow exclusion, and approved dialogue presentation fallbacks;
-- `player.wayfarer` preserved as a separate Player Character outside Fellow, Family, Companion, assignment, shard, and facility-speaker systems;
-- semantic facility-sheet compatibility for forthcoming original Everstead visual polish without importing reference assets, copying trade dress, or moving full-background profile art into Village dialogue;
-- original four Building passive Gold and Family assignment preservation;
-- same-captured-time passive semantics with volatile Gold/timestamp/day/`boostDay` fields excluded;
-- non-tautological reduced-motion coverage through a production root marker plus a real static CSS media-rule contract, never the injected `matchMedia` value alone;
-- actual-node browser assertions for mobile, desktop, 130-percent copy, reduced motion, keyboard, focus, Escape, target size, containment, and overflow.
+Root served the repository root and opened
+`qa/phase-18-19-independent/index.html`. The current suite passed **425/425**:
+ten package rows plus eighty-three rows in each of five actual-DOM realms
+(320×568, 390×844, 1024×768, 130-percent copy, and reduced motion).
 
-The browser realm loads the real candidate `index.html`, injects only isolated adapters before production scripts, and calls only `window.__EVERSTEAD_PHASE_18_19_QA__`. It does not install a fake facility engine.
+The new rows add real discovery → introduction → Watch/Skip → availability,
+persisted Tutorial Log replay, exact hotspot focus return, same-clock reload,
+live named-patient uniqueness, and an explicit three-stage atomic opening
+rollback assertion. They retain full lifecycle, archive, concurrency, offline,
+passive, accessibility, overflow, reduced-motion, native-storage, and console
+coverage. All five realms reported zero captured warning/error console entries.
+The atomic-failure and same-clock reload checks require unchanged active save
+bytes, revision, resources, and full mechanical state; safe staging cleanup is
+not misclassified as a committed active-save write.
 
-## Live five-realm status
+## Remaining release gates and residual risks
 
-The local live runner is ready at `qa/phase-18-19-independent/index.html`. At the exact baseline it is expected to render 20 rows: 10 package rows pass, while each of five realms reports exactly two failures—`bridge-present` and `phase18-19-contract-unavailable`—for an expected `10 passed, 10 failed` result.
+Root must verify the final targeted diff, rerun inherited Restaurant and
+predecessor gates, and inspect the two activities and introductions manually
+before integration. Public deployment is still forbidden.
 
-No browser was connected to this independent worker when the gate was produced, so that live result is **not claimed as observed here**. Root integration review must run the page in the connected in-app browser and record the five rendered realm pairs. Once production exists, each realm continues into actual-DOM and behavior checks instead of stopping at the absent bridge.
-
-## Implementation release conditions
-
-Phases 18–19 cannot pass until a candidate supplies the trusted bridge and real runtime under complete separately approved policies. A passing release requires:
-
-- `68/68` static candidate checks;
-- all five live realms complete without failed rows, native-storage access, warning/error console output, timeout, or normalized-only DOM substitution;
-- predecessor gates remain green;
-- root diff review confirms no production value came from this QA fixture and no Restaurant domain model was reused;
-- manual visual review at both mobile widths, desktop, expanded copy, and reduced motion;
-- real-device/Safari follow-up for composition and storage behavior.
-
-## Residual risks
-
-Web Storage has no atomic compare-and-swap, so the narrow final reread-to-write race remains detectable and reducible rather than eliminable. This package cannot approve null cadence, capacity, rewards, progress curves, mastery, Education, mentor caps, graduation rewards, final visible copy, art rights, or visual quality. It also cannot prove real-device or Safari behavior.
+Web Storage has no atomic compare-and-swap; the final reread-to-write race can
+be narrowed and detected, not eliminated. Safari/real-device behavior, final
+localized wording, final visual polish, and art-rights review remain outside
+this private automated result.

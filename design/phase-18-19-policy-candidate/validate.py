@@ -138,8 +138,12 @@ record("cast-presentation-policy", "Never use an unframed full-background profil
 source_ids = [item["definitionId"] for phase in (p18, p19) for item in phase["achievementPolicies"]]
 record("achievement-source-ids-unique", len(source_ids) == 7 and all_unique(source_ids))
 collision_files = []
-for path in ROOT.rglob("*"):
-    if not path.is_file() or HERE in path.parents or ".git" in path.parts or path.suffix not in {".json", ".md", ".html", ".js", ".mjs", ".py"}:
+production_paths = [ROOT / "index.html"]
+source_root = ROOT / "src"
+if source_root.is_dir():
+    production_paths += [path for path in source_root.rglob("*") if path.suffix in {".json", ".html", ".js", ".mjs"}]
+for path in production_paths:
+    if not path.is_file() or HERE in path.parents:
         continue
     try:
         content = path.read_text(errors="ignore")

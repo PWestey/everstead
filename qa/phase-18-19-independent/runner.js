@@ -20,10 +20,10 @@
     rows.push(row('fixture-graduation-v2-finalizers',f.finalizers.length===3&&unique(f.finalizers.map(item=>`${item.sourceId}:${item.domainClaimKind}`))&&f.schoolhouse.graduationDomainClaimKind==='schoolhouse-graduation'));
     rows.push(row('fixture-nine-tutorials-ten-actors',f.tutorialIds.length===9&&f.actorIds.length===10&&unique(f.tutorialIds)&&unique(f.actorIds)&&f.facilityActorIds['facility.apothecary'].length===6&&f.facilityActorIds['facility.schoolhouse'].length===5));
     rows.push(row('fixture-qa-policy-isolated',f.syntheticPolicy.qaOnly===true&&f.syntheticPolicy.requiresIsolatedStorage===true&&f.syntheticPolicy.neverProductionFallback===true));
-    rows.push(row('fixture-save-invalid-concurrency-matrices',Object.keys(f.saveFixtures).length===22&&f.invalidMutationChecks.length===16&&f.concurrencyKinds.length===8&&unique(Object.values(f.saveFixtures))));
+    rows.push(row('fixture-save-invalid-concurrency-matrices',Object.keys(f.saveFixtures).length===24&&f.invalidMutationChecks.length===16&&f.concurrencyKinds.length===8&&unique(Object.values(f.saveFixtures))));
     rows.push(row('fixture-v2-archive-and-passive-four',f.archivePolicy.recentReceiptLimit===512&&f.archivePolicy.foldBatchSize===128&&f.originalPassiveFacilityIds.length===4));
     rows.push(row('fixture-five-browser-realms',f.viewports.length===5&&f.viewports.some(item=>item.width===320&&item.height===568)&&f.viewports.some(item=>item.width===1024)&&f.viewports.some(item=>item.reducedMotion)&&f.viewports.some(item=>item.copyScale===1.3)));
-    for(const viewport of f.viewports)rows.push(...await realm(f,viewport));render('CANDIDATE',rows);
+    for(const viewport of f.viewports)rows.push(...await realm(f,viewport));render('PRIVATE RUNTIME',rows);
   }catch(error){byId('fatal').textContent=error.stack||error.message;render('FATAL',[row('runner-fatal',false,error.stack||error.message)])}finally{byId('run').disabled=false}}
   byId('run').onclick=run;run();
 })();

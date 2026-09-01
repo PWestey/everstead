@@ -2,9 +2,9 @@
 
 ## Scope and release boundary
 
-This independent gate evaluates two distinct production activities against the accepted `design/phase-18-19/*` contracts and the released predecessor seams. It owns QA code, deterministic fixtures, and QA documentation only. It does not implement a production engine, approve currently null product values, modify accepted design, touch art or CSS, change deployment, merge, push, or reinterpret the Restaurant as a template.
+This independent lane evaluates two distinct private-release activities against the accepted `design/phase-18-19/*` contracts, immutable approved policy successor, and released predecessor seams. It owns QA code, deterministic fixtures, QA documentation, and focused mechanical verification. The runtime implementation remains modular and private; it does not modify accepted design, touch art assets, change deployment, merge, push, or reinterpret the Restaurant as a template.
 
-The exact baseline is `70201ab52e6e3510747bee1a977794a8c900bdd1`. It contains the accepted Phase 18–19 design but intentionally has no Phase 18/19 runtime or QA bridge. Candidate verification must therefore report exact preimplementation failures rather than synthesize production behavior.
+The implementation was developed in parallel, then retargeted sequentially onto exact accepted Phase 17 integration tip `a6b168f`. The successor uses the released Phase 15 pending-offer/V2 receipt/archive authority and Phase 13 Legacy registry; it does not retain a second Phase 18–19 claim store. Final acceptance still requires inherited Restaurant verification and root static/live/diff review. Private activation does not authorize deployment: public release false is a required invariant.
 
 Inherited behavior is mandatory:
 
@@ -22,7 +22,7 @@ The locally and query-gated bridge is `window.__EVERSTEAD_PHASE_18_19_QA__`, ver
 Read-only methods:
 
 - `definitions()` returns exact predecessor lineage, both facility/config/definition registries, story authority, immutable finalizer and archive registry, graduation one-shot identity, tutorials, cast policy, and production enablement.
-- `snapshot()`, `validate()`, `derive()`, `raw()`, and `exportSave()` expose normalized observations without mutation.
+- `snapshot()`, `validate()`, `derive()`, `tutorialLog()`, `raw()`, and `exportSave()` expose normalized observations without mutation.
 - `passiveBaseline(capturedAt)` derives the original four Buildings' immutable production/Family-assignment semantics at that exact captured timestamp. It returns the Gold currency identity, Oath multiplier policy/formula, effective Oath boost and rate at `capturedAt`, Family assignment identity/multiplier, and the 24-hour cap. It deliberately excludes volatile balances/timestamps and raw `boostDay`; legitimate wall-clock or midnight drift is therefore neither mistaken for a regression nor allowed to alter the same-time semantic comparison.
 - `policyReport()` returns null-policy enablement and, only in an isolated QA realm, the explicitly injected QA-only registry identity. Production must never fall back to that registry.
 
@@ -37,17 +37,30 @@ Destructive methods, isolated storage only:
 - `claimGraduation(offerId,offerIdentity)` dispatches the distinct graduation V2 finalizer bound to a facility-local ready snapshot.
 - `tutorial(id,action)` supports contextual open, skip, log, and replay without mechanical rewards or feature blocking.
 - `simulateConcurrent(kind)` returns one-winner/one-loser evidence for the eight declared settlement, seat, resolution, lesson-claim, and graduation-claim races.
-- `probeFinalizerFailure(kind,mode)` covers missing, throwing, local-domain, global-reward, receipt, and archive failures with zero partial writes.
+- `probeFinalizerFailure(kind,mode)` exercises missing/throwing dispatch, consumed-plan tamper, and fixed faults after local/reward application, claimed-range update, canonical offer deletion, and receipt/archive append through the real isolated coordinator. Every refusal must preserve raw state, revision, resources, local facility records, offers/plans, ranges, and archive with zero committed writes.
+
+The inherited Phase 17 QA bridge additionally exposes fixed, QA-authorized
+facility-introduction fault modes `after-unlock`, `after-projection`, and
+`after-outcome`. They are not caller-supplied production callbacks. Each
+attempt executes the real opening transaction and must leave Phase 17 truth,
+Phase 18–19 projection, Tutorial Log outcome, raw state, revision, and write
+count unchanged.
 
 Normalized output is a test observation contract, not an alternate source of game state.
 
-## Fail-closed policy and domain isolation
+## Approved private policy and domain isolation
 
-Production definitions deliberately contain null cadence, capacity, selection, reward, progress, mastery, Education, relationship, graduation, and achievement values. Production activation, settlement, resolution, and claims must all remain disabled until each facility has a complete separately versioned approved policy. `0`, an empty array, a generic default, a Restaurant value, or the independent QA fixture may not substitute for null.
+The accepted design files deliberately retain null cadence, capacity, selection, reward, progress, mastery, Education, relationship, graduation, and achievement values. Runtime authority comes only from the separately versioned immutable `phase-18-19-product-policy-approved-v1` successor. If its exact approval lineage, fixed table, completeness, or private-release flags fail validation, activation, settlement, resolution, and claims fail closed. `0`, an empty array, a generic default, a Restaurant value, or the independent QA fixture may not substitute for a missing approved value.
+
+The historical product-policy candidate resolved all 86 null slots and was approved without value changes at exact reviewed commit `513b2f0e4d9aa8498770e48ea3faf04c515f2aa9`. The immutable approval record freezes the candidate file hashes and copies its 52-band fixed reward table, tutorial timing, cast schedule, and values into a new private authority. The candidate itself remains non-authoritative review history and is never read as a runtime fallback.
+
+Approved private values are 60 minutes / bank 8 / 8 unattended hours for Apothecary and 90 minutes / bank 8 / 12 unattended hours for Schoolhouse. Apothecary Mastery is +2/+3 at levels 0/12/36/90. Schoolhouse begins with one seat, caps at two, requires 8 progress in each of three domains, and uses a positive-only +1 mentor development cap with at most 250 fixed Gold. Graduation remains the separate V2 one-shot: captured fixed Gold, one Gift, three Relic Stones, and +6 flat local Education. These values are authoritative only for the private release and do not authorize public deployment.
+
+The approved recurring ceiling for Phases 18–19 is 1,050 basis points of passive Gold and the 30-day total active ceiling is 1,200 basis points. Just-below/at/just-above every fixed-band boundary must pass. Five-year receipt/archive estimates must remain below 1 MiB and retain at least a 100× JavaScript safe-integer headroom factor. Passive production and Family assignment mutations must remain exactly zero.
 
 The independent fixture uses unmistakably QA-only values different from Restaurant QA values. The bridge may accept it only with isolated-storage attestation. Production definitions and saves may never persist its registry ID.
 
-Apothecary and Schoolhouse may share only the facility envelope, claim coordinator, and archive. They may not import Restaurant customer, preference, recipe, station, preparation, stock, reputation, match, visitor-profit, or pricing structures. Each activity owns a separate policy identity, settlement cursor, bank, detail map, engagement, local progression, history, and finalizer.
+Apothecary and Schoolhouse may share only the facility envelope, claim coordinator, and archive. They may not import Restaurant customer, preference, recipe, station, preparation, stock, reputation, match, visitor-profit, or pricing structures. Restaurant values may not substitute for null design fields. Each activity owns a separate policy identity, settlement cursor, bank, detail map, engagement, local progression, history, and finalizer.
 
 ## Phase 18 — Apothecary gate
 
@@ -62,7 +75,7 @@ Opening a case shows the immutable patient, region, clues, diagnosis options, an
 
 Closing or reloading resumes the same semantic step, stable choices, and identity. A terminal result remains claim-ready and pays nothing until Claim. The immutable Apothecary finalizer atomically applies the exact global reward and approved local mastery/history/knowledge/metric deltas, consumes the opportunity/detail/result, records ordinal and named-patient replay authority, and writes one V2 receipt/archive update. Duplicate, stale, malformed, missing-adapter, throwing-adapter, receipt, archive, and two-client failures produce zero partial effects.
 
-Named Rook and Daredevil cases are one-time, story/Rank gated, and blocked while already banked, engaged, ready, or claimed. Regional selection respects committed Book I story gates. Story replay never generates or rewards a case.
+Named Rook and Daredevil cases are one-time, story/Rank gated, and each must exist in exactly one authority domain: pending named-patient IDs, one live banked/engaged/ready case, or claimed history. Reloading a live named case cannot requeue or duplicate it. Regional selection respects committed Book I story gates. Story replay never generates or rewards a case.
 
 ## Phase 19 — Schoolhouse gate
 
@@ -96,7 +109,7 @@ The immutable finalizer registry must contain exactly these domain dispatch entr
 
 ## Migration, archive, import, and recovery
 
-Lineage is exact and ordered through the implemented Phase 12 and Phase 15/16/17 successors, then `migration.phase-18.apothecary.v1`, then `migration.phase-19.schoolhouse.v1`. Each migration validates the full predecessor, captures one clock/revision/raw identity, adds only its own profile/tutorial replay keys, derives story discovery/opening honestly, creates no value under null policy, preserves every predecessor authority, validates, and commits once. Repetition is byte-stable.
+Lineage is exact and ordered through the implemented Phase 12 and Phase 15/16/17 successors, then `migration.phase-18.apothecary.v1`, then `migration.phase-19.schoolhouse.v1`. Each migration validates the full predecessor, captures one clock/revision/raw identity, adds only its own profile/tutorial replay keys, derives story discovery/opening honestly, creates no value under null policy, preserves every predecessor authority, validates, and commits once. An established Phase 17 save whose facility was already operational records `migrated-recap`; normal UI can record only watched or skipped. Repetition and a same-clock second boot preserve the active save bytes, revision, resources, and mechanical state when no positive settlement is due. Safe staging cleanup may still be observable as storage-adapter operations and is not an active-save write.
 
 Import and recovery adopt nothing until the complete successor, domain relationships, finalizer registry, receipt/checkpoint chain, and replay authorities validate. Future or corrupt input remains exportable without replacing the active save. Malformed details, unknown IDs/versions, expired records, terminal Recheck, negative development, mentor stacks, Family mutation, missing graduation trigger receipts, wrong domain kinds, broken archive checkpoints, and broken save bindings all fail before a write.
 
@@ -107,6 +120,16 @@ V2 archive folding retains 512 recent receipts and folds 128 at a time. Folding 
 The exact nine accepted tutorial IDs come from the 79-ID ledger. Shared board/banking/claim tutorials do not repeat if completed at Restaurant. Apothecary first-case, diagnosis, and mastery tutorials remain separate. Schoolhouse First Lesson retains one tutorial ID but segments existing steps across three contexts: seats/pupil on first visit, banked-lessons when a lesson is ready, and teach when the engagement opens. Pupil Progress follows the first lesson Claim; Graduation waits for a real major ready offer.
 
 Tutorials are contextual, gradual, skippable, logged, replayable, reward-neutral, and mechanically non-blocking. At most one auto-presents during a safe visit. Step history resumes at the next contextually eligible unseen step.
+
+For Apothecary and Schoolhouse, committed Book I discovery grants the exact
+Phase 17 capability but does not silently open the facility. The first explicit
+tap or keyboard activation on the discovered hotspot presents the feature
+introduction. Watch or Skip commits the Phase 17 content resolution/unlock,
+successor projection, and explicit tutorial outcome in one transaction or not
+at all. The actual Tutorial Log aggregates predecessor rows plus Phase 18–19,
+labels migrated recaps honestly, and replays presentation with zero rewards,
+writes, or revision change. Pointer activation with ambient focus and keyboard
+activation both return focus to the exact hotspot on Escape, Watch, or Skip.
 
 The exact ten-actor subset is Rook, Daredevil, Scarlet Witch, Yennefer, Shadowheart, Aerith, Obi-Wan, Spider-Man, Ahsoka, and Hermione. Aerith intentionally belongs to both facilities. A locked Fellow never speaks. Mechanical copy does not depend on a speaker. Village dialogue uses an approved transparent cutout, approved framed treatment, or attributed text only—never an unframed full-background character-sheet portrait.
 
@@ -124,12 +147,12 @@ Reduced-motion coverage is intentionally non-tautological. The reduced realm sti
 
 Normalized QA output alone cannot prove actual layout or accessibility. The live gate must inspect actual DOM nodes/styles; root must still visually inspect composition and real-device behavior.
 
-## Required preimplementation result
+## Required candidate result
 
-At the exact baseline, package-only validation must pass while candidate validation fails only the declared Phase 18/19 runtime boundaries: bridge, inherited V2 runtime seam, Apothecary runtime/flow, Schoolhouse runtime/flow, graduation one-shot seam, mentor seam, null-policy fail-closed surface, migrations, finalizers/archive, cast/tutorial runtime, and DOM.
+Package-only validation must continue to prove the exact frozen preimplementation baseline. On the private candidate, all 13 formerly absent runtime boundaries must pass: bridge, inherited V2 lineage, Apothecary runtime/flow, Schoolhouse runtime/flow, graduation one-shot, mentor handling, approved-policy fail-closed surface, migrations, finalizers/archive, cast/tutorial runtime, and DOM contract.
 
-The live baseline produces ten package rows plus two rows from each realm. With no production bridge, every realm must report only `bridge-present` and `phase18-19-contract-unavailable` as failures, then stop before destructive access. That expected result is not claimed as observed until the browser runner is actually executed.
+The live candidate produces ten package rows plus eighty-three rows from each of five realms, for 425 total. Every realm must use real candidate DOM and a distinct isolated memory store, remain at zero native-storage accesses and zero warning/error console entries, and pass focus, keyboard, Escape, atomic introduction rollback, persisted Tutorial Log replay, same-clock reload, named-patient uniqueness, overflow, reduced-motion, lifecycle, archive, concurrency, cast, and passive-preservation assertions. This result is not claimed until root executes the connected browser gate.
 
 ## Blind spots and root review
 
-Web Storage still has no compare-and-swap; the final reread-to-write race can be narrowed and detected, not eliminated. This gate cannot approve null economy/progression values, final visible copy, art rights, visual quality, or an implementation path it cannot instrument. Root review must inspect all candidate production diffs, rerun predecessor gates, verify exact source ownership, run five live realms, and manually review both activities before integration.
+Web Storage still has no compare-and-swap; the final reread-to-write race can be narrowed and detected, not eliminated. This sequential candidate cannot prove final visible copy, art rights, Safari/real-device visual quality, or integration safety by itself. Root review must inspect all production diffs, rerun predecessor and Restaurant gates, verify exact source ownership, run all five live realms, and manually review both activities before integration.
