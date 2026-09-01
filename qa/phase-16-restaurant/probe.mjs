@@ -1,0 +1,46 @@
+import assert from 'node:assert/strict';
+
+await import('../../src/phase16-restaurant.js');
+const r=globalThis.EVERSTEAD_PHASE16_RESTAURANT;
+let passed=0;
+const check=(name,condition)=>{assert.equal(Boolean(condition),true,name);passed++};
+
+check('definitions valid',r.validateDefinitions().ok);
+check('private release',r.productionEnabled&&r.publicReleaseAllowed===false);
+check('fixed table identity',r.rewardRows.length===52&&r.rewardTableIdentity==='fnv1a32:762d2972');
+check('locked interval and cap',r.policy.intervalMs===1_800_000&&r.policy.bankCapacity===12&&r.policy.unattendedTargetMs===21_600_000);
+check('locked recipes',JSON.stringify(r.recipes.map(x=>[x.preparationDurationMs,x.batchSize,x.stockCapacity]))===JSON.stringify([[120000,2,6],[90000,3,9],[60000,4,12]]));
+check('manual transfer and claim',r.policy.manualTransferRequired&&r.policy.manualClaim);
+check('no input currency',r.policy.noGlobalInputCurrency);
+check('three level thresholds',JSON.stringify(r.policy.reputationThresholds)===JSON.stringify({1:0,2:12,3:36}));
+check('deterministic customer',r.selectCustomer('save-a',1)===r.selectCustomer('save-a',1));
+check('deterministic preference',r.selectPreference('save-a',1,'restaurant.customer.road-worker')===r.selectPreference('save-a',1,'restaurant.customer.road-worker'));
+check('named customer exact',r.selectCustomer('save-a',7,{named:true})==='restaurant.customer.route-envoy');
+check('matched result',r.resultFor('restaurant.preference.warming','restaurant.recipe.hearth-stew')==='matched');
+check('partial result',r.resultFor('restaurant.preference.quick','restaurant.recipe.hearth-stew')==='partial');
+check('basic result',r.resultFor('restaurant.preference.light','restaurant.recipe.hearth-stew')==='basic');
+check('level boundaries',r.reputationLevel(0)===1&&r.reputationLevel(12)===2&&r.reputationLevel(36)===3);
+check('level gates',r.recipeAvailable('restaurant.recipe.hearth-stew',0)&&!r.recipeAvailable('restaurant.recipe.garden-flatbread',11)&&r.recipeAvailable('restaurant.recipe.garden-flatbread',12));
+const partial=r.planSettlement({cursorAt:100,carryMs:0,nextOrdinal:0,currentCount:0,now:1_800_099});
+check('partial carry',partial.createdOrdinals.length===0&&partial.carryMs===1_799_999);
+const two=r.planSettlement({cursorAt:100,carryMs:0,nextOrdinal:0,currentCount:0,now:3_600_100});
+check('two banked ordinals',JSON.stringify(two.createdOrdinals)===JSON.stringify([1,2]));
+const full=r.planSettlement({cursorAt:100,carryMs:1_000,nextOrdinal:12,currentCount:12,now:1_800_100});
+check('full bank keeps remainder only',full.createdOrdinals.length===0&&full.carryMs===1_000&&full.hiddenDebtMs===0);
+const rollback=r.planSettlement({cursorAt:100,carryMs:99,nextOrdinal:0,currentCount:0,now:99});
+check('rollback write-free plan',rollback.elapsedMs===0&&rollback.carryMs===99);
+assert.throws(()=>r.planSettlement({cursorAt:0,carryMs:0,nextOrdinal:Number.MAX_SAFE_INTEGER,currentCount:0,now:3_600_000}),/overflow/);passed++;
+assert.throws(()=>r.planSettlement({cursorAt:0,carryMs:0,nextOrdinal:0,currentCount:0,now:3_600_000,bankCapacity:13}),/invalid/);passed++;
+const outcome=r.planOutcome({customerId:'restaurant.customer.road-worker',preferenceId:'restaurant.preference.warming',recipeId:'restaurant.recipe.hearth-stew',structuralGoldPerHour:0});
+check('captured outcome exact',outcome.totalGold===1143&&outcome.reputationDelta===3&&outcome.masteryDelta===3);
+const report=r.economyReport();
+check('ten simulation rows',report.simulations.length===10);
+check('safe reports',report.simulations.every(x=>x.safeIntegerHeadroom&&x.passiveBaselinePreserved&&x.totalGold===x.passiveGold+x.activeGold));
+check('target share',report.simulations.every(x=>x.activeGold*r.policy.activeProfitTargetShare.denominator<=x.totalGold*r.policy.activeProfitTargetShare.numerator));
+check('seven tutorials',r.tutorials.length===7&&r.tutorials.every(x=>!x.blocking&&x.skippable&&x.replayable&&x.reward===null));
+check('tutorial copy distinct',new Set(r.tutorials.flatMap(x=>Object.values(x.stepCopy))).size===r.tutorials.flatMap(x=>Object.values(x.stepCopy)).length);
+check('cast hooks exact',r.castHooks.length===7&&r.castHooks.flatMap(x=>x.restaurantHookIds).length===11);
+check('locked fellow rule',r.castPolicy.lockedFellowsExcluded===true);
+check('inherited seam',r.inheritedPhase12ActivationId==='migration.phase12.claim-ledger');
+
+console.log(JSON.stringify({phase:'16-restaurant-focused',passed,total:passed,status:'PASS'},null,2));
