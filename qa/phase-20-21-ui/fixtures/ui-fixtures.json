@@ -1,0 +1,27 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-20-21-independent-qa-v2",
+  "frozenNow": 1760000000000,
+  "fixtureId": "p20-21.qa.all-unlocked.v2",
+  "facilityIds": [
+    "facility.command-center",
+    "facility.archives",
+    "facility.training-grounds",
+    "facility.hearth",
+    "facility.gatehouse",
+    "facility.market-workshop",
+    "facility.gardens",
+    "facility.forge"
+  ],
+  "participantFacilityIds": ["facility.training-grounds", "facility.hearth"],
+  "reservationFacilityIds": ["facility.market-workshop", "facility.forge"],
+  "tutorialCounts": {"predecessor": 79, "successor": 19, "total": 98},
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-430x932", "width": 430, "height": 932, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-768x1024", "width": 768, "height": 1024, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-1024x768", "width": 1024, "height": 768, "copyScale": 1, "reducedMotion": false},
+    {"id": "copy-390x844", "width": 390, "height": 844, "copyScale": 1.3, "reducedMotion": true}
+  ]
+}
