@@ -7,7 +7,7 @@ The accepted First Covenant slice now exposes a deterministic Phase 14 validatio
 ## Delivered
 
 - Frozen measurement policy, pacing profiles, and fixture identities in `definitions().validation.phase14`.
-- Read-only fresh/midgame/established Campaign pacing and canonical reward-impact output in `derive().phase14Validation`.
+- Read-only fresh/midgame/established Campaign pacing and canonical reward-impact output in `derive().phase14Validation`. The pacing simulator uses untouched fixtures and advances a clone through real stage order, sequence, Rank, Power, Gold, deterministic EXP/level, and unlock rules.
 - Additive midgame, migrated, corrupt, and offline fixtures. Valid fixtures use the existing transactional coordinator and validate before return.
 - Detached corruption probes covering the exact sorted failure ledger; corrupt reset performs no persistence write and does not replace the active save.
 - Honest unknown-history migration observations with no invented story, tutorial, completion, or claim activity.
@@ -17,7 +17,7 @@ The accepted First Covenant slice now exposes a deterministic Phase 14 validatio
 
 ## Developer verification
 
-- Phase 14 focused probe: **21/21**.
+- Phase 14 focused probe: **23/23**, including equality between clone-simulated pacing and isolated production Campaign runs from the same fresh fixture.
 - Phase 13 focused probe: **21/21**.
 - Phase 13 independent candidate gate: **39/39**.
 - Phase 12 focused probe: **57/57**.
@@ -26,6 +26,10 @@ The accepted First Covenant slice now exposes a deterministic Phase 14 validatio
 - Phase 14 independent candidate static contract: **45/46** with the original verifier; its sole failure is the known pre-portability inherited-file comparison. The independent portability follow-up `8f56659483bebfe54d27ce5bfd41f3c0362a331c` moves immutable provenance reads to Git objects without changing the behavioral contract.
 
 The four-realm independent live matrix is an integration acceptance step because no Browser surface was available in this developer task. It must be rerun against the committed candidate with the portability follow-up applied.
+
+## Honest fresh-profile observation
+
+The accepted fresh fixture remains at its inherited **50,000 Gold** and starts with **36,366 joined Power**. Clone-only Campaign simulation clears four consecutive stages, reaches Rank 3 and 75,501 Power, retains 6,123 Gold, then stops for insufficient Gold at `broken-roads-5`. No fixture or production economy value is rewritten to produce that result.
 
 ## Preserved boundaries
 

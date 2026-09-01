@@ -14,6 +14,7 @@ const phaseNine=await helpers.phaseNineHarness(),baseHarness=helpers.engineHarne
 const schemaTwelveHarness=helpers.replaceOnce(baseHarness,'return value?.schemaVersion===11?value:null','return value?.schemaVersion===12?value:null','schema-12 active helper');
 const facade=`    p14:Object.freeze({
       state:()=>clone(S),
+      defaultGold:()=>defaultState(runtimeNow()).gold,
       valid:()=>validation(S,12),
       raw:()=>PERSISTED_RAW,
       writes:()=>PERSISTENCE_LOG.length,
@@ -21,6 +22,9 @@ const facade=`    p14:Object.freeze({
       derive:()=>clone(phaseThirteenQaDerive(S)),
       renderModel:()=>clone(phaseThirteenQaRenderModel()),
       reset:id=>phaseThirteenQaResetFixture(id),
+      resolveCampaignIntro:()=>phaseThirteenQaResolveScenes(PHASE_THIRTEEN.scenes.slice(0,3).map(item=>item.id)),
+      runCampaign:id=>runFellowCampaign(id,{confirmed:true,present:false}),
+      joinedPower:()=>totalFellowRosterPower(S),
       claim:id=>phaseFourteenQaClaim(id),
       reload:()=>phaseThirteenQaReload()
     }),
@@ -43,11 +47,15 @@ add('bounded-legacy-definition',definitions.legacy.tracks.length===1&&definition
 add('no-phase14-facility-runtime',!Object.hasOwn(definitions,'facilities')&&!application.includes('__EVERSTEAD_PHASE_14_QA__'));
 
 const fresh=p(run,"reset('p13.fixture.fresh.v1')"),freshReport=p(run,'derive().phase14Validation');
+console.log('OBSERVED fresh pacing '+JSON.stringify({startingGold:freshReport.startingGold,joinedPower:freshReport.joinedPower,clears:freshReport.affordableConsecutiveFirstClears,total:freshReport.totalStageCount,stopReason:freshReport.stopReason,stopStageId:freshReport.stopStageId,endingGold:freshReport.endingGold,endingRank:freshReport.endingRank,endingPower:freshReport.endingPower,deadlockFree:freshReport.deadlockFree}));
 const integerFields=['startingGold','joinedPower','stage1Cost','stage1RequiredPower','affordableConsecutiveFirstClears','totalStageCount','simulationWrites'];
 add('fresh-fixture-valid',fresh.ok===true&&p(run,'valid().ok')===true,p(run,'valid().errors'));
-add('fresh-pacing-real-and-bounded',freshReport.profileId==='fresh'&&integerFields.every(key=>Number.isSafeInteger(freshReport[key])&&freshReport[key]>=0)&&freshReport.stage1Reachable===true&&freshReport.affordableConsecutiveFirstClears>=1&&freshReport.affordableConsecutiveFirstClears<freshReport.totalStageCount&&freshReport.stopReason==='gold'&&freshReport.deadlockFree===true,freshReport);
+add('fresh-fixture-values-preserved',freshReport.startingGold===p(run,'defaultGold()')&&fresh.state.gold===p(run,'defaultGold()'),{reportGold:freshReport.startingGold,stateGold:fresh.state.gold,defaultGold:p(run,'defaultGold()')});
+add('fresh-pacing-real-and-bounded',freshReport.profileId==='fresh'&&integerFields.every(key=>Number.isSafeInteger(freshReport[key])&&freshReport[key]>=0)&&['gold','power','rank','sequence','complete'].includes(freshReport.stopReason)&&Number.isSafeInteger(freshReport.endingGold)&&freshReport.endingGold>=0&&Number.isSafeInteger(freshReport.endingRank)&&freshReport.endingRank>=1&&Number.isSafeInteger(freshReport.endingPower)&&freshReport.endingPower>=0&&freshReport.affordableConsecutiveFirstClears<=freshReport.totalStageCount&&freshReport.stage1Reachable===true,freshReport);
 add('measurement-write-free',freshReport.simulationWrites===0&&freshReport.policy===phase14.policy,{writes:freshReport.simulationWrites,policy:freshReport.policy});
 add('reward-impact-canonical',freshReport.rewardImpact.length===3&&freshReport.rewardImpact.every(item=>item.canonical===true&&item.rewardPolicyVersion===1&&same(item.profileIds,phase14.profiles)&&Object.values(item.postClaimDelta).every(Number.isSafeInteger)&&item.forbiddenSystems.length===0),freshReport.rewardImpact);
+p(run,'resolveCampaignIntro()');let actualClears=0;for(let ordinal=1;ordinal<=freshReport.totalStageCount;ordinal++){const result=p(run,`runCampaign('broken-roads-${ordinal}')`);if(!result?.ok)break;actualClears++}const actualCampaignState=p(run,'state()');
+add('clone-simulation-matches-production-runs',actualClears===freshReport.affordableConsecutiveFirstClears&&actualCampaignState.gold===freshReport.endingGold&&actualCampaignState.player.rank===freshReport.endingRank&&p(run,'joinedPower()')===freshReport.endingPower,{actualClears,actualGold:actualCampaignState.gold,actualRank:actualCampaignState.player.rank,actualPower:p(run,'joinedPower()'),report:freshReport});
 
 const midgame=p(run,"reset('p14.fixture.phase13-midgame.v1')"),midgameDerived=p(run,'derive()');
 add('midgame-fixture-valid',midgame.ok===true&&p(run,'valid().ok')===true&&midgameDerived.phase14Validation.profileId==='midgame',p(run,'valid().errors'));

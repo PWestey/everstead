@@ -13,7 +13,7 @@ Phase 14 validates the accepted First Covenant vertical slice through determinis
 ## Acceptance
 
 - `definitions().validation.phase14` declares policy `measurement-only-no-unapproved-production-tuning`, the exact fresh/midgame/established profiles, and every Phase 14 fixture ID.
-- `derive().phase14Validation` reports safe-integer pacing values, introduced story/tutorial IDs, pending manual claims, a deadlock observation, zero simulation writes, and canonical versioned reward-impact rows.
+- `derive().phase14Validation` reports safe-integer pacing values from the untouched active fixture. Consecutive first clears run on a clone through the production stage sequence, Rank, Power, Gold, deterministic EXP/level, and unlock gates; the report includes the honest stop reason and performs zero persistence writes.
 - The midgame, migrated, corrupt, and offline fixtures are accepted by the existing isolated Phase 13 QA bridge. Valid fixtures preserve schema 12 and validate before use.
 - The corrupt fixture is refused with the frozen, sorted failure ledger, performs zero writes, and leaves active raw state and revision unchanged.
 - Migrated measurement reports unknown historical story/tutorial baselines, zero invented completion/claim counts, and no popup cascade.
@@ -25,4 +25,4 @@ Phase 14 validates the accepted First Covenant vertical slice through determinis
 - Do not change schema version, save namespace, recovery lineage, offline 24-hour cap, claim finalizer, story/tutorial identity, cast/art, navigation, Campaign mechanics, Oaths, Village Gold, or roster progress.
 - Do not tune any production economy, Power, reward, rank, Campaign cost, or progression value.
 - Do not add a currency, stamina, expiring claim, daily checklist, permanent percentage bonus, facility runtime, Village hotspot, opportunity bank, or `window.__EVERSTEAD_PHASE_14_QA__` bridge.
-- All measurements operate on clones or immutable definitions and produce no persistence writes.
+- All measurements operate on clones or immutable definitions and produce no persistence writes or fixture-value rewrites.
