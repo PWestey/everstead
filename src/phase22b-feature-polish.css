@@ -1,0 +1,1128 @@
+/* Everstead Phase 22B: feature-surface presentation only. */
+:root {
+  --es-feature-panel: #0c1a23;
+  --es-feature-panel-raised: #132630;
+  --es-feature-line: #d7f8f02b;
+  --es-feature-line-strong: #8be6d96b;
+  --es-feature-warm-line: #f1c76b70;
+  --es-feature-shadow: 0 18px 48px #00000094;
+}
+
+/* Fellowship collections */
+[data-phase22b-feature-surface="fellowship"] .page-head,
+.screen:has(.tabs [data-roster]) .page-head {
+  margin-bottom: 12px;
+}
+
+[data-phase22b-feature-surface="fellowship"] .tabs,
+.screen:has(.tabs [data-roster]) .tabs {
+  padding: 4px;
+  border: 1px solid var(--es-feature-line);
+  border-radius: calc(var(--es-radius-control) + 4px);
+  background: #07131cd9;
+  box-shadow: inset 0 1px #ffffff0a;
+}
+
+[data-phase22b-feature-surface="fellowship"] .tabs button,
+.screen:has(.tabs [data-roster]) .tabs button {
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  border: 1px solid transparent;
+  border-radius: var(--es-radius-control);
+  line-height: 1.15;
+  white-space: normal;
+}
+
+[data-phase22b-feature-surface="fellowship"] .tabs button.on,
+[data-phase22b-feature-surface="fellowship"] .tabs button[aria-selected="true"],
+.screen:has(.tabs [data-roster]) .tabs button.on,
+.screen:has(.tabs [data-roster]) .tabs button[aria-selected="true"] {
+  border-color: #66e1d260;
+  background: linear-gradient(180deg, #1b3b41, #10272f);
+  color: #c9fff7;
+  box-shadow: inset 0 1px #ffffff10, 0 7px 18px #0006;
+}
+
+.phase-11d-roster-tools[data-phase-11d-roster-tools] {
+  border-color: var(--es-feature-line);
+  background:
+    linear-gradient(110deg, #66e1d20a, transparent 46%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.phase-11d-roster-controls {
+  gap: 9px;
+}
+
+.phase-11d-roster-controls .field {
+  min-width: 0;
+}
+
+.phase-11d-roster-controls select {
+  min-height: var(--es-target);
+  border-color: var(--es-feature-line-strong);
+}
+
+.phase-11g-path[data-phase-11g-path],
+.phase-11g-path[data-phase-11g-family-guide] {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--es-feature-line-strong);
+  background:
+    linear-gradient(120deg, #66e1d211, transparent 52%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.phase-11g-path[data-phase-11g-path]::before,
+.phase-11g-path[data-phase-11g-family-guide]::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--es-waystone);
+}
+
+.roster-grid {
+  align-items: stretch;
+  gap: 10px;
+}
+
+.roster-grid .char-card {
+  min-width: 0;
+  min-height: var(--es-target);
+  display: flex;
+  flex-direction: column;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(155deg, var(--es-feature-panel-raised), #09151e);
+  box-shadow: 0 12px 28px #0007, inset 0 1px #ffffff0b;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.roster-grid .char-card[data-fellow] {
+  border-bottom-color: #f1c76b45;
+}
+
+.roster-grid .char-card[data-family] {
+  border-bottom-color: #66e1d250;
+}
+
+.roster-grid .char-card[data-companion] {
+  border-bottom-color: #8be6d962;
+}
+
+.roster-grid .char-card .art-wrap {
+  position: relative;
+  min-height: 158px;
+  background:
+    radial-gradient(circle at 50% 32%, #2a4c5a, transparent 44%),
+    #08131b;
+}
+
+.roster-grid .char-card .art-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 56% 0 0;
+  background: linear-gradient(transparent, #09151eeb);
+  pointer-events: none;
+}
+
+.roster-grid .char-card .char-copy {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+  margin-top: -14px;
+  padding: 12px 11px 13px;
+}
+
+.roster-grid .char-card h3 {
+  color: var(--es-ink-strong);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.roster-grid .char-card p {
+  color: #aebfc2;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.roster-grid .type-badge,
+.roster-grid .focus-flag {
+  z-index: 2;
+  max-width: calc(100% - 16px);
+  border: 1px solid #ffffff33;
+  box-shadow: 0 5px 14px #0009;
+  overflow-wrap: anywhere;
+}
+
+.roster-grid .type-badge {
+  background: #07131cef;
+  color: #d7e3e3;
+}
+
+.roster-grid .focus-flag {
+  border-color: #ffe5a35c;
+  background: #d7ad52;
+  color: #211606;
+}
+
+.roster-grid .phase-11g-locked {
+  border-style: dashed;
+  border-color: #8fa2a74d;
+  background: linear-gradient(155deg, #142129, #091117);
+  filter: saturate(.58);
+}
+
+.roster-grid .phase-11g-locked .art-wrap {
+  opacity: .62;
+}
+
+.roster-grid .phase-11g-lock {
+  border-color: #8fa2a752;
+  background: #07131ced;
+  color: #c0cdcf;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .roster-grid .char-card:not(:disabled):hover {
+    border-color: var(--es-feature-line-strong);
+    box-shadow: 0 16px 34px #0009, inset 0 1px #ffffff10;
+    transform: translateY(-2px);
+  }
+}
+
+/* Fellow and Family full-art sheets. Village dialogue art remains untouched. */
+.overlay:has(.profile[data-roster-profile]) {
+  align-items: stretch;
+  padding: 0;
+  background: #020609ed;
+}
+
+.modal:has(> .profile[data-roster-profile]) {
+  width: min(100%, 760px);
+  max-width: 760px;
+  max-height: 100dvh;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--es-canvas-deep);
+  box-shadow: var(--es-feature-shadow);
+}
+
+.profile[data-roster-profile] {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 50% 0, #1737464d, transparent 42%),
+    var(--es-canvas-deep);
+}
+
+.profile[data-roster-profile] .profile-stage {
+  height: 100dvh;
+  min-height: 100dvh;
+  isolation: isolate;
+  background: #071018;
+}
+
+.profile[data-roster-profile] .profile-stage::before {
+  z-index: 2;
+  background:
+    linear-gradient(to bottom, #020609c4 0, transparent 20%),
+    linear-gradient(to top, #061018 0, #061018d9 14%, transparent 54%);
+}
+
+.profile[data-roster-profile] .profile-stage::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border: 1px solid #d7f8f014;
+  box-shadow: inset 0 -34px 48px #06101899;
+  pointer-events: none;
+}
+
+.profile[data-roster-profile] .profile-stage [data-roster-art] {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  background: #071018;
+}
+
+.profile[data-roster-profile] .profile-title {
+  left: 16px;
+  right: 16px;
+  bottom: calc(31px + var(--safe));
+  padding: 13px 14px 14px;
+  border: 1px solid var(--es-feature-line);
+  border-left: 3px solid var(--es-ready);
+  border-radius: var(--es-radius-card);
+  background: linear-gradient(135deg, #08151ef2, #08151eb8);
+  box-shadow: 0 16px 34px #000a, inset 0 1px #ffffff0d;
+  backdrop-filter: blur(10px);
+}
+
+.profile[data-roster-profile] .profile-title h2 {
+  margin: 3px 0 2px;
+  color: var(--es-ink-strong);
+  font-size: clamp(1.9rem, 9vw, 2.7rem);
+  line-height: .98;
+  overflow-wrap: anywhere;
+}
+
+.profile[data-roster-profile] .profile-title p {
+  max-width: 42ch;
+  color: #d7e3e3;
+  font-size: .65rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.profile[data-roster-profile] .close {
+  top: max(13px, env(safe-area-inset-top)) !important;
+  right: max(13px, env(safe-area-inset-right)) !important;
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  border-color: #ffffff66;
+  background: #061018ed;
+  box-shadow: 0 8px 24px #000c;
+}
+
+.profile[data-roster-profile] .phase-11g-details-cue {
+  z-index: 4;
+  left: 50%;
+  bottom: calc(7px + var(--safe));
+  transform: translateX(-50%);
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid #ffffff2e;
+  border-radius: 999px;
+  background: #061018df;
+  color: #d7e3e3;
+  white-space: nowrap;
+}
+
+body:has(.overlay .profile[data-roster-profile]) .toast,
+body:has(.overlay .phase17-player-profile-modal[data-player-roster-member="false"]) .toast {
+  bottom: calc(142px + var(--safe));
+}
+
+.profile[data-roster-profile] .profile-body {
+  position: relative;
+  padding: 18px 16px calc(36px + var(--safe));
+  background: linear-gradient(180deg, #10232d 0, #08151e 17%, var(--es-canvas-deep) 100%);
+}
+
+.profile[data-roster-profile] .profile-body::before {
+  content: "Details";
+  display: block;
+  margin: 0 0 7px;
+  color: var(--es-waystone);
+  font-size: .54rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.profile[data-roster-profile] .big-power {
+  max-width: 100%;
+  margin-bottom: 10px;
+  color: var(--es-ready);
+  font-size: clamp(1.4rem, 7vw, 2rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.profile[data-roster-profile] .metric-row {
+  gap: 7px;
+}
+
+.profile[data-roster-profile] .metric,
+.profile[data-roster-profile] .card {
+  min-width: 0;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+  box-shadow: inset 0 1px #ffffff0b;
+}
+
+.profile[data-roster-profile] :where(.metric, .card, p, h2, h3) {
+  overflow-wrap: anywhere;
+}
+
+.profile[data-roster-profile="family"] .profile-title {
+  border-left-color: var(--es-waystone);
+}
+
+.profile[data-roster-profile="family"] .quote {
+  margin: 14px 2px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--es-waystone);
+  background: #66e1d20a;
+}
+
+[data-phase22b-full-art-kind][data-phase22b-art-treatment="full-background-native-aspect"] {
+  background: var(--es-canvas-deep);
+}
+
+[data-phase22b-full-art-kind][data-phase22b-art-treatment="full-background-native-aspect"] .profile-stage [data-roster-art] {
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+[data-phase22b-full-art-kind="fellow"] .profile-title {
+  border-left-color: var(--es-ready);
+}
+
+[data-phase22b-full-art-kind="family"] .profile-title {
+  border-left-color: var(--es-waystone);
+}
+
+/* Companion profiles are cards, not falsely promoted to Fellow/Family full-art. */
+.modal:has(> .profile:not([data-roster-profile])) .profile-body {
+  padding-bottom: calc(30px + var(--safe));
+}
+
+.profile:not([data-roster-profile]) .card,
+.profile:not([data-roster-profile]) .metric {
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+/* The Wayfarer is a separate player presentation, never a roster member. */
+.player-rank.player-profile-trigger[data-player-profile],
+.phase17-wayfarer[data-phase17-player-character="player.wayfarer"][data-player-roster-member="false"] {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--es-feature-line-strong);
+  background:
+    linear-gradient(105deg, #66e1d213, transparent 48%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+  box-shadow: var(--es-shadow-card);
+}
+
+.player-rank.player-profile-trigger[data-player-profile]::before,
+.phase17-wayfarer[data-phase17-player-character="player.wayfarer"][data-player-roster-member="false"]::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--es-waystone);
+}
+
+.player-rank.player-profile-trigger[data-player-profile] h3,
+.phase17-wayfarer[data-phase17-player-character="player.wayfarer"] h3 {
+  color: var(--es-ink-strong);
+  overflow-wrap: anywhere;
+}
+
+.phase17-wayfarer[data-phase17-player-character="player.wayfarer"] > div:last-child {
+  min-width: 0;
+}
+
+[data-phase22b-wayfarer-stage="player.wayfarer"][data-player-roster-member="false"] {
+  isolation: isolate;
+  border-color: var(--es-feature-line-strong);
+}
+
+[data-phase22b-wayfarer-stage="player.wayfarer"][data-player-roster-member="false"]::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(110deg, #66e1d215, transparent 54%);
+  pointer-events: none;
+}
+
+.phase17-wayfarer-mark[data-art-treatment="framed-background-static"] {
+  border-color: var(--es-feature-warm-line);
+  box-shadow: 0 10px 24px #000b, inset 0 0 0 1px #ffffff10;
+}
+
+.phase17-wayfarer-mark[data-image-state="fallback"] {
+  background:
+    radial-gradient(circle at 50% 30%, #315760, transparent 22%),
+    linear-gradient(150deg, #24434a, #09131b);
+}
+
+.overlay:has(.phase17-player-profile-modal[data-player-roster-member="false"]) {
+  padding: 0;
+  background: #020609ed;
+}
+
+.phase17-player-profile-modal[data-phase17-player-profile="player.wayfarer"][data-player-roster-member="false"] {
+  background:
+    radial-gradient(circle at 50% 0, #1737464d, transparent 40%),
+    var(--es-canvas-deep);
+  box-shadow: var(--es-feature-shadow);
+}
+
+.phase17-player-profile-art[data-phase17-player-profile-art][data-art-treatment="full-background-native-aspect"]::after {
+  background:
+    linear-gradient(to bottom, #020609b0 0, transparent 17%),
+    linear-gradient(transparent 43%, #08131ce8 83%, #08131c 100%);
+}
+
+.phase17-player-profile-title {
+  left: 16px;
+  right: 16px;
+  bottom: calc(22px + var(--safe));
+  padding: 13px 14px;
+  border: 1px solid var(--es-feature-line);
+  border-left: 3px solid var(--es-waystone);
+  border-radius: var(--es-radius-card);
+  background: linear-gradient(135deg, #08151ef0, #08151eb5);
+  box-shadow: 0 16px 34px #000a;
+  backdrop-filter: blur(10px);
+}
+
+.phase17-player-profile-title h2 {
+  color: var(--es-ink-strong);
+  font-size: clamp(1.9rem, 9vw, 2.7rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.phase17-player-profile-title p {
+  color: #d7e3e3;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.phase17-player-profile-close {
+  top: max(13px, env(safe-area-inset-top));
+  right: max(13px, env(safe-area-inset-right));
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  border-color: #ffffff66;
+  background: #061018ed;
+  box-shadow: 0 8px 24px #000c;
+}
+
+.phase17-player-profile-modal > :where(.player-rank, .rank-roadmap) {
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.phase17-player-profile-modal > .rank-roadmap {
+  padding-bottom: calc(34px + var(--safe));
+}
+
+/* Campaign stage presentation */
+.screen:has([data-campaign-stage]) .campaign-walk {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--es-feature-line);
+  background:
+    radial-gradient(circle at 50% 0, #2247543b, transparent 42%),
+    linear-gradient(180deg, #10232d, #08151e);
+}
+
+.screen:has([data-campaign-stage]) .campaign-walk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ffffff0a;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.screen:has([data-campaign-stage]) .campaign-copy {
+  min-width: 0;
+  padding: 4px 2px 10px;
+}
+
+.screen:has([data-campaign-stage]) .campaign-copy :where(h2, h3, p) {
+  overflow-wrap: anywhere;
+}
+
+.screen:has([data-campaign-stage]) .node-row {
+  position: relative;
+  gap: 8px;
+  padding: 11px 3px 7px;
+}
+
+.screen:has([data-campaign-stage]) .node-row::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, #66e1d22b, #f1c76b55, #66e1d22b);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.campaign-node[data-campaign-stage] {
+  position: relative;
+  z-index: 1;
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  border: 1px solid var(--es-feature-line);
+  background: #0b1821;
+  color: #aebfc2;
+  box-shadow: 0 6px 18px #0008;
+}
+
+.campaign-node[data-campaign-stage].cleared {
+  border-color: #7bd68a75;
+  background: linear-gradient(180deg, #173524, #0d2119);
+  color: #b9f4c1;
+}
+
+.campaign-node[data-campaign-stage].current {
+  border-color: #f1c76b9c;
+  background: linear-gradient(180deg, #49391b, #251d11);
+  color: #ffe3a0;
+  box-shadow: 0 0 0 2px #f1c76b20, 0 8px 22px #0009;
+}
+
+.campaign-node[data-campaign-stage].rank-locked,
+.campaign-node[data-campaign-stage]:disabled {
+  border-style: dashed;
+  border-color: #8fa2a744;
+  background: #0a141a;
+  color: #788b90;
+}
+
+.screen:has([data-campaign-stage]) :where(.power-check, .campaign-reward-grid) {
+  min-width: 0;
+  gap: 8px;
+}
+
+.screen:has([data-campaign-stage]) :where(.power-check, .campaign-reward-grid) > * {
+  min-width: 0;
+  border-color: var(--es-feature-line);
+  background: #08151e9c;
+  overflow-wrap: anywhere;
+}
+
+.screen:has([data-campaign-stage]) [data-phase-11g-training-target] {
+  border-color: #66e1d24f;
+  background:
+    linear-gradient(110deg, #66e1d20b, transparent 46%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.screen:has([data-campaign-stage]) [data-campaign-run] {
+  min-height: 48px;
+  margin-bottom: max(8px, env(safe-area-inset-bottom));
+}
+
+[data-phase22b-feature-surface="campaign"] .phase22b-campaign-record[data-phase22b-campaign-record] {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 11px 0;
+  overflow: hidden;
+  border: 1px solid var(--es-feature-line);
+  border-radius: var(--es-radius-card);
+  background: var(--es-feature-line);
+  box-shadow: 0 8px 20px #0005;
+}
+
+[data-phase22b-feature-surface="campaign"] .phase22b-campaign-record > span {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  min-height: var(--es-target);
+  padding: 8px 9px;
+  background: #09161f;
+  color: #b8c8ca;
+  font-size: .55rem;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+[data-phase22b-feature-surface="campaign"] .phase22b-campaign-record [data-phase22b-stage-run-count] {
+  color: var(--es-ink-strong);
+  font-size: .82rem;
+}
+
+.phase22b-campaign-record[data-phase22b-record-state="current"] {
+  border-color: var(--es-feature-warm-line);
+  background: var(--es-feature-warm-line);
+}
+
+.phase22b-campaign-record[data-phase22b-record-state="cleared"] {
+  border-color: #7bd68a70;
+  background: #7bd68a70;
+}
+
+.phase22b-campaign-record[data-phase22b-record-state="locked"] {
+  border-style: dashed;
+  border-color: #8fa2a74d;
+  background: #8fa2a74d;
+}
+
+.phase22b-campaign-record [data-phase22b-stage-last-result="first-clear"] {
+  color: #ffe3a0;
+}
+
+.phase22b-campaign-record [data-phase22b-stage-last-result="replay"] {
+  color: #aafff3;
+}
+
+/* Achievements / Legacy: style only truth already exposed by the current DOM. */
+.modal:has(> .phase-13-legacy-track) {
+  background:
+    radial-gradient(circle at 85% 0, #f1c76b14, transparent 34%),
+    linear-gradient(180deg, #10202a, var(--es-canvas-deep));
+}
+
+.modal:has(> .phase-13-legacy-track) > .card,
+.modal:has(> .phase-13-legacy-track) > .phase-13-legacy-track {
+  min-width: 0;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+  box-shadow: inset 0 1px #ffffff0b;
+}
+
+.modal:has(> .phase-13-legacy-track) > .phase-13-legacy-track {
+  border-left: 3px solid var(--es-waystone);
+}
+
+.modal:has(> .phase-13-legacy-track) > .card:has([data-phase13-claim]) {
+  border-color: var(--es-feature-warm-line);
+  background:
+    linear-gradient(110deg, #f1c76b0d, transparent 46%),
+    linear-gradient(150deg, #24251f, var(--es-feature-panel));
+}
+
+.modal:has(> .phase-13-legacy-track) [data-phase13-claim] {
+  min-height: 48px;
+}
+
+.modal:has(> .phase-13-legacy-track) :where(h2, h3, p, .soft) {
+  overflow-wrap: anywhere;
+}
+
+[data-phase22b-legacy="true"] [data-phase22b-legacy-category] {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+[data-phase22b-legacy="true"] [data-phase22b-legacy-category="continuing"] {
+  border-left: 3px solid var(--es-waystone);
+}
+
+[data-phase22b-legacy="true"] [data-phase22b-legacy-category="feat"] {
+  border-left: 3px solid #8fa2a7;
+}
+
+[data-phase22b-legacy="true"] [data-phase22b-legacy-category="claim"] {
+  border-left: 3px solid var(--es-ready);
+}
+
+[data-phase22b-legacy-state="ready"] {
+  border-color: var(--es-feature-warm-line) !important;
+  background:
+    linear-gradient(110deg, #f1c76b12, transparent 48%),
+    linear-gradient(150deg, #24251f, var(--es-feature-panel)) !important;
+}
+
+[data-phase22b-legacy-state="claimed"],
+[data-phase22b-legacy-state="recorded"] {
+  border-color: #7bd68a62 !important;
+  background:
+    linear-gradient(110deg, #7bd68a0c, transparent 48%),
+    linear-gradient(150deg, #14251e, var(--es-feature-panel)) !important;
+}
+
+[data-phase22b-legacy-state="incomplete"] {
+  border-style: dashed;
+  border-color: #8fa2a74d !important;
+  filter: saturate(.72);
+}
+
+/* Chronicle, including the richer Phase 17 presentation when enabled. */
+.modal:has(> .phase-13-log-list) {
+  background:
+    radial-gradient(circle at 15% 0, #66e1d214, transparent 35%),
+    linear-gradient(180deg, #10202a, var(--es-canvas-deep));
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-list,
+[data-phase17-chronicle] .phase17-chronicle-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-list > .empty {
+  padding: 16px;
+  border: 1px dashed var(--es-feature-line-strong);
+  border-radius: var(--es-radius-card);
+  background: #08151e99;
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-row,
+[data-phase17-chronicle-entry] {
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid var(--es-feature-line);
+  border-left: 3px solid var(--es-waystone);
+  border-radius: var(--es-radius-card);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+  box-shadow: inset 0 1px #ffffff0b;
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-row :where(h3, p),
+[data-phase17-chronicle-entry] :where(h3, p) {
+  overflow-wrap: anywhere;
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-actions,
+[data-phase17-chronicle-entry] .phase17-chronicle-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.modal:has(> .phase-13-log-list) .phase-13-log-actions .btn,
+[data-phase17-chronicle-entry] :where([data-phase17-replay], .btn) {
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  white-space: normal;
+}
+
+[data-phase17-chronicle] {
+  background:
+    radial-gradient(circle at 15% 0, #66e1d214, transparent 35%),
+    linear-gradient(180deg, #10202a, var(--es-canvas-deep));
+}
+
+[data-phase22b-chronicle] .phase22b-chronicle-group {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--es-feature-line);
+  border-radius: calc(var(--es-radius-card) + 2px);
+  background:
+    linear-gradient(115deg, #66e1d20b, transparent 48%),
+    #08151e99;
+}
+
+[data-phase22b-chronicle] .phase22b-chronicle-group-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+[data-phase22b-chronicle] .phase22b-chronicle-group-head > div {
+  min-width: 0;
+}
+
+[data-phase22b-chronicle] .phase22b-chronicle-group-head h3 {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+[data-phase22b-chronicle-record-count] {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid #66e1d244;
+  border-radius: 999px;
+  background: #66e1d20d;
+  color: #aafff3;
+  font-size: .52rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+[data-phase22b-chronicle] .phase22b-chronicle-group-records {
+  display: grid;
+  gap: 8px;
+}
+
+[data-phase22b-chronicle] .phase17-chronicle-row[data-phase17-chronicle-entry] {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--es-feature-line);
+  border-left: 3px solid var(--es-waystone);
+  border-radius: var(--es-radius-card);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+[data-phase22b-chronicle] [data-phase17-replay] {
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  margin-top: 9px;
+}
+
+/* More, reference, and local Save & Recovery surfaces. */
+.screen:has(> [data-campaign-efficiency-preview]) > .card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+  box-shadow: var(--es-shadow-card), inset 0 1px #ffffff0b;
+}
+
+[data-phase22b-feature-surface="more"] > .card {
+  min-width: 0;
+  border-color: var(--es-feature-line);
+}
+
+[data-phase22b-feature-surface="more"] > [data-phase22b-more-story] {
+  border-left: 3px solid var(--es-waystone);
+  background:
+    linear-gradient(110deg, #66e1d20b, transparent 48%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+[data-phase22b-feature-surface="more"] > [data-phase22b-more-codex] {
+  border-left: 3px solid #8be6d9;
+}
+
+[data-phase22b-feature-surface="more"] > [data-phase22b-more-storage] {
+  border-left: 3px solid var(--es-ready);
+  background:
+    linear-gradient(110deg, #f1c76b0b, transparent 48%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.screen:has(> [data-campaign-efficiency-preview]) > [data-campaign-efficiency-preview] {
+  border-color: var(--es-feature-warm-line);
+  background:
+    linear-gradient(110deg, #f1c76b0d, transparent 48%),
+    linear-gradient(150deg, #24251f, var(--es-feature-panel));
+}
+
+.screen:has(> [data-campaign-efficiency-preview]) > .card:has([data-setting]) {
+  border-left: 3px solid var(--es-waystone);
+}
+
+.screen:has(> [data-campaign-efficiency-preview]) > [data-save-recovery] {
+  border-left: 3px solid var(--es-ready);
+  background:
+    linear-gradient(110deg, #f1c76b0b, transparent 48%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.screen:has(> [data-campaign-efficiency-preview]) :where(h1, h2, h3, p, label, .soft),
+[data-save-recovery] :where(h2, h3, p, label, .soft) {
+  overflow-wrap: anywhere;
+}
+
+.screen:has(> [data-campaign-efficiency-preview]) [data-setting] {
+  min-height: var(--es-target);
+  border-color: var(--es-feature-line-strong);
+}
+
+[data-phase17-reference] {
+  border-color: #66e1d24d;
+  background:
+    linear-gradient(110deg, #66e1d20b, transparent 46%),
+    linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.save-recovery-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.save-recovery-actions .btn,
+[data-save-recovery-action],
+[data-persistence-act] {
+  min-width: var(--es-target);
+  min-height: var(--es-target);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.save-recovery-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.save-recovery-summary .metric {
+  min-width: 0;
+  border-color: var(--es-feature-line);
+  background: linear-gradient(150deg, var(--es-feature-panel-raised), var(--es-feature-panel));
+}
+
+.save-recovery-summary .metric :where(b, span),
+.save-recovery-file-name,
+.save-recovery-warning,
+.save-recovery-danger {
+  overflow-wrap: anywhere;
+}
+
+.save-recovery-warning {
+  padding: 10px 11px;
+  border-left: 3px solid var(--es-ready);
+  background: #f1c76b0c;
+}
+
+.save-recovery-danger {
+  padding: 10px 11px;
+  border-left: 3px solid var(--es-warning);
+  background: #f08a720c;
+}
+
+.save-recovery-file {
+  max-width: 100%;
+}
+
+input.save-recovery-file[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* Copy growth and compact widths. */
+@media (max-width: 420px) {
+  .screen:has(.tabs [data-roster]) .tabs {
+    gap: 3px;
+  }
+
+  .screen:has(.tabs [data-roster]) .tabs button {
+    padding-inline: 5px;
+    font-size: .58rem;
+  }
+
+  .roster-grid .char-card .art-wrap {
+    min-height: 145px;
+    height: 145px;
+  }
+
+  .profile[data-roster-profile] .profile-title,
+  .phase17-player-profile-title {
+    left: 12px;
+    right: 12px;
+  }
+
+  .profile[data-roster-profile] .metric-row,
+  .screen:has([data-campaign-stage]) :where(.power-check, .campaign-reward-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 360px) {
+  .screen:has(.tabs [data-roster]) .tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .screen:has(.tabs [data-roster]) .tabs button {
+    width: 100%;
+  }
+
+  .roster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roster-grid .char-card {
+    display: grid;
+    grid-template-columns: minmax(105px, 38%) minmax(0, 1fr);
+  }
+
+  .roster-grid .char-card .art-wrap {
+    height: 100%;
+    min-height: 148px;
+  }
+
+  .roster-grid .char-card .char-copy {
+    align-self: end;
+    margin: 0;
+    padding: 34px 10px 12px;
+  }
+
+  .roster-grid .type-badge {
+    right: 8px;
+    left: calc(38% + 8px);
+    width: max-content;
+    max-width: calc(62% - 16px);
+  }
+
+  .phase-11d-roster-controls,
+  .modal:has(> .phase-13-log-list) .phase-13-log-actions,
+  [data-phase17-chronicle-entry] .phase17-chronicle-actions,
+  .save-recovery-summary {
+    grid-template-columns: 1fr;
+  }
+
+  [data-phase22b-feature-surface="campaign"] .phase22b-campaign-record[data-phase22b-campaign-record] {
+    grid-template-columns: 1fr;
+  }
+
+  .profile[data-roster-profile] .profile-title h2,
+  .phase17-player-profile-title h2 {
+    font-size: 1.75rem;
+  }
+
+  .profile[data-roster-profile] .profile-title p,
+  .phase17-player-profile-title p {
+    font-size: .61rem;
+  }
+}
+
+@media (min-width: 760px) {
+  .roster-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .modal:has(> .profile[data-roster-profile]) {
+    border-inline: 1px solid var(--es-feature-line);
+  }
+
+  .profile[data-roster-profile] .profile-title,
+  .phase17-player-profile-title {
+    left: 28px;
+    right: 28px;
+    padding: 17px 19px;
+  }
+
+  .profile[data-roster-profile] .profile-body {
+    padding-inline: 28px;
+  }
+
+  .profile[data-roster-profile] .metric-row,
+  .save-recovery-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .modal:has(> .phase-13-log-list) .phase-13-log-list,
+  [data-phase17-chronicle] .phase17-chronicle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Motion preferences apply to both OS-level and Everstead's in-app setting. */
+@media (prefers-reduced-motion: reduce) {
+  .roster-grid .char-card,
+  .campaign-node[data-campaign-stage] {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.phase15-reduced-motion .roster-grid .char-card,
+html.phase15-reduced-motion .campaign-node[data-campaign-stage],
+html.phase15-reduced-motion .profile[data-roster-profile],
+html.phase15-reduced-motion .phase17-player-profile-modal {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
