@@ -41,7 +41,7 @@ function productionSources(){
   const files=[];
   function visit(directory,prefix=''){
     for(const entry of readdirSync(directory,{withFileTypes:true})){
-      if(!prefix&&['.git','assets','docs','qa'].includes(entry.name))continue;
+      if(!prefix&&['.git','assets','design','docs','qa'].includes(entry.name))continue;
       const path=prefix?`${prefix}/${entry.name}`:entry.name,absolute=resolve(directory,entry.name);
       if(entry.isDirectory())visit(absolute,path);else if(/\.(?:html|m?js|json)$/.test(path))files.push(path);
     }
@@ -113,7 +113,7 @@ if(PACKAGE_ONLY){
 
 const changed=git(['diff-tree','--no-commit-id','--name-only','-r',BASE,'HEAD']).trim().split('\n').filter(Boolean);
 const owned=path=>['docs/PHASE_13_INDEPENDENT_QA_CONTRACT.md','docs/PHASE_13_INDEPENDENT_QA_RESULT.md'].includes(path)||path.startsWith('qa/phase-13-independent/');
-record('committed-qa-paths-owned',changed.length===0||changed.every(owned),changed);
+record('committed-qa-paths-owned',!PACKAGE_ONLY||changed.length===0||changed.every(owned),PACKAGE_ONLY?changed:'Candidate mode intentionally permits implementation and design files; package ownership is enforced by --package-only.');
 const passed=rows.filter(row=>row.pass).length,failed=rows.length-passed;
 const result={phase:'13-independent',mode:PACKAGE_ONLY?'PACKAGE_ONLY':'CANDIDATE',status:failed?'FAIL':'PASS',baseCommit:BASE,designCommit:DESIGN,total:rows.length,passed,failed,rows};
 console.log(JSON.stringify(result,null,2));

@@ -37,6 +37,8 @@ This is evidence that the gate does not silently skip an absent implementation.
 
 The delegated environment exposed no browser backend, so live Chromium was not claimed here. The preimplementation runner is deterministic: five fixture rows pass, and each of the three required realms emits explicit failing `bridge-present` and `phase13-contract-unavailable` rows. A root/integrator browser smoke remains required before this result can claim live evidence.
 
+Static candidate checks search production sources only; planning data under `design/` cannot satisfy implementation assertions. The package-only run owns the QA path audit, while candidate mode permits the implementation and design files present in the integration branch.
+
 ## Residual risk
 
 See the contract Blind spots section. Passing the automated gate does not approve story prose, art quality, public-use rights, balance, Safari, or physical-device behavior.

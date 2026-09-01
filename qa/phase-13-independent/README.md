@@ -16,6 +16,8 @@ Candidate static contract:
 node qa/phase-13-independent/verify.mjs
 ```
 
+Candidate mode searches production sources only; `design/`, `docs/`, and `qa/` cannot satisfy an implementation assertion. The QA package's path-ownership restriction is enforced by `--package-only` on its exact Phase 11H base, while candidate mode permits the implementation and design files required by the combined integration branch.
+
 Live browser contract:
 
 ```sh
