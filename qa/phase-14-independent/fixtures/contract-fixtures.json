@@ -1,0 +1,99 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-13-independent-qa-v1",
+  "baseCommit": "c8c63b378ad9523b7d12be965335ff4ee6b81b4f",
+  "designCommit": "102232b1784c08805d5078c7c9915a15fefe3b53",
+  "configId": "phase-14-facility-framework-v1",
+  "definitionSetId": "definition-set.phase-14-facilities.v1",
+  "phase12ConfigId": "phase-12-foundation-v1",
+  "phase12DefinitionSetId": "definition-set.phase-12-foundation.v1",
+  "phase12ActivationId": "phase-12-foundation-activation",
+  "phase12ClaimSourceType": "opportunity.facility.activity",
+  "schemaVersion": 12,
+  "productionEnabled": false,
+  "frozenNow": 100000000,
+  "offlineCapMs": 86400000,
+  "saveFixtures": {
+    "fresh": "p13.fixture.fresh.v1",
+    "midgame": "p14.fixture.phase13-midgame.v1",
+    "migrated": "p14.fixture.phase13-migrated.v1",
+    "established": "p13.fixture.established.v1",
+    "corrupt": "p14.fixture.phase13-corrupt.v1",
+    "offline": "p14.fixture.phase13-offline.v1",
+    "claimReady": "p13.fixture.claim-ready.v1",
+    "tutorialReady": "p13.fixture.tutorial-ready.v1"
+  },
+  "phase13StoryIds": [
+    "story.book1.prologue.waystone-call",
+    "story.book1.prologue.council",
+    "story.book1.chapter1.village-toll.intro",
+    "story.book1.chapter1.village-toll.resolution",
+    "story.book1.rank2.roadbound-arrivals"
+  ],
+  "exampleClaimId": "qa.phase13.claim.first-covenant.v1",
+  "legacyScope": {
+    "phase13ContinuingTracks": 1,
+    "phase13OneTimeFeats": 1,
+    "phase13ManualClaims": 1,
+    "phase15PlannedContinuingTracks": 6,
+    "phase15PlannedOneTimeFeats": 5,
+    "phase15ProductionEnabled": false,
+    "phase15EconomyApproved": false
+  },
+  "pacingProfiles": ["fresh", "midgame", "established"],
+  "rewardImpactPolicy": "measurement-only-no-unapproved-production-tuning",
+  "corruptChecks": [
+    "duplicate-id",
+    "future-definition-version",
+    "mismatched-offer-identity",
+    "unknown-legacy",
+    "unknown-offer",
+    "unknown-receipt",
+    "unknown-speaker",
+    "unknown-story",
+    "unknown-tutorial"
+  ],
+  "hotspotStates": ["hidden", "discovered", "available", "ready"],
+  "facilities": [
+    {"id":"facility.command-center","activityId":"activity.petitions","mapAnchor":"upper-left-hall","localProgressTrackId":"facility-progress.command-center.influence","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.command-center.petition"},
+    {"id":"facility.archives","activityId":"activity.research","mapAnchor":"upper-right-tower","localProgressTrackId":"facility-progress.archives.discovery","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.archives.research"},
+    {"id":"facility.training-grounds","activityId":"activity.drills","mapAnchor":"lower-left-arena","localProgressTrackId":"facility-progress.training-grounds.readiness","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.training-grounds.drill"},
+    {"id":"facility.hearth","activityId":"activity.gatherings","mapAnchor":"lower-right-manor","localProgressTrackId":"facility-progress.hearth.community","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.hearth.gathering"},
+    {"id":"facility.waystone","activityId":"activity.legacy-claims","mapAnchor":"central-crystal","localProgressTrackId":"facility-progress.waystone.legacy","generationMode":"authored-event","opportunityDefinitionId":"opportunity.facility.waystone.legacy-milestone"},
+    {"id":"facility.restaurant","activityId":"activity.restaurant-service","mapAnchor":"western-plaza","localProgressTrackId":"facility-progress.restaurant.reputation","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.restaurant.customer"},
+    {"id":"facility.apothecary","activityId":"activity.apothecary-cases","mapAnchor":"eastern-plaza","localProgressTrackId":"facility-progress.apothecary.mastery","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.apothecary.case"},
+    {"id":"facility.schoolhouse","activityId":"activity.school-lessons","mapAnchor":"eastern-plaza","localProgressTrackId":"facility-progress.schoolhouse.education","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.schoolhouse.lesson"},
+    {"id":"facility.market-workshop","activityId":"activity.orders-and-crafting","mapAnchor":"western-plaza","localProgressTrackId":"facility-progress.market-workshop.craftsmanship","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.market-workshop.order"},
+    {"id":"facility.gatehouse","activityId":"activity.caravans-and-road-events","mapAnchor":"lower-bridge","localProgressTrackId":"facility-progress.gatehouse.route-trust","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.gatehouse.caravan"},
+    {"id":"facility.gardens","activityId":"activity.cultivation","mapAnchor":"lower-right-gardens","localProgressTrackId":"facility-progress.gardens.cultivation","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.gardens.plot"},
+    {"id":"facility.forge","activityId":"activity.relic-commissions","mapAnchor":"village-forge","localProgressTrackId":"facility-progress.forge.commission-mastery","generationMode":"interval","opportunityDefinitionId":"opportunity.facility.forge.commission"}
+  ],
+  "tutorialIds": [
+    "tutorial.facility.apothecary.diagnosis", "tutorial.facility.apothecary.first-case", "tutorial.facility.apothecary.mastery", "tutorial.facility.archives.first-research", "tutorial.facility.archives.mastery", "tutorial.facility.board.discover-hotspots", "tutorial.facility.claim.first-ready", "tutorial.facility.command.consequences", "tutorial.facility.command.first-petition", "tutorial.facility.forge.first-commission", "tutorial.facility.forge.mastery", "tutorial.facility.gardens.first-plot", "tutorial.facility.gardens.harvest", "tutorial.facility.gatehouse.first-caravan", "tutorial.facility.gatehouse.road-events", "tutorial.facility.hearth.first-gathering", "tutorial.facility.hearth.relationship-results", "tutorial.facility.opportunities.banking", "tutorial.facility.schoolhouse.first-lesson", "tutorial.facility.schoolhouse.graduation", "tutorial.facility.schoolhouse.pupil-progress", "tutorial.facility.training.first-drill", "tutorial.facility.training.mastery", "tutorial.facility.workshop.first-order", "tutorial.facility.workshop.mastery", "tutorial.legacy.claim.first-ready", "tutorial.legacy.claim.major", "tutorial.restaurant.first-claim", "tutorial.restaurant.first-customer", "tutorial.restaurant.named-visitors", "tutorial.restaurant.recipes-and-stations", "tutorial.restaurant.reputation", "tutorial.story.objective.first-covenant"
+  ],
+  "actorIds": [
+    "family.aerith", "family.ahsoka", "family.amara", "family.captain-marvel", "family.elara", "family.hermione", "family.isolde", "family.jaina", "family.misty", "family.rey", "family.scarlet-witch", "family.shadowheart", "family.shallan", "family.syl", "family.tamsin", "family.tifa", "family.tyrande", "family.violet", "family.virginia", "family.yennefer",
+    "fellow.anakin", "fellow.cael", "fellow.captain-america", "fellow.daredevil", "fellow.darrow", "fellow.deadpool", "fellow.iron-man", "fellow.lyra", "fellow.mira", "fellow.obi-wan", "fellow.orin", "fellow.rook", "fellow.selene", "fellow.spider-man", "fellow.star-lord", "fellow.thor", "fellow.wolverine", "fellow.zamorak"
+  ],
+  "fixtureIds": [
+    "p14.fixture.phase12-fresh-inactive.v1", "p14.fixture.established-qualified-unlock-now.v1", "p14.fixture.restaurant-unlocked-empty.v1", "p14.fixture.restaurant-six-hours.v1", "p14.fixture.restaurant-partial-carry.v1", "p14.fixture.bank-saturated.v1", "p14.fixture.over-twenty-four-hours.v1", "p14.fixture.midnight-dst-neutral.v1", "p14.fixture.clock-rollback.v1", "p14.fixture.engaged-reload.v1", "p14.fixture.resolved-claim-ready.v1", "p14.fixture.claimed-reload.v1", "p14.fixture.concurrent-settlement.v1", "p14.fixture.concurrent-resolution.v1", "p14.fixture.concurrent-claim.v1", "p14.fixture.wrong-version-identity.v1", "p14.fixture.receipt-cap.v1", "p14.fixture.tutorial-state-isolation.v1"
+  ],
+  "syntheticPolicy": {
+    "facilityId": "facility.restaurant",
+    "activityId": "activity.restaurant-service",
+    "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+    "intervalMs": 3600000,
+    "bankCapacity": 4,
+    "unattendedTargetMs": 14400000,
+    "globalRewards": {"gold": 100, "prosperity": 2},
+    "localProgress": {"facility-progress.restaurant.reputation": 1}
+  },
+  "invalidClaimMutations": ["future-definition-version", "wrong-reward-policy-version", "wrong-facility", "wrong-opportunity-identity", "wrong-detail-identity", "wrong-outcome-identity", "wrong-offer-identity", "wrong-save-binding"],
+  "requiredLegacyModes": ["story", "tower", "trading", "patrol", "operations"],
+  "viewports": [
+    {"id":"phone-320","width":320,"height":568,"reducedMotion":false},
+    {"id":"phone-390","width":390,"height":844,"reducedMotion":false},
+    {"id":"desktop-1024","width":1024,"height":768,"reducedMotion":false},
+    {"id":"phone-390-reduced","width":390,"height":844,"reducedMotion":true}
+  ]
+}

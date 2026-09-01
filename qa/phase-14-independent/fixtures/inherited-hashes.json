@@ -1,0 +1,20 @@
+{
+  "manifestVersion": 1,
+  "baseCommit": "c8c63b378ad9523b7d12be965335ff4ee6b81b4f",
+  "files": {
+    "index.html": "e0060a2185da3a775cebfbda253c608d1e4ce7e84d5ba59e5aeaf07a04f72c45",
+    "src/phase12-foundation.js": "74d27b74bd8d67f57843dd20f414f5519dafe2eb2cbe24f9a331c7b572c0eccc",
+    "qa/phase-12/probe.mjs": "254e287edaff4ec77454b61d5942391d48c6f794f152cef6973a9a790b13f6a2",
+    "qa/phase-12-independent/fixtures/contract-fixtures.json": "df77a4d48aaf803d5028b3812908cb83ec680fd5d8d6bc3d87e54f842cce520c",
+    "qa/phase-12-independent/verify.mjs": "749a254e134023316e62a57ae3aff5a520fe8f7cc3369cf89ba4e19cd7ed3b84",
+    "qa/phase-13-independent/fixtures/contract-fixtures.json": "84568585ee62cfe4a5b3758a9a88072146318121ab7ade23633d1677829eb649",
+    "qa/phase-13-independent/verify.mjs": "96372a57445228ad368b40a6b3df8c149972d88af1e8f3ffa6098e4bd44fe9cd",
+    "docs/PHASE_12_FOUNDATION_CONTRACT.md": "b01627e38b90c8e1607c6c76f68eba1c626217bf634c83a654d8cc0f84d490eb",
+    "docs/PHASE_13_INDEPENDENT_QA_CONTRACT.md": "39a84f49d6b46532809dea6405a1e9d1bcd15f4576b41d1fd02464dbc00c3301",
+    "design/phase-14/DATA_SPEC.md": "ac9131701a27313d85a30c883d55a5c71f09768d55382769f098229b467e684a",
+    "design/phase-14/PHASE_14_FACILITY_CONTRACT.md": "64339b125a9e99901e0cef7e367add62618fed99d4992a603dd2d1ce5026cc12",
+    "design/phase-14/README.md": "24ef02171c49d96a5999a4e082727278832a64d07c5560255ce32eb4341fa824",
+    "design/phase-14/facility-definitions.json": "6dbc950a308ee12ca25d5591f7cf4bd5d19039e6c973a7fac5c6e97612721044",
+    "design/phase-14/fixtures.json": "4df99c9b0651cd4d9c7c125b3258bfbb0b39ae3a2daeddff4a2c44810d2c6be5"
+  }
+}
