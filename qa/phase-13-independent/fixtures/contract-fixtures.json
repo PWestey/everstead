@@ -1,0 +1,111 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-13-independent-qa-v1",
+  "designCommit": "73b807a36cb0ddb12fe726b3d271f7c4779e5ba9",
+  "sourceCommit": "4ee1ee4dcaa1b6eb190ed65d8cf81623c49bc28c",
+  "schema": {
+    "version": 12,
+    "phase12ActivationId": "phase-12-foundation-activation"
+  },
+  "frozenNow": 1788202800000,
+  "laterNow": 1788292800000,
+  "offlineCapMs": 86400000,
+  "fixtures": {
+    "fresh": "p13.fixture.fresh.v1",
+    "established": "p13.fixture.established.v1",
+    "stageOneReady": "p13.fixture.stage-one-ready.v1",
+    "stageOneCleared": "p13.fixture.stage-one-cleared.v1",
+    "rankJump": "p13.fixture.rank-jump.v1",
+    "claimReady": "p13.fixture.claim-ready.v1",
+    "tutorialReady": "p13.fixture.tutorial-ready.v1"
+  },
+  "exampleClaimId": "qa.phase13.claim.first-covenant.v1",
+  "storyIds": [
+    "story.book1.prologue.waystone-call",
+    "story.book1.prologue.council",
+    "story.book1.chapter1.village-toll.intro",
+    "story.book1.chapter1.village-toll.resolution",
+    "story.book1.rank2.roadbound-arrivals"
+  ],
+  "storySpeakerIds": {
+    "story.book1.prologue.waystone-call": ["fellow:lyra"],
+    "story.book1.prologue.council": ["fellow:lyra", "fellow:cael", "family:elara", "family:tamsin", "family:isolde"],
+    "story.book1.chapter1.village-toll.intro": ["fellow:lyra", "fellow:cael", "family:elara"],
+    "story.book1.chapter1.village-toll.resolution": ["fellow:lyra", "family:tamsin", "fellow:cael"],
+    "story.book1.rank2.roadbound-arrivals": ["fellow:darrow", "fellow:zamorak", "fellow:deadpool"]
+  },
+  "phase13TutorialIds": [
+    "tutorial.story.scene-controls.first-scene",
+    "tutorial.story.objective.first-covenant",
+    "tutorial.navigation.village-basics",
+    "tutorial.gold.pending-first-claim",
+    "tutorial.gold.offline-first-claim",
+    "tutorial.oaths.first-completion",
+    "tutorial.oaths.boost-and-undo",
+    "tutorial.oaths.create-and-schedule",
+    "tutorial.oaths.repeat-schedules",
+    "tutorial.village.building.first-upgrade",
+    "tutorial.fellows.roster-and-profile",
+    "tutorial.fellows.exp-level-shards",
+    "tutorial.fellows.rarity.first-ascension",
+    "tutorial.fellows.bond-family-companion",
+    "tutorial.power.roles-types-context",
+    "tutorial.power.total-roster.first-check",
+    "tutorial.adventure.fellow-campaign.first-stage",
+    "tutorial.adventure.fellow-campaign.replay-targets",
+    "tutorial.rank.new-fellows.rank-2",
+    "tutorial.player.rank-path",
+    "tutorial.family.assignment.first-building",
+    "tutorial.family.roster-and-profile",
+    "tutorial.family.gifts-and-intimacy",
+    "tutorial.family.shards-and-rarity",
+    "tutorial.family.offline-drops",
+    "tutorial.companions.roster-and-power",
+    "tutorial.companions.assignment.first-link",
+    "tutorial.companions.progression",
+    "tutorial.companions.campaign.first-stage",
+    "tutorial.companions.tower.first-clear",
+    "tutorial.companions.tower.idle-claim",
+    "tutorial.companions.mastery",
+    "tutorial.relics.first-stone",
+    "tutorial.relics.equip-first",
+    "tutorial.more.codex-first-visit",
+    "tutorial.more.save-recovery",
+    "tutorial.chronicle.replay-and-log",
+    "tutorial.legacy.tracks.first-progress",
+    "tutorial.legacy.claim.first-ready",
+    "tutorial.legacy.claim.major",
+    "tutorial.legacy.feats.first-feat"
+  ],
+  "allTutorialCoverageIds": [
+    "tutorial.story.scene-controls.first-scene", "tutorial.story.objective.first-covenant", "tutorial.navigation.village-basics", "tutorial.gold.pending-first-claim", "tutorial.gold.offline-first-claim", "tutorial.oaths.first-completion", "tutorial.oaths.boost-and-undo", "tutorial.oaths.create-and-schedule", "tutorial.oaths.repeat-schedules", "tutorial.village.building.first-upgrade", "tutorial.fellows.roster-and-profile", "tutorial.fellows.exp-level-shards", "tutorial.fellows.rarity.first-ascension", "tutorial.fellows.bond-family-companion", "tutorial.power.roles-types-context", "tutorial.power.total-roster.first-check", "tutorial.adventure.fellow-campaign.first-stage", "tutorial.adventure.fellow-campaign.replay-targets", "tutorial.rank.new-fellows.rank-2", "tutorial.player.rank-path", "tutorial.rank.new-fellows.rank-3", "tutorial.rank.new-fellows.rank-4", "tutorial.rank.new-fellows.rank-5", "tutorial.family.assignment.first-building", "tutorial.family.roster-and-profile", "tutorial.family.gifts-and-intimacy", "tutorial.family.shards-and-rarity", "tutorial.family.offline-drops", "tutorial.companions.roster-and-power", "tutorial.companions.assignment.first-link", "tutorial.companions.progression", "tutorial.companions.campaign.first-stage", "tutorial.companions.tower.first-clear", "tutorial.companions.tower.idle-claim", "tutorial.companions.mastery", "tutorial.relics.first-stone", "tutorial.relics.equip-first", "tutorial.adventure.expedition.first-push", "tutorial.adventure.expedition.idle-claim", "tutorial.adventure.expedition.might", "tutorial.more.codex-first-visit", "tutorial.more.save-recovery", "tutorial.chronicle.replay-and-log", "tutorial.story.objective.chapter-change", "tutorial.story.book1-completion-village-change", "tutorial.legacy.tracks.first-progress", "tutorial.legacy.claim.first-ready", "tutorial.legacy.claim.major", "tutorial.legacy.feats.first-feat", "tutorial.facility.board.discover-hotspots", "tutorial.facility.opportunities.banking", "tutorial.facility.claim.first-ready", "tutorial.restaurant.first-customer", "tutorial.restaurant.recipes-and-stations", "tutorial.restaurant.first-claim", "tutorial.restaurant.reputation", "tutorial.restaurant.named-visitors", "tutorial.facility.apothecary.first-case", "tutorial.facility.apothecary.diagnosis", "tutorial.facility.apothecary.mastery", "tutorial.facility.schoolhouse.first-lesson", "tutorial.facility.schoolhouse.pupil-progress", "tutorial.facility.schoolhouse.graduation", "tutorial.facility.command.first-petition", "tutorial.facility.command.consequences", "tutorial.facility.archives.first-research", "tutorial.facility.archives.mastery", "tutorial.facility.training.first-drill", "tutorial.facility.training.mastery", "tutorial.facility.hearth.first-gathering", "tutorial.facility.hearth.relationship-results", "tutorial.facility.gatehouse.first-caravan", "tutorial.facility.gatehouse.road-events", "tutorial.facility.workshop.first-order", "tutorial.facility.workshop.mastery", "tutorial.facility.gardens.first-plot", "tutorial.facility.gardens.harvest", "tutorial.facility.forge.first-commission", "tutorial.facility.forge.mastery"
+  ],
+  "fellowIds": [
+    "cael", "lyra", "orin", "selene", "rook", "mira", "zamorak", "darrow", "deadpool", "star-lord", "iron-man", "daredevil", "thor", "captain-america", "spider-man", "wolverine", "obi-wan", "anakin"
+  ],
+  "familyIds": [
+    "elara", "tamsin", "isolde", "violet", "virginia", "captain-marvel", "scarlet-witch", "ahsoka", "rey", "syl", "shallan", "yennefer", "jaina", "tyrande", "shadowheart", "amara", "aerith", "tifa", "hermione", "misty"
+  ],
+  "fellowJoinRanks": {
+    "cael": 1, "lyra": 1, "orin": 1, "selene": 1, "rook": 1, "mira": 1,
+    "zamorak": 2, "darrow": 2, "deadpool": 2,
+    "star-lord": 3, "iron-man": 3, "daredevil": 3,
+    "thor": 4, "captain-america": 4, "spider-man": 4,
+    "wolverine": 5, "obi-wan": 5, "anakin": 5
+  },
+  "requiredCoverageFields": ["profileQuoteId", "ambientIds", "authoredContentIds"],
+  "openingArtRequirements": [
+    {"speaker": "family:elara", "artId": "vexahlia", "fullPortrait": "assets/portraits/family/vexahlia.webp"},
+    {"speaker": "family:tamsin", "artId": "rumi", "fullPortrait": "assets/portraits/family/rumi.webp"},
+    {"speaker": "family:isolde", "artId": "hera-syndulla", "fullPortrait": "assets/portraits/family/hera-syndulla.webp"},
+    {"speaker": "fellow:deadpool", "artId": "deadpool", "fullPortrait": "assets/portraits/fellows/deadpool.webp"}
+  ],
+  "approvedOpeningPresentationModes": ["transparent-cutout", "approved-framed", "attributed-text-only"],
+  "requiredControls": ["next", "back", "skip", "log"],
+  "requiredLegacyModes": ["story", "tower", "trading", "patrol", "operations"],
+  "viewports": [
+    {"id": "phone-320", "width": 320, "height": 568, "reducedMotion": false},
+    {"id": "phone-390", "width": 390, "height": 844, "reducedMotion": false},
+    {"id": "phone-390-reduced", "width": 390, "height": 844, "reducedMotion": true}
+  ]
+}
