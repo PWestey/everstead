@@ -1,0 +1,164 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-18-19-independent-qa-v1",
+  "baseCommit": "70201ab52e6e3510747bee1a977794a8c900bdd1",
+  "schemaVersion": 12,
+  "predecessor": {
+    "phase12ActivationId": "migration.phase12.claim-ledger",
+    "phase15ArchiveConfigId": "claim-archive.phase-15.v1",
+    "phase15OfferVersion": 2,
+    "phase15ReceiptVersion": 2,
+    "phase17StoryRegistryId": "definition-set.phase-17-book1-story.v1"
+  },
+  "facilities": {
+    "apothecary": {
+      "configId": "phase-18-apothecary-v1",
+      "definitionSetId": "definition-set.phase-18-apothecary.v1",
+      "facilityId": "facility.apothecary",
+      "activityId": "activity.apothecary-cases",
+      "opportunityDefinitionId": "opportunity.facility.apothecary.case",
+      "mapAnchor": "eastern-plaza",
+      "discoveryContentId": "story.book1.chapter2.records-in-rain",
+      "openingContentId": "facility.apothecary.possibility-case"
+    },
+    "schoolhouse": {
+      "configId": "phase-19-schoolhouse-v1",
+      "definitionSetId": "definition-set.phase-19-schoolhouse.v1",
+      "facilityId": "facility.schoolhouse",
+      "activityId": "activity.school-lessons",
+      "opportunityDefinitionId": "opportunity.facility.schoolhouse.lesson",
+      "mapAnchor": "eastern-plaza",
+      "discoveryContentId": "story.book1.chapter3.river-accord.resolution",
+      "openingContentId": "facility.schoolhouse.first-mentor-lesson"
+    }
+  },
+  "apothecary": {
+    "caseIds": ["apothecary.case.dustbloom-irritation", "apothecary.case.river-chill", "apothecary.case.waystone-static"],
+    "clueIds": ["apothecary.clue.petaldust-collar", "apothecary.clue.dry-rasp", "apothecary.clue.clear-eyes", "apothecary.clue.river-damp", "apothecary.clue.steady-shiver", "apothecary.clue.warm-hands", "apothecary.clue.blue-static", "apothecary.clue.metallic-taste", "apothecary.clue.no-fever"],
+    "diagnosisIds": ["apothecary.diagnosis.dustbloom-irritation", "apothecary.diagnosis.river-chill", "apothecary.diagnosis.waystone-static"],
+    "remedyIds": ["apothecary.remedy.soothing-draught", "apothecary.remedy.warming-tonic", "apothecary.remedy.grounding-salts", "apothecary.remedy.rest-and-water"],
+    "regionIds": ["apothecary.region.broken-roads", "apothecary.region.river-crossing", "apothecary.region.skybridge-harbor"],
+    "namedPatientIds": ["apothecary.patient.named.rook", "apothecary.patient.named.daredevil"],
+    "outcomeIds": ["apothecary.outcome.recheck", "apothecary.outcome.supportive", "apothecary.outcome.precise"],
+    "resumeSteps": ["review-clues", "choose-diagnosis", "choose-remedy", "recheck", "review-outcome"]
+  },
+  "schoolhouse": {
+    "domainIds": ["schoolhouse.domain.foundations", "schoolhouse.domain.craft", "schoolhouse.domain.community"],
+    "approachIds": ["schoolhouse.approach.demonstrate", "schoolhouse.approach.practice", "schoolhouse.approach.discuss"],
+    "lessonIds": ["schoolhouse.lesson.reading-the-road", "schoolhouse.lesson.measures-and-making", "schoolhouse.lesson.promises-in-common"],
+    "pupilIds": ["schoolhouse.pupil.ena", "schoolhouse.pupil.bram", "schoolhouse.pupil.niko"],
+    "outcomeIds": ["schoolhouse.outcome.guided", "schoolhouse.outcome.resonant"],
+    "graduationDefinitionId": "schoolhouse.graduation.standard",
+    "graduationOfferTemplate": "reward.offer.facility.schoolhouse.graduation.<pupilId>.v<definitionVersion>",
+    "graduationDomainClaimKind": "schoolhouse-graduation",
+    "seatIdPattern": "schoolhouse.seat.<positive-ordinal>"
+  },
+  "finalizers": [
+    {"sourceId":"activity.apothecary-cases","domainClaimKind":"apothecary-case","finalizerId":"apothecaryFinalizerV1"},
+    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-lesson","finalizerId":"schoolhouseLessonFinalizerV1"},
+    {"sourceId":"activity.school-lessons","domainClaimKind":"schoolhouse-graduation","finalizerId":"schoolhouseGraduationFinalizerV1"}
+  ],
+  "tutorialIds": [
+    "tutorial.facility.board.discover-hotspots",
+    "tutorial.facility.opportunities.banking",
+    "tutorial.facility.claim.first-ready",
+    "tutorial.facility.apothecary.first-case",
+    "tutorial.facility.apothecary.diagnosis",
+    "tutorial.facility.apothecary.mastery",
+    "tutorial.facility.schoolhouse.first-lesson",
+    "tutorial.facility.schoolhouse.pupil-progress",
+    "tutorial.facility.schoolhouse.graduation"
+  ],
+  "schoolhouseFirstLessonSegments": [
+    {"trigger":"schoolhouse-first-visit","stepIds":["seats","pupil"]},
+    {"trigger":"schoolhouse-first-lesson-ready","stepIds":["banked-lessons"]},
+    {"trigger":"schoolhouse-first-teaching-opened","stepIds":["teach"]}
+  ],
+  "actorIds": ["fellow.rook", "fellow.daredevil", "family.scarlet-witch", "family.yennefer", "family.shadowheart", "family.aerith", "fellow.obi-wan", "fellow.spider-man", "family.ahsoka", "family.hermione"],
+  "protagonist": {
+    "id": "player.wayfarer",
+    "kind": "player-character",
+    "excludedRosterKinds": ["fellow", "family", "companion"],
+    "forbidAssignment": true,
+    "forbidShards": true,
+    "facilitySpeakerEligible": false
+  },
+  "facilityActorIds": {
+    "facility.apothecary": ["fellow.rook", "fellow.daredevil", "family.scarlet-witch", "family.yennefer", "family.shadowheart", "family.aerith"],
+    "facility.schoolhouse": ["fellow.obi-wan", "fellow.spider-man", "family.ahsoka", "family.aerith", "family.hermione"]
+  },
+  "approvedVisualFallbacks": ["approved-transparent-cutout", "approved-framed-treatment", "attributed-text-only"],
+  "visualPolishBoundary": {
+    "contractId": "forthcoming-original-everstead-visual-polish",
+    "requiresSemanticFacilitySheets": true,
+    "forbidReferenceAssetIngestion": true,
+    "forbidReferenceTradeDressCopy": true,
+    "forbidUnframedFullBackgroundVillageDialogue": true
+  },
+  "syntheticPolicy": {
+    "qaOnly": true,
+    "registryId": "qa.synthetic.phase-18-19.independent.v1",
+    "requiresIsolatedStorage": true,
+    "neverProductionFallback": true,
+    "apothecary": {"intervalMs":2700000,"bankCapacity":5,"unattendedTargetMs":13500000,"selectionWeight":7,"supportiveRewardGold":111,"preciseRewardGold":173,"supportiveMastery":2,"preciseMastery":5,"masteryLevel2Threshold":7},
+    "schoolhouse": {"intervalMs":5400000,"bankCapacity":3,"unattendedTargetMs":16200000,"initialSeatCapacity":1,"maximumSeatCapacity":3,"selectionWeight":11,"guidedRewardGold":83,"resonantRewardGold":137,"guidedDevelopment":1,"resonantDevelopment":3,"graduationRequirementPerDomain":5,"graduationRewardGold":1201,"graduationEducationModifier":2,"maximumRelationshipProgressBonus":1,"maximumRelationshipRewardBonusGold":17}
+  },
+  "saveFixtures": {
+    "freshNullPolicy":"p18-19.qa.fresh-null-policy.v1",
+    "migrated18":"p18-19.qa.migrated-phase18.v1",
+    "migrated19":"p18-19.qa.migrated-phase19.v1",
+    "apothecaryUnlocked":"p18.qa.apothecary-unlocked.v1",
+    "apothecaryBanked":"p18.qa.apothecary-banked.v1",
+    "apothecaryEngaged":"p18.qa.apothecary-engaged.v1",
+    "apothecaryRecheck":"p18.qa.apothecary-recheck.v1",
+    "apothecaryPreciseReady":"p18.qa.apothecary-precise-ready.v1",
+    "apothecaryNamedReady":"p18.qa.apothecary-named-ready.v1",
+    "schoolhouseUnlocked":"p19.qa.schoolhouse-unlocked.v1",
+    "schoolhouseCandidate":"p19.qa.schoolhouse-candidate.v1",
+    "schoolhouseSeated":"p19.qa.schoolhouse-seated.v1",
+    "schoolhouseLessonsBanked":"p19.qa.schoolhouse-lessons-banked.v1",
+    "schoolhouseEngaged":"p19.qa.schoolhouse-engaged.v1",
+    "schoolhouseResonantReady":"p19.qa.schoolhouse-resonant-ready.v1",
+    "schoolhouseGraduationReady":"p19.qa.schoolhouse-graduation-ready.v1",
+    "archiveWindow":"p18-19.qa.archive-window.v1",
+    "offline":"p18-19.qa.offline.v1",
+    "recovery":"p18-19.qa.recovery.v1",
+    "corrupt":"p18-19.qa.corrupt.v1",
+    "future":"p18-19.qa.future.v1",
+    "lockedRoster":"p18-19.qa.locked-roster.v1"
+  },
+  "archivePolicy": {"configId":"claim-archive.phase-15.v1","recentReceiptLimit":512,"foldBatchSize":128,"expectedRecentAfterNextClaim":385,"expectedThroughAfterNextClaim":128},
+  "migrationIds": ["migration.phase-18.apothecary.v1", "migration.phase-19.schoolhouse.v1"],
+  "concurrencyKinds": ["apothecary-settle", "apothecary-resolve", "apothecary-claim", "schoolhouse-seat", "schoolhouse-settle", "schoolhouse-resolve", "schoolhouse-lesson-claim", "schoolhouse-graduation-claim"],
+  "invalidMutationChecks": ["future-config-version", "unknown-case", "unknown-clue", "unknown-diagnosis", "unknown-remedy", "terminal-recheck", "expired-case", "unknown-pupil", "duplicate-seat-pupil", "negative-development", "mentor-stack-two", "mentor-mutates-intimacy", "graduation-without-trigger-receipt", "wrong-graduation-domain-kind", "broken-archive-checkpoint", "broken-save-binding"],
+  "originalPassiveFacilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"],
+  "requiredDomSelectors": {
+    "shared": ["[data-phase15-facility-board]", "[data-phase15-facility-id=\"facility.apothecary\"]", "[data-phase15-facility-id=\"facility.schoolhouse\"]"],
+    "apothecary": ["[data-phase18-apothecary-sheet]", "[data-phase18-case-id]", "[data-phase18-clue-id]", "[data-phase18-diagnosis-id]", "[data-phase18-remedy-id]", "[data-phase18-resolve]", "[data-phase18-recheck]", "[data-phase18-claim]", "[data-phase18-close]"],
+    "schoolhouse": ["[data-phase19-schoolhouse-sheet]", "[data-phase19-seat-id]", "[data-phase19-pupil-id]", "[data-phase19-lesson-id]", "[data-phase19-approach-id]", "[data-phase19-teach]", "[data-phase19-claim]", "[data-phase19-graduation-claim]", "[data-phase19-close]"]
+  },
+  "viewports": [
+    {"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},
+    {"id":"mobile-390","width":390,"height":844,"copyScale":1,"reducedMotion":false},
+    {"id":"desktop-1024","width":1024,"height":768,"copyScale":1,"reducedMotion":false},
+    {"id":"copy-130","width":390,"height":844,"copyScale":1.3,"reducedMotion":false},
+    {"id":"reduced-motion","width":390,"height":844,"copyScale":1,"reducedMotion":true}
+  ],
+  "offlineCapMs": 86400000,
+  "frozenNow": 200000000,
+  "expectedCandidateFailureIds": [
+    "candidate-phase18-19-bridge-contract",
+    "candidate-predecessor-v2-runtime-seams",
+    "candidate-apothecary-config-runtime",
+    "candidate-apothecary-distinct-lifecycle",
+    "candidate-schoolhouse-config-runtime",
+    "candidate-schoolhouse-persistent-lifecycle",
+    "candidate-graduation-v2-one-shot-runtime",
+    "candidate-family-mentor-positive-only-runtime",
+    "candidate-null-policy-fail-closed-runtime",
+    "candidate-successor-migration-validation-runtime",
+    "candidate-finalizer-archive-runtime",
+    "candidate-cast-tutorial-runtime",
+    "candidate-phase18-19-dom-contract"
+  ]
+}
