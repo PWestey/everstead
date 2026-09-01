@@ -172,7 +172,7 @@ if(PACKAGE_ONLY){
   record('candidate-story-capability-state-engine',fixtures.runtimeStates.every(id=>combined.includes(`'${id}'`)||combined.includes(`"${id}"`))&&fixtures.facilities.every(item=>combined.includes(item.discoveryContentId)&&combined.includes(item.requiredCapabilityId)));
   record('candidate-opportunity-finalizer-contract',combined.includes(fixtures.phase12ClaimSourceType)&&combined.includes('immutableFinalizer')&&combined.includes('expiresAt')&&combined.includes('claim-ready')&&combined.includes('ordinal'));
   record('candidate-v2-archive-contract',combined.includes(fixtures.claimArchiveConfigId)&&combined.includes('recentReceipts')&&combined.includes('archiveCheckpoint')&&combined.includes('predecessorClaimedOfferIds')&&combined.includes('throughSequence'));
-  record('candidate-tutorial-successor-contract',fixtures.phase15TutorialIds.every(id=>combined.includes(id))&&combined.includes('replay')&&combined.includes('dismissed'));
+  record('candidate-tutorial-successor-contract',combined.includes(fixtures.bridgeVersion)&&fixtures.phase15TutorialIds.every(id=>combined.includes(id))&&combined.includes('replay')&&combined.includes('dismissed'));
   record('candidate-cast-hook-contract',fixtures.actorIds.every(id=>combined.includes(id))&&combined.includes('lockedFellowsExcluded'));
   record('candidate-phase12-phase13-seams-preserved',combined.includes('__EVERSTEAD_PHASE_12_QA__')&&combined.includes('__EVERSTEAD_PHASE_13_QA__')&&combined.includes(fixtures.phase12ActivationId));
   record('candidate-schema-remains-12',Math.max(0,...versions)===12,versions);
