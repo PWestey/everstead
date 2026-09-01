@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "packageId": "player-wayfarer-ui-polish",
+  "baseCommit": "70201ab52e6e3510747bee1a977794a8c900bdd1",
+  "canonicalAsset": {
+    "assetId": "asset.player.wayfarer.profile-full.v1",
+    "characterId": "player.wayfarer",
+    "sourcePath": "/Users/westmanfamily/Downloads/64B0ECA4-3275-43E6-8870-F5946CAB5163.png",
+    "projectPath": "assets/player/wayfarer-profile-full.png",
+    "sha256": "a34c2d3a858f46be58450048b77c53965d4644690c2eb9a9c7649bd1b5139aaf",
+    "byteIdentityRequired": true,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "colorSpace": "RGB",
+    "alpha": false,
+    "authorization": "user-supplied canonical full-background protagonist art"
+  },
+  "variants": [
+    {
+      "variantId": "player.wayfarer.profile-full",
+      "status": "approved",
+      "sourceAssetId": "asset.player.wayfarer.profile-full.v1",
+      "rendering": "full-background",
+      "separateBitmap": false
+    },
+    {
+      "variantId": "player.wayfarer.card-crop",
+      "status": "approved-derived-presentation",
+      "sourceAssetId": "asset.player.wayfarer.profile-full.v1",
+      "rendering": "css-object-position-only",
+      "separateBitmap": false
+    },
+    {
+      "variantId": "player.wayfarer.dialogue-cutout",
+      "status": "unresolved-required",
+      "sourceAssetId": null,
+      "rendering": "genuine-transparent-raster",
+      "requirements": [
+        "nonzero alpha range",
+        "transparent background pixels",
+        "no baked checkerboard",
+        "manual edge inspection at 100 and 200 percent",
+        "explicit approval before production"
+      ],
+      "fallback": "attributed-text-only-or-framed-full-background"
+    },
+    {
+      "variantId": "player.wayfarer.campaign-walk",
+      "status": "unresolved-required",
+      "sourceAssetId": null,
+      "rendering": "genuine-transparent-raster-or-purpose-built-sprite",
+      "requirements": [
+        "separately approved silhouette and proportions",
+        "genuine alpha if raster",
+        "reduced-motion static state",
+        "explicit approval before production"
+      ],
+      "fallback": "original-everstead-silhouette-or-framed-stage-marker"
+    }
+  ],
+  "references": [
+    {"file":"IMG_7094.png","sha256":"02562b8f87634c95d2ab7afddef58c8606425df3e38442afda60d66f8c5d2038","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7099.png","sha256":"3881cd93395e759b19ee1ac341c2c7ccf4b362c4209f6f07d586f94adc5b5ce5","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7096.png","sha256":"0fa16b60cd94b6199e85fe2d77ce44681b364dfbb228eeffd839d460244a31e1","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7095.png","sha256":"03d687d015ecb3321e430771a9c0a86cbe12b6b02e4224591073f0c52d4bc40b","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7098.png","sha256":"0babbea0eb556cfa6f604868cdb15855c2b01a0c431019c37069649dc7438352","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7100.png","sha256":"658232bcc646101b1eb71419826bd9f9ef4ce876e127966d33d15eb2d4b743a2","width":1179,"height":2556,"use":"analysis-only"},
+    {"file":"IMG_7097.png","sha256":"1ba9e49acafaf5b85627c8dda0f6fbb3c84c87ab0ca303864dedabe72b3817e6","width":1179,"height":2556,"use":"analysis-only"}
+  ],
+  "forbiddenReferenceIngestion": {
+    "screenshotAssets": true,
+    "failedTransparentDerivatives": true,
+    "literalTradeDress": true
+  }
+}

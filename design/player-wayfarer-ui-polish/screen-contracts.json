@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "navigation": {
+    "requiredTabCount": 5,
+    "requiredTabs": ["village", "roster", "adventure", "oaths", "more"],
+    "sixthTabForbidden": true
+  },
+  "screens": [
+    {
+      "id": "global.top-resource-bar",
+      "purpose": "persistent identity, Gold, and contextual claim readiness",
+      "required": ["Everstead identity", "Gold balance", "single contextual readiness affordance", "safe-area support"],
+      "forbidden": ["copied currency set", "unbounded currency pills", "daily checklist counter"]
+    },
+    {
+      "id": "player.wayfarer-profile",
+      "purpose": "the player title character and Rank identity",
+      "required": ["full-background canonical art", "The Wayfarer identity", "Player Rank", "Rank EXP", "story and Campaign context"],
+      "forbidden": ["roster membership", "shards", "rarity", "building assignment", "companion assignment", "recruitment"]
+    },
+    {
+      "id": "roster.fellow-sheet",
+      "purpose": "full-art Fellow identity followed by progression detail",
+      "required": ["full-background Fellow art", "EXP", "Level", "Power", "Bond", "shards and rarity", "Relics", "Family and Companion bonuses"],
+      "forbidden": ["building staffing", "player identity", "Blessing"]
+    },
+    {
+      "id": "roster.family-sheet",
+      "purpose": "full-art Family identity followed by relationship and Village contribution",
+      "required": ["full-background Family art", "Intimacy", "Gifts", "shards and rarity", "Building assignment", "production contribution", "Family to Fellow Bond"],
+      "forbidden": ["Blessing", "employee-count economy", "Fellow staffing"]
+    },
+    {
+      "id": "progress.achievements-legacy",
+      "purpose": "durable progress, feats, banked manual claims, and next-action guidance",
+      "required": ["category grouping within an existing surface", "progress text", "reward preview", "Claim or Continue action", "exact-once claim state"],
+      "forbidden": ["sixth navigation tab", "daily checklist", "expiring reward pressure"]
+    },
+    {
+      "id": "adventure.campaign",
+      "purpose": "journey presentation with stage choice, readiness, outcome, and Wayfarer presence",
+      "required": ["stage scene", "stage progress", "readiness and cost", "one primary action", "result log", "Player Rank linkage", "reduced-motion state"],
+      "forbidden": ["unapproved portrait-as-transparent-runner", "copied journey layout", "new progression semantics"]
+    },
+    {
+      "id": "village.facility-sheet",
+      "purpose": "open an activity from its physical Village anchor without leaving the Village model",
+      "required": ["anchor identity", "discovery and availability", "banked opportunity state", "manual claim", "visitors or workers", "local progress", "story link"],
+      "forbidden": ["detached sixth-tab manager", "Fellow building staffing", "expiring missed opportunities"]
+    },
+    {
+      "id": "inventory.rewards",
+      "purpose": "scan owned items and inspect exact rewards using existing game domains",
+      "required": ["category filters in the current surface", "responsive grid or list", "quantity", "rarity with text or shape", "detail sheet", "reward source and claim state"],
+      "forbidden": ["copied currencies", "invented combine loop", "new inventory semantics without design approval"]
+    },
+    {
+      "id": "system.tabs-buttons-panels",
+      "purpose": "one coherent original Everstead interaction language",
+      "required": ["44 by 44 minimum targets", "visible focus", "semantic headings", "one clear primary action per card", "disabled reason", "Escape close", "scroll restoration"],
+      "forbidden": ["reference-game icons", "literal ornate frames", "color-only state", "hover-only disclosure"]
+    }
+  ],
+  "viewports": [
+    {"width":320,"height":568,"required":true},
+    {"width":390,"height":844,"required":true},
+    {"width":1024,"height":768,"required":true}
+  ],
+  "copyScalePercent": 175,
+  "reducedMotionRequired": true
+}

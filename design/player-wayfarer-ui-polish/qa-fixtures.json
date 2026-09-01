@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "fixtures": [
+    {
+      "id": "fresh-rank-1-wayfarer",
+      "state": "fresh accepted-save shape",
+      "assert": ["canonical player.wayfarer presentation", "Rank 1 derived from existing Rank EXP", "no roster record", "no popup cascade"]
+    },
+    {
+      "id": "migrated-rank-5-wayfarer",
+      "state": "accepted established save with completed Rank progression",
+      "assert": ["no Rank or reward mutation", "existing tutorial history preserved", "visual update is presentation-only", "no retroactive popup cascade"]
+    },
+    {
+      "id": "wayfarer-dialogue-fallback",
+      "state": "Wayfarer-authored dialogue with no approved transparent cutout",
+      "assert": ["speaker attribution preserved", "text-only or framed-full-background fallback", "no missing-image failure", "no checkerboard"]
+    },
+    {
+      "id": "campaign-walk-fallback",
+      "state": "Campaign stage with no approved Wayfarer walking sprite",
+      "assert": ["original silhouette or framed marker", "stage remains operable", "no full portrait pretending to be transparent", "reduced-motion static treatment"]
+    },
+    {
+      "id": "family-building-assignment-preserved",
+      "state": "Family member assigned to an original passive Building",
+      "assert": ["Family remains assignee", "production unchanged", "no Fellow staffing control", "no employee count"]
+    },
+    {
+      "id": "fellow-sheet-locked-and-joined",
+      "state": "one locked Fellow and one joined Fellow",
+      "assert": ["locked Fellow cannot speak live", "locked progression actions remain unavailable", "full-background sheets remain inspectable", "joined Fellow semantics unchanged"]
+    },
+    {
+      "id": "manual-claim-achievement",
+      "state": "one ready durable feat and one incomplete continuing achievement",
+      "assert": ["Claim is exact-once", "Continue navigates without mutation", "no expiry or daily reset", "reward preview names existing domain"]
+    },
+    {
+      "id": "facility-ready-village",
+      "state": "story-discovered facility with a banked ready opportunity",
+      "assert": ["physical Village anchor indicates ready", "facility opens without nav change", "manual claim remains authoritative", "passive originals unchanged"]
+    },
+    {
+      "id": "inventory-large-counts",
+      "state": "existing item domains with zero, one, large, and max-safe counts",
+      "assert": ["no truncation ambiguity", "quantity announced", "rarity not color-only", "no new currency or crafting behavior"]
+    },
+    {
+      "id": "copy-175-small-mobile",
+      "state": "320 by 568 at 175 percent copy scale",
+      "assert": ["no hidden primary action", "no horizontal page scroll", "resource bar remains interpretable", "bottom tabs remain five"]
+    },
+    {
+      "id": "keyboard-dialog-sheet",
+      "state": "keyboard-only opening and closing of each sheet type",
+      "assert": ["logical focus order", "focus enters sheet", "Escape closes", "focus returns to invoker", "background is inert"]
+    },
+    {
+      "id": "save-byte-neutral-visual-pass",
+      "state": "same save before and after viewing every redesigned surface",
+      "assert": ["no save write from presentation alone", "Gold and rewards unchanged", "Rank and roster unchanged", "tutorial replay neutral"]
+    }
+  ],
+  "adversarial": [
+    "corrupt asset URL falls back without mutating state",
+    "future save remains rejected by the existing gate",
+    "two tabs viewing sheets do not create storage conflicts",
+    "offline accrual remains capped and unchanged",
+    "rapid repeated Claim cannot double-finalize",
+    "reduced-motion media change removes nonessential walking and transitions"
+  ]
+}
