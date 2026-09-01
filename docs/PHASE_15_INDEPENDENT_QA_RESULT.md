@@ -6,13 +6,13 @@ Prepared on an isolated QA-only branch from exact private integration commit `7e
 
 ## Package-only verification
 
-The completed package is expected to pass **45/45** on its committed tip. Coverage includes the full frozen design/provenance audit, ten package checksums, syntax, topology/ownership, 28 inherited exact-object hashes, and all 47 frozen Phase 11H character-art hashes.
+The completed package passes **45/45** on its committed tip. Coverage includes the full frozen design/provenance audit, ten package checksums, syntax, topology/ownership, 28 inherited exact-object hashes, and all 47 frozen Phase 11H character-art hashes.
 
 ## Expected current-candidate result
 
-The `7e74226` current candidate is intentionally preimplementation. Candidate/static mode is expected at **45 passed / 8 failed / 53 total**. The eight failures are the absent Phase 15 bridge, production definition/identity set, physical-board DOM, story/capability state engine, opportunity/finalizer runtime, V2 archive runtime, tutorial-successor runtime, and cast-hook runtime. Phase 12/13 seams and schema 12 continue to pass.
+The `7e74226` current candidate is intentionally preimplementation. Candidate/static mode was observed at **45 passed / 8 failed / 53 total**. The eight failures are the absent Phase 15 bridge, production definition/identity set, physical-board DOM, story/capability state engine, opportunity/finalizer runtime, V2 archive runtime, tutorial-successor runtime, and cast-hook runtime. Phase 12/13 seams and schema 12 continue to pass.
 
-The live browser baseline is expected at **11 passed / 10 failed / 21 total**. Eleven package/fixture rows pass; each of five isolated realms fails `bridge-present` and `phase15-contract-unavailable`. This is the exact fail-closed result for a candidate with no Phase 15 runtime.
+The live browser baseline rendered **11 passed / 10 failed / 21 total** twice, with a blank fatal field and 21 result rows. Eleven package/fixture rows pass; each of five isolated realms fails `bridge-present` and `phase15-contract-unavailable`. This is the exact fail-closed result for a candidate with no Phase 15 runtime.
 
 ## Final candidate
 
