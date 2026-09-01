@@ -68,6 +68,20 @@
     "family.tifa",
     "family.misty"
   ],
+  "restaurantHookIdsByActor": {
+    "fellow.deadpool": ["dialogue.facility.restaurant.deadpool.named-visitor", "dialogue.facility.restaurant.deadpool.result-comment"],
+    "fellow.star-lord": ["dialogue.facility.restaurant.star-lord.named-visitor"],
+    "fellow.spider-man": ["dialogue.facility.restaurant.spider-man.ambient"],
+    "family.tamsin": ["dialogue.facility.restaurant.tamsin.banking-guide", "dialogue.facility.restaurant.tamsin.ambient"],
+    "family.jaina": ["dialogue.facility.restaurant.jaina.named-route-visitor", "dialogue.facility.restaurant.jaina.reputation-guide"],
+    "family.tifa": ["dialogue.facility.restaurant.tifa.service-guide", "dialogue.facility.restaurant.tifa.claim-acknowledgement"],
+    "family.misty": ["dialogue.facility.restaurant.misty.ambient"]
+  },
+  "deferredHookIdsByActor": {
+    "fellow.star-lord": ["dialogue.facility.gatehouse.star-lord.result-comment"],
+    "fellow.spider-man": ["dialogue.facility.schoolhouse.spider-man.named-visitor"],
+    "family.misty": ["dialogue.facility.gatehouse.misty.activity-presenter"]
+  },
   "approvedVisualFallbacks": [
     "approved-transparent-cutout",
     "approved-framed-treatment",
@@ -94,10 +108,13 @@
     "qaOnly": true,
     "id": "qa-only.economy-policy.restaurant.v1",
     "version": 1,
+    "stockMode": "prepare-batch",
     "intervalMs": 3600000,
     "bankCapacity": 4,
     "preparationDurationMs": 60000,
+    "preparationBatchSize": 1,
     "stockCapacity": 8,
+    "manualTransferRequired": true,
     "baseSale": 100,
     "matchedTip": 25,
     "partialTip": 5,
@@ -112,9 +129,12 @@
     "id", "version", "intervalMs", "bankCapacity", "unattendedTargetMs",
     "customerWeights", "baseSaleByCustomerId", "tipMultiplierByMatch",
     "reputationByMatch", "recipeMasteryByMatch", "reputationThresholds",
-    "recipePreparationDurationMs", "recipeStockCapacity", "stationSlotCapacity",
-    "activeProfitTargetShare", "headroomYears", "simulationApproval"
+    "stockMode", "activeProfitTargetShare", "headroomYears", "simulationApproval"
   ],
+  "economyConditionalPaths": {
+    "prepare-batch": ["recipePreparationDurationMs", "preparationBatchSize", "recipeStockCapacity", "stationSlotCapacity", "manualTransferRequired"],
+    "pre-existing-stock": ["preExistingStockSourceVersion", "reservationPolicyVersion"]
+  },
   "economyProfiles": ["fresh", "midgame", "established", "highly-active", "mostly-idle"],
   "economyHorizons": ["short", "long"],
   "fixtureIds": [

@@ -26,18 +26,24 @@ Destructive methods are available only in an isolated QA realm:
 - `openRestaurant()` changes presentation only.
 - `settle(facilityId,capturedAt)` deterministically banks non-expiring customers with stable ordinals.
 - `begin(customerId,identity)` begins selection; `cancel(customerId,identity)` is safe only before the preparation commit boundary.
-- `prepare(customerId,identity,{recipeId,stationId,stockIdentity})` commits the exact resumable recipe/station/stock reservation.
+- `prepare(customerId,identity,{recipeId,stationId,stockIdentity})` commits the exact resumable recipe/station/stock lineage. In `prepare-batch` mode it starts a version-bound batch; in `pre-existing-stock` mode it atomically reserves the selected existing stock and becomes serveable.
+- `advancePreparation(customerId,identity,capturedAt)` settles only the named committed preparation against captured epoch time. Just-before, exact-duration, reload, offline, rollback, and capacity behavior must be observable.
+- `transferStock(customerId,identity,stockIdentity)` performs the policy-declared manual batch transfer when required. It is write-free and not applicable in pre-existing-stock mode or when automatic transfer is declared.
 - `serve(customerId,identity)` creates one immutable outcome and one claim-ready offer with zero payment.
 - `claim(offerId,offerIdentity)` invokes only the registered Restaurant finalizer through the central coordinator.
 - `tutorial(id,action)` supports open, skip, log, and replay without gameplay effects.
-- `simulateConcurrent(kind)` races two clients at settle, prepare, serve, or claim and returns winner/loser and duplication counts.
+- `simulateConcurrent(kind)` races two clients at settle, prepare, preparation completion, stock transfer, serve, or claim and returns winner/loser, duplication, and stock-loss counts.
 - `probeFinalizerFailure(mode)` covers missing, throwing, local-stock, and archive failure with atomic refusal.
 
 ## Lifecycle and value safety
 
 Customer generation is deterministic, non-expiring, bounded by a complete candidate policy, capped at 24 elapsed hours, and based on epoch time rather than local midnight. Reload, saturation, rollback, DST, and timezone labels may not change identities, move a cursor backward, expire a customer, preserve hidden interval debt at capacity, or apply rewards.
 
-The required service path is preference → recipe and station choice → resumable preparation → serve result → explicit Claim. Before the preparation commit, Cancel restores the exact banked customer and creates no effect. After commit, closing or reload preserves the exact customer, recipe, station, stock reservation, and lineage. Serve creates a deterministic immutable outcome and offer but changes no Gold, reputation, mastery, stock, metric, receipt, or Chronicle state.
+The required service path is preference → recipe and station choice → resumable preparation or explicit existing-stock reservation → serve result → explicit Claim. Before the preparation commit, Cancel restores the exact banked customer and creates no effect. After commit, closing or reload preserves the exact customer, recipe, station, stock reservation/batch, and lineage.
+
+The candidate policy explicitly chooses `prepare-batch` or `pre-existing-stock`. In prepare-batch mode, just-before duration is not ready, exact duration creates the declared batch, reload/offline completion is exact, clock rollback is write-free, capacity saturation loses no inputs or output, and any declared manual transfer is required before service. Completion and transfer each have one-winner two-client behavior. The same engagement identity must then Serve successfully; a separate ready fixture cannot substitute for this continuation. In pre-existing-stock mode, duration/batch/capacity promises are absent, a versioned stock source and reservation policy are required, Prepare makes the same engagement serveable immediately, and completion/transfer operations are write-free as not applicable.
+
+Serve creates a deterministic immutable outcome and offer but changes no Gold, reputation, mastery, stock, metric, receipt, or Chronicle state.
 
 An imperfect valid match must yield a smaller nonnegative result. It may not create debt, remove a global resource, expire the result, trap the customer, or block later progress.
 
@@ -49,7 +55,7 @@ A named visitor queues exactly one original Chronicle hook only after the visito
 
 This QA package does not hard-code eventual production cadence, capacity, sale, tip, reputation, mastery, or threshold values. The synthetic fixture policy is marked QA-only and exists solely to exercise deterministic mechanics.
 
-When `productionEnabled` is false, Restaurant accrual and service must fail closed. When it is true, `economyReport()` must return a complete non-null versioned candidate policy covering cadence, capacity, unattended target, customer weights, sales, match multipliers, local progress, thresholds, preparation, stock, stations, active-profit target share, integer headroom, and simulation approval.
+When `productionEnabled` is false, Restaurant accrual and service must fail closed. When it is true, `economyReport()` must return a complete non-null versioned candidate policy covering cadence, capacity, unattended target, customer weights, sales, match multipliers, local progress, thresholds, an explicit stock mode and its complete conditional fields, active-profit target share, integer headroom, and simulation approval. Null preparation-duration/batch fields are allowed only for declared `pre-existing-stock` mode; claiming `prepare-batch` requires all duration, batch, recipe capacity, station capacity, and transfer fields.
 
 Every short/long simulation for all five profiles must use nonnegative safe integers, preserve passive production, report total Gold as passive plus active Gold, keep active profit within the candidate policy's own declared share target, and prove at least five years of save/counter headroom. Production enablement is refused if any policy value or simulation is missing. The policy may not add debt or a currency, reduce passive income, or introduce a permanent multiplier.
 
@@ -57,7 +63,7 @@ Every short/long simulation for all five profiles must use nonnegative safe inte
 
 All seven accepted Phase 16 tutorials are gradual, contextual, skippable, logged, replayable, reward-neutral, and nonblocking. At most one tutorial auto-presents during a safe Restaurant visit; story, recovery, claim, and result presentation suppress auto-presentation. Skip never prevents service. Log and replay never create customers, stock, outcomes, claims, rewards, progression, metrics, or story effects.
 
-Exactly seven Phase 16 cast hooks resolve for `fellow.deadpool`, `fellow.star-lord`, `fellow.spider-man`, `family.tamsin`, `family.jaina`, `family.tifa`, and `family.misty`. A locked Fellow never speaks. Mechanical copy remains speaker-independent. Visuals use only approved transparent cutout, approved framed treatment, or attributed text; an unframed full-background portrait overlay is forbidden.
+Exactly seven Phase 16 Restaurant cast actors resolve: `fellow.deadpool`, `fellow.star-lord`, `fellow.spider-man`, `family.tamsin`, `family.jaina`, `family.tifa`, and `family.misty`. Their exact Restaurant-relevant subset contains eleven hook IDs: two each for Deadpool, Tamsin, Jaina, and Tifa, and one each for Star-Lord, Spider-Man, and Misty. The accepted later Gatehouse and Schoolhouse hook IDs for Star-Lord, Spider-Man, and Misty remain registered but must not fire in Phase 16. A locked Fellow never speaks. Mechanical copy remains speaker-independent. Visuals use only approved transparent cutout, approved framed treatment, or attributed text; an unframed full-background portrait overlay is forbidden.
 
 ## Actual-DOM browser gate
 

@@ -17,9 +17,9 @@
     rows.push(row('fixture-exact-base',f.baseCommit==='8d356b7a1bb4922a354ec7bc93f8e6587c8b9514'));
     rows.push(row('fixture-restaurant-physical-anchor',f.facilityId==='facility.restaurant'&&f.physicalMapAnchor==='western-plaza-restaurant'));
     rows.push(row('fixture-definition-identities',f.customerIds.length===3&&f.preferenceIds.length===3&&f.recipeIds.length===3&&f.stationIds.length===2&&[...f.customerIds,...f.preferenceIds,...f.recipeIds,...f.stationIds].every(Boolean)));
-    rows.push(row('fixture-seven-tutorials-seven-cast',f.tutorialIds.length===7&&f.actorIds.length===7&&unique(f.tutorialIds)&&unique(f.actorIds)));
+    rows.push(row('fixture-seven-tutorials-seven-cast-actors',f.tutorialIds.length===7&&f.actorIds.length===7&&Object.values(f.restaurantHookIdsByActor).flat().length===11&&Object.values(f.deferredHookIdsByActor).flat().length===3&&unique(f.tutorialIds)&&unique(f.actorIds)));
     rows.push(row('fixture-save-matrix',Object.keys(f.saveFixtures).length===15&&unique(Object.values(f.saveFixtures))));
-    rows.push(row('fixture-policy-driven-economy',f.economyRequiredPaths.length>=15&&f.economyProfiles.length===5&&f.economyHorizons.length===2&&f.syntheticPolicy.qaOnly===true));
+    rows.push(row('fixture-policy-driven-economy',f.economyRequiredPaths.length>=12&&Object.keys(f.economyConditionalPaths).length===2&&f.economyProfiles.length===5&&f.economyHorizons.length===2&&f.syntheticPolicy.qaOnly===true));
     rows.push(row('fixture-v2-archive',f.archivePolicy.recentReceiptLimit===512&&f.archivePolicy.foldBatchSize===128));
     rows.push(row('fixture-fourteen-design-fixtures',f.fixtureIds.length===14&&unique(f.fixtureIds)));
     rows.push(row('fixture-five-browser-realms',f.viewports.length===5&&f.viewports.some(item=>item.width===320&&item.height===568)&&f.viewports.some(item=>item.width===1024)&&f.viewports.some(item=>item.reducedMotion)&&f.viewports.some(item=>item.copyScale===1.75)));
