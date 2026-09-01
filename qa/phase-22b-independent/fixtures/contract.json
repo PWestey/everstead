@@ -1,0 +1,43 @@
+{
+  "contractVersion": 2,
+  "baseCommit": "d29be5f9c6881ee6ed47bf38a57b97d91dab25d0",
+  "sourceCommit": "ddc129935eac809f106c2782bb63b0b138fe0ad0",
+  "sourceFrozen": true,
+  "indexSha256": "7f55cde4b26e5dcc6bd2cd9e578e26d000e8936f7941964e7f70470a2ca61185",
+  "indexBytes": 1375296,
+  "phase17Sha256": "ca47c5aec5280bbd7116253801294047c81cfd3f9084508b69f1c84354194815",
+  "phase17Bytes": 72367,
+  "bridgeVersion": "phase-20-21-independent-qa-v2",
+  "fixtureId": "p20-21.qa.all-unlocked.v2",
+  "frozenNow": 1760000000000,
+  "stylesheet": "src/phase22b-feature-polish.css",
+  "stylesheetVersion": "phase22b-features-v1",
+  "stylesheetHref": "src/phase22b-feature-polish.css?v=phase22b-features-v1",
+  "stylesheetSha256": "6f18614eceb062a82ec0ac44b4aba6064cf79d8f8c2d4cd4e6ec54606f22b9f6",
+  "phase22aStylesheet": "src/phase22a-shell-polish.css",
+  "phase22aStylesheetHref": "src/phase22a-shell-polish.css?v=phase22a-shell-v1",
+  "phase22aStylesheetSha256": "1685dff9f024ad4a9ddebae35c71dd205aa88c098b9bd4ba2454a097bee3f051",
+  "navigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "rosterTabs": ["fellows", "family", "companions", "relics"],
+  "minimumTargetPx": 44,
+  "legacyStateSetup": {
+    "resetFixture": "p13.fixture.fresh.v1",
+    "progressEvent": "oath.first-completed",
+    "recordedEvent": "campaign.first-clear-committed",
+    "recordedStageId": "broken-roads-1",
+    "resolutionStoryId": "story.book1.chapter1.village-toll.resolution",
+    "storyReadySourceId": "story.book1.chapter1.village-toll.resolution",
+    "claimSourceId": "legacy.oathkeeper.tier-1",
+    "remainingReadySourceId": "legacy.feat.first-campaign-clear"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-430x932", "width": 430, "height": 932, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-768x1024", "width": 768, "height": 1024, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-1024x768", "width": 1024, "height": 768, "copyScale": 1, "reducedMotion": false},
+    {"id": "copy-130-390x844", "width": 390, "height": 844, "copyScale": 1.3, "reducedMotion": false},
+    {"id": "reduced-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": true}
+  ],
+  "inactiveViewport": {"id": "inactive-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false}
+}
