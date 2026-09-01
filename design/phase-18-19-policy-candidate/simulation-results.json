@@ -1,0 +1,1216 @@
+{
+  "simulationId": "simulation.phase-18-19-policy-candidate-v1",
+  "status": "candidate-qa-only",
+  "productionEnabled": false,
+  "assumptions": {
+    "passiveBuildingFormula": "four released base rates at a common level with released 1.15 growth",
+    "offlineElapsedCapMs": 86400000,
+    "bankedOpportunitiesNeverExpire": true,
+    "allReadyRewardsRequireManualClaim": true,
+    "offlineAgency": false,
+    "schoolhouseVerticalSliceFinitePupils": 3,
+    "achievementGoldIncludedInTotalButExcludedFromRecurring": true,
+    "restaurantGoldExcludedFromPhase18And19ProfileTotals": true
+  },
+  "profiles": [
+    {
+      "profileId": "profile.fresh",
+      "buildingLevelEach": 1,
+      "structuralGoldPerHour": 25400,
+      "rewardBandId": "structural-band.phase-18-19.01",
+      "visitIntervalHours": 12,
+      "apothecaryOpportunitiesPerDay": 16.0,
+      "schoolhouseOpportunitiesPerDayBeforeFiniteContentCap": 16.0,
+      "apothecaryPreciseShare": 0.45,
+      "schoolhouseResonantShare": 0.45,
+      "mentorGoldPerLesson": 0,
+      "finitePupilLessonCount": 33,
+      "finitePupilEducationBeforeGraduationClaims": 78,
+      "horizons": [
+        {
+          "days": 1,
+          "apothecaryClaims": 16,
+          "schoolhouseClaims": 16,
+          "graduations": 0,
+          "recurringGold": 35216,
+          "graduationGold": 0,
+          "achievementGold": 25000,
+          "totalActiveGold": 60216,
+          "passiveGold": 609600,
+          "recurringShareBasisPoints": 578,
+          "totalActiveShareBasisPoints": 988
+        },
+        {
+          "days": 7,
+          "apothecaryClaims": 112,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 150922,
+          "graduationGold": 19050,
+          "achievementGold": 32500,
+          "totalActiveGold": 202472,
+          "passiveGold": 4267200,
+          "recurringShareBasisPoints": 354,
+          "totalActiveShareBasisPoints": 474
+        },
+        {
+          "days": 30,
+          "apothecaryClaims": 480,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 515610,
+          "graduationGold": 19050,
+          "achievementGold": 32500,
+          "totalActiveGold": 567160,
+          "passiveGold": 18288000,
+          "recurringShareBasisPoints": 282,
+          "totalActiveShareBasisPoints": 310
+        },
+        {
+          "days": 365,
+          "apothecaryClaims": 5840,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 5827370,
+          "graduationGold": 19050,
+          "achievementGold": 32500,
+          "totalActiveGold": 5878920,
+          "passiveGold": 222504000,
+          "recurringShareBasisPoints": 262,
+          "totalActiveShareBasisPoints": 264
+        },
+        {
+          "days": 1825,
+          "apothecaryClaims": 29200,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 28977130,
+          "graduationGold": 19050,
+          "achievementGold": 32500,
+          "totalActiveGold": 29028680,
+          "passiveGold": 1112520000,
+          "recurringShareBasisPoints": 260,
+          "totalActiveShareBasisPoints": 261
+        }
+      ]
+    },
+    {
+      "profileId": "profile.midgame",
+      "buildingLevelEach": 8,
+      "structuralGoldPerHour": 67564,
+      "rewardBandId": "structural-band.phase-18-19.08",
+      "visitIntervalHours": 8,
+      "apothecaryOpportunitiesPerDay": 24.0,
+      "schoolhouseOpportunitiesPerDayBeforeFiniteContentCap": 16.0,
+      "apothecaryPreciseShare": 0.6,
+      "schoolhouseResonantShare": 0.6,
+      "mentorGoldPerLesson": 0,
+      "finitePupilLessonCount": 33,
+      "finitePupilEducationBeforeGraduationClaims": 84,
+      "horizons": [
+        {
+          "days": 1,
+          "apothecaryClaims": 24,
+          "schoolhouseClaims": 16,
+          "graduations": 0,
+          "recurringGold": 123248,
+          "graduationGold": 0,
+          "achievementGold": 25000,
+          "totalActiveGold": 148248,
+          "passiveGold": 1621536,
+          "recurringShareBasisPoints": 760,
+          "totalActiveShareBasisPoints": 914
+        },
+        {
+          "days": 7,
+          "apothecaryClaims": 168,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 590502,
+          "graduationGold": 50673,
+          "achievementGold": 32500,
+          "totalActiveGold": 673675,
+          "passiveGold": 11350752,
+          "recurringShareBasisPoints": 520,
+          "totalActiveShareBasisPoints": 594
+        },
+        {
+          "days": 30,
+          "apothecaryClaims": 720,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 2157078,
+          "graduationGold": 50673,
+          "achievementGold": 32500,
+          "totalActiveGold": 2240251,
+          "passiveGold": 48646080,
+          "recurringShareBasisPoints": 443,
+          "totalActiveShareBasisPoints": 461
+        },
+        {
+          "days": 365,
+          "apothecaryClaims": 8760,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 24974598,
+          "graduationGold": 50673,
+          "achievementGold": 32500,
+          "totalActiveGold": 25057771,
+          "passiveGold": 591860640,
+          "recurringShareBasisPoints": 422,
+          "totalActiveShareBasisPoints": 423
+        },
+        {
+          "days": 1825,
+          "apothecaryClaims": 43800,
+          "schoolhouseClaims": 33,
+          "graduations": 3,
+          "recurringGold": 124418118,
+          "graduationGold": 50673,
+          "achievementGold": 32500,
+          "totalActiveGold": 124501291,
+          "passiveGold": 2959303200,
+          "recurringShareBasisPoints": 420,
+          "totalActiveShareBasisPoints": 421
+        }
+      ]
+    },
+    {
+      "profileId": "profile.established",
+      "buildingLevelEach": 20,
+      "structuralGoldPerHour": 361488,
+      "rewardBandId": "structural-band.phase-18-19.20",
+      "visitIntervalHours": 6,
+      "apothecaryOpportunitiesPerDay": 24.0,
+      "schoolhouseOpportunitiesPerDayBeforeFiniteContentCap": 16.0,
+      "apothecaryPreciseShare": 0.7,
+      "schoolhouseResonantShare": 0.7,
+      "mentorGoldPerLesson": 250,
+      "finitePupilLessonCount": 21,
+      "finitePupilEducationBeforeGraduationClaims": 54,
+      "horizons": [
+        {
+          "days": 1,
+          "apothecaryClaims": 24,
+          "schoolhouseClaims": 16,
+          "graduations": 0,
+          "recurringGold": 693704,
+          "graduationGold": 0,
+          "achievementGold": 32500,
+          "totalActiveGold": 726204,
+          "passiveGold": 8675712,
+          "recurringShareBasisPoints": 800,
+          "totalActiveShareBasisPoints": 837
+        },
+        {
+          "days": 7,
+          "apothecaryClaims": 168,
+          "schoolhouseClaims": 21,
+          "graduations": 3,
+          "recurringGold": 3081519,
+          "graduationGold": 271116,
+          "achievementGold": 40000,
+          "totalActiveGold": 3392635,
+          "passiveGold": 60729984,
+          "recurringShareBasisPoints": 507,
+          "totalActiveShareBasisPoints": 559
+        },
+        {
+          "days": 30,
+          "apothecaryClaims": 720,
+          "schoolhouseClaims": 21,
+          "graduations": 3,
+          "recurringGold": 11861079,
+          "graduationGold": 271116,
+          "achievementGold": 40000,
+          "totalActiveGold": 12172195,
+          "passiveGold": 260271360,
+          "recurringShareBasisPoints": 456,
+          "totalActiveShareBasisPoints": 468
+        },
+        {
+          "days": 365,
+          "apothecaryClaims": 8760,
+          "schoolhouseClaims": 21,
+          "graduations": 3,
+          "recurringGold": 139737279,
+          "graduationGold": 271116,
+          "achievementGold": 40000,
+          "totalActiveGold": 140048395,
+          "passiveGold": 3166634880,
+          "recurringShareBasisPoints": 441,
+          "totalActiveShareBasisPoints": 442
+        },
+        {
+          "days": 1825,
+          "apothecaryClaims": 43800,
+          "schoolhouseClaims": 21,
+          "graduations": 3,
+          "recurringGold": 697048479,
+          "graduationGold": 271116,
+          "achievementGold": 40000,
+          "totalActiveGold": 697359595,
+          "passiveGold": 15833174400,
+          "recurringShareBasisPoints": 440,
+          "totalActiveShareBasisPoints": 440
+        }
+      ]
+    },
+    {
+      "profileId": "profile.high-activity",
+      "buildingLevelEach": 35,
+      "structuralGoldPerHour": 2941442,
+      "rewardBandId": "structural-band.phase-18-19.35",
+      "visitIntervalHours": 2,
+      "apothecaryOpportunitiesPerDay": 24.0,
+      "schoolhouseOpportunitiesPerDayBeforeFiniteContentCap": 16.0,
+      "apothecaryPreciseShare": 1,
+      "schoolhouseResonantShare": 1,
+      "mentorGoldPerLesson": 250,
+      "finitePupilLessonCount": 18,
+      "finitePupilEducationBeforeGraduationClaims": 54,
+      "horizons": [
+        {
+          "days": 1,
+          "apothecaryClaims": 24,
+          "schoolhouseClaims": 16,
+          "graduations": 0,
+          "recurringGold": 6357520,
+          "graduationGold": 0,
+          "achievementGold": 32500,
+          "totalActiveGold": 6390020,
+          "passiveGold": 70594608,
+          "recurringShareBasisPoints": 901,
+          "totalActiveShareBasisPoints": 905
+        },
+        {
+          "days": 7,
+          "apothecaryClaims": 168,
+          "schoolhouseClaims": 18,
+          "graduations": 3,
+          "recurringGold": 27889362,
+          "graduationGold": 2206083,
+          "achievementGold": 40000,
+          "totalActiveGold": 30135445,
+          "passiveGold": 494162256,
+          "recurringShareBasisPoints": 564,
+          "totalActiveShareBasisPoints": 610
+        },
+        {
+          "days": 30,
+          "apothecaryClaims": 720,
+          "schoolhouseClaims": 18,
+          "graduations": 3,
+          "recurringGold": 109073106,
+          "graduationGold": 2206083,
+          "achievementGold": 40000,
+          "totalActiveGold": 111319189,
+          "passiveGold": 2117838240,
+          "recurringShareBasisPoints": 515,
+          "totalActiveShareBasisPoints": 526
+        },
+        {
+          "days": 365,
+          "apothecaryClaims": 8760,
+          "schoolhouseClaims": 18,
+          "graduations": 3,
+          "recurringGold": 1291531986,
+          "graduationGold": 2206083,
+          "achievementGold": 40000,
+          "totalActiveGold": 1293778069,
+          "passiveGold": 25767031920,
+          "recurringShareBasisPoints": 501,
+          "totalActiveShareBasisPoints": 502
+        },
+        {
+          "days": 1825,
+          "apothecaryClaims": 43800,
+          "schoolhouseClaims": 18,
+          "graduations": 3,
+          "recurringGold": 6444934866,
+          "graduationGold": 2206083,
+          "achievementGold": 40000,
+          "totalActiveGold": 6447180949,
+          "passiveGold": 128835159600,
+          "recurringShareBasisPoints": 500,
+          "totalActiveShareBasisPoints": 500
+        }
+      ]
+    },
+    {
+      "profileId": "profile.mostly-idle",
+      "buildingLevelEach": 20,
+      "structuralGoldPerHour": 361488,
+      "rewardBandId": "structural-band.phase-18-19.20",
+      "visitIntervalHours": 24,
+      "apothecaryOpportunitiesPerDay": 8.0,
+      "schoolhouseOpportunitiesPerDayBeforeFiniteContentCap": 8.0,
+      "apothecaryPreciseShare": 0.4,
+      "schoolhouseResonantShare": 0.4,
+      "mentorGoldPerLesson": 0,
+      "finitePupilLessonCount": 36,
+      "finitePupilEducationBeforeGraduationClaims": 84,
+      "horizons": [
+        {
+          "days": 1,
+          "apothecaryClaims": 8,
+          "schoolhouseClaims": 8,
+          "graduations": 0,
+          "recurringGold": 244368,
+          "graduationGold": 0,
+          "achievementGold": 10000,
+          "totalActiveGold": 254368,
+          "passiveGold": 8675712,
+          "recurringShareBasisPoints": 282,
+          "totalActiveShareBasisPoints": 293
+        },
+        {
+          "days": 7,
+          "apothecaryClaims": 56,
+          "schoolhouseClaims": 36,
+          "graduations": 3,
+          "recurringGold": 1374396,
+          "graduationGold": 271116,
+          "achievementGold": 32500,
+          "totalActiveGold": 1678012,
+          "passiveGold": 60729984,
+          "recurringShareBasisPoints": 226,
+          "totalActiveShareBasisPoints": 276
+        },
+        {
+          "days": 30,
+          "apothecaryClaims": 240,
+          "schoolhouseClaims": 36,
+          "graduations": 3,
+          "recurringGold": 3902004,
+          "graduationGold": 271116,
+          "achievementGold": 32500,
+          "totalActiveGold": 4205620,
+          "passiveGold": 260271360,
+          "recurringShareBasisPoints": 150,
+          "totalActiveShareBasisPoints": 162
+        },
+        {
+          "days": 365,
+          "apothecaryClaims": 2920,
+          "schoolhouseClaims": 36,
+          "graduations": 3,
+          "recurringGold": 40717164,
+          "graduationGold": 271116,
+          "achievementGold": 32500,
+          "totalActiveGold": 41020780,
+          "passiveGold": 3166634880,
+          "recurringShareBasisPoints": 129,
+          "totalActiveShareBasisPoints": 130
+        },
+        {
+          "days": 1825,
+          "apothecaryClaims": 14600,
+          "schoolhouseClaims": 36,
+          "graduations": 3,
+          "recurringGold": 201165324,
+          "graduationGold": 271116,
+          "achievementGold": 32500,
+          "totalActiveGold": 201468940,
+          "passiveGold": 15833174400,
+          "recurringShareBasisPoints": 127,
+          "totalActiveShareBasisPoints": 127
+        }
+      ]
+    }
+  ],
+  "boundaryAdjacentCases": [
+    {
+      "rate": 29209,
+      "bandId": "structural-band.phase-18-19.01",
+      "combinedOptimalRecurringBasisPoints": 840
+    },
+    {
+      "rate": 29210,
+      "bandId": "structural-band.phase-18-19.02",
+      "combinedOptimalRecurringBasisPoints": 957
+    },
+    {
+      "rate": 29211,
+      "bandId": "structural-band.phase-18-19.02",
+      "combinedOptimalRecurringBasisPoints": 957
+    },
+    {
+      "rate": 33590,
+      "bandId": "structural-band.phase-18-19.02",
+      "combinedOptimalRecurringBasisPoints": 832
+    },
+    {
+      "rate": 33591,
+      "bandId": "structural-band.phase-18-19.03",
+      "combinedOptimalRecurringBasisPoints": 950
+    },
+    {
+      "rate": 33592,
+      "bandId": "structural-band.phase-18-19.03",
+      "combinedOptimalRecurringBasisPoints": 950
+    },
+    {
+      "rate": 38629,
+      "bandId": "structural-band.phase-18-19.03",
+      "combinedOptimalRecurringBasisPoints": 826
+    },
+    {
+      "rate": 38630,
+      "bandId": "structural-band.phase-18-19.04",
+      "combinedOptimalRecurringBasisPoints": 943
+    },
+    {
+      "rate": 38631,
+      "bandId": "structural-band.phase-18-19.04",
+      "combinedOptimalRecurringBasisPoints": 943
+    },
+    {
+      "rate": 44424,
+      "bandId": "structural-band.phase-18-19.04",
+      "combinedOptimalRecurringBasisPoints": 820
+    },
+    {
+      "rate": 44425,
+      "bandId": "structural-band.phase-18-19.05",
+      "combinedOptimalRecurringBasisPoints": 938
+    },
+    {
+      "rate": 44426,
+      "bandId": "structural-band.phase-18-19.05",
+      "combinedOptimalRecurringBasisPoints": 938
+    },
+    {
+      "rate": 51088,
+      "bandId": "structural-band.phase-18-19.05",
+      "combinedOptimalRecurringBasisPoints": 815
+    },
+    {
+      "rate": 51089,
+      "bandId": "structural-band.phase-18-19.06",
+      "combinedOptimalRecurringBasisPoints": 932
+    },
+    {
+      "rate": 51090,
+      "bandId": "structural-band.phase-18-19.06",
+      "combinedOptimalRecurringBasisPoints": 932
+    },
+    {
+      "rate": 58751,
+      "bandId": "structural-band.phase-18-19.06",
+      "combinedOptimalRecurringBasisPoints": 811
+    },
+    {
+      "rate": 58752,
+      "bandId": "structural-band.phase-18-19.07",
+      "combinedOptimalRecurringBasisPoints": 928
+    },
+    {
+      "rate": 58753,
+      "bandId": "structural-band.phase-18-19.07",
+      "combinedOptimalRecurringBasisPoints": 928
+    },
+    {
+      "rate": 67563,
+      "bandId": "structural-band.phase-18-19.07",
+      "combinedOptimalRecurringBasisPoints": 807
+    },
+    {
+      "rate": 67564,
+      "bandId": "structural-band.phase-18-19.08",
+      "combinedOptimalRecurringBasisPoints": 925
+    },
+    {
+      "rate": 67565,
+      "bandId": "structural-band.phase-18-19.08",
+      "combinedOptimalRecurringBasisPoints": 925
+    },
+    {
+      "rate": 77699,
+      "bandId": "structural-band.phase-18-19.08",
+      "combinedOptimalRecurringBasisPoints": 804
+    },
+    {
+      "rate": 77700,
+      "bandId": "structural-band.phase-18-19.09",
+      "combinedOptimalRecurringBasisPoints": 921
+    },
+    {
+      "rate": 77701,
+      "bandId": "structural-band.phase-18-19.09",
+      "combinedOptimalRecurringBasisPoints": 921
+    },
+    {
+      "rate": 89353,
+      "bandId": "structural-band.phase-18-19.09",
+      "combinedOptimalRecurringBasisPoints": 801
+    },
+    {
+      "rate": 89354,
+      "bandId": "structural-band.phase-18-19.10",
+      "combinedOptimalRecurringBasisPoints": 919
+    },
+    {
+      "rate": 89355,
+      "bandId": "structural-band.phase-18-19.10",
+      "combinedOptimalRecurringBasisPoints": 919
+    },
+    {
+      "rate": 102756,
+      "bandId": "structural-band.phase-18-19.10",
+      "combinedOptimalRecurringBasisPoints": 799
+    },
+    {
+      "rate": 102757,
+      "bandId": "structural-band.phase-18-19.11",
+      "combinedOptimalRecurringBasisPoints": 916
+    },
+    {
+      "rate": 102758,
+      "bandId": "structural-band.phase-18-19.11",
+      "combinedOptimalRecurringBasisPoints": 916
+    },
+    {
+      "rate": 118170,
+      "bandId": "structural-band.phase-18-19.11",
+      "combinedOptimalRecurringBasisPoints": 797
+    },
+    {
+      "rate": 118171,
+      "bandId": "structural-band.phase-18-19.12",
+      "combinedOptimalRecurringBasisPoints": 914
+    },
+    {
+      "rate": 118172,
+      "bandId": "structural-band.phase-18-19.12",
+      "combinedOptimalRecurringBasisPoints": 914
+    },
+    {
+      "rate": 135896,
+      "bandId": "structural-band.phase-18-19.12",
+      "combinedOptimalRecurringBasisPoints": 795
+    },
+    {
+      "rate": 135897,
+      "bandId": "structural-band.phase-18-19.13",
+      "combinedOptimalRecurringBasisPoints": 912
+    },
+    {
+      "rate": 135898,
+      "bandId": "structural-band.phase-18-19.13",
+      "combinedOptimalRecurringBasisPoints": 912
+    },
+    {
+      "rate": 156280,
+      "bandId": "structural-band.phase-18-19.13",
+      "combinedOptimalRecurringBasisPoints": 793
+    },
+    {
+      "rate": 156281,
+      "bandId": "structural-band.phase-18-19.14",
+      "combinedOptimalRecurringBasisPoints": 911
+    },
+    {
+      "rate": 156282,
+      "bandId": "structural-band.phase-18-19.14",
+      "combinedOptimalRecurringBasisPoints": 911
+    },
+    {
+      "rate": 179722,
+      "bandId": "structural-band.phase-18-19.14",
+      "combinedOptimalRecurringBasisPoints": 792
+    },
+    {
+      "rate": 179723,
+      "bandId": "structural-band.phase-18-19.15",
+      "combinedOptimalRecurringBasisPoints": 909
+    },
+    {
+      "rate": 179724,
+      "bandId": "structural-band.phase-18-19.15",
+      "combinedOptimalRecurringBasisPoints": 909
+    },
+    {
+      "rate": 206681,
+      "bandId": "structural-band.phase-18-19.15",
+      "combinedOptimalRecurringBasisPoints": 791
+    },
+    {
+      "rate": 206682,
+      "bandId": "structural-band.phase-18-19.16",
+      "combinedOptimalRecurringBasisPoints": 908
+    },
+    {
+      "rate": 206683,
+      "bandId": "structural-band.phase-18-19.16",
+      "combinedOptimalRecurringBasisPoints": 908
+    },
+    {
+      "rate": 237683,
+      "bandId": "structural-band.phase-18-19.16",
+      "combinedOptimalRecurringBasisPoints": 790
+    },
+    {
+      "rate": 237684,
+      "bandId": "structural-band.phase-18-19.17",
+      "combinedOptimalRecurringBasisPoints": 907
+    },
+    {
+      "rate": 237685,
+      "bandId": "structural-band.phase-18-19.17",
+      "combinedOptimalRecurringBasisPoints": 907
+    },
+    {
+      "rate": 273335,
+      "bandId": "structural-band.phase-18-19.17",
+      "combinedOptimalRecurringBasisPoints": 789
+    },
+    {
+      "rate": 273336,
+      "bandId": "structural-band.phase-18-19.18",
+      "combinedOptimalRecurringBasisPoints": 906
+    },
+    {
+      "rate": 273337,
+      "bandId": "structural-band.phase-18-19.18",
+      "combinedOptimalRecurringBasisPoints": 906
+    },
+    {
+      "rate": 314335,
+      "bandId": "structural-band.phase-18-19.18",
+      "combinedOptimalRecurringBasisPoints": 788
+    },
+    {
+      "rate": 314336,
+      "bandId": "structural-band.phase-18-19.19",
+      "combinedOptimalRecurringBasisPoints": 905
+    },
+    {
+      "rate": 314337,
+      "bandId": "structural-band.phase-18-19.19",
+      "combinedOptimalRecurringBasisPoints": 905
+    },
+    {
+      "rate": 361487,
+      "bandId": "structural-band.phase-18-19.19",
+      "combinedOptimalRecurringBasisPoints": 787
+    },
+    {
+      "rate": 361488,
+      "bandId": "structural-band.phase-18-19.20",
+      "combinedOptimalRecurringBasisPoints": 905
+    },
+    {
+      "rate": 361489,
+      "bandId": "structural-band.phase-18-19.20",
+      "combinedOptimalRecurringBasisPoints": 905
+    },
+    {
+      "rate": 415709,
+      "bandId": "structural-band.phase-18-19.20",
+      "combinedOptimalRecurringBasisPoints": 787
+    },
+    {
+      "rate": 415710,
+      "bandId": "structural-band.phase-18-19.21",
+      "combinedOptimalRecurringBasisPoints": 904
+    },
+    {
+      "rate": 415711,
+      "bandId": "structural-band.phase-18-19.21",
+      "combinedOptimalRecurringBasisPoints": 904
+    },
+    {
+      "rate": 478066,
+      "bandId": "structural-band.phase-18-19.21",
+      "combinedOptimalRecurringBasisPoints": 786
+    },
+    {
+      "rate": 478067,
+      "bandId": "structural-band.phase-18-19.22",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 478068,
+      "bandId": "structural-band.phase-18-19.22",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 549776,
+      "bandId": "structural-band.phase-18-19.22",
+      "combinedOptimalRecurringBasisPoints": 786
+    },
+    {
+      "rate": 549777,
+      "bandId": "structural-band.phase-18-19.23",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 549778,
+      "bandId": "structural-band.phase-18-19.23",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 632241,
+      "bandId": "structural-band.phase-18-19.23",
+      "combinedOptimalRecurringBasisPoints": 785
+    },
+    {
+      "rate": 632242,
+      "bandId": "structural-band.phase-18-19.24",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 632243,
+      "bandId": "structural-band.phase-18-19.24",
+      "combinedOptimalRecurringBasisPoints": 903
+    },
+    {
+      "rate": 727079,
+      "bandId": "structural-band.phase-18-19.24",
+      "combinedOptimalRecurringBasisPoints": 785
+    },
+    {
+      "rate": 727080,
+      "bandId": "structural-band.phase-18-19.25",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 727081,
+      "bandId": "structural-band.phase-18-19.25",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 836140,
+      "bandId": "structural-band.phase-18-19.25",
+      "combinedOptimalRecurringBasisPoints": 785
+    },
+    {
+      "rate": 836141,
+      "bandId": "structural-band.phase-18-19.26",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 836142,
+      "bandId": "structural-band.phase-18-19.26",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 961561,
+      "bandId": "structural-band.phase-18-19.26",
+      "combinedOptimalRecurringBasisPoints": 784
+    },
+    {
+      "rate": 961562,
+      "bandId": "structural-band.phase-18-19.27",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 961563,
+      "bandId": "structural-band.phase-18-19.27",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 1105796,
+      "bandId": "structural-band.phase-18-19.27",
+      "combinedOptimalRecurringBasisPoints": 784
+    },
+    {
+      "rate": 1105797,
+      "bandId": "structural-band.phase-18-19.28",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 1105798,
+      "bandId": "structural-band.phase-18-19.28",
+      "combinedOptimalRecurringBasisPoints": 902
+    },
+    {
+      "rate": 1271664,
+      "bandId": "structural-band.phase-18-19.28",
+      "combinedOptimalRecurringBasisPoints": 784
+    },
+    {
+      "rate": 1271665,
+      "bandId": "structural-band.phase-18-19.29",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1271666,
+      "bandId": "structural-band.phase-18-19.29",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1462415,
+      "bandId": "structural-band.phase-18-19.29",
+      "combinedOptimalRecurringBasisPoints": 784
+    },
+    {
+      "rate": 1462416,
+      "bandId": "structural-band.phase-18-19.30",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1462417,
+      "bandId": "structural-band.phase-18-19.30",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1681779,
+      "bandId": "structural-band.phase-18-19.30",
+      "combinedOptimalRecurringBasisPoints": 784
+    },
+    {
+      "rate": 1681780,
+      "bandId": "structural-band.phase-18-19.31",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1681781,
+      "bandId": "structural-band.phase-18-19.31",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1934045,
+      "bandId": "structural-band.phase-18-19.31",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 1934046,
+      "bandId": "structural-band.phase-18-19.32",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 1934047,
+      "bandId": "structural-band.phase-18-19.32",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2224151,
+      "bandId": "structural-band.phase-18-19.32",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 2224152,
+      "bandId": "structural-band.phase-18-19.33",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2224153,
+      "bandId": "structural-band.phase-18-19.33",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2557775,
+      "bandId": "structural-band.phase-18-19.33",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 2557776,
+      "bandId": "structural-band.phase-18-19.34",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2557777,
+      "bandId": "structural-band.phase-18-19.34",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2941441,
+      "bandId": "structural-band.phase-18-19.34",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 2941442,
+      "bandId": "structural-band.phase-18-19.35",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 2941443,
+      "bandId": "structural-band.phase-18-19.35",
+      "combinedOptimalRecurringBasisPoints": 901
+    },
+    {
+      "rate": 3382658,
+      "bandId": "structural-band.phase-18-19.35",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 3382659,
+      "bandId": "structural-band.phase-18-19.36",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 3382660,
+      "bandId": "structural-band.phase-18-19.36",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 3890055,
+      "bandId": "structural-band.phase-18-19.36",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 3890056,
+      "bandId": "structural-band.phase-18-19.37",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 3890057,
+      "bandId": "structural-band.phase-18-19.37",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 4473564,
+      "bandId": "structural-band.phase-18-19.37",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 4473565,
+      "bandId": "structural-band.phase-18-19.38",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 4473566,
+      "bandId": "structural-band.phase-18-19.38",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 5144600,
+      "bandId": "structural-band.phase-18-19.38",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 5144601,
+      "bandId": "structural-band.phase-18-19.39",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 5144602,
+      "bandId": "structural-band.phase-18-19.39",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 5916289,
+      "bandId": "structural-band.phase-18-19.39",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 5916290,
+      "bandId": "structural-band.phase-18-19.40",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 5916291,
+      "bandId": "structural-band.phase-18-19.40",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 6803734,
+      "bandId": "structural-band.phase-18-19.40",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 6803735,
+      "bandId": "structural-band.phase-18-19.41",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 6803736,
+      "bandId": "structural-band.phase-18-19.41",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 7824293,
+      "bandId": "structural-band.phase-18-19.41",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 7824294,
+      "bandId": "structural-band.phase-18-19.42",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 7824295,
+      "bandId": "structural-band.phase-18-19.42",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 8997937,
+      "bandId": "structural-band.phase-18-19.42",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 8997938,
+      "bandId": "structural-band.phase-18-19.43",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 8997939,
+      "bandId": "structural-band.phase-18-19.43",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 10347628,
+      "bandId": "structural-band.phase-18-19.43",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 10347629,
+      "bandId": "structural-band.phase-18-19.44",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 10347630,
+      "bandId": "structural-band.phase-18-19.44",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 11899773,
+      "bandId": "structural-band.phase-18-19.44",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 11899774,
+      "bandId": "structural-band.phase-18-19.45",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 11899775,
+      "bandId": "structural-band.phase-18-19.45",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 13684739,
+      "bandId": "structural-band.phase-18-19.45",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 13684740,
+      "bandId": "structural-band.phase-18-19.46",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 13684741,
+      "bandId": "structural-band.phase-18-19.46",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 15737449,
+      "bandId": "structural-band.phase-18-19.46",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 15737450,
+      "bandId": "structural-band.phase-18-19.47",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 15737451,
+      "bandId": "structural-band.phase-18-19.47",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 18098066,
+      "bandId": "structural-band.phase-18-19.47",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 18098067,
+      "bandId": "structural-band.phase-18-19.48",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 18098068,
+      "bandId": "structural-band.phase-18-19.48",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 20812777,
+      "bandId": "structural-band.phase-18-19.48",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 20812778,
+      "bandId": "structural-band.phase-18-19.49",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 20812779,
+      "bandId": "structural-band.phase-18-19.49",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 23934694,
+      "bandId": "structural-band.phase-18-19.49",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 23934695,
+      "bandId": "structural-band.phase-18-19.50",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 23934696,
+      "bandId": "structural-band.phase-18-19.50",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 27524898,
+      "bandId": "structural-band.phase-18-19.50",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 27524899,
+      "bandId": "structural-band.phase-18-19.51",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 27524900,
+      "bandId": "structural-band.phase-18-19.51",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 31653633,
+      "bandId": "structural-band.phase-18-19.51",
+      "combinedOptimalRecurringBasisPoints": 783
+    },
+    {
+      "rate": 31653634,
+      "bandId": "structural-band.phase-18-19.52",
+      "combinedOptimalRecurringBasisPoints": 900
+    },
+    {
+      "rate": 31653635,
+      "bandId": "structural-band.phase-18-19.52",
+      "combinedOptimalRecurringBasisPoints": 900
+    }
+  ],
+  "headroom": {
+    "horizonDays": 1825,
+    "claimCountUpperBounds": {
+      "restaurant30MinuteUpperBound": 87600,
+      "apothecary60MinuteUpperBound": 43800,
+      "schoolhouse90MinuteUpperBound": 29200,
+      "futureGraduationOnePerDayUpperBound": 1825
+    },
+    "totalClaimCountUpperBound": 162425,
+    "recentReceiptLimit": 512,
+    "foldBatchSize": 128,
+    "estimatedBytesPerRecentReceipt": 768,
+    "estimatedBytesForRecentReceipts": 393216,
+    "estimatedFacilityAggregateAndOrdinalBytes": 131072,
+    "estimatedTotalFacilitySaveBytes": 524288,
+    "maximumCandidateRewardGold": 7913409,
+    "maximumProjectedGoldIfEveryClaimPaidMaximum": 1285335456825,
+    "maximumSafeInteger": 9007199254740991,
+    "safeIntegerHeadroomFactor": 7007
+  },
+  "guardrailEvaluation": {
+    "maximumProfileRecurringShareBasisPoints": 901,
+    "maximumThirtyDayTotalActiveShareBasisPoints": 526,
+    "maximumBoundaryOptimalRecurringBasisPoints": 957,
+    "passiveProductionMutations": 0,
+    "familyAssignmentMutations": 0
+  }
+}

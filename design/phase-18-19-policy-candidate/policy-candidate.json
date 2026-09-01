@@ -1,0 +1,402 @@
+{
+  "contractId": "phase-18-19-product-policy-candidate-v1",
+  "sourceCommit": "ca9d5983cbdd39f998486b2b441f84468e4f9a61",
+  "status": "candidate-root-review-required",
+  "authoritative": false,
+  "productionEnabled": false,
+  "mechanicalEnablementAllowed": false,
+  "sourceAcceptedContracts": {
+    "apothecary": "phase-18-apothecary-definitions-v1",
+    "schoolhouse": "phase-19-schoolhouse-definitions-v1",
+    "facilityEnvelope": "phase-14-facility-framework-v1",
+    "claimArchive": "claim-archive.phase-15.v1",
+    "tutorialRegistry": "tutorial-registry.phase-19-successor.v1"
+  },
+  "reversalPolicy": {
+    "approvedValuesRequireNewImmutablePolicyIds": true,
+    "generatedAndReadyObjectsKeepCapturedPolicyVersion": true,
+    "disableNewGenerationWithoutDeletingBankedState": true,
+    "claimedHistoryIsNeverRewritten": true,
+    "candidateObjectsAreQaOnlyAndNeverMigratedIntoProduction": true
+  },
+  "globalGuardrails": {
+    "manualClaimsOnly": true,
+    "opportunitiesExpire": false,
+    "offlineMayChoose": false,
+    "offlineMayResolve": false,
+    "offlineMayClaim": false,
+    "offlineMayTeach": false,
+    "offlineMayGraduate": false,
+    "offlineElapsedCapMs": 86400000,
+    "newGlobalCurrency": false,
+    "stamina": false,
+    "dailyReset": false,
+    "dailyChecklist": false,
+    "permanentPercentageMultiplier": false,
+    "negativeReward": false,
+    "passiveBuildingProductionMutated": false,
+    "familyAssignmentMutated": false,
+    "restaurantSchemaReused": false,
+    "lockedFellowMaySpeak": false,
+    "franchiseVoiceImitation": false
+  },
+  "structuralProductionBandAuthority": {
+    "authorityId": "authority.phase-18-19.structural-village-rate.candidate-v1",
+    "captureAt": "opportunity-generation-or-graduation-readiness",
+    "calculation": "Sum each released Building base rate multiplied by the released Building level curve at its committed level.",
+    "included": ["building-base-rate", "building-level", "released-level-growth"],
+    "excluded": ["oath-boost", "family-assignment-bonus", "fellow-roster-bonus", "companion-roster-bonus", "pending-gold", "restaurant-gold", "apothecary-gold", "schoolhouse-gold", "other-active-facility-gold"],
+    "callerMaySupply": false,
+    "capturedBandPersistsWithObject": true,
+    "runtimeFormulaAllowed": false,
+    "fixedTableId": "reward-table.phase-18-19.structural-rate.candidate-v1",
+    "fixedTableVersion": 1,
+    "fixedTablePath": "fixed-reward-table.json"
+  },
+  "phase18ApothecaryPolicy": {
+    "policyId": "economy-policy.apothecary.candidate-v1",
+    "version": 1,
+    "reviewStatus": "candidate",
+    "facilityId": "facility.apothecary",
+    "activityId": "activity.apothecary-cases",
+    "opportunityDefinitionId": "opportunity.facility.apothecary.case",
+    "resolvedDesign": {
+      "facility": {
+        "operational": {
+          "intervalMs": 3600000,
+          "bankCapacity": 8,
+          "unattendedTargetMs": 28800000,
+          "activeProfitTargetShare": 0.05
+        }
+      },
+      "regions": [
+        {"selectionWeight": 50},
+        {"selectionWeight": 30},
+        {"selectionWeight": 20}
+      ],
+      "remedies": [
+        {"knowledgeUnlockRuleId": "knowledge.apothecary.remedy.soothing-draught.level-1"},
+        {"knowledgeUnlockRuleId": "knowledge.apothecary.remedy.warming-tonic.level-2"},
+        {"knowledgeUnlockRuleId": "knowledge.apothecary.remedy.grounding-salts.level-3"},
+        {"knowledgeUnlockRuleId": "knowledge.apothecary.remedy.rest-and-water.level-1"}
+      ],
+      "caseTemplates": [
+        {"selectionWeight": 100},
+        {"selectionWeight": 100},
+        {"selectionWeight": 100}
+      ],
+      "namedPatients": [
+        {"selectionWeight": 0},
+        {"selectionWeight": 0}
+      ],
+      "outcomeBands": [
+        {"rewards": {"mode": "none", "entries": []}, "masteryProgress": 0},
+        {"rewards": {"mode": "captured-fixed-table", "tableField": "apothecaryGoldByOutcomeBandId.apothecary.outcome.supportive"}, "masteryProgress": 2},
+        {"rewards": {"mode": "captured-fixed-table", "tableField": "apothecaryGoldByOutcomeBandId.apothecary.outcome.precise"}, "masteryProgress": 3}
+      ],
+      "masteryPolicy": {
+        "levelThresholds": {"1": 0, "2": 12, "3": 36, "4": 90},
+        "remedyUnlockRuleIds": [
+          "knowledge.apothecary.remedy.soothing-draught.level-1",
+          "knowledge.apothecary.remedy.rest-and-water.level-1",
+          "knowledge.apothecary.remedy.warming-tonic.level-2",
+          "knowledge.apothecary.remedy.grounding-salts.level-3"
+        ],
+        "patientVarietyUnlockRules": [
+          {"id": "variety.apothecary.broken-roads.level-1", "masteryLevel": 1, "storyContentId": "story.book1.chapter2.records-in-rain"},
+          {"id": "variety.apothecary.river-crossing.level-2", "masteryLevel": 2, "storyContentId": "story.book1.chapter3.river-accord.resolution"},
+          {"id": "variety.apothecary.skybridge-harbor.level-3", "masteryLevel": 3, "storyContentId": "story.book1.chapter4.harbor-compact.resolution"}
+        ]
+      },
+      "economyPolicy": {
+        "rewardByOutcomeBandId": {
+          "apothecary.outcome.supportive": {"mode": "captured-fixed-table", "tableField": "apothecaryGoldByOutcomeBandId.apothecary.outcome.supportive"},
+          "apothecary.outcome.precise": {"mode": "captured-fixed-table", "tableField": "apothecaryGoldByOutcomeBandId.apothecary.outcome.precise"}
+        },
+        "masteryProgressByOutcomeBandId": {
+          "apothecary.outcome.supportive": 2,
+          "apothecary.outcome.precise": 3
+        },
+        "activeProfitTargetShare": 0.05
+      },
+      "achievementHooks": [
+        {"achievementDefinitionId": "legacy.achievement.apothecary.cases-claimed", "threshold": 10},
+        {"achievementDefinitionId": "legacy.achievement.apothecary.precise-outcomes", "threshold": 5},
+        {"achievementDefinitionId": "legacy.achievement.apothecary.regions-served", "threshold": 3},
+        {"achievementDefinitionId": "legacy.feat.apothecary.named-patients", "threshold": 2}
+      ]
+    },
+    "operationalRules": {
+      "settlementAllowanceCapMs": 86400000,
+      "fullCapacityDropsWholeIntervalDebt": true,
+      "partialCarryRetained": true,
+      "existingSaveBackfillCount": 0,
+      "casesExpire": false,
+      "claimMode": "manual"
+    },
+    "inputPolicy": {
+      "globalResourceCostMode": "none",
+      "globalResourceCosts": [],
+      "consumableInventoryRequired": false,
+      "playerInputs": ["diagnosis-id", "remedy-id"],
+      "choicesAreNotConsumedResources": true
+    },
+    "decisionDepth": {
+      "visibleCluesPerCase": 3,
+      "diagnosisOptionsPerCase": 3,
+      "remedyOptionsPerCase": 4,
+      "draftChoicesPersist": true,
+      "incompatiblePairReturnsToRecheck": true,
+      "recheckConsumesCase": false,
+      "recheckCreatesReward": false,
+      "terminalFailureBand": false,
+      "safeSupportOptionAlwaysAvailable": true
+    },
+    "selectionPolicy": {
+      "selectionSeedAuthority": "save-identity-plus-case-ordinal",
+      "unavailableStoryOrMasteryEntriesExcludedBeforeRenormalization": true,
+      "regularRegionWeightsById": {
+        "apothecary.region.broken-roads": 50,
+        "apothecary.region.river-crossing": 30,
+        "apothecary.region.skybridge-harbor": 20
+      },
+      "caseWeightById": {
+        "apothecary.case.dustbloom-irritation": 100,
+        "apothecary.case.river-chill": 100,
+        "apothecary.case.waystone-static": 100
+      },
+      "namedPatientsGeneratedByRegularWeight": false,
+      "namedPatientInsertionRules": [
+        {"patientId": "apothecary.patient.named.rook", "priority": 1, "minimumMasteryLevel": 1, "requiredStoryContentId": "facility.apothecary.possibility-case", "requiredJoinedRank": 1, "oneTimePerSave": true},
+        {"patientId": "apothecary.patient.named.daredevil", "priority": 2, "minimumMasteryLevel": 3, "requiredStoryContentId": "story.book1.rank3.crossroads-arrivals", "requiredJoinedRank": 3, "oneTimePerSave": true}
+      ]
+    },
+    "masteryProgression": {
+      "progressByOutcomeBandId": {"apothecary.outcome.supportive": 2, "apothecary.outcome.precise": 3},
+      "levelThresholds": {"1": 0, "2": 12, "3": 36, "4": 90},
+      "maximumInitialVerticalSliceLevel": 4,
+      "spendable": false,
+      "affectsPassiveBuildings": false,
+      "knowledgeUnlocksChangeRewardAmounts": false
+    },
+    "localReputationPolicy": {
+      "trackId": "facility-progress.apothecary.mastery",
+      "authority": "committed-case-claim-mastery-only",
+      "separateReputationCurrency": false,
+      "rewardMultiplier": false,
+      "passiveMultiplier": false
+    },
+    "recurringAccelerationGuardrails": {
+      "typicalGoldPerGenerationHourMinimumBasisPoints": 300,
+      "typicalGoldPerGenerationHourMaximumBasisPoints": 500,
+      "optimalGoldPerGenerationHourMaximumBasisPoints": 550,
+      "runtimeUsesFixedTableNotPercentageCalculation": true,
+      "oneTimeAchievementsExcludedFromRecurringShare": true,
+      "outOfBandSimulationBlocksApproval": true
+    },
+    "achievementPolicies": [
+      {"definitionId": "legacy.achievement.apothecary.cases-claimed", "definitionVersion": 1, "rewardVersion": 1, "threshold": 10, "rewards": [{"kind": "gold", "amount": 5000}, {"kind": "prosperity", "amount": 2}]},
+      {"definitionId": "legacy.achievement.apothecary.precise-outcomes", "definitionVersion": 1, "rewardVersion": 1, "threshold": 5, "rewards": [{"kind": "gold", "amount": 5000}, {"kind": "relicStones", "amount": 3}]},
+      {"definitionId": "legacy.achievement.apothecary.regions-served", "definitionVersion": 1, "rewardVersion": 1, "threshold": 3, "rewards": [{"kind": "gold", "amount": 5000}, {"kind": "gifts", "amount": 1}]},
+      {"definitionId": "legacy.feat.apothecary.named-patients", "definitionVersion": 1, "rewardVersion": 1, "threshold": 2, "rewards": [{"kind": "gold", "amount": 7500}, {"kind": "gifts", "amount": 1}, {"kind": "relicStones", "amount": 3}]}
+    ]
+  },
+  "phase19SchoolhousePolicy": {
+    "policyId": "economy-policy.schoolhouse.candidate-v1",
+    "version": 1,
+    "reviewStatus": "candidate",
+    "facilityId": "facility.schoolhouse",
+    "activityId": "activity.school-lessons",
+    "opportunityDefinitionId": "opportunity.facility.schoolhouse.lesson",
+    "resolvedDesign": {
+      "facility": {
+        "operational": {
+          "intervalMs": 5400000,
+          "bankCapacity": 8,
+          "unattendedTargetMs": 43200000,
+          "initialSeatCapacity": 1,
+          "maximumSeatCapacity": 2,
+          "activeProfitTargetShare": 0.05
+        }
+      },
+      "seatPolicy": {
+        "initialSeatCount": 1,
+        "maximumSeatCount": 2,
+        "seatUnlockRules": [
+          {"seatId": "schoolhouse.seat.1", "educationRequired": 0, "graduationsRequired": 0, "storyContentId": "facility.schoolhouse.first-mentor-lesson"},
+          {"seatId": "schoolhouse.seat.2", "educationRequired": 36, "graduationsRequired": 1, "storyContentId": "story.book1.interlude.young-futures"}
+        ]
+      },
+      "developmentDomains": [
+        {"graduationRequirement": 8},
+        {"graduationRequirement": 8},
+        {"graduationRequirement": 8}
+      ],
+      "lessons": [
+        {"selectionWeight": 40},
+        {"selectionWeight": 35},
+        {"selectionWeight": 25}
+      ],
+      "pupils": [
+        {"selectionWeight": 50},
+        {"selectionWeight": 30},
+        {"selectionWeight": 20}
+      ],
+      "lessonOutcomeBands": [
+        {"rewards": {"mode": "captured-fixed-table", "tableField": "schoolhouseGoldByOutcomeBandId.schoolhouse.outcome.guided"}, "developmentProgress": 2, "educationProgress": 2},
+        {"rewards": {"mode": "captured-fixed-table", "tableField": "schoolhouseGoldByOutcomeBandId.schoolhouse.outcome.resonant"}, "developmentProgress": 3, "educationProgress": 3}
+      ],
+      "familyRelationshipModifierPolicy": {
+        "eligibleMentorRuleId": "mentor-eligibility.owned-family-intimacy-25.v1",
+        "conversionFormula": "mentor-formula.schoolhouse.intimacy-bands.candidate-v1",
+        "maximumProgressBonus": 1,
+        "maximumRewardBonus": 250
+      },
+      "graduationDefinitions": [
+        {
+          "requiredProgressByDomainId": {
+            "schoolhouse.domain.foundations": 8,
+            "schoolhouse.domain.craft": 8,
+            "schoolhouse.domain.community": 8
+          },
+          "majorRewards": {"gold": {"mode": "captured-fixed-table", "tableField": "schoolhouseGraduationGold"}, "gifts": 1, "relicStones": 3},
+          "educationModifierDelta": 6
+        }
+      ],
+      "economyPolicy": {
+        "rewardByOutcomeBandId": {
+          "schoolhouse.outcome.guided": {"mode": "captured-fixed-table", "tableField": "schoolhouseGoldByOutcomeBandId.schoolhouse.outcome.guided"},
+          "schoolhouse.outcome.resonant": {"mode": "captured-fixed-table", "tableField": "schoolhouseGoldByOutcomeBandId.schoolhouse.outcome.resonant"}
+        },
+        "developmentProgressByOutcomeBandId": {"schoolhouse.outcome.guided": 2, "schoolhouse.outcome.resonant": 3},
+        "educationProgressByOutcomeBandId": {"schoolhouse.outcome.guided": 2, "schoolhouse.outcome.resonant": 3},
+        "graduationMajorRewards": {"gold": {"mode": "captured-fixed-table", "tableField": "schoolhouseGraduationGold"}, "gifts": 1, "relicStones": 3},
+        "graduationEducationModifier": 6,
+        "activeProfitTargetShare": 0.05
+      },
+      "achievementHooks": [
+        {"achievementDefinitionId": "legacy.achievement.schoolhouse.lessons-claimed", "threshold": 10},
+        {"achievementDefinitionId": "legacy.achievement.schoolhouse.approaches-used", "threshold": 3},
+        {"achievementDefinitionId": "legacy.feat.schoolhouse.first-graduation", "threshold": 1}
+      ]
+    },
+    "operationalRules": {
+      "settlementAllowanceCapMs": 86400000,
+      "fullCapacityDropsWholeIntervalDebt": true,
+      "partialCarryRetained": true,
+      "existingSaveBackfillCount": 0,
+      "lessonsExpire": false,
+      "candidatePupilsExpire": false,
+      "graduationReadyExpires": false,
+      "claimMode": "manual"
+    },
+    "inputPolicy": {
+      "globalResourceCostMode": "none",
+      "globalResourceCosts": [],
+      "consumableInventoryRequired": false,
+      "playerInputs": ["seat-id", "pupil-id", "lesson-id", "approach-id", "optional-mentor-actor-id"],
+      "choicesAreNotConsumedResources": true
+    },
+    "decisionDepth": {
+      "stableSeatOrdinals": true,
+      "initialSeatCount": 1,
+      "maximumSeatCount": 2,
+      "developmentDomains": 3,
+      "teachingApproaches": 3,
+      "allValidApproachesPositive": true,
+      "resonanceRequiresLessonAndPupilAlignment": true,
+      "lessonAssignedToPupilOnlyAtEngagement": true,
+      "graduationRequiresSeparateManualClaim": true
+    },
+    "selectionPolicy": {
+      "selectionSeedAuthority": "save-identity-plus-lesson-ordinal",
+      "unavailableStoryEntriesExcludedBeforeRenormalization": true,
+      "lessonWeightById": {
+        "schoolhouse.lesson.reading-the-road": 40,
+        "schoolhouse.lesson.measures-and-making": 35,
+        "schoolhouse.lesson.promises-in-common": 25
+      },
+      "pupilWeightById": {"schoolhouse.pupil.ena": 50, "schoolhouse.pupil.bram": 30, "schoolhouse.pupil.niko": 20},
+      "pupilCandidateOrderIsDeterministic": true,
+      "pupilOneEnrollmentPerSave": true
+    },
+    "developmentProgression": {
+      "developmentByOutcomeBandId": {"schoolhouse.outcome.guided": 2, "schoolhouse.outcome.resonant": 3},
+      "educationByOutcomeBandId": {"schoolhouse.outcome.guided": 2, "schoolhouse.outcome.resonant": 3},
+      "graduationRequirementByDomainId": {"schoolhouse.domain.foundations": 8, "schoolhouse.domain.craft": 8, "schoolhouse.domain.community": 8},
+      "graduationEducationDelta": 6,
+      "educationIsSpendable": false,
+      "educationAffectsPassiveBuildings": false,
+      "graduationEducationIsFlatLocalProgressNotPercentageMultiplier": true
+    },
+    "localReputationPolicy": {
+      "trackId": "facility-progress.schoolhouse.education",
+      "authority": "committed-lesson-and-graduation-claim-only",
+      "separateReputationCurrency": false,
+      "rewardMultiplier": false,
+      "passiveMultiplier": false
+    },
+    "mentorPolicy": {
+      "eligibleMentorRuleId": "mentor-eligibility.owned-family-intimacy-25.v1",
+      "maximumMentors": 1,
+      "absenceUsesFullBaseline": true,
+      "consumesOrMutatesRelationship": false,
+      "captureAt": "lesson-resolution",
+      "revalidateAt": "lesson-claim",
+      "intimacyBands": [
+        {"minimumInclusive": 0, "maximumInclusive": 24, "eligible": false, "developmentBonus": 0, "rewardGoldBonus": 0},
+        {"minimumInclusive": 25, "maximumInclusive": 49, "eligible": true, "developmentBonus": 1, "rewardGoldBonus": 0},
+        {"minimumInclusive": 50, "maximumInclusive": 9007199254740991, "eligible": true, "developmentBonus": 1, "rewardGoldBonus": 250}
+      ],
+      "maximumProgressBonus": 1,
+      "maximumRewardBonusGold": 250,
+      "bonusChangesGraduationIdentity": false,
+      "bonusChangesPassiveBuildings": false
+    },
+    "graduationPolicy": {
+      "definitionId": "schoolhouse.graduation.standard",
+      "definitionVersion": 1,
+      "offerVersion": 2,
+      "receiptVersion": 2,
+      "domainClaimKind": "schoolhouse-graduation",
+      "finalizerId": "schoolhouseGraduationFinalizerV1",
+      "requirementsByDomainId": {"schoolhouse.domain.foundations": 8, "schoolhouse.domain.craft": 8, "schoolhouse.domain.community": 8},
+      "goldRewardMode": "captured-fixed-table",
+      "goldTableField": "schoolhouseGraduationGold",
+      "giftReward": 1,
+      "relicStoneReward": 3,
+      "educationDelta": 6,
+      "oneTimePerPupil": true,
+      "expires": false,
+      "manualClaim": true,
+      "freesSeatOnlyOnClaim": true
+    },
+    "recurringAccelerationGuardrails": {
+      "typicalGoldPerGenerationHourMinimumBasisPoints": 250,
+      "typicalGoldPerGenerationHourMaximumBasisPoints": 450,
+      "optimalIncludingMaximumMentorGoldPerGenerationHourMaximumBasisPoints": 500,
+      "runtimeUsesFixedTableNotPercentageCalculation": true,
+      "graduationAndAchievementsExcludedFromRecurringShare": true,
+      "outOfBandSimulationBlocksApproval": true
+    },
+    "achievementPolicies": [
+      {"definitionId": "legacy.achievement.schoolhouse.lessons-claimed", "definitionVersion": 1, "rewardVersion": 1, "threshold": 10, "rewards": [{"kind": "gold", "amount": 5000}, {"kind": "prosperity", "amount": 2}]},
+      {"definitionId": "legacy.achievement.schoolhouse.approaches-used", "definitionVersion": 1, "rewardVersion": 1, "threshold": 3, "rewards": [{"kind": "gold", "amount": 5000}, {"kind": "relicStones", "amount": 3}]},
+      {"definitionId": "legacy.feat.schoolhouse.first-graduation", "definitionVersion": 1, "rewardVersion": 1, "threshold": 1, "rewards": [{"kind": "gold", "amount": 7500}, {"kind": "prosperity", "amount": 3}, {"kind": "gifts", "amount": 1}]}
+    ]
+  },
+  "combinedAccelerationGuardrails": {
+    "phase18And19TypicalRecurringMaximumBasisPoints": 950,
+    "phase18And19OptimalRecurringMaximumBasisPoints": 1050,
+    "restaurantPlusPhase18And19OptimalRecurringMaximumBasisPoints": 3050,
+    "oneTimeGraduationAndAchievementRewardsExcludedFromRecurringCeiling": true,
+    "thirtyDayTotalActiveGoldMaximumBasisPoints": 1200,
+    "passiveProductionMustRemainByteSemanticallyUnchanged": true
+  },
+  "approvalTransition": {
+    "candidateFilesAreNeverEditedIntoAuthority": true,
+    "requiredAction": "Create separately versioned approved policy files and record root review outcomes.",
+    "runtimeMustRejectCandidateStatus": true,
+    "publicReleaseAllowed": false
+  }
+}

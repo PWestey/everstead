@@ -1,0 +1,79 @@
+{
+  "scheduleId": "tutorial-schedule.phase-18-19-policy-candidate-v1",
+  "sourceRegistryId": "tutorial-registry.phase-19-successor.v1",
+  "status": "candidate-root-review-required",
+  "productionEnabled": false,
+  "deliveryRules": {
+    "maximumNewTutorialSegmentsPerFacilityVisit": 1,
+    "queueOrder": "canonical-trigger-order-then-tutorial-ledger-order",
+    "rankJumpAndMigration": "enqueue-only-the-earliest-contextually-relevant-unseen-segment",
+    "sharedPredecessorHistorySuppressesRepeat": true,
+    "skipAffectsMechanicalState": false,
+    "replayAffectsMechanicalState": false,
+    "tutorialRewards": false,
+    "featureBlocking": false,
+    "claimBlocking": false,
+    "offlineBlocking": false,
+    "passiveProductionBlocking": false
+  },
+  "entries": [
+    {
+      "tutorialId": "tutorial.facility.board.discover-hotspots",
+      "speakerActorId": "fellow.lyra",
+      "minimumJoinedRank": 1,
+      "triggers": [{"event": "facility-first-discovered", "stepIds": ["physical-location", "icon-states", "tap-for-status"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.opportunities.banking",
+      "speakerActorId": "family.tamsin",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "facility-first-opportunity-ready", "stepIds": ["ready-opportunities", "bank-cap", "no-expiry", "passive-baseline"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.claim.first-ready",
+      "speakerActorId": "family.tamsin",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "facility-first-claim-ready", "stepIds": ["result-ready", "claim", "local-progress", "receipt"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.first-case",
+      "speakerActorId": "family.yennefer",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "apothecary-first-visit-after-opening", "stepIds": ["patient", "clues", "possible-remedies", "no-harsh-failure"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.diagnosis",
+      "speakerActorId": "family.scarlet-witch",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "apothecary-first-diagnosis-opened", "stepIds": ["compare-clues", "choose-diagnosis", "choose-remedy", "resolve"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.mastery",
+      "speakerActorId": "family.scarlet-witch",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "apothecary-claim-crosses-mastery-12", "stepIds": ["case-mastery", "remedy-knowledge", "new-patients", "local-only"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.first-lesson",
+      "speakerActorId": "family.hermione",
+      "minimumJoinedRank": 0,
+      "triggers": [
+        {"event": "schoolhouse-first-visit", "stepIds": ["seats", "pupil"]},
+        {"event": "schoolhouse-first-lesson-ready", "stepIds": ["banked-lessons"]},
+        {"event": "schoolhouse-first-teaching-opened", "stepIds": ["teach"]}
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.pupil-progress",
+      "speakerActorId": "family.ahsoka",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "schoolhouse-first-lesson-claim", "stepIds": ["pupil-progress", "family-modifier", "graduation-preview"]}]
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.graduation",
+      "speakerActorId": "family.aerith",
+      "minimumJoinedRank": 0,
+      "triggers": [{"event": "schoolhouse-first-graduation-ready-offer-created", "stepIds": ["graduation-ready", "major-claim", "pupil-history", "education-earnings"]}]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "scheduleId": "cast-schedule.phase-18-19-policy-candidate-v1",
+  "sourceContractId": "phase-18-19-cast-bindings-v1",
+  "status": "candidate-root-review-required",
+  "productionEnabled": false,
+  "coveragePolicy": "Only the accepted ten-actor Phase 18–19 subset appears here; the other 28 current cast members retain their accepted later assignments.",
+  "writingPolicy": "Original Everstead functional dialogue only; no external-franchise voice, cadence, catchphrase, or scene imitation.",
+  "presentationPolicy": "Transparent cutout, approved framed treatment, or text-only. Never use an unframed full-background profile image in Village dialogue.",
+  "entries": [
+    {"actorId":"fellow.rook","minimumJoinedRank":1,"facilityId":"facility.apothecary","role":"named-patient","contentId":"apothecary.patient.named.rook","hookIds":["dialogue.facility.apothecary.rook.named-visitor"]},
+    {"actorId":"fellow.daredevil","minimumJoinedRank":3,"facilityId":"facility.apothecary","role":"named-patient","contentId":"apothecary.patient.named.daredevil","hookIds":["dialogue.facility.apothecary.daredevil.named-visitor"]},
+    {"actorId":"family.scarlet-witch","minimumJoinedRank":0,"facilityId":"facility.apothecary","role":"tutorial-guide-and-presenter","contentId":"facility.apothecary.possibility-case","hookIds":["dialogue.facility.apothecary.scarlet-witch.tutorial-guide","dialogue.facility.apothecary.scarlet-witch.activity-presenter"]},
+    {"actorId":"family.yennefer","minimumJoinedRank":0,"facilityId":"facility.apothecary","role":"activity-presenter","contentId":"facility.apothecary.precise-remedy","hookIds":["dialogue.facility.apothecary.yennefer.activity-presenter"]},
+    {"actorId":"family.shadowheart","minimumJoinedRank":0,"facilityId":"facility.apothecary","role":"ambient-observer","contentId":"facility.apothecary.possibility-case","hookIds":["dialogue.facility.apothecary.shadowheart.ambient"]},
+    {"actorId":"family.aerith","minimumJoinedRank":0,"facilityId":"facility.apothecary-and-schoolhouse","role":"claim-acknowledgement-and-ambient-observer","contentId":"facility.schoolhouse.growing-things","hookIds":["dialogue.facility.apothecary.aerith.claim-acknowledgement","dialogue.facility.schoolhouse.aerith.ambient"]},
+    {"actorId":"fellow.obi-wan","minimumJoinedRank":5,"facilityId":"facility.schoolhouse","role":"tutorial-guide","contentId":"facility.schoolhouse.first-mentor-lesson","hookIds":["dialogue.facility.schoolhouse.obi-wan.tutorial-guide"]},
+    {"actorId":"fellow.spider-man","minimumJoinedRank":4,"facilityId":"facility.schoolhouse","role":"named-visitor","contentId":"facility.schoolhouse.growing-things","hookIds":["dialogue.facility.schoolhouse.spider-man.named-visitor"]},
+    {"actorId":"family.ahsoka","minimumJoinedRank":0,"facilityId":"facility.schoolhouse","role":"activity-presenter","contentId":"facility.schoolhouse.first-mentor-lesson","hookIds":["dialogue.facility.schoolhouse.ahsoka.activity-presenter"]},
+    {"actorId":"family.hermione","minimumJoinedRank":0,"facilityId":"facility.schoolhouse","role":"story-hook","contentId":"facility.schoolhouse.lesson-plan","hookIds":["dialogue.facility.schoolhouse.hermione.story-hook"]}
+  ],
+  "runtimeRules": {
+    "lockedFellowsExcluded": true,
+    "familyOwnershipRequiredForDirectSpeaker": true,
+    "missingOrIneligibleSpeakerFallback": "approved-neutral-narrator-or-text-only",
+    "playerWayfarerIsSeparateAndNeverFacilityScheduled": true
+  }
+}

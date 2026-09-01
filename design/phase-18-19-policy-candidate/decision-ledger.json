@@ -1,0 +1,35 @@
+{
+  "ledgerId": "decision-ledger.phase-18-19-policy-candidate-v1",
+  "status": "candidate-root-review-required",
+  "productionEnabled": false,
+  "acceptedContractFacts": [
+    {"id":"accepted.manual-claim","source":"design/phase-18-19/PHASE_18_19_CONTRACT.md","decision":"Cases, lessons, regular rewards, and graduation rewards require an individual manual claim."},
+    {"id":"accepted.non-expiry","source":"design/phase-18-19/PHASE_18_19_CONTRACT.md","decision":"Banked opportunities and ready offers never expire."},
+    {"id":"accepted.offline-boundary","source":"design/phase-18-19/DATA_SPEC.md","decision":"Offline settlement may bank only; it may not choose, resolve, teach, claim, or graduate."},
+    {"id":"accepted.forgiving-apothecary","source":"design/phase-18-19/apothecary-definitions.json","decision":"Recheck is nonterminal/rewardless and all terminal outcomes are positive."},
+    {"id":"accepted.persistent-schoolhouse","source":"design/phase-18-19/schoolhouse-definitions.json","decision":"Pupils persist across multiple lessons and graduation uses the separate V2 claim seam."},
+    {"id":"accepted.cast-and-tutorials","source":"design/phase-18-19/cast-bindings.json","decision":"The exact ten-actor subset and exact nine tutorials remain authoritative."},
+    {"id":"accepted.passive-preservation","source":"docs/PHASE_18_19_INDEPENDENT_QA_CONTRACT.md","decision":"Original four passive Gold production and Family assignment semantics remain unchanged."}
+  ],
+  "candidateRecommendations": [
+    {"id":"candidate.apothecary-cadence","value":"60-minute interval, bank 8, 8-hour unattended target, zero migration backfill"},
+    {"id":"candidate.apothecary-decisions","value":"three visible clues, three diagnoses, four remedies; safe support always available; incompatible pair returns to Recheck"},
+    {"id":"candidate.apothecary-progression","value":"supportive +2 and precise +3 Mastery; levels at 0/12/36/90; knowledge changes variety only"},
+    {"id":"candidate.schoolhouse-cadence","value":"90-minute interval, bank 8, 12-hour unattended target, zero migration backfill"},
+    {"id":"candidate.schoolhouse-development","value":"three domains each require 8; guided +2 and resonant +3; local Education mirrors base development"},
+    {"id":"candidate.schoolhouse-seats","value":"one seat initially; second at Education 36, one claimed graduation, and Young Futures story"},
+    {"id":"candidate.mentor","value":"one owned Family mentor at Intimacy 25; +1 development; Intimacy 50 adds fixed 250 Gold; never consumed or mutated"},
+    {"id":"candidate.graduation","value":"captured 25%-of-one-structural-hour fixed table, one Gift, three Relic Stones, flat +6 local Education"},
+    {"id":"candidate.reward-table","value":"52 immutable structural-rate bands, generation-time capture, fixed integers only"},
+    {"id":"candidate.active-share","value":"Phase 18+19 recurring optimum <=10.5% passive; 30-day total active Gold <=12% passive"}
+  ],
+  "rootApprovalRequired": [
+    {"id":"approval.values","question":"Approve or revise all cadence, capacity, reward, mastery, Education, seat, and mentor values."},
+    {"id":"approval.reward-authority","question":"Approve structural Building Gold/hour as the captured fixed-band authority."},
+    {"id":"approval.achievement-ids","question":"Approve seven new version-1 Legacy definition IDs and their reward bundles; collision audit currently finds no released use."},
+    {"id":"approval.finite-content","question":"Approve a three-pupil initial Schoolhouse slice that stops generating new pupil progress after those graduations until content expansion."},
+    {"id":"approval.graduation-v2","question":"Approve the already-designed V2 graduation offer/finalizer/archive runtime seam before implementation."},
+    {"id":"approval.copy-and-presentation","question":"Approve final localized visible copy and each speaker's transparent/framed/text-only presentation before release."}
+  ],
+  "approvalRule": "Approval creates a new immutable approved-policy package. It never changes this candidate in place and never rewrites candidate QA state into production."
+}
