@@ -1,0 +1,271 @@
+{
+  "contractId": "phases-14-21-cross-phase-audit-fixtures-v1",
+  "sourceCommit": "e6d850f4632098c22aa9217d2072941fe138d748",
+  "sourceTrees": {
+    "design/phase-13": "cb5ce45d24835666323ea466860f001ec6e161cd",
+    "design/phase-14": "c21a1c3a9e4fee24f479d964ca803ed784783e5f",
+    "design/phase-15-16": "c817f3e023835528113df40d7cbebc37f4831e9c",
+    "design/phase-17": "fc573cd0ef78399185fc9b059101f0790dcf9239",
+    "design/phase-18-19": "7a8e27d202a7fb925a4f9b07ea020f55771df148",
+    "design/phase-20-21": "6dfb799054b29216eb09897798e43c26e097b70a"
+  },
+  "facilityRegistry": [
+    {
+      "facilityId": "facility.waystone",
+      "activityId": "activity.legacy-claims",
+      "opportunityDefinitionId": "opportunity.facility.waystone.legacy-milestone",
+      "canonicalMapAnchor": "central-crystal",
+      "predecessorMapAnchor": "central-crystal",
+      "targetPhase": 15,
+      "passivePolicy": "presentation-hub-only",
+      "discoveryContentId": "story.book1.prologue.waystone-call",
+      "openingContentId": "story.book1.prologue.waystone-call"
+    },
+    {
+      "facilityId": "facility.restaurant",
+      "activityId": "activity.restaurant-service",
+      "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+      "canonicalMapAnchor": "western-plaza-restaurant",
+      "predecessorMapAnchor": "western-plaza",
+      "targetPhase": 16,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter1.village-toll.resolution",
+      "openingContentId": "facility.restaurant.opening-service"
+    },
+    {
+      "facilityId": "facility.apothecary",
+      "activityId": "activity.apothecary-cases",
+      "opportunityDefinitionId": "opportunity.facility.apothecary.case",
+      "canonicalMapAnchor": "eastern-plaza-apothecary",
+      "predecessorMapAnchor": "eastern-plaza",
+      "targetPhase": 18,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter2.records-in-rain",
+      "openingContentId": "facility.apothecary.possibility-case"
+    },
+    {
+      "facilityId": "facility.schoolhouse",
+      "activityId": "activity.school-lessons",
+      "opportunityDefinitionId": "opportunity.facility.schoolhouse.lesson",
+      "canonicalMapAnchor": "eastern-plaza-schoolhouse",
+      "predecessorMapAnchor": "eastern-plaza",
+      "targetPhase": 19,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter3.river-accord.resolution",
+      "openingContentId": "facility.schoolhouse.first-mentor-lesson"
+    },
+    {
+      "facilityId": "facility.command-center",
+      "activityId": "activity.petitions",
+      "opportunityDefinitionId": "opportunity.facility.command-center.petition",
+      "canonicalMapAnchor": "upper-left-hall",
+      "predecessorMapAnchor": "upper-left-hall",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discoveryContentId": "story.book1.chapter3.council-of-ash.resolution",
+      "openingContentId": "facility.command.resolve-petition"
+    },
+    {
+      "facilityId": "facility.archives",
+      "activityId": "activity.research",
+      "opportunityDefinitionId": "opportunity.facility.archives.research",
+      "canonicalMapAnchor": "upper-right-tower",
+      "predecessorMapAnchor": "upper-right-tower",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discoveryContentId": "story.book1.chapter2.records-in-rain",
+      "openingContentId": "facility.archives.first-research"
+    },
+    {
+      "facilityId": "facility.training-grounds",
+      "activityId": "activity.drills",
+      "opportunityDefinitionId": "opportunity.facility.training-grounds.drill",
+      "canonicalMapAnchor": "lower-left-arena",
+      "predecessorMapAnchor": "lower-left-arena",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discoveryContentId": "story.book1.chapter4.quarry-claim.resolution",
+      "openingContentId": "facility.training.first-drill"
+    },
+    {
+      "facilityId": "facility.hearth",
+      "activityId": "activity.gatherings",
+      "opportunityDefinitionId": "opportunity.facility.hearth.gathering",
+      "canonicalMapAnchor": "lower-right-manor",
+      "predecessorMapAnchor": "lower-right-manor",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discoveryContentId": "story.book1.chapter3.river-accord.resolution",
+      "openingContentId": "facility.hearth.quiet-trust"
+    },
+    {
+      "facilityId": "facility.market-workshop",
+      "activityId": "activity.orders-and-crafting",
+      "opportunityDefinitionId": "opportunity.facility.market-workshop.order",
+      "canonicalMapAnchor": "western-plaza-workshop",
+      "predecessorMapAnchor": "western-plaza",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter4.quarry-claim.resolution",
+      "openingContentId": "facility.workshop.salvage-order"
+    },
+    {
+      "facilityId": "facility.gatehouse",
+      "activityId": "activity.caravans-and-road-events",
+      "opportunityDefinitionId": "opportunity.facility.gatehouse.caravan",
+      "canonicalMapAnchor": "lower-bridge-entrance",
+      "predecessorMapAnchor": "lower-bridge",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter4.skybridge-terms.resolution",
+      "openingContentId": "facility.gatehouse.first-road-watch"
+    },
+    {
+      "facilityId": "facility.gardens",
+      "activityId": "activity.cultivation",
+      "opportunityDefinitionId": "opportunity.facility.gardens.plot",
+      "canonicalMapAnchor": "lower-right-gardens",
+      "predecessorMapAnchor": "lower-right-gardens",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.chapter4.harbor-compact.resolution",
+      "openingContentId": "facility.gardens.first-cultivation"
+    },
+    {
+      "facilityId": "facility.forge",
+      "activityId": "activity.relic-commissions",
+      "opportunityDefinitionId": "opportunity.facility.forge.commission",
+      "canonicalMapAnchor": "eastern-edge-forge",
+      "predecessorMapAnchor": "village-forge",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discoveryContentId": "story.book1.rank5.covenant-arrivals",
+      "openingContentId": "facility.forge.first-commission"
+    }
+  ],
+  "originalFourFacilityIds": [
+    "facility.command-center",
+    "facility.archives",
+    "facility.training-grounds",
+    "facility.hearth"
+  ],
+  "facilityConceptCoverage": [
+    {"facilityId":"facility.waystone","conceptId":"physical-objective-hub","tutorialId":"tutorial.facility.board.discover-hotspots","requiredSteps":["physical-location","icon-states","tap-for-status"]},
+    {"facilityId":"facility.waystone","conceptId":"first-covenant-objective","tutorialId":"tutorial.story.objective.first-covenant","requiredSteps":["objective-card","next-action","non-expiring"]},
+    {"facilityId":"facility.waystone","conceptId":"legacy-progress","tutorialId":"tutorial.legacy.tracks.first-progress","requiredSteps":["track-progress","tier-target","reward-preview","continues"]},
+    {"facilityId":"facility.waystone","conceptId":"manual-legacy-claim","tutorialId":"tutorial.legacy.claim.first-ready","requiredSteps":["ready-count","manual-claim","never-expires","next-tier"]},
+    {"facilityId":"facility.waystone","conceptId":"one-time-feats","tutorialId":"tutorial.legacy.feats.first-feat","requiredSteps":["one-time","claim","chronicle-history"]},
+
+    {"facilityId":"facility.restaurant","conceptId":"customer-preference-service","tutorialId":"tutorial.restaurant.first-customer","requiredSteps":["customer","preference","choose-dish","serve"]},
+    {"facilityId":"facility.restaurant","conceptId":"recipes-stations-stock","tutorialId":"tutorial.restaurant.recipes-and-stations","requiredSteps":["recipe-mastery","station","local-stock","unlock-preview"]},
+    {"facilityId":"facility.restaurant","conceptId":"manual-sale-claim","tutorialId":"tutorial.restaurant.first-claim","requiredSteps":["sales","tips","reputation","claim"]},
+    {"facilityId":"facility.restaurant","conceptId":"local-reputation","tutorialId":"tutorial.restaurant.reputation","requiredSteps":["reputation-level","unlock-preview","local-only"]},
+    {"facilityId":"facility.restaurant","conceptId":"banked-named-visitors","tutorialId":"tutorial.restaurant.named-visitors","requiredSteps":["named-guest","story-hook","banked-until-served"]},
+
+    {"facilityId":"facility.apothecary","conceptId":"patient-clues-forgiving-loop","tutorialId":"tutorial.facility.apothecary.first-case","requiredSteps":["patient","clues","possible-remedies","no-harsh-failure"]},
+    {"facilityId":"facility.apothecary","conceptId":"diagnosis-remedy-resolution","tutorialId":"tutorial.facility.apothecary.diagnosis","requiredSteps":["compare-clues","choose-diagnosis","choose-remedy","resolve"]},
+    {"facilityId":"facility.apothecary","conceptId":"local-knowledge-mastery","tutorialId":"tutorial.facility.apothecary.mastery","requiredSteps":["case-mastery","remedy-knowledge","new-patients","local-only"]},
+
+    {"facilityId":"facility.schoolhouse","conceptId":"seats-pupils-banked-lessons-teaching","tutorialId":"tutorial.facility.schoolhouse.first-lesson","requiredSteps":["seats","pupil","banked-lessons","teach"]},
+    {"facilityId":"facility.schoolhouse","conceptId":"durable-pupil-progress","tutorialId":"tutorial.facility.schoolhouse.pupil-progress","requiredSteps":["pupil-progress","family-modifier","graduation-preview"]},
+    {"facilityId":"facility.schoolhouse","conceptId":"major-exact-once-graduation","tutorialId":"tutorial.facility.schoolhouse.graduation","requiredSteps":["graduation-ready","major-claim","pupil-history","education-earnings"]},
+
+    {"facilityId":"facility.command-center","conceptId":"petitions-interests-bounded-decisions","tutorialId":"tutorial.facility.command.first-petition","requiredSteps":["petition","interests","choice-preview","resolve"]},
+    {"facilityId":"facility.command-center","conceptId":"recorded-consequence-claim","tutorialId":"tutorial.facility.command.consequences","requiredSteps":["result","claim","chronicle-note","approved-effects-only"]},
+    {"facilityId":"facility.archives","conceptId":"research-lead-evidence-discovery","tutorialId":"tutorial.facility.archives.first-research","requiredSteps":["research-lead","banked-progress","discovery","claim"]},
+    {"facilityId":"facility.archives","conceptId":"research-branches-mastery","tutorialId":"tutorial.facility.archives.mastery","requiredSteps":["mastery","research-branches","chronicle-discoveries"]},
+    {"facilityId":"facility.training-grounds","conceptId":"drill-participants-formations","tutorialId":"tutorial.facility.training.first-drill","requiredSteps":["drill-type","participants","bounded-reward","begin"]},
+    {"facilityId":"facility.training-grounds","conceptId":"drill-mastery","tutorialId":"tutorial.facility.training.mastery","requiredSteps":["drill-mastery","formations","reward-bounds"]},
+    {"facilityId":"facility.hearth","conceptId":"gatherings-attendees","tutorialId":"tutorial.facility.hearth.first-gathering","requiredSteps":["gathering-type","attendees","relationship-preview","host"]},
+    {"facilityId":"facility.hearth","conceptId":"relationship-results","tutorialId":"tutorial.facility.hearth.relationship-results","requiredSteps":["relationship-progress","interlude","gift-chance","no-expiry"]},
+
+    {"facilityId":"facility.gatehouse","conceptId":"caravan-route-needs-reception","tutorialId":"tutorial.facility.gatehouse.first-caravan","requiredSteps":["caravan-queue","route-condition","visitor-needs","receive"]},
+    {"facilityId":"facility.gatehouse","conceptId":"road-event-resolution","tutorialId":"tutorial.facility.gatehouse.road-events","requiredSteps":["event","clues","bounded-choice","record"]},
+    {"facilityId":"facility.market-workshop","conceptId":"orders-requirements-fulfillment","tutorialId":"tutorial.facility.workshop.first-order","requiredSteps":["order-queue","requirements","fulfill","claim"]},
+    {"facilityId":"facility.market-workshop","conceptId":"craft-mastery-local-stock","tutorialId":"tutorial.facility.workshop.mastery","requiredSteps":["mastery","complexity","trade-and-craft","local-stock"]},
+    {"facilityId":"facility.gardens","conceptId":"plot-crop-growth","tutorialId":"tutorial.facility.gardens.first-plot","requiredSteps":["plot","crop-or-herb","growth","ready-state"]},
+    {"facilityId":"facility.gardens","conceptId":"manual-harvest-no-spoilage","tutorialId":"tutorial.facility.gardens.harvest","requiredSteps":["harvest-ready","claim","local-ingredients","no-spoilage"]},
+    {"facilityId":"facility.forge","conceptId":"commission-requirements-work","tutorialId":"tutorial.facility.forge.first-commission","requiredSteps":["commission","requirements","work-choice","claim"]},
+    {"facilityId":"facility.forge","conceptId":"commission-mastery-relic-boundary","tutorialId":"tutorial.facility.forge.mastery","requiredSteps":["mastery","commission-tier","relic-integration","deferred-affixes"]}
+  ],
+  "sharedFacilityTutorialIds": [
+    "tutorial.facility.board.discover-hotspots",
+    "tutorial.facility.opportunities.banking",
+    "tutorial.facility.claim.first-ready"
+  ],
+  "finalizerDispatches": [
+    {"sourceType":"opportunity.legacy.reward","sourceId":"registered-legacy-definition","domainKind":"legacy","finalizer":"legacyFinalizer"},
+    {"sourceType":"opportunity.story.reward","sourceId":"registered-story-definition","domainKind":"story","finalizer":"storyFinalizer"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.restaurant-service","domainKind":"restaurant-result","finalizer":"restaurantFinalizer"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.apothecary-cases","domainKind":"apothecary-case","finalizer":"apothecaryFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.school-lessons","domainKind":"schoolhouse-lesson","finalizer":"schoolhouseLessonFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.school-lessons","domainKind":"schoolhouse-graduation","finalizer":"schoolhouseGraduationFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.petitions","domainKind":"command-petition","finalizer":"commandPetitionFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.research","domainKind":"archives-research","finalizer":"archivesResearchFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.drills","domainKind":"training-drill","finalizer":"trainingDrillFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.gatherings","domainKind":"hearth-gathering","finalizer":"hearthGatheringFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.caravans-and-road-events","domainKind":"gatehouse-caravan","finalizer":"gatehouseCaravanFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.orders-and-crafting","domainKind":"workshop-order","finalizer":"workshopOrderFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.cultivation","domainKind":"gardens-harvest","finalizer":"gardensHarvestFinalizerV1"},
+    {"sourceType":"opportunity.facility.activity","sourceId":"activity.relic-commissions","domainKind":"forge-commission","finalizer":"forgeCommissionFinalizerV1"}
+  ],
+  "seams": {
+    "tutorialRegistryLineage": [
+      "tutorial-registry.phase-15.v1",
+      "tutorial-registry.phase-16.v1",
+      "tutorial-registry.phase-17-successor.v1",
+      "tutorial-registry.phase-19-successor.v1",
+      "tutorial-registry.phase-21-successor.v1"
+    ],
+    "migrationLineage": [
+      "migration.phase-18.apothecary.v1",
+      "migration.phase-19.schoolhouse.v1",
+      "migration.phase-20.original-four-active.v1",
+      "migration.phase-21.expansion-facilities.v1"
+    ],
+    "claimArchiveConfigId": "claim-archive.phase-15.v1",
+    "recentReceiptRetention": 512,
+    "receiptFoldBatch": 128,
+    "graduationV2DomainKind": "schoolhouse-graduation"
+  },
+  "guardrails": {
+    "tutorialLedgerId": "phase-13-tutorial-matrix-v1",
+    "tutorialLedgerCount": 79,
+    "fellowCount": 18,
+    "familyCount": 20,
+    "castCount": 38,
+    "masterCastHookCount": 76,
+    "releaseGateCount": 27,
+    "forbiddenNewSystems": [
+      "global-facility-currency",
+      "facility-stamina",
+      "daily-checklist",
+      "daily-reset",
+      "permanent-percentage-multiplier"
+    ]
+  },
+  "fixtureCases": [
+    {"id":"audit.fixture.source-tree-freeze.v1","area":"source","assertion":"Every audited package tree matches the exact source commit."},
+    {"id":"audit.fixture.facility-registry.v1","area":"facilities","assertion":"The registry contains exactly twelve stable facility/activity/opportunity tuples."},
+    {"id":"audit.fixture.anchor-authority.v1","area":"facilities","assertion":"Phase 17 provides twelve unique canonical physical anchors and every predecessor alias is explicit."},
+    {"id":"audit.fixture.story-unlocks.v1","area":"story","assertion":"Every discovery scene resolves in ordered Book I content and active capability/opening remains separate."},
+    {"id":"audit.fixture.original-four-passive.v1","area":"regression","assertion":"The original four retain passive Gold, upgrades, Oath/offline behavior, and Family assignment."},
+    {"id":"audit.fixture.ids-and-references.v1","area":"identity","assertion":"All local registries are unique and all cross-package references resolve."},
+    {"id":"audit.fixture.tutorial-ledger.v1","area":"tutorials","assertion":"All 79 tutorial IDs, speakers, triggers, and steps resolve."},
+    {"id":"audit.fixture.facility-concepts.v1","area":"tutorials","assertion":"Every introduced player-facing facility concept has gradual contextual coverage."},
+    {"id":"audit.fixture.cast-profile-ambient.v1","area":"cast","assertion":"All 38 actors retain one stable profile quote and ambient assignment."},
+    {"id":"audit.fixture.cast-authored-schedule.v1","area":"cast","assertion":"All 38 actors retain an authored story, tutorial, interlude, or facility schedule."},
+    {"id":"audit.fixture.locked-fellow-speakers.v1","area":"cast","assertion":"Story ordering and deterministic eligible fallbacks prevent locked Fellows speaking before Rank."},
+    {"id":"audit.fixture.claim-dispatch.v1","area":"claims","assertion":"Fourteen exact source/domain/finalizer dispatch identities are reserved."},
+    {"id":"audit.fixture.claim-archive.v1","area":"claims","assertion":"V2 receipts retain 512, fold 128, and preserve permanent domain replay authority."},
+    {"id":"audit.fixture.graduation-v2-blocker.v1","area":"claims","assertion":"The one-shot graduation V2 offer seam remains an explicit runtime blocker."},
+    {"id":"audit.fixture.manual-nonexpiry.v1","area":"offline","assertion":"Every regular facility opportunity is manual and non-expiring."},
+    {"id":"audit.fixture.offline-boundary.v1","area":"offline","assertion":"Offline only banks to cap and may mature Gardens; it never chooses, resolves, or claims."},
+    {"id":"audit.fixture.production-disabled.v1","area":"release","assertion":"Every design package remains production-disabled."},
+    {"id":"audit.fixture.economy-null.v1","area":"economy","assertion":"Unapproved cadence, capacity, reward, progression, formula, and multiplier values remain null."},
+    {"id":"audit.fixture.presentation-null.v1","area":"presentation","assertion":"Unapproved Village art and CSS treatments remain null."},
+    {"id":"audit.fixture.no-new-pressure-systems.v1","area":"economy","assertion":"No currency, stamina, daily checklist/reset, or active permanent percentage multiplier is introduced."},
+    {"id":"audit.fixture.release-gates.v1","area":"release","assertion":"All 27 Phase 20–21 gates remain required, blocked, and evidence-null."},
+    {"id":"audit.fixture.blocker-matrix.v1","area":"sequencing","assertion":"Every known open decision has an owner, predecessor, and fail-closed effect."}
+  ]
+}

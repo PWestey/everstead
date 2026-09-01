@@ -1,0 +1,100 @@
+{
+  "contractId": "phases-14-21-cross-phase-audit-result-v1",
+  "sourceCommit": "e6d850f4632098c22aa9217d2072941fe138d748",
+  "auditStatus": "PASS_WITH_EXPLICIT_RUNTIME_BLOCKERS",
+  "productionReleaseDecision": "BLOCKED",
+  "counts": {
+    "facilities": 12,
+    "canonicalPhysicalAnchors": 12,
+    "predecessorAnchorAliases": 6,
+    "tutorialLedgerIds": 79,
+    "facilityConceptMappings": 32,
+    "fellows": 18,
+    "family": 20,
+    "castActors": 38,
+    "masterCastHooks": 76,
+    "finalizerDispatches": 14,
+    "phase20To21ReleaseGates": 27,
+    "implementationBlockers": 12,
+    "auditFixtures": 22
+  },
+  "consistencyResults": [
+    {
+      "id": "result.facility-registry",
+      "status": "PASS",
+      "summary": "Exactly twelve stable facility/activity/opportunity identities resolve across the Phase 14 registry and all successor packages."
+    },
+    {
+      "id": "result.physical-anchors",
+      "status": "PASS_WITH_MIGRATION_DECISION",
+      "summary": "Phase 17 owns twelve unique facility-specific physical anchors; six broad predecessor aliases require one explicit facility-scoped canonicalization map before runtime binding."
+    },
+    {
+      "id": "result.story-and-passive-boundary",
+      "status": "PASS",
+      "summary": "All discovery scenes resolve in ordered Book I content, capability/opening remains separate, and the original four retain passive Gold, upgrades, Oaths/offline behavior, and Family assignment."
+    },
+    {
+      "id": "result.tutorial-ledger",
+      "status": "PASS_DESIGN_RUNTIME_DISABLED",
+      "summary": "All 79 tutorial IDs resolve with valid speakers/triggers/steps; 32 facility-concept mappings prove gradual contextual coverage for all twelve facilities."
+    },
+    {
+      "id": "result.cast-schedule",
+      "status": "PASS_DESIGN_CONTENT_UNAPPROVED",
+      "summary": "All 18 Fellows and 20 Family retain unique profile quotes, ambient assignments, Phase 13 primary content, and later story/facility hooks. Story ranks and eligible fallbacks prevent premature locked-Fellow speech."
+    },
+    {
+      "id": "result.claim-and-archive-seams",
+      "status": "PASS_CONTRACT_RUNTIME_BLOCKED",
+      "summary": "Fourteen immutable source/domain finalizer seams, manual exact-once claims, the 512/128 archive policy, and permanent replay authorities are coherent; implementations do not yet exist."
+    },
+    {
+      "id": "result.offline-and-nonexpiry",
+      "status": "PASS_CONTRACT_RUNTIME_UNPROVEN",
+      "summary": "Regular opportunities remain non-expiring/manual; offline may bank to cap and mature Gardens only, never choose, resolve, harvest, replant, or claim."
+    },
+    {
+      "id": "result.economy-and-presentation",
+      "status": "PASS_FAIL_CLOSED",
+      "summary": "Unapproved economy, progression, multiplier, art, and CSS values remain null and all affected definitions remain production-disabled."
+    },
+    {
+      "id": "result.release",
+      "status": "BLOCKED",
+      "summary": "All 27 Phase 20–21 release gates remain required, blocked, and evidence-null."
+    }
+  ],
+  "knownCrossPhaseVariances": [
+    {
+      "id": "variance.facility.predecessor-anchor-aliases",
+      "count": 6,
+      "status": "EXPLICIT_BLOCKER",
+      "authority": "design/phase-17/facility-unlocks.json",
+      "affectedFacilityIds": [
+        "facility.restaurant",
+        "facility.apothecary",
+        "facility.schoolhouse",
+        "facility.market-workshop",
+        "facility.gatehouse",
+        "facility.forge"
+      ],
+      "resolution": "Keep the Phase 17 facility-specific anchor and migrate/alias the facility-scoped predecessor value; never infer an anchor from the broad location alone."
+    }
+  ],
+  "blockingDecisionIds": [
+    "blocker.facilities.anchor-canonicalization",
+    "blocker.successor.lineage-validator",
+    "blocker.tutorial.successor-registry",
+    "blocker.claims.v2-archive-finalizers",
+    "blocker.schoolhouse.graduation-v2-offer",
+    "blocker.economy.complete-versioned-policies",
+    "blocker.facility.external-adapters",
+    "blocker.content.original-copy-and-localization",
+    "blocker.presentation.art-authorization-and-treatments",
+    "blocker.longevity.archive-and-save-headroom",
+    "blocker.ux.physical-board-accessibility",
+    "blocker.release.integrated-runtime-evidence"
+  ],
+  "scopeStatement": "This result validates design consistency only. It does not implement, enable, balance, visually approve, or release any runtime feature."
+}

@@ -1,0 +1,154 @@
+{
+  "contractId": "phases-14-21-implementation-blocker-matrix-v1",
+  "sourceCommit": "e6d850f4632098c22aa9217d2072941fe138d748",
+  "policy": {
+    "designValidationDoesNotClearRuntimeBlockers": true,
+    "unknownDecisionFailsClosed": true,
+    "sequenceIsDependencyOrderNotCalendarCommitment": true
+  },
+  "items": [
+    {
+      "id": "blocker.facilities.anchor-canonicalization",
+      "sequence": 1,
+      "status": "open-blocking-map-runtime",
+      "owner": "primary-integrator",
+      "appliesTo": [15, 16, 18, 19, 21],
+      "dependsOn": [],
+      "decision": "Use the Phase 17 facility-specific physical anchors as canonical and install an explicit facility-scoped alias/migration map for six broad predecessor anchors.",
+      "evidence": "Phase 17 has twelve unique anchors; Phase 14 uses western-plaza, eastern-plaza, lower-bridge, and village-forge aliases for six facilities.",
+      "failClosedEffect": "Do not bind or persist physical-map hotspot state for an ambiguous broad anchor."
+    },
+    {
+      "id": "blocker.successor.lineage-validator",
+      "sequence": 2,
+      "status": "open-blocking-runtime",
+      "owner": "primary-integrator",
+      "appliesTo": [15, 16, 17, 18, 19, 20, 21],
+      "dependsOn": [],
+      "decision": "Implement the exact ordered successor validation and idempotent migration lineage without weakening the released save validator.",
+      "evidence": "Phase 15 seam resolution and Phase 18–21 data specs reserve ordered successor migrations; no runtime implementation is part of these design packages.",
+      "failClosedEffect": "Reject future, missing, duplicated, or out-of-order lineage and preserve export/recovery."
+    },
+    {
+      "id": "blocker.tutorial.successor-registry",
+      "sequence": 3,
+      "status": "open-blocking-player-facing-features",
+      "owner": "primary-integrator",
+      "appliesTo": [15, 16, 17, 18, 19, 20, 21],
+      "dependsOn": ["blocker.successor.lineage-validator"],
+      "decision": "Implement the exact tutorial-registry successor chain while preserving Phase 12 and prior replay history.",
+      "evidence": "The 79-ID ledger and Phase 15/16, 17, 19, and 21 successor IDs are consistent but design-only.",
+      "failClosedEffect": "Keep the related feature production-disabled rather than show it without contextual tutorial coverage."
+    },
+    {
+      "id": "blocker.claims.v2-archive-finalizers",
+      "sequence": 4,
+      "status": "open-blocking-all-rewarding-facilities",
+      "owner": "primary-integrator-and-security-reviewer",
+      "appliesTo": [15, 16, 18, 19, 20, 21],
+      "dependsOn": ["blocker.successor.lineage-validator"],
+      "decision": "Implement immutable source/domain finalizer dispatch, V2 offers/receipts, retained-window folding, and permanent domain replay authority.",
+      "evidence": "Fourteen dispatch identities are reserved; the required 512-receipt window and 128-receipt fold have no runtime implementation here.",
+      "failClosedEffect": "A source/domain with no captured finalizer cannot create or claim a reward."
+    },
+    {
+      "id": "blocker.schoolhouse.graduation-v2-offer",
+      "sequence": 5,
+      "status": "open-blocking-phase-19-graduation",
+      "owner": "primary-integrator-and-product-owner",
+      "appliesTo": [19],
+      "dependsOn": ["blocker.claims.v2-archive-finalizers"],
+      "decision": "Support a facility-local one-time graduation-ready snapshot owning a V2 offer, or explicitly approve a separate one-shot opportunity definition.",
+      "evidence": "Phase 18–19 explicitly forbids fabricating an interval lesson or reusing a lesson ordinal for graduation.",
+      "failClosedEffect": "Lessons may remain disabled; graduation must never auto-credit, duplicate, or consume a synthetic recurring opportunity."
+    },
+    {
+      "id": "blocker.economy.complete-versioned-policies",
+      "sequence": 6,
+      "status": "open-blocking-production",
+      "owner": "product-owner-and-balance-owner",
+      "appliesTo": [15, 16, 18, 19, 20, 21],
+      "dependsOn": ["blocker.claims.v2-archive-finalizers"],
+      "decision": "Approve versioned cadence, capacities, rewards, progress, mastery, relationship, stock, growth, integration, and active-profit policies.",
+      "evidence": "Every unapproved production value remains null and every affected definition is disabled.",
+      "failClosedEffect": "Never substitute zero, empty, Restaurant, or QA synthetic values for null production policy."
+    },
+    {
+      "id": "blocker.facility.external-adapters",
+      "sequence": 7,
+      "status": "open-blocking-forge-and-workshop",
+      "owner": "primary-integrator",
+      "appliesTo": [21],
+      "dependsOn": ["blocker.claims.v2-archive-finalizers", "blocker.economy.complete-versioned-policies"],
+      "decision": "Bind Forge Relic Stones to the existing authoritative balance through an allowlisted adapter and approve the Workshop component source policy.",
+      "evidence": "The Forge adapter ID and Workshop baseline input policy are intentionally null.",
+      "failClosedEffect": "Do not create a shadow Relic Stone balance or make a cross-facility input mandatory."
+    },
+    {
+      "id": "blocker.content.original-copy-and-localization",
+      "sequence": 8,
+      "status": "open-blocking-public-content",
+      "owner": "narrative-owner-and-product-owner",
+      "appliesTo": [13, 15, 16, 17, 18, 19, 20, 21],
+      "dependsOn": [],
+      "decision": "Approve original Everstead copy/localization keys and public characterization rights without imitating external-franchise voices.",
+      "evidence": "Stable functional roles exist for all 38 actors, while final visible copy remains unapproved.",
+      "failClosedEffect": "Use approved neutral copy or defer the line; never ship imitation dialogue."
+    },
+    {
+      "id": "blocker.presentation.art-authorization-and-treatments",
+      "sequence": 9,
+      "status": "open-blocking-public-art",
+      "owner": "product-owner-and-rights-owner",
+      "appliesTo": [13, 17, 18, 19, 20, 21],
+      "dependsOn": ["blocker.facilities.anchor-canonicalization"],
+      "decision": "Resolve public character/art authorization and approve facility map treatments plus missing dialogue presentation treatments.",
+      "evidence": "Map art/CSS IDs remain null; the four blocked cutouts retain approved framed/text-only fallbacks.",
+      "failClosedEffect": "Use transparent cutout, approved frame, or attributed text-only; never an unframed full-profile overlay."
+    },
+    {
+      "id": "blocker.longevity.archive-and-save-headroom",
+      "sequence": 10,
+      "status": "open-blocking-release",
+      "owner": "primary-integrator-and-balance-owner",
+      "appliesTo": [16, 18, 19, 20, 21],
+      "dependsOn": ["blocker.economy.complete-versioned-policies", "blocker.claims.v2-archive-finalizers"],
+      "decision": "Run five-year maximum-approved-cadence receipt/range/checkpoint and serialized-save-size simulations.",
+      "evidence": "Null cadence prevents a valid headroom proof.",
+      "failClosedEffect": "Do not enable recurring production claims without bounded archive/save evidence."
+    },
+    {
+      "id": "blocker.ux.physical-board-accessibility",
+      "sequence": 11,
+      "status": "open-blocking-release",
+      "owner": "primary-integrator-and-ux-reviewer",
+      "appliesTo": [15, 16, 18, 19, 20, 21],
+      "dependsOn": ["blocker.facilities.anchor-canonicalization", "blocker.tutorial.successor-registry", "blocker.presentation.art-authorization-and-treatments"],
+      "decision": "Implement and validate compact physical-map icons/sheets, keyboard/focus/screen-reader behavior, reduced motion, resize, and localization expansion.",
+      "evidence": "The interaction contract exists but production browser/device evidence is absent.",
+      "failClosedEffect": "Do not expose an inaccessible or detached facility-management substitute."
+    },
+    {
+      "id": "blocker.release.integrated-runtime-evidence",
+      "sequence": 12,
+      "status": "open-blocking-release",
+      "owner": "primary-integrator",
+      "appliesTo": [20, 21],
+      "dependsOn": [
+        "blocker.successor.lineage-validator",
+        "blocker.tutorial.successor-registry",
+        "blocker.claims.v2-archive-finalizers",
+        "blocker.schoolhouse.graduation-v2-offer",
+        "blocker.economy.complete-versioned-policies",
+        "blocker.facility.external-adapters",
+        "blocker.content.original-copy-and-localization",
+        "blocker.presentation.art-authorization-and-treatments",
+        "blocker.longevity.archive-and-save-headroom",
+        "blocker.ux.physical-board-accessibility"
+      ],
+      "decision": "Satisfy every required Phase 20–21 release gate on the integrated candidate, including offline, multi-tab, recovery, mobile, accessibility, and prior-phase regression evidence.",
+      "evidence": "All 27 release gates are required, blocked, and evidence-null; Web Storage's no-CAS residual risk remains documented.",
+      "failClosedEffect": "Production release remains blocked."
+    }
+  ]
+}
