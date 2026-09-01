@@ -20,6 +20,8 @@ node qa/phase-12-independent/verify.mjs
 
 Before Phase 12 is implemented, this command intentionally fails `candidate-phase12-bridge-contract`. That is the expected fail-closed result. Once a candidate installs the authorized bridge, the static check must pass.
 
+Candidate mode intentionally permits implementation and later-phase design files in the branch. The QA package's path-ownership restriction is enforced only by `--package-only`, where the QA commit is audited on its exact Phase 11H base.
+
 ## Live behavioral gate
 
 Serve the repository root from a static local server and open:

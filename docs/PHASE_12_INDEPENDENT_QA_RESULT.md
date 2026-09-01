@@ -38,6 +38,8 @@ After the implementation branch is applied:
 4. run all three live realms twice; and
 5. accept the candidate only when every static and live row passes with zero warning/error console entries.
 
+The path-ownership assertion applies to the package-only audit. Candidate mode permits the production and later-phase design files that a combined integration branch must contain.
+
 ## Blind spots
 
 - Web Storage has no atomic compare-and-swap. The stale-tab fixture proves conflict refusal and one committed reward under the production coordinator, but it cannot eliminate the platform's final reread-to-write interval.

@@ -47,5 +47,5 @@ if(PACKAGE_ONLY){
   record('campaign-table-renamed',!combined.match(/\b(?:const|let|var)\s+STORY\s*=\s*\[/));
 }
 
-const changed=git(['diff-tree','--no-commit-id','--name-only','-r',BASE,'HEAD']).trim().split('\n').filter(Boolean),owned=path=>['docs/PHASE_12_INDEPENDENT_QA_CONTRACT.md','docs/PHASE_12_INDEPENDENT_QA_RESULT.md'].includes(path)||path.startsWith('qa/phase-12-independent/');record('committed-qa-paths-owned',changed.length===0||changed.every(owned),changed);
+const changed=git(['diff-tree','--no-commit-id','--name-only','-r',BASE,'HEAD']).trim().split('\n').filter(Boolean),owned=path=>['docs/PHASE_12_INDEPENDENT_QA_CONTRACT.md','docs/PHASE_12_INDEPENDENT_QA_RESULT.md'].includes(path)||path.startsWith('qa/phase-12-independent/');record('committed-qa-paths-owned',!PACKAGE_ONLY||changed.length===0||changed.every(owned),PACKAGE_ONLY?changed:'Candidate mode intentionally permits implementation and later-phase design files; package ownership is enforced by --package-only.');
 const passed=rows.filter(row=>row.pass).length,failed=rows.length-passed,result={phase:'12-independent',mode:PACKAGE_ONLY?'PACKAGE_ONLY':'CANDIDATE',status:failed?'FAIL':'PASS',baseCommit:BASE,total:rows.length,passed,failed,rows};console.log(JSON.stringify(result,null,2));if(failed)process.exitCode=1;
