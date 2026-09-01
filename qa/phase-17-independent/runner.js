@@ -1,0 +1,21 @@
+(() => {
+  'use strict';
+  const CHANNEL='everstead-phase-17-independent',byId=id=>document.getElementById(id),escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])),row=(id,actual,detail='')=>({id,actual:Boolean(actual),expected:true,pass:Boolean(actual),detail:String(detail)});
+  async function loadJson(path){const response=await fetch(path,{cache:'no-store'});if(!response.ok)throw new Error(`${path}: HTTP ${response.status}`);return response.json()}
+  function realm(fixtures,viewport){return new Promise((resolve,reject)=>{const nonce=crypto.randomUUID(),frame=document.createElement('iframe'),config={channel:CHANNEL,nonce,viewport,fixtures};frame.name=JSON.stringify(config);frame.style.cssText=`position:absolute;left:-20000px;top:0;width:${viewport.width}px;height:${viewport.height}px;border:0`;let timer;const finish=(error,value)=>{clearTimeout(timer);removeEventListener('message',receive);frame.remove();error?reject(error):resolve(value)},receive=event=>{if(event.source!==frame.contentWindow||event.data?.channel!==CHANNEL||event.data?.nonce!==nonce)return;const rows=(event.data.results||[]).map(item=>({...item,id:`${viewport.id}-${item.id}`}));if(event.data.errors?.length&&!rows.some(item=>item.id.endsWith('zero-warning-error-console')&&!item.pass))rows.push(row(`${viewport.id}-captured-errors`,false,event.data.errors.join('\n')));finish(null,rows)};timer=setTimeout(()=>finish(new Error(`${viewport.id} timed out`)),180000);addEventListener('message',receive);frame.src=`./realm.html?qa=1&nonce=${encodeURIComponent(nonce)}`;document.body.appendChild(frame)})}
+  function render(mode,rows){const passed=rows.filter(item=>item.pass).length,failed=rows.length-passed;byId('mode').textContent=mode;byId('total').textContent=rows.length;byId('passed').textContent=passed;byId('failed').textContent=failed;byId('results').innerHTML=rows.map(item=>`<article class="result"><code>${escapeHtml(item.id)} · observed ${item.actual?'true':'false'} · expected true${item.detail?` · ${escapeHtml(item.detail)}`:''}</code><b class="${item.pass?'pass':'fail'}">${item.pass?'PASS':'FAIL'}</b></article>`).join('');window.__EVERSTEAD_PHASE_17_INDEPENDENT_RESULT__={mode,passed,failed,total:rows.length,results:rows}}
+  async function run(){byId('run').disabled=true;byId('fatal').textContent='';try{const f=await loadJson('./fixtures/contract-fixtures.json'),rows=[],unique=values=>new Set(values).size===values.length;
+    rows.push(row('fixture-contract-v1',f.contractVersion===1&&f.bridgeVersion==='phase-17-independent-qa-v1'));
+    rows.push(row('fixture-exact-base',f.baseCommit==='70201ab52e6e3510747bee1a977794a8c900bdd1'));
+    rows.push(row('fixture-six-sections-ten-stages',f.chapterIds.length===6&&f.stageMappings.length===10&&unique(f.stageMappings.map(item=>item[0]))));
+    rows.push(row('fixture-thirty-one-scenes',f.sceneCount===31&&f.sceneIds.length===31&&unique(f.sceneIds)));
+    rows.push(row('fixture-twelve-facility-anchors',f.facilityUnlocks.length===12&&unique(f.facilityUnlocks.map(item=>item[0]))&&unique(f.facilityUnlocks.map(item=>item[1]))));
+    rows.push(row('fixture-eight-visuals-twelve-tutorials',f.visualChangeIds.length===8&&f.tutorialIds.length===12&&unique(f.visualChangeIds)&&unique(f.tutorialIds)));
+    rows.push(row('fixture-exact-thirty-eight-cast',f.actorIds.length===38&&unique(f.actorIds)));
+    rows.push(row('fixture-save-and-invalid-matrices',Object.keys(f.saveFixtures).length===15&&f.invalidMutationChecks.length===17&&unique(Object.values(f.saveFixtures))));
+    rows.push(row('fixture-thirty-four-design-scenarios',f.fixtureIds.length===34&&unique(f.fixtureIds)));
+    rows.push(row('fixture-five-browser-realms',f.viewports.length===5&&f.viewports.some(item=>item.width===320&&item.height===568)&&f.viewports.some(item=>item.width===1024)&&f.viewports.some(item=>item.reducedMotion)&&f.viewports.some(item=>item.copyScale===1.3)));
+    for(const viewport of f.viewports)rows.push(...await realm(f,viewport));render('CANDIDATE',rows)
+  }catch(error){byId('fatal').textContent=error.stack||error.message;render('FATAL',[row('runner-fatal',false,error.stack||error.message)])}finally{byId('run').disabled=false}}
+  byId('run').onclick=run;run();
+})();

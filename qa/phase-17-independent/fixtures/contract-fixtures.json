@@ -1,0 +1,156 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-17-independent-qa-v1",
+  "baseCommit": "70201ab52e6e3510747bee1a977794a8c900bdd1",
+  "schemaVersion": 12,
+  "storySchemaVersion": 1,
+  "definitionSetIds": [
+    "definition-set.phase-17-book1.v1",
+    "definition-set.phase-17-village-unlocks.v1",
+    "definition-set.phase-17-village-visuals.v1"
+  ],
+  "bookId": "story.book1.first-covenant",
+  "bookCompletionSceneId": "story.book1.finale.first-covenant",
+  "chapterIds": [
+    "story.book1.prologue",
+    "story.book1.chapter1.a-road-worth-keeping",
+    "story.book1.chapter2.promises-with-teeth",
+    "story.book1.chapter3.divided-claims",
+    "story.book1.chapter4.roads-between-worlds",
+    "story.book1.finale"
+  ],
+  "stageMappings": [
+    ["broken-roads-1", "Village Toll", "story.book1.chapter1.village-toll.intro", "story.book1.chapter1.village-toll.resolution"],
+    ["broken-roads-2", "Merchant Dispute", "story.book1.chapter1.merchant-dispute.intro", "story.book1.chapter1.merchant-dispute.resolution"],
+    ["broken-roads-3", "Broken Contract", "story.book1.chapter2.broken-contract.intro", "story.book1.chapter2.broken-contract.resolution"],
+    ["broken-roads-4", "Old Road Ambush", "story.book1.chapter2.old-road-ambush.intro", "story.book1.chapter2.old-road-ambush.resolution"],
+    ["broken-roads-5", "Council of Ash", "story.book1.chapter3.council-of-ash", "story.book1.chapter3.council-of-ash.resolution"],
+    ["broken-roads-6", "River Accord", "story.book1.chapter3.river-accord.intro", "story.book1.chapter3.river-accord.resolution"],
+    ["broken-roads-7", "Quarry Claim", "story.book1.chapter4.quarry-claim.intro", "story.book1.chapter4.quarry-claim.resolution"],
+    ["broken-roads-8", "Skybridge Terms", "story.book1.chapter4.skybridge-terms.intro", "story.book1.chapter4.skybridge-terms.resolution"],
+    ["broken-roads-9", "Harbor Compact", "story.book1.chapter4.harbor-compact.intro", "story.book1.chapter4.harbor-compact.resolution"],
+    ["broken-roads-10", "The First Covenant", "story.book1.finale.first-covenant.intro", "story.book1.finale.first-covenant"]
+  ],
+  "sceneCount": 31,
+  "sceneIds": [
+    "story.book1.prologue.waystone-call", "story.book1.prologue.council",
+    "story.book1.chapter1.village-toll.intro", "story.book1.chapter1.village-toll.resolution",
+    "story.book1.chapter1.merchant-dispute.intro", "story.book1.chapter1.merchant-dispute.resolution",
+    "story.book1.rank2.roadbound-arrivals", "story.book1.chapter2.broken-contract.intro",
+    "story.book1.chapter2.broken-contract.resolution", "story.book1.chapter2.records-in-rain",
+    "story.book1.chapter2.old-road-ambush.intro", "story.book1.chapter2.old-road-ambush.resolution",
+    "story.book1.rank3.crossroads-arrivals", "story.book1.chapter3.council-of-ash",
+    "story.book1.chapter3.council-of-ash.resolution", "story.book1.chapter3.river-accord.intro",
+    "story.book1.chapter3.river-accord.resolution", "story.book1.interlude.small-promises",
+    "story.book1.rank4.skybridge-arrivals", "story.book1.chapter4.quarry-claim.intro",
+    "story.book1.chapter4.quarry-claim.resolution", "story.book1.chapter4.skybridge-terms.intro",
+    "story.book1.chapter4.skybridge-terms.resolution", "story.book1.interlude.open-table",
+    "story.book1.chapter4.harbor-compact.intro", "story.book1.chapter4.harbor-compact.resolution",
+    "story.book1.interlude.young-futures", "story.book1.rank5.covenant-arrivals",
+    "story.book1.interlude.quiet-roads", "story.book1.finale.first-covenant.intro",
+    "story.book1.finale.first-covenant"
+  ],
+  "arrivalScenes": [
+    [2, "story.book1.rank2.roadbound-arrivals"],
+    [3, "story.book1.rank3.crossroads-arrivals"],
+    [4, "story.book1.rank4.skybridge-arrivals"],
+    [5, "story.book1.rank5.covenant-arrivals"]
+  ],
+  "rewardDefinitionIds": [
+    "story.reward.book1.chapter1", "story.reward.book1.chapter2", "story.reward.book1.chapter3",
+    "story.reward.book1.chapter4", "story.reward.book1.completion"
+  ],
+  "storyRewardSourceType": "opportunity.story.reward",
+  "archiveConfigId": "claim-archive.phase-15.v1",
+  "phase12ActivationId": "migration.phase12.claim-ledger",
+  "phase15BridgeVersion": "phase-15-independent-qa-v1",
+  "phase16BridgeVersion": "phase-16-independent-qa-v1",
+  "facilityUnlocks": [
+    ["facility.waystone", "central-crystal", 15, "story.book1.prologue.waystone-call", "capability.waystone-legacy-hub.v1", "story.book1.prologue.waystone-call"],
+    ["facility.restaurant", "western-plaza-restaurant", 16, "story.book1.chapter1.village-toll.resolution", "capability.restaurant-service.v1", "facility.restaurant.opening-service"],
+    ["facility.apothecary", "eastern-plaza-apothecary", 18, "story.book1.chapter2.records-in-rain", "capability.apothecary-cases.v1", "facility.apothecary.possibility-case"],
+    ["facility.schoolhouse", "eastern-plaza-schoolhouse", 19, "story.book1.chapter3.river-accord.resolution", "capability.schoolhouse-lessons.v1", "facility.schoolhouse.first-mentor-lesson"],
+    ["facility.command-center", "upper-left-hall", 20, "story.book1.chapter3.council-of-ash.resolution", "capability.command-petitions.v1", "facility.command.resolve-petition"],
+    ["facility.archives", "upper-right-tower", 20, "story.book1.chapter2.records-in-rain", "capability.archives-research.v1", "facility.archives.first-research"],
+    ["facility.training-grounds", "lower-left-arena", 20, "story.book1.chapter4.quarry-claim.resolution", "capability.training-drills.v1", "facility.training.first-drill"],
+    ["facility.hearth", "lower-right-manor", 20, "story.book1.chapter3.river-accord.resolution", "capability.hearth-gatherings.v1", "facility.hearth.quiet-trust"],
+    ["facility.market-workshop", "western-plaza-workshop", 21, "story.book1.chapter4.quarry-claim.resolution", "capability.market-workshop-orders.v1", "facility.workshop.salvage-order"],
+    ["facility.gatehouse", "lower-bridge-entrance", 21, "story.book1.chapter4.skybridge-terms.resolution", "capability.gatehouse-road-events.v1", "facility.gatehouse.first-road-watch"],
+    ["facility.gardens", "lower-right-gardens", 21, "story.book1.chapter4.harbor-compact.resolution", "capability.gardens-cultivation.v1", "facility.gardens.first-cultivation"],
+    ["facility.forge", "eastern-edge-forge", 21, "story.book1.rank5.covenant-arrivals", "capability.forge-commissions.v1", "facility.forge.first-commission"]
+  ],
+  "facilityScopedAnchorAliases": [
+    {"scope":"facility.restaurant","alias":"western-plaza","canonical":"western-plaza-restaurant"}
+  ],
+  "regionalAnchorIds": ["western-plaza", "village-board"],
+  "originalPassiveFacilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"],
+  "visualChangeIds": [
+    "village-change.waystone-awakened", "village-change.first-road-open", "village-change.western-plaza-open",
+    "village-change.archives-lanterns", "village-change.council-banners", "village-change.bridge-traffic",
+    "village-change.harbor-caravans", "village-change.first-covenant"
+  ],
+  "tutorialIds": [
+    "tutorial.story.scene-controls.first-scene", "tutorial.story.objective.first-covenant",
+    "tutorial.player.rank-path", "tutorial.rank.new-fellows.rank-2", "tutorial.rank.new-fellows.rank-3",
+    "tutorial.rank.new-fellows.rank-4", "tutorial.rank.new-fellows.rank-5",
+    "tutorial.chronicle.replay-and-log", "tutorial.story.objective.chapter-change",
+    "tutorial.story.book1-completion-village-change", "tutorial.facility.board.discover-hotspots",
+    "tutorial.legacy.claim.major"
+  ],
+  "actorIds": [
+    "fellow.cael", "fellow.lyra", "fellow.orin", "fellow.selene", "fellow.rook", "fellow.mira",
+    "fellow.zamorak", "fellow.darrow", "fellow.deadpool", "fellow.star-lord", "fellow.iron-man",
+    "fellow.daredevil", "fellow.thor", "fellow.captain-america", "fellow.spider-man",
+    "fellow.wolverine", "fellow.obi-wan", "fellow.anakin", "family.elara", "family.tamsin",
+    "family.isolde", "family.violet", "family.virginia", "family.captain-marvel", "family.scarlet-witch",
+    "family.ahsoka", "family.rey", "family.syl", "family.shallan", "family.yennefer", "family.jaina",
+    "family.tyrande", "family.shadowheart", "family.amara", "family.aerith", "family.tifa",
+    "family.hermione", "family.misty"
+  ],
+  "approvedVisualFallbacks": ["approved-transparent-cutout", "approved-framed-treatment", "attributed-text-only"],
+  "saveFixtures": {
+    "fresh":"p17.qa.fresh.v1", "stage1Ready":"p17.qa.stage1-ready.v1", "stage2Rank2":"p17.qa.stage2-rank2.v1",
+    "chronicle":"p17.qa.chronicle.v1", "rankJump":"p17.qa.rank-jump.v1", "migrated":"p17.qa.migrated-stage8.v1",
+    "grandfathered":"p17.qa.grandfathered.v1", "discoveredLocked":"p17.qa.discovered-locked.v1",
+    "finaleReady":"p17.qa.finale-ready.v1", "syntheticReward":"p17.qa.synthetic-reward.v1",
+    "offline":"p17.qa.offline.v1", "recovery":"p17.qa.recovery.v1", "corrupt":"p17.qa.corrupt.v1",
+    "future":"p17.qa.future.v1", "lockedRoster":"p17.qa.locked-roster.v1"
+  },
+  "syntheticReward": {"qaOnly":true,"definitionId":"qa-only.story.reward.book1","definitionVersion":1,"gold":25},
+  "invalidMutationChecks": [
+    "future-story-schema", "future-definition-set", "duplicate-scene", "duplicate-queue",
+    "duplicate-chronicle", "skipped-not-completed", "book-without-finale", "unknown-scene-version",
+    "resolved-scene-queued", "invalid-chronicle-resolution", "unreproducible-facility-projection",
+    "unreproducible-visual-projection", "unsupported-actor", "unsupported-tutorial", "reward-receipt-mismatch",
+    "prosperity-threshold", "headquarters-threshold"
+  ],
+  "fixtureIds": [
+    "phase17.fresh.prologue-safe-visit", "phase17.fresh.stage1-intro-before-spend", "phase17.fresh.stage1-resolution-after-commit",
+    "phase17.order.stage2-rank2", "phase17.order.replay-clear-no-scenes", "phase17.replay.presentation-only",
+    "phase17.skip.completes-no-claim", "phase17.migration.stage8-bounded-recap", "phase17.migration.rank5-arrival-order",
+    "phase17.rank-jump.one-to-three", "phase17.rank-jump.existing-rank2-record", "phase17.migration.retroactive-scene",
+    "phase17.facility.restaurant-grandfather", "phase17.facility.original-four-passive", "phase17.facility.all-twelve-covered",
+    "phase17.facility.discovered-phase-unavailable", "phase17.visual.derived-and-durable", "phase17.visual.no-independent-grant",
+    "phase17.finale.book-completion", "phase17.reward.null-fails-closed", "phase17.reward.synthetic-exact-once",
+    "phase17.offline.no-background-story", "phase17.concurrent.scene-resolution", "phase17.concurrent.arrival-queue",
+    "phase17.concurrent.claim", "phase17.chronicle.spoiler-and-replay", "phase17.tutorial.skip-and-replay",
+    "phase17.tutorial.ledger-reference", "phase17.cast.exact-coverage", "phase17.mobile.320x568",
+    "phase17.mobile.390x844-and-wide", "phase17.accessibility.reduced-motion-focus",
+    "phase17.import.malformed-future", "phase17.validation.no-economic-thresholds"
+  ],
+  "requiredDomSelectors": [
+    "[data-phase17-story-scene]", "[data-phase17-scene-title]", "[data-phase17-dialogue-line]",
+    "[data-phase17-next]", "[data-phase17-skip]", "[data-phase17-log]", "[data-phase17-back]",
+    "[data-phase17-close]", "[data-phase17-chronicle]", "[data-phase17-chronicle-entry]",
+    "[data-phase17-replay]", "[data-phase17-village-change]"
+  ],
+  "viewports": [
+    {"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},
+    {"id":"mobile-390","width":390,"height":844,"copyScale":1,"reducedMotion":false},
+    {"id":"desktop-1024","width":1024,"height":768,"copyScale":1,"reducedMotion":false},
+    {"id":"mobile-reduced","width":390,"height":844,"copyScale":1,"reducedMotion":true},
+    {"id":"mobile-copy-130","width":390,"height":844,"copyScale":1.3,"reducedMotion":false}
+  ],
+  "offlineCapMs": 86400000,
+  "frozenNow": 1700000000000
+}
