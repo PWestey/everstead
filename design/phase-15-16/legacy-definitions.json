@@ -1,0 +1,321 @@
+{
+  "contractId": "phase-15-waystone-legacy-definitions-v1",
+  "releasedSourceCommit": "4ee1ee4dcaa1b6eb190ed65d8cf81623c49bc28c",
+  "configId": "phase-15-waystone-legacy-v1",
+  "definitionSetId": "definition-set.phase-15-waystone-legacy.v1",
+  "phase12ConfigId": "phase-12-foundation-v1",
+  "productionEnabled": false,
+  "waystone": {
+    "facilityId": "facility.waystone",
+    "activityId": "activity.legacy-claims",
+    "mapAnchor": "central-crystal",
+    "presentationRole": "objective-and-native-claim-hub",
+    "timedOpportunityGeneration": false,
+    "disabledPhase14OpportunityDefinitionId": "opportunity.facility.waystone.legacy-milestone",
+    "nativeClaimSourceTypes": [
+      "opportunity.legacy.reward",
+      "opportunity.story.reward"
+    ],
+    "tutorialIds": [
+      "tutorial.facility.board.discover-hotspots",
+      "tutorial.story.objective.first-covenant",
+      "tutorial.legacy.tracks.first-progress",
+      "tutorial.legacy.claim.first-ready",
+      "tutorial.legacy.claim.major",
+      "tutorial.legacy.feats.first-feat"
+    ],
+    "actorIds": [
+      "fellow.lyra",
+      "family.isolde",
+      "family.syl",
+      "family.virginia",
+      "fellow.captain-america"
+    ]
+  },
+  "metrics": [
+    {
+      "id": "metric.legacy.oathkeeper.completions.v1",
+      "definitionVersion": 1,
+      "baselineClass": "accumulated-from-boundary",
+      "authority": "committed-oath-completion-event-with-scoped-undo",
+      "phase12MetricReference": "metric.oaths-completed-after-activation",
+      "migrationDisclosure": "Tracking begins at the Phase 15 activation boundary because the existing runtime did not update the Phase 12 metric."
+    },
+    {
+      "id": "metric.legacy.unbroken.highest-streak.v1",
+      "definitionVersion": 1,
+      "baselineClass": "lower-bound-current-state",
+      "authority": "maximum-current-oath-streak-then-committed-oath-events",
+      "phase12MetricReference": null,
+      "migrationDisclosure": "The activation value is a lower bound from currently stored streaks, not a claimed lifetime maximum."
+    },
+    {
+      "id": "metric.legacy.steward.village-gold-collected.v1",
+      "definitionVersion": 1,
+      "baselineClass": "accumulated-from-boundary",
+      "authority": "committed-village-gold-collection",
+      "phase12MetricReference": null,
+      "migrationDisclosure": "Tracking begins at Phase 15 activation; reward-claim Gold is not counted as Village production collection."
+    },
+    {
+      "id": "metric.legacy.builder.combined-building-levels.v1",
+      "definitionVersion": 1,
+      "baselineClass": "derivable-authoritative",
+      "authority": "sum-of-four-authoritative-building-levels",
+      "phase12MetricReference": null,
+      "migrationDisclosure": null
+    },
+    {
+      "id": "metric.legacy.roadwarden.first-clears.v1",
+      "definitionVersion": 1,
+      "baselineClass": "derivable-authoritative",
+      "authority": "fellow-campaign-cleared-prefix-length",
+      "phase12MetricReference": "metric.campaign-clears-after-activation",
+      "migrationDisclosure": null
+    },
+    {
+      "id": "metric.legacy.veteran.campaign-victories.v1",
+      "definitionVersion": 1,
+      "baselineClass": "authoritative-since-existing-baseline",
+      "authority": "sum-of-versioned-fellow-campaign-run-counts",
+      "phase12MetricReference": null,
+      "migrationDisclosure": "Counts are authoritative only from the existing Campaign run-count baseline."
+    }
+  ],
+  "tracks": [
+    {
+      "id": "legacy.achievement.oaths-kept",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.oathkeeper.completions.v1",
+      "baselineClass": "accumulated-from-boundary",
+      "tierIds": ["legacy.oathkeeper.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.oath-streak",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.unbroken.highest-streak.v1",
+      "baselineClass": "lower-bound-current-state",
+      "tierIds": ["legacy.unbroken.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.village-gold-collected",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.steward.village-gold-collected.v1",
+      "baselineClass": "accumulated-from-boundary",
+      "tierIds": ["legacy.steward.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.building-levels",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.builder.combined-building-levels.v1",
+      "baselineClass": "derivable-authoritative",
+      "tierIds": ["legacy.builder.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.campaign-first-clears",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.roadwarden.first-clears.v1",
+      "baselineClass": "derivable-authoritative",
+      "tierIds": ["legacy.roadwarden.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.campaign-victories",
+      "definitionVersion": 1,
+      "kind": "continuing",
+      "metricId": "metric.legacy.veteran.campaign-victories.v1",
+      "baselineClass": "authoritative-since-existing-baseline",
+      "tierIds": ["legacy.veteran.tier-1"],
+      "repeatablePolicyId": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "reservedIncompatibleDefinitions": [
+    {
+      "id": "legacy.achievement.gold-claimed",
+      "phase12MetricId": "metric.gold-claimed-after-activation",
+      "status": "hidden-reserved",
+      "reason": "The existing metric counts Gold contained in reward claims and is not equivalent to Village production Gold collected."
+    }
+  ],
+  "tiers": [
+    {
+      "id": "legacy.oathkeeper.tier-1",
+      "trackId": "legacy.achievement.oaths-kept",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.oathkeeper.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase12",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.unbroken.tier-1",
+      "trackId": "legacy.achievement.oath-streak",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.unbroken.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.steward.tier-1",
+      "trackId": "legacy.achievement.village-gold-collected",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.steward.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.builder.tier-1",
+      "trackId": "legacy.achievement.building-levels",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.builder.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.roadwarden.tier-1",
+      "trackId": "legacy.achievement.campaign-first-clears",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.roadwarden.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.veteran.tier-1",
+      "trackId": "legacy.achievement.campaign-victories",
+      "definitionVersion": 1,
+      "ordinal": 1,
+      "threshold": null,
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.veteran.tier-1",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "feats": [
+    {
+      "id": "legacy.feat.first-campaign-clear",
+      "definitionVersion": 1,
+      "eligibilityAuthority": "fellowCampaign.clearedStageIds.length >= 1",
+      "significance": "standard",
+      "rewardPolicyId": "reward-policy.legacy.feat.first-campaign-clear",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase12",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.feat.first-covenant",
+      "definitionVersion": 1,
+      "eligibilityAuthority": "story.book1.finale.first-covenant committed completion identity",
+      "significance": "major",
+      "rewardPolicyId": "reward-policy.legacy.feat.first-covenant",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-story-and-economy"
+    },
+    {
+      "id": "legacy.feat.player-rank-5",
+      "definitionVersion": 1,
+      "eligibilityAuthority": "player.rank >= 5",
+      "significance": "major",
+      "rewardPolicyId": "reward-policy.legacy.feat.player-rank-5",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.feat.book1-fellows-joined",
+      "definitionVersion": 1,
+      "eligibilityAuthority": "all Book I Fellow IDs joined under authoritative Rank rules",
+      "eligibilityFellowIds": [
+        "cael",
+        "lyra",
+        "orin",
+        "selene",
+        "rook",
+        "mira",
+        "zamorak",
+        "darrow",
+        "deadpool",
+        "star-lord",
+        "iron-man",
+        "daredevil",
+        "thor",
+        "captain-america",
+        "spider-man",
+        "wolverine",
+        "obi-wan",
+        "anakin"
+      ],
+      "significance": "major",
+      "rewardPolicyId": "reward-policy.legacy.feat.book1-fellows-joined",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.feat.exact-power-campaign-clear",
+      "definitionVersion": 1,
+      "eligibilityAuthority": "committed Campaign result with totalRosterPower exactly equal to recommendedPower",
+      "significance": "major",
+      "rewardPolicyId": "reward-policy.legacy.feat.exact-power-campaign-clear",
+      "rewardPolicyVersion": 1,
+      "rewards": null,
+      "historyOwner": "phase15",
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "foundingCache": {
+    "id": "legacy.cache.founding",
+    "definitionVersion": 1,
+    "groupingThreshold": null,
+    "eligibleSignificance": ["standard"],
+    "majorRewardsRemainIndividual": true,
+    "requiresKnownAuthoritativeEligibility": true,
+    "enablementStatus": "blocked-policy"
+  }
+}

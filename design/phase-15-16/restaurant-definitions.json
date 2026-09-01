@@ -1,0 +1,291 @@
+{
+  "contractId": "phase-16-restaurant-definitions-v1",
+  "releasedSourceCommit": "4ee1ee4dcaa1b6eb190ed65d8cf81623c49bc28c",
+  "configId": "phase-16-restaurant-v1",
+  "definitionSetId": "definition-set.phase-16-restaurant.v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "productionEnabled": false,
+  "contentStatus": "stable-mechanical-ids-with-visible-copy-still-unapproved",
+  "facility": {
+    "id": "facility.restaurant",
+    "definitionVersion": 1,
+    "activityId": "activity.restaurant-service",
+    "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+    "mapAnchor": "western-plaza",
+    "targetPhase": 16,
+    "storyUnlockId": null,
+    "localProgressTrackIds": [
+      "facility-progress.restaurant.reputation"
+    ],
+    "participantKinds": [
+      "workers",
+      "customers",
+      "named-visitors"
+    ],
+    "operational": {
+      "intervalMs": null,
+      "bankCapacity": null,
+      "unattendedTargetMs": null,
+      "activeProfitTargetShare": null,
+      "economyStatus": "requires-approval"
+    },
+    "initialRecipeIds": [
+      "restaurant.recipe.hearth-stew"
+    ],
+    "initialStationIds": [
+      "restaurant.station.hearth"
+    ],
+    "tutorialIds": [
+      "tutorial.restaurant.first-customer",
+      "tutorial.facility.opportunities.banking",
+      "tutorial.restaurant.first-claim",
+      "tutorial.facility.claim.first-ready",
+      "tutorial.restaurant.recipes-and-stations",
+      "tutorial.restaurant.reputation",
+      "tutorial.restaurant.named-visitors"
+    ],
+    "actorIds": [
+      "family.tifa",
+      "family.tamsin",
+      "family.jaina",
+      "family.misty",
+      "fellow.deadpool",
+      "fellow.star-lord",
+      "fellow.spider-man"
+    ],
+    "enablementStatus": "blocked-story-and-economy"
+  },
+  "opportunityDefinition": {
+    "id": "opportunity.facility.restaurant.customer",
+    "definitionVersion": 1,
+    "facilityId": "facility.restaurant",
+    "activityId": "activity.restaurant-service",
+    "generation": "interval",
+    "interactionKind": "preference-recipe-station-service",
+    "rewardPolicyId": "reward-policy.facility.restaurant.customer",
+    "rewardPolicyVersion": 1,
+    "expires": false,
+    "claimMode": "manual"
+  },
+  "preferences": [
+    {
+      "id": "restaurant.preference.warming",
+      "definitionVersion": 1,
+      "requiredRecipeTags": ["restaurant.recipe-tag.warming"],
+      "likedRecipeTags": ["restaurant.recipe-tag.hearty"]
+    },
+    {
+      "id": "restaurant.preference.quick",
+      "definitionVersion": 1,
+      "requiredRecipeTags": ["restaurant.recipe-tag.quick"],
+      "likedRecipeTags": ["restaurant.recipe-tag.portable"]
+    },
+    {
+      "id": "restaurant.preference.light",
+      "definitionVersion": 1,
+      "requiredRecipeTags": ["restaurant.recipe-tag.light"],
+      "likedRecipeTags": ["restaurant.recipe-tag.fresh"]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "restaurant.recipe.hearth-stew",
+      "definitionVersion": 1,
+      "recipeTags": [
+        "restaurant.recipe-tag.warming",
+        "restaurant.recipe-tag.hearty"
+      ],
+      "compatibleStationIds": ["restaurant.station.hearth"],
+      "unlockReputationLevel": 1,
+      "preparationDurationMs": null,
+      "stockCapacity": null,
+      "inputPolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "restaurant.recipe.garden-flatbread",
+      "definitionVersion": 1,
+      "recipeTags": [
+        "restaurant.recipe-tag.quick",
+        "restaurant.recipe-tag.portable"
+      ],
+      "compatibleStationIds": [
+        "restaurant.station.hearth",
+        "restaurant.station.prep-table"
+      ],
+      "unlockReputationLevel": 2,
+      "preparationDurationMs": null,
+      "stockCapacity": null,
+      "inputPolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "restaurant.recipe.roadside-tea",
+      "definitionVersion": 1,
+      "recipeTags": [
+        "restaurant.recipe-tag.light",
+        "restaurant.recipe-tag.fresh",
+        "restaurant.recipe-tag.quick"
+      ],
+      "compatibleStationIds": ["restaurant.station.prep-table"],
+      "unlockReputationLevel": 3,
+      "preparationDurationMs": null,
+      "stockCapacity": null,
+      "inputPolicyId": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "stations": [
+    {
+      "id": "restaurant.station.hearth",
+      "definitionVersion": 1,
+      "unlockReputationLevel": 1,
+      "slotCapacity": null,
+      "efficiencyPolicyId": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "restaurant.station.prep-table",
+      "definitionVersion": 1,
+      "unlockReputationLevel": 2,
+      "slotCapacity": null,
+      "efficiencyPolicyId": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "customers": [
+    {
+      "id": "restaurant.customer.road-worker",
+      "definitionVersion": 1,
+      "preferencePoolIds": [
+        "restaurant.preference.warming",
+        "restaurant.preference.quick"
+      ],
+      "weight": null,
+      "namedVisitorId": null,
+      "paymentPolicyId": "payment-policy.restaurant.road-worker",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "restaurant.customer.archive-courier",
+      "definitionVersion": 1,
+      "preferencePoolIds": [
+        "restaurant.preference.quick",
+        "restaurant.preference.light"
+      ],
+      "weight": null,
+      "namedVisitorId": null,
+      "paymentPolicyId": "payment-policy.restaurant.archive-courier",
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "restaurant.customer.route-envoy",
+      "definitionVersion": 1,
+      "preferencePoolIds": [
+        "restaurant.preference.warming",
+        "restaurant.preference.light"
+      ],
+      "weight": null,
+      "namedVisitorId": "restaurant.visitor.route-envoy.01",
+      "paymentPolicyId": "payment-policy.restaurant.route-envoy",
+      "enablementStatus": "blocked-story-and-economy"
+    }
+  ],
+  "namedVisitors": [
+    {
+      "id": "restaurant.visitor.route-envoy.01",
+      "definitionVersion": 1,
+      "actorId": "family.jaina",
+      "sourceEventId": "story.book1.restaurant.route-envoy-ready",
+      "customerDefinitionId": "restaurant.customer.route-envoy",
+      "chronicleHookId": "chronicle.restaurant.route-envoy.01",
+      "repeatable": false,
+      "expires": false,
+      "enablementStatus": "blocked-story-and-economy"
+    }
+  ],
+  "economyPolicy": {
+    "id": "economy-policy.restaurant.v1",
+    "version": 1,
+    "baseSaleByCustomerId": {
+      "restaurant.customer.road-worker": null,
+      "restaurant.customer.archive-courier": null,
+      "restaurant.customer.route-envoy": null
+    },
+    "tipMultiplierByMatch": {
+      "matched": null,
+      "partial": null,
+      "basic": null
+    },
+    "reputationByMatch": {
+      "matched": null,
+      "partial": null,
+      "basic": null
+    },
+    "recipeMasteryByMatch": {
+      "matched": null,
+      "partial": null,
+      "basic": null
+    },
+    "reputationThresholds": {
+      "2": null,
+      "3": null
+    },
+    "activeProfitTargetShare": null,
+    "enablementStatus": "blocked-economy"
+  },
+  "metrics": [
+    { "id": "metric.restaurant.customers-served.v1", "definitionVersion": 1, "authority": "committed-restaurant-claim" },
+    { "id": "metric.restaurant.matched-meals.v1", "definitionVersion": 1, "authority": "committed-matched-restaurant-claim" },
+    { "id": "metric.restaurant.recipes-mastered.v1", "definitionVersion": 1, "authority": "committed-recipe-mastery-level-transition" },
+    { "id": "metric.restaurant.named-visitors.v1", "definitionVersion": 1, "authority": "committed-named-visitor-claim" },
+    { "id": "metric.restaurant.facility-profit.v1", "definitionVersion": 1, "authority": "committed-restaurant-gold-rewards" }
+  ],
+  "legacyHooks": [
+    {
+      "id": "legacy.achievement.restaurant-customers-served",
+      "definitionVersion": 1,
+      "metricId": "metric.restaurant.customers-served.v1",
+      "firstTierThreshold": null,
+      "rewardPolicyId": "reward-policy.legacy.restaurant-customers-served.tier-1",
+      "rewards": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.restaurant-meals-perfected",
+      "definitionVersion": 1,
+      "metricId": "metric.restaurant.matched-meals.v1",
+      "firstTierThreshold": null,
+      "rewardPolicyId": "reward-policy.legacy.restaurant-meals-perfected.tier-1",
+      "rewards": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.restaurant-recipes-mastered",
+      "definitionVersion": 1,
+      "metricId": "metric.restaurant.recipes-mastered.v1",
+      "firstTierThreshold": null,
+      "rewardPolicyId": "reward-policy.legacy.restaurant-recipes-mastered.tier-1",
+      "rewards": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.achievement.restaurant-profit",
+      "definitionVersion": 1,
+      "metricId": "metric.restaurant.facility-profit.v1",
+      "firstTierThreshold": null,
+      "rewardPolicyId": "reward-policy.legacy.restaurant-profit.tier-1",
+      "rewards": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "legacy.feat.restaurant-first-named-visitor",
+      "definitionVersion": 1,
+      "metricId": "metric.restaurant.named-visitors.v1",
+      "threshold": 1,
+      "rewardPolicyId": "reward-policy.legacy.feat.restaurant-first-named-visitor",
+      "rewards": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ]
+}

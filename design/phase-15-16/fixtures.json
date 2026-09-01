@@ -1,0 +1,342 @@
+{
+  "contractId": "phase-15-16-vertical-slice-fixtures-v1",
+  "purpose": "Implementation and QA inputs only. Synthetic values are not production economy approval.",
+  "syntheticPolicy": {
+    "legacy": {
+      "definitionId": "legacy.oathkeeper.tier-1",
+      "threshold": 1,
+      "rewards": [{ "kind": "gold", "targetId": null, "amount": 125 }]
+    },
+    "restaurant": {
+      "intervalMs": 3600000,
+      "bankCapacity": 4,
+      "unattendedTargetMs": 14400000,
+      "baseSale": 100,
+      "tipByMatch": { "matched": 25, "partial": 10, "basic": 0 },
+      "reputationByMatch": { "matched": 2, "partial": 1, "basic": 1 },
+      "recipeMasteryByMatch": { "matched": 1, "partial": 1, "basic": 1 },
+      "preparationDurationMs": 60000,
+      "stationSlotCapacity": 2,
+      "activeProfitTargetShare": 0.2
+    },
+    "archiveTestOverride": {
+      "recentWindow": 4,
+      "foldBatch": 2
+    }
+  },
+  "fixtures": [
+    {
+      "id": "p15.fixture.fresh-activation.v1",
+      "phase": 15,
+      "covers": ["activation", "fresh", "zero-reward"],
+      "preconditions": { "profile": "valid Phase 12 fresh profile", "capturedAt": 1000000 },
+      "action": "activate Phase 15 successor",
+      "assertions": [
+        "one exact Phase 15 receipt and profile are created",
+        "all baseline classes and identities validate",
+        "successor tutorial and claim archive state are empty",
+        "no reward offer, balance, claimed ID, or presentation is created",
+        "Phase 12 projection remains valid"
+      ]
+    },
+    {
+      "id": "p15.fixture.established-honest-baselines.v1",
+      "phase": 15,
+      "covers": ["migration", "established", "honest-history"],
+      "preconditions": { "profile": "valid established Phase 12 profile with current streaks, Building levels, Campaign clears/runs, and no reliable lifetime Oath/Village-Gold history", "capturedAt": 2000000 },
+      "action": "activate and project six metrics",
+      "assertions": [
+        "Builder and Roadwarden equal authoritative current state",
+        "Unbroken is labeled lower-bound-current-state",
+        "Oathkeeper and Steward start at their explicit activation boundaries",
+        "Veteran states its existing run-count baseline scope",
+        "Phase 12 reward-claim Gold is not counted as Steward Village Gold",
+        "no unknown historical action earns a reward"
+      ]
+    },
+    {
+      "id": "p15.fixture.reward-claims-v2-migration.v1",
+      "phase": 15,
+      "covers": ["migration", "claim-archive", "replay-protection"],
+      "preconditions": { "phase12RewardClaims": "600 valid contiguous receipts plus two valid pending offers", "balances": "already reflect all 600 receipts" },
+      "action": "activate Phase 15 and migrate rewardClaims to V2",
+      "assertions": [
+        "nextSequence remains 600 and both pending offer identities are preserved",
+        "latest 512 detailed receipts remain recent and the oldest 88 are folded in order",
+        "all 600 predecessor offer IDs are preserved in the fixed replay set",
+        "checkpoint aggregates and terminal identity match the 88 folded receipts",
+        "balances, Legacy history, metrics, and pending eligibility do not change",
+        "the old shape is removed only after complete V2 validation"
+      ]
+    },
+    {
+      "id": "p15.fixture.repeated-activation.v1",
+      "phase": 15,
+      "covers": ["idempotence", "migration"],
+      "preconditions": { "profile": "valid Phase 15 active profile" },
+      "action": "activate Phase 15 again",
+      "assertions": ["write-free no-op", "raw, revision, receipts, baselines, offers, balances, and tutorials remain byte-equivalent"]
+    },
+    {
+      "id": "p15.fixture.null-policy-fail-closed.v1",
+      "phase": 15,
+      "covers": ["economy-block", "definitions"],
+      "preconditions": { "definitionSet": "committed production definitions with null thresholds/rewards" },
+      "action": "attempt to enable/evaluate Legacy",
+      "assertions": ["enablement is rejected", "no ready item or offer is created", "no fallback threshold or zero reward is invented", "save is unchanged"]
+    },
+    {
+      "id": "p15.fixture.eligibility-zero-credit.v1",
+      "phase": 15,
+      "covers": ["eligibility", "manual-claim"],
+      "preconditions": { "syntheticPolicy": true, "oathkeeperProgress": 1, "initialGold": 10 },
+      "action": "evaluate Legacy",
+      "assertions": [
+        "one immutable ready snapshot and native Legacy offer are created",
+        "offer sourceType is opportunity.legacy.reward and sourceId is legacy.oathkeeper.tier-1",
+        "Waystone ready count becomes one",
+        "Gold remains 10 and claimed history remains empty",
+        "no facility-claim metric changes"
+      ]
+    },
+    {
+      "id": "p15.fixture.carried-progress-separate-claims.v1",
+      "phase": 15,
+      "covers": ["continuing-track", "carried-progress", "no-auto-claim"],
+      "preconditions": { "syntheticMultiTierPolicy": "progress satisfies tier 1 and tier 2", "tier1Ready": true },
+      "action": "claim tier 1",
+      "assertions": [
+        "tier 1 rewards and history commit once",
+        "tier 2 may become claim-ready with carried progress",
+        "tier 2 rewards are not applied",
+        "tier 2 requires a separate explicit Claim"
+      ]
+    },
+    {
+      "id": "p15.fixture.standard-claim-reload.v1",
+      "phase": 15,
+      "covers": ["exactly-once", "reload", "presentation-after-commit"],
+      "preconditions": { "syntheticPolicy": true, "readyDefinitionId": "legacy.oathkeeper.tier-1", "initialGold": 10 },
+      "action": "claim, close presentation, reload, claim again",
+      "assertions": [
+        "first claim changes Gold to 135 and records one claimed tier and one receipt/archive record",
+        "presentation begins only after persistence commit",
+        "reload shows claimed history",
+        "repeated claim is write-free and leaves Gold at 135"
+      ]
+    },
+    {
+      "id": "p15.fixture.concurrent-eligibility.v1",
+      "phase": 15,
+      "covers": ["two-tab", "eligibility"],
+      "preconditions": { "twoTabs": "same raw, revision, metric identity, and eligible tier" },
+      "action": "race eligibility evaluation",
+      "assertions": ["one commit wins", "loser writes nothing", "one ready snapshot and one offer exist", "no reward is applied"]
+    },
+    {
+      "id": "p15.fixture.concurrent-claim.v1",
+      "phase": 15,
+      "covers": ["two-tab", "exactly-once"],
+      "preconditions": { "twoTabs": "same ready/offer identities", "syntheticPolicy": true, "initialGold": 10 },
+      "action": "race Legacy claim",
+      "assertions": ["one commit wins", "loser writes nothing", "Gold is 135", "one claimed tier and one receipt/archive record exist", "only winner presents success"]
+    },
+    {
+      "id": "p15.fixture.founding-cache-known-only.v1",
+      "phase": 15,
+      "covers": ["migration", "founding-cache", "honest-history"],
+      "preconditions": { "approvedSyntheticGroupingPolicy": true, "readyItems": "three derivable minor tiers plus one unknown-history candidate plus one major feat" },
+      "action": "build Founding Legacy Cache",
+      "assertions": [
+        "cache contains only the three known minor ready identities",
+        "unknown-history item is excluded",
+        "major feat remains individual",
+        "cache creation applies no rewards",
+        "cache claim commits all three components or none"
+      ]
+    },
+    {
+      "id": "p15.fixture.native-source-classification.v1",
+      "phase": 15,
+      "covers": ["source-registry", "Waystone"],
+      "preconditions": { "oneLegacyReady": true, "oneStoryReady": true },
+      "action": "open Waystone and inspect claims",
+      "assertions": [
+        "Waystone aggregates both for presentation",
+        "Legacy offer remains opportunity.legacy.reward",
+        "Story offer remains opportunity.story.reward",
+        "no opportunity.facility.waystone.legacy-milestone instance is created",
+        "opening Waystone writes nothing and applies nothing"
+      ]
+    },
+    {
+      "id": "p15.fixture.tutorial-registry-migration.v1",
+      "phase": 15,
+      "covers": ["tutorial", "migration", "canonical-ids"],
+      "preconditions": { "profile": "valid Phase 12 tutorial history", "phase15Registry": "tutorial-registry.phase-15.v1" },
+      "action": "activate, present, skip, reload, replay one Phase 15 tutorial",
+      "assertions": [
+        "Phase 12 tutorial state remains byte-equivalent",
+        "successor state uses canonical actor and facility dot IDs",
+        "skip never blocks the Waystone or claim",
+        "replay changes no claim, metric, reward, facility, or story state",
+        "reload preserves completion/dismissal and replay count"
+      ]
+    },
+    {
+      "id": "p15.fixture.archive-fold.v1",
+      "phase": 15,
+      "covers": ["receipt-archive", "bounded-growth"],
+      "preconditions": { "syntheticArchiveOverride": true, "fiveRecentReceipts": true, "domainReplayAuthorityValid": true },
+      "action": "fold oldest two receipts",
+      "assertions": [
+        "checkpoint advances through exactly two sequences",
+        "checkpoint identity chains prior checkpoint and two ordered receipt identities",
+        "three recent contiguous receipts remain",
+        "aggregate rewards/source counts equal the folded receipts",
+        "balances, domain progression, ready state, and pending offers are unchanged"
+      ]
+    },
+    {
+      "id": "p15.fixture.archive-refuses-missing-domain-lineage.v1",
+      "phase": 15,
+      "covers": ["receipt-archive", "fail-closed"],
+      "preconditions": { "oldestReceipt": "valid receipt whose claimed domain ID/range is missing" },
+      "action": "attempt archive fold",
+      "assertions": ["fold is rejected", "checkpoint and recent receipts remain byte-equivalent", "no balance or domain write occurs"]
+    },
+    {
+      "id": "p15.fixture.mobile-waystone.v1",
+      "phase": 15,
+      "covers": ["mobile", "keyboard", "reduced-motion", "localization"],
+      "preconditions": { "viewports": ["320x568", "390x844", "wider-desktop"], "readyCount": 3 },
+      "action": "navigate Village and Waystone with pointer and keyboard in normal/reduced motion and 175-percent text",
+      "assertions": [
+        "Waystone target is at least 44x44 and does not overlap bottom navigation or another marker",
+        "selected-location sheet keeps primary action and ready count visible",
+        "focus order and trapping are correct",
+        "ready state has non-color and reduced-motion equivalents",
+        "no horizontal overflow or clipped Claim/Close control",
+        "opening and closing applies no reward"
+      ]
+    },
+    {
+      "id": "p16.fixture.unlock-no-retroactive-customers.v1",
+      "phase": 16,
+      "covers": ["migration", "unlock", "no-retroactive-accrual"],
+      "preconditions": { "establishedProfile": true, "historicalStoryQualificationAt": 1000000, "capturedUnlockAt": 100000000, "syntheticPolicy": true },
+      "action": "unlock Restaurant",
+      "assertions": ["unlockedAt and cursorAt equal 100000000", "bank is empty", "historical qualification is not used", "no sales, tip, reputation, mastery, metric, offer, or receipt exists"]
+    },
+    {
+      "id": "p16.fixture.offline-partial-carry.v1",
+      "phase": 16,
+      "covers": ["offline", "partial-interval", "no-auto-credit"],
+      "preconditions": { "cursorAt": 1000000, "capturedAt": 10000000, "elapsedAllowanceMs": 9000000, "carryMs": 0, "bankedCount": 0, "syntheticPolicy": true },
+      "action": "settle Restaurant",
+      "assertions": ["two customer opportunities/details are created", "carryMs is 1800000", "customer ordinals are 1 and 2", "no offer, result, Gold, reputation, mastery, metric, or receipt is created"]
+    },
+    {
+      "id": "p16.fixture.saturated-bank-nonexpiry.v1",
+      "phase": 16,
+      "covers": ["bank-cap", "non-expiry", "no-hidden-debt"],
+      "preconditions": { "bankedCount": 4, "elapsedAllowanceMs": 21600000, "syntheticPolicy": true },
+      "action": "settle Restaurant",
+      "assertions": ["zero new customers are created", "four existing identities remain byte-equivalent", "cursor advances", "no whole-interval debt remains", "no customer expires or pays automatically"]
+    },
+    {
+      "id": "p16.fixture.offline-cap-midnight-dst-rollback.v1",
+      "phase": 16,
+      "covers": ["24-hour-cap", "midnight", "DST", "clock-rollback"],
+      "preconditions": { "equivalentEpochScenarios": "timezone/DST labels vary", "elapsedOver48Hours": true, "rollbackScenario": true, "syntheticPolicy": true },
+      "action": "settle each scenario",
+      "assertions": ["elapsed eligibility never exceeds 86400000", "timezone and midnight do not segment or reset", "equivalent epoch inputs derive equivalent customer identities", "rollback moves no cursor backward and is write-free", "no rewards are created"]
+    },
+    {
+      "id": "p16.fixture.begin-cancel-resume.v1",
+      "phase": 16,
+      "covers": ["engagement", "safe-cancel", "reload"],
+      "preconditions": { "oneBankedCustomer": true, "commitBoundaryReached": false },
+      "action": "begin, reload, cancel, begin, cross preparation commit, reload",
+      "assertions": ["pre-commit cancel restores the same banked identity", "no effects or offer are created", "post-commit engagement resumes exact recipe/station/stock identity", "customer is neither duplicated nor silently consumed"]
+    },
+    {
+      "id": "p16.fixture.resolve-zero-credit.v1",
+      "phase": 16,
+      "covers": ["resolution", "manual-claim"],
+      "preconditions": { "validMatchedEngagement": true, "syntheticPolicy": true, "initialTotals": { "gold": 10, "reputation": 0, "recipeMastery": 0 } },
+      "action": "serve/resolve",
+      "assertions": ["one immutable matched outcome and one facility offer are created", "sourceId is activity.restaurant-service", "preview shows sale 100 and tip 25", "Gold remains 10 and local/metric totals remain zero", "result remains claim-ready indefinitely"]
+    },
+    {
+      "id": "p16.fixture.imperfect-service-safe.v1",
+      "phase": 16,
+      "covers": ["partial-result", "no-harsh-punishment"],
+      "preconditions": { "validPartialEngagement": true, "syntheticPolicy": true },
+      "action": "serve and inspect result",
+      "assertions": ["result is partial and deterministic", "preview is non-negative", "no debt or global-resource removal exists", "customer becomes claim-ready rather than stuck", "claim remains optional and non-expiring"]
+    },
+    {
+      "id": "p16.fixture.claim-exactly-once.v1",
+      "phase": 16,
+      "covers": ["claim", "finalizer", "reload", "archive"],
+      "preconditions": { "matchedClaimReady": true, "syntheticPolicy": true, "initialTotals": { "gold": 10, "reputation": 0, "recipeMastery": 0, "customers": 0, "profit": 0 } },
+      "action": "claim, reload, claim again",
+      "assertions": [
+        "first claim changes Gold to 135, reputation to 2, recipe mastery to 1, customers to 1, matched meals to 1, and profit to 125",
+        "one ordinal and one receipt/archive record exist",
+        "pending customer/detail/outcome/offer are removed",
+        "reload preserves all effects",
+        "repeated claim is refused with no write"
+      ]
+    },
+    {
+      "id": "p16.fixture.concurrent-settlement-resolution-claim.v1",
+      "phase": 16,
+      "covers": ["two-tab", "settlement", "resolution", "claim"],
+      "preconditions": { "twoTabs": "identical raw/revision and expected identities at each tested boundary", "syntheticPolicy": true },
+      "action": "race settlement, then race resolution, then race claim from reset fixtures",
+      "assertions": ["each race has one winner and write-free loser", "settlement produces one ordinal set", "resolution produces one outcome/offer", "claim applies one global/local/metric/lineage/receipt effect", "only winners present success"]
+    },
+    {
+      "id": "p16.fixture.named-visitor-chronicle-hook.v1",
+      "phase": 16,
+      "covers": ["named-visitor", "story-hook", "exactly-once"],
+      "preconditions": { "routeEnvoyClaimReady": true, "syntheticPolicy": true },
+      "action": "claim visitor, open/skip/replay Chronicle hook",
+      "assertions": ["visitor claim commits once and queues one Chronicle hook", "scene playback/skip/replay applies no Restaurant effect", "visitor opportunity and hook do not expire", "duplicate event delivery and duplicate claim are refused"]
+    },
+    {
+      "id": "p16.fixture.tutorial-gradual-nonblocking.v1",
+      "phase": 16,
+      "covers": ["tutorial", "priority", "skip", "replay"],
+      "preconditions": { "firstRestaurantVisit": true, "bankedCustomer": true, "twoEligibleTutorials": true },
+      "action": "open, skip first tutorial, perform service, replay from log",
+      "assertions": ["only highest-priority tutorial auto-presents", "second waits for another safe visit/log", "skip never blocks service", "replay applies no opportunity, stock, result, claim, reward, progression, metric, or story effect", "canonical facility.restaurant and dot actor IDs are stored"]
+    },
+    {
+      "id": "p16.fixture.economy-simulation-gate.v1",
+      "phase": 16,
+      "covers": ["economy", "enablement"],
+      "preconditions": { "profiles": ["fresh", "midgame", "established", "highly-active", "mostly-idle"], "productionPolicy": "null" },
+      "action": "attempt enable, then simulate an approved candidate policy",
+      "assertions": ["null policy cannot enable", "simulation reports active/passive shares over short and long horizons", "approved policy must remain within its target share", "no permanent multiplier or passive-income reduction is introduced"]
+    },
+    {
+      "id": "p16.fixture.mobile-restaurant.v1",
+      "phase": 16,
+      "covers": ["mobile", "keyboard", "reduced-motion", "localization"],
+      "preconditions": { "viewports": ["320x568", "390x844", "wider-desktop"], "textExpansion": "175 percent" },
+      "action": "open hotspot, inspect customer, choose recipe/station, resolve, and claim with pointer/keyboard in normal/reduced motion",
+      "assertions": ["hotspot target and selected sheet do not overlap navigation", "preference, recipe, result, Claim, Skip, Next, Back, Log, and Close remain readable/reachable", "focus trapping/return is correct", "animation has reduced-motion equivalent", "no horizontal overflow or console error"]
+    },
+    {
+      "id": "p16.fixture.future-or-malformed-import.v1",
+      "phase": 16,
+      "covers": ["import", "recovery", "fail-closed"],
+      "preconditions": { "mutations": ["future definition version", "unknown customer", "wrong recipe/station", "wrong sourceId", "wrong offer identity", "broken claimed range", "broken archive checkpoint"] },
+      "action": "import each mutation",
+      "assertions": ["each invalid save fails closed into recovery handling", "no pending customer or ready claim is silently dropped", "no reward or local effect is applied", "original raw remains exportable"]
+    }
+  ]
+}

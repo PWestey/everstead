@@ -1,0 +1,221 @@
+{
+  "contractId": "phase-15-16-tutorial-extension-v1",
+  "phase15RegistryId": "tutorial-registry.phase-15.v1",
+  "phase16RegistryId": "tutorial-registry.phase-16.v1",
+  "predecessorTutorialIds": [
+    "tutorial.story.objective.first-covenant"
+  ],
+  "defaults": {
+    "blocking": false,
+    "skippable": true,
+    "replayable": true,
+    "loggable": true,
+    "rewardApplications": 0,
+    "autoPresentPerSafeSurfaceVisit": 1,
+    "speakerFallbackPolicy": "approved-cutout-then-approved-frame-then-attributed-text-only"
+  },
+  "features": [
+    { "id": "feature.village-game-board", "phase": 15 },
+    { "id": "feature.legacy-tracks-v1", "phase": 15 },
+    { "id": "feature.legacy-claim-v1", "phase": 15 },
+    { "id": "feature.legacy-major-claim-v1", "phase": 15 },
+    { "id": "feature.legacy-feats-v1", "phase": 15 },
+    { "id": "feature.facility-opportunity-banking", "phase": 16 },
+    { "id": "feature.facility-manual-claim", "phase": 16 },
+    { "id": "feature.restaurant-customers", "phase": 16 },
+    { "id": "feature.restaurant-recipes-stations", "phase": 16 },
+    { "id": "feature.restaurant-claim", "phase": 16 },
+    { "id": "feature.restaurant-reputation", "phase": 16 },
+    { "id": "feature.restaurant-named-visitors", "phase": 16 }
+  ],
+  "tutorials": [
+    {
+      "id": "tutorial.facility.board.discover-hotspots",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 15,
+      "runtimeDeliveryPhase": 15,
+      "featureId": "feature.village-game-board",
+      "priority": 100,
+      "trigger": { "kind": "facilityFirstDiscovered", "facilityId": "facility.waystone", "safeSurface": "village" },
+      "speaker": { "primaryActorId": "fellow.lyra", "fallbackActorIds": ["family.isolde"] },
+      "stepIds": [
+        "tutorial.facility.board.discover-hotspots.physical-location",
+        "tutorial.facility.board.discover-hotspots.icon-states",
+        "tutorial.facility.board.discover-hotspots.tap-for-status"
+      ]
+    },
+    {
+      "id": "tutorial.legacy.tracks.first-progress",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 13,
+      "runtimeDeliveryPhase": 15,
+      "featureId": "feature.legacy-tracks-v1",
+      "priority": 90,
+      "trigger": { "kind": "legacyFirstProgressObserved", "minimum": 1, "safeSurface": "village.waystone" },
+      "speaker": { "primaryActorId": "family.isolde", "fallbackActorIds": ["family.syl"] },
+      "stepIds": [
+        "tutorial.legacy.tracks.first-progress.track-progress",
+        "tutorial.legacy.tracks.first-progress.tier-target",
+        "tutorial.legacy.tracks.first-progress.reward-preview",
+        "tutorial.legacy.tracks.first-progress.continues"
+      ]
+    },
+    {
+      "id": "tutorial.legacy.claim.first-ready",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 13,
+      "runtimeDeliveryPhase": 15,
+      "featureId": "feature.legacy-claim-v1",
+      "priority": 95,
+      "trigger": { "kind": "legacyRewardFirstReady", "safeSurface": "village.waystone" },
+      "speaker": { "primaryActorId": "family.syl", "fallbackActorIds": ["family.isolde"] },
+      "stepIds": [
+        "tutorial.legacy.claim.first-ready.ready-count",
+        "tutorial.legacy.claim.first-ready.manual-claim",
+        "tutorial.legacy.claim.first-ready.never-expires",
+        "tutorial.legacy.claim.first-ready.next-tier"
+      ]
+    },
+    {
+      "id": "tutorial.legacy.claim.major",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 13,
+      "runtimeDeliveryPhase": 15,
+      "featureId": "feature.legacy-major-claim-v1",
+      "priority": 94,
+      "trigger": { "kind": "legacyMajorRewardFirstReady", "safeSurface": "village.waystone" },
+      "speaker": { "primaryActorId": "fellow.lyra", "fallbackActorIds": ["family.isolde"] },
+      "stepIds": [
+        "tutorial.legacy.claim.major.major-reveal",
+        "tutorial.legacy.claim.major.accelerate",
+        "tutorial.legacy.claim.major.reward-summary",
+        "tutorial.legacy.claim.major.history"
+      ]
+    },
+    {
+      "id": "tutorial.legacy.feats.first-feat",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 13,
+      "runtimeDeliveryPhase": 15,
+      "featureId": "feature.legacy-feats-v1",
+      "priority": 70,
+      "trigger": { "kind": "legacyFeatFirstReady", "safeSurface": "village.waystone" },
+      "speaker": { "primaryActorId": "fellow.captain-america", "fallbackActorIds": ["family.virginia"] },
+      "stepIds": [
+        "tutorial.legacy.feats.first-feat.one-time",
+        "tutorial.legacy.feats.first-feat.claim",
+        "tutorial.legacy.feats.first-feat.chronicle-history"
+      ]
+    },
+    {
+      "id": "tutorial.restaurant.first-customer",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 16,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.restaurant-customers",
+      "priority": 100,
+      "trigger": { "kind": "facilityFirstVisit", "facilityId": "facility.restaurant", "requires": ["facility.restaurant:unlocked"], "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.tifa", "fallbackActorIds": ["family.tamsin", "fellow.deadpool"] },
+      "stepIds": [
+        "tutorial.restaurant.first-customer.customer",
+        "tutorial.restaurant.first-customer.preference",
+        "tutorial.restaurant.first-customer.choose-dish",
+        "tutorial.restaurant.first-customer.serve"
+      ]
+    },
+    {
+      "id": "tutorial.facility.opportunities.banking",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 15,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.facility-opportunity-banking",
+      "priority": 90,
+      "trigger": { "kind": "facilityFirstOpportunityReady", "facilityId": "facility.restaurant", "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.tamsin", "fallbackActorIds": ["fellow.lyra"] },
+      "stepIds": [
+        "tutorial.facility.opportunities.banking.ready-opportunities",
+        "tutorial.facility.opportunities.banking.bank-cap",
+        "tutorial.facility.opportunities.banking.no-expiry",
+        "tutorial.facility.opportunities.banking.passive-baseline"
+      ]
+    },
+    {
+      "id": "tutorial.restaurant.first-claim",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 16,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.restaurant-claim",
+      "priority": 100,
+      "trigger": { "kind": "facilityFirstClaimReady", "facilityId": "facility.restaurant", "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.tifa", "fallbackActorIds": ["family.tamsin"] },
+      "stepIds": [
+        "tutorial.restaurant.first-claim.sales",
+        "tutorial.restaurant.first-claim.tips",
+        "tutorial.restaurant.first-claim.reputation",
+        "tutorial.restaurant.first-claim.claim"
+      ]
+    },
+    {
+      "id": "tutorial.facility.claim.first-ready",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 15,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.facility-manual-claim",
+      "priority": 80,
+      "trigger": { "kind": "facilityFirstClaimReady", "facilityId": "facility.restaurant", "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.tamsin", "fallbackActorIds": ["family.isolde"] },
+      "stepIds": [
+        "tutorial.facility.claim.first-ready.result-ready",
+        "tutorial.facility.claim.first-ready.claim",
+        "tutorial.facility.claim.first-ready.local-progress",
+        "tutorial.facility.claim.first-ready.receipt"
+      ]
+    },
+    {
+      "id": "tutorial.restaurant.recipes-and-stations",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 16,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.restaurant-recipes-stations",
+      "priority": 70,
+      "trigger": { "kind": "facilityLevelCrossed", "facilityId": "facility.restaurant", "level": 2, "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.tifa", "fallbackActorIds": ["family.tamsin"] },
+      "stepIds": [
+        "tutorial.restaurant.recipes-and-stations.recipe-mastery",
+        "tutorial.restaurant.recipes-and-stations.station",
+        "tutorial.restaurant.recipes-and-stations.local-stock",
+        "tutorial.restaurant.recipes-and-stations.unlock-preview"
+      ]
+    },
+    {
+      "id": "tutorial.restaurant.reputation",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 16,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.restaurant-reputation",
+      "priority": 65,
+      "trigger": { "kind": "facilityLevelCrossed", "facilityId": "facility.restaurant", "level": 3, "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.jaina", "fallbackActorIds": ["family.tifa"] },
+      "stepIds": [
+        "tutorial.restaurant.reputation.reputation-level",
+        "tutorial.restaurant.reputation.unlock-preview",
+        "tutorial.restaurant.reputation.local-only"
+      ]
+    },
+    {
+      "id": "tutorial.restaurant.named-visitors",
+      "definitionVersion": 1,
+      "sourcePlanningDeliveryPhase": 16,
+      "runtimeDeliveryPhase": 16,
+      "featureId": "feature.restaurant-named-visitors",
+      "priority": 75,
+      "trigger": { "kind": "facilityNamedVisitorFirstReady", "facilityId": "facility.restaurant", "safeSurface": "facility.restaurant" },
+      "speaker": { "primaryActorId": "family.jaina", "fallbackActorIds": ["family.tifa"] },
+      "stepIds": [
+        "tutorial.restaurant.named-visitors.named-guest",
+        "tutorial.restaurant.named-visitors.story-hook",
+        "tutorial.restaurant.named-visitors.banked-until-served"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "contractId": "phase-15-21-cast-facility-hooks-v1",
+  "sourceCastContractId": "phase-13-cast-plan-v1",
+  "coverageRule": "Every shipped Fellow and Family actor has an intentional Village, tutorial, claim, story, or facility hook without forcing the full cast into Phases 15–16.",
+  "selectionPolicy": {
+    "lockedFellowsExcluded": true,
+    "deterministicFallbackOrder": true,
+    "mechanicalCopyIndependentOfSpeaker": true,
+    "originalEversteadDialogueOnly": true,
+    "artFallbackOrder": [
+      "approved-transparent-cutout",
+      "approved-framed-treatment",
+      "attributed-text-only"
+    ],
+    "forbiddenPresentation": "unframed-full-background-profile-overlay"
+  },
+  "actors": [
+    {
+      "actorId": "fellow.cael",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.training-grounds.cael.tutorial-guide", "dialogue.facility.training-grounds.cael.story-hook"]
+    },
+    {
+      "actorId": "fellow.lyra",
+      "earliestFacilityPhase": 15,
+      "hookIds": ["dialogue.waystone.lyra.objective-guide", "dialogue.waystone.lyra.major-claim"]
+    },
+    {
+      "actorId": "fellow.orin",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.training-grounds.orin.activity-presenter", "dialogue.facility.training-grounds.orin.claim-acknowledgement"]
+    },
+    {
+      "actorId": "fellow.selene",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.archives.selene.tutorial-guide", "dialogue.facility.archives.selene.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.rook",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.rook.named-visitor", "dialogue.facility.forge.rook.tutorial-guide"]
+    },
+    {
+      "actorId": "fellow.mira",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.gatehouse.mira.tutorial-guide", "dialogue.facility.gatehouse.mira.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.zamorak",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.forge.zamorak.named-visitor", "dialogue.facility.forge.zamorak.result-comment"]
+    },
+    {
+      "actorId": "fellow.darrow",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.command-center.darrow.activity-presenter", "dialogue.facility.forge.darrow.ambient"]
+    },
+    {
+      "actorId": "fellow.deadpool",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.deadpool.named-visitor", "dialogue.facility.restaurant.deadpool.result-comment"]
+    },
+    {
+      "actorId": "fellow.star-lord",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.star-lord.named-visitor", "dialogue.facility.gatehouse.star-lord.result-comment"]
+    },
+    {
+      "actorId": "fellow.iron-man",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.market-workshop.iron-man.tutorial-guide", "dialogue.facility.market-workshop.iron-man.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.daredevil",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.daredevil.named-visitor", "dialogue.facility.command-center.daredevil.result-comment"]
+    },
+    {
+      "actorId": "fellow.thor",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.training-grounds.thor.named-visitor", "dialogue.facility.gardens.thor.result-comment"]
+    },
+    {
+      "actorId": "fellow.captain-america",
+      "earliestFacilityPhase": 15,
+      "hookIds": ["dialogue.legacy.captain-america.first-feat-guide", "dialogue.facility.command-center.captain-america.named-visitor"]
+    },
+    {
+      "actorId": "fellow.spider-man",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.spider-man.ambient", "dialogue.facility.schoolhouse.spider-man.named-visitor"]
+    },
+    {
+      "actorId": "fellow.wolverine",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.gatehouse.wolverine.ambient", "dialogue.facility.gatehouse.wolverine.result-comment"]
+    },
+    {
+      "actorId": "fellow.obi-wan",
+      "earliestFacilityPhase": 19,
+      "hookIds": ["dialogue.facility.schoolhouse.obi-wan.tutorial-guide", "dialogue.facility.archives.obi-wan.result-comment"]
+    },
+    {
+      "actorId": "fellow.anakin",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.forge.anakin.named-visitor", "dialogue.facility.forge.anakin.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.elara",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.hearth.elara.tutorial-guide", "dialogue.facility.hearth.elara.story-hook"]
+    },
+    {
+      "actorId": "family.tamsin",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.tamsin.banking-guide", "dialogue.facility.restaurant.tamsin.ambient"]
+    },
+    {
+      "actorId": "family.isolde",
+      "earliestFacilityPhase": 15,
+      "hookIds": ["dialogue.legacy.isolde.track-guide", "dialogue.waystone.isolde.record-comment"]
+    },
+    {
+      "actorId": "family.violet",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.archives.violet.ambient", "dialogue.facility.archives.violet.result-comment"]
+    },
+    {
+      "actorId": "family.virginia",
+      "earliestFacilityPhase": 15,
+      "hookIds": ["dialogue.waystone.virginia.major-claim-comment", "dialogue.facility.command-center.virginia.activity-presenter"]
+    },
+    {
+      "actorId": "family.captain-marvel",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.training-grounds.captain-marvel.activity-presenter", "dialogue.facility.forge.captain-marvel.result-comment"]
+    },
+    {
+      "actorId": "family.scarlet-witch",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.scarlet-witch.tutorial-guide", "dialogue.facility.apothecary.scarlet-witch.activity-presenter"]
+    },
+    {
+      "actorId": "family.ahsoka",
+      "earliestFacilityPhase": 19,
+      "hookIds": ["dialogue.facility.schoolhouse.ahsoka.activity-presenter", "dialogue.facility.training-grounds.ahsoka.result-comment"]
+    },
+    {
+      "actorId": "family.rey",
+      "earliestFacilityPhase": 21,
+      "hookIds": ["dialogue.facility.gardens.rey.tutorial-guide", "dialogue.facility.market-workshop.rey.ambient"]
+    },
+    {
+      "actorId": "family.syl",
+      "earliestFacilityPhase": 15,
+      "hookIds": ["dialogue.legacy.syl.claim-guide", "dialogue.waystone.syl.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.shallan",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.archives.shallan.named-visitor", "dialogue.facility.archives.shallan.result-comment"]
+    },
+    {
+      "actorId": "family.yennefer",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.yennefer.activity-presenter", "dialogue.facility.forge.yennefer.story-hook"]
+    },
+    {
+      "actorId": "family.jaina",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.jaina.named-route-visitor", "dialogue.facility.restaurant.jaina.reputation-guide"]
+    },
+    {
+      "actorId": "family.tyrande",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.hearth.tyrande.named-visitor", "dialogue.facility.gardens.tyrande.ambient"]
+    },
+    {
+      "actorId": "family.shadowheart",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.shadowheart.ambient", "dialogue.facility.hearth.shadowheart.result-comment"]
+    },
+    {
+      "actorId": "family.amara",
+      "earliestFacilityPhase": 20,
+      "hookIds": ["dialogue.facility.command-center.amara.ambient", "dialogue.facility.command-center.amara.named-visitor"]
+    },
+    {
+      "actorId": "family.aerith",
+      "earliestFacilityPhase": 18,
+      "hookIds": ["dialogue.facility.apothecary.aerith.claim-acknowledgement", "dialogue.facility.schoolhouse.aerith.ambient"]
+    },
+    {
+      "actorId": "family.tifa",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.tifa.service-guide", "dialogue.facility.restaurant.tifa.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.hermione",
+      "earliestFacilityPhase": 19,
+      "hookIds": ["dialogue.facility.schoolhouse.hermione.story-hook", "dialogue.facility.market-workshop.hermione.result-comment"]
+    },
+    {
+      "actorId": "family.misty",
+      "earliestFacilityPhase": 16,
+      "hookIds": ["dialogue.facility.restaurant.misty.ambient", "dialogue.facility.gatehouse.misty.activity-presenter"]
+    }
+  ]
+}
