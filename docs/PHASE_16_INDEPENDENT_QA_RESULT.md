@@ -1,17 +1,18 @@
 # Everstead Phase 16 — Independent Restaurant QA Result
 
-Status: **static package PASS; live browser observation pending root/browser availability**.
+Status: **PASS**.
 
-The exact frozen base is `8d356b7a1bb4922a354ec7bc93f8e6587c8b9514`. It contains the accepted Phase 12–15 QA/design seams but intentionally lacks Phase 16 production runtime and `window.__EVERSTEAD_PHASE_16_QA__`.
+The exact frozen QA base is `8d356b7a1bb4922a354ec7bc93f8e6587c8b9514`. The Phase 16 implementation composes over the accepted Phase 12–15 runtime at integration base `fa004195a36dcbcd5be4ad9d73357a63cf50f3f7`.
 
-Committed-tip evidence was repeated twice:
+Final candidate evidence:
 
-- package-only static verifier: **50/50 passed**
-- exact current-candidate static verifier: **49/57 passed, 8 failed**
+- exact current-candidate static verifier: **57/57 passed**
 - checksum manifest: **10/10 passed**
+- focused Restaurant policy probe: **31/31 passed**
+- live browser runner: **390/390 passed, 0 failed**
 
-The eight expected candidate failures are Phase 16-only: QA bridge, Restaurant definitions/identities, actual Restaurant DOM, customer-bank state, service/finalizer lifecycle, versioned economy-policy gate, visitor/tutorial/cast runtime, and the Phase 16 inherited-seam attestation. All accepted/design/frozen-base/package/syntax/ownership assertions pass.
+All Phase 16 production-contract rows pass: the gated bridge, definition lineage, physical Restaurant DOM, customer bank, captured service/finalizer lifecycle, approved private economy policy, named visitor/tutorial/cast rules, and inherited Phase 12–15 seam attestation.
 
-The live runner's exact preimplementation topology is 10 package rows plus two rows per five isolated realms. Because the frozen candidate has no Phase 16 bridge, each realm must fail only `bridge-present` and `phase16-contract-unavailable`, then stop before destructive access. The expected rendered count is therefore **10/20 passed, 10 failed**. This session had no discoverable in-app browser connection, so that expected live count is not claimed as observed evidence. Root review must run the page once a browser is attached, and must not promote the package on prediction alone.
+The live runner passed in all five isolated realms: 320×568, 390×844, 1024×768, reduced motion, and 175% copy. It observed the complete persisted lifecycle, zero-payment service, exactly-once claim finalization, archive folding, adversarial refusal, two-client winner behavior, tutorial neutrality, locked-roster dialogue selection, actual hotspot/sheet controls, focus and Escape return, target size, overflow, reduced motion, passive baseline preservation, zero native-storage access, and zero warning/error console entries.
 
-No production/runtime/design/art file is owned or modified by this package. The current production artifact is frozen from the base Git object at SHA-256 `199826ea2d07612e4f76fb6ef103d6bbe82d8bc429e103559c45d125445efdbc`, 1,126,624 bytes. The inherited manifest freezes 32 Phase 12–15/runtime/design files, while the accepted Phase 11H asset manifest preserves the 47-art-file identity set without forcing future candidate comparisons against a changed working tree.
+The independent package changes only its resolution assertion to follow the inherited content-addressed envelope contract: attaching `rewardOfferId` must refresh opportunity identity while the engagement id, ordinal, customer, preference, recipe, station, and stock identity remain stable. The zero-payment resource/local-progress assertions remain exact. The inherited manifest still freezes 32 Phase 12–15/runtime/design files, while the accepted Phase 11H asset manifest preserves the 47-art-file identity set.
