@@ -108,7 +108,8 @@ The live runner loads the real candidate `index.html` into five isolated browser
 - one five-item bottom navigation;
 - one board container and twelve stable hotspot nodes, with hidden nodes non-interactive/non-spoiling;
 - state, anchor, label, minimum target size, viewport bounds, and collision-free focus targets;
-- opening a hotspot produces the real sheet, moves focus inside, exposes name/activity/status, and Escape/Close returns focus without resolving or claiming;
+- opening the synthetic Command Center produces the real sheet, moves focus inside, exposes name/activity/status, and Escape/Close returns focus without resolving or claiming;
+- opening the Waystone separately reaches its authored Legacy/Waystone surface and remains write-neutral;
 - 175 percent copy, mobile/wide, and reduced-motion behavior;
 - zero native-storage access and zero warning/error console output.
 

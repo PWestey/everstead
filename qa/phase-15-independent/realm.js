@@ -196,10 +196,14 @@
       add('actual-dom-focus-targets-do-not-overlap',noOverlap,visibleHotspots.map(node=>node.dataset.phase15FacilityId));
       const pageNoOverflow=document.documentElement.scrollWidth<=document.documentElement.clientWidth+1&&document.body.scrollWidth<=document.body.clientWidth+1;
       add('actual-dom-no-horizontal-overflow',pageNoOverflow,{document:[document.documentElement.clientWidth,document.documentElement.scrollWidth],body:[document.body.clientWidth,document.body.scrollWidth],copyScale:config.viewport.copyScale});
-      const opener=visibleHotspots.find(node=>node.dataset.phase15State!=='hidden');
+      const opener=visibleHotspots.find(node=>node.dataset.phase15FacilityId===f.syntheticPolicy.facilityId);
       let focusSheetOk=false,focusReturnOk=false,escapeNeutral=false;
       if(opener){opener.focus();const beforeOpenRaw=call('read','raw');opener.click();await wait(30);const sheet=document.querySelector('[data-phase15-facility-sheet]'),active=document.activeElement;focusSheetOk=Boolean(sheet)&&sheet.contains(active)&&Boolean(sheet.textContent.trim())&&Boolean(sheet.querySelector('[data-phase15-close]'));document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await wait(30);focusReturnOk=document.activeElement===opener;escapeNeutral=call('read','raw')===beforeOpenRaw}
       add('actual-dom-sheet-focus-and-escape',focusSheetOk&&focusReturnOk&&escapeNeutral,{focusSheetOk,focusReturnOk,escapeNeutral,active:document.activeElement?.outerHTML?.slice(0,240)});
+      const waystoneHotspot=visibleHotspots.find(node=>node.dataset.phase15FacilityId==='facility.waystone');
+      let waystoneSurfaceOk=false,waystoneNeutral=false;
+      if(waystoneHotspot){const beforeWaystoneRaw=call('read','raw');waystoneHotspot.focus();waystoneHotspot.click();await wait(30);const gateway=document.querySelector('[data-phase15-facility-sheet] [data-phase15-open-legacy]'),contextTutorial=document.querySelector('[data-phase15-tutorial]');if(gateway){gateway.click();await wait(30)}const legacyHeading=[...document.querySelectorAll('[data-overlay] h2')].some(node=>node.textContent.trim()==='Legacy'),waystoneContextTutorial=Boolean(contextTutorial)&&Boolean(contextTutorial.textContent.trim());waystoneSurfaceOk=legacyHeading||waystoneContextTutorial;document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await wait(30);waystoneNeutral=call('read','raw')===beforeWaystoneRaw}
+      add('actual-dom-waystone-opens-legacy-surface',Boolean(waystoneHotspot)&&waystoneSurfaceOk&&waystoneNeutral,{waystone:Boolean(waystoneHotspot),waystoneSurfaceOk,waystoneNeutral});
       const reducedOk=config.viewport.reducedMotion?[...document.querySelectorAll('[data-phase15-facility-board],[data-phase15-facility-id]')].every(node=>{const style=getComputedStyle(node);return style.animationName==='none'||style.animationDuration==='0s'}):true;
       add('actual-dom-reduced-motion-equivalence',reducedOk,{reducedMotion:config.viewport.reducedMotion});
 
