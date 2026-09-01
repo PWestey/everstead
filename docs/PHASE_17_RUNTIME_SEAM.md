@@ -38,7 +38,7 @@ Story reward definitions remain null and disabled. The QA-only synthetic reward 
 
 The supplied 1024×1536 RGB full-background source is rendered by the title/player profile at its declared native aspect ratio in a full-screen background treatment. The profile exposes Player Rank and the Rank EXP roadmap, returns focus on button-close and Escape, and marks the character's explicit exclusion from rosters, shards, and assignments.
 
-Because no approved transparent Campaign asset exists, Campaign uses the exact approved full-background source in a clearly framed, static CSS crop. The background remains visibly present and the UI makes no transparency, walking-animation, or cutout claim. The original Everstead CSS silhouette remains the deterministic image-load fallback.
+Because no approved transparent Campaign asset exists, Campaign uses the exact approved full-background source in a clearly framed, static CSS crop. This is the one Campaign Wayfarer identity card: it replaces only the predecessor `W` / Central protagonist chip, remains a keyboard-accessible full-profile invoker, and leaves the top-bar Rank button unchanged. The background remains visibly present and the UI makes no transparency, walking-animation, or cutout claim. The original Everstead CSS silhouette remains the deterministic image-load fallback.
 
 ## Sequential Phase 16 dependency
 

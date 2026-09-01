@@ -10,12 +10,12 @@ The frozen package base remains candidate-portable and contains no Phase 17 prod
 - exact current-candidate static verifier: **64/64 passed**
 - checksum manifest: **10/10 passed**
 - accepted Phase 17 design validator: **31/31 passed** inside the package verifier
-- focused runtime/seam verifier: **38/38 passed**
+- focused runtime/seam verifier: **40/40 passed**
 - five-realm live browser gate: **417/417 passed**, zero console warnings/errors, blank fatal field
 
 All package, design, frozen-base, syntax, ownership, and candidate assertions pass. The live result includes the inherited Phase 12–16 seams in every realm, including all five Restaurant attestations.
 
-The live runner has twelve package rows plus 81 rows in each of five isolated realms. It observes the real bridge, deterministic Book I/story/Chronicle flow, save and concurrency behavior, passive-original-four preservation, reduced motion, 320/390/1024 layouts, 130-percent copy, keyboard/focus/Escape, exact full-art profile treatment, and the retained-background framed Campaign crop with its synthetic image-error silhouette fallback.
+The live runner has twelve package rows plus 81 rows in each of five isolated realms. It observes the real bridge, deterministic Book I/story/Chronicle flow, save and concurrency behavior, passive-original-four preservation, reduced motion, 320/390/1024 layouts, 130-percent copy, keyboard/focus/Escape, exact full-art profile treatment, and exactly one retained-background illustrated Campaign identity card with no predecessor `W` chip, clickable profile invocation, exact focus return, and its synthetic image-error silhouette fallback.
 
 Hardening added after root review: passive-original-four comparisons occur within one fixture at the same frozen timestamp and explicitly exclude `day`, `boostDay`, `lastGoldAt`, and `lastSeen`; reduced-motion evidence uses a production-observable root attribute, real computed styles, and a static media-query guard rather than a test-owned `matchMedia` patch; and Campaign exposes `player.wayfarer` as a separate Player Character using the canonical RGB art in a clearly framed static crop with the background retained, no transparency/walking/Power/roster claim, and the original silhouette only as an image-load fallback.
 

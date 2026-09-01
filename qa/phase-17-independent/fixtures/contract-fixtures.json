@@ -119,10 +119,11 @@
       "width": 1024,
       "height": 1536,
       "mode": "rgb-full-background",
-      "use": "title-profile-only"
+      "use": "title-profile-and-framed-campaign"
     },
-    "campaignAllowedModes": ["approved-transparent-cutout", "original-everstead-silhouette", "attributed-static-marker"],
-    "campaignDefaultUntilCutoutApproved": "original-everstead-silhouette",
+    "campaignAllowedModes": ["approved-transparent-cutout", "framed-background-static"],
+    "campaignDefaultUntilCutoutApproved": "framed-background-static",
+    "campaignFallbackMode": "original-everstead-silhouette",
     "excludedDomains": ["fellow-roster", "family-roster", "companion-roster", "roster-count", "shards", "rarity", "assignments", "facility-speaker-eligibility", "combat-power"]
   },
   "passiveBaselineContract": {
