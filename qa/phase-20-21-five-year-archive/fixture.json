@@ -1,0 +1,37 @@
+{
+  "contractId": "phase-20-21-five-year-archive-fixture-v1",
+  "acceptedCommit": "4a3a7472e4534485dfb86cd3c44a244d13c6fff5",
+  "sourceHashes": {
+    "index.html": "b44ddeb1711700df12a90932b711661c5041143a5f2a7b936faabce31f89c103",
+    "src/phase15-facilities.js": "29888a098a1cfea01282bf59739673b4c910e2133ceb01d29d78e20422811fd7",
+    "src/phase20-21-facilities.js": "51f9f7b0b4fd1a5bfe4aa5b9f09ec30e251eefedbb0eae25a6911d5c3cc7de8b",
+    "src/phase20-21-runtime.js": "755ce7edf645c512d39c52783ff66b26dbaaf2826bd4f2dff93b32e96508fbbd",
+    "design/phase-20-21/fixtures.json": "a5342f7f8493151f5116cb386814e6920452a3dbd098a9d75ed40b8813bd18f1"
+  },
+  "cadence": {
+    "start": "2026-01-01T00:00:00.000Z",
+    "end": "2031-01-01T00:00:00.000Z",
+    "anniversaryDays": [365, 730, 1096, 1461, 1826],
+    "claimRoundsPerFacilityPerDay": 8,
+    "pattern": "strict eight-facility round-robin; no same-facility adjacent global sequences"
+  },
+  "thresholds": {
+    "receiptRangeEntriesMax": 544,
+    "serializedBytesMax": 1048576,
+    "yearFiveGrowthBytesMax": 65536,
+    "validationRangeVisitsMax": 544
+  },
+  "expectedAcceptedResult": {
+    "verdict": "FAIL",
+    "totalClaims": 116864,
+    "foldCount": 909,
+    "foldedReceipts": 116352,
+    "recentReceipts": 512,
+    "receiptRangeEntries": 116864,
+    "serializedBytes": 1920663,
+    "yearFiveGrowthBytes": 394778,
+    "validationRangeVisits": 116872,
+    "serializedSha256": "23e305fd680535a2d4c0ca929d1f9c6287ab2c8f78b3aeeade0c1914044cc86d",
+    "deterministicEvidenceSha256": "5534852ef786b86177ec100f4e8f08c3b9686d90a3a19197b203322591e08615"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "contractId": "phase-20-21-five-year-bounded-v3-fixture-v1",
+  "candidate": {
+    "commit": "cbb3ac8d14f3dc610c6ffbefba7fd09f0fbf72cb",
+    "sourceHashes": {
+      "index.html": "998ea7205cc67e0c8acf0267897d142a5ff1c1a7fdf0c4ee35862534d962dbe4",
+      "src/phase15-facilities.js": "29888a098a1cfea01282bf59739673b4c910e2133ceb01d29d78e20422811fd7",
+      "src/phase17-runtime.js": "792f4d78b4931464be8c22f1c4a6cf307e9ebb00be5b022a3f54fcf3514b1131",
+      "src/phase20-21-facilities.js": "51f9f7b0b4fd1a5bfe4aa5b9f09ec30e251eefedbb0eae25a6911d5c3cc7de8b",
+      "src/phase20-21-runtime.js": "b6894ef6b7b031c4acf6457b658e99b996a816ca9900d7b12e7d711d5e41dc62",
+      "src/phase20-21-presentation.css": "51d877d88c791f196e98a95a22f221bd77466055632a6f255daa3c2d8dc602a9",
+      "src/phase20-21-presentation.js": "f47665145a49ff90254a863d73aa02c18cb340179c1159ebbe5c9a240a021ce9",
+      "qa/phase-20-21-runtime/verify.mjs": "5f15dcee0a5b4593fae6084e0f631927c8091e196aab796d482d67de9fccfd64",
+      "qa/phase-20-21-archive/verify.mjs": "a84c5ece3b274236ba6bcf4a3eb4adcd1ac764c3b79e93acd86bb4c2b38efe60",
+      "qa/phase-20-21-ui/index.html": "3c106df74271d18129a34e92ce917f333723479d598a6580ac80ea954ad11198",
+      "qa/phase-20-21-ui/realm.html": "1d976529426dc183aec0f2dddf3aac02e546deee9c63881481b9a7ada3bce0b5",
+      "qa/phase-20-21-ui/runner.js": "ef08d2e92e44c9b8b62d8f9fe8ae7d5f4ab9a1fe46c1f173a9b95b5183361b7f",
+      "qa/phase-20-21-ui/realm.js": "e780f90eeb15fbe6c01baa64a29457ccb12f290ec8b9cefdcaf9799b770046dc",
+      "qa/phase-20-21-ui/fixtures/ui-fixtures.json": "944ba4aca761d79ceffeaef4a8d8bff6ed8c3be39a5ca230b745d4f66c062ca5"
+    },
+    "runtimeVerifierOutputSha256": "e71eb469ee2c2d6093e919026b98bd259a5955793fec7b44cbb71da56f206197",
+    "requiredRuntimeChecks": [
+      "definitions-exact-private-and-complete",
+      "unauthorized-imported-qa-policy-is-inert",
+      "synthetic-state-remains-invalid-after-flag-clearing",
+      "bounded-fold-high-water-anchor-and-authority-forgeries",
+      "bounded-checkpoint-interleaving-malformation-and-v2-rejection",
+      "bounded-domain-ranges-and-predecessor-triggered-folds",
+      "production-fold-boundary-uses-one-atomic-finalizer",
+      "recent-and-folded-receipts-require-row-local-domain-ownership",
+      "phase15-archive-constants-remain-exact",
+      "top-level-claim-validation-indexes-recent-window-once"
+    ],
+    "browserGate": {
+      "runs": 2,
+      "totalPerRun": 1060,
+      "passedPerRun": 1060,
+      "failedPerRun": 0,
+      "activeRealms": 6,
+      "inactiveRealms": 1
+    }
+  },
+  "cadence": {
+    "start": "2026-01-01T00:00:00.000Z",
+    "end": "2031-01-01T00:00:00.000Z",
+    "anniversaryDays": [365, 730, 1096, 1461, 1826],
+    "successorClaimRoundsPerFacilityPerDay": 8,
+    "preActivationPredecessorReceipts": 512,
+    "postActivationPredecessorReceiptEverySuccessorClaims": 4096,
+    "domainOrder": "max-fragment alternating gaps within each facility bank capacity",
+    "globalOrder": "strict eight-facility round-robin"
+  },
+  "thresholds": {
+    "minimumSuccessorClaims": 116864,
+    "incrementalSerializedBytesMaxExclusive": 1048576,
+    "yearFiveGrowthBytesMax": 65536,
+    "validationVisitBudget": 604
+  },
+  "expectedModelOnlyResult": {
+    "verdict": "PASS",
+    "deterministicEvidenceSha256": "2e4c6ea63999156ac125debba4a90c05d7bbcbc5b1dcf1c40577808bfb476ee3",
+    "serializedSha256": "27e8423dc4b3322e0b7406cf1a4fda7c8fcdf34ad78bb942332d3a118c4f040f",
+    "serializedBytes": 225756,
+    "incrementalBytes": -7889,
+    "peakIncrementalBytes": 44833,
+    "yearFiveGrowthBytes": -29169,
+    "validationVisits": 452
+  },
+  "expectedModelResult": {
+    "verdict": "PASS",
+    "deterministicEvidenceSha256": "cf7fd41c30bc474a05ca6d64d3e2478efb2a14e1c3ef099709fa321fd86b0062",
+    "serializedSha256": "27e8423dc4b3322e0b7406cf1a4fda7c8fcdf34ad78bb942332d3a118c4f040f",
+    "serializedBytes": 225756,
+    "incrementalBytes": -7889,
+    "peakIncrementalBytes": 44833,
+    "yearFiveGrowthBytes": -29169,
+    "validationVisits": 452
+  }
+}
