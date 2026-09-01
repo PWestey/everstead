@@ -52,7 +52,7 @@ These may close after the shared seam and relevant Phase 20 seams. All four rema
 - All opportunities bank without expiry, settle offline only within the inherited 24-hour boundary, resolve without payment, and pay only through individual manual exact-once claims using the trusted Phase 15 V2 finalizer/archive seam.
 - Activity-specific contracts remain distinct: bounded petitions, safe research reconstruction, presentation-only drills, positive-only gatherings, forgiving caravan assessment, reservation-safe orders, nonspoiling cultivation, and existing-inventory-only Relic commissions.
 - The exact 19 contextual tutorial IDs resolve; the exact 45 accepted hooks cover 28 actors; all 18 Fellows and 20 Family retain profile-quote, ambient-comment, and scheduled authored-role coverage; locked Fellows cannot speak.
-- Five browser realm definitions cover 320×568, 390×844, 1024×68, 130-percent text, and reduced motion with actual-DOM, focus, touch-target, overflow, semantic-control, keyboard, and non-tautological motion assertions.
+- Five browser realm definitions cover 320×568, 390×844, 1024×768, 130-percent text, and reduced motion with actual-DOM, single hotspot activation, focus entry/return, touch-target, overflow, semantic-control, and non-tautological motion assertions.
 - The forbidden matrix rejects facility stamina/currency, daily-reset loss, detached grids, a sixth navigation item, Blessing, Fellow staffing, expansion passive production, duplicate Relic Stones, Claim All, Garden spoilage/auto-replant, advanced Forge systems, and copied reference assets/trade dress.
 
 ## Browser execution status

@@ -21,7 +21,7 @@ The candidate exposes local/query-gated `window.__EVERSTEAD_PHASE_20_21_QA__`, v
 
 Read methods expose only normalized evidence: `definitions()`, `snapshot()`, `validate()`, `derive()`, `raw()`, `exportSave()`, `passiveBaseline(capturedAt)`, `policyReport()`, `boardModel()`, and `forbiddenSystemReport()`.
 
-Destructive methods operate only on isolated fixtures: `resetFixture()`, `reload()`, `importFixture()`, `migrate()`, `advanceOffline()`, `settle()`, `openFacility()`, `begin()`, `choose()`, `commitEngagement()`, `cancelEngagement()`, `advanceGrowth()`, `resolve()`, `claim()`, `tutorial()`, `simulateConcurrent()`, `mutateInvalid()`, and `probeFinalizerFailure()`.
+Destructive methods operate only on isolated fixtures: `resetFixture()`, `reload()`, `importFixture()`, `migrate()`, `advanceOffline()`, `settle()`, `begin()`, `choose()`, `commitEngagement()`, `cancelEngagement()`, `advanceGrowth()`, `resolve()`, `claim()`, `tutorial()`, `simulateConcurrent()`, `mutateInvalid()`, and `probeFinalizerFailure()`. DOM presentation must be opened through the real hotspot only, never through a bridge helper.
 
 The browser realm loads the real candidate `index.html`, injects only memory storage/clock/random/ID adapters before production scripts, and calls only that production bridge. It never installs a fake facility runtime.
 
@@ -39,7 +39,7 @@ All cadence, capacity, selection, reward, local progress, relationship, Gift, st
 
 Command Center, Archives, Training Grounds, and Hearth retain the released Building level, upgrade path, passive Gold production, Oath multiplier, 24-hour offline collection, Family assignment, and Family production contribution. Active state is additive and uses separate local progress. Training participants and Hearth attendees never replace assigned Family; Fellows never staff Buildings.
 
-`passiveBaseline(capturedAt)` derives immutable production and Family-assignment semantics for exactly the original four at one captured timestamp. It excludes volatile balances/timestamps and raw `boostDay`, preventing legitimate wall-clock rollover from being mistaken for a regression while still detecting changes to effective same-time rates, formulas, levels, assignments, or Oath effects.
+`passiveBaseline(capturedAt)` derives immutable production and Family-assignment semantics for exactly the original four at one captured timestamp. It excludes volatile balances/timestamps and raw `boostDay`, preventing legitimate wall-clock rollover from being mistaken for a regression while still detecting changes to effective same-time rates, formulas, levels, assignments, or Oath effects. Every representative active flow compares its before/after baseline inside the same reset fixture; no cross-fixture comparison is evidence.
 
 ### Command Center
 
@@ -85,7 +85,7 @@ The exact ten hooks derive optional, positive-only variant eligibility from comm
 
 Story discovery, capability, and opening use the exact Phase 17 IDs for each physical anchor. Replay creates no opportunities or grants. Grandfathered operational successors do not relock or repeat grants.
 
-Exactly 19 existing IDs from the 79-ID tutorial ledger are registered: three shared and two contextual per facility. Tutorials are gradual, contextual, nonblocking, skippable, logged, replayable, and reward-neutral. Shared tutorials do not repeat after predecessor completion. A mastery/effect tutorial never presents a null policy as active; at most one tutorial auto-presents during a safe visit.
+Exactly 19 existing IDs from the 79-ID tutorial ledger are registered: three shared and two contextual per facility. Tutorials are gradual, contextual, nonblocking, skippable, logged, replayable, and reward-neutral. Shared tutorials do not repeat after predecessor completion. A mastery/effect tutorial never presents a null policy as active; at most one tutorial auto-presents during a safe visit. Open/replay may persist only `tutorialExtension`/predecessor tutorial-ledger deltas plus ordinary save revision provenance. The bridge reports zero reward applications and zero feature blocks; resources, passive behavior, facilities, opportunities, claims, receipts, story, roster, and every other mechanical field remain equivalent.
 
 The Phase 20–21 facility subset is exactly 45 accepted hooks across 28 current actors. Separately, every shipped Fellow and Family member—all 18 Fellows and 20 Family—retains a profile quote and ambient Village-comment role plus the previously scheduled authored/story/facility role. This phase does not force all 38 into these eight activities. Locked Fellows never speak. Mechanical copy never depends on the speaker.
 
@@ -103,7 +103,7 @@ Concurrency covers settlement and resolution for all eight, Workshop/Forge reser
 
 All facilities remain on the Village picture. Hidden, discovered/dim, available, and claim-ready icon states have non-color-only text and accessible names. Tapping one physical hotspot opens one focused sheet. The bottom navigation remains exactly five items; no sixth facilities tab and no detached Building-management grid exist.
 
-The live runner covers 320×568, 390×844, 1024×768, 130-percent text, and reduced motion. It queries real hotspots/sheets, 44×44 targets, viewport containment, horizontal overflow, status text, semantic controls, keyboard activation, focus entry/return, and Escape/write neutrality. Reduced motion requires a production runtime marker plus a real static CSS media-rule contract; injected `matchMedia` alone is insufficient.
+The live runner covers 320×568, 390×844, 1024×768, 130-percent text, and reduced motion. It resets a presentation-safe all-unlocked fixture, queries real hotspots/sheets, and opens each sheet through exactly one actual hotspot activation—never a programmatic bridge open followed by duplicate DOM events. It verifies 44×44 targets, viewport containment, horizontal overflow, status text, semantic controls, focus inside the opened sheet, Escape focus return to the opener, and write neutrality. Reduced motion requires a production runtime marker plus a real static CSS media-rule contract; injected `matchMedia` alone is insufficient.
 
 ## Explicit forbidden-system gate
 
