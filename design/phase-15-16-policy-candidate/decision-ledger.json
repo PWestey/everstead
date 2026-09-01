@@ -7,7 +7,7 @@
     {"id":"locked.non-expiry","statement":"Generated opportunities and ready claims do not expire.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
     {"id":"locked.no-offline-agency","statement":"Offline settlement may generate opportunities and advance committed timers, but may not choose, resolve, serve, transfer stock, or claim.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
     {"id":"locked.exact-once","statement":"Claims are exact-once through the trusted finalizer and retained receipt/archive contract.","source":"design/phase-15-16/SEAM_RESOLUTION.md"},
-    {"id":"locked.no-new-global-loop","statement":"These phases add no stamina, global currency, daily reset, daily checklist, or permanent percentage multiplier.","source":"design/phases-14-21-audit/CONTRACT.md"},
+    {"id":"locked.no-new-global-loop","statement":"These phases add no stamina, global currency, daily reset, daily checklist, or permanent percentage multiplier.","source":"design/phases-14-21-audit/CROSS_PHASE_AUDIT_CONTRACT.md"},
     {"id":"locked.waystone-anchor","statement":"Waystone and Legacy remain at the central-crystal physical Village anchor.","source":"design/phase-15-16/legacy-definitions.json"},
     {"id":"locked.restaurant-anchor","statement":"Restaurant uses the western-plaza-restaurant anchor with western-plaza as the predecessor alias.","source":"design/phase-15-16/restaurant-definitions.json"},
     {"id":"locked.restaurant-identity","statement":"Restaurant uses customers, recipes, preparation stations, service choices, local reputation, recipe mastery, visitors, and manual claims.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},

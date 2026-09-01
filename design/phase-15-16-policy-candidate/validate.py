@@ -268,6 +268,7 @@ def main() -> int:
 
     ledger_ids = [item["id"] for group in ("approvedByExistingContracts", "candidateRecommendations", "rootReviewDecisions") for item in ledger[group]]
     check(len(ledger_ids) == len(set(ledger_ids)), "decision-ledger IDs are unique")
+    check(all((ROOT / item["source"]).is_file() for item in ledger["approvedByExistingContracts"]), "every approved-fact ledger source path exists")
     check(len(ledger["approvedByExistingContracts"]) >= 10, "ledger separates at least ten existing contract facts")
     check(len(ledger["candidateRecommendations"]) >= 12, "ledger identifies all material candidate recommendations")
     check(sum(bool(item.get("blocksProductionEnablement")) for item in ledger["rootReviewDecisions"]) >= 4, "root-review production blockers remain explicit")
