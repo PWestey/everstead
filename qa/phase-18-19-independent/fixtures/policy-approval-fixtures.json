@@ -1,0 +1,45 @@
+{
+  "fixtureId": "phase-18-19-policy-approval-fixtures-v1",
+  "sourceCandidateId": "phase-18-19-product-policy-candidate-v1",
+  "status": "candidate-qa-only",
+  "productionEnabled": false,
+  "acceptedNullSlots": {"apothecary": 38, "schoolhouse": 48, "total": 86},
+  "apothecary": {
+    "intervalMs": 3600000,
+    "bankCapacity": 8,
+    "unattendedTargetMs": 28800000,
+    "masteryThresholds": [0, 12, 36, 90],
+    "masteryByOutcome": {"supportive": 2, "precise": 3},
+    "regionWeights": [50, 30, 20],
+    "caseWeights": [100, 100, 100],
+    "namedPatientWeights": [0, 0]
+  },
+  "schoolhouse": {
+    "intervalMs": 5400000,
+    "bankCapacity": 8,
+    "unattendedTargetMs": 43200000,
+    "initialSeats": 1,
+    "maximumSeats": 2,
+    "secondSeatEducation": 36,
+    "secondSeatGraduations": 1,
+    "domainRequirements": [8, 8, 8],
+    "mentorBands": [[0, 0, 0], [25, 1, 0], [50, 1, 250]],
+    "graduation": {"offerVersion": 2, "gift": 1, "relicStones": 3, "education": 6}
+  },
+  "guardrails": {
+    "maximumRecurringBasisPoints": 1050,
+    "maximumThirtyDayTotalActiveBasisPoints": 1200,
+    "maximumSaveBytes": 1048576,
+    "minimumSafeIntegerHeadroomFactor": 100,
+    "passiveMutationCount": 0,
+    "familyAssignmentMutationCount": 0
+  },
+  "simulation": {
+    "profileIds": ["profile.fresh", "profile.midgame", "profile.established", "profile.high-activity", "profile.mostly-idle"],
+    "horizonDays": [1, 7, 30, 365, 1825],
+    "boundaryCaseCount": 153,
+    "rewardBandCount": 52
+  },
+  "coverage": {"tutorialIds": 9, "actorIds": 10, "policyFixtures": 52, "candidateFiles": 12},
+  "releaseRule": "This fixture may validate a candidate only. It may never satisfy the 13 absent production-runtime boundaries."
+}
