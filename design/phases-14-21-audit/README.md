@@ -1,6 +1,6 @@
 # Everstead Phases 14–21 consistency audit
 
-This is a design-only capstone gate over the accepted Phase 13 cast/tutorial ledgers and Phase 14–21 facility packages. It changes no production code, runtime behavior, artwork, or CSS.
+This is a design-only capstone gate over the accepted Phase 13 cast/tutorial ledgers and Phase 14–21 facility packages. It changes no production code, runtime behavior, artwork, or CSS. The validator is candidate-portable: it accepts the original source commit in the ancestry or the same exact frozen source-package tree identities after reviewed integration cherry-picks.
 
 ## Result
 

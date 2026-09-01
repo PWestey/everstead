@@ -8,7 +8,7 @@ It does not implement, enable, balance, style, or release any feature. A passing
 
 ## Frozen source
 
-The audit is based on exact commit `e6d850f4632098c22aa9217d2072941fe138d748`. The validator freezes the Git tree identity of each source package:
+The audit was authored from exact commit `e6d850f4632098c22aa9217d2072941fe138d748`. The validator accepts that commit in the ancestry or an integration topology carrying the same exact frozen Git tree identities for every source package:
 
 - `design/phase-13`;
 - `design/phase-14`;
@@ -217,7 +217,7 @@ Acceptance requires:
 - all six source trees match the frozen identities;
 - all three source validators pass;
 - committed results and blocker counts match computed evidence;
-- only `design/phases-14-21-audit/*` differs from the source commit;
+- all six audited source-package trees retain their exact frozen identities and have no worktree changes;
 - no production, runtime, art, or CSS file changes.
 
 ## Blind spots

@@ -99,9 +99,6 @@ release21 = load("design/phase-20-21/release-gate.json")
 
 # 1. Source identity and package-local gates.
 source_commit = fixtures["sourceCommit"]
-source_is_ancestor = run_git("merge-base", "--is-ancestor", source_commit, "HEAD")
-check("exact source commit is an ancestor", source_is_ancestor.returncode == 0)
-
 tree_failures = []
 for relative, expected_tree in fixtures["sourceTrees"].items():
     actual = run_git("rev-parse", f"HEAD:{relative}")
@@ -109,11 +106,13 @@ for relative, expected_tree in fixtures["sourceTrees"].items():
         tree_failures.append((relative, actual.stdout.strip(), expected_tree))
 check("all six audited source trees are frozen", not tree_failures, tree_failures)
 
-worktree_source_diff = run_git(
-    "diff",
-    "--quiet",
-    source_commit,
-    "--",
+source_is_ancestor = run_git("merge-base", "--is-ancestor", source_commit, "HEAD")
+check(
+    "source lineage or exact frozen package trees are present",
+    source_is_ancestor.returncode == 0 or not tree_failures,
+)
+
+source_paths = (
     "design/phase-13",
     "design/phase-14",
     "design/phase-15-16",
@@ -121,7 +120,12 @@ worktree_source_diff = run_git(
     "design/phase-18-19",
     "design/phase-20-21",
 )
-check("no audited source package has a worktree diff", worktree_source_diff.returncode == 0)
+worktree_source_status = run_git("status", "--porcelain", "--", *source_paths)
+check(
+    "no audited source package has a worktree diff",
+    worktree_source_status.returncode == 0 and not worktree_source_status.stdout.strip(),
+    worktree_source_status.stdout.strip(),
+)
 
 source_gate_outputs = {}
 source_gate_ok = True
