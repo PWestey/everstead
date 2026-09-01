@@ -1,0 +1,56 @@
+{
+  "contractId": "phase-15-16-product-policy-approval-v1",
+  "status": "approved-for-private-integration",
+  "authoritative": true,
+  "productionRuntimeEligible": true,
+  "publicReleaseAllowed": false,
+  "approvedCandidateTree": "852a4352125b40656000eee11b3031c8e9e1f72d",
+  "approvedFiles": {
+    "policy-candidate.json": "11a72592a2e0bb02ac1c1eaaeb4290f3acb79330ce2e33b4c6c64ff274dbcdef",
+    "restaurant-reward-table.json": "403d38cc0b2108411aadfa0c732bde984edb1a20519bc804b7715358e44bf4fa",
+    "copy.en.json": "700833c0c0e9b63e762b4cc4a4ec77c2f100184ba45d8e552e35bd6dfe9bebc1",
+    "simulation-results.json": "e7f44436dd90b6aab69a76e0f91d25c171c269eab8143fc4b3dde94e444f510d",
+    "tutorial-timing.json": "7c9bd61faba4eb17634c9104df769543d67a3370132f3287e3647fcaddd3a09b",
+    "cast-schedule.json": "cb550bb8fe527b98ce7a538cdcd461fc49e0732160cf9d25282dfec05e2c148a"
+  },
+  "approvedPolicyIds": {
+    "legacy": "economy-policy.legacy.first-covenant.candidate-v1",
+    "restaurant": "economy-policy.restaurant.candidate-v1",
+    "restaurantRewardTable": "reward-table.restaurant.structural-rate.candidate-v2"
+  },
+  "decisions": {
+    "legacyThresholdsAndRewards": "approved-as-captured",
+    "restaurantStructuralBandAuthority": "approved-as-captured",
+    "restaurantCadenceAndCapacity": "approved-as-captured",
+    "restaurantPreparationStockAndLocalProgress": "approved-as-captured",
+    "restaurantFixedRewardsAndMilestones": "approved-as-captured",
+    "englishCopy": "approved-for-private-integration",
+    "tutorialTimingAndCastSchedule": "approved-as-captured",
+    "claimArchiveAndFinalizerContract": "implementation-must-pass-phase-15-and-phase-16-independent-gates"
+  },
+  "routeEnvoyStoryEvent": {
+    "eventId": "story.book1.restaurant.route-envoy-ready",
+    "emittedAfterFirstCommittedResolutionOf": "story.book1.interlude.open-table",
+    "acceptedResolutions": ["watched", "skipped"],
+    "foregroundOnly": true,
+    "oneTimePerSave": true,
+    "additionalEligibility": {
+      "restaurantOperational": true,
+      "minimumReputationLevel": 3
+    },
+    "offlineMayEmit": false,
+    "replayMayEmit": false
+  },
+  "releaseBlockers": [
+    "phase-15-runtime-acceptance",
+    "phase-16-runtime-acceptance",
+    "full-regression-and-browser-gates",
+    "public-character-and-art-authorization"
+  ],
+  "changePolicy": {
+    "approvedCandidateFilesRemainImmutable": true,
+    "anyMechanicalValueChangeRequiresNewPolicyAndApprovalVersion": true,
+    "bankedObjectsKeepCapturedVersions": true,
+    "claimedHistoryIsNeverRewritten": true
+  }
+}
