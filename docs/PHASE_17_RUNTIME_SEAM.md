@@ -4,6 +4,8 @@
 
 Private-candidate foundation. Public release remains disabled.
 
+Sequential base: accepted Phase 16 tip `fe9bdfb7ea380396e1189af0739234b6337a447e`.
+
 ## Integration topology
 
 The runtime is deliberately split into two new files and a narrow closure-owned adapter:

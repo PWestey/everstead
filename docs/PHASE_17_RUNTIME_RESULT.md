@@ -15,16 +15,13 @@
 
 ## Verification
 
-- `qa/phase-17-runtime/verify.mjs`: 37/37 focused module/seam checks.
+- `qa/phase-17-runtime/verify.mjs`: 38/38 focused module/seam checks.
 - `qa/phase-17-independent/verify.mjs --package-only`: 55/55 frozen independent-package checks.
 - `qa/phase-17-independent/verify.mjs`: 64/64 candidate static-contract checks.
 - `design/phase-17/validate.py`: 31/31 accepted design-registry checks.
 
-The intermediate pre-Restaurant base completed 412/417 live rows across all five realms with zero console warnings/errors. Every Phase 17-owned row, including the real bridge, story state, Chronicle, Wayfarer Campaign marker, full-art profile, focus return, Escape, save, offline, and concurrency behavior passed. The five failures were the intentionally strict inherited Phase 16 Restaurant attestation, one per realm.
-
-That intermediate result is not an accepted gate. The implementation is being retargeted onto the accepted sequential Phase 16 candidate; final handoff requires 417/417 with all five Restaurant attestations intact.
+The final private candidate is based on the exact accepted Phase 16 tip `fe9bdfb7ea380396e1189af0739234b6337a447e`. Its independent live gate completed **417/417** rows across all five realms with zero console warnings/errors and a blank fatal field. This includes all five inherited Restaurant attestations, the real Phase 17 bridge, story state, Chronicle, Wayfarer framed Campaign art and image-error fallback, full-art profile, focus return, Escape, save, offline, and concurrency behavior.
 
 ## Residual risk
 
-- Final sequential-base results must replace the intermediate counts above before integration.
 - Story text is foundation copy and should receive a later narrative/editing pass before public release.
