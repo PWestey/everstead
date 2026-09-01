@@ -1,0 +1,258 @@
+{
+  "contractId": "phase-18-apothecary-definitions-v1",
+  "sourceCommit": "7cda7b30ecc44ac12a2a1ffac92a60745e4e68dc",
+  "configId": "phase-18-apothecary-v1",
+  "definitionSetId": "definition-set.phase-18-apothecary.v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "productionEnabled": false,
+  "contentStatus": "stable-mechanical-ids-with-visible-copy-and-all-policy-values-unapproved",
+  "facility": {
+    "id": "facility.apothecary",
+    "definitionVersion": 1,
+    "activityId": "activity.apothecary-cases",
+    "opportunityDefinitionId": "opportunity.facility.apothecary.case",
+    "mapAnchor": "eastern-plaza",
+    "targetPhase": 18,
+    "storyDiscoveryContentId": "story.book1.chapter2.records-in-rain",
+    "openingContentId": "facility.apothecary.possibility-case",
+    "localProgressTrackIds": ["facility-progress.apothecary.mastery"],
+    "participantKinds": ["workers", "patients", "named-visitors"],
+    "operational": {
+      "intervalMs": null,
+      "bankCapacity": null,
+      "unattendedTargetMs": null,
+      "activeProfitTargetShare": null,
+      "economyStatus": "requires-approval"
+    },
+    "tutorialIds": [
+      "tutorial.facility.board.discover-hotspots",
+      "tutorial.facility.opportunities.banking",
+      "tutorial.facility.apothecary.first-case",
+      "tutorial.facility.apothecary.diagnosis",
+      "tutorial.facility.apothecary.mastery",
+      "tutorial.facility.claim.first-ready"
+    ],
+    "actorIds": [
+      "fellow.rook",
+      "fellow.daredevil",
+      "family.scarlet-witch",
+      "family.yennefer",
+      "family.shadowheart",
+      "family.aerith"
+    ],
+    "enablementStatus": "blocked-policy-and-runtime"
+  },
+  "opportunityDefinition": {
+    "id": "opportunity.facility.apothecary.case",
+    "definitionVersion": 1,
+    "facilityId": "facility.apothecary",
+    "activityId": "activity.apothecary-cases",
+    "generation": "interval",
+    "interactionKind": "clue-diagnosis-remedy",
+    "rewardPolicyId": "reward-policy.facility.apothecary.case",
+    "rewardPolicyVersion": 1,
+    "expires": false,
+    "claimMode": "manual"
+  },
+  "regions": [
+    {
+      "id": "apothecary.region.broken-roads",
+      "definitionVersion": 1,
+      "storyGateContentId": "story.book1.chapter2.records-in-rain",
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "apothecary.region.river-crossing",
+      "definitionVersion": 1,
+      "storyGateContentId": "story.book1.chapter3.river-accord.resolution",
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "apothecary.region.skybridge-harbor",
+      "definitionVersion": 1,
+      "storyGateContentId": "story.book1.chapter4.harbor-compact.resolution",
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "clues": [
+    { "id": "apothecary.clue.petaldust-collar", "definitionVersion": 1, "textKey": "apothecary.clue.petaldust_collar" },
+    { "id": "apothecary.clue.dry-rasp", "definitionVersion": 1, "textKey": "apothecary.clue.dry_rasp" },
+    { "id": "apothecary.clue.clear-eyes", "definitionVersion": 1, "textKey": "apothecary.clue.clear_eyes" },
+    { "id": "apothecary.clue.river-damp", "definitionVersion": 1, "textKey": "apothecary.clue.river_damp" },
+    { "id": "apothecary.clue.steady-shiver", "definitionVersion": 1, "textKey": "apothecary.clue.steady_shiver" },
+    { "id": "apothecary.clue.warm-hands", "definitionVersion": 1, "textKey": "apothecary.clue.warm_hands" },
+    { "id": "apothecary.clue.blue-static", "definitionVersion": 1, "textKey": "apothecary.clue.blue_static" },
+    { "id": "apothecary.clue.metallic-taste", "definitionVersion": 1, "textKey": "apothecary.clue.metallic_taste" },
+    { "id": "apothecary.clue.no-fever", "definitionVersion": 1, "textKey": "apothecary.clue.no_fever" }
+  ],
+  "diagnoses": [
+    {
+      "id": "apothecary.diagnosis.dustbloom-irritation",
+      "definitionVersion": 1,
+      "textKey": "apothecary.diagnosis.dustbloom_irritation",
+      "compatibleRemedyIds": ["apothecary.remedy.soothing-draught", "apothecary.remedy.rest-and-water"]
+    },
+    {
+      "id": "apothecary.diagnosis.river-chill",
+      "definitionVersion": 1,
+      "textKey": "apothecary.diagnosis.river_chill",
+      "compatibleRemedyIds": ["apothecary.remedy.warming-tonic", "apothecary.remedy.rest-and-water"]
+    },
+    {
+      "id": "apothecary.diagnosis.waystone-static",
+      "definitionVersion": 1,
+      "textKey": "apothecary.diagnosis.waystone_static",
+      "compatibleRemedyIds": ["apothecary.remedy.grounding-salts", "apothecary.remedy.rest-and-water"]
+    }
+  ],
+  "remedies": [
+    { "id": "apothecary.remedy.soothing-draught", "definitionVersion": 1, "textKey": "apothecary.remedy.soothing_draught", "knowledgeUnlockRuleId": null, "enablementStatus": "blocked-mastery-policy" },
+    { "id": "apothecary.remedy.warming-tonic", "definitionVersion": 1, "textKey": "apothecary.remedy.warming_tonic", "knowledgeUnlockRuleId": null, "enablementStatus": "blocked-mastery-policy" },
+    { "id": "apothecary.remedy.grounding-salts", "definitionVersion": 1, "textKey": "apothecary.remedy.grounding_salts", "knowledgeUnlockRuleId": null, "enablementStatus": "blocked-mastery-policy" },
+    { "id": "apothecary.remedy.rest-and-water", "definitionVersion": 1, "textKey": "apothecary.remedy.rest_and_water", "knowledgeUnlockRuleId": null, "enablementStatus": "blocked-mastery-policy" }
+  ],
+  "caseTemplates": [
+    {
+      "id": "apothecary.case.dustbloom-irritation",
+      "definitionVersion": 1,
+      "regionId": "apothecary.region.broken-roads",
+      "storyGateContentId": "story.book1.chapter2.records-in-rain",
+      "clueIds": ["apothecary.clue.petaldust-collar", "apothecary.clue.dry-rasp", "apothecary.clue.clear-eyes"],
+      "diagnosisOptionIds": ["apothecary.diagnosis.dustbloom-irritation", "apothecary.diagnosis.river-chill", "apothecary.diagnosis.waystone-static"],
+      "preciseDiagnosisId": "apothecary.diagnosis.dustbloom-irritation",
+      "preciseRemedyIds": ["apothecary.remedy.soothing-draught"],
+      "safeSupportRemedyIds": ["apothecary.remedy.rest-and-water"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "apothecary.case.river-chill",
+      "definitionVersion": 1,
+      "regionId": "apothecary.region.river-crossing",
+      "storyGateContentId": "story.book1.chapter3.river-accord.resolution",
+      "clueIds": ["apothecary.clue.river-damp", "apothecary.clue.steady-shiver", "apothecary.clue.warm-hands"],
+      "diagnosisOptionIds": ["apothecary.diagnosis.river-chill", "apothecary.diagnosis.dustbloom-irritation", "apothecary.diagnosis.waystone-static"],
+      "preciseDiagnosisId": "apothecary.diagnosis.river-chill",
+      "preciseRemedyIds": ["apothecary.remedy.warming-tonic"],
+      "safeSupportRemedyIds": ["apothecary.remedy.rest-and-water"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "apothecary.case.waystone-static",
+      "definitionVersion": 1,
+      "regionId": "apothecary.region.skybridge-harbor",
+      "storyGateContentId": "story.book1.chapter4.harbor-compact.resolution",
+      "clueIds": ["apothecary.clue.blue-static", "apothecary.clue.metallic-taste", "apothecary.clue.no-fever"],
+      "diagnosisOptionIds": ["apothecary.diagnosis.waystone-static", "apothecary.diagnosis.river-chill", "apothecary.diagnosis.dustbloom-irritation"],
+      "preciseDiagnosisId": "apothecary.diagnosis.waystone-static",
+      "preciseRemedyIds": ["apothecary.remedy.grounding-salts"],
+      "safeSupportRemedyIds": ["apothecary.remedy.rest-and-water"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "namedPatients": [
+    {
+      "id": "apothecary.patient.named.rook",
+      "definitionVersion": 1,
+      "actorId": "fellow.rook",
+      "caseTemplateId": "apothecary.case.dustbloom-irritation",
+      "storyGateContentId": "facility.apothecary.possibility-case",
+      "selectionWeight": null,
+      "oneTimePerSave": true,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "apothecary.patient.named.daredevil",
+      "definitionVersion": 1,
+      "actorId": "fellow.daredevil",
+      "caseTemplateId": "apothecary.case.waystone-static",
+      "storyGateContentId": "story.book1.rank3.crossroads-arrivals",
+      "selectionWeight": null,
+      "oneTimePerSave": true,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "outcomeBands": [
+    {
+      "id": "apothecary.outcome.recheck",
+      "definitionVersion": 1,
+      "terminal": false,
+      "rule": "An incompatible diagnosis/remedy pair reveals a contradiction and returns to the engaged case without consuming it or creating an offer.",
+      "rewards": null,
+      "masteryProgress": null,
+      "enablementStatus": "safe-nonreward-path"
+    },
+    {
+      "id": "apothecary.outcome.supportive",
+      "definitionVersion": 1,
+      "terminal": true,
+      "rule": "A safe support remedy produces a positive baseline result even when the diagnosis is not precise.",
+      "rewards": null,
+      "masteryProgress": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "apothecary.outcome.precise",
+      "definitionVersion": 1,
+      "terminal": true,
+      "rule": "The precise diagnosis and a precise compatible remedy produce the higher approved outcome band.",
+      "rewards": null,
+      "masteryProgress": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "masteryPolicy": {
+    "id": "mastery-policy.apothecary.v1",
+    "version": 1,
+    "levelThresholds": null,
+    "remedyUnlockRuleIds": null,
+    "patientVarietyUnlockRules": null,
+    "enablementStatus": "blocked-progression"
+  },
+  "economyPolicy": {
+    "id": "economy-policy.apothecary.v1",
+    "version": 1,
+    "rewardByOutcomeBandId": {
+      "apothecary.outcome.supportive": null,
+      "apothecary.outcome.precise": null
+    },
+    "masteryProgressByOutcomeBandId": {
+      "apothecary.outcome.supportive": null,
+      "apothecary.outcome.precise": null
+    },
+    "activeProfitTargetShare": null,
+    "enablementStatus": "blocked-economy"
+  },
+  "historyPolicy": {
+    "id": "history-policy.apothecary.v1",
+    "version": 1,
+    "durableFields": ["claimedCaseCountsByTemplateId", "claimedOutcomeCountsByBandId", "claimedRegionCountsById", "claimedNamedPatientIds", "knownDiagnosisIds", "knownRemedyIds"],
+    "regularInstanceReplayAuthority": "claimedOrdinalRanges",
+    "namedPatientReplayAuthority": "claimedNamedPatientIds",
+    "unboundedNarrativeLog": false
+  },
+  "metrics": [
+    { "id": "metric.apothecary.cases-claimed.v1", "definitionVersion": 1, "authority": "committed-apothecary-case-claim" },
+    { "id": "metric.apothecary.precise-outcomes.v1", "definitionVersion": 1, "authority": "committed-precise-apothecary-claim" },
+    { "id": "metric.apothecary.regions-served.v1", "definitionVersion": 1, "authority": "committed-first-case-claim-by-region" },
+    { "id": "metric.apothecary.named-patients.v1", "definitionVersion": 1, "authority": "committed-named-patient-claim" },
+    { "id": "metric.apothecary.mastery.v1", "definitionVersion": 1, "authority": "validated-local-mastery-projection" }
+  ],
+  "achievementHooks": [
+    { "id": "achievement-hook.apothecary.cases", "definitionVersion": 1, "metricId": "metric.apothecary.cases-claimed.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" },
+    { "id": "achievement-hook.apothecary.precision", "definitionVersion": 1, "metricId": "metric.apothecary.precise-outcomes.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" },
+    { "id": "achievement-hook.apothecary.regions", "definitionVersion": 1, "metricId": "metric.apothecary.regions-served.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" },
+    { "id": "achievement-hook.apothecary.named-patients", "definitionVersion": 1, "metricId": "metric.apothecary.named-patients.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" }
+  ],
+  "storyHooks": [
+    { "id": "story-hook.apothecary.discovery", "definitionVersion": 1, "contentId": "story.book1.chapter2.records-in-rain", "role": "facility-discovery" },
+    { "id": "story-hook.apothecary.opening", "definitionVersion": 1, "contentId": "facility.apothecary.possibility-case", "role": "opening-case" },
+    { "id": "story-hook.apothecary.precise-remedy", "definitionVersion": 1, "contentId": "facility.apothecary.precise-remedy", "role": "mastery-story" },
+    { "id": "story-hook.apothecary.quiet-roads", "definitionVersion": 1, "contentId": "story.book1.interlude.quiet-roads", "role": "regional-reflection" }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "contractId": "phase-19-schoolhouse-definitions-v1",
+  "sourceCommit": "7cda7b30ecc44ac12a2a1ffac92a60745e4e68dc",
+  "configId": "phase-19-schoolhouse-v1",
+  "definitionSetId": "definition-set.phase-19-schoolhouse.v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "productionEnabled": false,
+  "contentStatus": "stable-mechanical-ids-with-visible-copy-and-all-policy-values-unapproved",
+  "facility": {
+    "id": "facility.schoolhouse",
+    "definitionVersion": 1,
+    "activityId": "activity.school-lessons",
+    "opportunityDefinitionId": "opportunity.facility.schoolhouse.lesson",
+    "mapAnchor": "eastern-plaza",
+    "targetPhase": 19,
+    "storyDiscoveryContentId": "story.book1.chapter3.river-accord.resolution",
+    "openingContentId": "facility.schoolhouse.first-mentor-lesson",
+    "localProgressTrackIds": ["facility-progress.schoolhouse.education"],
+    "participantKinds": ["teachers", "pupils", "visitors"],
+    "operational": {
+      "intervalMs": null,
+      "bankCapacity": null,
+      "unattendedTargetMs": null,
+      "initialSeatCapacity": null,
+      "maximumSeatCapacity": null,
+      "activeProfitTargetShare": null,
+      "economyStatus": "requires-approval"
+    },
+    "tutorialIds": [
+      "tutorial.facility.board.discover-hotspots",
+      "tutorial.facility.opportunities.banking",
+      "tutorial.facility.schoolhouse.first-lesson",
+      "tutorial.facility.schoolhouse.pupil-progress",
+      "tutorial.facility.schoolhouse.graduation",
+      "tutorial.facility.claim.first-ready"
+    ],
+    "actorIds": [
+      "fellow.obi-wan",
+      "fellow.spider-man",
+      "family.ahsoka",
+      "family.aerith",
+      "family.hermione"
+    ],
+    "enablementStatus": "blocked-policy-and-runtime"
+  },
+  "opportunityDefinition": {
+    "id": "opportunity.facility.schoolhouse.lesson",
+    "definitionVersion": 1,
+    "facilityId": "facility.schoolhouse",
+    "activityId": "activity.school-lessons",
+    "generation": "interval",
+    "interactionKind": "seat-pupil-lesson-teaching",
+    "rewardPolicyId": "reward-policy.facility.schoolhouse.lesson",
+    "rewardPolicyVersion": 1,
+    "expires": false,
+    "claimMode": "manual"
+  },
+  "seatPolicy": {
+    "id": "seat-policy.schoolhouse.v1",
+    "version": 1,
+    "seatIdPattern": "schoolhouse.seat.<positive-ordinal>",
+    "initialSeatCount": null,
+    "maximumSeatCount": null,
+    "seatUnlockRules": null,
+    "candidatePupilsExpire": false,
+    "graduationReadyPupilKeepsSeatUntilClaim": true,
+    "enablementStatus": "blocked-capacity"
+  },
+  "developmentDomains": [
+    { "id": "schoolhouse.domain.foundations", "definitionVersion": 1, "textKey": "schoolhouse.domain.foundations", "graduationRequirement": null, "enablementStatus": "blocked-progression" },
+    { "id": "schoolhouse.domain.craft", "definitionVersion": 1, "textKey": "schoolhouse.domain.craft", "graduationRequirement": null, "enablementStatus": "blocked-progression" },
+    { "id": "schoolhouse.domain.community", "definitionVersion": 1, "textKey": "schoolhouse.domain.community", "graduationRequirement": null, "enablementStatus": "blocked-progression" }
+  ],
+  "teachingApproaches": [
+    { "id": "schoolhouse.approach.demonstrate", "definitionVersion": 1, "textKey": "schoolhouse.approach.demonstrate" },
+    { "id": "schoolhouse.approach.practice", "definitionVersion": 1, "textKey": "schoolhouse.approach.practice" },
+    { "id": "schoolhouse.approach.discuss", "definitionVersion": 1, "textKey": "schoolhouse.approach.discuss" }
+  ],
+  "lessons": [
+    {
+      "id": "schoolhouse.lesson.reading-the-road",
+      "definitionVersion": 1,
+      "domainId": "schoolhouse.domain.foundations",
+      "storyGateContentId": "facility.schoolhouse.first-mentor-lesson",
+      "affinityApproachIds": ["schoolhouse.approach.demonstrate", "schoolhouse.approach.discuss"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "schoolhouse.lesson.measures-and-making",
+      "definitionVersion": 1,
+      "domainId": "schoolhouse.domain.craft",
+      "storyGateContentId": "facility.schoolhouse.growing-things",
+      "affinityApproachIds": ["schoolhouse.approach.demonstrate", "schoolhouse.approach.practice"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "schoolhouse.lesson.promises-in-common",
+      "definitionVersion": 1,
+      "domainId": "schoolhouse.domain.community",
+      "storyGateContentId": "facility.schoolhouse.lesson-plan",
+      "affinityApproachIds": ["schoolhouse.approach.practice", "schoolhouse.approach.discuss"],
+      "selectionWeight": null,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "pupils": [
+    {
+      "id": "schoolhouse.pupil.ena",
+      "definitionVersion": 1,
+      "nameKey": "schoolhouse.pupil.ena.name",
+      "arrivalStoryContentId": "facility.schoolhouse.first-mentor-lesson",
+      "preferenceApproachIds": ["schoolhouse.approach.demonstrate"],
+      "graduationDefinitionId": "schoolhouse.graduation.standard",
+      "selectionWeight": null,
+      "oneEnrollmentPerSave": true,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "schoolhouse.pupil.bram",
+      "definitionVersion": 1,
+      "nameKey": "schoolhouse.pupil.bram.name",
+      "arrivalStoryContentId": "story.book1.interlude.young-futures",
+      "preferenceApproachIds": ["schoolhouse.approach.practice"],
+      "graduationDefinitionId": "schoolhouse.graduation.standard",
+      "selectionWeight": null,
+      "oneEnrollmentPerSave": true,
+      "enablementStatus": "blocked-policy"
+    },
+    {
+      "id": "schoolhouse.pupil.niko",
+      "definitionVersion": 1,
+      "nameKey": "schoolhouse.pupil.niko.name",
+      "arrivalStoryContentId": "story.book1.finale.first-covenant",
+      "preferenceApproachIds": ["schoolhouse.approach.discuss"],
+      "graduationDefinitionId": "schoolhouse.graduation.standard",
+      "selectionWeight": null,
+      "oneEnrollmentPerSave": true,
+      "enablementStatus": "blocked-policy"
+    }
+  ],
+  "lessonOutcomeBands": [
+    {
+      "id": "schoolhouse.outcome.guided",
+      "definitionVersion": 1,
+      "rule": "Any valid teaching approach completes the lesson with positive baseline development.",
+      "rewards": null,
+      "developmentProgress": null,
+      "educationProgress": null,
+      "enablementStatus": "blocked-economy"
+    },
+    {
+      "id": "schoolhouse.outcome.resonant",
+      "definitionVersion": 1,
+      "rule": "An approach aligned with both the lesson and pupil preference receives the higher approved progress band.",
+      "rewards": null,
+      "developmentProgress": null,
+      "educationProgress": null,
+      "enablementStatus": "blocked-economy"
+    }
+  ],
+  "familyRelationshipModifierPolicy": {
+    "id": "modifier-policy.schoolhouse.family-relationship.v1",
+    "version": 1,
+    "sourceStatId": "family.intimacy",
+    "sourceAuthority": "validated-existing-family-state",
+    "eligibleMentorRuleId": null,
+    "conversionFormula": null,
+    "maximumProgressBonus": null,
+    "maximumRewardBonus": null,
+    "stackLimit": 1,
+    "positiveOnly": true,
+    "absenceUsesBaseline": true,
+    "consumesOrMutatesRelationship": false,
+    "captureAt": "lesson-resolution",
+    "enablementStatus": "blocked-modifier-policy"
+  },
+  "graduationDefinitions": [
+    {
+      "id": "schoolhouse.graduation.standard",
+      "definitionVersion": 1,
+      "requiredProgressByDomainId": {
+        "schoolhouse.domain.foundations": null,
+        "schoolhouse.domain.craft": null,
+        "schoolhouse.domain.community": null
+      },
+      "rewardPolicyId": "reward-policy.facility.schoolhouse.graduation",
+      "rewardPolicyVersion": 1,
+      "majorRewards": null,
+      "educationModifierDelta": null,
+      "claimKind": "graduation",
+      "claimMode": "manual",
+      "exactlyOncePerPupil": true,
+      "enablementStatus": "blocked-progression-and-economy"
+    }
+  ],
+  "economyPolicy": {
+    "id": "economy-policy.schoolhouse.v1",
+    "version": 1,
+    "rewardByOutcomeBandId": {
+      "schoolhouse.outcome.guided": null,
+      "schoolhouse.outcome.resonant": null
+    },
+    "developmentProgressByOutcomeBandId": {
+      "schoolhouse.outcome.guided": null,
+      "schoolhouse.outcome.resonant": null
+    },
+    "educationProgressByOutcomeBandId": {
+      "schoolhouse.outcome.guided": null,
+      "schoolhouse.outcome.resonant": null
+    },
+    "graduationMajorRewards": null,
+    "graduationEducationModifier": null,
+    "activeProfitTargetShare": null,
+    "enablementStatus": "blocked-economy"
+  },
+  "historyPolicy": {
+    "id": "history-policy.schoolhouse.v1",
+    "version": 1,
+    "durableFields": ["enrollmentByPupilId", "developmentByPupilAndDomainId", "claimedLessonCountsByPupilId", "claimedApproachCountsById", "graduatedPupilIds", "graduationReceiptIdByPupilId"],
+    "regularInstanceReplayAuthority": "claimedLessonOrdinalRanges",
+    "graduationReplayAuthority": "graduatedPupilIds-and-graduationReceiptIdByPupilId",
+    "unboundedNarrativeLog": false
+  },
+  "metrics": [
+    { "id": "metric.schoolhouse.lessons-claimed.v1", "definitionVersion": 1, "authority": "committed-schoolhouse-lesson-claim" },
+    { "id": "metric.schoolhouse.pupils-developed.v1", "definitionVersion": 1, "authority": "committed-first-positive-development-by-pupil" },
+    { "id": "metric.schoolhouse.approaches-used.v1", "definitionVersion": 1, "authority": "committed-first-lesson-claim-by-approach" },
+    { "id": "metric.schoolhouse.graduations.v1", "definitionVersion": 1, "authority": "committed-schoolhouse-graduation-claim" },
+    { "id": "metric.schoolhouse.education.v1", "definitionVersion": 1, "authority": "validated-local-education-projection" }
+  ],
+  "achievementHooks": [
+    { "id": "achievement-hook.schoolhouse.lessons", "definitionVersion": 1, "metricId": "metric.schoolhouse.lessons-claimed.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" },
+    { "id": "achievement-hook.schoolhouse.approaches", "definitionVersion": 1, "metricId": "metric.schoolhouse.approaches-used.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" },
+    { "id": "achievement-hook.schoolhouse.graduations", "definitionVersion": 1, "metricId": "metric.schoolhouse.graduations.v1", "achievementDefinitionId": null, "threshold": null, "enablementStatus": "blocked-achievement-design" }
+  ],
+  "storyHooks": [
+    { "id": "story-hook.schoolhouse.discovery", "definitionVersion": 1, "contentId": "story.book1.chapter3.river-accord.resolution", "role": "facility-discovery" },
+    { "id": "story-hook.schoolhouse.opening", "definitionVersion": 1, "contentId": "facility.schoolhouse.first-mentor-lesson", "role": "opening-lesson" },
+    { "id": "story-hook.schoolhouse.growing-things", "definitionVersion": 1, "contentId": "facility.schoolhouse.growing-things", "role": "pupil-development-story" },
+    { "id": "story-hook.schoolhouse.lesson-plan", "definitionVersion": 1, "contentId": "facility.schoolhouse.lesson-plan", "role": "teaching-variety-story" },
+    { "id": "story-hook.schoolhouse.young-futures", "definitionVersion": 1, "contentId": "story.book1.interlude.young-futures", "role": "pupil-arrival-context" }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "contractId": "phase-18-19-cast-bindings-v1",
+  "sourceCastContractId": "phase-13-cast-plan-v1",
+  "sourceHookContractId": "phase-15-21-cast-facility-hooks-v1",
+  "productionEnabled": false,
+  "coveragePolicy": "This is the exact bounded subset scheduled for Apothecary and Schoolhouse. It preserves the 38-person master schedule and does not require unrelated actors to appear in Phases 18–19.",
+  "writingPolicy": "Use original Everstead functional roles and localization keys; never imitate recognizable external-franchise voices, cadence, catchphrases, or scenes.",
+  "presentationPolicy": "Village dialogue uses transparent cutout, approved framed, or text-only treatment; unframed full-background profile art is forbidden.",
+  "actors": [
+    {
+      "actorId": "fellow.rook",
+      "phase13PrimaryContentId": "facility.forge.first-commission",
+      "phase13PrimaryDeliveryPhase": 21,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "named-patient", "contentId": "apothecary.patient.named.rook", "hookId": "dialogue.facility.apothecary.rook.named-visitor" }
+      ]
+    },
+    {
+      "actorId": "fellow.daredevil",
+      "phase13PrimaryContentId": "story.book1.rank3.crossroads-arrivals",
+      "phase13PrimaryDeliveryPhase": 17,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "named-patient", "contentId": "apothecary.patient.named.daredevil", "hookId": "dialogue.facility.apothecary.daredevil.named-visitor" }
+      ]
+    },
+    {
+      "actorId": "family.scarlet-witch",
+      "phase13PrimaryContentId": "facility.apothecary.possibility-case",
+      "phase13PrimaryDeliveryPhase": 18,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "tutorial-guide", "contentId": "facility.apothecary.possibility-case", "hookId": "dialogue.facility.apothecary.scarlet-witch.tutorial-guide" },
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "activity-presenter", "contentId": "facility.apothecary.possibility-case", "hookId": "dialogue.facility.apothecary.scarlet-witch.activity-presenter" }
+      ]
+    },
+    {
+      "actorId": "family.yennefer",
+      "phase13PrimaryContentId": "facility.apothecary.precise-remedy",
+      "phase13PrimaryDeliveryPhase": 18,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "activity-presenter", "contentId": "facility.apothecary.precise-remedy", "hookId": "dialogue.facility.apothecary.yennefer.activity-presenter" }
+      ]
+    },
+    {
+      "actorId": "family.shadowheart",
+      "phase13PrimaryContentId": "facility.hearth.quiet-trust",
+      "phase13PrimaryDeliveryPhase": 20,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "ambient-observer", "contentId": "facility.apothecary.possibility-case", "hookId": "dialogue.facility.apothecary.shadowheart.ambient" }
+      ]
+    },
+    {
+      "actorId": "family.aerith",
+      "phase13PrimaryContentId": "facility.schoolhouse.growing-things",
+      "phase13PrimaryDeliveryPhase": 19,
+      "phaseBindings": [
+        { "phase": 18, "facilityId": "facility.apothecary", "role": "claim-acknowledgement", "contentId": "facility.apothecary.precise-remedy", "hookId": "dialogue.facility.apothecary.aerith.claim-acknowledgement" },
+        { "phase": 19, "facilityId": "facility.schoolhouse", "role": "ambient-observer", "contentId": "facility.schoolhouse.growing-things", "hookId": "dialogue.facility.schoolhouse.aerith.ambient" }
+      ]
+    },
+    {
+      "actorId": "fellow.obi-wan",
+      "phase13PrimaryContentId": "story.book1.rank5.covenant-arrivals",
+      "phase13PrimaryDeliveryPhase": 17,
+      "phaseBindings": [
+        { "phase": 19, "facilityId": "facility.schoolhouse", "role": "tutorial-guide", "contentId": "facility.schoolhouse.first-mentor-lesson", "hookId": "dialogue.facility.schoolhouse.obi-wan.tutorial-guide" }
+      ]
+    },
+    {
+      "actorId": "fellow.spider-man",
+      "phase13PrimaryContentId": "story.book1.rank4.skybridge-arrivals",
+      "phase13PrimaryDeliveryPhase": 17,
+      "phaseBindings": [
+        { "phase": 19, "facilityId": "facility.schoolhouse", "role": "named-visitor", "contentId": "facility.schoolhouse.growing-things", "hookId": "dialogue.facility.schoolhouse.spider-man.named-visitor" }
+      ]
+    },
+    {
+      "actorId": "family.ahsoka",
+      "phase13PrimaryContentId": "facility.schoolhouse.first-mentor-lesson",
+      "phase13PrimaryDeliveryPhase": 19,
+      "phaseBindings": [
+        { "phase": 19, "facilityId": "facility.schoolhouse", "role": "activity-presenter", "contentId": "facility.schoolhouse.first-mentor-lesson", "hookId": "dialogue.facility.schoolhouse.ahsoka.activity-presenter" }
+      ]
+    },
+    {
+      "actorId": "family.hermione",
+      "phase13PrimaryContentId": "facility.schoolhouse.lesson-plan",
+      "phase13PrimaryDeliveryPhase": 19,
+      "phaseBindings": [
+        { "phase": 19, "facilityId": "facility.schoolhouse", "role": "story-hook", "contentId": "facility.schoolhouse.lesson-plan", "hookId": "dialogue.facility.schoolhouse.hermione.story-hook" }
+      ]
+    }
+  ]
+}

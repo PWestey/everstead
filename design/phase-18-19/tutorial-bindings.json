@@ -1,0 +1,115 @@
+{
+  "contractId": "phase-18-19-tutorial-bindings-v1",
+  "sourceLedgerId": "phase-13-tutorial-matrix-v1",
+  "sourceLedgerCount": 79,
+  "predecessorRegistryId": "tutorial-registry.phase-17-successor.v1",
+  "registryId": "tutorial-registry.phase-19-successor.v1",
+  "productionEnabled": false,
+  "bindings": [
+    {
+      "tutorialId": "tutorial.facility.board.discover-hotspots",
+      "scope": "shared",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "context": "first story-driven facility discovery only when this tutorial is not already completed/dismissed",
+      "delivery": "map-embedded-coachmark",
+      "stepSegments": [
+        { "trigger": "facility-first-discovered", "stepIds": ["physical-location", "icon-states", "tap-for-status"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.opportunities.banking",
+      "scope": "shared",
+      "canonicalSpeakerActorId": "family.tamsin",
+      "context": "first ready banked case or lesson only when the shared tutorial is not already completed/dismissed",
+      "delivery": "facility-sheet-coachmark",
+      "stepSegments": [
+        { "trigger": "facility-first-opportunity-ready", "stepIds": ["ready-opportunities", "bank-cap", "no-expiry", "passive-baseline"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.claim.first-ready",
+      "scope": "shared",
+      "canonicalSpeakerActorId": "family.tamsin",
+      "context": "first claim-ready facility result only when the shared tutorial is not already completed/dismissed",
+      "delivery": "claim-card-coachmark",
+      "stepSegments": [
+        { "trigger": "facility-first-claim-ready", "stepIds": ["result-ready", "claim", "local-progress", "receipt"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.first-case",
+      "scope": "facility.apothecary",
+      "canonicalSpeakerActorId": "family.yennefer",
+      "context": "first Apothecary visit after facility.apothecary.possibility-case resolves",
+      "delivery": "surface-embedded",
+      "stepSegments": [
+        { "trigger": "apothecary-first-visit", "stepIds": ["patient", "clues", "possible-remedies", "no-harsh-failure"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.diagnosis",
+      "scope": "facility.apothecary",
+      "canonicalSpeakerActorId": "family.scarlet-witch",
+      "context": "first Apothecary engagement when diagnosis selection opens",
+      "delivery": "activity-embedded",
+      "stepSegments": [
+        { "trigger": "apothecary-first-diagnosis-opened", "stepIds": ["compare-clues", "choose-diagnosis", "choose-remedy", "resolve"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.apothecary.mastery",
+      "scope": "facility.apothecary",
+      "canonicalSpeakerActorId": "family.scarlet-witch",
+      "context": "first committed Apothecary mastery-level transition to the approved level-2 threshold",
+      "delivery": "claim-followup",
+      "stepSegments": [
+        { "trigger": "apothecary-mastery-level-2", "stepIds": ["case-mastery", "remedy-knowledge", "new-patients", "local-only"] }
+      ],
+      "enablementStatus": "blocked-until-mastery-curve-approved"
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.first-lesson",
+      "scope": "facility.schoolhouse",
+      "canonicalSpeakerActorId": "family.hermione",
+      "context": "segmented across first Schoolhouse visit, first ready lesson, and first teaching engagement",
+      "delivery": "three-context-segmented",
+      "stepSegments": [
+        { "trigger": "schoolhouse-first-visit", "stepIds": ["seats", "pupil"] },
+        { "trigger": "schoolhouse-first-lesson-ready", "stepIds": ["banked-lessons"] },
+        { "trigger": "schoolhouse-first-teaching-opened", "stepIds": ["teach"] }
+      ]
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.pupil-progress",
+      "scope": "facility.schoolhouse",
+      "canonicalSpeakerActorId": "family.ahsoka",
+      "context": "after the first committed Schoolhouse lesson claim",
+      "delivery": "claim-followup",
+      "stepSegments": [
+        { "trigger": "schoolhouse-first-lesson-claim", "stepIds": ["pupil-progress", "family-modifier", "graduation-preview"] }
+      ],
+      "familyModifierCopyPolicy": "Explain the no-mentor baseline and approved positive cap; never imply Family relationship is consumed."
+    },
+    {
+      "tutorialId": "tutorial.facility.schoolhouse.graduation",
+      "scope": "facility.schoolhouse",
+      "canonicalSpeakerActorId": "family.aerith",
+      "context": "when the first immutable graduation-ready snapshot and major offer exist",
+      "delivery": "major-claim-coachmark",
+      "stepSegments": [
+        { "trigger": "schoolhouse-first-graduation-ready", "stepIds": ["graduation-ready", "major-claim", "pupil-history", "education-earnings"] }
+      ],
+      "enablementStatus": "blocked-until-graduation-and-education-policies-approved"
+    }
+  ],
+  "globalRules": [
+    "Unknown tutorial or step IDs fail closed.",
+    "Predecessor seen/completed/dismissed history is preserved byte-for-byte; a shared tutorial never repeats when already resolved.",
+    "A segmented tutorial stores per-step history under its one existing tutorial ID and resumes at the next contextually eligible unseen step.",
+    "Skip and replay change tutorial or neutral UI state only; they never change facility, story, Family, reward, pupil, patient, or claim state.",
+    "Tutorials never block closing, resolving, claiming, offline passage, or passive production.",
+    "Canonical dot actor/facility IDs are used in runtime; legacy colon/shorthand IDs remain read-only aliases for predecessor history.",
+    "Speaker fallback is transparent cutout, approved frame, then text-only; unframed full-background profile art is forbidden.",
+    "Every tutorial remains usable at 320 by 568, 390 by 844, keyboard-only input, reduced motion, and 30 percent text expansion."
+  ]
+}
