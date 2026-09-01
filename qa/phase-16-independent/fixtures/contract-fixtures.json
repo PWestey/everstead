@@ -1,0 +1,166 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-16-independent-qa-v1",
+  "baseCommit": "8d356b7a1bb4922a354ec7bc93f8e6587c8b9514",
+  "schemaVersion": 12,
+  "phase15BridgeVersion": "phase-15-independent-qa-v1",
+  "phase12ActivationId": "migration.phase12.claim-ledger",
+  "phase12ClaimSourceType": "facility-opportunity",
+  "facilityId": "facility.restaurant",
+  "activityId": "activity.restaurant-service",
+  "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+  "definitionSetId": "definition-set.phase-16-restaurant.v1",
+  "configId": "phase-16-restaurant-v1",
+  "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+  "physicalMapAnchor": "western-plaza-restaurant",
+  "designMapAnchorAlias": "western-plaza",
+  "discoveryContentId": "story.book1.chapter1.village-toll.resolution",
+  "requiredCapabilityId": "capability.restaurant-service.v1",
+  "openingContentId": "facility.restaurant.opening-service",
+  "archiveConfigId": "claim-archive.phase-15.v1",
+  "archivePolicy": {
+    "recentReceiptLimit": 512,
+    "foldBatchSize": 128,
+    "expectedRecentAfterNextClaim": 385,
+    "expectedThroughAfterNextClaim": 128
+  },
+  "customerIds": [
+    "restaurant.customer.road-worker",
+    "restaurant.customer.archive-courier",
+    "restaurant.customer.route-envoy"
+  ],
+  "preferenceIds": [
+    "restaurant.preference.warming",
+    "restaurant.preference.quick",
+    "restaurant.preference.light"
+  ],
+  "recipeIds": [
+    "restaurant.recipe.hearth-stew",
+    "restaurant.recipe.garden-flatbread",
+    "restaurant.recipe.roadside-tea"
+  ],
+  "stationIds": [
+    "restaurant.station.hearth",
+    "restaurant.station.prep-table"
+  ],
+  "namedVisitor": {
+    "id": "restaurant.visitor.route-envoy.01",
+    "actorId": "family.jaina",
+    "sourceEventId": "story.book1.restaurant.route-envoy-ready",
+    "customerDefinitionId": "restaurant.customer.route-envoy",
+    "chronicleHookId": "chronicle.restaurant.route-envoy.01"
+  },
+  "tutorialIds": [
+    "tutorial.restaurant.first-customer",
+    "tutorial.facility.opportunities.banking",
+    "tutorial.restaurant.first-claim",
+    "tutorial.facility.claim.first-ready",
+    "tutorial.restaurant.recipes-and-stations",
+    "tutorial.restaurant.reputation",
+    "tutorial.restaurant.named-visitors"
+  ],
+  "actorIds": [
+    "fellow.deadpool",
+    "fellow.star-lord",
+    "fellow.spider-man",
+    "family.tamsin",
+    "family.jaina",
+    "family.tifa",
+    "family.misty"
+  ],
+  "approvedVisualFallbacks": [
+    "approved-transparent-cutout",
+    "approved-framed-treatment",
+    "attributed-text-only"
+  ],
+  "saveFixtures": {
+    "fresh": "p16.qa.fresh.v1",
+    "migrated": "p16.qa.migrated.v1",
+    "unlocked": "p16.qa.unlocked-now.v1",
+    "banked": "p16.qa.banked-customer.v1",
+    "preCommit": "p16.qa.precommit-engagement.v1",
+    "prepared": "p16.qa.prepared-resumable.v1",
+    "matchedReady": "p16.qa.matched-claim-ready.v1",
+    "partialReady": "p16.qa.partial-claim-ready.v1",
+    "namedVisitorReady": "p16.qa.named-visitor-ready.v1",
+    "archiveWindow": "p16.qa.archive-window.v1",
+    "offline": "p16.qa.offline.v1",
+    "recovery": "p16.qa.recovery.v1",
+    "corrupt": "p16.qa.corrupt.v1",
+    "future": "p16.qa.future.v1",
+    "lockedRoster": "p16.qa.locked-roster.v1"
+  },
+  "syntheticPolicy": {
+    "qaOnly": true,
+    "id": "qa-only.economy-policy.restaurant.v1",
+    "version": 1,
+    "intervalMs": 3600000,
+    "bankCapacity": 4,
+    "preparationDurationMs": 60000,
+    "stockCapacity": 8,
+    "baseSale": 100,
+    "matchedTip": 25,
+    "partialTip": 5,
+    "matchedReputation": 2,
+    "partialReputation": 1,
+    "matchedMastery": 1,
+    "partialMastery": 0,
+    "activeProfitTargetShare": {"numerator": 1, "denominator": 3},
+    "headroomYears": 5
+  },
+  "economyRequiredPaths": [
+    "id", "version", "intervalMs", "bankCapacity", "unattendedTargetMs",
+    "customerWeights", "baseSaleByCustomerId", "tipMultiplierByMatch",
+    "reputationByMatch", "recipeMasteryByMatch", "reputationThresholds",
+    "recipePreparationDurationMs", "recipeStockCapacity", "stationSlotCapacity",
+    "activeProfitTargetShare", "headroomYears", "simulationApproval"
+  ],
+  "economyProfiles": ["fresh", "midgame", "established", "highly-active", "mostly-idle"],
+  "economyHorizons": ["short", "long"],
+  "fixtureIds": [
+    "p16.fixture.unlock-no-retroactive-customers.v1",
+    "p16.fixture.offline-partial-carry.v1",
+    "p16.fixture.saturated-bank-nonexpiry.v1",
+    "p16.fixture.offline-cap-midnight-dst-rollback.v1",
+    "p16.fixture.begin-cancel-resume.v1",
+    "p16.fixture.resolve-zero-credit.v1",
+    "p16.fixture.imperfect-service-safe.v1",
+    "p16.fixture.claim-exactly-once.v1",
+    "p16.fixture.concurrent-settlement-resolution-claim.v1",
+    "p16.fixture.named-visitor-chronicle-hook.v1",
+    "p16.fixture.tutorial-gradual-nonblocking.v1",
+    "p16.fixture.economy-simulation-gate.v1",
+    "p16.fixture.mobile-restaurant.v1",
+    "p16.fixture.future-or-malformed-import.v1"
+  ],
+  "offlineCapMs": 86400000,
+  "frozenNow": 100000000,
+  "requiredDomSelectors": [
+    "[data-phase15-facility-board]",
+    "[data-phase15-facility-id=\"facility.restaurant\"]",
+    "[data-phase16-restaurant-sheet]",
+    "[data-phase16-customer-id]",
+    "[data-phase16-preference]",
+    "[data-phase16-recipe-id]",
+    "[data-phase16-station-id]",
+    "[data-phase16-prepare]",
+    "[data-phase16-serve]",
+    "[data-phase16-claim]",
+    "[data-phase16-close]"
+  ],
+  "invalidMutationChecks": [
+    "future-definition-version", "unknown-customer", "unknown-preference",
+    "wrong-recipe-station", "wrong-source-id", "wrong-offer-identity",
+    "broken-claimed-range", "broken-archive-checkpoint", "broken-save-binding"
+  ],
+  "originalPassiveFacilityIds": [
+    "facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"
+  ],
+  "viewports": [
+    {"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},
+    {"id":"mobile-390","width":390,"height":844,"copyScale":1,"reducedMotion":false},
+    {"id":"desktop-1024","width":1024,"height":768,"copyScale":1,"reducedMotion":false},
+    {"id":"mobile-reduced","width":390,"height":844,"copyScale":1,"reducedMotion":true},
+    {"id":"mobile-copy-175","width":390,"height":844,"copyScale":1.75,"reducedMotion":false}
+  ]
+}
