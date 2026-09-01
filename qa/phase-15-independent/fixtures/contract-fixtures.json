@@ -1,0 +1,127 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-15-independent-qa-v1",
+  "baseCommit": "7e74226d64f819bf7be40f969078ed16c3fce356",
+  "designCommits": {
+    "facilityFramework": "102232b1784c08805d5078c7c9915a15fefe3b53",
+    "phase15And16": "836cc2a6419c65c56f7241a0322394daabdbddc3",
+    "bookOneUnlocks": "696d8247a34a11ba442e3b95470e2e84f6fe100e"
+  },
+  "frameworkConfigId": "phase-14-facility-framework-v1",
+  "frameworkDefinitionSetId": "definition-set.phase-14-facilities.v1",
+  "boardConfigId": "phase-15-village-board-v1",
+  "boardDefinitionSetId": "definition-set.phase-15-village-board.v1",
+  "claimArchiveConfigId": "claim-archive.phase-15.v1",
+  "phase12ActivationId": "phase-12-foundation-activation",
+  "phase12ClaimSourceType": "opportunity.facility.activity",
+  "schemaVersion": 12,
+  "productionEconomyApproved": false,
+  "frozenNow": 100000000,
+  "offlineCapMs": 86400000,
+  "runtimeStates": ["hidden", "discovered", "available", "ready"],
+  "designStateAliases": {
+    "hidden": "hidden",
+    "discovered-locked": "discovered",
+    "available": "available",
+    "claim-ready": "ready"
+  },
+  "facilities": [
+    {"id":"facility.waystone","activityId":"activity.legacy-claims","designAnchor":"central-crystal","mapAnchor":"central-crystal","localProgressTrackId":"facility-progress.waystone.legacy","opportunityDefinitionId":"opportunity.facility.waystone.legacy-milestone","generationMode":"authored-event","targetPhase":15,"passivePolicy":"presentation-hub-only","discoveryContentId":"story.book1.prologue.waystone-call","requiredCapabilityId":"capability.waystone-legacy-hub.v1","openingContentId":"story.book1.prologue.waystone-call"},
+    {"id":"facility.restaurant","activityId":"activity.restaurant-service","designAnchor":"western-plaza","mapAnchor":"western-plaza-restaurant","localProgressTrackId":"facility-progress.restaurant.reputation","opportunityDefinitionId":"opportunity.facility.restaurant.customer","generationMode":"interval","targetPhase":16,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter1.village-toll.resolution","requiredCapabilityId":"capability.restaurant-service.v1","openingContentId":"facility.restaurant.opening-service"},
+    {"id":"facility.apothecary","activityId":"activity.apothecary-cases","designAnchor":"eastern-plaza","mapAnchor":"eastern-plaza-apothecary","localProgressTrackId":"facility-progress.apothecary.mastery","opportunityDefinitionId":"opportunity.facility.apothecary.case","generationMode":"interval","targetPhase":18,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter2.records-in-rain","requiredCapabilityId":"capability.apothecary-cases.v1","openingContentId":"facility.apothecary.possibility-case"},
+    {"id":"facility.schoolhouse","activityId":"activity.school-lessons","designAnchor":"eastern-plaza","mapAnchor":"eastern-plaza-schoolhouse","localProgressTrackId":"facility-progress.schoolhouse.education","opportunityDefinitionId":"opportunity.facility.schoolhouse.lesson","generationMode":"interval","targetPhase":19,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter3.river-accord.resolution","requiredCapabilityId":"capability.schoolhouse-lessons.v1","openingContentId":"facility.schoolhouse.first-mentor-lesson"},
+    {"id":"facility.command-center","activityId":"activity.petitions","designAnchor":"upper-left-hall","mapAnchor":"upper-left-hall","localProgressTrackId":"facility-progress.command-center.influence","opportunityDefinitionId":"opportunity.facility.command-center.petition","generationMode":"interval","targetPhase":20,"passivePolicy":"preserve-existing-building-production-and-family-assignment","discoveryContentId":"story.book1.chapter3.council-of-ash.resolution","requiredCapabilityId":"capability.command-petitions.v1","openingContentId":"facility.command.resolve-petition"},
+    {"id":"facility.archives","activityId":"activity.research","designAnchor":"upper-right-tower","mapAnchor":"upper-right-tower","localProgressTrackId":"facility-progress.archives.discovery","opportunityDefinitionId":"opportunity.facility.archives.research","generationMode":"interval","targetPhase":20,"passivePolicy":"preserve-existing-building-production-and-family-assignment","discoveryContentId":"story.book1.chapter2.records-in-rain","requiredCapabilityId":"capability.archives-research.v1","openingContentId":"facility.archives.first-research"},
+    {"id":"facility.training-grounds","activityId":"activity.drills","designAnchor":"lower-left-arena","mapAnchor":"lower-left-arena","localProgressTrackId":"facility-progress.training-grounds.readiness","opportunityDefinitionId":"opportunity.facility.training-grounds.drill","generationMode":"interval","targetPhase":20,"passivePolicy":"preserve-existing-building-production-and-family-assignment","discoveryContentId":"story.book1.chapter4.quarry-claim.resolution","requiredCapabilityId":"capability.training-drills.v1","openingContentId":"facility.training.first-drill"},
+    {"id":"facility.hearth","activityId":"activity.gatherings","designAnchor":"lower-right-manor","mapAnchor":"lower-right-manor","localProgressTrackId":"facility-progress.hearth.community","opportunityDefinitionId":"opportunity.facility.hearth.gathering","generationMode":"interval","targetPhase":20,"passivePolicy":"preserve-existing-building-production-and-family-assignment","discoveryContentId":"story.book1.chapter3.river-accord.resolution","requiredCapabilityId":"capability.hearth-gatherings.v1","openingContentId":"facility.hearth.quiet-trust"},
+    {"id":"facility.market-workshop","activityId":"activity.orders-and-crafting","designAnchor":"western-plaza","mapAnchor":"western-plaza-workshop","localProgressTrackId":"facility-progress.market-workshop.craftsmanship","opportunityDefinitionId":"opportunity.facility.market-workshop.order","generationMode":"interval","targetPhase":21,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter4.quarry-claim.resolution","requiredCapabilityId":"capability.market-workshop-orders.v1","openingContentId":"facility.workshop.salvage-order"},
+    {"id":"facility.gatehouse","activityId":"activity.caravans-and-road-events","designAnchor":"lower-bridge","mapAnchor":"lower-bridge-entrance","localProgressTrackId":"facility-progress.gatehouse.route-trust","opportunityDefinitionId":"opportunity.facility.gatehouse.caravan","generationMode":"interval","targetPhase":21,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter4.skybridge-terms.resolution","requiredCapabilityId":"capability.gatehouse-road-events.v1","openingContentId":"facility.gatehouse.first-road-watch"},
+    {"id":"facility.gardens","activityId":"activity.cultivation","designAnchor":"lower-right-gardens","mapAnchor":"lower-right-gardens","localProgressTrackId":"facility-progress.gardens.cultivation","opportunityDefinitionId":"opportunity.facility.gardens.plot","generationMode":"interval","targetPhase":21,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.chapter4.harbor-compact.resolution","requiredCapabilityId":"capability.gardens-cultivation.v1","openingContentId":"facility.gardens.first-cultivation"},
+    {"id":"facility.forge","activityId":"activity.relic-commissions","designAnchor":"village-forge","mapAnchor":"eastern-edge-forge","localProgressTrackId":"facility-progress.forge.commission-mastery","opportunityDefinitionId":"opportunity.facility.forge.commission","generationMode":"interval","targetPhase":21,"passivePolicy":"facility-opportunity-only","discoveryContentId":"story.book1.rank5.covenant-arrivals","requiredCapabilityId":"capability.forge-commissions.v1","openingContentId":"facility.forge.first-commission"}
+  ],
+  "originalPassiveFacilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"],
+  "phase15TutorialIds": [
+    "tutorial.facility.board.discover-hotspots",
+    "tutorial.legacy.tracks.first-progress",
+    "tutorial.legacy.claim.first-ready",
+    "tutorial.legacy.claim.major",
+    "tutorial.legacy.feats.first-feat"
+  ],
+  "actorIds": [
+    "fellow.cael", "fellow.lyra", "fellow.orin", "fellow.selene", "fellow.rook", "fellow.mira", "fellow.zamorak", "fellow.darrow", "fellow.deadpool", "fellow.star-lord", "fellow.iron-man", "fellow.daredevil", "fellow.thor", "fellow.captain-america", "fellow.spider-man", "fellow.wolverine", "fellow.obi-wan", "fellow.anakin",
+    "family.elara", "family.tamsin", "family.isolde", "family.violet", "family.virginia", "family.captain-marvel", "family.scarlet-witch", "family.ahsoka", "family.rey", "family.syl", "family.shallan", "family.yennefer", "family.jaina", "family.tyrande", "family.shadowheart", "family.amara", "family.aerith", "family.tifa", "family.hermione", "family.misty"
+  ],
+  "saveFixtures": {
+    "fresh": "p15.fixture.fresh.v1",
+    "storyDiscovered": "p15.fixture.story-discovered.v1",
+    "mixedBoard": "p15.fixture.mixed-board-states.v1",
+    "syntheticEmpty": "p15.fixture.synthetic-facility-empty.v1",
+    "syntheticBanked": "p15.fixture.synthetic-facility-banked.v1",
+    "syntheticEngaged": "p15.fixture.synthetic-facility-engaged.v1",
+    "syntheticClaimReady": "p15.fixture.synthetic-facility-claim-ready.v1",
+    "archiveWindow": "p15.fixture.archive-window-512.v1",
+    "migrated": "p15.fixture.schema12-migrated.v1",
+    "established": "p15.fixture.established.v1",
+    "offline": "p15.fixture.offline.v1",
+    "recovery": "p15.fixture.recovery-stage.v1",
+    "corrupt": "p15.fixture.corrupt.v1",
+    "future": "p15.fixture.future-version.v1",
+    "lockedRoster": "p15.fixture.locked-fellows.v1"
+  },
+  "syntheticPolicy": {
+    "qaOnly": true,
+    "facilityId": "facility.command-center",
+    "activityId": "activity.petitions",
+    "opportunityDefinitionId": "opportunity.facility.command-center.petition",
+    "definitionVersion": 1,
+    "rewardPolicyVersion": 1,
+    "intervalMs": 3600000,
+    "bankCapacity": 4,
+    "globalRewards": {"gold": 100, "prosperity": 2},
+    "localProgress": {"facility-progress.command-center.influence": 1}
+  },
+  "archivePolicy": {
+    "recentReceiptLimit": 512,
+    "foldBatchSize": 128,
+    "archiveWindowFixtureCount": 512,
+    "expectedRecentAfterNextClaim": 385,
+    "expectedThroughAfterNextClaim": 128
+  },
+  "invalidMutationChecks": [
+    "future-definition-version",
+    "future-reward-policy-version",
+    "wrong-facility",
+    "wrong-ordinal",
+    "wrong-opportunity-identity",
+    "wrong-detail-identity",
+    "wrong-outcome-identity",
+    "wrong-offer-identity",
+    "wrong-save-binding",
+    "unknown-source-finalizer"
+  ],
+  "corruptChecks": [
+    "archive-lineage",
+    "duplicate-map-anchor",
+    "future-definition-version",
+    "invalid-claimed-range",
+    "mismatched-offer-identity",
+    "unknown-actor",
+    "unknown-capability",
+    "unknown-facility",
+    "unknown-opportunity",
+    "unknown-tutorial"
+  ],
+  "requiredDomSelectors": [
+    "[data-phase15-facility-board]",
+    "[data-phase15-facility-id]",
+    "[data-phase15-map-anchor]",
+    "[data-phase15-state]"
+  ],
+  "viewports": [
+    {"id":"phone-320","width":320,"height":568,"reducedMotion":false,"copyScale":1},
+    {"id":"phone-390","width":390,"height":844,"reducedMotion":false,"copyScale":1},
+    {"id":"desktop-1024","width":1024,"height":768,"reducedMotion":false,"copyScale":1},
+    {"id":"phone-390-reduced","width":390,"height":844,"reducedMotion":true,"copyScale":1},
+    {"id":"phone-390-copy-175","width":390,"height":844,"reducedMotion":false,"copyScale":1.75}
+  ]
+}
