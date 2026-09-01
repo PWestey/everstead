@@ -73,7 +73,7 @@ Two-client settlement derives the same ordinals and has one winner; two-client b
 Phase 15 migrates the Phase 12 claim lane atomically into `claim-archive.phase-15.v1` while retaining schema 12 and the unique Phase 12 activation receipt.
 
 - Existing pending offers and detailed receipts remain semantically and identity valid.
-- Every predecessor claimed offer ID enters a fixed replay set before old details may fold.
+- Every migrated V1 predecessor claimed offer ID enters a fixed replay set before old details may fold. Folded V2 facility receipts never enter that set; their permanent replay authority is the facility's canonical claimed-ordinal ranges.
 - `nextSequence` is a safe integer and `throughSequence + recentReceipts.length === nextSequence`.
 - The recent window retains 512 full receipts. The 513th folds the oldest 128 into the save-bound checkpoint, leaving 385 recent receipts and `throughSequence:128`.
 - Checkpoint identity chains the prior checkpoint plus the exact ordered folded receipt identities; aggregate rewards and source counts are canonical safe integers.
