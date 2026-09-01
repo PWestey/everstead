@@ -1,0 +1,42 @@
+{
+  "contractVersion": 1,
+  "baseCommit": "4b5386ca37e210d1ba50d824fd7444aa9cd0a6e9",
+  "sourceCommit": "ee2ea1e73660562ba735d92e1d715b073c37b1eb",
+  "sourceFrozen": true,
+  "index": {"path":"index.html","bytes":1377020,"sha256":"7f91a0ccbb190e08515c75ece6fe2c17a471270bd24d9f2b5b9d939a88cea79b"},
+  "sources": [
+    {"path":"src/phase16-restaurant.js","bytes":23574,"sha256":"925c71c864489876d3ed06d1b0a158a4e3f0f6405bba27b31534456471f11454"},
+    {"path":"src/phase18-19-facilities.js","bytes":67673,"sha256":"c0727ee9c6663eeadedf7beffb22589b7f5ce03d9ebcc44ae46942e831e62592"},
+    {"path":"src/phase18-19-runtime.js","bytes":114744,"sha256":"214f3164f01d3a638191fd0589159005f5726bdcc8fffd3999c77acb47fb4ad5"},
+    {"path":"src/phase20-21-facilities.js","bytes":16997,"sha256":"51f9f7b0b4fd1a5bfe4aa5b9f09ec30e251eefedbb0eae25a6911d5c3cc7de8b"},
+    {"path":"src/phase20-21-runtime.js","bytes":58989,"sha256":"b6894ef6b7b031c4acf6457b658e99b996a816ca9900d7b12e7d711d5e41dc62"},
+    {"path":"src/phase20-21-presentation.js","bytes":31631,"sha256":"1bfefa4e148e6c4a7d5a27641dcfeaa8880b6c7f56c87fc023c01f69f8fcb3fd"},
+    {"path":"src/phase20-21-presentation.css","bytes":7551,"sha256":"51d877d88c791f196e98a95a22f221bd77466055632a6f255daa3c2d8dc602a9"},
+    {"path":"src/phase22a-shell-polish.css","bytes":15062,"sha256":"1685dff9f024ad4a9ddebae35c71dd205aa88c098b9bd4ba2454a097bee3f051"},
+    {"path":"src/phase22b-feature-polish.css","bytes":30271,"sha256":"6f18614eceb062a82ec0ac44b4aba6064cf79d8f8c2d4cd4e6ec54606f22b9f6"},
+    {"path":"src/phase22c-facility-polish.css","bytes":21434,"sha256":"978da083c16502f6383238b72a090aeaec724f72bf28f5c1f8d0091b044a8950"}
+  ],
+  "stylesheetHref": "src/phase22c-facility-polish.css?v=phase22c-facilities-v1",
+  "bridges": {"restaurant":"phase-16-independent-qa-v1","phase1819":"phase-18-19-independent-qa-v1","phase2021":"phase-20-21-independent-qa-v2"},
+  "fixtures": {"restaurantReady":"p16.qa.matched-claim-ready.v1","apothecaryRecheck":"p18.qa.apothecary-recheck.v1","apothecaryReady":"p18.qa.apothecary-precise-ready.v1","schoolhouseLessonReady":"p19.qa.schoolhouse-resonant-ready.v1","schoolhouseGraduation":"p19.qa.schoolhouse-graduation-ready.v1","successors":"p20-21.qa.all-unlocked.v2"},
+  "liveFixturePolicy": {"schoolhouseGraduation":{"rewardKinds":["gold"],"seatCapacity":"maximum","lockedSeatCount":0},"receiptActionScope":"phase20-21-sheet-footer"},
+  "facilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth", "facility.gatehouse", "facility.market-workshop", "facility.gardens", "facility.forge"],
+  "choiceIds": {"facility.command-center":"command.choice.shared-road.scheduled","facility.archives":"archives.evidence.route-mark","facility.training-grounds":"training.formation.paired","facility.hearth":"hearth.theme.neighbors","facility.gatehouse":"gatehouse.reception.direct","facility.market-workshop":"workshop.fulfillment.repair","facility.gardens":"gardens.crop.road-herbs","facility.forge":"forge.work.steady"},
+  "participants": ["fellow.cael", "fellow.lyra"],
+  "goldByFacility": {"facility.command-center":101,"facility.archives":103,"facility.training-grounds":107,"facility.hearth":109,"facility.gatehouse":113,"facility.market-workshop":127,"facility.gardens":131,"facility.forge":137},
+  "localProgressByFacility": {"facility.command-center":2,"facility.archives":3,"facility.training-grounds":5,"facility.hearth":7,"facility.gatehouse":11,"facility.market-workshop":13,"facility.gardens":17,"facility.forge":19},
+  "gardenGrowthMs": 7200001,
+  "frozenNow": 1760000000000,
+  "minimumTargetPx": 44,
+  "navigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "viewports": [
+    {"id":"phone-320x568","width":320,"height":568,"copyScale":1,"reducedMotion":false},
+    {"id":"phone-390x844","width":390,"height":844,"copyScale":1,"reducedMotion":false},
+    {"id":"phone-430x932","width":430,"height":932,"copyScale":1,"reducedMotion":false},
+    {"id":"tablet-768x1024","width":768,"height":1024,"copyScale":1,"reducedMotion":false},
+    {"id":"tablet-1024x768","width":1024,"height":768,"copyScale":1,"reducedMotion":false},
+    {"id":"copy-130-390x844","width":390,"height":844,"copyScale":1.3,"reducedMotion":false},
+    {"id":"reduced-390x844","width":390,"height":844,"copyScale":1,"reducedMotion":true}
+  ],
+  "inactiveViewport": {"id":"inactive-390x844","width":390,"height":844,"copyScale":1,"reducedMotion":false}
+}
