@@ -3,8 +3,8 @@
 d928797893d0798c83d1c59bfd73dc962c17dea3ae8f527eb704d04303415509  qa/phase-18-19-independent/README.md
 7b32f8cdcf9c2f703a8ff556fc9df39b40ca6b15b1443cf5ac2fed341c54a0bc  qa/phase-18-19-independent/fixtures/contract-fixtures.json
 a7a19b210201efa2eaa93575d68c03de97298cc4d30207ddd13e6806a23577f4  qa/phase-18-19-independent/fixtures/inherited-hashes.json
-c6c803ab568c0f72a6ca54ca2a9ad0e4ac73cbafee298002326bb920c90a5908  qa/phase-18-19-independent/index.html
-6a6d5ea04bf1136a957f28bd7f8676d1a2806643a930ea084e46713bd5890eae  qa/phase-18-19-independent/realm.html
+9f252a535ab706441a5879ab39f3cfbc87f1fd2a704b716b8c2a6668e2775a6c  qa/phase-18-19-independent/index.html
+e2eba8083661c9a98eff8f4ac3ea1952ccbdb06be287a88f81f5a8140dda295e  qa/phase-18-19-independent/realm.html
 43746ae2e784acedf70ef2e9697cc1887509ae663e488c0a3847401eb5e33a2d  qa/phase-18-19-independent/realm.js
 1d8d93938b7415428fe6918814eeb39dfae9d6b1c03eca2fedaea1203cc4fcd8  qa/phase-18-19-independent/runner.js
 25e3ecadb99fe3b943968bfd068cf46a7d0e1f783c53afb02dce7d124bf280e2  qa/phase-18-19-independent/verify.mjs
