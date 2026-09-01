@@ -1,0 +1,106 @@
+{
+  "contractId": "phase-17-tutorial-bindings-v1",
+  "sourceLedgerId": "phase-13-tutorial-matrix-v1",
+  "sourceLedgerCount": 79,
+  "productionEnabled": false,
+  "stateRegistry": {
+    "registryId": "tutorial-registry.phase-17-successor.v1",
+    "preservePredecessorHistory": true,
+    "idAliasPolicy": "Resolve legacy fellow:id and family:id speaker forms to canonical fellow.id and family.id without rewriting completed tutorial records.",
+    "chapterAliasPolicy": "Resolve legacy book.first-covenant.chapter2 to story.book1.chapter2.promises-with-teeth."
+  },
+  "bindings": [
+    {
+      "tutorialId": "tutorial.story.scene-controls.first-scene",
+      "context": "first line of story.book1.prologue.waystone-call",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "embedded-nonblocking",
+      "migration": "If any story scene is already watched or skipped, mark historical eligibility and leave replay available; never interrupt a migrated player."
+    },
+    {
+      "tutorialId": "tutorial.story.objective.first-covenant",
+      "context": "first safe Village visit after story.book1.prologue.waystone-call resolves",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "coachmark-nonblocking",
+      "migration": "Offer on the Tutorials shelf when the objective was already active before migration."
+    },
+    {
+      "tutorialId": "tutorial.player.rank-path",
+      "context": "after the first committed Campaign first-clear and its resolution scene",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "coachmark-after-result",
+      "migration": "Do not enqueue for Rank 2+ imports; make replay available."
+    },
+    {
+      "tutorialId": "tutorial.rank.new-fellows.rank-2",
+      "context": "after story.book1.rank2.roadbound-arrivals resolves",
+      "canonicalSpeakerActorId": "fellow.darrow",
+      "delivery": "arrival-followup",
+      "migration": "For a Rank jump, attach to the Rank-2 arrival recap and preserve exact deterministic join truth."
+    },
+    {
+      "tutorialId": "tutorial.rank.new-fellows.rank-3",
+      "context": "after story.book1.rank3.crossroads-arrivals resolves",
+      "canonicalSpeakerActorId": "fellow.star-lord",
+      "delivery": "arrival-followup",
+      "migration": "For a Rank jump, attach only after the Rank-3 arrival recap."
+    },
+    {
+      "tutorialId": "tutorial.rank.new-fellows.rank-4",
+      "context": "after story.book1.rank4.skybridge-arrivals resolves",
+      "canonicalSpeakerActorId": "fellow.captain-america",
+      "delivery": "arrival-followup",
+      "migration": "For a Rank jump, attach only after the Rank-4 arrival recap."
+    },
+    {
+      "tutorialId": "tutorial.rank.new-fellows.rank-5",
+      "context": "after story.book1.rank5.covenant-arrivals resolves",
+      "canonicalSpeakerActorId": "fellow.obi-wan",
+      "delivery": "arrival-followup",
+      "migration": "For a Rank jump, attach only after the Rank-5 arrival recap."
+    },
+    {
+      "tutorialId": "tutorial.chronicle.replay-and-log",
+      "context": "first intentional open of More > Chronicle after two story scenes are resolved",
+      "canonicalSpeakerActorId": "family.isolde",
+      "delivery": "surface-embedded",
+      "migration": "May remain unseen indefinitely; Chronicle use is never required for story progression."
+    },
+    {
+      "tutorialId": "tutorial.story.objective.chapter-change",
+      "context": "first safe Village visit after story.book1.chapter1.merchant-dispute.resolution and Rank-2 arrival ordering completes",
+      "canonicalSpeakerActorId": "family.violet",
+      "delivery": "objective-card-coachmark",
+      "migration": "For Chapter 2+ imports, make replay available instead of forcing it."
+    },
+    {
+      "tutorialId": "tutorial.story.book1-completion-village-change",
+      "context": "after story.book1.finale.first-covenant resolves and durable Village projection commits",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "completion-followup",
+      "migration": "For already-complete imports, show one optional objective-panel recap."
+    },
+    {
+      "tutorialId": "tutorial.facility.board.discover-hotspots",
+      "context": "first story-driven facility discovery on a safe Village visit",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "map-embedded-coachmark",
+      "migration": "If any facility is already operational, expose the tutorial on the Tutorials shelf and do not block the map."
+    },
+    {
+      "tutorialId": "tutorial.legacy.claim.major",
+      "context": "first production-enabled major Legacy claim, including an approved Book I feat only after its claim becomes ready",
+      "canonicalSpeakerActorId": "fellow.lyra",
+      "delivery": "claim-celebration-overlay",
+      "migration": "No Phase 17 story reward enables this tutorial while reward definitions are null."
+    }
+  ],
+  "globalRules": [
+    "Every tutorial may be skipped immediately, replayed from the Tutorials shelf, and read later in the dialogue log where applicable.",
+    "Tutorial completion never unlocks a feature, spends a resource, grants a reward, changes Rank, or blocks passive progress.",
+    "At most one tutorial competes with one story or arrival scene on a safe visit; story resolution and arrival ordering win.",
+    "If the canonical speaker cannot render with a transparent cutout, use an approved framed treatment or text-only presentation.",
+    "No tutorial uses an unframed full-background portrait in Village dialogue.",
+    "Tutorial text uses localization keys and stable semantic step IDs; layout must survive 30 percent text expansion."
+  ]
+}

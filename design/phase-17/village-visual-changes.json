@@ -1,0 +1,95 @@
+{
+  "contractId": "phase-17-village-visual-changes-v1",
+  "definitionSetId": "definition-set.phase-17-village-visuals.v1",
+  "productionEnabled": false,
+  "authority": "Visual states are pure projections of committed story completion. Acknowledgement and reduced-motion preferences may be stored, but visual truth is never independently granted.",
+  "changes": [
+    {
+      "id": "village-change.waystone-awakened",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.prologue.waystone-call" },
+      "mapAnchor": "central-crystal",
+      "intent": "The Waystone reads as awake and as the persistent First Covenant objective hub.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Keep the existing crystal art and add an accessible objective-status label only."
+    },
+    {
+      "id": "village-change.first-road-open",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter1.village-toll.resolution" },
+      "mapAnchor": "lower-bridge-entrance",
+      "intent": "The lower road reads as passable without implying the Gatehouse activity is active.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Show a compact road-open status in the Village objective panel."
+    },
+    {
+      "id": "village-change.western-plaza-open",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter1.merchant-dispute.resolution" },
+      "mapAnchor": "western-plaza",
+      "intent": "The plaza reads as receiving regular travelers and commerce.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Reveal discovered facility icons without changing the background artwork."
+    },
+    {
+      "id": "village-change.archives-lanterns",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter2.records-in-rain" },
+      "mapAnchor": "upper-right-tower",
+      "intent": "The Archives reads as occupied and preserving recovered records.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Use the discovered Archives icon and a records-recovered status."
+    },
+    {
+      "id": "village-change.council-banners",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter3.council-of-ash.resolution" },
+      "mapAnchor": "upper-left-hall",
+      "intent": "The Command Center reads as a place where shared decisions are recorded.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Use the discovered Command Center activity icon and petition status."
+    },
+    {
+      "id": "village-change.bridge-traffic",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter4.skybridge-terms.resolution" },
+      "mapAnchor": "lower-bridge-entrance",
+      "intent": "The bridge reads as carrying supervised traffic.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Show a bridge-traffic Chronicle badge without animated travelers."
+    },
+    {
+      "id": "village-change.harbor-caravans",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.chapter4.harbor-compact.resolution" },
+      "mapAnchor": "lower-bridge-entrance",
+      "intent": "The entrance reads as connected to harbor caravans and cultivated supply routes.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Expose the Gatehouse and Gardens discovery states with compact status text."
+    },
+    {
+      "id": "village-change.first-covenant",
+      "definitionVersion": 1,
+      "source": { "type": "scene-resolved", "contentId": "story.book1.finale.first-covenant" },
+      "mapAnchor": "village-board",
+      "intent": "The whole Village carries a modest, lasting sign that the First Covenant is complete.",
+      "artTreatmentId": null,
+      "cssTreatmentId": null,
+      "fallback": "Persist a First Covenant crest in the objective panel, Chronicle, and Waystone sheet."
+    }
+  ],
+  "projectionRules": [
+    "Recompute active visual change IDs after load, import, recovery, and story migration from validated scene completion only.",
+    "Never remove an achieved visual change because artwork or a later facility phase is unavailable.",
+    "Never create production state from provisional art/CSS identifiers.",
+    "Reduced-motion mode uses static replacements and no looping glow, parallax, camera move, or automatic pan.",
+    "Each change must have an accessible text equivalent and must remain legible at 320 by 568 and 390 by 844."
+  ]
+}

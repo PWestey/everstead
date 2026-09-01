@@ -1,0 +1,141 @@
+{
+  "contractId": "phase-17-facility-unlocks-v1",
+  "definitionSetId": "definition-set.phase-17-village-unlocks.v1",
+  "productionEnabled": false,
+  "mapStateOrder": ["hidden", "discovered-locked", "available", "claim-ready"],
+  "globalRules": {
+    "storyIsDiscoveryAuthority": true,
+    "activeInteractionNeedsCapabilityAndOpening": true,
+    "passiveBuildingStateIsIndependent": true,
+    "neverRelockAnOperationalSuccessor": true,
+    "prosperityThreshold": null,
+    "headquartersThreshold": null,
+    "unavailableTreatment": "Show a dim, non-pulsing discovered icon with the story-safe status; never imply an active interaction exists."
+  },
+  "facilityUnlocks": [
+    {
+      "facilityId": "facility.waystone",
+      "mapAnchor": "central-crystal",
+      "targetPhase": 15,
+      "passivePolicy": "presentation-hub-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.prologue.waystone-call" },
+      "activeInteraction": { "requiredCapabilityId": "capability.waystone-legacy-hub.v1", "openingContentId": "story.book1.prologue.waystone-call" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "story.book1.prologue.waystone-call" }
+    },
+    {
+      "facilityId": "facility.restaurant",
+      "mapAnchor": "western-plaza-restaurant",
+      "targetPhase": 16,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter1.village-toll.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.restaurant-service.v1", "openingContentId": "facility.restaurant.opening-service" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.restaurant.opening-service" }
+    },
+    {
+      "facilityId": "facility.apothecary",
+      "mapAnchor": "eastern-plaza-apothecary",
+      "targetPhase": 18,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter2.records-in-rain" },
+      "activeInteraction": { "requiredCapabilityId": "capability.apothecary-cases.v1", "openingContentId": "facility.apothecary.possibility-case" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.apothecary.possibility-case" }
+    },
+    {
+      "facilityId": "facility.schoolhouse",
+      "mapAnchor": "eastern-plaza-schoolhouse",
+      "targetPhase": 19,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter3.river-accord.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.schoolhouse-lessons.v1", "openingContentId": "facility.schoolhouse.first-mentor-lesson" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.schoolhouse.first-mentor-lesson" }
+    },
+    {
+      "facilityId": "facility.command-center",
+      "mapAnchor": "upper-left-hall",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter3.council-of-ash.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.command-petitions.v1", "openingContentId": "facility.command.resolve-petition" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.command.resolve-petition" }
+    },
+    {
+      "facilityId": "facility.archives",
+      "mapAnchor": "upper-right-tower",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter2.records-in-rain" },
+      "activeInteraction": { "requiredCapabilityId": "capability.archives-research.v1", "openingContentId": "facility.archives.first-research" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.archives.first-research" }
+    },
+    {
+      "facilityId": "facility.training-grounds",
+      "mapAnchor": "lower-left-arena",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter4.quarry-claim.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.training-drills.v1", "openingContentId": "facility.training.first-drill" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.training.first-drill" }
+    },
+    {
+      "facilityId": "facility.hearth",
+      "mapAnchor": "lower-right-manor",
+      "targetPhase": 20,
+      "passivePolicy": "preserve-existing-building-production-and-family-assignment",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter3.river-accord.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.hearth-gatherings.v1", "openingContentId": "facility.hearth.quiet-trust" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.hearth.quiet-trust" }
+    },
+    {
+      "facilityId": "facility.market-workshop",
+      "mapAnchor": "western-plaza-workshop",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter4.quarry-claim.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.market-workshop-orders.v1", "openingContentId": "facility.workshop.salvage-order" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.workshop.salvage-order" }
+    },
+    {
+      "facilityId": "facility.gatehouse",
+      "mapAnchor": "lower-bridge-entrance",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter4.skybridge-terms.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.gatehouse-road-events.v1", "openingContentId": "facility.gatehouse.first-road-watch" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.gatehouse.first-road-watch" }
+    },
+    {
+      "facilityId": "facility.gardens",
+      "mapAnchor": "lower-right-gardens",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.chapter4.harbor-compact.resolution" },
+      "activeInteraction": { "requiredCapabilityId": "capability.gardens-cultivation.v1", "openingContentId": "facility.gardens.first-cultivation" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.gardens.first-cultivation" }
+    },
+    {
+      "facilityId": "facility.forge",
+      "mapAnchor": "eastern-edge-forge",
+      "targetPhase": 21,
+      "passivePolicy": "facility-opportunity-only",
+      "discovery": { "type": "scene-resolved", "contentId": "story.book1.rank5.covenant-arrivals" },
+      "activeInteraction": { "requiredCapabilityId": "capability.forge-commissions.v1", "openingContentId": "facility.forge.first-commission" },
+      "grandfather": { "ifAlreadyOperational": true, "recapContentId": "facility.forge.first-commission" }
+    }
+  ],
+  "mapPresentation": {
+    "mobileIconStates": {
+      "hidden": "No icon and no spoiler label.",
+      "discovered-locked": "Dim icon; tap shows name, discovery context, and unavailable status.",
+      "available": "Normal icon; tap shows current activity and local status.",
+      "claim-ready": "Glowing icon with a non-color-only badge and accessible status text."
+    },
+    "tapBehavior": "One compact sheet shows facility name, current activity, banked count, local progression, and claim status.",
+    "crowdingRule": "Use map-anchored compact icons; do not add a detached facility-management grid."
+  },
+  "migrationRules": [
+    "Never convert a story-unseen active facility back to locked when a predecessor phase already made it operational.",
+    "Synthesize the corresponding discovery/opening Chronicle entry and tutorial recap without replaying grants or claims.",
+    "The original four Buildings retain passive production even when their active-interaction icon remains discovered-locked.",
+    "Unknown future facility states are preserved by export and rejected from current mutation paths."
+  ]
+}

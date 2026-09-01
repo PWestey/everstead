@@ -1,0 +1,315 @@
+{
+  "contractId": "phase-17-book1-cast-distribution-v1",
+  "sourceCastContractId": "phase-13-cast-plan-v1",
+  "sourceHookContractId": "phase-15-21-cast-facility-hooks-v1",
+  "productionEnabled": false,
+  "coverageRule": "All 18 Fellows and 20 Family actors retain their Phase 13 primary authored assignment and receive an intentional Book I story, arrival, interlude, tutorial, or story-discovered facility role by Phase 21.",
+  "writingPolicy": "Write original Everstead functions and localization-safe intents. Do not imitate any external franchise character's recognizable voice, cadence, catchphrase, or scene.",
+  "presentationPolicy": "Village dialogue uses transparent cutout, approved framed, or text-only treatment. Unframed full-background portraits are forbidden; full-background profile art remains available on character sheets.",
+  "actors": [
+    {
+      "actorId": "fellow.cael",
+      "primaryContentId": "story.book1.prologue.council",
+      "participationClass": "required-story",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.prologue.council", "story.book1.chapter1.village-toll.intro", "story.book1.finale.first-covenant"],
+      "facilityHookIds": ["dialogue.facility.training-grounds.cael.tutorial-guide", "dialogue.facility.training-grounds.cael.story-hook"]
+    },
+    {
+      "actorId": "fellow.lyra",
+      "primaryContentId": "story.book1.prologue.waystone-call",
+      "participationClass": "required-story",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.prologue.waystone-call", "story.book1.chapter1.village-toll.intro", "story.book1.finale.first-covenant"],
+      "facilityHookIds": ["dialogue.waystone.lyra.objective-guide", "dialogue.waystone.lyra.major-claim"]
+    },
+    {
+      "actorId": "fellow.orin",
+      "primaryContentId": "facility.training.first-drill",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["facility.training.first-drill"],
+      "facilityHookIds": ["dialogue.facility.training-grounds.orin.activity-presenter", "dialogue.facility.training-grounds.orin.claim-acknowledgement"]
+    },
+    {
+      "actorId": "fellow.selene",
+      "primaryContentId": "facility.archives.first-research",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["story.book1.chapter2.records-in-rain", "facility.archives.first-research"],
+      "facilityHookIds": ["dialogue.facility.archives.selene.tutorial-guide", "dialogue.facility.archives.selene.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.rook",
+      "primaryContentId": "facility.forge.first-commission",
+      "participationClass": "facility-story",
+      "deliveryPhase": 21,
+      "book1AppearanceIds": ["facility.forge.first-commission"],
+      "facilityHookIds": ["dialogue.facility.apothecary.rook.named-visitor", "dialogue.facility.forge.rook.tutorial-guide"]
+    },
+    {
+      "actorId": "fellow.mira",
+      "primaryContentId": "facility.gatehouse.first-road-watch",
+      "participationClass": "facility-story",
+      "deliveryPhase": 21,
+      "book1AppearanceIds": ["story.book1.chapter4.skybridge-terms.resolution", "facility.gatehouse.first-road-watch"],
+      "facilityHookIds": ["dialogue.facility.gatehouse.mira.tutorial-guide", "dialogue.facility.gatehouse.mira.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.zamorak",
+      "primaryContentId": "story.book1.rank2.roadbound-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.rank2.roadbound-arrivals", "story.book1.chapter2.old-road-ambush.intro"],
+      "facilityHookIds": ["dialogue.facility.forge.zamorak.named-visitor", "dialogue.facility.forge.zamorak.result-comment"]
+    },
+    {
+      "actorId": "fellow.darrow",
+      "primaryContentId": "story.book1.rank2.roadbound-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.rank2.roadbound-arrivals", "story.book1.chapter2.broken-contract.intro"],
+      "facilityHookIds": ["dialogue.facility.command-center.darrow.activity-presenter", "dialogue.facility.forge.darrow.ambient"]
+    },
+    {
+      "actorId": "fellow.deadpool",
+      "primaryContentId": "story.book1.rank2.roadbound-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.rank2.roadbound-arrivals", "dialogue.facility.restaurant.deadpool.named-visitor"],
+      "facilityHookIds": ["dialogue.facility.restaurant.deadpool.named-visitor", "dialogue.facility.restaurant.deadpool.result-comment"]
+    },
+    {
+      "actorId": "fellow.star-lord",
+      "primaryContentId": "story.book1.rank3.crossroads-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank3.crossroads-arrivals", "story.book1.chapter4.harbor-compact.intro"],
+      "facilityHookIds": ["dialogue.facility.restaurant.star-lord.named-visitor", "dialogue.facility.gatehouse.star-lord.result-comment"]
+    },
+    {
+      "actorId": "fellow.iron-man",
+      "primaryContentId": "story.book1.rank3.crossroads-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank3.crossroads-arrivals", "story.book1.chapter4.quarry-claim.intro"],
+      "facilityHookIds": ["dialogue.facility.market-workshop.iron-man.tutorial-guide", "dialogue.facility.market-workshop.iron-man.activity-presenter"]
+    },
+    {
+      "actorId": "fellow.daredevil",
+      "primaryContentId": "story.book1.rank3.crossroads-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank3.crossroads-arrivals", "story.book1.chapter3.council-of-ash"],
+      "facilityHookIds": ["dialogue.facility.apothecary.daredevil.named-visitor", "dialogue.facility.command-center.daredevil.result-comment"]
+    },
+    {
+      "actorId": "fellow.thor",
+      "primaryContentId": "story.book1.rank4.skybridge-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank4.skybridge-arrivals", "story.book1.chapter4.skybridge-terms.intro"],
+      "facilityHookIds": ["dialogue.facility.training-grounds.thor.named-visitor", "dialogue.facility.gardens.thor.result-comment"]
+    },
+    {
+      "actorId": "fellow.captain-america",
+      "primaryContentId": "story.book1.rank4.skybridge-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank4.skybridge-arrivals", "story.book1.chapter4.quarry-claim.intro"],
+      "facilityHookIds": ["dialogue.legacy.captain-america.first-feat-guide", "dialogue.facility.command-center.captain-america.named-visitor"]
+    },
+    {
+      "actorId": "fellow.spider-man",
+      "primaryContentId": "story.book1.rank4.skybridge-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank4.skybridge-arrivals", "story.book1.chapter4.skybridge-terms.intro"],
+      "facilityHookIds": ["dialogue.facility.restaurant.spider-man.ambient", "dialogue.facility.schoolhouse.spider-man.named-visitor"]
+    },
+    {
+      "actorId": "fellow.wolverine",
+      "primaryContentId": "story.book1.rank5.covenant-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank5.covenant-arrivals", "facility.gatehouse.first-road-watch"],
+      "facilityHookIds": ["dialogue.facility.gatehouse.wolverine.ambient", "dialogue.facility.gatehouse.wolverine.result-comment"]
+    },
+    {
+      "actorId": "fellow.obi-wan",
+      "primaryContentId": "story.book1.rank5.covenant-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank5.covenant-arrivals", "facility.schoolhouse.first-mentor-lesson"],
+      "facilityHookIds": ["dialogue.facility.schoolhouse.obi-wan.tutorial-guide", "dialogue.facility.archives.obi-wan.result-comment"]
+    },
+    {
+      "actorId": "fellow.anakin",
+      "primaryContentId": "story.book1.rank5.covenant-arrivals",
+      "participationClass": "rank-arrival",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.rank5.covenant-arrivals", "facility.forge.first-commission"],
+      "facilityHookIds": ["dialogue.facility.forge.anakin.named-visitor", "dialogue.facility.forge.anakin.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.elara",
+      "primaryContentId": "story.book1.prologue.council",
+      "participationClass": "required-story",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.prologue.council", "story.book1.interlude.small-promises", "story.book1.finale.first-covenant"],
+      "facilityHookIds": ["dialogue.facility.hearth.elara.tutorial-guide", "dialogue.facility.hearth.elara.story-hook"]
+    },
+    {
+      "actorId": "family.tamsin",
+      "primaryContentId": "story.book1.chapter1.village-toll.resolution",
+      "participationClass": "required-story",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.chapter1.village-toll.resolution", "story.book1.interlude.open-table"],
+      "facilityHookIds": ["dialogue.facility.restaurant.tamsin.banking-guide", "dialogue.facility.restaurant.tamsin.ambient"]
+    },
+    {
+      "actorId": "family.isolde",
+      "primaryContentId": "story.book1.prologue.council",
+      "participationClass": "required-story",
+      "deliveryPhase": 13,
+      "book1AppearanceIds": ["story.book1.prologue.council", "story.book1.chapter1.merchant-dispute.intro", "story.book1.finale.first-covenant"],
+      "facilityHookIds": ["dialogue.legacy.isolde.track-guide", "dialogue.waystone.isolde.record-comment"]
+    },
+    {
+      "actorId": "family.violet",
+      "primaryContentId": "story.book1.chapter2.records-in-rain",
+      "participationClass": "required-story",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.chapter2.broken-contract.intro", "story.book1.chapter2.records-in-rain"],
+      "facilityHookIds": ["dialogue.facility.archives.violet.ambient", "dialogue.facility.archives.violet.result-comment"]
+    },
+    {
+      "actorId": "family.virginia",
+      "primaryContentId": "story.book1.chapter3.council-of-ash",
+      "participationClass": "required-story",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.chapter3.council-of-ash", "story.book1.finale.first-covenant.intro"],
+      "facilityHookIds": ["dialogue.waystone.virginia.major-claim-comment", "dialogue.facility.command-center.virginia.activity-presenter"]
+    },
+    {
+      "actorId": "family.captain-marvel",
+      "primaryContentId": "facility.training.starward-drill",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["facility.training.starward-drill"],
+      "facilityHookIds": ["dialogue.facility.training-grounds.captain-marvel.activity-presenter", "dialogue.facility.forge.captain-marvel.result-comment"]
+    },
+    {
+      "actorId": "family.scarlet-witch",
+      "primaryContentId": "facility.apothecary.possibility-case",
+      "participationClass": "facility-story",
+      "deliveryPhase": 18,
+      "book1AppearanceIds": ["facility.apothecary.possibility-case"],
+      "facilityHookIds": ["dialogue.facility.apothecary.scarlet-witch.tutorial-guide", "dialogue.facility.apothecary.scarlet-witch.activity-presenter"]
+    },
+    {
+      "actorId": "family.ahsoka",
+      "primaryContentId": "facility.schoolhouse.first-mentor-lesson",
+      "participationClass": "facility-story",
+      "deliveryPhase": 19,
+      "book1AppearanceIds": ["story.book1.interlude.young-futures", "facility.schoolhouse.first-mentor-lesson"],
+      "facilityHookIds": ["dialogue.facility.schoolhouse.ahsoka.activity-presenter", "dialogue.facility.training-grounds.ahsoka.result-comment"]
+    },
+    {
+      "actorId": "family.rey",
+      "primaryContentId": "facility.workshop.salvage-order",
+      "participationClass": "facility-story",
+      "deliveryPhase": 21,
+      "book1AppearanceIds": ["story.book1.chapter4.quarry-claim.resolution", "facility.workshop.salvage-order"],
+      "facilityHookIds": ["dialogue.facility.gardens.rey.tutorial-guide", "dialogue.facility.market-workshop.rey.ambient"]
+    },
+    {
+      "actorId": "family.syl",
+      "primaryContentId": "story.book1.interlude.small-promises",
+      "participationClass": "optional-interlude",
+      "deliveryPhase": 17,
+      "book1AppearanceIds": ["story.book1.interlude.small-promises"],
+      "facilityHookIds": ["dialogue.legacy.syl.claim-guide", "dialogue.waystone.syl.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.shallan",
+      "primaryContentId": "facility.archives.light-map",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["story.book1.interlude.quiet-roads", "facility.archives.light-map"],
+      "facilityHookIds": ["dialogue.facility.archives.shallan.named-visitor", "dialogue.facility.archives.shallan.result-comment"]
+    },
+    {
+      "actorId": "family.yennefer",
+      "primaryContentId": "facility.apothecary.precise-remedy",
+      "participationClass": "facility-story",
+      "deliveryPhase": 18,
+      "book1AppearanceIds": ["story.book1.interlude.quiet-roads", "facility.apothecary.precise-remedy"],
+      "facilityHookIds": ["dialogue.facility.apothecary.yennefer.activity-presenter", "dialogue.facility.forge.yennefer.story-hook"]
+    },
+    {
+      "actorId": "family.jaina",
+      "primaryContentId": "facility.restaurant.harbor-guest",
+      "participationClass": "facility-story",
+      "deliveryPhase": 16,
+      "book1AppearanceIds": ["story.book1.interlude.open-table", "facility.restaurant.harbor-guest"],
+      "facilityHookIds": ["dialogue.facility.restaurant.jaina.named-route-visitor", "dialogue.facility.restaurant.jaina.reputation-guide"]
+    },
+    {
+      "actorId": "family.tyrande",
+      "primaryContentId": "facility.gardens.first-cultivation",
+      "participationClass": "facility-story",
+      "deliveryPhase": 21,
+      "book1AppearanceIds": ["story.book1.chapter4.harbor-compact.resolution", "facility.gardens.first-cultivation"],
+      "facilityHookIds": ["dialogue.facility.hearth.tyrande.named-visitor", "dialogue.facility.gardens.tyrande.ambient"]
+    },
+    {
+      "actorId": "family.shadowheart",
+      "primaryContentId": "facility.hearth.quiet-trust",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["story.book1.interlude.quiet-roads", "facility.hearth.quiet-trust"],
+      "facilityHookIds": ["dialogue.facility.apothecary.shadowheart.ambient", "dialogue.facility.hearth.shadowheart.result-comment"]
+    },
+    {
+      "actorId": "family.amara",
+      "primaryContentId": "facility.command.resolve-petition",
+      "participationClass": "facility-story",
+      "deliveryPhase": 20,
+      "book1AppearanceIds": ["facility.command.resolve-petition"],
+      "facilityHookIds": ["dialogue.facility.command-center.amara.ambient", "dialogue.facility.command-center.amara.named-visitor"]
+    },
+    {
+      "actorId": "family.aerith",
+      "primaryContentId": "facility.schoolhouse.growing-things",
+      "participationClass": "facility-story",
+      "deliveryPhase": 19,
+      "book1AppearanceIds": ["story.book1.interlude.young-futures", "facility.schoolhouse.growing-things"],
+      "facilityHookIds": ["dialogue.facility.apothecary.aerith.claim-acknowledgement", "dialogue.facility.schoolhouse.aerith.ambient"]
+    },
+    {
+      "actorId": "family.tifa",
+      "primaryContentId": "facility.restaurant.opening-service",
+      "participationClass": "facility-story",
+      "deliveryPhase": 16,
+      "book1AppearanceIds": ["story.book1.interlude.open-table", "facility.restaurant.opening-service"],
+      "facilityHookIds": ["dialogue.facility.restaurant.tifa.service-guide", "dialogue.facility.restaurant.tifa.claim-acknowledgement"]
+    },
+    {
+      "actorId": "family.hermione",
+      "primaryContentId": "facility.schoolhouse.lesson-plan",
+      "participationClass": "facility-story",
+      "deliveryPhase": 19,
+      "book1AppearanceIds": ["story.book1.interlude.young-futures", "facility.schoolhouse.lesson-plan"],
+      "facilityHookIds": ["dialogue.facility.schoolhouse.hermione.story-hook", "dialogue.facility.market-workshop.hermione.result-comment"]
+    },
+    {
+      "actorId": "family.misty",
+      "primaryContentId": "facility.gatehouse.river-caravan",
+      "participationClass": "facility-story",
+      "deliveryPhase": 21,
+      "book1AppearanceIds": ["story.book1.chapter4.harbor-compact.intro", "facility.gatehouse.river-caravan"],
+      "facilityHookIds": ["dialogue.facility.restaurant.misty.ambient", "dialogue.facility.gatehouse.misty.activity-presenter"]
+    }
+  ]
+}

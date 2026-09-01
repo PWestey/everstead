@@ -1,0 +1,249 @@
+{
+  "contractId": "phase-17-book1-fixtures-v1",
+  "definitionSetId": "definition-set.phase-17-book1.v1",
+  "productionEnabled": false,
+  "syntheticValuesAreNonProduction": true,
+  "fixtures": [
+    {
+      "id": "phase17.fresh.prologue-safe-visit",
+      "category": "fresh",
+      "given": "Fresh validated Rank-1 save with no storyV1 object.",
+      "when": "Phase 17 migration and first safe Village visit run.",
+      "then": ["storyV1 schemaVersion 1 is created once", "story.book1.prologue.waystone-call is the sole presented scene", "no resource or roster mutation occurs"]
+    },
+    {
+      "id": "phase17.fresh.stage1-intro-before-spend",
+      "category": "fresh",
+      "given": "Village Toll has never been cleared and its intro is unresolved.",
+      "when": "The player selects the first-clear attempt.",
+      "then": ["Village Toll intro presents before the Gold-spend confirmation", "skip permits the attempt", "scene state does not change battle math"]
+    },
+    {
+      "id": "phase17.fresh.stage1-resolution-after-commit",
+      "category": "fresh",
+      "given": "Village Toll first-clear can succeed.",
+      "when": "The authoritative Campaign transaction commits.",
+      "then": ["clear costs and rewards commit exactly as released", "Village Toll resolution queues afterward", "Restaurant becomes discovered only when that scene resolves"]
+    },
+    {
+      "id": "phase17.order.stage2-rank2",
+      "category": "ordering",
+      "given": "Merchant Dispute first-clear crosses Rank 2.",
+      "when": "The clear and subsequent story are resolved.",
+      "then": ["stage clear commits first", "Merchant Dispute resolution presents second", "Rank-2 arrivals present third", "Rank-2 tutorial becomes eligible fourth"]
+    },
+    {
+      "id": "phase17.order.replay-clear-no-scenes",
+      "category": "replay",
+      "given": "Village Toll and its first-clear scenes are resolved.",
+      "when": "Village Toll is cleared again.",
+      "then": ["only a contextual replay line may render", "no story queue, reward, tutorial, visual, Rank, or facility state changes"]
+    },
+    {
+      "id": "phase17.replay.presentation-only",
+      "category": "replay",
+      "given": "A Chronicle record exists for Merchant Dispute resolution.",
+      "when": "The player replays it and selects a different flavor response.",
+      "then": ["captured definition version renders", "no persistent field changes", "no offer or claim is created"]
+    },
+    {
+      "id": "phase17.skip.completes-no-claim",
+      "category": "replay",
+      "given": "A first-clear resolution is queued and its reward definition is fixture-enabled.",
+      "when": "The player chooses Skip.",
+      "then": ["scene dependency resolves and skippedSceneIds records it", "one ready offer may be created", "reward remains uncredited until explicit Claim"]
+    },
+    {
+      "id": "phase17.migration.stage8-bounded-recap",
+      "category": "migration",
+      "given": "Pre-Phase-17 save has committed clears through broken-roads-8.",
+      "when": "Migration and three safe Village visits occur.",
+      "then": ["historical scenes enter Chronicle or recap eligibility", "at most one recap presents per visit", "no historical reward or currency is inferred"]
+    },
+    {
+      "id": "phase17.migration.rank5-arrival-order",
+      "category": "migration",
+      "given": "Validated Rank-5 save has no arrival Chronicle records.",
+      "when": "Safe Village visits reconcile arrivals.",
+      "then": ["Rank 2, 3, 4, then 5 arrivals are queued", "at most one arrival presents per visit", "roster bytes remain unchanged"]
+    },
+    {
+      "id": "phase17.rank-jump.one-to-three",
+      "category": "rank-jump",
+      "given": "A supported fixture moves authoritative Rank from 1 to 3 with exact released Fellows already joined.",
+      "when": "Eligibility reconciles.",
+      "then": ["Rank-2 arrival precedes Rank-3 arrival", "each appears exactly once", "no Fellow is granted by story"]
+    },
+    {
+      "id": "phase17.rank-jump.existing-rank2-record",
+      "category": "rank-jump",
+      "given": "Rank 4 save already resolved Rank-2 arrivals only.",
+      "when": "Eligibility reconciles.",
+      "then": ["only Rank-3 and Rank-4 arrivals queue", "Rank-2 record remains byte-stable", "tutorial history is preserved"]
+    },
+    {
+      "id": "phase17.migration.retroactive-scene",
+      "category": "migration",
+      "given": "A supported definition update adds a scene inside an already-cleared chapter.",
+      "when": "The registry and save migrate.",
+      "then": ["new scene becomes recap-eligible", "it is not auto-watched", "story and facilities remain unblocked"]
+    },
+    {
+      "id": "phase17.facility.restaurant-grandfather",
+      "category": "facility",
+      "given": "Phase 16 Restaurant is already operational but Phase 17 story history is absent.",
+      "when": "Migration derives facility discovery.",
+      "then": ["Restaurant remains operational", "a recap/opening Chronicle seam is synthesized", "no opening grant or opportunity duplicates"]
+    },
+    {
+      "id": "phase17.facility.original-four-passive",
+      "category": "facility",
+      "given": "Fresh or migrated save has the four existing passive Buildings.",
+      "when": "Their active interactions remain undiscovered or unavailable.",
+      "then": ["all four Buildings remain visible", "production, upgrades, Oath boosts, and Family assignment remain unchanged", "only active-activity icons may be dim"]
+    },
+    {
+      "id": "phase17.facility.all-twelve-covered",
+      "category": "reference",
+      "given": "Phase 14 facility registry and Phase 17 unlock definitions.",
+      "when": "Static validation runs.",
+      "then": ["all twelve exact facility IDs appear once", "each has one visible map anchor and discovery rule", "every activity needs a stable capability and opening content"]
+    },
+    {
+      "id": "phase17.facility.discovered-phase-unavailable",
+      "category": "facility",
+      "given": "Apothecary discovery scene is resolved while Phase 18 capability is disabled.",
+      "when": "Village map projects facility state.",
+      "then": ["Apothecary is discovered-locked", "tap shows story-safe unavailable status", "no opportunity or claim is created"]
+    },
+    {
+      "id": "phase17.visual.derived-and-durable",
+      "category": "visual",
+      "given": "Council of Ash resolution is committed.",
+      "when": "Save reload, export/import, and recovery each rebuild projections.",
+      "then": ["village-change.council-banners remains active", "state derives from scene completion", "missing art falls back to accessible text"]
+    },
+    {
+      "id": "phase17.visual.no-independent-grant",
+      "category": "visual",
+      "given": "Imported state claims first-covenant visual change without finale completion.",
+      "when": "Validation runs.",
+      "then": ["mutation is rejected or visual projection is removed before adoption", "Book state is not advanced"]
+    },
+    {
+      "id": "phase17.finale.book-completion",
+      "category": "finale",
+      "given": "broken-roads-10 first-clear commits and finale resolution is queued.",
+      "when": "The finale is watched or skipped.",
+      "then": ["Book I completion records exactly once", "First Covenant Village change activates", "Chronicle becomes complete", "claims remain independent"]
+    },
+    {
+      "id": "phase17.reward.null-fails-closed",
+      "category": "claim",
+      "given": "Production Phase 17 definitions retain rewards null and blocked-economy.",
+      "when": "A chapter or Book resolution completes.",
+      "then": ["no ready offer is created", "no resource changes", "story continues"]
+    },
+    {
+      "id": "phase17.reward.synthetic-exact-once",
+      "category": "claim",
+      "fixtureOnlyReward": { "resourceId": "gold", "amount": 500 },
+      "given": "Test-only Book reward definition is enabled with the immutable synthetic snapshot above.",
+      "when": "Claim is invoked twice from the same revision sequence.",
+      "then": ["first claim credits 500 Gold and writes one receipt", "second claim is an idempotent no-op or conflict", "story completion is unchanged"]
+    },
+    {
+      "id": "phase17.offline.no-background-story",
+      "category": "offline",
+      "given": "An eligible story scene exists when the app backgrounds for 24 hours.",
+      "when": "Offline passage and the next foreground boot run.",
+      "then": ["offline logic does not resolve, skip, reward, or claim story", "eligible scene remains banked", "existing passive cap and claim rolls remain unchanged"]
+    },
+    {
+      "id": "phase17.concurrent.scene-resolution",
+      "category": "multi-tab",
+      "given": "Two tabs read the same queued scene and revision.",
+      "when": "Both resolve it.",
+      "then": ["one commit wins", "stale mutation rejects", "one Chronicle record and at most one offer exist"]
+    },
+    {
+      "id": "phase17.concurrent.arrival-queue",
+      "category": "multi-tab",
+      "given": "Two tabs reconcile the same Rank-4 arrival eligibility.",
+      "when": "Both attempt to queue it.",
+      "then": ["one stable queue item exists", "roster remains authoritative and unchanged", "storage event marks stale state"]
+    },
+    {
+      "id": "phase17.concurrent.claim",
+      "category": "multi-tab",
+      "given": "Two tabs hold the same ready synthetic story offer.",
+      "when": "Both claim.",
+      "then": ["one credit and one receipt result", "foreign/stale staging is not deleted", "losing tab refreshes"]
+    },
+    {
+      "id": "phase17.chronicle.spoiler-and-replay",
+      "category": "chronicle",
+      "given": "Player is in Chapter 2 with earlier scenes resolved and later scenes locked.",
+      "when": "More > Chronicle opens.",
+      "then": ["earlier scenes show replay/log", "future entries are spoiler-safe", "no sixth bottom-navigation item exists"]
+    },
+    {
+      "id": "phase17.tutorial.skip-and-replay",
+      "category": "tutorial",
+      "given": "A Phase 17 tutorial becomes eligible during a busy safe visit.",
+      "when": "It is deferred, then skipped, then replayed from Tutorials.",
+      "then": ["story and facilities never block", "skip state persists", "replay changes no gameplay state"]
+    },
+    {
+      "id": "phase17.tutorial.ledger-reference",
+      "category": "reference",
+      "given": "tutorial-bindings.json and the exact Phase 13 79-ID ledger.",
+      "when": "Static validation runs.",
+      "then": ["all twelve bindings resolve to existing IDs", "no tutorial ID is invented", "canonical speakers resolve to current actors"]
+    },
+    {
+      "id": "phase17.cast.exact-coverage",
+      "category": "reference",
+      "given": "Phase 13 cast plan, Phase 15–16 cast hooks, and Phase 17 distribution.",
+      "when": "Static validation runs.",
+      "then": ["exactly 18 Fellow and 20 Family IDs appear once", "primary content IDs match Phase 13", "all facility hook IDs exist"]
+    },
+    {
+      "id": "phase17.mobile.320x568",
+      "category": "mobile",
+      "viewport": { "width": 320, "height": 568 },
+      "given": "Longest localized fixture at 130 percent text size.",
+      "when": "Dialogue, Chronicle, objective, and facility sheet render.",
+      "then": ["one primary speaker", "Next, Skip, and Log remain reachable", "no horizontal overflow or map dead zone"]
+    },
+    {
+      "id": "phase17.mobile.390x844-and-wide",
+      "category": "mobile",
+      "viewports": [{ "width": 390, "height": 844 }, { "width": 1280, "height": 720 }],
+      "given": "Book I dialogue and twelve map anchors.",
+      "when": "Both layouts render and resize while open.",
+      "then": ["focus and active scene persist", "compact icons remain anchored", "full-background portrait is never used as an unframed dialogue overlay"]
+    },
+    {
+      "id": "phase17.accessibility.reduced-motion-focus",
+      "category": "reduced-motion",
+      "given": "Reduced motion, keyboard-only input, and screen reader status are enabled.",
+      "when": "A scene, visual change, and claim-ready state occur.",
+      "then": ["all transitions are static/immediate", "focus order and return target are correct", "state is announced without color or animation dependence"]
+    },
+    {
+      "id": "phase17.import.malformed-future",
+      "category": "validation",
+      "given": "Import contains future story schema, duplicate scene IDs, unknown reward source, or completion without finale.",
+      "when": "Import validation runs.",
+      "then": ["active state is not adopted", "safe recovery/export path remains available", "no reward or visual state is inferred"]
+    },
+    {
+      "id": "phase17.validation.no-economic-thresholds",
+      "category": "reference",
+      "given": "All Phase 17 definition files.",
+      "when": "Static validation scans unlock predicates and reward values.",
+      "then": ["Prosperity and Headquarters thresholds are null/unused", "all production reward arrays are null", "productionEnabled is false"]
+    }
+  ]
+}
