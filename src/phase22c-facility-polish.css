@@ -19,6 +19,10 @@
   outline: none;
 }
 
+body:has([data-phase22c-facility-surface]) .toast:not(.show) {
+  pointer-events: none;
+}
+
 [data-phase22c-facility-surface="restaurant"] {
   --es-facility-accent: #f1c76b;
   --es-facility-accent-soft: #f1c76b24;
