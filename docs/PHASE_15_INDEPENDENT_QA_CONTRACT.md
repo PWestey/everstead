@@ -109,6 +109,7 @@ The live runner loads the real candidate `index.html` into five isolated browser
 - one board container and twelve stable hotspot nodes, with hidden nodes non-interactive/non-spoiling;
 - state, anchor, label, minimum target size, viewport bounds, and collision-free focus targets;
 - opening the synthetic Command Center produces the real sheet, moves focus inside, exposes name/activity/status, and Escape/Close returns focus without resolving or claiming;
+- before that focus probe, any independently tested tutorial presentation is dismissed through the real Escape path; the gate requires an empty overlay and byte-identical raw save before interacting with the board;
 - opening the Waystone separately reaches its authored Legacy/Waystone surface and remains write-neutral;
 - 175 percent copy, mobile/wide, and reduced-motion behavior;
 - zero native-storage access and zero warning/error console output.
