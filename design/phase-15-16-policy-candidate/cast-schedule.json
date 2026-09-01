@@ -1,0 +1,62 @@
+{
+  "contractId": "phase-15-16-candidate-cast-schedule-v1",
+  "sourceCastContractId": "phase-15-16-cast-hooks-v1",
+  "status": "candidate-copy-only-no-unlock-changes",
+  "productionEnabled": false,
+  "selectionRules": {
+    "lockedFellowsExcluded": true,
+    "speakerRankMustBeMetAtPresentation": true,
+    "familySpeakersHaveNoRankGate": true,
+    "mechanicalCopyIndependentOfSpeaker": true,
+    "fallbackMayReplaceSpeakerButNeverMechanicalCopy": true,
+    "phase15CaptainAmericaFallbackActorId": "family.virginia"
+  },
+  "summary": {
+    "currentCastCount": 38,
+    "phase15ActorCount": 5,
+    "phase16ActorCount": 7,
+    "scheduledLaterCount": 26
+  },
+  "actors": [
+    {"actorId":"fellow.lyra","displayName":"Tavi","joinRank":1,"candidateAppearancePhase":15,"candidateHookIds":["dialogue.waystone.lyra.objective-guide","dialogue.waystone.lyra.major-claim"]},
+    {"actorId":"fellow.captain-america","displayName":"Captain America","joinRank":4,"candidateAppearancePhase":15,"candidateHookIds":["dialogue.legacy.captain-america.first-feat-guide"],"fallbackActorId":"family.virginia"},
+    {"actorId":"family.isolde","displayName":"Hera Syndulla","joinRank":null,"candidateAppearancePhase":15,"candidateHookIds":["dialogue.legacy.isolde.track-guide","dialogue.waystone.isolde.record-comment"]},
+    {"actorId":"family.virginia","displayName":"Virginia","joinRank":null,"candidateAppearancePhase":15,"candidateHookIds":["dialogue.waystone.virginia.major-claim-comment"]},
+    {"actorId":"family.syl","displayName":"Syl","joinRank":null,"candidateAppearancePhase":15,"candidateHookIds":["dialogue.legacy.syl.claim-guide","dialogue.waystone.syl.claim-acknowledgement"]},
+
+    {"actorId":"fellow.deadpool","displayName":"Deadpool","joinRank":2,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.deadpool.named-visitor","dialogue.facility.restaurant.deadpool.result-comment"]},
+    {"actorId":"fellow.star-lord","displayName":"Star-Lord","joinRank":3,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.star-lord.named-visitor"]},
+    {"actorId":"fellow.spider-man","displayName":"Spider-Man","joinRank":4,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.spider-man.ambient"]},
+    {"actorId":"family.tamsin","displayName":"Rumi","joinRank":null,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.tamsin.banking-guide","dialogue.facility.restaurant.tamsin.ambient"]},
+    {"actorId":"family.jaina","displayName":"Jaina","joinRank":null,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.jaina.named-route-visitor","dialogue.facility.restaurant.jaina.reputation-guide"]},
+    {"actorId":"family.tifa","displayName":"Tifa","joinRank":null,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.tifa.service-guide","dialogue.facility.restaurant.tifa.claim-acknowledgement"]},
+    {"actorId":"family.misty","displayName":"Misty","joinRank":null,"candidateAppearancePhase":16,"candidateHookIds":["dialogue.facility.restaurant.misty.ambient"]},
+
+    {"actorId":"fellow.cael","displayName":"Kaladin","joinRank":1,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.training-grounds.cael.tutorial-guide","dialogue.facility.training-grounds.cael.story-hook"]},
+    {"actorId":"fellow.orin","displayName":"Grog","joinRank":1,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.training-grounds.orin.activity-presenter","dialogue.facility.training-grounds.orin.claim-acknowledgement"]},
+    {"actorId":"fellow.selene","displayName":"Saradomin","joinRank":1,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.archives.selene.tutorial-guide","dialogue.facility.archives.selene.activity-presenter"]},
+    {"actorId":"fellow.rook","displayName":"Geralt","joinRank":1,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.rook.named-visitor","dialogue.facility.forge.rook.tutorial-guide"]},
+    {"actorId":"fellow.mira","displayName":"Xaden Riorson","joinRank":1,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.gatehouse.mira.tutorial-guide","dialogue.facility.gatehouse.mira.activity-presenter"]},
+    {"actorId":"fellow.zamorak","displayName":"Zamorak","joinRank":2,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.forge.zamorak.named-visitor","dialogue.facility.forge.zamorak.result-comment"]},
+    {"actorId":"fellow.darrow","displayName":"Darrow","joinRank":2,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.command-center.darrow.activity-presenter","dialogue.facility.forge.darrow.ambient"]},
+    {"actorId":"fellow.iron-man","displayName":"Iron Man","joinRank":3,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.market-workshop.iron-man.tutorial-guide","dialogue.facility.market-workshop.iron-man.activity-presenter"]},
+    {"actorId":"fellow.daredevil","displayName":"Daredevil","joinRank":3,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.daredevil.named-visitor","dialogue.facility.command-center.daredevil.result-comment"]},
+    {"actorId":"fellow.thor","displayName":"Thor","joinRank":4,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.training-grounds.thor.named-visitor","dialogue.facility.gardens.thor.result-comment"]},
+    {"actorId":"fellow.wolverine","displayName":"Wolverine","joinRank":5,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.gatehouse.wolverine.ambient","dialogue.facility.gatehouse.wolverine.result-comment"]},
+    {"actorId":"fellow.obi-wan","displayName":"Obi-Wan","joinRank":5,"candidateAppearancePhase":19,"candidateHookIds":["dialogue.facility.schoolhouse.obi-wan.tutorial-guide","dialogue.facility.archives.obi-wan.result-comment"]},
+    {"actorId":"fellow.anakin","displayName":"Anakin","joinRank":5,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.forge.anakin.named-visitor","dialogue.facility.forge.anakin.claim-acknowledgement"]},
+    {"actorId":"family.elara","displayName":"Vex'ahlia","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.hearth.elara.tutorial-guide","dialogue.facility.hearth.elara.story-hook"]},
+    {"actorId":"family.violet","displayName":"Violet","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.archives.violet.ambient","dialogue.facility.archives.violet.result-comment"]},
+    {"actorId":"family.captain-marvel","displayName":"Captain Marvel","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.training-grounds.captain-marvel.activity-presenter","dialogue.facility.forge.captain-marvel.result-comment"]},
+    {"actorId":"family.scarlet-witch","displayName":"Scarlet Witch","joinRank":null,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.scarlet-witch.tutorial-guide","dialogue.facility.apothecary.scarlet-witch.activity-presenter"]},
+    {"actorId":"family.ahsoka","displayName":"Ahsoka","joinRank":null,"candidateAppearancePhase":19,"candidateHookIds":["dialogue.facility.schoolhouse.ahsoka.activity-presenter","dialogue.facility.training-grounds.ahsoka.result-comment"]},
+    {"actorId":"family.rey","displayName":"Rey","joinRank":null,"candidateAppearancePhase":21,"candidateHookIds":["dialogue.facility.gardens.rey.tutorial-guide","dialogue.facility.market-workshop.rey.ambient"]},
+    {"actorId":"family.shallan","displayName":"Shallan","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.archives.shallan.named-visitor","dialogue.facility.archives.shallan.result-comment"]},
+    {"actorId":"family.yennefer","displayName":"Yennefer","joinRank":null,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.yennefer.activity-presenter","dialogue.facility.forge.yennefer.story-hook"]},
+    {"actorId":"family.tyrande","displayName":"Tyrande","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.hearth.tyrande.named-visitor","dialogue.facility.gardens.tyrande.ambient"]},
+    {"actorId":"family.shadowheart","displayName":"Shadowheart","joinRank":null,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.shadowheart.ambient","dialogue.facility.hearth.shadowheart.result-comment"]},
+    {"actorId":"family.amara","displayName":"Amara","joinRank":null,"candidateAppearancePhase":20,"candidateHookIds":["dialogue.facility.command-center.amara.ambient","dialogue.facility.command-center.amara.named-visitor"]},
+    {"actorId":"family.aerith","displayName":"Aerith","joinRank":null,"candidateAppearancePhase":18,"candidateHookIds":["dialogue.facility.apothecary.aerith.claim-acknowledgement","dialogue.facility.schoolhouse.aerith.ambient"]},
+    {"actorId":"family.hermione","displayName":"Hermione","joinRank":null,"candidateAppearancePhase":19,"candidateHookIds":["dialogue.facility.schoolhouse.hermione.story-hook","dialogue.facility.market-workshop.hermione.result-comment"]}
+  ]
+}

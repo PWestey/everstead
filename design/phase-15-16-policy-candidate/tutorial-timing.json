@@ -1,0 +1,198 @@
+{
+  "contractId": "phase-15-16-tutorial-timing-candidate-v1",
+  "sourceCommit": "7beccb88676b75910e99c43bb78bc895553dfe5f",
+  "status": "candidate-root-review-required",
+  "productionEnabled": false,
+  "sourceLedgerId": "phase-13-tutorial-matrix-v1",
+  "globalRules": {
+    "blocking": false,
+    "skippable": true,
+    "replayable": true,
+    "loggable": true,
+    "rewards": null,
+    "maximumAutomaticPresentationsPerSafeSurfaceVisit": 1,
+    "storyAndRankArrivalPriority": true,
+    "mechanicalStateIndependentOfPresentation": true,
+    "lockedFellowsExcluded": true,
+    "fallbackSelection": "first-currently-eligible-actor-then-attributed-text-only",
+    "migratedPlayerPolicy": "Add to the Tutorial Log and offer at most one context-relevant recap after a user-initiated visit; never enqueue a cascade."
+  },
+  "tutorials": [
+    {
+      "id":"tutorial.facility.board.discover-hotspots",
+      "phase":15,
+      "priority":100,
+      "trigger":{"kind":"facilityFirstDiscovered","facilityId":"facility.waystone","safeSurface":"village"},
+      "suppressWhen":["story-scene-pending","rank-arrival-pending","tutorial-completed-or-dismissed"],
+      "primaryActorId":"fellow.lyra",
+      "fallbackActorIds":["family.isolde"],
+      "stepCopyKeys":[
+        "tutorial.facility.board.discover-hotspots.physical-location",
+        "tutorial.facility.board.discover-hotspots.icon-states",
+        "tutorial.facility.board.discover-hotspots.tap-for-status"
+      ]
+    },
+    {
+      "id":"tutorial.legacy.tracks.first-progress",
+      "phase":15,
+      "priority":90,
+      "trigger":{"kind":"legacyFirstProgressObserved","minimum":1,"safeSurface":"village.waystone"},
+      "suppressWhen":["no-track-progress","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.isolde",
+      "fallbackActorIds":["family.syl"],
+      "stepCopyKeys":[
+        "tutorial.legacy.tracks.first-progress.track-progress",
+        "tutorial.legacy.tracks.first-progress.tier-target",
+        "tutorial.legacy.tracks.first-progress.reward-preview",
+        "tutorial.legacy.tracks.first-progress.continues"
+      ]
+    },
+    {
+      "id":"tutorial.legacy.claim.first-ready",
+      "phase":15,
+      "priority":95,
+      "trigger":{"kind":"legacyRewardFirstReady","significance":"standard","safeSurface":"village.waystone"},
+      "suppressWhen":["no-standard-ready-claim","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.syl",
+      "fallbackActorIds":["family.isolde"],
+      "stepCopyKeys":[
+        "tutorial.legacy.claim.first-ready.ready-count",
+        "tutorial.legacy.claim.first-ready.manual-claim",
+        "tutorial.legacy.claim.first-ready.never-expires",
+        "tutorial.legacy.claim.first-ready.next-tier"
+      ]
+    },
+    {
+      "id":"tutorial.legacy.claim.major",
+      "phase":15,
+      "priority":94,
+      "trigger":{"kind":"legacyMajorRewardFirstReady","safeSurface":"village.waystone"},
+      "suppressWhen":["no-major-ready-claim","tutorial-completed-or-dismissed"],
+      "primaryActorId":"fellow.lyra",
+      "fallbackActorIds":["family.isolde"],
+      "stepCopyKeys":[
+        "tutorial.legacy.claim.major.major-reveal",
+        "tutorial.legacy.claim.major.accelerate",
+        "tutorial.legacy.claim.major.reward-summary",
+        "tutorial.legacy.claim.major.history"
+      ]
+    },
+    {
+      "id":"tutorial.legacy.feats.first-feat",
+      "phase":15,
+      "priority":70,
+      "trigger":{"kind":"legacyFeatFirstReady","safeSurface":"village.waystone"},
+      "suppressWhen":["no-feat-ready","tutorial-completed-or-dismissed"],
+      "primaryActorId":"fellow.captain-america",
+      "fallbackActorIds":["family.virginia"],
+      "stepCopyKeys":[
+        "tutorial.legacy.feats.first-feat.one-time",
+        "tutorial.legacy.feats.first-feat.claim",
+        "tutorial.legacy.feats.first-feat.chronicle-history"
+      ]
+    },
+    {
+      "id":"tutorial.restaurant.first-customer",
+      "phase":16,
+      "priority":100,
+      "trigger":{"kind":"facilityFirstVisit","facilityId":"facility.restaurant","requires":["facility.restaurant:unlocked"],"safeSurface":"facility.restaurant"},
+      "suppressWhen":["story-scene-pending","restaurant-locked","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.tifa",
+      "fallbackActorIds":["family.tamsin","fellow.deadpool"],
+      "stepCopyKeys":[
+        "tutorial.restaurant.first-customer.customer",
+        "tutorial.restaurant.first-customer.preference",
+        "tutorial.restaurant.first-customer.choose-dish",
+        "tutorial.restaurant.first-customer.serve"
+      ]
+    },
+    {
+      "id":"tutorial.facility.opportunities.banking",
+      "phase":16,
+      "priority":90,
+      "trigger":{"kind":"facilityFirstOpportunityReady","facilityId":"facility.restaurant","minimumBankedCount":1,"safeSurface":"facility.restaurant"},
+      "suppressWhen":["empty-bank","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.tamsin",
+      "fallbackActorIds":["fellow.lyra"],
+      "stepCopyKeys":[
+        "tutorial.facility.opportunities.banking.ready-opportunities",
+        "tutorial.facility.opportunities.banking.bank-cap",
+        "tutorial.facility.opportunities.banking.no-expiry",
+        "tutorial.facility.opportunities.banking.passive-baseline"
+      ]
+    },
+    {
+      "id":"tutorial.restaurant.first-claim",
+      "phase":16,
+      "priority":100,
+      "trigger":{"kind":"facilityFirstClaimReady","facilityId":"facility.restaurant","safeSurface":"facility.restaurant"},
+      "suppressWhen":["no-restaurant-result-ready","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.tifa",
+      "fallbackActorIds":["family.tamsin"],
+      "stepCopyKeys":[
+        "tutorial.restaurant.first-claim.sales",
+        "tutorial.restaurant.first-claim.tips",
+        "tutorial.restaurant.first-claim.reputation",
+        "tutorial.restaurant.first-claim.claim"
+      ]
+    },
+    {
+      "id":"tutorial.facility.claim.first-ready",
+      "phase":16,
+      "priority":80,
+      "trigger":{"kind":"facilityFirstClaimReady","facilityId":"facility.restaurant","safeSurface":"facility.restaurant"},
+      "suppressWhen":["no-facility-result-ready","tutorial-completed-or-dismissed","tutorial.restaurant.first-claim:auto-presented-this-visit"],
+      "primaryActorId":"family.tamsin",
+      "fallbackActorIds":["family.isolde"],
+      "stepCopyKeys":[
+        "tutorial.facility.claim.first-ready.result-ready",
+        "tutorial.facility.claim.first-ready.claim",
+        "tutorial.facility.claim.first-ready.local-progress",
+        "tutorial.facility.claim.first-ready.receipt"
+      ]
+    },
+    {
+      "id":"tutorial.restaurant.recipes-and-stations",
+      "phase":16,
+      "priority":70,
+      "trigger":{"kind":"facilityLevelCrossed","facilityId":"facility.restaurant","level":2,"threshold":12,"safeSurface":"facility.restaurant"},
+      "suppressWhen":["reputation-below-12","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.tifa",
+      "fallbackActorIds":["family.tamsin"],
+      "stepCopyKeys":[
+        "tutorial.restaurant.recipes-and-stations.recipe-mastery",
+        "tutorial.restaurant.recipes-and-stations.station",
+        "tutorial.restaurant.recipes-and-stations.local-stock",
+        "tutorial.restaurant.recipes-and-stations.unlock-preview"
+      ]
+    },
+    {
+      "id":"tutorial.restaurant.reputation",
+      "phase":16,
+      "priority":65,
+      "trigger":{"kind":"facilityLevelCrossed","facilityId":"facility.restaurant","level":3,"threshold":36,"safeSurface":"facility.restaurant"},
+      "suppressWhen":["reputation-below-36","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.jaina",
+      "fallbackActorIds":["family.tifa"],
+      "stepCopyKeys":[
+        "tutorial.restaurant.reputation.reputation-level",
+        "tutorial.restaurant.reputation.unlock-preview",
+        "tutorial.restaurant.reputation.local-only"
+      ]
+    },
+    {
+      "id":"tutorial.restaurant.named-visitors",
+      "phase":16,
+      "priority":75,
+      "trigger":{"kind":"facilityNamedVisitorFirstReady","facilityId":"facility.restaurant","visitorId":"restaurant.visitor.route-envoy.01","safeSurface":"facility.restaurant"},
+      "suppressWhen":["named-visitor-not-ready","named-visitor-already-claimed","tutorial-completed-or-dismissed"],
+      "primaryActorId":"family.jaina",
+      "fallbackActorIds":["family.tifa"],
+      "stepCopyKeys":[
+        "tutorial.restaurant.named-visitors.named-guest",
+        "tutorial.restaurant.named-visitors.story-hook",
+        "tutorial.restaurant.named-visitors.banked-until-served"
+      ]
+    }
+  ]
+}

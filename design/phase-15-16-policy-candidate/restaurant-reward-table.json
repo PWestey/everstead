@@ -1,0 +1,853 @@
+{
+  "buildTimeProvenanceOnly": {
+    "archiveCourierBaseRatio": 0.041,
+    "levelCount": 52,
+    "matchedTipRatio": 0.01,
+    "partialTipRatio": 0.005,
+    "releasedBuildingLevelMultiplier": 1.15,
+    "releasedFreshStructuralGoldPerHour": 25400,
+    "roadWorkerBaseRatio": 0.035,
+    "rounding": "nearest-integer-python-round",
+    "routeEnvoyBaseRatio": 0.05
+  },
+  "productionEnabled": false,
+  "rows": [
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1041,
+        "restaurant.customer.road-worker": 889,
+        "restaurant.customer.route-envoy": 1270
+      },
+      "calibrationStructuralGoldPerHour": 25400,
+      "id": "restaurant.band.level-01",
+      "maximumStructuralGoldPerHour": 29209,
+      "minimumStructuralGoldPerHour": 0,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 254,
+        "partial": 127
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1198,
+        "restaurant.customer.road-worker": 1022,
+        "restaurant.customer.route-envoy": 1460
+      },
+      "calibrationStructuralGoldPerHour": 29210,
+      "id": "restaurant.band.level-02",
+      "maximumStructuralGoldPerHour": 33590,
+      "minimumStructuralGoldPerHour": 29210,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 292,
+        "partial": 146
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1377,
+        "restaurant.customer.road-worker": 1176,
+        "restaurant.customer.route-envoy": 1680
+      },
+      "calibrationStructuralGoldPerHour": 33591,
+      "id": "restaurant.band.level-03",
+      "maximumStructuralGoldPerHour": 38629,
+      "minimumStructuralGoldPerHour": 33591,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 336,
+        "partial": 168
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1584,
+        "restaurant.customer.road-worker": 1352,
+        "restaurant.customer.route-envoy": 1932
+      },
+      "calibrationStructuralGoldPerHour": 38630,
+      "id": "restaurant.band.level-04",
+      "maximumStructuralGoldPerHour": 44424,
+      "minimumStructuralGoldPerHour": 38630,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 386,
+        "partial": 193
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1821,
+        "restaurant.customer.road-worker": 1555,
+        "restaurant.customer.route-envoy": 2221
+      },
+      "calibrationStructuralGoldPerHour": 44425,
+      "id": "restaurant.band.level-05",
+      "maximumStructuralGoldPerHour": 51087,
+      "minimumStructuralGoldPerHour": 44425,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 444,
+        "partial": 222
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 2095,
+        "restaurant.customer.road-worker": 1788,
+        "restaurant.customer.route-envoy": 2554
+      },
+      "calibrationStructuralGoldPerHour": 51088,
+      "id": "restaurant.band.level-06",
+      "maximumStructuralGoldPerHour": 58751,
+      "minimumStructuralGoldPerHour": 51088,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 511,
+        "partial": 255
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 2409,
+        "restaurant.customer.road-worker": 2056,
+        "restaurant.customer.route-envoy": 2938
+      },
+      "calibrationStructuralGoldPerHour": 58752,
+      "id": "restaurant.band.level-07",
+      "maximumStructuralGoldPerHour": 67564,
+      "minimumStructuralGoldPerHour": 58752,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 588,
+        "partial": 294
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 2770,
+        "restaurant.customer.road-worker": 2365,
+        "restaurant.customer.route-envoy": 3378
+      },
+      "calibrationStructuralGoldPerHour": 67565,
+      "id": "restaurant.band.level-08",
+      "maximumStructuralGoldPerHour": 77698,
+      "minimumStructuralGoldPerHour": 67565,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 676,
+        "partial": 338
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 3186,
+        "restaurant.customer.road-worker": 2719,
+        "restaurant.customer.route-envoy": 3885
+      },
+      "calibrationStructuralGoldPerHour": 77699,
+      "id": "restaurant.band.level-09",
+      "maximumStructuralGoldPerHour": 89353,
+      "minimumStructuralGoldPerHour": 77699,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 777,
+        "partial": 388
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 3664,
+        "restaurant.customer.road-worker": 3127,
+        "restaurant.customer.route-envoy": 4468
+      },
+      "calibrationStructuralGoldPerHour": 89354,
+      "id": "restaurant.band.level-10",
+      "maximumStructuralGoldPerHour": 102756,
+      "minimumStructuralGoldPerHour": 89354,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 894,
+        "partial": 447
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 4213,
+        "restaurant.customer.road-worker": 3596,
+        "restaurant.customer.route-envoy": 5138
+      },
+      "calibrationStructuralGoldPerHour": 102757,
+      "id": "restaurant.band.level-11",
+      "maximumStructuralGoldPerHour": 118170,
+      "minimumStructuralGoldPerHour": 102757,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 1028,
+        "partial": 514
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 4845,
+        "restaurant.customer.road-worker": 4136,
+        "restaurant.customer.route-envoy": 5909
+      },
+      "calibrationStructuralGoldPerHour": 118171,
+      "id": "restaurant.band.level-12",
+      "maximumStructuralGoldPerHour": 135895,
+      "minimumStructuralGoldPerHour": 118171,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 1182,
+        "partial": 591
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 5572,
+        "restaurant.customer.road-worker": 4756,
+        "restaurant.customer.route-envoy": 6795
+      },
+      "calibrationStructuralGoldPerHour": 135896,
+      "id": "restaurant.band.level-13",
+      "maximumStructuralGoldPerHour": 156280,
+      "minimumStructuralGoldPerHour": 135896,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 1359,
+        "partial": 679
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 6408,
+        "restaurant.customer.road-worker": 5470,
+        "restaurant.customer.route-envoy": 7814
+      },
+      "calibrationStructuralGoldPerHour": 156281,
+      "id": "restaurant.band.level-14",
+      "maximumStructuralGoldPerHour": 179722,
+      "minimumStructuralGoldPerHour": 156281,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 1563,
+        "partial": 781
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 7369,
+        "restaurant.customer.road-worker": 6290,
+        "restaurant.customer.route-envoy": 8986
+      },
+      "calibrationStructuralGoldPerHour": 179723,
+      "id": "restaurant.band.level-15",
+      "maximumStructuralGoldPerHour": 206680,
+      "minimumStructuralGoldPerHour": 179723,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 1797,
+        "partial": 899
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 8474,
+        "restaurant.customer.road-worker": 7234,
+        "restaurant.customer.route-envoy": 10334
+      },
+      "calibrationStructuralGoldPerHour": 206681,
+      "id": "restaurant.band.level-16",
+      "maximumStructuralGoldPerHour": 237683,
+      "minimumStructuralGoldPerHour": 206681,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 2067,
+        "partial": 1033
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 9745,
+        "restaurant.customer.road-worker": 8319,
+        "restaurant.customer.route-envoy": 11884
+      },
+      "calibrationStructuralGoldPerHour": 237684,
+      "id": "restaurant.band.level-17",
+      "maximumStructuralGoldPerHour": 273335,
+      "minimumStructuralGoldPerHour": 237684,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 2377,
+        "partial": 1188
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 11207,
+        "restaurant.customer.road-worker": 9567,
+        "restaurant.customer.route-envoy": 13667
+      },
+      "calibrationStructuralGoldPerHour": 273336,
+      "id": "restaurant.band.level-18",
+      "maximumStructuralGoldPerHour": 314336,
+      "minimumStructuralGoldPerHour": 273336,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 2733,
+        "partial": 1367
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 12888,
+        "restaurant.customer.road-worker": 11002,
+        "restaurant.customer.route-envoy": 15717
+      },
+      "calibrationStructuralGoldPerHour": 314337,
+      "id": "restaurant.band.level-19",
+      "maximumStructuralGoldPerHour": 361486,
+      "minimumStructuralGoldPerHour": 314337,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 3143,
+        "partial": 1572
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 14821,
+        "restaurant.customer.road-worker": 12652,
+        "restaurant.customer.route-envoy": 18074
+      },
+      "calibrationStructuralGoldPerHour": 361487,
+      "id": "restaurant.band.level-20",
+      "maximumStructuralGoldPerHour": 415709,
+      "minimumStructuralGoldPerHour": 361487,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 3615,
+        "partial": 1807
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 17044,
+        "restaurant.customer.road-worker": 14550,
+        "restaurant.customer.route-envoy": 20786
+      },
+      "calibrationStructuralGoldPerHour": 415710,
+      "id": "restaurant.band.level-21",
+      "maximumStructuralGoldPerHour": 478066,
+      "minimumStructuralGoldPerHour": 415710,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 4157,
+        "partial": 2079
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 19601,
+        "restaurant.customer.road-worker": 16732,
+        "restaurant.customer.route-envoy": 23903
+      },
+      "calibrationStructuralGoldPerHour": 478067,
+      "id": "restaurant.band.level-22",
+      "maximumStructuralGoldPerHour": 549776,
+      "minimumStructuralGoldPerHour": 478067,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 4781,
+        "partial": 2390
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 22541,
+        "restaurant.customer.road-worker": 19242,
+        "restaurant.customer.route-envoy": 27489
+      },
+      "calibrationStructuralGoldPerHour": 549777,
+      "id": "restaurant.band.level-23",
+      "maximumStructuralGoldPerHour": 632242,
+      "minimumStructuralGoldPerHour": 549777,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 5498,
+        "partial": 2749
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 25922,
+        "restaurant.customer.road-worker": 22129,
+        "restaurant.customer.route-envoy": 31612
+      },
+      "calibrationStructuralGoldPerHour": 632243,
+      "id": "restaurant.band.level-24",
+      "maximumStructuralGoldPerHour": 727078,
+      "minimumStructuralGoldPerHour": 632243,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 6322,
+        "partial": 3161
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 29810,
+        "restaurant.customer.road-worker": 25448,
+        "restaurant.customer.route-envoy": 36354
+      },
+      "calibrationStructuralGoldPerHour": 727079,
+      "id": "restaurant.band.level-25",
+      "maximumStructuralGoldPerHour": 836140,
+      "minimumStructuralGoldPerHour": 727079,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 7271,
+        "partial": 3635
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 34282,
+        "restaurant.customer.road-worker": 29265,
+        "restaurant.customer.route-envoy": 41807
+      },
+      "calibrationStructuralGoldPerHour": 836141,
+      "id": "restaurant.band.level-26",
+      "maximumStructuralGoldPerHour": 961562,
+      "minimumStructuralGoldPerHour": 836141,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 8361,
+        "partial": 4181
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 39424,
+        "restaurant.customer.road-worker": 33655,
+        "restaurant.customer.route-envoy": 48078
+      },
+      "calibrationStructuralGoldPerHour": 961563,
+      "id": "restaurant.band.level-27",
+      "maximumStructuralGoldPerHour": 1105796,
+      "minimumStructuralGoldPerHour": 961563,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 9616,
+        "partial": 4808
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 45338,
+        "restaurant.customer.road-worker": 38703,
+        "restaurant.customer.route-envoy": 55290
+      },
+      "calibrationStructuralGoldPerHour": 1105797,
+      "id": "restaurant.band.level-28",
+      "maximumStructuralGoldPerHour": 1271666,
+      "minimumStructuralGoldPerHour": 1105797,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 11058,
+        "partial": 5529
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 52138,
+        "restaurant.customer.road-worker": 44508,
+        "restaurant.customer.route-envoy": 63583
+      },
+      "calibrationStructuralGoldPerHour": 1271667,
+      "id": "restaurant.band.level-29",
+      "maximumStructuralGoldPerHour": 1462416,
+      "minimumStructuralGoldPerHour": 1271667,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 12717,
+        "partial": 6358
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 59959,
+        "restaurant.customer.road-worker": 51185,
+        "restaurant.customer.route-envoy": 73121
+      },
+      "calibrationStructuralGoldPerHour": 1462417,
+      "id": "restaurant.band.level-30",
+      "maximumStructuralGoldPerHour": 1681778,
+      "minimumStructuralGoldPerHour": 1462417,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 14624,
+        "partial": 7312
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 68953,
+        "restaurant.customer.road-worker": 58862,
+        "restaurant.customer.route-envoy": 84089
+      },
+      "calibrationStructuralGoldPerHour": 1681779,
+      "id": "restaurant.band.level-31",
+      "maximumStructuralGoldPerHour": 1934045,
+      "minimumStructuralGoldPerHour": 1681779,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 16818,
+        "partial": 8409
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 79296,
+        "restaurant.customer.road-worker": 67692,
+        "restaurant.customer.route-envoy": 96702
+      },
+      "calibrationStructuralGoldPerHour": 1934046,
+      "id": "restaurant.band.level-32",
+      "maximumStructuralGoldPerHour": 2224152,
+      "minimumStructuralGoldPerHour": 1934046,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 19340,
+        "partial": 9670
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 91190,
+        "restaurant.customer.road-worker": 77845,
+        "restaurant.customer.route-envoy": 111208
+      },
+      "calibrationStructuralGoldPerHour": 2224153,
+      "id": "restaurant.band.level-33",
+      "maximumStructuralGoldPerHour": 2557775,
+      "minimumStructuralGoldPerHour": 2224153,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 22242,
+        "partial": 11121
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 104869,
+        "restaurant.customer.road-worker": 89522,
+        "restaurant.customer.route-envoy": 127889
+      },
+      "calibrationStructuralGoldPerHour": 2557776,
+      "id": "restaurant.band.level-34",
+      "maximumStructuralGoldPerHour": 2941441,
+      "minimumStructuralGoldPerHour": 2557776,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 25578,
+        "partial": 12789
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 120599,
+        "restaurant.customer.road-worker": 102950,
+        "restaurant.customer.route-envoy": 147072
+      },
+      "calibrationStructuralGoldPerHour": 2941442,
+      "id": "restaurant.band.level-35",
+      "maximumStructuralGoldPerHour": 3382657,
+      "minimumStructuralGoldPerHour": 2941442,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 29414,
+        "partial": 14707
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 138689,
+        "restaurant.customer.road-worker": 118393,
+        "restaurant.customer.route-envoy": 169133
+      },
+      "calibrationStructuralGoldPerHour": 3382658,
+      "id": "restaurant.band.level-36",
+      "maximumStructuralGoldPerHour": 3890056,
+      "minimumStructuralGoldPerHour": 3382658,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 33827,
+        "partial": 16913
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 159492,
+        "restaurant.customer.road-worker": 136152,
+        "restaurant.customer.route-envoy": 194503
+      },
+      "calibrationStructuralGoldPerHour": 3890057,
+      "id": "restaurant.band.level-37",
+      "maximumStructuralGoldPerHour": 4473565,
+      "minimumStructuralGoldPerHour": 3890057,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 38901,
+        "partial": 19450
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 183416,
+        "restaurant.customer.road-worker": 156575,
+        "restaurant.customer.route-envoy": 223678
+      },
+      "calibrationStructuralGoldPerHour": 4473566,
+      "id": "restaurant.band.level-38",
+      "maximumStructuralGoldPerHour": 5144599,
+      "minimumStructuralGoldPerHour": 4473566,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 44736,
+        "partial": 22368
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 210929,
+        "restaurant.customer.road-worker": 180061,
+        "restaurant.customer.route-envoy": 257230
+      },
+      "calibrationStructuralGoldPerHour": 5144600,
+      "id": "restaurant.band.level-39",
+      "maximumStructuralGoldPerHour": 5916289,
+      "minimumStructuralGoldPerHour": 5144600,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 51446,
+        "partial": 25723
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 242568,
+        "restaurant.customer.road-worker": 207070,
+        "restaurant.customer.route-envoy": 295814
+      },
+      "calibrationStructuralGoldPerHour": 5916290,
+      "id": "restaurant.band.level-40",
+      "maximumStructuralGoldPerHour": 6803733,
+      "minimumStructuralGoldPerHour": 5916290,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 59163,
+        "partial": 29581
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 278953,
+        "restaurant.customer.road-worker": 238131,
+        "restaurant.customer.route-envoy": 340187
+      },
+      "calibrationStructuralGoldPerHour": 6803734,
+      "id": "restaurant.band.level-41",
+      "maximumStructuralGoldPerHour": 7824293,
+      "minimumStructuralGoldPerHour": 6803734,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 68037,
+        "partial": 34019
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 320796,
+        "restaurant.customer.road-worker": 273850,
+        "restaurant.customer.route-envoy": 391215
+      },
+      "calibrationStructuralGoldPerHour": 7824294,
+      "id": "restaurant.band.level-42",
+      "maximumStructuralGoldPerHour": 8997937,
+      "minimumStructuralGoldPerHour": 7824294,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 78243,
+        "partial": 39121
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 368915,
+        "restaurant.customer.road-worker": 314928,
+        "restaurant.customer.route-envoy": 449897
+      },
+      "calibrationStructuralGoldPerHour": 8997938,
+      "id": "restaurant.band.level-43",
+      "maximumStructuralGoldPerHour": 10347628,
+      "minimumStructuralGoldPerHour": 8997938,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 89979,
+        "partial": 44990
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 424253,
+        "restaurant.customer.road-worker": 362167,
+        "restaurant.customer.route-envoy": 517381
+      },
+      "calibrationStructuralGoldPerHour": 10347629,
+      "id": "restaurant.band.level-44",
+      "maximumStructuralGoldPerHour": 11899772,
+      "minimumStructuralGoldPerHour": 10347629,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 103476,
+        "partial": 51738
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 487891,
+        "restaurant.customer.road-worker": 416492,
+        "restaurant.customer.route-envoy": 594989
+      },
+      "calibrationStructuralGoldPerHour": 11899773,
+      "id": "restaurant.band.level-45",
+      "maximumStructuralGoldPerHour": 13684738,
+      "minimumStructuralGoldPerHour": 11899773,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 118998,
+        "partial": 59499
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 561074,
+        "restaurant.customer.road-worker": 478966,
+        "restaurant.customer.route-envoy": 684237
+      },
+      "calibrationStructuralGoldPerHour": 13684739,
+      "id": "restaurant.band.level-46",
+      "maximumStructuralGoldPerHour": 15737449,
+      "minimumStructuralGoldPerHour": 13684739,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 136847,
+        "partial": 68424
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 645235,
+        "restaurant.customer.road-worker": 550811,
+        "restaurant.customer.route-envoy": 786872
+      },
+      "calibrationStructuralGoldPerHour": 15737450,
+      "id": "restaurant.band.level-47",
+      "maximumStructuralGoldPerHour": 18098067,
+      "minimumStructuralGoldPerHour": 15737450,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 157374,
+        "partial": 78687
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 742021,
+        "restaurant.customer.road-worker": 633432,
+        "restaurant.customer.route-envoy": 904903
+      },
+      "calibrationStructuralGoldPerHour": 18098068,
+      "id": "restaurant.band.level-48",
+      "maximumStructuralGoldPerHour": 20812777,
+      "minimumStructuralGoldPerHour": 18098068,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 180981,
+        "partial": 90490
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 853324,
+        "restaurant.customer.road-worker": 728447,
+        "restaurant.customer.route-envoy": 1040639
+      },
+      "calibrationStructuralGoldPerHour": 20812778,
+      "id": "restaurant.band.level-49",
+      "maximumStructuralGoldPerHour": 23934694,
+      "minimumStructuralGoldPerHour": 20812778,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 208128,
+        "partial": 104064
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 981322,
+        "restaurant.customer.road-worker": 837714,
+        "restaurant.customer.route-envoy": 1196735
+      },
+      "calibrationStructuralGoldPerHour": 23934695,
+      "id": "restaurant.band.level-50",
+      "maximumStructuralGoldPerHour": 27524898,
+      "minimumStructuralGoldPerHour": 23934695,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 239347,
+        "partial": 119673
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1128521,
+        "restaurant.customer.road-worker": 963371,
+        "restaurant.customer.route-envoy": 1376245
+      },
+      "calibrationStructuralGoldPerHour": 27524899,
+      "id": "restaurant.band.level-51",
+      "maximumStructuralGoldPerHour": 31653633,
+      "minimumStructuralGoldPerHour": 27524899,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 275249,
+        "partial": 137624
+      }
+    },
+    {
+      "baseSaleGoldByCustomerId": {
+        "restaurant.customer.archive-courier": 1297799,
+        "restaurant.customer.road-worker": 1107877,
+        "restaurant.customer.route-envoy": 1582682
+      },
+      "calibrationStructuralGoldPerHour": 31653634,
+      "id": "restaurant.band.level-52",
+      "maximumStructuralGoldPerHour": null,
+      "minimumStructuralGoldPerHour": 31653634,
+      "tipGoldByMatch": {
+        "basic": 0,
+        "matched": 316536,
+        "partial": 158268
+      }
+    }
+  ],
+  "runtimeContract": "Load the captured row and exact fixed integers. Never recalculate from provenance ratios.",
+  "runtimeFormulaAllowed": false,
+  "status": "candidate-root-review-required",
+  "tableId": "reward-table.restaurant.structural-rate.candidate-v2",
+  "version": 2
+}

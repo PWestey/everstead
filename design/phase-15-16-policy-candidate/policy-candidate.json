@@ -1,0 +1,428 @@
+{
+  "contractId": "phase-15-16-product-policy-candidate-v1",
+  "sourceCommit": "7beccb88676b75910e99c43bb78bc895553dfe5f",
+  "status": "candidate-root-review-required",
+  "authoritative": false,
+  "productionEnabled": false,
+  "mechanicalEnablementAllowed": false,
+  "reversalPolicy": {
+    "newPolicyVersionForAnyApprovedValueChange": true,
+    "bankedAndReadyObjectsKeepCapturedVersion": true,
+    "disableNewGenerationWithoutDeletingBankedState": true,
+    "neverRewriteClaimedHistory": true
+  },
+  "globalGuardrails": {
+    "manualClaimsOnly": true,
+    "opportunitiesExpire": false,
+    "offlineMayChoose": false,
+    "offlineMayResolve": false,
+    "offlineMayClaim": false,
+    "newGlobalCurrency": false,
+    "stamina": false,
+    "dailyReset": false,
+    "dailyChecklist": false,
+    "permanentPercentageMultiplier": false,
+    "negativeReward": false,
+    "lockedFellowMaySpeak": false,
+    "franchiseVoiceImitation": false
+  },
+  "phase15LegacyPolicy": {
+    "policyId": "economy-policy.legacy.first-covenant.candidate-v1",
+    "version": 1,
+    "reviewStatus": "candidate",
+    "phase13CollisionAudit": {
+      "auditSourceCommit": "7beccb88676b75910e99c43bb78bc895553dfe5f",
+      "existingOfferSourceIds": [
+        {
+          "definitionId": "legacy.oathkeeper.tier-1",
+          "releasedOfferId": "reward.offer.legacy.oathkeeper.tier-1",
+          "releasedDefinitionVersion": 1,
+          "releasedRewardVersion": 1,
+          "releasedThreshold": 1,
+          "releasedRewards": [{"kind":"gold","targetId":null,"amount":750}],
+          "candidateHandling": "preserve-byte-semantics-and-continue-at-new-tier-2-id"
+        },
+        {
+          "definitionId": "legacy.feat.first-campaign-clear",
+          "releasedOfferId": "reward.offer.legacy.first-campaign-clear",
+          "releasedDefinitionVersion": 1,
+          "releasedRewardVersion": 1,
+          "releasedThreshold": 1,
+          "releasedRewards": [{"kind":"gold","targetId":null,"amount":500}],
+          "candidateHandling": "preserve-byte-semantics-no-successor-value-change"
+        }
+      ],
+      "candidateSourceIdsAbsentFromPhase13OffersAndReceipts": [
+        "legacy.oathkeeper.tier-2",
+        "legacy.unbroken.tier-1",
+        "legacy.steward.tier-1",
+        "legacy.builder.tier-1",
+        "legacy.roadwarden.tier-1",
+        "legacy.veteran.tier-1",
+        "legacy.feat.first-covenant",
+        "legacy.feat.player-rank-5",
+        "legacy.feat.book1-fellows-joined",
+        "legacy.feat.exact-power-campaign-clear",
+        "legacy.cache.founding",
+        "legacy.achievement.restaurant-customers-served",
+        "legacy.achievement.restaurant-meals-perfected",
+        "legacy.achievement.restaurant-recipes-mastered",
+        "legacy.achievement.restaurant-profit",
+        "legacy.feat.restaurant-first-named-visitor"
+      ],
+      "selectionRules": {
+        "pendingOrClaimedReleasedOfferKeepsCapturedPayload": true,
+        "activationNeverRequeuesReleasedSource": true,
+        "releasedTierOneClaimedOrPendingBlocksDuplicateTierOne": true,
+        "oathkeeperTierTwoEligibilityRequiresTierOneReceiptOrClaimReadyIdentity": true,
+        "postActivationOathkeeperTierTwoUsesNewDefinitionId": "legacy.oathkeeper.tier-2",
+        "receiptMigrationPreservesOriginalOfferRawIdentity": true
+      }
+    },
+    "tierPolicies": [
+      {
+        "definitionId": "legacy.oathkeeper.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "policyOrigin": "released-phase-13-preserved",
+        "threshold": 1,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":750}
+        ],
+        "targetExperience": "Preserves the already released first-Oath reward byte-semantically for pending, claimed, and newly eligible pre-successor saves."
+      },
+      {
+        "definitionId": "legacy.unbroken.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "threshold": 3,
+        "rewards": [
+          {"kind":"gifts","targetId":null,"amount":1},
+          {"kind":"gold","targetId":null,"amount":4000}
+        ],
+        "targetExperience": "A three-step observed streak feels deliberate while remaining reachable early."
+      },
+      {
+        "definitionId": "legacy.steward.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "threshold": 100000,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":5000},
+          {"kind":"prosperity","targetId":null,"amount":2}
+        ],
+        "targetExperience": "Roughly four fresh structural-production hours after activation; reward-claim Gold does not count."
+      },
+      {
+        "definitionId": "legacy.builder.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "threshold": 8,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":5000},
+          {"kind":"relicStones","targetId":null,"amount":3}
+        ],
+        "targetExperience": "Four Building levels above the fresh combined baseline."
+      },
+      {
+        "definitionId": "legacy.roadwarden.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "threshold": 3,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":4000},
+          {"kind":"relicStones","targetId":null,"amount":4}
+        ],
+        "targetExperience": "Three committed Fellow Campaign first clears."
+      },
+      {
+        "definitionId": "legacy.veteran.tier-1",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "threshold": 10,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":4000},
+          {"kind":"prosperity","targetId":null,"amount":2}
+        ],
+        "targetExperience": "Ten authoritative Campaign victories after the available baseline."
+      }
+    ],
+    "successorTierPolicies": [
+      {
+        "definitionId": "legacy.oathkeeper.tier-2",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "predecessorDefinitionId": "legacy.oathkeeper.tier-1",
+        "threshold": 3,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":3000},
+          {"kind":"prosperity","targetId":null,"amount":2}
+        ],
+        "targetExperience": "The first new Oathkeeper value begins at a distinct successor ID after three committed non-undone Oaths; it never changes tier-1."
+      }
+    ],
+    "featPolicies": [
+      {
+        "definitionId": "legacy.feat.first-campaign-clear",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "policyOrigin": "released-phase-13-preserved",
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":500}
+        ]
+      },
+      {
+        "definitionId": "legacy.feat.first-covenant",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "rewards": [
+          {"kind":"gifts","targetId":null,"amount":1},
+          {"kind":"gold","targetId":null,"amount":15000},
+          {"kind":"prosperity","targetId":null,"amount":10},
+          {"kind":"relicStones","targetId":null,"amount":8}
+        ]
+      },
+      {
+        "definitionId": "legacy.feat.player-rank-5",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "rewards": [
+          {"kind":"gifts","targetId":null,"amount":1},
+          {"kind":"gold","targetId":null,"amount":20000},
+          {"kind":"relicStones","targetId":null,"amount":10}
+        ]
+      },
+      {
+        "definitionId": "legacy.feat.book1-fellows-joined",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "rewards": [
+          {"kind":"gifts","targetId":null,"amount":2},
+          {"kind":"gold","targetId":null,"amount":25000},
+          {"kind":"prosperity","targetId":null,"amount":10},
+          {"kind":"relicStones","targetId":null,"amount":12}
+        ]
+      },
+      {
+        "definitionId": "legacy.feat.exact-power-campaign-clear",
+        "definitionVersion": 1,
+        "rewardVersion": 1,
+        "rewards": [
+          {"kind":"gold","targetId":null,"amount":10000},
+          {"kind":"relicStones","targetId":null,"amount":5}
+        ]
+      }
+    ],
+    "foundingCache": {
+      "definitionId": "legacy.cache.founding",
+      "groupingThreshold": 3,
+      "migratedEstablishedSaveOnly": true,
+      "freshAndPostActivationGrouping": false,
+      "groupStandardReadyClaimsOnly": true,
+      "majorRewardsRemainIndividual": true,
+      "claimsRemainManual": true,
+      "combinedRewardsAreExactCanonicalSum": true
+    },
+    "claimPresentation": {
+      "standardClaimSort": "definition-registry-order",
+      "majorClaimsPinnedFirst": true,
+      "unclaimedClaimsExpire": false,
+      "oneAutomaticTutorialPerSafeVisit": true
+    }
+  },
+  "phase16RestaurantPolicy": {
+    "policyId": "economy-policy.restaurant.candidate-v1",
+    "version": 1,
+    "reviewStatus": "candidate",
+    "facilityId": "facility.restaurant",
+    "activityId": "activity.restaurant-service",
+    "opportunityDefinitionId": "opportunity.facility.restaurant.customer",
+    "mapAnchorCanonical": "western-plaza-restaurant",
+    "mapAnchorPredecessorAlias": "western-plaza",
+    "operational": {
+      "intervalMs": 1800000,
+      "bankCapacity": 12,
+      "unattendedTargetMs": 21600000,
+      "settlementAllowanceCapMs": 86400000,
+      "fullCapacityDropsWholeIntervalDebt": true,
+      "partialCarryRetained": true,
+      "existingSaveBackfillCount": 0,
+      "customersExpire": false,
+      "claimMode": "manual"
+    },
+    "structuralProductionBandAuthority": {
+      "authorityId": "authority.restaurant.structural-village-rate.candidate-v1",
+      "captureAt": "customer-opportunity-generation",
+      "calculation": "Sum each released Building base rate multiplied by the released Building level curve at its committed level.",
+      "included": ["building-base-rate","building-level","released-level-growth"],
+      "excluded": ["oath-boost","family-assignment-bonus","fellow-roster-bonus","companion-roster-bonus","pending-gold","restaurant-gold","other-active-facility-gold"],
+      "callerMaySupply": false,
+      "capturedBandPersistsWithOpportunity": true
+    },
+    "fixedRewardTable": {
+      "tableId": "reward-table.restaurant.structural-rate.candidate-v2",
+      "version": 2,
+      "path": "restaurant-reward-table.json",
+      "bandCount": 52,
+      "runtimeFormulaAllowed": false,
+      "runtimeReadsCapturedFixedIntegerRowOnly": true,
+      "maximumAdjacentRegularPayoutIncreaseBasisPoints": 1505,
+      "buildTimeCalibrationOnly": {
+        "releasedFreshStructuralGoldPerHour": 25400,
+        "releasedLevelMultiplier": 1.15,
+        "levelCount": 52,
+        "note": "The generator records provenance for review. Production may not recalculate rewards from these ratios."
+      }
+    },
+    "customerSelection": {
+      "regularWeightByCustomerId": {
+        "restaurant.customer.road-worker": 60,
+        "restaurant.customer.archive-courier": 40,
+        "restaurant.customer.route-envoy": 0
+      },
+      "preferenceWeightByCustomerId": {
+        "restaurant.customer.road-worker": {
+          "restaurant.preference.warming": 60,
+          "restaurant.preference.quick": 40
+        },
+        "restaurant.customer.archive-courier": {
+          "restaurant.preference.quick": 50,
+          "restaurant.preference.light": 50
+        },
+        "restaurant.customer.route-envoy": {
+          "restaurant.preference.warming": 50,
+          "restaurant.preference.light": 50
+        }
+      },
+      "selectionSeedAuthority": "save-identity-plus-opportunity-ordinal",
+      "namedVisitorGeneratedByInterval": false
+    },
+    "progression": {
+      "reputationByMatch": {"basic":1,"partial":2,"matched":3},
+      "recipeMasteryByMatch": {"basic":1,"partial":2,"matched":3},
+      "reputationLevelThresholds": {"1":0,"2":12,"3":36},
+      "recipeMasteryLevelThresholds": {"1":0,"2":12,"3":36},
+      "masteredRecipeLevel": 3,
+      "maximumInitialVerticalSliceReputationLevel": 3,
+      "progressionIsSpendable": false,
+      "progressionAffectsPassiveBuildings": false
+    },
+    "recipes": [
+      {
+        "id":"restaurant.recipe.hearth-stew",
+        "unlockReputationLevel":1,
+        "preparationDurationMs":120000,
+        "batchSize":2,
+        "stockCapacity":6,
+        "inputPolicyId":"input-policy.restaurant.station-time-only.candidate-v1",
+        "compatibleStationIds":["restaurant.station.hearth"]
+      },
+      {
+        "id":"restaurant.recipe.garden-flatbread",
+        "unlockReputationLevel":2,
+        "preparationDurationMs":90000,
+        "batchSize":3,
+        "stockCapacity":9,
+        "inputPolicyId":"input-policy.restaurant.station-time-only.candidate-v1",
+        "compatibleStationIds":["restaurant.station.hearth","restaurant.station.prep-table"]
+      },
+      {
+        "id":"restaurant.recipe.roadside-tea",
+        "unlockReputationLevel":3,
+        "preparationDurationMs":60000,
+        "batchSize":4,
+        "stockCapacity":12,
+        "inputPolicyId":"input-policy.restaurant.station-time-only.candidate-v1",
+        "compatibleStationIds":["restaurant.station.prep-table"]
+      }
+    ],
+    "stations": [
+      {
+        "id":"restaurant.station.hearth",
+        "unlockReputationLevel":1,
+        "slotCapacity":1,
+        "efficiencyPolicyId":"station-policy.restaurant.fixed-duration.candidate-v1"
+      },
+      {
+        "id":"restaurant.station.prep-table",
+        "unlockReputationLevel":2,
+        "slotCapacity":1,
+        "efficiencyPolicyId":"station-policy.restaurant.fixed-duration.candidate-v1"
+      }
+    ],
+    "preparationPolicy": {
+      "manualStartRequired": true,
+      "globalResourceCostPolicy": {
+        "mode": "none",
+        "costEntries": [],
+        "candidateDecisionId": "candidate.restaurant.no-global-input-cost-v1",
+        "failClosedIfMissingOrDifferent": true
+      },
+      "offlineMayAdvanceCommittedPreparationToReady": true,
+      "offlineMayTransferReadyBatchToStock": false,
+      "manualStockTransferRequired": true,
+      "preparedStockExpires": false,
+      "serveConsumesPreparedStock": 1,
+      "insufficientStockConsumesCustomer": false,
+      "cancelBeforePreparationCommitRestoresCustomer": true,
+      "closeAfterCommitPreservesEngagement": true
+    },
+    "namedVisitor": {
+      "id":"restaurant.visitor.route-envoy.01",
+      "customerDefinitionId":"restaurant.customer.route-envoy",
+      "actorId":"family.jaina",
+      "minimumReputationLevel":3,
+      "requiredStoryEventId":"story.book1.restaurant.route-envoy-ready",
+      "oneTimePerSave":true,
+      "expires":false,
+      "claimCreatesChronicleHookId":"chronicle.restaurant.route-envoy.01"
+    },
+    "recurringAccelerationGuardrails": {
+      "comparisonRateAuthority":"structuralProductionBandAuthority",
+      "typicalGoldPerGenerationHourMinimumBasisPoints":500,
+      "typicalGoldPerGenerationHourMaximumBasisPoints":1500,
+      "optimalGoldPerGenerationHourMaximumBasisPoints":2000,
+      "singleCustomerMaximumStructuralMinutes":90,
+      "legacyAndOneTimeVisitorBonusesExcludedFromRecurringShare":true,
+      "runtimeUsesFixedTablesNotPercentageCalculation":true,
+      "outOfBandSimulationBlocksApproval":true
+    },
+    "restaurantLegacyHooks": [
+      {
+        "definitionId":"legacy.achievement.restaurant-customers-served",
+        "definitionVersion":1,
+        "rewardVersion":1,
+        "threshold":10,
+        "rewards":[{"kind":"gold","targetId":null,"amount":5000},{"kind":"prosperity","targetId":null,"amount":2}]
+      },
+      {
+        "definitionId":"legacy.achievement.restaurant-meals-perfected",
+        "definitionVersion":1,
+        "rewardVersion":1,
+        "threshold":5,
+        "rewards":[{"kind":"gold","targetId":null,"amount":5000},{"kind":"relicStones","targetId":null,"amount":3}]
+      },
+      {
+        "definitionId":"legacy.achievement.restaurant-recipes-mastered",
+        "definitionVersion":1,
+        "rewardVersion":1,
+        "threshold":1,
+        "rewards":[{"kind":"gifts","targetId":null,"amount":1},{"kind":"gold","targetId":null,"amount":5000}]
+      },
+      {
+        "definitionId":"legacy.achievement.restaurant-profit",
+        "definitionVersion":1,
+        "rewardVersion":1,
+        "threshold":25000,
+        "rewards":[{"kind":"gold","targetId":null,"amount":5000},{"kind":"prosperity","targetId":null,"amount":3}]
+      },
+      {
+        "definitionId":"legacy.feat.restaurant-first-named-visitor",
+        "definitionVersion":1,
+        "rewardVersion":1,
+        "threshold":1,
+        "rewards":[{"kind":"gifts","targetId":null,"amount":1},{"kind":"gold","targetId":null,"amount":7500},{"kind":"relicStones","targetId":null,"amount":3}]
+      }
+    ]
+  }
+}

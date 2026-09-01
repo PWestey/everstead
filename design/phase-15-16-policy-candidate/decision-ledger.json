@@ -1,0 +1,49 @@
+{
+  "contractId": "phase-15-16-product-decision-ledger-v1",
+  "sourceCommit": "7beccb88676b75910e99c43bb78bc895553dfe5f",
+  "ledgerStatus": "review-record-not-runtime-config",
+  "approvedByExistingContracts": [
+    {"id":"locked.manual-claim","statement":"Facility and Legacy rewards are credited only after a player claim action.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
+    {"id":"locked.non-expiry","statement":"Generated opportunities and ready claims do not expire.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
+    {"id":"locked.no-offline-agency","statement":"Offline settlement may generate opportunities and advance committed timers, but may not choose, resolve, serve, transfer stock, or claim.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
+    {"id":"locked.exact-once","statement":"Claims are exact-once through the trusted finalizer and retained receipt/archive contract.","source":"design/phase-15-16/SEAM_RESOLUTION.md"},
+    {"id":"locked.no-new-global-loop","statement":"These phases add no stamina, global currency, daily reset, daily checklist, or permanent percentage multiplier.","source":"design/phases-14-21-audit/CONTRACT.md"},
+    {"id":"locked.waystone-anchor","statement":"Waystone and Legacy remain at the central-crystal physical Village anchor.","source":"design/phase-15-16/legacy-definitions.json"},
+    {"id":"locked.restaurant-anchor","statement":"Restaurant uses the western-plaza-restaurant anchor with western-plaza as the predecessor alias.","source":"design/phase-15-16/restaurant-definitions.json"},
+    {"id":"locked.restaurant-identity","statement":"Restaurant uses customers, recipes, preparation stations, service choices, local reputation, recipe mastery, visitors, and manual claims.","source":"design/phase-15-16/PHASE_15_16_CONTRACT.md"},
+    {"id":"locked.current-cast","statement":"All 18 Fellows and 20 Family remain scheduled; only joined Fellows may speak.","source":"design/phase-13/cast-plan.json"},
+    {"id":"locked.presentation","statement":"Dialogue uses approved transparent cutout, approved framed treatment, or attributed text-only; never an unframed full-background portrait overlay.","source":"design/phase-15-16/cast-hooks.json"},
+    {"id":"locked.policy-versioning","statement":"Definition, policy, tutorial, content, receipt, and archive versions remain explicit and immutable after use.","source":"design/phase-15-16/DATA_SPEC.md"}
+  ],
+  "candidateRecommendations": [
+    {"id":"candidate.legacy.values-v1","valueRef":"policy-candidate.json#/phase15LegacyPolicy","why":"Released Phase 13 tier/feat payloads remain byte-semantic v1; new value starts only at distinct successor/new source identities."},
+    {"id":"candidate.legacy.founding-cache-3","value":3,"why":"Three standard ready claims reduce tap repetition while preserving every canonical reward and individual major claims."},
+    {"id":"candidate.restaurant.interval-minutes","value":30,"why":"Twelve bank slots cover six unattended hours and fit the shared 24-hour settlement boundary without becoming a daily reset."},
+    {"id":"candidate.restaurant.bank-capacity","value":12,"why":"A bounded visible queue keeps storage and mobile UI predictable; full queues pause generation rather than expiring entries."},
+    {"id":"candidate.restaurant.no-save-backfill","value":0,"why":"Existing saves start at the same causal boundary as new saves; no fabricated historical customers."},
+    {"id":"candidate.restaurant.fixed-reward-rows","valueRef":"restaurant-reward-table.json","why":"Fifty-two captured fixed rows reduce boundary payout jumps to at most 15.05% and scale conservatively without a live percentage multiplier."},
+    {"id":"candidate.restaurant.active-share","value":"5%-15% typical; 20% hard optimal ceiling","why":"Active Village play accelerates passive progress without becoming mandatory."},
+    {"id":"candidate.restaurant.stations-recipes","valueRef":"policy-candidate.json#/phase16RestaurantPolicy/recipes","why":"Three short recipes and two single-slot stations prove choice, local unlocks, ready-stock banking, and serving without a new resource economy."},
+    {"id":"candidate.restaurant.no-global-input-cost","value":{"mode":"none","costEntries":[]},"why":"The first slice tests preparation and stock without introducing an unapproved ingredient economy; missing/different policy fails closed."},
+    {"id":"candidate.restaurant.progression","value":"Reputation and recipe mastery thresholds 0/12/36 with +1/+2/+3 by result","why":"The first three levels unfold over multiple sessions and reward matching without a permanent percentage bonus."},
+    {"id":"candidate.restaurant.named-visitor","value":"Jaina route envoy at Reputation 3 plus story event","why":"Keeps the accepted cast hook and demonstrates non-expiring authored visitors and Chronicle recording."},
+    {"id":"candidate.tutorial-timing","valueRef":"tutorial-timing.json","why":"Contextual, skippable lessons appear only after their concept exists; migrated/rank-jump saves get at most one automatic lesson per safe visit."},
+    {"id":"candidate.copy","valueRef":"copy.en.json","why":"Original, short, localization-keyed Everstead copy can be reviewed independently of mechanics and speakers."},
+    {"id":"candidate.receipt-budget","valueBytes":1048576,"why":"A one-megabyte incremental five-year budget is conservative while the archive-folding seam keeps recent exact receipts bounded."}
+  ],
+  "rootReviewDecisions": [
+    {"id":"review.accept-policy-values","question":"Approve, revise, or reject preserved Phase 13 v1 lineage, the Oathkeeper tier-2 candidate, other Legacy values, and Restaurant fixed table v2?","blocksProductionEnablement":true},
+    {"id":"review.approve-production-band-authority","question":"Approve structural Building production, excluding all boosts and active rewards, as the captured Restaurant reward-band authority?","blocksProductionEnablement":true},
+    {"id":"review.approve-time-shape","question":"Approve the 30-minute cadence, 12-customer bank, short preparation durations, stock caps, and no historical backfill?","blocksProductionEnablement":true},
+    {"id":"review.approve-copy","question":"Approve or revise candidate English labels, tutorials, and authored lines after editorial/IP review?","blocksProductionEnablement":true},
+    {"id":"review.named-visitor-story-event","question":"Confirm the exact Phase 17 story event emission point for story.book1.restaurant.route-envoy-ready.","blocksNamedVisitorOnly":true},
+    {"id":"review.phase12-finalizer","question":"Confirm the Phase 12 trusted finalizer supports all canonical reward kinds and archive retention before any live claim path is enabled.","blocksProductionEnablement":true},
+    {"id":"review.policy-migration-owner","question":"Assign the runtime migration owner for existing candidate-version objects if any candidate value changes after QA data exists.","blocksProductionEnablement":false}
+  ],
+  "approvalTransition": {
+    "candidateFilesAreNeverEditedIntoAuthority": true,
+    "requiredAction": "Create a separately versioned approved policy package and record root review outcome.",
+    "runtimeMustRejectCandidateStatus": true,
+    "existingCandidateObjects": "QA-only objects may be discarded; no production save may contain them."
+  }
+}

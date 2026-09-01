@@ -1,0 +1,1585 @@
+{
+  "assumptions": {
+    "buildingBaseRates": [
+      7200,
+      6500,
+      5600,
+      6100
+    ],
+    "buildingLevelMultiplier": 1.15,
+    "customerWeight": {
+      "restaurant.customer.archive-courier": 0.4,
+      "restaurant.customer.road-worker": 0.6
+    },
+    "engagedPlayHasPreparedStockForEachGeneratedCustomer": true,
+    "generationPerHour": 2.0,
+    "legacyAndNamedVisitorRewardsExcludedFromRecurringShare": true
+  },
+  "boundaryChecks": [
+    {
+      "boundaryId": "boundary.restaurant.band.level-01.to.restaurant.band.level-02",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-01",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 29209,
+          "weightedGoldPerCustomer": 1159.35
+        },
+        {
+          "capturedBandId": "restaurant.band.level-02",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 29210,
+          "weightedGoldPerCustomer": 1333.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-02",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 29211,
+          "weightedGoldPerCustomer": 1333.3
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 29210,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-02.to.restaurant.band.level-03",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-02",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 33590,
+          "weightedGoldPerCustomer": 1333.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-03",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 33591,
+          "weightedGoldPerCustomer": 1533.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-03",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 33592,
+          "weightedGoldPerCustomer": 1533.6
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 33591,
+      "weightedPayoutIncreaseBasisPoints": 1502
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-03.to.restaurant.band.level-04",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-03",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 38629,
+          "weightedGoldPerCustomer": 1533.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-04",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 38630,
+          "weightedGoldPerCustomer": 1763.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-04",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 38631,
+          "weightedGoldPerCustomer": 1763.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 38630,
+      "weightedPayoutIncreaseBasisPoints": 1497
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-04.to.restaurant.band.level-05",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-04",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 44424,
+          "weightedGoldPerCustomer": 1763.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-05",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 44425,
+          "weightedGoldPerCustomer": 2027.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-05",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 44426,
+          "weightedGoldPerCustomer": 2027.7
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 44425,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-05.to.restaurant.band.level-06",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-05",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 51087,
+          "weightedGoldPerCustomer": 2027.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-06",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 51088,
+          "weightedGoldPerCustomer": 2332.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-06",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 51089,
+          "weightedGoldPerCustomer": 2332.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 51088,
+      "weightedPayoutIncreaseBasisPoints": 1502
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-06.to.restaurant.band.level-07",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-06",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 58751,
+          "weightedGoldPerCustomer": 2332.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-07",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 58752,
+          "weightedGoldPerCustomer": 2682.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-07",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 58753,
+          "weightedGoldPerCustomer": 2682.3
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 58752,
+      "weightedPayoutIncreaseBasisPoints": 1501
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-07.to.restaurant.band.level-08",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-07",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 67564,
+          "weightedGoldPerCustomer": 2682.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-08",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 67565,
+          "weightedGoldPerCustomer": 3084.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-08",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 67566,
+          "weightedGoldPerCustomer": 3084.7
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 67565,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-08.to.restaurant.band.level-09",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-08",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 77698,
+          "weightedGoldPerCustomer": 3084.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-09",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 77699,
+          "weightedGoldPerCustomer": 3546.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-09",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 77700,
+          "weightedGoldPerCustomer": 3546.7
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 77699,
+      "weightedPayoutIncreaseBasisPoints": 1498
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-09.to.restaurant.band.level-10",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-09",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 89353,
+          "weightedGoldPerCustomer": 3546.7
+        },
+        {
+          "capturedBandId": "restaurant.band.level-10",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 89354,
+          "weightedGoldPerCustomer": 4079.35
+        },
+        {
+          "capturedBandId": "restaurant.band.level-10",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 89355,
+          "weightedGoldPerCustomer": 4079.35
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 89354,
+      "weightedPayoutIncreaseBasisPoints": 1502
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-10.to.restaurant.band.level-11",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-10",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 102756,
+          "weightedGoldPerCustomer": 4079.35
+        },
+        {
+          "capturedBandId": "restaurant.band.level-11",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 102757,
+          "weightedGoldPerCustomer": 4690.9
+        },
+        {
+          "capturedBandId": "restaurant.band.level-11",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 102758,
+          "weightedGoldPerCustomer": 4690.9
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 102757,
+      "weightedPayoutIncreaseBasisPoints": 1499
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-11.to.restaurant.band.level-12",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-11",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 118170,
+          "weightedGoldPerCustomer": 4690.9
+        },
+        {
+          "capturedBandId": "restaurant.band.level-12",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 118171,
+          "weightedGoldPerCustomer": 5394.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-12",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 118172,
+          "weightedGoldPerCustomer": 5394.75
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 118171,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-12.to.restaurant.band.level-13",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-12",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 135895,
+          "weightedGoldPerCustomer": 5394.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-13",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 135896,
+          "weightedGoldPerCustomer": 6203.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-13",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 135897,
+          "weightedGoldPerCustomer": 6203.45
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 135896,
+      "weightedPayoutIncreaseBasisPoints": 1499
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-13.to.restaurant.band.level-14",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-13",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 156280,
+          "weightedGoldPerCustomer": 6203.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-14",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 156281,
+          "weightedGoldPerCustomer": 7134.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-14",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 156282,
+          "weightedGoldPerCustomer": 7134.55
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 156281,
+      "weightedPayoutIncreaseBasisPoints": 1501
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-14.to.restaurant.band.level-15",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-14",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 179722,
+          "weightedGoldPerCustomer": 7134.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-15",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 179723,
+          "weightedGoldPerCustomer": 8204.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-15",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 179724,
+          "weightedGoldPerCustomer": 8204.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 179723,
+      "weightedPayoutIncreaseBasisPoints": 1499
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-15.to.restaurant.band.level-16",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-15",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 206680,
+          "weightedGoldPerCustomer": 8204.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-16",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 206681,
+          "weightedGoldPerCustomer": 9435.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-16",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 206682,
+          "weightedGoldPerCustomer": 9435.15
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 206681,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-16.to.restaurant.band.level-17",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-16",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 237683,
+          "weightedGoldPerCustomer": 9435.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-17",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 237684,
+          "weightedGoldPerCustomer": 10850.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-17",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 237685,
+          "weightedGoldPerCustomer": 10850.3
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 237684,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-17.to.restaurant.band.level-18",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-17",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 273335,
+          "weightedGoldPerCustomer": 10850.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-18",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 273336,
+          "weightedGoldPerCustomer": 12477.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-18",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 273337,
+          "weightedGoldPerCustomer": 12477.85
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 273336,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-18.to.restaurant.band.level-19",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-18",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 314336,
+          "weightedGoldPerCustomer": 12477.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-19",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 314337,
+          "weightedGoldPerCustomer": 14349.5
+        },
+        {
+          "capturedBandId": "restaurant.band.level-19",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 314338,
+          "weightedGoldPerCustomer": 14349.5
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 314337,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-19.to.restaurant.band.level-20",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-19",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 361486,
+          "weightedGoldPerCustomer": 14349.5
+        },
+        {
+          "capturedBandId": "restaurant.band.level-20",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 361487,
+          "weightedGoldPerCustomer": 16501.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-20",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 361488,
+          "weightedGoldPerCustomer": 16501.85
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 361487,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-20.to.restaurant.band.level-21",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-20",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 415709,
+          "weightedGoldPerCustomer": 16501.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-21",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 415710,
+          "weightedGoldPerCustomer": 18977.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-21",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 415711,
+          "weightedGoldPerCustomer": 18977.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 415710,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-21.to.restaurant.band.level-22",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-21",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 478066,
+          "weightedGoldPerCustomer": 18977.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-22",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 478067,
+          "weightedGoldPerCustomer": 21823.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-22",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 478068,
+          "weightedGoldPerCustomer": 21823.8
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 478067,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-22.to.restaurant.band.level-23",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-22",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 549776,
+          "weightedGoldPerCustomer": 21823.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-23",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 549777,
+          "weightedGoldPerCustomer": 25097.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-23",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 549778,
+          "weightedGoldPerCustomer": 25097.45
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 549777,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-23.to.restaurant.band.level-24",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-23",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 632242,
+          "weightedGoldPerCustomer": 25097.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-24",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 632243,
+          "weightedGoldPerCustomer": 28861.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-24",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 632244,
+          "weightedGoldPerCustomer": 28861.85
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 632243,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-24.to.restaurant.band.level-25",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-24",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 727078,
+          "weightedGoldPerCustomer": 28861.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-25",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 727079,
+          "weightedGoldPerCustomer": 33191.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-25",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 727080,
+          "weightedGoldPerCustomer": 33191.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 727079,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-25.to.restaurant.band.level-26",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-25",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 836140,
+          "weightedGoldPerCustomer": 33191.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-26",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 836141,
+          "weightedGoldPerCustomer": 38169.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-26",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 836142,
+          "weightedGoldPerCustomer": 38169.75
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 836141,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-26.to.restaurant.band.level-27",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-26",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 961562,
+          "weightedGoldPerCustomer": 38169.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-27",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 961563,
+          "weightedGoldPerCustomer": 43895.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-27",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 961564,
+          "weightedGoldPerCustomer": 43895.8
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 961563,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-27.to.restaurant.band.level-28",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-27",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 1105796,
+          "weightedGoldPerCustomer": 43895.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-28",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1105797,
+          "weightedGoldPerCustomer": 50479.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-28",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1105798,
+          "weightedGoldPerCustomer": 50479.85
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 1105797,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-28.to.restaurant.band.level-29",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-28",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 1271666,
+          "weightedGoldPerCustomer": 50479.85
+        },
+        {
+          "capturedBandId": "restaurant.band.level-29",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1271667,
+          "weightedGoldPerCustomer": 58051.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-29",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1271668,
+          "weightedGoldPerCustomer": 58051.4
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 1271667,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-29.to.restaurant.band.level-30",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-29",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 1462416,
+          "weightedGoldPerCustomer": 58051.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-30",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1462417,
+          "weightedGoldPerCustomer": 66759.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-30",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1462418,
+          "weightedGoldPerCustomer": 66759.4
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 1462417,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-30.to.restaurant.band.level-31",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-30",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 1681778,
+          "weightedGoldPerCustomer": 66759.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-31",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1681779,
+          "weightedGoldPerCustomer": 76773.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-31",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1681780,
+          "weightedGoldPerCustomer": 76773.25
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 1681779,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-31.to.restaurant.band.level-32",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-31",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 1934045,
+          "weightedGoldPerCustomer": 76773.25
+        },
+        {
+          "capturedBandId": "restaurant.band.level-32",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1934046,
+          "weightedGoldPerCustomer": 88289.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-32",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 1934047,
+          "weightedGoldPerCustomer": 88289.1
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 1934046,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-32.to.restaurant.band.level-33",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-32",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 2224152,
+          "weightedGoldPerCustomer": 88289.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-33",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2224153,
+          "weightedGoldPerCustomer": 101532.65
+        },
+        {
+          "capturedBandId": "restaurant.band.level-33",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2224154,
+          "weightedGoldPerCustomer": 101532.65
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 2224153,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-33.to.restaurant.band.level-34",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-33",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 2557775,
+          "weightedGoldPerCustomer": 101532.65
+        },
+        {
+          "capturedBandId": "restaurant.band.level-34",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2557776,
+          "weightedGoldPerCustomer": 116762.65
+        },
+        {
+          "capturedBandId": "restaurant.band.level-34",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2557777,
+          "weightedGoldPerCustomer": 116762.65
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 2557776,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-34.to.restaurant.band.level-35",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-34",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 2941441,
+          "weightedGoldPerCustomer": 116762.65
+        },
+        {
+          "capturedBandId": "restaurant.band.level-35",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2941442,
+          "weightedGoldPerCustomer": 134276.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-35",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 2941443,
+          "weightedGoldPerCustomer": 134276.15
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 2941442,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-35.to.restaurant.band.level-36",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-35",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 3382657,
+          "weightedGoldPerCustomer": 134276.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-36",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 3382658,
+          "weightedGoldPerCustomer": 154418.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-36",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 3382659,
+          "weightedGoldPerCustomer": 154418.55
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 3382658,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-36.to.restaurant.band.level-37",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-36",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 3890056,
+          "weightedGoldPerCustomer": 154418.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-37",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 3890057,
+          "weightedGoldPerCustomer": 177581.2
+        },
+        {
+          "capturedBandId": "restaurant.band.level-37",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 3890058,
+          "weightedGoldPerCustomer": 177581.2
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 3890057,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-37.to.restaurant.band.level-38",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-37",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 4473565,
+          "weightedGoldPerCustomer": 177581.2
+        },
+        {
+          "capturedBandId": "restaurant.band.level-38",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 4473566,
+          "weightedGoldPerCustomer": 204218.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-38",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 4473567,
+          "weightedGoldPerCustomer": 204218.6
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 4473566,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-38.to.restaurant.band.level-39",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-38",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 5144599,
+          "weightedGoldPerCustomer": 204218.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-39",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 5144600,
+          "weightedGoldPerCustomer": 234851.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-39",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 5144601,
+          "weightedGoldPerCustomer": 234851.15
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 5144600,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-39.to.restaurant.band.level-40",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-39",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 5916289,
+          "weightedGoldPerCustomer": 234851.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-40",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 5916290,
+          "weightedGoldPerCustomer": 270078.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-40",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 5916291,
+          "weightedGoldPerCustomer": 270078.55
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 5916290,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-40.to.restaurant.band.level-41",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-40",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 6803733,
+          "weightedGoldPerCustomer": 270078.55
+        },
+        {
+          "capturedBandId": "restaurant.band.level-41",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 6803734,
+          "weightedGoldPerCustomer": 310590.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-41",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 6803735,
+          "weightedGoldPerCustomer": 310590.45
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 6803734,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-41.to.restaurant.band.level-42",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-41",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 7824293,
+          "weightedGoldPerCustomer": 310590.45
+        },
+        {
+          "capturedBandId": "restaurant.band.level-42",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 7824294,
+          "weightedGoldPerCustomer": 357178.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-42",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 7824295,
+          "weightedGoldPerCustomer": 357178.75
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 7824294,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-42.to.restaurant.band.level-43",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-42",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 8997937,
+          "weightedGoldPerCustomer": 357178.75
+        },
+        {
+          "capturedBandId": "restaurant.band.level-43",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 8997938,
+          "weightedGoldPerCustomer": 410755.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-43",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 8997939,
+          "weightedGoldPerCustomer": 410755.6
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 8997938,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-43.to.restaurant.band.level-44",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-43",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 10347628,
+          "weightedGoldPerCustomer": 410755.6
+        },
+        {
+          "capturedBandId": "restaurant.band.level-44",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 10347629,
+          "weightedGoldPerCustomer": 472369.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-44",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 10347630,
+          "weightedGoldPerCustomer": 472369.1
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 10347629,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-44.to.restaurant.band.level-45",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-44",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 11899772,
+          "weightedGoldPerCustomer": 472369.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-45",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 11899773,
+          "weightedGoldPerCustomer": 543224.95
+        },
+        {
+          "capturedBandId": "restaurant.band.level-45",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 11899774,
+          "weightedGoldPerCustomer": 543224.95
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 11899773,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-45.to.restaurant.band.level-46",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-45",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 13684738,
+          "weightedGoldPerCustomer": 543224.95
+        },
+        {
+          "capturedBandId": "restaurant.band.level-46",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 13684739,
+          "weightedGoldPerCustomer": 624708.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-46",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 13684740,
+          "weightedGoldPerCustomer": 624708.1
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 13684739,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-46.to.restaurant.band.level-47",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-46",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 15737449,
+          "weightedGoldPerCustomer": 624708.1
+        },
+        {
+          "capturedBandId": "restaurant.band.level-47",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 15737450,
+          "weightedGoldPerCustomer": 718414.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-47",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 15737451,
+          "weightedGoldPerCustomer": 718414.15
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 15737450,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-47.to.restaurant.band.level-48",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-47",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 18098067,
+          "weightedGoldPerCustomer": 718414.15
+        },
+        {
+          "capturedBandId": "restaurant.band.level-48",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 18098068,
+          "weightedGoldPerCustomer": 826176.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-48",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 18098069,
+          "weightedGoldPerCustomer": 826176.8
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 18098068,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-48.to.restaurant.band.level-49",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-48",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 20812777,
+          "weightedGoldPerCustomer": 826176.8
+        },
+        {
+          "capturedBandId": "restaurant.band.level-49",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 20812778,
+          "weightedGoldPerCustomer": 950103.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-49",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 20812779,
+          "weightedGoldPerCustomer": 950103.4
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 20812778,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-49.to.restaurant.band.level-50",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-49",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 23934694,
+          "weightedGoldPerCustomer": 950103.4
+        },
+        {
+          "capturedBandId": "restaurant.band.level-50",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 23934695,
+          "weightedGoldPerCustomer": 1092618.35
+        },
+        {
+          "capturedBandId": "restaurant.band.level-50",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 23934696,
+          "weightedGoldPerCustomer": 1092618.35
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 23934695,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-50.to.restaurant.band.level-51",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-50",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 27524898,
+          "weightedGoldPerCustomer": 1092618.35
+        },
+        {
+          "capturedBandId": "restaurant.band.level-51",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 27524899,
+          "weightedGoldPerCustomer": 1256511.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-51",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 27524900,
+          "weightedGoldPerCustomer": 1256511.3
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 27524899,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    },
+    {
+      "boundaryId": "boundary.restaurant.band.level-51.to.restaurant.band.level-52",
+      "samples": [
+        {
+          "capturedBandId": "restaurant.band.level-51",
+          "position": "justBelow",
+          "recurringActiveShareBasisPoints": 794,
+          "structuralGoldPerHour": 31653633,
+          "weightedGoldPerCustomer": 1256511.3
+        },
+        {
+          "capturedBandId": "restaurant.band.level-52",
+          "position": "at",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 31653634,
+          "weightedGoldPerCustomer": 1444988.0
+        },
+        {
+          "capturedBandId": "restaurant.band.level-52",
+          "position": "justAbove",
+          "recurringActiveShareBasisPoints": 913,
+          "structuralGoldPerHour": 31653635,
+          "weightedGoldPerCustomer": 1444988.0
+        }
+      ],
+      "thresholdStructuralGoldPerHour": 31653634,
+      "weightedPayoutIncreaseBasisPoints": 1500
+    }
+  ],
+  "boundarySummary": {
+    "boundaryCount": 51,
+    "maximumSampleActiveShareBasisPoints": 913,
+    "maximumWeightedPayoutIncreaseBasisPoints": 1502,
+    "minimumSampleActiveShareBasisPoints": 794,
+    "sampleCount": 153
+  },
+  "deterministic": true,
+  "fiveYearHeadroom": {
+    "archiveFoldCount": 681,
+    "budgetUseBasisPoints": 1788,
+    "candidateIncrementalBudgetBytes": 1048576,
+    "conservativeMaximumOneTimeClaims": 16,
+    "continuousGenerationYears": 5,
+    "estimatedArchiveBytes": 218,
+    "estimatedMaximumLiveFacilityStateBytes": 1457,
+    "estimatedRecentReceiptBytes": 148289,
+    "foldBatchSize": 128,
+    "foldedThroughOrdinal": 87168,
+    "javascriptSafeIntegerHeadroom": true,
+    "maximumRecurringCustomerClaims": 87600,
+    "projectedIncrementalBytes": 187455,
+    "rawEstimateBytes": 149964,
+    "recentReceiptLimit": 512,
+    "retainedRecentReceipts": 448,
+    "safetyFactorBasisPoints": 12500,
+    "totalClaimReceipts": 87616
+  },
+  "profiles": [
+    {
+      "assumedResultMix": {
+        "basic": 0.3,
+        "matched": 0.35,
+        "partial": 0.35
+      },
+      "buildingLevels": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "capturedBandId": "restaurant.band.level-01",
+      "optimalSingleCustomerStructuralMinutes": 3.059,
+      "profileId": "fresh",
+      "recurringActiveGoldPerGenerationHour": 2166.3,
+      "recurringActiveShareBasisPoints": 853,
+      "structuralGoldPerHour": 25400,
+      "weightedBaseGoldPerCustomer": 949.8,
+      "weightedTipGoldPerCustomer": 133.35
+    },
+    {
+      "assumedResultMix": {
+        "basic": 0.15,
+        "matched": 0.55,
+        "partial": 0.3
+      },
+      "buildingLevels": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "capturedBandId": "restaurant.band.level-08",
+      "optimalSingleCustomerStructuralMinutes": 3.06,
+      "profileId": "mid",
+      "recurringActiveGoldPerGenerationHour": 6000.4,
+      "recurringActiveShareBasisPoints": 888,
+      "structuralGoldPerHour": 67565,
+      "weightedBaseGoldPerCustomer": 2527.0,
+      "weightedTipGoldPerCustomer": 473.2
+    },
+    {
+      "assumedResultMix": {
+        "basic": 0.05,
+        "matched": 0.7,
+        "partial": 0.25
+      },
+      "buildingLevels": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "capturedBandId": "restaurant.band.level-20",
+      "optimalSingleCustomerStructuralMinutes": 3.06,
+      "profileId": "established",
+      "recurringActiveGoldPerGenerationHour": 33003.7,
+      "recurringActiveShareBasisPoints": 913,
+      "structuralGoldPerHour": 361487,
+      "weightedBaseGoldPerCustomer": 13519.6,
+      "weightedTipGoldPerCustomer": 2982.25
+    },
+    {
+      "assumedResultMix": {
+        "basic": 0.05,
+        "matched": 0.7,
+        "partial": 0.25
+      },
+      "buildingLevels": [
+        35,
+        35,
+        35,
+        35
+      ],
+      "capturedBandId": "restaurant.band.level-35",
+      "optimalSingleCustomerStructuralMinutes": 3.06,
+      "profileId": "late",
+      "recurringActiveGoldPerGenerationHour": 268552.3,
+      "recurringActiveShareBasisPoints": 913,
+      "structuralGoldPerHour": 2941442,
+      "weightedBaseGoldPerCustomer": 110009.6,
+      "weightedTipGoldPerCustomer": 24266.55
+    },
+    {
+      "assumedResultMix": {
+        "basic": 0.05,
+        "matched": 0.7,
+        "partial": 0.25
+      },
+      "buildingLevels": [
+        52,
+        52,
+        52,
+        52
+      ],
+      "capturedBandId": "restaurant.band.level-52",
+      "optimalSingleCustomerStructuralMinutes": 3.06,
+      "profileId": "cap",
+      "recurringActiveGoldPerGenerationHour": 2889976.0,
+      "recurringActiveShareBasisPoints": 913,
+      "structuralGoldPerHour": 31653634,
+      "weightedBaseGoldPerCustomer": 1183845.8,
+      "weightedTipGoldPerCustomer": 261142.2
+    }
+  ],
+  "simulationId": "phase-15-16-policy-candidate-simulation-v1",
+  "sourcePolicyId": "phase-15-16-product-policy-candidate-v1"
+}
