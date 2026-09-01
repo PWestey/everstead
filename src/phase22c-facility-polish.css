@@ -232,7 +232,7 @@
 }
 
 [data-phase22c-facility-surface] button:disabled {
-  opacity: .48;
+  opacity: 1;
   filter: saturate(.55);
 }
 
