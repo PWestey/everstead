@@ -51,6 +51,8 @@ The package freezes and cross-checks the accepted contracts for:
 - `player.wayfarer` preserved as a separate Player Character outside Fellow, Family, Companion, assignment, shard, and facility-speaker systems;
 - semantic facility-sheet compatibility for forthcoming original Everstead visual polish without importing reference assets, copying trade dress, or moving full-background profile art into Village dialogue;
 - original four Building passive Gold and Family assignment preservation;
+- same-captured-time passive semantics with volatile Gold/timestamp/day/`boostDay` fields excluded;
+- non-tautological reduced-motion coverage through a production root marker plus a real static CSS media-rule contract, never the injected `matchMedia` value alone;
 - actual-node browser assertions for mobile, desktop, 130-percent copy, reduced motion, keyboard, focus, Escape, target size, containment, and overflow.
 
 The browser realm loads the real candidate `index.html`, injects only isolated adapters before production scripts, and calls only `window.__EVERSTEAD_PHASE_18_19_QA__`. It does not install a fake facility engine.

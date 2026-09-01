@@ -18,6 +18,8 @@ For live testing, serve the repository root over HTTP and open `qa/phase-18-19-i
 
 The production candidate must expose locally/query-gated `window.__EVERSTEAD_PHASE_18_19_QA__`. The exact preimplementation base has no bridge, so candidate and live verification fail precisely at that boundary without attempting destructive calls or substituting a fake facility engine.
 
-Actual-DOM checks query the real candidate's Village board, Apothecary/Schoolhouse hotspots and sheets, action controls, dimensions, overflow, focus, keyboard activation, Escape, copy expansion, and reduced-motion styles. Normalized bridge output covers state and deterministic lifecycle semantics but cannot substitute for these node/style checks.
+Actual-DOM checks query the real candidate's Village board, Apothecary/Schoolhouse hotspots and sheets, action controls, dimensions, overflow, focus, keyboard activation, Escape, and copy expansion. Reduced motion requires both a real production root marker and a static `prefers-reduced-motion` stylesheet contract; the injected `matchMedia` preference cannot pass by itself. Normalized bridge output covers state and deterministic lifecycle semantics but cannot substitute for these node/style checks.
+
+Passive preservation uses `passiveBaseline(capturedAt)` twice at one frozen timestamp. It compares the original four Buildings' production formulas, effective same-time Oath boosts/rates, and Family assignments while explicitly excluding Gold balances, persistence timestamps, `day`, and raw `boostDay` rollover drift.
 
 The gate also freezes `player.wayfarer` as a separate Player Character outside Fellow, Family, and Companion roster/assignment/shard systems. Facility sheets must remain semantically restylable for original Everstead visual polish without ingesting reference assets, copying trade dress, or using full-background profile art as an unframed Village dialogue speaker.

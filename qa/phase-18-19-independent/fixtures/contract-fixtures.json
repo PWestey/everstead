@@ -132,6 +132,20 @@
   "concurrencyKinds": ["apothecary-settle", "apothecary-resolve", "apothecary-claim", "schoolhouse-seat", "schoolhouse-settle", "schoolhouse-resolve", "schoolhouse-lesson-claim", "schoolhouse-graduation-claim"],
   "invalidMutationChecks": ["future-config-version", "unknown-case", "unknown-clue", "unknown-diagnosis", "unknown-remedy", "terminal-recheck", "expired-case", "unknown-pupil", "duplicate-seat-pupil", "negative-development", "mentor-stack-two", "mentor-mutates-intimacy", "graduation-without-trigger-receipt", "wrong-graduation-domain-kind", "broken-archive-checkpoint", "broken-save-binding"],
   "originalPassiveFacilityIds": ["facility.command-center", "facility.archives", "facility.training-grounds", "facility.hearth"],
+  "passiveSnapshotContract": {
+    "capturedAt": 200000000,
+    "requiredFields": ["capturedAt", "offlineCapMs", "goldCurrencyId", "oathMultiplierPolicyId", "buildingSemantics"],
+    "buildingFields": ["facilityId", "baseGoldPerHour", "level", "familyAssignmentId", "familyAssignmentMultiplier", "effectiveOathBoost", "effectiveGoldPerHour", "formulaOrder"],
+    "excludedVolatileFields": ["goldBalance", "pendingGold", "lastSeen", "lastGoldAt", "day", "boostDay"]
+  },
+  "reducedMotionContract": {
+    "rootMarkerAttribute": "data-everstead-reduced-motion",
+    "reduceMarker": "reduce",
+    "defaultMarker": "no-preference",
+    "requiresStylesheetMediaRule": true,
+    "requiresGlobalAnimationAndTransitionDisable": true,
+    "javascriptMatchMediaAloneInsufficient": true
+  },
   "requiredDomSelectors": {
     "shared": ["[data-phase15-facility-board]", "[data-phase15-facility-id=\"facility.apothecary\"]", "[data-phase15-facility-id=\"facility.schoolhouse\"]"],
     "apothecary": ["[data-phase18-apothecary-sheet]", "[data-phase18-case-id]", "[data-phase18-clue-id]", "[data-phase18-diagnosis-id]", "[data-phase18-remedy-id]", "[data-phase18-resolve]", "[data-phase18-recheck]", "[data-phase18-claim]", "[data-phase18-close]"],

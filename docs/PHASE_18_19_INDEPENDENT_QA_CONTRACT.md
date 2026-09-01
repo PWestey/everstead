@@ -23,7 +23,7 @@ Read-only methods:
 
 - `definitions()` returns exact predecessor lineage, both facility/config/definition registries, story authority, immutable finalizer and archive registry, graduation one-shot identity, tutorials, cast policy, and production enablement.
 - `snapshot()`, `validate()`, `derive()`, `raw()`, and `exportSave()` expose normalized observations without mutation.
-- `passiveBaseline()` returns the original four Buildings, Gold/Oaths, Family assignments, and the 24-hour cap for preservation checks.
+- `passiveBaseline(capturedAt)` derives the original four Buildings' immutable production/Family-assignment semantics at that exact captured timestamp. It returns the Gold currency identity, Oath multiplier policy/formula, effective Oath boost and rate at `capturedAt`, Family assignment identity/multiplier, and the 24-hour cap. It deliberately excludes volatile balances/timestamps and raw `boostDay`; legitimate wall-clock or midnight drift is therefore neither mistaken for a regression nor allowed to alter the same-time semantic comparison.
 - `policyReport()` returns null-policy enablement and, only in an isolated QA realm, the explicitly injected QA-only registry identity. Production must never fall back to that registry.
 
 Destructive methods, isolated storage only:
@@ -118,7 +118,9 @@ Apothecary, Schoolhouse, and related Family sheets must expose stable semantic c
 
 Five isolated realms cover 320×568, 390×844, 1024×768, 130-percent copy, and reduced motion. Every realm loads the real candidate `index.html`, injects only memory storage/clock/random/ID adapters before production scripts, instruments native storage, and calls only the production QA bridge.
 
-The runner queries actual nodes and computed styles for the physical Village board and both eastern-plaza hotspots; 44×44 targets; viewport containment; keyboard Enter/Space activation; focus entry and return; Escape without unintended state writes; clues, diagnoses, remedies, Recheck, seats, pupils, lessons, approaches, ordinary Claim, major graduation Claim, and Close controls; horizontal overflow; copy expansion; and reduced-motion static equivalence. It also verifies five bottom-navigation items and non-color-only outcome/status text.
+The runner queries actual nodes and computed styles for the physical Village board and both eastern-plaza hotspots; 44×44 targets; viewport containment; keyboard Enter/Space activation; focus entry and return; Escape without unintended state writes; clues, diagnoses, remedies, Recheck, seats, pupils, lessons, approaches, ordinary Claim, major graduation Claim, and Close controls; horizontal overflow; and copy expansion. It also verifies five bottom-navigation items and non-color-only outcome/status text.
+
+Reduced-motion coverage is intentionally non-tautological. The reduced realm still supplies the runtime preference adapter, but that result alone cannot pass. The real candidate stylesheet text must contain a `prefers-reduced-motion: reduce` media rule that disables both animation and transition globally, and production must publish the actual runtime response as `data-everstead-reduced-motion="reduce"` (or `"no-preference"` in ordinary realms) on the document root plus the same normalized bridge marker. The gate cross-checks the marker, static CSS contract, and semantic facility nodes. A monkey-patched `matchMedia().matches` value by itself is insufficient. Root may additionally use browser-level media emulation during manual review.
 
 Normalized QA output alone cannot prove actual layout or accessibility. The live gate must inspect actual DOM nodes/styles; root must still visually inspect composition and real-device behavior.
 
