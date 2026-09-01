@@ -1,0 +1,78 @@
+{
+  "contractVersion": 1,
+  "bridgeVersion": "phase-20-21-independent-qa-v1",
+  "baseCommit": "fa004195a36dcbcd5be4ad9d73357a63cf50f3f7",
+  "schemaVersion": 12,
+  "predecessor": {
+    "facilityFrameworkConfigId": "phase-14-facility-framework-v1",
+    "archiveConfigId": "claim-archive.phase-15.v1",
+    "offerVersion": 2,
+    "receiptVersion": 2,
+    "storyRegistryId": "definition-set.phase-17-book1-story.v1",
+    "phase19MigrationId": "migration.phase-19.schoolhouse.v1"
+  },
+  "configs": {
+    "phase20": "phase-20-original-four-active-v1",
+    "phase20Definitions": "definition-set.phase-20-original-four-active.v1",
+    "phase21": "phase-21-expansion-facilities-v1",
+    "phase21Definitions": "definition-set.phase-21-expansion-facilities.v1",
+    "integration": "phase-21-cross-facility-integration-v1",
+    "integrationDefinitions": "definition-set.phase-21-cross-facility-integration.v1"
+  },
+  "facilities": [
+    {"phase":20,"facilityId":"facility.command-center","activityId":"activity.petitions","opportunityId":"opportunity.facility.command-center.petition","anchor":"upper-left-hall","capabilityId":"capability.command-petitions.v1","discoveryId":"story.book1.chapter3.council-of-ash.resolution","openingId":"facility.command.resolve-petition","progressId":"facility-progress.command-center.influence","interaction":"bounded-petition-choice","finalizerId":"commandPetitionFinalizerV1","passivePolicy":"preserve-existing-building-production-and-family-assignment"},
+    {"phase":20,"facilityId":"facility.archives","activityId":"activity.research","opportunityId":"opportunity.facility.archives.research","anchor":"upper-right-tower","capabilityId":"capability.archives-research.v1","discoveryId":"story.book1.chapter2.records-in-rain","openingId":"facility.archives.first-research","progressId":"facility-progress.archives.discovery","interaction":"research-lead-reconstruction","finalizerId":"archivesResearchFinalizerV1","passivePolicy":"preserve-existing-building-production-and-family-assignment"},
+    {"phase":20,"facilityId":"facility.training-grounds","activityId":"activity.drills","opportunityId":"opportunity.facility.training-grounds.drill","anchor":"lower-left-arena","capabilityId":"capability.training-drills.v1","discoveryId":"story.book1.chapter4.quarry-claim.resolution","openingId":"facility.training.first-drill","progressId":"facility-progress.training-grounds.readiness","interaction":"participant-and-formation-drill","finalizerId":"trainingDrillFinalizerV1","passivePolicy":"preserve-existing-building-production-and-family-assignment"},
+    {"phase":20,"facilityId":"facility.hearth","activityId":"activity.gatherings","opportunityId":"opportunity.facility.hearth.gathering","anchor":"lower-right-manor","capabilityId":"capability.hearth-gatherings.v1","discoveryId":"story.book1.chapter3.river-accord.resolution","openingId":"facility.hearth.quiet-trust","progressId":"facility-progress.hearth.community","interaction":"attendees-and-gathering","finalizerId":"hearthGatheringFinalizerV1","passivePolicy":"preserve-existing-building-production-and-family-assignment"},
+    {"phase":21,"facilityId":"facility.gatehouse","activityId":"activity.caravans-and-road-events","opportunityId":"opportunity.facility.gatehouse.caravan","anchor":"lower-bridge-entrance","capabilityId":"capability.gatehouse-road-events.v1","discoveryId":"story.book1.chapter4.skybridge-terms.resolution","openingId":"facility.gatehouse.first-road-watch","progressId":"facility-progress.gatehouse.route-trust","interaction":"route-assessment-and-reception","finalizerId":"gatehouseCaravanFinalizerV1","passivePolicy":"opportunity-only-acceleration"},
+    {"phase":21,"facilityId":"facility.market-workshop","activityId":"activity.orders-and-crafting","opportunityId":"opportunity.facility.market-workshop.order","anchor":"western-plaza-workshop","capabilityId":"capability.market-workshop-orders.v1","discoveryId":"story.book1.chapter4.quarry-claim.resolution","openingId":"facility.workshop.salvage-order","progressId":"facility-progress.market-workshop.craftsmanship","interaction":"requirements-and-fulfillment","finalizerId":"workshopOrderFinalizerV1","passivePolicy":"opportunity-only-acceleration"},
+    {"phase":21,"facilityId":"facility.gardens","activityId":"activity.cultivation","opportunityId":"opportunity.facility.gardens.plot","anchor":"lower-right-gardens","capabilityId":"capability.gardens-cultivation.v1","discoveryId":"story.book1.chapter4.harbor-compact.resolution","openingId":"facility.gardens.first-cultivation","progressId":"facility-progress.gardens.cultivation","interaction":"plot-choice-growth-and-harvest","finalizerId":"gardensHarvestFinalizerV1","passivePolicy":"opportunity-only-acceleration"},
+    {"phase":21,"facilityId":"facility.forge","activityId":"activity.relic-commissions","opportunityId":"opportunity.facility.forge.commission","anchor":"eastern-edge-forge","capabilityId":"capability.forge-commissions.v1","discoveryId":"story.book1.rank5.covenant-arrivals","openingId":"facility.forge.first-commission","progressId":"facility-progress.forge.commission-mastery","interaction":"requirements-and-relic-commission","finalizerId":"forgeCommissionFinalizerV1","passivePolicy":"opportunity-only-acceleration"}
+  ],
+  "activityContent": {
+    "facility.command-center": {"templateIds":["command.petition.shared-road-use","command.petition.plaza-stalls","command.petition.river-access"],"choiceCount":6,"outcomeIds":["command.outcome.recorded"],"resumeStep":"choose-resolution"},
+    "facility.archives": {"templateIds":["archives.lead.faded-road-map","archives.lead.covenant-fragment","archives.lead.relic-maker-mark"],"choiceCount":3,"outcomeIds":["archives.outcome.documented","archives.outcome.breakthrough"],"resumeStep":"reconstruct"},
+    "facility.training-grounds": {"templateIds":["training.drill.controlled-spar","training.drill.bridge-formation","training.drill.readiness-circuit"],"choiceCount":3,"outcomeIds":["training.outcome.completed","training.outcome.refined"],"resumeStep":"formation"},
+    "facility.hearth": {"templateIds":["hearth.gathering.shared-table","hearth.gathering.story-circle","hearth.gathering.quiet-evening"],"choiceCount":3,"outcomeIds":["hearth.outcome.warm","hearth.outcome.deepened"],"resumeStep":"attendees"},
+    "facility.gatehouse": {"templateIds":["gatehouse.caravan.river-merchants","gatehouse.caravan.skybridge-couriers","gatehouse.caravan.covenant-envoys"],"choiceCount":3,"outcomeIds":["gatehouse.outcome.welcomed","gatehouse.outcome.prepared"],"resumeStep":"assessment"},
+    "facility.market-workshop": {"templateIds":["workshop.order.road-repair-kit","workshop.order.market-fixtures","workshop.order.caravan-supplies"],"choiceCount":4,"outcomeIds":["workshop.outcome.fulfilled","workshop.outcome.exacting"],"resumeStep":"fulfillment"},
+    "facility.gardens": {"templateIds":["gardens.crop.road-herbs","gardens.crop.river-greens","gardens.crop.waystone-bloom"],"choiceCount":3,"outcomeIds":["gardens.outcome.harvest","gardens.outcome.special-harvest"],"resumeStep":"growing"},
+    "facility.forge": {"templateIds":["forge.commission.village-toolwork","forge.commission.relic-restoration","forge.commission.stone-shaping"],"choiceCount":3,"outcomeIds":["forge.outcome.completed","forge.outcome.fine-work"],"resumeStep":"work-choice"}
+  },
+  "tutorialIds": ["tutorial.facility.board.discover-hotspots","tutorial.facility.opportunities.banking","tutorial.facility.claim.first-ready","tutorial.facility.command.first-petition","tutorial.facility.command.consequences","tutorial.facility.archives.first-research","tutorial.facility.archives.mastery","tutorial.facility.training.first-drill","tutorial.facility.training.mastery","tutorial.facility.hearth.first-gathering","tutorial.facility.hearth.relationship-results","tutorial.facility.gatehouse.first-caravan","tutorial.facility.gatehouse.road-events","tutorial.facility.workshop.first-order","tutorial.facility.workshop.mastery","tutorial.facility.gardens.first-plot","tutorial.facility.gardens.harvest","tutorial.facility.forge.first-commission","tutorial.facility.forge.mastery"],
+  "allRosterActorIds": ["fellow.cael","fellow.lyra","fellow.orin","fellow.selene","fellow.rook","fellow.mira","fellow.zamorak","fellow.darrow","fellow.deadpool","fellow.star-lord","fellow.iron-man","fellow.daredevil","fellow.thor","fellow.captain-america","fellow.spider-man","fellow.wolverine","fellow.obi-wan","fellow.anakin","family.elara","family.tamsin","family.isolde","family.violet","family.virginia","family.captain-marvel","family.scarlet-witch","family.ahsoka","family.rey","family.syl","family.shallan","family.yennefer","family.jaina","family.tyrande","family.shadowheart","family.amara","family.aerith","family.tifa","family.hermione","family.misty"],
+  "phase20_21ActorIds": ["family.ahsoka","family.amara","family.captain-marvel","family.elara","family.hermione","family.misty","family.rey","family.shadowheart","family.shallan","family.tyrande","family.violet","family.virginia","family.yennefer","fellow.anakin","fellow.cael","fellow.captain-america","fellow.daredevil","fellow.darrow","fellow.iron-man","fellow.mira","fellow.obi-wan","fellow.orin","fellow.rook","fellow.selene","fellow.star-lord","fellow.thor","fellow.wolverine","fellow.zamorak"],
+  "hookCount": 45,
+  "integrationHookCount": 10,
+  "approvedVisualFallbacks": ["approved-transparent-cutout","approved-framed-treatment","attributed-text-only"],
+  "migrations": ["migration.phase-20.original-four-active.v1","migration.phase-21.expansion-facilities.v1"],
+  "syntheticPolicy": {
+    "qaOnly": true,
+    "registryId": "qa.synthetic.phase-20-21.independent.v1",
+    "requiresIsolatedStorage": true,
+    "neverProductionFallback": true,
+    "intervalMsByFacility": {"facility.command-center":2700001,"facility.archives":3000001,"facility.training-grounds":3300001,"facility.hearth":3600001,"facility.gatehouse":3900001,"facility.market-workshop":4200001,"facility.gardens":4500001,"facility.forge":4800001},
+    "bankCapacityByFacility": {"facility.command-center":3,"facility.archives":4,"facility.training-grounds":5,"facility.hearth":6,"facility.gatehouse":7,"facility.market-workshop":8,"facility.gardens":9,"facility.forge":10},
+    "baseRewardGoldByFacility": {"facility.command-center":101,"facility.archives":103,"facility.training-grounds":107,"facility.hearth":109,"facility.gatehouse":113,"facility.market-workshop":127,"facility.gardens":131,"facility.forge":137},
+    "localProgressByFacility": {"facility.command-center":2,"facility.archives":3,"facility.training-grounds":5,"facility.hearth":7,"facility.gatehouse":11,"facility.market-workshop":13,"facility.gardens":17,"facility.forge":19},
+    "gardenGrowthMs": 7200001,
+    "relationshipProgress": 1,
+    "giftChancePercent": 37,
+    "stockRequirement": 2,
+    "integrationThreshold": 3,
+    "integrationBonusPercent": 7
+  },
+  "saveFixtures": {
+    "freshNullPolicy":"p20-21.qa.fresh-null-policy.v1","migrated20":"p20.qa.migrated.v1","migrated21":"p21.qa.migrated.v1","allUnlocked":"p20-21.qa.all-unlocked.v1","commandBanked":"p20.qa.command-banked.v1","archivesBanked":"p20.qa.archives-banked.v1","trainingBanked":"p20.qa.training-banked.v1","hearthBanked":"p20.qa.hearth-banked.v1","gatehouseBanked":"p21.qa.gatehouse-banked.v1","workshopBanked":"p21.qa.workshop-banked.v1","gardensBanked":"p21.qa.gardens-banked.v1","gardenGrowing":"p21.qa.garden-growing.v1","gardenReady":"p21.qa.garden-ready.v1","forgeBanked":"p21.qa.forge-banked.v1","claimReadyEach":"p20-21.qa.claim-ready-each.v1","archiveWindow":"p20-21.qa.archive-window.v1","offline":"p20-21.qa.offline.v1","recovery":"p20-21.qa.recovery.v1","corrupt":"p20-21.qa.corrupt.v1","future":"p20-21.qa.future.v1","lockedRoster":"p20-21.qa.locked-roster.v1"
+  },
+  "concurrencyKinds": ["settle-command","resolve-command","settle-archives","resolve-archives","settle-training","resolve-training","settle-hearth","resolve-hearth","settle-gatehouse","resolve-gatehouse","settle-workshop","reserve-workshop","resolve-workshop","settle-gardens","advance-gardens","resolve-gardens","settle-forge","reserve-forge","resolve-forge","claim-each-finalizer","archive-fold"],
+  "invalidMutationKinds": ["future-definition-version","unknown-facility","unknown-activity","unknown-opportunity","unknown-template","unknown-choice","wrong-story-capability","expired-opportunity","duplicate-participant","locked-participant","fellow-building-staffing","family-assignment-mutation","campaign-power-mutation","relationship-spend","duplicate-global-currency","daily-reset-loss","caller-stock-quantity","duplicate-relic-stone-balance","garden-auto-claim","garden-auto-replant","forge-affix","forge-reforge","mandatory-integration","integration-cycle-consumption","detached-grid-state","sixth-navigation-state","blessing-track","broken-archive","broken-save-binding"],
+  "forbiddenSystems": ["facility-stamina","facility-global-currency","daily-reset-loss","detached-building-management-grid","sixth-bottom-navigation-item","family-blessing-track","fellow-building-staffing","expansion-passive-production","duplicate-relic-stone-balance","claim-all","garden-spoilage","garden-auto-replant","forge-affixes","forge-reforging","advanced-relic-sets","copied-reference-assets","copied-reference-trade-dress"],
+  "originalPassiveFacilityIds": ["facility.command-center","facility.archives","facility.training-grounds","facility.hearth"],
+  "expansionFacilityIds": ["facility.gatehouse","facility.market-workshop","facility.gardens","facility.forge"],
+  "archivePolicy": {"configId":"claim-archive.phase-15.v1","recentReceiptLimit":512,"foldBatchSize":128,"expectedRecentAfterNextClaim":385,"expectedThroughAfterNextClaim":128},
+  "frozenNow": 300000000,
+  "offlineCapMs": 86400000,
+  "viewports": [{"id":"mobile-320","width":320,"height":568,"copyScale":1,"reducedMotion":false},{"id":"mobile-390","width":390,"height":844,"copyScale":1,"reducedMotion":false},{"id":"desktop-1024","width":1024,"height":768,"copyScale":1,"reducedMotion":false},{"id":"copy-130","width":390,"height":844,"copyScale":1.3,"reducedMotion":false},{"id":"reduced-motion","width":390,"height":844,"copyScale":1,"reducedMotion":true}],
+  "expectedCandidateFailureIds": ["candidate-phase20-21-bridge-contract","candidate-predecessor-finalizer-v2-seams","candidate-eight-config-registry-runtime","candidate-command-petition-runtime","candidate-archives-research-runtime","candidate-training-drill-runtime","candidate-hearth-gathering-runtime","candidate-gatehouse-event-runtime","candidate-workshop-order-runtime","candidate-gardens-cultivation-runtime","candidate-forge-commission-runtime","candidate-migration-offline-concurrency-archive-runtime","candidate-story-tutorial-cast-runtime","candidate-physical-board-dom-runtime","candidate-forbidden-systems-runtime"]
+}

@@ -1,0 +1,23 @@
+{
+  "baseCommit": "fa004195a36dcbcd5be4ad9d73357a63cf50f3f7",
+  "files": {
+    "design/phase-20-21/DATA_SPEC.md": "5198d8869e907f5ca37c8d8f12a5776ff5186d572402a4e34aecfcaea55b7482",
+    "design/phase-20-21/PHASE_20_21_CONTRACT.md": "087231af0588d62af0aa5b86de760ae7fe12cdbc883200a3cbc67542cb60f0f2",
+    "design/phase-20-21/README.md": "9b5eae9767e98a9691e9c77ea806caa0ad82755ba6564a01bc31cbd0495cd1e4",
+    "design/phase-20-21/cast-bindings.json": "9fa1090688cb2360047b934132fc06aae198dad349933b7f4a2ef05486fdf9ab",
+    "design/phase-20-21/cross-facility-integration.json": "cbbe757459f05f5998b4b40fbddf3565ad2d4f55e6edf8bf07578d108286a5b5",
+    "design/phase-20-21/fixtures.json": "a5342f7f8493151f5116cb386814e6920452a3dbd098a9d75ed40b8813bd18f1",
+    "design/phase-20-21/phase20-definitions.json": "1d068fcf64f97ba60082466dc05b96eaf2c1f612894214d55c3d8b491e3a4271",
+    "design/phase-20-21/phase21-definitions.json": "e8e67e63008240e39c3a8f91374b96065d96275ee7adab409e44dbafea150a6c",
+    "design/phase-20-21/release-gate.json": "27357c61208a6e8bde879d8ea51e126e8c5ad0743f7b2dab48efd21afddf72c3",
+    "design/phase-20-21/tutorial-bindings.json": "cafb366b7c40615ef1e3e0324f86ac8c1a6e38b94994564d48fb5f1f9372660f",
+    "design/phase-20-21/validate.py": "9367384569de5283fb3d5d47bcfc91f3bdf281697f24b6c8e187d314e76a81e8",
+    "index.html": "6d484020dc2e1778314043985ef2fe5e316d3e035275f421e213e2304b66ab48",
+    "qa/phase-18-19-independent/checksums.sha256": "5c80a46de75e4aeed6fde44769386f7940032e8a29e58c8f1ab00639fccf0216",
+    "qa/phase-18-19-independent/fixtures/contract-fixtures.json": "57b5ca6db294f2470adb241ac5bd718b70fc849bea6720c23429324b15304752",
+    "qa/phase-18-19-independent/verify.mjs": "c86cc4fb89c676c89a9134411f0728642833449903993df8a7edd9d241219e69",
+    "src/phase12-foundation.js": "4d25cc6cf4438484fc7bec9e0e1785553a5160dd22fe0c31a6c5abc9dc4889df",
+    "src/phase13-first-covenant.js": "fc5ecd19fbf7345dfa7929d164af02f5db2e4f182888443009b7e0a7c062681a",
+    "src/phase15-facilities.js": "29888a098a1cfea01282bf59739673b4c910e2133ceb01d29d78e20422811fd7"
+  }
+}
