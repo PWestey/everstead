@@ -1,0 +1,39 @@
+{
+  "contractVersion": 2,
+  "phase": "22A",
+  "baseCommit": "810b9ea223cce5444c08f28b596173d2f78a334b",
+  "sourceCommit": "f93c35e3a72adbf8f8b7f723e5dac36feb615216",
+  "baseIndexSha256": "998ea7205cc67e0c8acf0267897d142a5ff1c1a7fdf0c4ee35862534d962dbe4",
+  "baseIndexBytes": 1369268,
+  "stylesheet": "src/phase22a-shell-polish.css",
+  "stylesheetVersion": "phase22a-shell-v1",
+  "stylesheetHref": "src/phase22a-shell-polish.css?v=phase22a-shell-v1",
+  "stylesheetInclude": "  <link rel=\"stylesheet\" href=\"src/phase22a-shell-polish.css?v=phase22a-shell-v1\">\n",
+  "stylesheetSha256": "1685dff9f024ad4a9ddebae35c71dd205aa88c098b9bd4ba2454a097bee3f051",
+  "stylesheetBytes": 15062,
+  "bridgeVersion": "phase-20-21-independent-qa-v2",
+  "navigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "minimumTargetPx": 44,
+  "truthStates": {
+    "opportunity-ready": "READY",
+    "in-progress": "ACTIVE",
+    "claim-ready": "CLAIM"
+  },
+  "productionSources": {
+    "src/phase20-21-facilities.js": "51f9f7b0b4fd1a5bfe4aa5b9f09ec30e251eefedbb0eae25a6911d5c3cc7de8b",
+    "src/phase20-21-runtime.js": "b6894ef6b7b031c4acf6457b658e99b996a816ca9900d7b12e7d711d5e41dc62",
+    "src/phase20-21-presentation.js": "f47665145a49ff90254a863d73aa02c18cb340179c1159ebbe5c9a240a021ce9",
+    "src/phase20-21-presentation.css": "51d877d88c791f196e98a95a22f221bd77466055632a6f255daa3c2d8dc602a9"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-430x932", "width": 430, "height": 932, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-768x1024", "width": 768, "height": 1024, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-1024x768", "width": 1024, "height": 768, "copyScale": 1, "reducedMotion": false},
+    {"id": "copy-130-390x844", "width": 390, "height": 844, "copyScale": 1.3, "reducedMotion": false},
+    {"id": "reduced-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": true}
+  ],
+  "inactiveViewport": {"id": "inactive-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+  "publicRelease": false
+}

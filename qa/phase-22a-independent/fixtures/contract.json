@@ -1,0 +1,34 @@
+{
+  "contractVersion": 2,
+  "baseCommit": "810b9ea223cce5444c08f28b596173d2f78a334b",
+  "sourceCommit": "f93c35e3a72adbf8f8b7f723e5dac36feb615216",
+  "bridgeVersion": "phase-20-21-independent-qa-v2",
+  "fixtureId": "p20-21.qa.all-unlocked.v2",
+  "frozenNow": 1760000000000,
+  "stylesheet": "src/phase22a-shell-polish.css",
+  "stylesheetVersion": "phase22a-shell-v1",
+  "stylesheetHref": "src/phase22a-shell-polish.css?v=phase22a-shell-v1",
+  "stylesheetSha256": "1685dff9f024ad4a9ddebae35c71dd205aa88c098b9bd4ba2454a097bee3f051",
+  "navigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "minimumTargetPx": 44,
+  "truthFixtures": {
+    "opportunity-ready": "facility.command-center",
+    "in-progress": "facility.archives",
+    "claim-ready": "facility.gatehouse"
+  },
+  "truthLabels": {
+    "opportunity-ready": "READY",
+    "in-progress": "ACTIVE",
+    "claim-ready": "CLAIM"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-430x932", "width": 430, "height": 932, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-768x1024", "width": 768, "height": 1024, "copyScale": 1, "reducedMotion": false},
+    {"id": "tablet-1024x768", "width": 1024, "height": 768, "copyScale": 1, "reducedMotion": false},
+    {"id": "copy-130-390x844", "width": 390, "height": 844, "copyScale": 1.3, "reducedMotion": false},
+    {"id": "reduced-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": true}
+  ],
+  "inactiveViewport": {"id": "inactive-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false}
+}
