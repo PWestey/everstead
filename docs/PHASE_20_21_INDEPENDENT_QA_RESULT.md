@@ -59,6 +59,12 @@ These may close after the shared seam and relevant Phase 20 seams. All four rema
 
 The five-realm runner is complete and statically validated, but no browser connection was available in this isolated QA task. Therefore this result does **not** claim a live browser pass. At the exact preimplementation base, the required live observation is ten package rows passing plus two fail-closed rows in each of five realms (`bridge-present` and `phase20-21-contract-unavailable`), for **10 pass / 10 expected fail**. Root integration must run and record that observation before accepting this gate.
 
+### Runner-timeout correction acceptance
+
+The preimplementation runner must do more than load and render `index.html`: its generated bootstrap and suite payloads must both be executable after insertion into the real candidate source, and the absent Phase 20–21 bridge must post the two fail-closed rows within the realm timeout. The package verifier must execute the real loader-generation path and execute the exact generated suite payload; checking `realm.js` syntax or searching for expected strings alone is insufficient.
+
+This correction is QA-only. It must not change production code, design files, artwork, CSS, deployment configuration, the frozen candidate artifact, the 15 expected absent-runtime static boundaries, or any gameplay/save behavior. Live acceptance remains exactly **10 pass / 10 expected fail** across the five frozen realms until the real Phase 20–21 runtime exists.
+
 ## Residual risks and release posture
 
 This package does not approve any null cadence, capacity, reward, progression, relationship, Gift, stock, growth, mastery, integration, parity, acceleration, art, or CSS policy. It does not prove Safari/real-device behavior, economic parity, five-year archive/save-size headroom, final copy or art rights. Web Storage still has the documented final reread-to-write no-CAS interval.
