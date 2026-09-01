@@ -40,6 +40,7 @@ check('passive-baseline-excludes-volatile-day-marker',()=>{const body=html.match
 check('recovery-fixture-stages-valid-successor',()=>{assert.match(html,/Phase 15 recovery fixture revision/);assert.match(html,/stagingEnvelope\(candidate,PERSISTED_RAW,'phase15-qa-fixture'\)/);assert.doesNotMatch(html,/setItem\(STAGING_KEY,PERSISTED_RAW\)/)});
 check('mixed-board-fixture-is-story-safe',()=>{assert.match(html,/phaseFifteenConfigureFixtureInState[\s\S]*?story\.book1\.prologue\.council[\s\S]*?pendingSceneIds=\[\]/);assert.match(html,/PHASE_THIRTEEN_UI\.sceneId=null/)});
 check('runtime-reduced-motion-class',()=>{assert.match(html,/html\.phase15-reduced-motion/);assert.match(html,/classList\.toggle\('phase15-reduced-motion',runtimePrefersReducedMotion\(\)\)/)});
+check('facility-sheet-receives-initial-focus',()=>{assert.match(html,/phaseFifteenOpenFacilityBeforeSheetFocus/);assert.match(html,/sheet\.tabIndex=-1;sheet\.focus\(\)/)});
 
 const failed=rows.filter(row=>!row.pass);
 console.log(JSON.stringify({phase:'15-foundation-focused',total:rows.length,passed:rows.length-failed.length,failed:failed.length,rows},null,2));
