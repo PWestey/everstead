@@ -8,7 +8,7 @@
   "expectedCandidateSemanticSha256": "417a5da7af5743f940a1ec721f350bd231d203b1aba30827f923bb106b9e7683",
   "expectedAuthoritySha256": "7eae0b97ace1f4e88261f877cd1043780867d8a876941ef34c0f682c6d0de7ce",
   "expectedReleaseManifestSha256": "98831cc04f125fcc88e78ceac7dae50b5e7434258e66d6c5b2bcb0370fc2ff60",
-  "expectedProductionIndexSha256": "ea1add113b1fe5e86f4afc69cced568a726147493e4cc8982e22f1207ffcfe7b",
+  "expectedProductionIndexSha256": "abd02ae0efc864f4e72f1fe0d5399a930da11dd3a368847d1ba53136bfe0c56b",
   "expectedUnfrozenIdentityFailures": 0,
   "acceptedHistoricalSourcePins": {
     "src/phase24c-durable-definitions.js": "101377044214d87478475ba9064c4342b9ce8fcbe62e5d4e1743a08f31767f70",

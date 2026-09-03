@@ -6,7 +6,7 @@
   "frozenNow": 1800000000000,
   "candidate": {
     "indexPath": "index.html",
-    "indexSha256": "ea1add113b1fe5e86f4afc69cced568a726147493e4cc8982e22f1207ffcfe7b",
+    "indexSha256": "abd02ae0efc864f4e72f1fe0d5399a930da11dd3a368847d1ba53136bfe0c56b",
     "predecessorIndexSha256": "7073db350bddfdea932bf89d900a449346c2e3e6b2b636bf55a1e8f8f3aa3356",
     "authorityPath": "src/phase24c2d-founding-table-release-authority.js",
     "authoritySourceSha256": "4645f30b7a2eeac1dc5ef9056fdd522aea5f4dbd5fe0634c09c57d2f5b648084",

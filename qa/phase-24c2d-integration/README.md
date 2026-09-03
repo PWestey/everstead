@@ -4,12 +4,14 @@ This additive gate loads the real `index.html` in an injected, isolated memory-s
 
 It covers the first nonzero permanent Collection release: activation is reward-neutral, all three founding recipes drive `0/3` to `3/3`, the visible manual claim applies exactly once, reload preserves one receipt and 200 Restaurant basis points, and the real Restaurant pipeline captures the Collection bonus only when a new service reward becomes ready. It also exercises both gradual tutorials, discovery-gated tutorial logs, terminal replay controls, 320×568 and 390×844 layouts, Safe Reset, rollback, save-import adapters v1–v3, and schema-12/schema-13 migration followed by the real production reload path.
 
+The reload realm also creates an authentic schema-13-to-14 migrated, zero-authority origin without the later Phase 12–21 content foundations. This represents the foundation-thin save shape found in an earlier deployed migration. The current hotfix must load that save through the production reload path without a fatal screen or storage write, retain zero Collection rewards, and defer the Phase 24C-2D release. A dedicated future schema-14 reconciliation migration—not a rewritten historical receipt—will activate that save shape later. Direct schema-14 origins and foundation-complete migrated origins continue through normal activation.
+
 ## Final status
 
 The reviewed authority and production identities are frozen. The real Chromium
-gate passes 70/70 across both mobile realms with zero captured warning/error
+gate passes 71/71 across both mobile realms with zero captured warning/error
 console entries and zero native-storage access. The static/package verifier
-passes 64/64.
+passes 65/65.
 
 The isolated adapter shares monotonic save and transaction ID counters across both simulated page loads. Each inherited recovery fixture also resets the QA-only clock without storage writes, so Safe Reset and the v1–v3 import/migration cases cannot pass or fail because one fixture leaked identity or time state into the next.
 
