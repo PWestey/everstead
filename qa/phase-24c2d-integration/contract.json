@@ -6,7 +6,7 @@
   "frozenNow": 1800000000000,
   "candidate": {
     "indexPath": "index.html",
-    "indexSha256": "abd02ae0efc864f4e72f1fe0d5399a930da11dd3a368847d1ba53136bfe0c56b",
+    "indexSha256": "cc444aaab670eef836b9fe09a0e2389739c14b8bdf41db734216291f2399ff20",
     "predecessorIndexSha256": "7073db350bddfdea932bf89d900a449346c2e3e6b2b636bf55a1e8f8f3aa3356",
     "authorityPath": "src/phase24c2d-founding-table-release-authority.js",
     "authoritySourceSha256": "4645f30b7a2eeac1dc5ef9056fdd522aea5f4dbd5fe0634c09c57d2f5b648084",
@@ -68,11 +68,12 @@
   ],
   "viewports": [
     {"id": "claim-320x568", "scenario": "claim", "width": 320, "height": 568, "reducedMotion": false, "sharedId": "founding-table"},
-    {"id": "reload-390x844", "scenario": "reload", "width": 390, "height": 844, "reducedMotion": true, "sharedId": "founding-table"}
+    {"id": "reload-390x844", "scenario": "reload", "width": 390, "height": 844, "reducedMotion": true, "sharedId": "founding-table"},
+    {"id": "thin-390x844", "scenario": "thin", "width": 390, "height": 844, "reducedMotion": false, "sharedId": "founding-table", "fixtureId": "phase24c2e.schema14-foundation-thin.v1", "publicRelease": true}
   ],
   "minimumTouchTargetPx": 44,
   "storage": {
-    "activeKey": "oathforge-prototype-v2",
-    "stagingKey": "oathforge-prototype-v2-staging"
+    "activeKey": "oathforge_new_world_proto_v01",
+    "stagingKey": "oathforge_new_world_proto_v01__staging"
   }
 }
