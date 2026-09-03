@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "phase24b.provisional-progression.v1",
+  "status": "provisional-output-only-not-runtime-authority",
+  "purpose": "Deterministic candidate inputs for Phase 24B simulation. No value in this file is approved live balance.",
+  "baseline": {
+    "contractId": "phase-24a-balance-baseline-v1",
+    "authorityConfigId": "everstead-scaling-live-baseline.phase-24a.v1",
+    "reportPath": "qa/phase-24-baseline/reports/phase24a-balance-report.json",
+    "reportSha256": "e7ede3199b5addabee64c13710985f822f8538e1313a946b0ef85c992a0dd353",
+    "requiredFreshAnchors": {
+      "fellowEconomyPower": 35150,
+      "fellowCombatPower": 35565,
+      "companionPower": 2200,
+      "villageGoldPerHour": 27320.8092192
+    },
+    "requiredMigratedAnchors": {
+      "fellowCombatPower": 36645,
+      "companionActualPower": 2272,
+      "companionMigrationFloorPower": 2892,
+      "villageGoldPerHour": 27328.94041242
+    },
+    "requiredHighAnchors": {
+      "fellowEconomyPower": 3196916,
+      "fellowCombatPower": 3588268,
+      "companionPower": 50355,
+      "villageGoldPerHour": 60337645.45902187
+    }
+  },
+  "tableExpansion": {
+    "id": "phase24b.flat-band-expansion.v1",
+    "description": "Each authored band total is distributed as evenly as integers permit across its finite level transitions, with remainder assigned to the latest transitions. Widening happens at visible 50-level bands. This is a finite table expansion, not an infinite formula.",
+    "startWeight": 1,
+    "weightStep": 0,
+    "remainderPolicy": "add-one-to-latest-transitions"
+  },
+  "fellow": {
+    "levelCap": 750,
+    "levelMultiplier": {
+      "id": "phase24b.fellow-level-multiplier.provisional.v1",
+      "status": "provisional",
+      "linearThroughLevel": 500,
+      "linearGrowthPerLevel": 0.115,
+      "post500Interpolation": "linear-between-authored-anchors",
+      "anchors": [
+        { "level": 1, "multiplier": 1 },
+        { "level": 50, "multiplier": 6.635 },
+        { "level": 100, "multiplier": 12.385 },
+        { "level": 120, "multiplier": 14.685 },
+        { "level": 200, "multiplier": 23.885 },
+        { "level": 300, "multiplier": 35.385 },
+        { "level": 400, "multiplier": 46.885 },
+        { "level": 500, "multiplier": 58.385 },
+        { "level": 550, "multiplier": 68.73 },
+        { "level": 600, "multiplier": 80 },
+        { "level": 650, "multiplier": 92.15 },
+        { "level": 700, "multiplier": 105.23 },
+        { "level": 750, "multiplier": 117.38 }
+      ]
+    },
+    "expBands": [
+      { "fromLevel": 1, "toLevel": 50, "totalExp": 15000 },
+      { "fromLevel": 50, "toLevel": 100, "totalExp": 35000 },
+      { "fromLevel": 100, "toLevel": 150, "totalExp": 70000 },
+      { "fromLevel": 150, "toLevel": 200, "totalExp": 120000 },
+      { "fromLevel": 200, "toLevel": 250, "totalExp": 200000 },
+      { "fromLevel": 250, "toLevel": 300, "totalExp": 320000 },
+      { "fromLevel": 300, "toLevel": 350, "totalExp": 500000 },
+      { "fromLevel": 350, "toLevel": 400, "totalExp": 750000 },
+      { "fromLevel": 400, "toLevel": 450, "totalExp": 1100000 },
+      { "fromLevel": 450, "toLevel": 500, "totalExp": 1550000 },
+      { "fromLevel": 500, "toLevel": 550, "totalExp": 2250000 },
+      { "fromLevel": 550, "toLevel": 600, "totalExp": 5000000 },
+      { "fromLevel": 600, "toLevel": 650, "totalExp": 17500000 },
+      { "fromLevel": 650, "toLevel": 700, "totalExp": 45000000 },
+      { "fromLevel": 700, "toLevel": 750, "totalExp": 95000000 }
+    ],
+    "expScaleRationale": {
+      "status": "provisional",
+      "lateReferenceBands": { "level550To600": 200000000, "level600To650": 700000000 },
+      "candidateBands": { "level550To600": 5000000, "level600To650": 17500000 },
+      "absoluteScaleDivisor": 40,
+      "preservedBandRatio": 3.5,
+      "reason": "The candidate preserves the cited widening shape but deliberately tests one-fortieth of the external absolute scale so the accepted first-week and early-established Everstead targets can coexist with an explicit proposed reward budget. This is a simulation choice, not approved balance."
+    },
+    "breakthroughs": [
+      { "level": 50, "requirementUnits": 1 },
+      { "level": 100, "requirementUnits": 2 },
+      { "level": 150, "requirementUnits": 3 },
+      { "level": 200, "requirementUnits": 5 },
+      { "level": 250, "requirementUnits": 8 },
+      { "level": 300, "requirementUnits": 12 },
+      { "level": 350, "requirementUnits": 18 },
+      { "level": 400, "requirementUnits": 26 },
+      { "level": 450, "requirementUnits": 38 },
+      { "level": 500, "requirementUnits": 55 },
+      { "level": 550, "requirementUnits": 80 },
+      { "level": 600, "requirementUnits": 115 },
+      { "level": 650, "requirementUnits": 165 },
+      { "level": 700, "requirementUnits": 235 }
+    ]
+  },
+  "companion": {
+    "levelCap": 500,
+    "levelMultiplier": {
+      "id": "phase24b.companion-level-multiplier.provisional.v1",
+      "status": "provisional",
+      "kind": "finite-linear-table",
+      "growthPerLevel": 0.1
+    },
+    "expBands": [
+      { "fromLevel": 1, "toLevel": 50, "totalExp": 149000 },
+      { "fromLevel": 50, "toLevel": 100, "totalExp": 550000 },
+      { "fromLevel": 100, "toLevel": 150, "totalExp": 1200000 },
+      { "fromLevel": 150, "toLevel": 200, "totalExp": 2250000 },
+      { "fromLevel": 200, "toLevel": 250, "totalExp": 3810000 },
+      { "fromLevel": 250, "toLevel": 300, "totalExp": 6000000 },
+      { "fromLevel": 300, "toLevel": 350, "totalExp": 8500000 },
+      { "fromLevel": 350, "toLevel": 400, "totalExp": 11000000 },
+      { "fromLevel": 400, "toLevel": 450, "totalExp": 13500000 },
+      { "fromLevel": 450, "toLevel": 500, "totalExp": 15660000 }
+    ],
+    "breakthroughs": [
+      { "level": 50, "requirementUnits": 1 },
+      { "level": 100, "requirementUnits": 2 },
+      { "level": 150, "requirementUnits": 3 },
+      { "level": 200, "requirementUnits": 5 },
+      { "level": 250, "requirementUnits": 8 },
+      { "level": 300, "requirementUnits": 12 },
+      { "level": 350, "requirementUnits": 18 },
+      { "level": 400, "requirementUnits": 27 },
+      { "level": 450, "requirementUnits": 40 }
+    ]
+  },
+  "breakthroughMaterialModel": {
+    "status": "abstract-provisional-throughput-unit",
+    "createsLiveCurrency": false,
+    "meaning": "A normalized authored bundle requirement used only to test pacing. A later accepted table must map each gate to existing materials or fixed claim bundles without introducing a new currency by accident.",
+    "claimPolicy": "manual-banked-exactly-once",
+    "expAtClosedGate": "bank-without-loss"
+  },
+  "manualBreakthroughFixtures": [
+    {
+      "id": "phase24b.fellow-level50-manual-gate.v1",
+      "lane": "fellow",
+      "actorId": "cael",
+      "basePower": 6100,
+      "gateLevel": 50,
+      "bankedExp": 2100,
+      "initialMaterialUnits": 0,
+      "materialGrantUnits": 1,
+      "legacyFreeClaim": false,
+      "persistentState": { "rarityStars": 3, "relicId": "first-road-lantern", "relicLevel": 3, "relicTier": 1, "relicPowerBps": 150, "assignedCompanionId": "arcanine", "mightBps": 5000, "masteryLevel": 0, "unrelatedFlag": "preserve-me" }
+    },
+    {
+      "id": "phase24b.companion-level100-free-legacy-gate.v1",
+      "lane": "companion",
+      "actorId": "arcanine",
+      "basePower": 115,
+      "gateLevel": 100,
+      "bankedExp": 48000,
+      "initialMaterialUnits": 0,
+      "materialGrantUnits": 0,
+      "legacyFreeClaim": true,
+      "persistentState": { "rarityStars": 3, "relicId": null, "assignedFellowId": "cael", "mightBps": 0, "masteryLevel": 10, "unrelatedFlag": "preserve-me" }
+    }
+  ],
+  "throughput": {
+    "horizonsDays": [1, 7, 30, 90, 365],
+    "currentLive": {
+      "status": "released-mechanics-frozen-fresh-static-bounds-not-a-dynamic-projection",
+      "goldPolicy": "fresh starting Gold plus frozen fresh Gold/hour, with one claim per day so each 24-hour offline cap is fully used; Levels, Power, Rank joins, and newly opened stages do not feed back into this deliberately static bound",
+      "fellowCampaign": {
+        "firstClearExpByStage": [120, 150, 180, 210, 240, 270, 300, 330, 360, 390],
+        "replayExpByStage": [60, 75, 90, 105, 120, 135, 150, 165, 180, 195]
+      },
+      "companionCampaign": {
+        "firstClearExpByStage": [100, 125, 150, 175, 200, 225, 250, 275, 300, 325],
+        "replayExpByStage": [50, 62, 75, 87, 100, 112, 125, 137, 150, 162]
+      },
+      "companionTower": {
+        "clearExpBasePerTarget": 40,
+        "clearExpStepPerFloor": 10,
+        "idleExpBasePerHourPerCompanion": 20,
+        "idleExpPerFloorPerHourPerCompanion": 2,
+        "floorFiftyClearTotalAccountExp": 14250,
+        "floorFiftyIdleExpPerHourPerCompanion": 120
+      },
+      "rankUnlocks": {
+        "companionCampaignRank": 2,
+        "companionTowerRank": 3,
+        "rank2Exp": 50,
+        "rank3Exp": 125,
+        "freshRank": 1,
+        "firstTwoFellowStageRankExp": 55
+      },
+      "breakthroughRequirementUnitsAvailable": 0
+    },
+    "proposedLaunchExpBudget": {
+      "status": "provisional-prerequisite-not-present-in-live-game",
+      "description": "Cumulative account-wide raw EXP and abstract Breakthrough throughput required to test the handoff pacing targets. These values require new authored permanent reward sources before any curve can ship.",
+      "rows": [
+        { "days": 1, "fellowRawExp": 270000, "fellowBreakthroughUnits": 18, "companionRawExp": 100000, "companionBreakthroughUnits": 20 },
+        { "days": 7, "fellowRawExp": 8000000, "fellowBreakthroughUnits": 220, "companionRawExp": 4000000, "companionBreakthroughUnits": 100 },
+        { "days": 30, "fellowRawExp": 40000000, "fellowBreakthroughUnits": 1500, "companionRawExp": 30000000, "companionBreakthroughUnits": 500 },
+        { "days": 90, "fellowRawExp": 160000000, "fellowBreakthroughUnits": 5000, "companionRawExp": 90000000, "companionBreakthroughUnits": 1500 },
+        { "days": 365, "fellowRawExp": 360000000, "fellowBreakthroughUnits": 20000, "companionRawExp": 240000000, "companionBreakthroughUnits": 5000 }
+      ]
+    },
+    "allocation": {
+      "focused": {
+        "fellowRosterSize": 6,
+        "fellowLeadShareBps": 7500,
+        "companionRosterSize": 20,
+        "companionLeadShareBps": 6000,
+        "remainderPolicy": "equal-by-definition-order"
+      },
+      "broad": {
+        "fellowRosterSize": 18,
+        "companionRosterSize": 20,
+        "policy": "equal-by-definition-order"
+      }
+    }
+  },
+  "collectionStressBps": [0, 2500, 5000, 10000, 25000, 50000, 100000],
+  "collectionPolicy": {
+    "status": "stress-only-not-live",
+    "exp": "raw eligible EXP times one plus Collection EXP; integer-floor only for this provisional simulation",
+    "power": "Collection Power adds beside Might in the final Fellow bonus pool; it never multiplies an already-boosted final total",
+    "earnings": "Collection Earnings adds beside Oath; the report uses the fresh zero-Oath baseline",
+    "facility": "A normalized active facility reward uses one plus its facility-local collection bonus",
+    "mandatoryRequirementsAssumeLimitedCollections": false,
+    "releaseBudgetsAreLifetimeCaps": false,
+    "adjacentBonusProbe": {
+      "baseAmount": 100000,
+      "representativeCollectionBps": 2500,
+      "existingBonusBps": {
+        "powerMight": 5000,
+        "earningsOath": 3000,
+        "expAuthored": 2000,
+        "facilityAuthoredActive": 4000
+      }
+    }
+  },
+  "collectionOwnershipFixtures": {
+    "status": "provisional-isolation-only",
+    "zeroCollection": { "powerBps": 0, "earningsBps": 0, "expBps": 0, "facilityBps": 0, "limitedComponentBpsByPool": { "power": 0, "earnings": 0, "exp": 0, "facility": 0 } },
+    "permanentOnly": { "powerBps": 1000, "earningsBps": 1000, "expBps": 500, "facilityBps": 200, "limitedComponentBpsByPool": { "power": 0, "earnings": 0, "exp": 0, "facility": 0 } },
+    "allContent": { "powerBps": 1400, "earningsBps": 1400, "expBps": 700, "facilityBps": 300, "limitedComponentBpsByPool": { "power": 400, "earnings": 400, "exp": 200, "facility": 100 } },
+    "stressProvenance": {
+      "permanentOnlySourceSharesBps": [6000, 4000],
+      "mixedPermanentShareBps": 7000,
+      "mixedLimitedShareBps": 3000,
+      "pools": ["power", "earnings", "exp", "facility"]
+    },
+    "requirementAuthoringProfile": "permanentOnly",
+    "limitedEventBonusExcludedFromRequirements": true
+  },
+  "delayedClaimFixture": {
+    "id": "phase24b.synthetic-delayed-claim.v1",
+    "status": "simulation-only",
+    "capturedRewards": { "fellowExp": 10000, "facilityActiveReward": 5000 },
+    "capturedAtEconomyGoldPerHour": 27320.8092192,
+    "capturedAtLevel": 120,
+    "laterEconomyGoldPerHour": 60337645.45902187,
+    "laterLevel": 750,
+    "laterOathBps": 3000,
+    "laterCollectionBps": 100000,
+    "laterFacilityBps": 50000,
+    "laterAuthoredExpBps": 2000,
+    "laterAuthoredFacilityActiveBps": 4000,
+    "claimPolicy": "captured-value-exactly-once-no-repricing"
+  },
+  "collectionLedgerMigrationFixture": {
+    "id": "phase24b.collection-ledger-migration.provisional.v1",
+    "status": "simulation-only",
+    "legacyDisplayedCapsBps": { "power": 3000, "earnings": 3000, "exp": 2000, "facility": 2500 },
+    "claimedEntries": [
+      { "claimId": "permanent.power.catalog", "provenance": "permanent", "pool": "power", "bps": 3000 },
+      { "claimId": "limited.power.season", "provenance": "limited", "pool": "power", "bps": 400 },
+      { "claimId": "permanent.earnings.catalog", "provenance": "permanent", "pool": "earnings", "bps": 2000 },
+      { "claimId": "limited.earnings.season", "provenance": "limited", "pool": "earnings", "bps": 300 },
+      { "claimId": "permanent.exp.catalog", "provenance": "permanent", "pool": "exp", "bps": 1500 },
+      { "claimId": "limited.exp.season", "provenance": "limited", "pool": "exp", "bps": 200 },
+      { "claimId": "permanent.facility.restaurant", "provenance": "permanent", "pool": "facility", "bps": 2500 },
+      { "claimId": "limited.facility.season", "provenance": "limited", "pool": "facility", "bps": 100 }
+    ],
+    "futureGrant": { "claimId": "permanent.power.future", "provenance": "permanent", "pool": "power", "bps": 100 },
+    "migrationPolicy": "derive exact named-pool totals from unique claimed-entry provenance; never clamp to obsolete displayed caps"
+  },
+  "limitedEventAlternativeFixture": {
+    "id": "phase24b.limited-permanent-alternative.provisional.v1",
+    "status": "simulation-only",
+    "growthEntitlementId": "collection.power.legacy-festival-equivalent",
+    "mechanicalBps": 500,
+    "limitedClaim": {
+      "claimId": "limited.legacy-festival.power",
+      "provenance": "limited",
+      "exclusiveMetadata": { "artId": "legacy-festival-art", "titleId": "legacy-festival-title" }
+    },
+    "permanentAlternativeClaim": {
+      "claimId": "permanent.legacy-festival-alternative.power",
+      "provenance": "permanent",
+      "exclusiveMetadata": null
+    },
+    "policy": "one mechanical entitlement across equivalent limited and permanent claims; limited cosmetic metadata remains exclusive"
+  },
+  "legacyExp": {
+    "fellow": { "levelCap": 120, "expBase": 100, "expGrowth": 1.12 },
+    "companion": { "levelCap": 100, "expBase": 80, "expGrowth": 1.12 }
+  },
+  "migrationPolicy": {
+    "id": "phase24b.exp-curve-migration.provisional.v1",
+    "status": "simulation-only",
+    "preserve": "saved Level plus exact rational within-level progress; attributed post-cap surplus remains an auditable separate bank",
+    "grandfatheredGates": "strictly-below-saved-level",
+    "companionFormerCap": "Level 100 queues one free manual exactly-once legacy Breakthrough claim",
+    "fellowFormerCap": "Level 120 grandfathers gates 50 and 100; the next ordinary gate is 150",
+    "repeatApplication": "receipt-identity-no-op",
+    "unknownLineage": "fail-closed-for-manual-review"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "contractId": "phase-24c-inactive-foundation-qa-v1",
+  "status": "inactive-authority-physically-loaded-zero-integration-only",
+  "productionLoaded": false,
+  "physicallyLoadedForZeroIntegration": true,
+  "foundationVersion": 2,
+  "schema": {
+    "predecessor": 13,
+    "successorReserved": 14,
+    "migrationId": "migration.schema-13-to-14.phase-24c-foundation.v2"
+  },
+  "acceptedUnloadedLineages": [
+    "direct-schema-14",
+    "safe-reset-schema-14",
+    "schema-13-to-14-migration"
+  ],
+  "directOriginAttestationKind": "phase24c.direct-schema-14-origin.v1",
+  "expectedProductionSha256": {
+    "index.html": "73737ab74efd4e33b2a5fdae1d1c76a6e88b4e51b1bb43453e034f47d5d5c7fb",
+    "src/phase18-19-runtime.js": "26686c97cc7c2a617224b8a287ab92933222e137c53bc309dedad6102d68df2e",
+    "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40",
+    "src/phase24-scaling-authority.js": "819fd4e308a98c699ac01a0c3df780eab11e777d933038b118850679d0f39d5c"
+  },
+  "expectedFoundation": {
+    "definitionsFileSha256": "101377044214d87478475ba9064c4342b9ce8fcbe62e5d4e1743a08f31767f70",
+    "definitionsManifestSha256": "bcec7874519dc9a2cd6041ee56a9c681034ff064995d1357987dd73ff4631fd1",
+    "foundationFileSha256": "fbf9c7865977b195786c15ffe6b6725649b5c6552c8f46b831421083831e4479"
+  },
+  "zeroIntegrationLoader": {
+    "beginMarker": "<!-- Phase 24C-2C zero-only authority load BEGIN -->",
+    "endMarker": "<!-- Phase 24C-2C zero-only authority load END -->",
+    "exactOrder": [
+      "src/phase24c-zero-activation-authority.js",
+      "src/phase24c-durable-definitions.js",
+      "src/phase24c-durable-foundation.js"
+    ]
+  },
+  "activationProhibited": [
+    "provisional EXP curves",
+    "Breakthrough costs",
+    "Collection grant values",
+    "new reward sources",
+    "new UI",
+    "runtime schema-14 storage activation"
+  ]
+}

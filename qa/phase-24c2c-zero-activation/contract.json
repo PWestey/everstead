@@ -1,0 +1,506 @@
+{
+  "contractId": "phase-24c2c-zero-integration-independent-qa.v1",
+  "phase": "24C-2C",
+  "status": "accepted-zero-only-integration-gate",
+  "schemaVersion": 14,
+  "predecessorSchemaVersion": 13,
+  "frozenNow": 1798761600000,
+  "baseline": {
+    "acceptedCoordinatorIndexSha256": "73737ab74efd4e33b2a5fdae1d1c76a6e88b4e51b1bb43453e034f47d5d5c7fb",
+    "projectedPre24CIndexSha256": "6109805093ee78f075257526b4822cf86c9ca22dbd2a2a05ab3ef7b0bcb8c5f3",
+    "candidateIndexSha256": "7073db350bddfdea932bf89d900a449346c2e3e6b2b636bf55a1e8f8f3aa3356",
+    "activationSemanticSha256": "556641d1997d7cee1734e79da510141154f00be97a21138f08bc088de2e68aaf",
+    "acceptedHarnessSha256": {
+      "qa/phase-24c2c-zero-activation/runner.js": "33ab326ec351c98cfc1c14d15fdab836f2dd1ae745633c75da25160bc92737d9",
+      "qa/phase-24c2c-zero-activation/realm.js": "556375a1f922783fde67782ad0b8f1268f188f7812fa7586e2163f2982646147",
+      "qa/phase-24c2c-zero-activation/index.html": "432f70887115b66867ecae0ddb428b9e9b61122d737ca4df95bdaf601a7fa60b",
+      "qa/phase-24c2c-zero-activation/realm.html": "44023a9347091771b8e4cb3a951cde9b6a9ada06c71773d6e1c23db0b07db70d"
+    },
+    "acceptedReopenedPreGateSha256": {
+      "qa/phase-24c2c-activation-authority/checksums.sha256": "24c619d2c1993e505a060a647cfdb6b4d8b0f5cd760b3d6d072f23e62e596baa",
+      "qa/phase-24c-foundation/README.md": "1c375402f54e06b1f55228c2914dee189abf97c89b00592722ca35546779e120",
+      "qa/phase-24c-foundation/contract.json": "c75c8a80a833a8a39e8a27ef145c8d3a1f1eedf1416f5db4ea762c69ad376114",
+      "qa/phase-24c-foundation/verify.mjs": "3f78a6f86dda816814ce13da8b75821f0b0d795c828f03c58540d9204c41a468",
+      "docs/PHASE_24C_INACTIVE_FOUNDATION_CONTRACT.md": "eb9a4f5d6c1c5910b3b977549f32f0e0063aab116c3d474e5eba0981a0348555",
+      "docs/PHASE_24C_INACTIVE_FOUNDATION_RESULT.md": "a94bda7e4efc911ff772104efc184ea6c3e612290c42cea60ad199c7cc0ed346",
+      "qa/phase-24c-independent/README.md": "9fd648ea73f2d25518c9bb363e7fe609e45a768162d0febb409732630c649de0",
+      "qa/phase-24c-independent/contract.json": "6817661bfa6e44ef955b88617f59bc8654da7a26f73df6f334decad473eba35c",
+      "qa/phase-24c-independent/verify.mjs": "ccabf873bac7c63bba9a4408227a1db0626492f5406cb5f61b08a6f38a2359c4",
+      "docs/PHASE_24C_INDEPENDENT_QA_CONTRACT.md": "5de2f113b82032a9f18e811d35330ff326f167fa619bd09ddb88fa7c49541da8",
+      "docs/PHASE_24C_INDEPENDENT_QA_RESULT.md": "d1e66badf6b6f007b44480d8c0a8102a9dce646a6c99679b9e4d40a67c087084"
+    },
+    "acceptedSourceSha256": {
+      "src/phase18-19-runtime.js": "26686c97cc7c2a617224b8a287ab92933222e137c53bc309dedad6102d68df2e",
+      "src/phase23-companion-catalog.js": "48da84995d57d78ab01899b4f1840763b2539b4c5605da68ccc309889d0c718f",
+      "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40",
+      "src/phase24-scaling-authority.js": "819fd4e308a98c699ac01a0c3df780eab11e777d933038b118850679d0f39d5c",
+      "src/phase24c-zero-activation-authority.js": "88ba60568041b764794b74dec6b926e34890354d6c13175491f5f87c4c92a03f",
+      "src/phase24c-durable-definitions.js": "101377044214d87478475ba9064c4342b9ce8fcbe62e5d4e1743a08f31767f70",
+      "src/phase24c-durable-foundation.js": "fbf9c7865977b195786c15ffe6b6725649b5c6552c8f46b831421083831e4479"
+    }
+  },
+  "loader": {
+    "beginMarker": "<!-- Phase 24C-2C zero-only authority load BEGIN -->",
+    "endMarker": "<!-- Phase 24C-2C zero-only authority load END -->",
+    "exactOrder": [
+      "src/phase24c-zero-activation-authority.js",
+      "src/phase24c-durable-definitions.js",
+      "src/phase24c-durable-foundation.js"
+    ],
+    "mustPrecedeInlineBoot": true
+  },
+  "browserHostBoundary": {
+    "productAllowedHostnames": [
+      "localhost",
+      "127.0.0.1",
+      "[::1]",
+      "::1"
+    ],
+    "denialLoopbackHostname": "127.0.0.1.nip.io",
+    "qaProbeGlobal": "__P24C2C_HOST_BOUNDARY__"
+  },
+  "markers": {
+    "prefix": "Phase 24C-2C",
+    "requiredJavascriptBlocks": [
+      "early schema-14 boot deferral",
+      "zero-only schema-14 integration",
+      "zero-only schema-14 QA bridge",
+      "zero-only schema-14 QA bridge install"
+    ]
+  },
+  "authority": {
+    "activationGlobal": "EVERSTEAD_PHASE24C_ZERO_ACTIVATION_AUTHORITY",
+    "definitionsGlobal": "EVERSTEAD_PHASE24C_DEFINITIONS",
+    "foundationGlobal": "EVERSTEAD_PHASE24C_FOUNDATION",
+    "activationId": "phase-24c2c-zero-activation-authority.v1",
+    "configId": "phase-24c-durable-foundation.v1",
+    "predecessorValidatorId": "validator.schema-13.phase-24c-production.v1",
+    "directOriginValidatorId": "validator.direct-schema-14-origin.phase-24c-production.v1",
+    "foundationVersion": 2,
+    "migrationId": "migration.schema-13-to-14.phase-24c-foundation.v2",
+    "allowedLineages": [
+      "direct-schema-14",
+      "safe-reset-schema-14",
+      "schema-13-to-14-migration"
+    ]
+  },
+  "storage": {
+    "namespace": "oathforge_new_world_proto_v01",
+    "activeKey": "oathforge_new_world_proto_v01",
+    "stagingKey": "oathforge_new_world_proto_v01__staging",
+    "journalKey": "oathforge_new_world_proto_v01__save_tool_journal_v1",
+    "rollbackKey": "oathforge_new_world_proto_v01__previous_installation_v1",
+    "preV14Key": "oathforge_new_world_proto_v01__raw_backup_v13",
+    "slotNames": [
+      "active",
+      "rawBackup",
+      "preV2",
+      "preV3",
+      "preV4",
+      "preV5",
+      "preV6",
+      "preV7",
+      "preV8",
+      "preV9",
+      "preV10",
+      "preV11",
+      "preV12",
+      "preV13",
+      "preV14"
+    ],
+    "snapshotControlNames": [
+      "ordinaryStaging",
+      "journal",
+      "rollback"
+    ],
+    "snapshotCount": 18,
+    "saveFormatVersion": 3,
+    "safeResetMarkerVersion": 9,
+    "nestedSafeReset": {
+      "previousInstallationSlotCount": 15,
+      "terminalSnapshotValueCount": 18,
+      "previousControlMerged": false,
+      "productionForgetRequired": true
+    }
+  },
+  "bridge": {
+    "global": "__EVERSTEAD_PHASE_24C2C_QA__",
+    "version": "phase-24c2c-zero-integration-qa-v1",
+    "readMethods": [
+      "snapshot",
+      "validate",
+      "saveSnapshot",
+      "installationIdentity",
+      "authority",
+      "zeroEvidence",
+      "outputAnchors",
+      "exportSave",
+      "diagnostics"
+    ],
+    "destructiveMethods": [
+      "resetDirectFresh",
+      "resetSafe",
+      "reload",
+      "migrateSchema13",
+      "migrateSchema12",
+      "recoverInterrupted",
+      "roundTripExportImport",
+      "roundTripRollback",
+      "advancePendingOffline",
+      "exportBlockedDiagnostics",
+      "probeInvalid",
+      "probeRefusal",
+      "probeOpeningRefusal",
+      "probeSuccess"
+    ],
+    "interruptionKinds": [
+      "migration-before-stage",
+      "migration-after-stage",
+      "migration-after-active",
+      "ordinary-staging-after-active",
+      "safe-reset-committed-stage-after-forget",
+      "schema13-ordinary-staging-pending",
+      "schema13-ordinary-staging-committed",
+      "historical-schema11-staging-pending",
+      "safe-reset-after-journal",
+      "safe-reset-after-rollback",
+      "safe-reset-after-active",
+      "import-after-journal",
+      "import-after-rollback",
+      "import-after-active",
+      "rollback-after-journal",
+      "rollback-after-active",
+      "forensic-reset-future-schema",
+      "forensic-reset-invalid-schema13",
+      "forensic-reset-malformed-active",
+      "forensic-reset-missing-active"
+    ],
+    "legacyStagingRecoveryKinds": {
+      "schema13-ordinary-staging-pending": {
+        "schemaVersion": 13,
+        "disposition": "pending"
+      },
+      "schema13-ordinary-staging-committed": {
+        "schemaVersion": 13,
+        "disposition": "committed"
+      },
+      "historical-schema11-staging-pending": {
+        "schemaVersion": 11,
+        "disposition": "pending"
+      }
+    },
+    "transactionInterruptionKinds": {
+      "migration-before-stage": {"operation":"migration","boundary":"before-stage","partialActive":"source","ordinaryStaging":false,"journal":false,"rollback":false,"terminalDirection":"target","terminalRollback":false},
+      "migration-after-stage": {"operation":"migration","boundary":"after-stage","partialActive":"source","ordinaryStaging":true,"journal":false,"rollback":false,"terminalDirection":"target","terminalRollback":false},
+      "migration-after-active": {"operation":"migration","boundary":"after-active","partialActive":"target","ordinaryStaging":true,"journal":false,"rollback":false,"terminalDirection":"target","terminalRollback":false},
+      "ordinary-staging-after-active": {"operation":"ordinary-commit","boundary":"after-active","partialActive":"target","ordinaryStaging":true,"journal":false,"rollback":false,"terminalDirection":"target","terminalRollback":false},
+      "safe-reset-after-journal": {"operation":"safe-reset","boundary":"after-journal","partialActive":"source","ordinaryStaging":false,"journal":true,"rollback":false,"terminalDirection":"source","terminalRollback":false},
+      "safe-reset-after-rollback": {"operation":"safe-reset","boundary":"after-rollback","partialActive":"source","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"source","terminalRollback":false},
+      "safe-reset-after-active": {"operation":"safe-reset","boundary":"after-active","partialActive":"target","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"target","terminalRollback":true},
+      "import-after-journal": {"operation":"import","boundary":"after-journal","partialActive":"source","ordinaryStaging":false,"journal":true,"rollback":false,"terminalDirection":"source","terminalRollback":false},
+      "import-after-rollback": {"operation":"import","boundary":"after-rollback","partialActive":"source","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"source","terminalRollback":false},
+      "import-after-active": {"operation":"import","boundary":"after-active","partialActive":"target","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"target","terminalRollback":true},
+      "rollback-after-journal": {"operation":"rollback","boundary":"after-journal","partialActive":"source","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"source","terminalRollback":true},
+      "rollback-after-active": {"operation":"rollback","boundary":"after-active","partialActive":"target","ordinaryStaging":false,"journal":true,"rollback":true,"terminalDirection":"target","terminalRollback":true}
+    },
+    "invalidKinds": [
+      "schema13-staging-foreign-prev14",
+      "historical-schema11-staging-malformed-envelope",
+      "historical-schema11-staging-foreign-provenance",
+      "historical-staging-future-schema",
+      "tampered-immediate-target",
+      "crossclass-fresh-safe-reset",
+      "crossclass-safe-reset-migrated",
+      "safe-reset-rollback-older-than-reset",
+      "foreign-journal-between-boot-read-adoption",
+      "foreign-journal-gameplay-commit",
+      "forged-validated-previous-lineage-invalid",
+      "forged-validated-previous-nonzero",
+      "forged-forensic-restorable-lineage-invalid",
+      "forged-forensic-restorable-nonzero",
+      "forged-sameclass-journal-lineage-invalid",
+      "forged-sameclass-journal-nonzero",
+      "foreign-invalid-rollback-before-ordinary-commit",
+      "safe-reset-committed-stage-older-previous",
+      "forged-null-reset-semantic-source",
+      "schema14-safe-reset-staging-pending-without-journal",
+      "schema14-safe-reset-staging-committed-without-journal"
+    ],
+    "legacyStagingRefusalKinds": {
+      "historical-schema11-staging-malformed-envelope": {
+        "stageSchemaVersion": null,
+        "dispatchEntered": false,
+        "refusalCode": "staging-provenance"
+      },
+      "historical-schema11-staging-foreign-provenance": {
+        "stageSchemaVersion": 11,
+        "dispatchEntered": true,
+        "refusalCode": "staging-provenance"
+      },
+      "historical-staging-future-schema": {
+        "stageSchemaVersion": 99,
+        "dispatchEntered": false,
+        "refusalCode": "staging-provenance"
+      }
+    },
+    "forgedInvalidKinds": [
+      "forged-validated-previous-lineage-invalid",
+      "forged-validated-previous-nonzero",
+      "forged-forensic-restorable-lineage-invalid",
+      "forged-forensic-restorable-nonzero",
+      "forged-sameclass-journal-lineage-invalid",
+      "forged-sameclass-journal-nonzero"
+    ],
+    "deepInvalidEvidenceKinds": [
+      "tampered-immediate-target",
+      "crossclass-fresh-safe-reset",
+      "crossclass-safe-reset-migrated",
+      "safe-reset-rollback-older-than-reset",
+      "foreign-journal-between-boot-read-adoption"
+    ],
+    "journalBoundaryKinds": [
+      "foreign-journal-before-current-adopt",
+      "foreign-journal-before-committed-stage-cleanup",
+      "foreign-journal-before-inherited-active-write",
+      "foreign-journal-before-ordinary-staging-write",
+      "foreign-journal-before-ordinary-staging-cleanup"
+    ],
+    "rollbackBoundaryKind": "foreign-invalid-rollback-before-ordinary-commit",
+    "unjournaledSafeResetStagingKinds": [
+      "schema14-safe-reset-staging-pending-without-journal",
+      "schema14-safe-reset-staging-committed-without-journal"
+    ],
+    "blockedDiagnosticsKinds": [
+      "future-schema",
+      "malformed-active"
+    ],
+    "blockedDiagnosticsConflictKind": "interleaved-slot-change"
+  },
+  "blockedDiagnostics": {
+    "format": "everstead-recovery-diagnostics",
+    "formatVersion": 3,
+    "integrityAlgorithm": "SHA-256",
+    "snapshotKeys": [
+      "active",
+      "rawBackup",
+      "preV2",
+      "preV3",
+      "preV4",
+      "preV5",
+      "preV6",
+      "preV7",
+      "preV8",
+      "preV9",
+      "preV10",
+      "preV11",
+      "preV12",
+      "preV13",
+      "preV14",
+      "ordinaryStaging",
+      "journal",
+      "rollback"
+    ]
+  },
+  "zero": {
+    "rootKey": "durableProgression",
+    "activeReleaseIds": [],
+    "claimedDefinitionIds": [],
+    "recentGrantReceipts": [],
+    "totals": {
+      "powerBps": 0,
+      "earningsBps": 0,
+      "expBps": 0,
+      "facilityBpsByFacilityId": {}
+    },
+    "rankCapacityThrough": 30,
+    "rankReleasedThrough": 5,
+    "formulaReadsAllowed": false,
+    "claimReadinessAllowed": false,
+    "rewardApplicationsAllowed": false
+  },
+  "anchors": {
+    "fresh": {
+      "fellowCombatPower": 35565,
+      "fellowEconomyPower": 35150,
+      "companionActualPower": 2200,
+      "companionMigrationFloorPower": 0,
+      "companionEffectivePower": 2200,
+      "fellowEconomyBps": 390,
+      "companionEconomyBps": 80,
+      "goldPerHour": 27320.8092192
+    },
+    "freshlyMigratedSchema12": {
+      "fellowCombatPower": 36366,
+      "trueFreshFellowCombatPower": 35565,
+      "migrationProtectionDelta": 801,
+      "companionActualPower": 2200,
+      "protectedFellowIds": [
+        "cael",
+        "orin"
+      ]
+    },
+    "migratedEstablished": {
+      "fellowCombatPower": 36645,
+      "fellowEconomyPower": 35150,
+      "companionActualPower": 2272,
+      "companionMigrationFloorPower": 2892,
+      "companionEffectivePower": 2892,
+      "fellowEconomyBps": 390,
+      "companionEconomyBps": 83,
+      "goldPerHour": 27328.94041242
+    },
+    "pendingOffline": {
+      "fellowCombatPower": 1054194,
+      "fellowEconomyPower": 1039700,
+      "companionActualPower": 4329,
+      "companionMigrationFloorPower": 23980,
+      "companionEffectivePower": 23980,
+      "fellowEconomyBps": 1368,
+      "companionEconomyBps": 147,
+      "goldPerHour": 30091.179009135998
+    }
+  },
+  "transport": {
+    "harnessCacheVersion": 20,
+    "passDetailMaxCharacters": 0,
+    "commandMaxBytes": 196608,
+    "realmChunkMaxBytes": 524288,
+    "realmChunkTargetBytes": 393216,
+    "maxRealmChunks": 8,
+    "finalResultMaxBytes": 2097152,
+    "realmChunkEncoding": "bounded-attested-chunked-v1",
+    "orderedManifest": "row-id-and-evidence-correlation-digest-v1"
+  },
+  "acceptedBrowserEvidence": {
+    "focused": {
+      "passed": 185,
+      "total": 185,
+      "failed": 0,
+      "blankFatal": true,
+      "warningErrorConsoleCount": 0
+    },
+    "denial": {
+      "passed": 10,
+      "total": 10,
+      "failed": 0,
+      "blankFatal": true,
+      "warningErrorConsoleCount": 0
+    },
+    "fullRuns": [
+      {
+        "passed": 391,
+        "total": 391,
+        "failed": 0,
+        "blankFatal": true,
+        "warningErrorConsoleCount": 0
+      },
+      {
+        "passed": 391,
+        "total": 391,
+        "failed": 0,
+        "blankFatal": true,
+        "warningErrorConsoleCount": 0
+      }
+    ]
+  },
+  "authorizedRealms": [
+    {
+      "id": "direct-fresh-320x568",
+      "scenario": "direct-fresh",
+      "width": 320,
+      "height": 568,
+      "copyScale": 1,
+      "reducedMotion": false
+    },
+    {
+      "id": "safe-reset-390x844-a11y",
+      "scenario": "safe-reset",
+      "width": 390,
+      "height": 844,
+      "copyScale": 1.3,
+      "reducedMotion": true
+    },
+    {
+      "id": "schema13-migration-1024x768",
+      "scenario": "schema13-migration",
+      "width": 1024,
+      "height": 768,
+      "copyScale": 1,
+      "reducedMotion": false
+    },
+    {
+      "id": "schema12-chain-390x844",
+      "scenario": "schema12-chain",
+      "width": 390,
+      "height": 844,
+      "copyScale": 1,
+      "reducedMotion": false
+    },
+    {
+      "id": "pending-offline-390x844",
+      "scenario": "pending-offline",
+      "width": 390,
+      "height": 844,
+      "copyScale": 1,
+      "reducedMotion": false
+    },
+    {
+      "id": "recovery-390x844",
+      "scenario": "recovery",
+      "width": 390,
+      "height": 844,
+      "copyScale": 1,
+      "reducedMotion": true
+    }
+  ],
+  "denialRealms": [
+    {
+      "id": "deny-no-qa",
+      "query": "",
+      "allowDestructive": true,
+      "isolatedStorage": true,
+      "supplyStorage": true,
+      "hostMode": "current"
+    },
+    {
+      "id": "deny-no-destructive",
+      "query": "qa=1",
+      "allowDestructive": false,
+      "isolatedStorage": true,
+      "supplyStorage": true,
+      "hostMode": "current"
+    },
+    {
+      "id": "deny-no-isolated",
+      "query": "qa=1",
+      "allowDestructive": true,
+      "isolatedStorage": false,
+      "supplyStorage": true,
+      "hostMode": "current"
+    },
+    {
+      "id": "deny-native-storage",
+      "query": "qa=1",
+      "allowDestructive": true,
+      "isolatedStorage": true,
+      "supplyStorage": false,
+      "hostMode": "current"
+    },
+    {
+      "id": "deny-duplicate-query",
+      "query": "qa=1&qa=1",
+      "allowDestructive": true,
+      "isolatedStorage": true,
+      "supplyStorage": true,
+      "hostMode": "current"
+    },
+    {
+      "id": "deny-nonloopback",
+      "query": "qa=1",
+      "allowDestructive": true,
+      "isolatedStorage": true,
+      "supplyStorage": true,
+      "hostMode": "nonloopback"
+    }
+  ]
+}

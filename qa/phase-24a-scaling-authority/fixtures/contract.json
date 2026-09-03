@@ -1,0 +1,155 @@
+{
+  "contractVersion": 1,
+  "phase": "24A",
+  "schemaVersion": 13,
+  "bridgeVersion": "phase-23-independent-qa-v1",
+  "authority": {
+    "version": 1,
+    "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+    "status": "live-baseline-only",
+    "collectionEffect": "reserved-inactive"
+  },
+  "frozenNow": 1800000000000,
+  "profiles": [
+    {"id": "phase24a.fresh.schema13.v1", "kind": "canonical-fresh", "migrationFloorApplied": false},
+    {"id": "phase24a.migrated-established.schema13.v1", "kind": "canonical-migrated-established", "migrationFloorApplied": true},
+    {"id": "phase24a.true-high-investment.schema13.v1", "kind": "canonical-true-high-investment", "migrationFloorApplied": false}
+  ],
+  "active": {
+    "building": {
+      "baseRates": {"training": 7200, "command": 6500, "archives": 5600, "hearth": 6100},
+      "levelMultiplier": 1.15,
+      "levelCap": 52,
+      "upgradeBase": 15000,
+      "upgradeGrowth": 1.24,
+      "oathDailyCapBps": 3000
+    },
+    "fellow": {
+      "phase23LevelCap": 120,
+      "phase23ExpBase": 100,
+      "phase23ExpGrowth": 1.12,
+      "levelPowerGrowthBps": 1150,
+      "rarityPowerGrowthBps": 800,
+      "rarityMax": 5,
+      "rarityShardCosts": [20, 40, 80, 160],
+      "mightLevelCap": 50,
+      "mightPowerPerLevelBps": 100
+    },
+    "companion": {
+      "phase23LevelCap": 100,
+      "phase23ExpBase": 80,
+      "phase23ExpGrowth": 1.12,
+      "levelPowerGrowthBps": 1000,
+      "rarityPowerGrowthBps": 1000,
+      "rarityMax": 5,
+      "rarityShardCosts": [20, 40, 80, 160],
+      "masteryLevelCap": 50,
+      "masteryPowerPerLevelBps": 100,
+      "transferBps": 4000,
+      "freshBaseRosterPower": 2200
+    },
+    "economyRoster": {
+      "fellow": {"numeratorBps": 1500, "capBps": 1500, "kneePower": 100000},
+      "companion": {"numeratorBps": 1000, "capBps": 1000, "kneePower": 25000}
+    }
+  },
+  "legacyOnly": [
+    {"id": "legacy-building-upgrade-growth", "value": 1.7, "active": false, "appliesToReports": false, "scope": "schema-0-through-10-predecessor-only"},
+    {"id": "legacy-companion-base-power", "value": {"bramble": 1000, "cinderwing": 1200}, "active": false, "appliesToReports": false, "scope": "schema-12-migration-predecessor-only"}
+  ],
+  "formulaOrder": {
+    "building": ["base", "levelMultiplier", "familyAssignmentMultiplier", "fellowRosterMultiplier", "companionRosterMultiplier", "overallDayMultiplier", "oathMultiplier"],
+    "fellowEconomy": ["basePower", "levelMultiplier", "rarityMultiplier", "relicMultiplier", "globalMightMultiplier", "round"],
+    "fellowCombat": ["basePower", "levelMultiplier", "rarityMultiplier", "bondMilestoneMultiplier", "relicMultiplier", "companionPowerTransfer", "migrationTransferFloor", "familyBondMultiplier", "globalMightMultiplier", "round"],
+    "fellowCombatMemberBase": ["basePower", "levelMultiplier", "rarityMultiplier", "bondMilestoneMultiplier", "relicMultiplier", "companionPowerTransfer", "familyBondMultiplier", "globalMightMultiplier", "round"],
+    "fellowCombatMemberMigrated": ["basePower", "levelMultiplier", "rarityMultiplier", "bondMilestoneMultiplier", "relicMultiplier", "companionPowerTransfer", "familyBondMultiplier", "globalMightMultiplier", "migrationTransferFloor", "round"],
+    "companionMember": ["basePower", "levelMultiplier", "rarityMultiplier", "masteryMultiplier", "round"],
+    "companionActual": ["basePower", "levelMultiplier", "rarityMultiplier", "masteryMultiplier", "round-per-member", "sum-rounded-members"],
+    "companionThreshold": ["actualRosterPower", "migrationFloorRosterPower", "max"],
+    "rosterBonus": ["numeratorBps", "rosterPower", "divide-by-power-plus-knee", "integer-floor", "capBps"],
+    "campaignEfficiency": ["totalRosterPower", "recommendedPower", "surplusRatio", "discountScale", "discountCap", "baseCost", "ceil"]
+  },
+  "fresh": {
+    "fellowEconomyPower": 35150,
+    "fellowCombatPower": 35565,
+    "companionActualRosterPower": 2200,
+    "companionMigrationFloorRosterPower": 0,
+    "companionEffectiveThresholdRosterPower": 2200,
+    "fellowRosterBps": 390,
+    "companionRosterBps": 80,
+    "buildings": {
+      "command": {"base": 6500, "rate": 6807.528},
+      "archives": {"base": 5600, "rate": 6050.27953152},
+      "training": {"base": 7200, "rate": 7806.07715328},
+      "hearth": {"base": 6100, "rate": 6656.9245344}
+    },
+    "totalGoldPerHour": 27320.8092192
+  },
+  "historicalAnchors": {
+    "freshlyMigratedSchema12": {
+      "fellowCombatPower": 36366,
+      "trueFreshFellowCombatPower": 35565,
+      "migrationProtectionDelta": 801,
+      "companionActualRosterPower": 2200,
+      "protectedFellowIds": ["cael", "orin"]
+    }
+  },
+  "trueHigh": {
+    "companionActualRosterPower": 50355,
+    "companionAggregateUnroundedPower": 50358,
+    "memberLevel": 100,
+    "memberRarity": 5,
+    "masteryLevel": 50,
+    "persisted": false,
+    "pendingOffline": {
+      "villageGold": {"sourcePolicyId": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 86400000, "discardedMs": 0, "intervalMs": null, "intervals": null, "pendingBefore": 0, "pendingAfter": 923019963.6103376, "claimReady": true, "opportunityReady": false},
+      "companionTower": {"sourcePolicyId": "companion-tower-targeting.phase-23.v1", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 86400000, "discardedMs": 0, "intervalMs": 3600000, "intervals": 24, "pendingBefore": 0, "pendingAfter": 24, "claimReady": true, "opportunityReady": false},
+      "fellowExpedition": {"sourcePolicyId": "phase-7-fellow-progression-v1", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 86400000, "discardedMs": 0, "intervalMs": 3600000, "intervals": 24, "pendingBefore": 0, "pendingAfter": 24, "claimReady": true, "opportunityReady": false},
+      "restaurant": {"sourcePolicyId": "economy-policy.restaurant.candidate-v1", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 21600000, "discardedMs": 64800000, "intervalMs": 1800000, "intervals": 12, "pendingBefore": 0, "pendingAfter": 12, "claimReady": false, "opportunityReady": true},
+      "apothecary": {"sourcePolicyId": "economy-policy.apothecary.approved-v1", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 28800000, "discardedMs": 57600000, "intervalMs": 3600000, "intervals": 8, "pendingBefore": 0, "pendingAfter": 8, "claimReady": false, "opportunityReady": true},
+      "schoolhouse": {"sourcePolicyId": "economy-policy.schoolhouse.approved-v1", "at": 1800000000000, "elapsedMs": 86400000, "capMs": 86400000, "creditedMs": 43200000, "discardedMs": 43200000, "intervalMs": 5400000, "intervals": 8, "pendingBefore": 0, "pendingAfter": 8, "claimReady": false, "opportunityReady": true}
+    },
+    "claimState": {
+      "readyClaimCount": 6,
+      "pendingOpportunityCount": 28,
+      "byLane": {
+        "villageGold": {"readyCount": 1, "pendingCount": 1, "receiptPolicyId": "legacy-unversioned-village-collection", "receiptIdentityVersion": 0, "pendingGold": 923019963.6103376, "claimableGold": 923019963, "gifts": 0, "familyShardTotal": 0, "lineValues": {"training": 261643454.25174922, "command": 236205896.19949585, "archives": 203500464.4180272, "hearth": 221670148.74106535}},
+        "companionTower": {"readyCount": 1, "pendingCount": 24, "receiptPolicyId": "companion-tower-targeting.phase-23.v1", "receiptIdentityVersion": 2, "memberCount": 20, "expPerMember": 2880, "shardTotal": 5, "nonzeroShards": {"snorlax": 1, "jolteon": 1, "donphan": 1, "lugia": 2}, "intervals": 24, "masteryNominal": 120, "preMasteryPoints": 50000, "postMasteryPoints": 50000, "masteryAwarded": 0},
+        "fellowExpedition": {"readyCount": 1, "pendingCount": 24, "receiptPolicyId": "phase-7-fellow-progression-v1", "receiptIdentityVersion": 1, "memberCount": 18, "shardTotal": 6, "nonzeroShards": {"orin": 1, "rook": 1, "zamorak": 1, "deadpool": 1, "anakin": 2}, "intervals": 24, "mightNominal": 600, "preMightPoints": 50000, "postMightPoints": 50000, "mightAwarded": 0},
+        "restaurant": {"readyCount": 0, "pendingCount": 12, "receiptPolicyId": "economy-policy.restaurant.candidate-v1", "receiptIdentityVersion": 1, "createdOrdinals": [1,2,3,4,5,6,7,8,9,10,11,12], "saturated": true},
+        "apothecary": {"readyCount": 0, "pendingCount": 8, "receiptPolicyId": "apothecaryFinalizerV1", "receiptIdentityVersion": 1, "createdCount": 8, "bankCapacity": 8},
+        "schoolhouse": {"readyCount": 0, "pendingCount": 8, "receiptPolicyId": "schoolhouseLessonFinalizerV1", "receiptIdentityVersion": 1, "createdCount": 8, "bankCapacity": 8},
+        "legacy": {"readyCount": 3, "pendingCount": 3, "receiptPolicyId": "claim-archive.phase-15.v1", "receiptIdentityVersion": 2, "rewardGold": [1500,750,500]}
+      }
+    },
+    "facilityPreview": {
+      "apothecary": {"sourcePolicyId": "economy-policy.apothecary.approved-v1", "facilityId": "facility.apothecary", "at": 1800000000000, "intervalMs": 3600000, "bankCapacity": 8, "before": {"cursorAt": 1799913600000, "carryMs": 0, "pendingCount": 0}, "settlement": {"createdCount": 8, "carryMs": 0, "hiddenDebtMs": 0, "appliedMs": 86400000}, "after": {"cursorAt": 1800000000000, "carryMs": 0, "pendingCount": 8}},
+      "schoolhouse": {"sourcePolicyId": "economy-policy.schoolhouse.approved-v1", "facilityId": "facility.schoolhouse", "at": 1800000000000, "intervalMs": 5400000, "bankCapacity": 8, "before": {"cursorAt": 1799913600000, "carryMs": 0, "pendingCount": 0}, "settlement": {"createdCount": 8, "carryMs": 0, "hiddenDebtMs": 0, "appliedMs": 86400000}, "after": {"cursorAt": 1800000000000, "carryMs": 0, "pendingCount": 8}}
+    }
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": false},
+    {"id": "phone-390x844-copy130", "width": 390, "height": 844, "copyScale": 1.3, "reducedMotion": false},
+    {"id": "phone-390x844-reduced-motion", "width": 390, "height": 844, "copyScale": 1, "reducedMotion": true}
+  ],
+  "minimumTouchTargetPx": 44,
+  "generatedArtifacts": {
+    "balanceReportJsonSha256": "e7ede3199b5addabee64c13710985f822f8538e1313a946b0ef85c992a0dd353",
+    "balanceReportMarkdownSha256": "b807dd04c1f3a48bd0fab3b962560ccd85717ab0b5e671db0f0e0ebf7c87fce5",
+    "recipeSha256": "70ffdf3bf5abc2460954096ca045f516108046962bc81713e4c1c49a20a334ae",
+    "productionSourceSha256": {
+      "index.html": "6109805093ee78f075257526b4822cf86c9ca22dbd2a2a05ab3ef7b0bcb8c5f3",
+      "src/phase18-19-runtime.js": "26686c97cc7c2a617224b8a287ab92933222e137c53bc309dedad6102d68df2e",
+      "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40",
+      "src/phase24-scaling-authority.js": "819fd4e308a98c699ac01a0c3df780eab11e777d933038b118850679d0f39d5c"
+    }
+  },
+  "historical": {
+    "phase23ChecksumFileSha256": "0774dfe96ae4d2ae1b6a3a5fffb8c22d1c709934a81616da5d0135d2d06ed11f",
+    "phase23SuccessorChecksumFileSha256": "d55446a27120fbf8eeaea8f75fe40fbc48070322b4ea110272291e5c3a39d3ab",
+    "phase1819IndependentChecksumFileSha256": "3c1d5f91a2afb7257ae66909bdc3da9e26778b9229e9246468c083c96a3c668e",
+    "phase1819RuntimeChecksumFileSha256": "a2b2413fb9cfc012390d1b47650bb95553ccef8cf44e7397db2d92365ca60960",
+    "phase1819ExpectedSupersededIdentityPaths": ["index.html", "src/phase18-19-runtime.js"]
+  }
+}

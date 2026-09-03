@@ -1,0 +1,6553 @@
+{
+  "authority": {
+    "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+    "definitions": {
+      "active": {
+        "campaign": {
+          "baseCost": [
+            10000,
+            12000,
+            14000,
+            16000,
+            18000,
+            20000,
+            22000,
+            24000,
+            26000,
+            28000
+          ],
+          "requirement": [
+            22000,
+            28500,
+            36000,
+            45000,
+            56000,
+            69000,
+            84000,
+            101000,
+            121000,
+            144000
+          ]
+        },
+        "collection": {
+          "authority": "none-in-phase-24a",
+          "contributionBps": 0,
+          "futureLockedPolicy": {
+            "active": false,
+            "applicationOrder": {
+              "earnings": "add beside Oath and other additive earnings bonuses; never multiply an already-boosted total",
+              "exp": "add beside Campaign, event, and achievement EXP bonuses; never multiply an already-boosted total",
+              "facility": "add beside recipe, station, worker, and specialty bonuses; never multiply an already-boosted total",
+              "power": "add beside Might/global Power after base roster aggregation; never multiply an already-boosted total"
+            },
+            "claimPolicy": "manual exactly-once; migrations and limited-event protection required before activation",
+            "futureCollectionsContinueRewards": true,
+            "mandatoryProgression": "permanent-only",
+            "mode": "uncapped-additive-named-pools",
+            "releaseBudgetsAreLifetimeCaps": false,
+            "stressThroughBps": 100000
+          },
+          "multiplier": 1,
+          "status": "reserved-inactive"
+        },
+        "companion": {
+          "basePower": {
+            "arcanine": 115,
+            "blastoise": 115,
+            "boltund": 100,
+            "charizard": 125,
+            "dewgong": 100,
+            "donphan": 100,
+            "dragonite": 125,
+            "feraligatr": 115,
+            "jolteon": 100,
+            "lucario": 100,
+            "lugia": 125,
+            "mabosstiff": 100,
+            "machamp": 100,
+            "meganium": 100,
+            "miltank": 100,
+            "snorlax": 115,
+            "stoutland": 100,
+            "suicune": 125,
+            "venusaur": 115,
+            "zacian": 125
+          },
+          "expBase": 80,
+          "expGrowth": 1.12,
+          "levelCap": 100,
+          "levelPowerGrowth": 0.1,
+          "mastery": {
+            "levelCap": 50,
+            "pointsCap": 50000,
+            "powerPerLevel": 0.01,
+            "thresholdFactor": 20
+          },
+          "rarityMax": 5,
+          "rarityPowerGrowth": 0.1,
+          "rarityShardCosts": [
+            20,
+            40,
+            80,
+            160
+          ],
+          "rosterBasePowerTotal": 2200
+        },
+        "companionCampaign": {
+          "requirement": [
+            2000,
+            2360,
+            2785,
+            3286,
+            3878,
+            4576,
+            5399,
+            6371,
+            7518,
+            8871
+          ]
+        },
+        "companionTower": {
+          "elapsedCapMs": 86400000,
+          "floorCap": 50,
+          "intervalMs": 3600000,
+          "pityForceAt": 8,
+          "requirementBase": 2000,
+          "requirementGrowth": 1.06
+        },
+        "economy": {
+          "buildingBaseRates": {
+            "archives": 5600,
+            "command": 6500,
+            "hearth": 6100,
+            "training": 7200
+          },
+          "buildingLevelCap": 52,
+          "buildingLevelMultiplier": 1.15,
+          "buildingUpgradeBase": 15000,
+          "buildingUpgradeGrowth": 1.24,
+          "companionRoster": {
+            "capBps": 1000,
+            "kneePower": 25000,
+            "numeratorBps": 1000
+          },
+          "configIdentity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+          "fellowRoster": {
+            "capBps": 1500,
+            "kneePower": 100000,
+            "numeratorBps": 1500
+          },
+          "freshGold": 50000,
+          "oathDailyCap": 0.3,
+          "profileId": "everstead-economy-v1"
+        },
+        "family": {
+          "buildingBonus": {
+            "base": 0.01,
+            "cap": 0.2,
+            "intimacyCap": 0.1,
+            "intimacyRate": 0.0002,
+            "rarityRate": 0.02,
+            "specialtyMatch": 0.01
+          },
+          "linkedFellowBonus": {
+            "aggregateCap": 0.12,
+            "intimacyCap": 0.05,
+            "intimacyRate": 0.0001,
+            "perFamilyCap": 0.09,
+            "rarityRate": 0.01
+          },
+          "links": {
+            "aerith": [
+              "spider-man",
+              "captain-america"
+            ],
+            "ahsoka": [
+              "obi-wan",
+              "anakin"
+            ],
+            "amara": [
+              "deadpool",
+              "orin"
+            ],
+            "captain-marvel": [
+              "iron-man",
+              "captain-america"
+            ],
+            "elara": [
+              "cael",
+              "lyra"
+            ],
+            "hermione": [
+              "selene",
+              "iron-man"
+            ],
+            "isolde": [
+              "selene",
+              "mira",
+              "lyra"
+            ],
+            "jaina": [
+              "selene",
+              "star-lord"
+            ],
+            "misty": [
+              "star-lord",
+              "lyra"
+            ],
+            "rey": [
+              "obi-wan",
+              "cael"
+            ],
+            "scarlet-witch": [
+              "zamorak",
+              "anakin"
+            ],
+            "shadowheart": [
+              "daredevil",
+              "mira"
+            ],
+            "shallan": [
+              "mira",
+              "spider-man"
+            ],
+            "syl": [
+              "cael",
+              "thor"
+            ],
+            "tamsin": [
+              "orin",
+              "rook"
+            ],
+            "tifa": [
+              "orin",
+              "darrow"
+            ],
+            "tyrande": [
+              "orin",
+              "wolverine"
+            ],
+            "violet": [
+              "mira",
+              "darrow"
+            ],
+            "virginia": [
+              "darrow",
+              "cael"
+            ],
+            "yennefer": [
+              "rook",
+              "zamorak"
+            ]
+          },
+          "rarityMax": 5,
+          "rarityShardCosts": [
+            20,
+            40,
+            80,
+            160
+          ],
+          "specialties": {
+            "aerith": "hearth",
+            "ahsoka": "training",
+            "amara": "command",
+            "captain-marvel": "training",
+            "elara": "hearth",
+            "hermione": "archives",
+            "isolde": "archives",
+            "jaina": "command",
+            "misty": "command",
+            "rey": "hearth",
+            "scarlet-witch": "archives",
+            "shadowheart": "hearth",
+            "shallan": "archives",
+            "syl": "archives",
+            "tamsin": "training",
+            "tifa": "training",
+            "tyrande": "training",
+            "violet": "command",
+            "virginia": "command",
+            "yennefer": "hearth"
+          }
+        },
+        "fellow": {
+          "basePower": {
+            "anakin": 6450,
+            "cael": 6100,
+            "captain-america": 6200,
+            "daredevil": 6000,
+            "darrow": 6150,
+            "deadpool": 5450,
+            "iron-man": 6300,
+            "lyra": 6400,
+            "mira": 5200,
+            "obi-wan": 5550,
+            "orin": 5900,
+            "rook": 6200,
+            "selene": 5350,
+            "spider-man": 5600,
+            "star-lord": 5500,
+            "thor": 6500,
+            "wolverine": 6350,
+            "zamorak": 6250
+          },
+          "bondMilestoneMax": 99,
+          "bondMilestonePower": 0,
+          "companionTransferRate": 0.4,
+          "efficiency": {
+            "discountCap": 0.35,
+            "discountScale": 0.25
+          },
+          "expBase": 100,
+          "expGrowth": 1.12,
+          "levelCap": 120,
+          "levelPowerGrowth": 0.115,
+          "rarityMax": 5,
+          "rarityPowerGrowth": 0.08,
+          "rarityShardCosts": [
+            20,
+            40,
+            80,
+            160
+          ]
+        },
+        "fellowExpedition": {
+          "elapsedCapMs": 86400000,
+          "intervalMs": 3600000,
+          "pityForceAt": 8,
+          "requirementBase": 5500,
+          "requirementGrowth": 1.08,
+          "stageCap": 50
+        },
+        "might": {
+          "levelCap": 50,
+          "pointsCap": 50000,
+          "powerPerLevel": 0.01,
+          "thresholdFactor": 20
+        },
+        "player": {
+          "rankCap": 5,
+          "rankThresholds": [
+            0,
+            50,
+            125,
+            225,
+            350
+          ]
+        },
+        "relic": {
+          "bonusBpsBase": 100,
+          "bonusBpsPerLevel": 25,
+          "levelCap": 10
+        },
+        "scope": "schema-13-live"
+      },
+      "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+      "formulaOrder": {
+        "building": [
+          "base",
+          "levelMultiplier",
+          "familyAssignmentMultiplier",
+          "fellowRosterMultiplier",
+          "companionRosterMultiplier",
+          "overallDayMultiplier",
+          "oathMultiplier"
+        ],
+        "campaignEfficiency": [
+          "totalRosterPower",
+          "recommendedPower",
+          "surplusRatio",
+          "discountScale",
+          "discountCap",
+          "baseCost",
+          "ceil"
+        ],
+        "companionActual": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "masteryMultiplier",
+          "round-per-member",
+          "sum-rounded-members"
+        ],
+        "companionThreshold": [
+          "actualRosterPower",
+          "migrationFloorRosterPower",
+          "max"
+        ],
+        "fellowCombat": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "bondMilestoneMultiplier",
+          "relicMultiplier",
+          "companionPowerTransfer",
+          "migrationTransferFloor",
+          "familyBondMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "fellowEconomy": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "relicMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "rosterBonus": [
+          "numeratorBps",
+          "rosterPower",
+          "divide-by-power-plus-knee",
+          "integer-floor",
+          "capBps"
+        ]
+      },
+      "historicalAnchors": {
+        "freshlyMigratedSchema12": {
+          "companionActualRosterPower": 2200,
+          "fellowCombatPower": 36366,
+          "migrationProtectionDelta": 801,
+          "protectedFellowIds": [
+            "cael",
+            "orin"
+          ],
+          "trueFreshFellowCombatPower": 35565
+        }
+      },
+      "legacyOnly": [
+        {
+          "active": false,
+          "appliesToReports": false,
+          "id": "legacy-building-upgrade-growth",
+          "scope": "schema-0-through-10-predecessor-only",
+          "value": 1.7
+        },
+        {
+          "active": false,
+          "appliesToReports": false,
+          "id": "legacy-companion-base-power",
+          "scope": "schema-12-migration-predecessor-only",
+          "value": {
+            "bramble": 1000,
+            "cinderwing": 1200
+          }
+        }
+      ],
+      "profiles": [
+        {
+          "frozenNow": 1800000000000,
+          "id": "phase24a.fresh.schema13.v1",
+          "inputs": {
+            "investment": "released fresh defaults without predecessor protection",
+            "migrationFloorRosterPower": 0,
+            "rank": 1
+          },
+          "kind": "canonical-fresh",
+          "label": "Fresh schema 13",
+          "persisted": false,
+          "sourceFixtureId": null,
+          "sourceKind": "true-schema13-default"
+        },
+        {
+          "frozenNow": 1800000000000,
+          "id": "phase24a.migrated-established.schema13.v1",
+          "inputs": {
+            "investment": "authenticated schema-12 Companion investment",
+            "migrationFloorRosterPower": 2892,
+            "rank": 1
+          },
+          "kind": "canonical-migrated-established",
+          "label": "Migrated established schema 13",
+          "persisted": true,
+          "sourceFixtureId": "p23.qa.schema12-invested.v1"
+        },
+        {
+          "frozenNow": 1800000000000,
+          "id": "phase24a.true-high-investment.schema13.v1",
+          "inputs": {
+            "investment": "all currently released investment caps",
+            "migrationFloorRosterPower": 0,
+            "rank": 5
+          },
+          "kind": "canonical-true-high-investment",
+          "label": "True high investment · pure authority recipe",
+          "persisted": false,
+          "sourceFixtureId": null
+        }
+      ],
+      "schemaVersion": 13,
+      "sourceProof": {
+        "companionRosterBasePowerTotal": 2200,
+        "mutators": false,
+        "phase23CatalogManifestId": "everstead-companions-2026-09-01",
+        "storageAccess": false
+      },
+      "status": "live-baseline-only",
+      "version": 1
+    },
+    "fixedTableHashes": {
+      "building": {
+        "present": true,
+        "sha256": "9c80951e7ad013621d91c112f818b13cfb639897fe62b6e870d1bd5b219acf28"
+      },
+      "campaign": {
+        "present": true,
+        "sha256": "69a24f851da8a1876ba25247293ef1d8b6691da884ac70c448b446d781b522c7"
+      },
+      "collection": {
+        "present": true,
+        "sha256": "c99fb675a93ffb46055267a3bfa9a3d2986ad0ba4c7c1028f696fcf5fd55b9be"
+      },
+      "companion": {
+        "present": true,
+        "sha256": "6cc2458012bf208f87595c46035d1ea1d670b1b4c9acef7e024f7c86eb461837"
+      },
+      "companionCampaign": {
+        "present": true,
+        "sha256": "2e472d8119867a4910d63edf8a346598916754b999e2f32f3b1c4db76d6e831d"
+      },
+      "companionTower": {
+        "present": true,
+        "sha256": "179b98f58ccb198508ffded1d2097df11c6cb3d7714c643a498633f7ef324077"
+      },
+      "economy": {
+        "present": true,
+        "sha256": "8b46b2720e8965658237bade270f34cce3e480c90ad87d42dce6a050fd09c4fa"
+      },
+      "economyRoster": {
+        "present": true,
+        "sha256": "5e175b1623fdcc1706a13e90e66b079900d04da44195269f2e71feff7df80306"
+      },
+      "family": {
+        "present": true,
+        "sha256": "9b95a5e8c45c5ff542411b3f1fb3d9daff84491388c37030efcf160226f56e4e"
+      },
+      "fellow": {
+        "present": true,
+        "sha256": "c872f8c950034f87a259e8e77cf3fb7bc3b460fee818e8b6772f159183a49a80"
+      },
+      "fellowExpedition": {
+        "present": true,
+        "sha256": "fc03bea0eb2a30307541cd7dd32c95a67b215dc6ee751a9e383e168194c1cb0f"
+      },
+      "might": {
+        "present": true,
+        "sha256": "fcb34be9d2f4e2837eec8f843575fb9e03cc9eba69b536b70b95b57ea5fd4907"
+      },
+      "player": {
+        "present": true,
+        "sha256": "ac221b301f842b56df329082cc574bbf422d459de472b4dce49e5b92187ad7e8"
+      },
+      "relic": {
+        "present": true,
+        "sha256": "bb6cc1a1960d774bb3a53f5ee3088c6105eaef72fff56dc8551358cb1ab450e1"
+      }
+    },
+    "neutrality": {
+      "rawUnchanged": true,
+      "stateUnchanged": true,
+      "writesAfter": 37,
+      "writesBefore": 37,
+      "zeroReportWrites": true
+    },
+    "schemaVersion": 13,
+    "sourceHashes": {
+      "index.html": "6109805093ee78f075257526b4822cf86c9ca22dbd2a2a05ab3ef7b0bcb8c5f3",
+      "src/phase18-19-runtime.js": "26686c97cc7c2a617224b8a287ab92933222e137c53bc309dedad6102d68df2e",
+      "src/phase23-companion-catalog.js": "48da84995d57d78ab01899b4f1840763b2539b4c5605da68ccc309889d0c718f",
+      "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40",
+      "src/phase24-scaling-authority.js": "819fd4e308a98c699ac01a0c3df780eab11e777d933038b118850679d0f39d5c"
+    },
+    "status": "live-baseline-only",
+    "version": 1
+  },
+  "collectionsPlanningBoundary": {
+    "currentContributionBps": 0,
+    "currentMultiplier": 1,
+    "currentStatus": "reserved-inactive",
+    "forwardAuthority": "Decision 40",
+    "staleAppendixLanguageImplemented": false
+  },
+  "contractId": "phase-24a-balance-baseline-v1",
+  "contractVersion": 1,
+  "frozenNow": 1800000000000,
+  "historicalMigrationComparisons": {
+    "freshSchema12To13": {
+      "canonicalProfile": false,
+      "classification": "freshly-migrated-schema12-reference",
+      "expectedAnchors": {
+        "companionActualPower": 2200,
+        "companionMigrationFloor": 2200,
+        "companionThresholdPower": 2200,
+        "fellowCampaignStageOneEffectiveCost": 8368,
+        "fellowCombatPower": 36366,
+        "fellowEconomyPower": 35150,
+        "migrationTransferFloors": {
+          "arcanine": {
+            "actualTransfer": 46,
+            "assignedFellowId": "orin",
+            "protectedTransfer": 400
+          },
+          "dewgong": {
+            "actualTransfer": 40,
+            "assignedFellowId": "cael",
+            "protectedTransfer": 480
+          }
+        }
+      },
+      "fixtureId": "p23.qa.fresh.v1",
+      "label": "Fresh schema-12 predecessor migrated to schema 13 — not true fresh"
+    }
+  },
+  "integrity": {
+    "definitionsSha256": "13dde7df66252a1fc2943192a70fe2366f23aafc247b3aa16d92ae6ae6c1fd6a",
+    "formulaOrderSha256": "9515c5cb70c4dcef6857fd698a12347d69368d9cc390e89fb0d5b312fc9ce421",
+    "recipeSha256": "70ffdf3bf5abc2460954096ca045f516108046962bc81713e4c1c49a20a334ae",
+    "reportPayloadSha256": "7c19b0a2ec7ab48ae0bea98a67ec06dbcfcdecf726ee3d633471360e1e87c0fe"
+  },
+  "nearCapQaEvidence": {
+    "canonicalProfile": false,
+    "classification": "near-cap-qa-reference",
+    "expectedAnchors": {
+      "companionActualPower": 4329,
+      "companionEconomyBps": 147,
+      "companionEconomyPower": 4329,
+      "companionMigrationFloor": 23980,
+      "companionThresholdPower": 23980,
+      "fellowCampaignStageOneEffectiveCost": 6500,
+      "fellowCombatPower": 1054194,
+      "fellowEconomyBps": 1368,
+      "fellowEconomyPower": 1039700,
+      "villageGoldPerHour": 30091.179009136
+    },
+    "fixtureId": "p23.qa.all-unlocked.v1",
+    "label": "Near-cap QA reference — not high investment"
+  },
+  "observedTableHashes": {
+    "claimsByProfile": {
+      "phase24a.fresh.schema13.v1": "29f97b306c57673f39b4515ae2bc982db64c720b3afff2680a4f7b64efc3a479",
+      "phase24a.migrated-established.schema13.v1": "29f97b306c57673f39b4515ae2bc982db64c720b3afff2680a4f7b64efc3a479",
+      "phase24a.true-high-investment.schema13.v1": "600eb325b1508e913d83370905cf278e6e2052b1c5767c33ac7578c664da5a0d"
+    },
+    "costsByProfile": {
+      "phase24a.fresh.schema13.v1": "5e889a8d1ee4233ccfac6efb0871a25ea4063a05043b88838db1ca858f90fe77",
+      "phase24a.migrated-established.schema13.v1": "accd044e2cdd2127deebb72fca4793578e27ebcd5aa123e15802abff90d5633e",
+      "phase24a.true-high-investment.schema13.v1": "50e5496147ab19487448627b1f8b7987bd46e62fe2205bc81299bb9198697d50"
+    },
+    "offlineByProfile": {
+      "phase24a.fresh.schema13.v1": "f44c3cb23566eecd6e6dd620f8116864b451b774ae6b1e884f2151520a301f95",
+      "phase24a.migrated-established.schema13.v1": "f44c3cb23566eecd6e6dd620f8116864b451b774ae6b1e884f2151520a301f95",
+      "phase24a.true-high-investment.schema13.v1": "63c5475333d8677b70293fa03bf2607ef992f117236fff7c99b0e2ecb81e3792"
+    },
+    "requirements": {
+      "companionCampaign": "84086096e0f569f221138ccb23b37dac45255b98059647abfd2a5cfaa7dd201e",
+      "companionTower": "7c4a05384cf92d8cfbd6286529b47e9f080702a035294790501ab77bf45e2c42",
+      "fellowCampaign": "f335b64033da59b05f6b02a211e90439f2c2f458c74be96c46714082d8b2ae1b",
+      "fellowExpedition": "77863c492cb4bd6dcc108ba3932b93304c157fd3ab5f84cd6794bd54d7ce3158"
+    }
+  },
+  "profiles": [
+    {
+      "claimState": {
+        "byLane": {},
+        "pendingOpportunityCount": 0,
+        "readyClaimCount": 0
+      },
+      "claims": {
+        "byLane": {},
+        "manualClaimAuthorityUnchanged": true,
+        "pendingOpportunityCount": 0,
+        "readyClaimCount": 0,
+        "status": "report-only-no-claim"
+      },
+      "collection": {
+        "contributionBps": 0,
+        "multiplier": 1,
+        "status": "reserved-inactive"
+      },
+      "companion": {
+        "actualRosterPower": 2200,
+        "aggregateUnroundedPower": 2200,
+        "effectiveThresholdRosterPower": 2200,
+        "members": [
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "arcanine",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": "cael",
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dewgong",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "snorlax",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dragonite",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "charizard",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "venusaur",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "blastoise",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "jolteon",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "machamp",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "meganium",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "feraligatr",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "miltank",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "donphan",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lucario",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "boltund",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "stoutland",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "mabosstiff",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "zacian",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lugia",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "suicune",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          }
+        ],
+        "migrationFloorApplied": false,
+        "migrationFloorRosterPower": 0
+      },
+      "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+      "costs": {
+        "buildingUpgradeById": {
+          "archives": 15000,
+          "command": 15000,
+          "hearth": 15000,
+          "training": 15000
+        },
+        "fellowCampaignStageOne": {
+          "baseCost": 10000,
+          "discount": 0.1541477272727273,
+          "effectiveCost": 8459
+        }
+      },
+      "economy": {
+        "buildings": [
+          {
+            "atLevelCap": false,
+            "base": 7200,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.008,
+            "familyAssignmentMultiplier": 1.0352,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "training",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 7806.077153279999,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 6500,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.008,
+            "familyAssignmentMultiplier": 1,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "command",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6807.528,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 5600,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.008,
+            "familyAssignmentMultiplier": 1.0316,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "archives",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6050.279531519999,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 6100,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.008,
+            "familyAssignmentMultiplier": 1.042,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "hearth",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6656.9245344,
+            "upgradeCost": 15000
+          }
+        ],
+        "companionRosterBps": 80,
+        "fellowRosterBps": 390,
+        "totalGoldPerHour": 27320.8092192
+      },
+      "fellowCombat": {
+        "members": [
+          {
+            "assignedCompanionId": "dewgong",
+            "basePower": 6100,
+            "bond": 88,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 40,
+            "effectivePower": 6208,
+            "familyBondMultiplier": 1.011,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "cael",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 40,
+            "unroundedPower": 6207.539999999999
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 6400,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 6508,
+            "familyBondMultiplier": 1.0168,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "lyra",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 6507.5199999999995
+          },
+          {
+            "assignedCompanionId": "arcanine",
+            "basePower": 5900,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 46,
+            "effectivePower": 5991,
+            "familyBondMultiplier": 1.0076,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "orin",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 46,
+            "unroundedPower": 5991.189600000001
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 5350,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 5381,
+            "familyBondMultiplier": 1.0058,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "selene",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 5381.03
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 6200,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 6247,
+            "familyBondMultiplier": 1.0076,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "rook",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 6247.12
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 5200,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 5230,
+            "familyBondMultiplier": 1.0058,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "mira",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 5230.16
+          }
+        ],
+        "rosterPower": 35565
+      },
+      "fellowEconomy": {
+        "members": [
+          {
+            "basePower": 6100,
+            "effectivePower": 6100,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "cael",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6100
+          },
+          {
+            "basePower": 6400,
+            "effectivePower": 6400,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "lyra",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6400
+          },
+          {
+            "basePower": 5900,
+            "effectivePower": 5900,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "orin",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5900
+          },
+          {
+            "basePower": 5350,
+            "effectivePower": 5350,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "selene",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5350
+          },
+          {
+            "basePower": 6200,
+            "effectivePower": 6200,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "rook",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6200
+          },
+          {
+            "basePower": 5200,
+            "effectivePower": 5200,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "mira",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5200
+          }
+        ],
+        "rosterPower": 35150
+      },
+      "formulaOrder": {
+        "building": [
+          "base",
+          "levelMultiplier",
+          "familyAssignmentMultiplier",
+          "fellowRosterMultiplier",
+          "companionRosterMultiplier",
+          "overallDayMultiplier",
+          "oathMultiplier"
+        ],
+        "campaignEfficiency": [
+          "totalRosterPower",
+          "recommendedPower",
+          "surplusRatio",
+          "discountScale",
+          "discountCap",
+          "baseCost",
+          "ceil"
+        ],
+        "companionActual": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "masteryMultiplier",
+          "round-per-member",
+          "sum-rounded-members"
+        ],
+        "companionThreshold": [
+          "actualRosterPower",
+          "migrationFloorRosterPower",
+          "max"
+        ],
+        "fellowCombat": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "bondMilestoneMultiplier",
+          "relicMultiplier",
+          "companionPowerTransfer",
+          "migrationTransferFloor",
+          "familyBondMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "fellowEconomy": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "relicMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "rosterBonus": [
+          "numeratorBps",
+          "rosterPower",
+          "divide-by-power-plus-knee",
+          "integer-floor",
+          "capBps"
+        ]
+      },
+      "inputs": {
+        "buildings": [
+          {
+            "id": "training",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "command",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "archives",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "hearth",
+            "level": 1,
+            "oathBoost": 0
+          }
+        ],
+        "companions": [
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "exp": 0,
+            "id": "arcanine",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "cael",
+            "basePower": 100,
+            "exp": 0,
+            "id": "dewgong",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "snorlax",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "dragonite",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "charizard",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "venusaur",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "blastoise",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "jolteon",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "machamp",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "meganium",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "feraligatr",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "miltank",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "donphan",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "lucario",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "boltund",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "stoutland",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "mabosstiff",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "zacian",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "lugia",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "suicune",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          }
+        ],
+        "family": [
+          {
+            "assignedBuildingId": "hearth",
+            "id": "elara",
+            "intimacy": 110,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": "training",
+            "id": "tamsin",
+            "intimacy": 76,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": "archives",
+            "id": "isolde",
+            "intimacy": 58,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "violet",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "virginia",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "captain-marvel",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "scarlet-witch",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "ahsoka",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "rey",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "syl",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shallan",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "yennefer",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "jaina",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tyrande",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shadowheart",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "amara",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "aerith",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tifa",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "hermione",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "misty",
+            "intimacy": 0,
+            "rarity": 1
+          }
+        ],
+        "fellows": [
+          {
+            "bond": 88,
+            "exp": 0,
+            "id": "cael",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "lyra",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "orin",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "selene",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "rook",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "mira",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          }
+        ],
+        "frozenNow": 1800000000000,
+        "masteryPoints": 0,
+        "mightPoints": 0,
+        "migrationFloorRosterPower": 0,
+        "migrationLineage": null,
+        "persisted": false,
+        "rank": 1,
+        "rankExp": 0,
+        "sourceFixtureId": null
+      },
+      "kind": "canonical-fresh",
+      "offline": {
+        "elapsedCapMs": 86400000,
+        "expeditionIntervalMs": 3600000,
+        "pendingByLane": {},
+        "reportSettlesNothing": true,
+        "towerIntervalMs": 3600000
+      },
+      "pendingOffline": {},
+      "profileId": "phase24a.fresh.schema13.v1",
+      "requirements": {
+        "companionCampaign": [
+          2000,
+          2360,
+          2785,
+          3286,
+          3878,
+          4576,
+          5399,
+          6371,
+          7518,
+          8871
+        ],
+        "companionTower": {
+          "1": 2000,
+          "2": 2120,
+          "3": 2247,
+          "4": 2382,
+          "5": 2525,
+          "6": 2676,
+          "7": 2837,
+          "8": 3007,
+          "9": 3188,
+          "10": 3379,
+          "11": 3582,
+          "12": 3797,
+          "13": 4024,
+          "14": 4266,
+          "15": 4522,
+          "16": 4793,
+          "17": 5081,
+          "18": 5386,
+          "19": 5709,
+          "20": 6051,
+          "21": 6414,
+          "22": 6799,
+          "23": 7207,
+          "24": 7639,
+          "25": 8098,
+          "26": 8584,
+          "27": 9099,
+          "28": 9645,
+          "29": 10223,
+          "30": 10837,
+          "31": 11487,
+          "32": 12176,
+          "33": 12907,
+          "34": 13681,
+          "35": 14502,
+          "36": 15372,
+          "37": 16295,
+          "38": 17272,
+          "39": 18309,
+          "40": 19407,
+          "41": 20571,
+          "42": 21806,
+          "43": 23114,
+          "44": 24501,
+          "45": 25971,
+          "46": 27529,
+          "47": 29181,
+          "48": 30932,
+          "49": 32788,
+          "50": 34755
+        },
+        "fellowCampaign": [
+          22000,
+          28500,
+          36000,
+          45000,
+          56000,
+          69000,
+          84000,
+          101000,
+          121000,
+          144000
+        ],
+        "fellowExpedition": {
+          "1": 5500,
+          "2": 5940,
+          "3": 6415,
+          "4": 6928,
+          "5": 7483,
+          "6": 8081,
+          "7": 8728,
+          "8": 9426,
+          "9": 10180,
+          "10": 10995,
+          "11": 11874,
+          "12": 12824,
+          "13": 13850,
+          "14": 14958,
+          "15": 16155,
+          "16": 17447,
+          "17": 18843,
+          "18": 20350,
+          "19": 21978,
+          "20": 23736,
+          "21": 25635,
+          "22": 27686,
+          "23": 29901,
+          "24": 32293,
+          "25": 34876,
+          "26": 37667,
+          "27": 40680,
+          "28": 43934,
+          "29": 47449,
+          "30": 51245,
+          "31": 55345,
+          "32": 59772,
+          "33": 64554,
+          "34": 69718,
+          "35": 75296,
+          "36": 81319,
+          "37": 87825,
+          "38": 94851,
+          "39": 102439,
+          "40": 110634,
+          "41": 119485,
+          "42": 129044,
+          "43": 139367,
+          "44": 150517,
+          "45": 162558,
+          "46": 175562,
+          "47": 189607,
+          "48": 204776,
+          "49": 221158,
+          "50": 238851
+        }
+      },
+      "safeIntegerAudit": {
+        "checkedCount": 677,
+        "maxAbsInteger": 1800000000000,
+        "ok": true
+      },
+      "schemaVersion": 13,
+      "sourceProof": {
+        "activeAuthorityIdentity": "fnv1a32:4652:41af9cbc",
+        "activeConfigIdentity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+        "collectionAuthorityActive": false,
+        "formulaOrderIdentity": "fnv1a32:922:31f076e1",
+        "legacyAppliedToReport": false,
+        "phase23CatalogManifestId": "everstead-companions-2026-09-01"
+      }
+    },
+    {
+      "claimState": {
+        "byLane": {},
+        "pendingOpportunityCount": 0,
+        "readyClaimCount": 0
+      },
+      "claims": {
+        "byLane": {},
+        "manualClaimAuthorityUnchanged": true,
+        "pendingOpportunityCount": 0,
+        "readyClaimCount": 0,
+        "status": "report-only-no-claim"
+      },
+      "collection": {
+        "contributionBps": 0,
+        "multiplier": 1,
+        "status": "reserved-inactive"
+      },
+      "companion": {
+        "actualRosterPower": 2272,
+        "aggregateUnroundedPower": 2271.6,
+        "effectiveThresholdRosterPower": 2892,
+        "members": [
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "effectivePower": 166,
+            "exp": 182,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "arcanine",
+            "level": 3,
+            "levelMultiplier": 1.2,
+            "masteryMultiplier": 1,
+            "rarity": 3,
+            "rarityMultiplier": 1.2,
+            "unroundedPower": 165.6
+          },
+          {
+            "assignedFellowId": "cael",
+            "basePower": 100,
+            "effectivePower": 121,
+            "exp": 80,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dewgong",
+            "level": 2,
+            "levelMultiplier": 1.1,
+            "masteryMultiplier": 1,
+            "rarity": 2,
+            "rarityMultiplier": 1.1,
+            "unroundedPower": 121.00000000000003
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "snorlax",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dragonite",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "charizard",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "venusaur",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "blastoise",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "jolteon",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "machamp",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "meganium",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "effectivePower": 115,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "feraligatr",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 115
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "miltank",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "donphan",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lucario",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "boltund",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "stoutland",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "effectivePower": 100,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "mabosstiff",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 100
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "zacian",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lugia",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 125,
+            "exp": 0,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "suicune",
+            "level": 1,
+            "levelMultiplier": 1,
+            "masteryMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "unroundedPower": 125
+          }
+        ],
+        "migrationFloorApplied": true,
+        "migrationFloorRosterPower": 2892
+      },
+      "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+      "costs": {
+        "buildingUpgradeById": {
+          "archives": 15000,
+          "command": 15000,
+          "hearth": 15000,
+          "training": 15000
+        },
+        "fellowCampaignStageOne": {
+          "baseCost": 10000,
+          "discount": 0.16642045454545457,
+          "effectiveCost": 8336
+        }
+      },
+      "economy": {
+        "buildings": [
+          {
+            "atLevelCap": false,
+            "base": 7200,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.0083,
+            "familyAssignmentMultiplier": 1.0352,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "training",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 7808.400390527999,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 6500,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.0083,
+            "familyAssignmentMultiplier": 1,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "command",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6809.55405,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 5600,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.0083,
+            "familyAssignmentMultiplier": 1.0316,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "archives",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6052.080209952,
+            "upgradeCost": 15000
+          },
+          {
+            "atLevelCap": false,
+            "base": 6100,
+            "capStatus": "upgrade-available",
+            "companionRosterMultiplier": 1.0083,
+            "familyAssignmentMultiplier": 1.042,
+            "fellowRosterMultiplier": 1.039,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "hearth",
+            "level": 1,
+            "levelMultiplier": 1,
+            "oathMultiplier": 1,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 6658.905761939999,
+            "upgradeCost": 15000
+          }
+        ],
+        "companionRosterBps": 83,
+        "fellowRosterBps": 390,
+        "totalGoldPerHour": 27328.94041242
+      },
+      "fellowCombat": {
+        "members": [
+          {
+            "assignedCompanionId": "dewgong",
+            "basePower": 6100,
+            "bond": 88,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 581,
+            "effectivePower": 6754,
+            "familyBondMultiplier": 1.011,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "migrationTransferFloor",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "cael",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 532.6,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 581,
+            "unroundedPower": 6754.490999999999
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 6400,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 6508,
+            "familyBondMultiplier": 1.0168,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "lyra",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 6507.5199999999995
+          },
+          {
+            "assignedCompanionId": "arcanine",
+            "basePower": 5900,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 576,
+            "effectivePower": 6525,
+            "familyBondMultiplier": 1.0076,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "migrationTransferFloor",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "orin",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 509.76,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 576,
+            "unroundedPower": 6525.2176
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 5350,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 5381,
+            "familyBondMultiplier": 1.0058,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "selene",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 5381.03
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 6200,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 6247,
+            "familyBondMultiplier": 1.0076,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "rook",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 6247.12
+          },
+          {
+            "assignedCompanionId": null,
+            "basePower": 5200,
+            "bond": 35,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 0,
+            "effectivePower": 5230,
+            "familyBondMultiplier": 1.0058,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "mira",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightMultiplier": 1,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 0,
+            "unroundedPower": 5230.16
+          }
+        ],
+        "rosterPower": 36645
+      },
+      "fellowEconomy": {
+        "members": [
+          {
+            "basePower": 6100,
+            "effectivePower": 6100,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "cael",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6100
+          },
+          {
+            "basePower": 6400,
+            "effectivePower": 6400,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "lyra",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6400
+          },
+          {
+            "basePower": 5900,
+            "effectivePower": 5900,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "orin",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5900
+          },
+          {
+            "basePower": 5350,
+            "effectivePower": 5350,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "selene",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5350
+          },
+          {
+            "basePower": 6200,
+            "effectivePower": 6200,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "rook",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 6200
+          },
+          {
+            "basePower": 5200,
+            "effectivePower": 5200,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1,
+            "id": "mira",
+            "level": 1,
+            "levelMultiplier": 1,
+            "mightLevel": 0,
+            "mightMultiplier": 1,
+            "rarity": 1,
+            "rarityMultiplier": 1,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 5200
+          }
+        ],
+        "rosterPower": 35150
+      },
+      "formulaOrder": {
+        "building": [
+          "base",
+          "levelMultiplier",
+          "familyAssignmentMultiplier",
+          "fellowRosterMultiplier",
+          "companionRosterMultiplier",
+          "overallDayMultiplier",
+          "oathMultiplier"
+        ],
+        "campaignEfficiency": [
+          "totalRosterPower",
+          "recommendedPower",
+          "surplusRatio",
+          "discountScale",
+          "discountCap",
+          "baseCost",
+          "ceil"
+        ],
+        "companionActual": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "masteryMultiplier",
+          "round-per-member",
+          "sum-rounded-members"
+        ],
+        "companionThreshold": [
+          "actualRosterPower",
+          "migrationFloorRosterPower",
+          "max"
+        ],
+        "fellowCombat": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "bondMilestoneMultiplier",
+          "relicMultiplier",
+          "companionPowerTransfer",
+          "migrationTransferFloor",
+          "familyBondMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "fellowEconomy": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "relicMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "rosterBonus": [
+          "numeratorBps",
+          "rosterPower",
+          "divide-by-power-plus-knee",
+          "integer-floor",
+          "capBps"
+        ]
+      },
+      "inputs": {
+        "buildings": [
+          {
+            "id": "training",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "command",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "archives",
+            "level": 1,
+            "oathBoost": 0
+          },
+          {
+            "id": "hearth",
+            "level": 1,
+            "oathBoost": 0
+          }
+        ],
+        "companions": [
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "exp": 182,
+            "id": "arcanine",
+            "level": 3,
+            "rarity": 3,
+            "shards": 37
+          },
+          {
+            "assignedFellowId": "cael",
+            "basePower": 100,
+            "exp": 80,
+            "id": "dewgong",
+            "level": 2,
+            "rarity": 2,
+            "shards": 11
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "snorlax",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "dragonite",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "charizard",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "venusaur",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "blastoise",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "jolteon",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "machamp",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "meganium",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 115,
+            "exp": 0,
+            "id": "feraligatr",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "miltank",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "donphan",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "lucario",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "boltund",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "stoutland",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 100,
+            "exp": 0,
+            "id": "mabosstiff",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "zacian",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "lugia",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 0,
+            "id": "suicune",
+            "level": 1,
+            "rarity": 1,
+            "shards": 0
+          }
+        ],
+        "family": [
+          {
+            "assignedBuildingId": "hearth",
+            "id": "elara",
+            "intimacy": 110,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": "training",
+            "id": "tamsin",
+            "intimacy": 76,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": "archives",
+            "id": "isolde",
+            "intimacy": 58,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "violet",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "virginia",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "captain-marvel",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "scarlet-witch",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "ahsoka",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "rey",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "syl",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shallan",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "yennefer",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "jaina",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tyrande",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shadowheart",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "amara",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "aerith",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tifa",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "hermione",
+            "intimacy": 0,
+            "rarity": 1
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "misty",
+            "intimacy": 0,
+            "rarity": 1
+          }
+        ],
+        "fellows": [
+          {
+            "bond": 88,
+            "exp": 0,
+            "id": "cael",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "lyra",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "orin",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "selene",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "rook",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          },
+          {
+            "bond": 35,
+            "exp": 0,
+            "id": "mira",
+            "level": 1,
+            "rarity": 1,
+            "relicId": null
+          }
+        ],
+        "frozenNow": 1800000000000,
+        "masteryPoints": 0,
+        "mightPoints": 0,
+        "migrationFloorRosterPower": 2892,
+        "migrationLineage": {
+          "exactProfileMatch": true,
+          "from": 12,
+          "initializationIdentity": "fnv1a32:425:0851907f",
+          "legacyHistoryIdentity": "fnv1a32:1728:3e4d2025",
+          "present": true,
+          "profileInitializationIdentity": "fnv1a32:425:0851907f",
+          "profileLegacyHistoryIdentity": "fnv1a32:1728:3e4d2025",
+          "profilePredecessorIdentity": "fnv1a32:15245:827978cf",
+          "receiptId": "schema-12-to-13",
+          "schema12PredecessorIdentity": "fnv1a32:15245:827978cf",
+          "source": "schema-12",
+          "to": 13
+        },
+        "persisted": true,
+        "rank": 1,
+        "rankExp": 0,
+        "sourceFixtureId": "p23.qa.schema12-invested.v1"
+      },
+      "kind": "canonical-migrated-established",
+      "migrationComparison": {
+        "freshlyMigratedSchema12": {
+          "companionActualRosterPower": 2200,
+          "fellowCombatPower": 36366,
+          "migrationProtectionDelta": 801,
+          "protectedFellowIds": [
+            "cael",
+            "orin"
+          ],
+          "trueFreshFellowCombatPower": 35565
+        }
+      },
+      "offline": {
+        "elapsedCapMs": 86400000,
+        "expeditionIntervalMs": 3600000,
+        "pendingByLane": {},
+        "reportSettlesNothing": true,
+        "towerIntervalMs": 3600000
+      },
+      "pendingOffline": {},
+      "profileId": "phase24a.migrated-established.schema13.v1",
+      "requirements": {
+        "companionCampaign": [
+          2000,
+          2360,
+          2785,
+          3286,
+          3878,
+          4576,
+          5399,
+          6371,
+          7518,
+          8871
+        ],
+        "companionTower": {
+          "1": 2000,
+          "2": 2120,
+          "3": 2247,
+          "4": 2382,
+          "5": 2525,
+          "6": 2676,
+          "7": 2837,
+          "8": 3007,
+          "9": 3188,
+          "10": 3379,
+          "11": 3582,
+          "12": 3797,
+          "13": 4024,
+          "14": 4266,
+          "15": 4522,
+          "16": 4793,
+          "17": 5081,
+          "18": 5386,
+          "19": 5709,
+          "20": 6051,
+          "21": 6414,
+          "22": 6799,
+          "23": 7207,
+          "24": 7639,
+          "25": 8098,
+          "26": 8584,
+          "27": 9099,
+          "28": 9645,
+          "29": 10223,
+          "30": 10837,
+          "31": 11487,
+          "32": 12176,
+          "33": 12907,
+          "34": 13681,
+          "35": 14502,
+          "36": 15372,
+          "37": 16295,
+          "38": 17272,
+          "39": 18309,
+          "40": 19407,
+          "41": 20571,
+          "42": 21806,
+          "43": 23114,
+          "44": 24501,
+          "45": 25971,
+          "46": 27529,
+          "47": 29181,
+          "48": 30932,
+          "49": 32788,
+          "50": 34755
+        },
+        "fellowCampaign": [
+          22000,
+          28500,
+          36000,
+          45000,
+          56000,
+          69000,
+          84000,
+          101000,
+          121000,
+          144000
+        ],
+        "fellowExpedition": {
+          "1": 5500,
+          "2": 5940,
+          "3": 6415,
+          "4": 6928,
+          "5": 7483,
+          "6": 8081,
+          "7": 8728,
+          "8": 9426,
+          "9": 10180,
+          "10": 10995,
+          "11": 11874,
+          "12": 12824,
+          "13": 13850,
+          "14": 14958,
+          "15": 16155,
+          "16": 17447,
+          "17": 18843,
+          "18": 20350,
+          "19": 21978,
+          "20": 23736,
+          "21": 25635,
+          "22": 27686,
+          "23": 29901,
+          "24": 32293,
+          "25": 34876,
+          "26": 37667,
+          "27": 40680,
+          "28": 43934,
+          "29": 47449,
+          "30": 51245,
+          "31": 55345,
+          "32": 59772,
+          "33": 64554,
+          "34": 69718,
+          "35": 75296,
+          "36": 81319,
+          "37": 87825,
+          "38": 94851,
+          "39": 102439,
+          "40": 110634,
+          "41": 119485,
+          "42": 129044,
+          "43": 139367,
+          "44": 150517,
+          "45": 162558,
+          "46": 175562,
+          "47": 189607,
+          "48": 204776,
+          "49": 221158,
+          "50": 238851
+        }
+      },
+      "safeIntegerAudit": {
+        "checkedCount": 674,
+        "maxAbsInteger": 1800000000000,
+        "ok": true
+      },
+      "schemaVersion": 13,
+      "sourceProof": {
+        "activeAuthorityIdentity": "fnv1a32:4652:41af9cbc",
+        "activeConfigIdentity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+        "collectionAuthorityActive": false,
+        "formulaOrderIdentity": "fnv1a32:922:31f076e1",
+        "legacyAppliedToReport": false,
+        "phase23CatalogManifestId": "everstead-companions-2026-09-01"
+      }
+    },
+    {
+      "claimState": {
+        "byLane": {
+          "apothecary": {
+            "captured": {
+              "bankCapacity": 8,
+              "createdCount": 8
+            },
+            "pendingCount": 8,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "apothecaryFinalizerV1"
+          },
+          "companionTower": {
+            "captured": {
+              "companionExp": {
+                "arcanine": 2880,
+                "blastoise": 2880,
+                "boltund": 2880,
+                "charizard": 2880,
+                "dewgong": 2880,
+                "donphan": 2880,
+                "dragonite": 2880,
+                "feraligatr": 2880,
+                "jolteon": 2880,
+                "lucario": 2880,
+                "lugia": 2880,
+                "mabosstiff": 2880,
+                "machamp": 2880,
+                "meganium": 2880,
+                "miltank": 2880,
+                "snorlax": 2880,
+                "stoutland": 2880,
+                "suicune": 2880,
+                "venusaur": 2880,
+                "zacian": 2880
+              },
+              "companionShards": {
+                "arcanine": 0,
+                "blastoise": 0,
+                "boltund": 0,
+                "charizard": 0,
+                "dewgong": 0,
+                "donphan": 1,
+                "dragonite": 0,
+                "feraligatr": 0,
+                "jolteon": 1,
+                "lucario": 0,
+                "lugia": 2,
+                "mabosstiff": 0,
+                "machamp": 0,
+                "meganium": 0,
+                "miltank": 0,
+                "snorlax": 1,
+                "stoutland": 0,
+                "suicune": 0,
+                "venusaur": 0,
+                "zacian": 0
+              },
+              "intervals": 24,
+              "masteryAwarded": 0,
+              "masteryNominal": 120,
+              "postMasteryPoints": 50000,
+              "preMasteryPoints": 50000
+            },
+            "pendingCount": 24,
+            "readyCount": 1,
+            "receiptIdentityVersion": 2,
+            "receiptPolicyId": "companion-tower-targeting.phase-23.v1"
+          },
+          "fellowExpedition": {
+            "captured": {
+              "fellowShards": {
+                "anakin": 2,
+                "cael": 0,
+                "captain-america": 0,
+                "daredevil": 0,
+                "darrow": 0,
+                "deadpool": 1,
+                "iron-man": 0,
+                "lyra": 0,
+                "mira": 0,
+                "obi-wan": 0,
+                "orin": 1,
+                "rook": 1,
+                "selene": 0,
+                "spider-man": 0,
+                "star-lord": 0,
+                "thor": 0,
+                "wolverine": 0,
+                "zamorak": 1
+              },
+              "intervals": 24,
+              "mightAwarded": 0,
+              "mightNominal": 600,
+              "postMightPoints": 50000,
+              "preMightPoints": 50000
+            },
+            "pendingCount": 24,
+            "readyCount": 1,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "phase-7-fellow-progression-v1"
+          },
+          "legacy": {
+            "captured": [
+              {
+                "id": "qa.phase13.claim.first-covenant.v1",
+                "offerId": "reward.offer.qa.phase13.claim.first-covenant.v1",
+                "rewards": [
+                  {
+                    "amount": 1500,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "story.book1.chapter1.village-toll.resolution",
+                "status": "ready"
+              },
+              {
+                "id": "legacy.oathkeeper.tier-1",
+                "offerId": "reward.offer.legacy.oathkeeper.tier-1",
+                "rewards": [
+                  {
+                    "amount": 750,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "legacy.oathkeeper.tier-1",
+                "status": "ready"
+              },
+              {
+                "id": "legacy.first-campaign-clear",
+                "offerId": "reward.offer.legacy.first-campaign-clear",
+                "rewards": [
+                  {
+                    "amount": 500,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "legacy.feat.first-campaign-clear",
+                "status": "ready"
+              }
+            ],
+            "pendingCount": 3,
+            "readyCount": 3,
+            "receiptIdentityVersion": 2,
+            "receiptPolicyId": "claim-archive.phase-15.v1"
+          },
+          "restaurant": {
+            "captured": {
+              "createdOrdinals": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "saturated": true
+            },
+            "pendingCount": 12,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "economy-policy.restaurant.candidate-v1"
+          },
+          "schoolhouse": {
+            "captured": {
+              "bankCapacity": 8,
+              "createdCount": 8
+            },
+            "pendingCount": 8,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "schoolhouseLessonFinalizerV1"
+          },
+          "villageGold": {
+            "captured": {
+              "claimableGold": 923019963,
+              "gifts": 0,
+              "lines": [
+                {
+                  "id": "training",
+                  "name": "Training Grounds",
+                  "value": 261643454.25174922
+                },
+                {
+                  "id": "command",
+                  "name": "Command Center",
+                  "value": 236205896.19949585
+                },
+                {
+                  "id": "archives",
+                  "name": "Archives",
+                  "value": 203500464.4180272
+                },
+                {
+                  "id": "hearth",
+                  "name": "Hearth",
+                  "value": 221670148.74106535
+                }
+              ],
+              "pendingGold": 923019963.6103376,
+              "shards": {
+                "aerith": 0,
+                "ahsoka": 0,
+                "amara": 0,
+                "captain-marvel": 0,
+                "elara": 0,
+                "hermione": 0,
+                "isolde": 0,
+                "jaina": 0,
+                "misty": 0,
+                "rey": 0,
+                "scarlet-witch": 0,
+                "shadowheart": 0,
+                "shallan": 0,
+                "syl": 0,
+                "tamsin": 0,
+                "tifa": 0,
+                "tyrande": 0,
+                "violet": 0,
+                "virginia": 0,
+                "yennefer": 0
+              }
+            },
+            "pendingCount": 1,
+            "readyCount": 1,
+            "receiptIdentityVersion": 0,
+            "receiptPolicyId": "legacy-unversioned-village-collection"
+          }
+        },
+        "pendingOpportunityCount": 28,
+        "readyClaimCount": 6
+      },
+      "claims": {
+        "byLane": {
+          "apothecary": {
+            "captured": {
+              "bankCapacity": 8,
+              "createdCount": 8
+            },
+            "pendingCount": 8,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "apothecaryFinalizerV1"
+          },
+          "companionTower": {
+            "captured": {
+              "companionExp": {
+                "arcanine": 2880,
+                "blastoise": 2880,
+                "boltund": 2880,
+                "charizard": 2880,
+                "dewgong": 2880,
+                "donphan": 2880,
+                "dragonite": 2880,
+                "feraligatr": 2880,
+                "jolteon": 2880,
+                "lucario": 2880,
+                "lugia": 2880,
+                "mabosstiff": 2880,
+                "machamp": 2880,
+                "meganium": 2880,
+                "miltank": 2880,
+                "snorlax": 2880,
+                "stoutland": 2880,
+                "suicune": 2880,
+                "venusaur": 2880,
+                "zacian": 2880
+              },
+              "companionShards": {
+                "arcanine": 0,
+                "blastoise": 0,
+                "boltund": 0,
+                "charizard": 0,
+                "dewgong": 0,
+                "donphan": 1,
+                "dragonite": 0,
+                "feraligatr": 0,
+                "jolteon": 1,
+                "lucario": 0,
+                "lugia": 2,
+                "mabosstiff": 0,
+                "machamp": 0,
+                "meganium": 0,
+                "miltank": 0,
+                "snorlax": 1,
+                "stoutland": 0,
+                "suicune": 0,
+                "venusaur": 0,
+                "zacian": 0
+              },
+              "intervals": 24,
+              "masteryAwarded": 0,
+              "masteryNominal": 120,
+              "postMasteryPoints": 50000,
+              "preMasteryPoints": 50000
+            },
+            "pendingCount": 24,
+            "readyCount": 1,
+            "receiptIdentityVersion": 2,
+            "receiptPolicyId": "companion-tower-targeting.phase-23.v1"
+          },
+          "fellowExpedition": {
+            "captured": {
+              "fellowShards": {
+                "anakin": 2,
+                "cael": 0,
+                "captain-america": 0,
+                "daredevil": 0,
+                "darrow": 0,
+                "deadpool": 1,
+                "iron-man": 0,
+                "lyra": 0,
+                "mira": 0,
+                "obi-wan": 0,
+                "orin": 1,
+                "rook": 1,
+                "selene": 0,
+                "spider-man": 0,
+                "star-lord": 0,
+                "thor": 0,
+                "wolverine": 0,
+                "zamorak": 1
+              },
+              "intervals": 24,
+              "mightAwarded": 0,
+              "mightNominal": 600,
+              "postMightPoints": 50000,
+              "preMightPoints": 50000
+            },
+            "pendingCount": 24,
+            "readyCount": 1,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "phase-7-fellow-progression-v1"
+          },
+          "legacy": {
+            "captured": [
+              {
+                "id": "qa.phase13.claim.first-covenant.v1",
+                "offerId": "reward.offer.qa.phase13.claim.first-covenant.v1",
+                "rewards": [
+                  {
+                    "amount": 1500,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "story.book1.chapter1.village-toll.resolution",
+                "status": "ready"
+              },
+              {
+                "id": "legacy.oathkeeper.tier-1",
+                "offerId": "reward.offer.legacy.oathkeeper.tier-1",
+                "rewards": [
+                  {
+                    "amount": 750,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "legacy.oathkeeper.tier-1",
+                "status": "ready"
+              },
+              {
+                "id": "legacy.first-campaign-clear",
+                "offerId": "reward.offer.legacy.first-campaign-clear",
+                "rewards": [
+                  {
+                    "amount": 500,
+                    "kind": "gold",
+                    "targetId": null
+                  }
+                ],
+                "sourceId": "legacy.feat.first-campaign-clear",
+                "status": "ready"
+              }
+            ],
+            "pendingCount": 3,
+            "readyCount": 3,
+            "receiptIdentityVersion": 2,
+            "receiptPolicyId": "claim-archive.phase-15.v1"
+          },
+          "restaurant": {
+            "captured": {
+              "createdOrdinals": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "saturated": true
+            },
+            "pendingCount": 12,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "economy-policy.restaurant.candidate-v1"
+          },
+          "schoolhouse": {
+            "captured": {
+              "bankCapacity": 8,
+              "createdCount": 8
+            },
+            "pendingCount": 8,
+            "readyCount": 0,
+            "receiptIdentityVersion": 1,
+            "receiptPolicyId": "schoolhouseLessonFinalizerV1"
+          },
+          "villageGold": {
+            "captured": {
+              "claimableGold": 923019963,
+              "gifts": 0,
+              "lines": [
+                {
+                  "id": "training",
+                  "name": "Training Grounds",
+                  "value": 261643454.25174922
+                },
+                {
+                  "id": "command",
+                  "name": "Command Center",
+                  "value": 236205896.19949585
+                },
+                {
+                  "id": "archives",
+                  "name": "Archives",
+                  "value": 203500464.4180272
+                },
+                {
+                  "id": "hearth",
+                  "name": "Hearth",
+                  "value": 221670148.74106535
+                }
+              ],
+              "pendingGold": 923019963.6103376,
+              "shards": {
+                "aerith": 0,
+                "ahsoka": 0,
+                "amara": 0,
+                "captain-marvel": 0,
+                "elara": 0,
+                "hermione": 0,
+                "isolde": 0,
+                "jaina": 0,
+                "misty": 0,
+                "rey": 0,
+                "scarlet-witch": 0,
+                "shadowheart": 0,
+                "shallan": 0,
+                "syl": 0,
+                "tamsin": 0,
+                "tifa": 0,
+                "tyrande": 0,
+                "violet": 0,
+                "virginia": 0,
+                "yennefer": 0
+              }
+            },
+            "pendingCount": 1,
+            "readyCount": 1,
+            "receiptIdentityVersion": 0,
+            "receiptPolicyId": "legacy-unversioned-village-collection"
+          }
+        },
+        "manualClaimAuthorityUnchanged": true,
+        "pendingOpportunityCount": 28,
+        "readyClaimCount": 6,
+        "status": "report-only-no-claim"
+      },
+      "collection": {
+        "contributionBps": 0,
+        "multiplier": 1,
+        "status": "reserved-inactive"
+      },
+      "companion": {
+        "actualRosterPower": 50355,
+        "aggregateUnroundedPower": 50358,
+        "effectiveThresholdRosterPower": 50355,
+        "members": [
+          {
+            "assignedFellowId": "cael",
+            "basePower": 115,
+            "effectivePower": 2632,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "arcanine",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2632.35
+          },
+          {
+            "assignedFellowId": "lyra",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dewgong",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "effectivePower": 2632,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "snorlax",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2632.35
+          },
+          {
+            "assignedFellowId": "selene",
+            "basePower": 125,
+            "effectivePower": 2861,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "dragonite",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2861.2499999999995
+          },
+          {
+            "assignedFellowId": "rook",
+            "basePower": 125,
+            "effectivePower": 2861,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "charizard",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2861.2499999999995
+          },
+          {
+            "assignedFellowId": "mira",
+            "basePower": 115,
+            "effectivePower": 2632,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "venusaur",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2632.35
+          },
+          {
+            "assignedFellowId": "zamorak",
+            "basePower": 115,
+            "effectivePower": 2632,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "blastoise",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2632.35
+          },
+          {
+            "assignedFellowId": "darrow",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "jolteon",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "deadpool",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "machamp",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "star-lord",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "meganium",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "iron-man",
+            "basePower": 115,
+            "effectivePower": 2632,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "feraligatr",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2632.35
+          },
+          {
+            "assignedFellowId": "daredevil",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "miltank",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "thor",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "donphan",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "captain-america",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lucario",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "spider-man",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "boltund",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "wolverine",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "stoutland",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "obi-wan",
+            "basePower": 100,
+            "effectivePower": 2289,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "mabosstiff",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2289
+          },
+          {
+            "assignedFellowId": "anakin",
+            "basePower": 125,
+            "effectivePower": 2861,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "zacian",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2861.2499999999995
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 2861,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "lugia",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2861.2499999999995
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "effectivePower": 2861,
+            "exp": 49714965,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "masteryMultiplier",
+              "round"
+            ],
+            "id": "suicune",
+            "level": 100,
+            "levelMultiplier": 10.9,
+            "masteryMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.4,
+            "unroundedPower": 2861.2499999999995
+          }
+        ],
+        "migrationFloorApplied": false,
+        "migrationFloorRosterPower": 0
+      },
+      "configId": "everstead-scaling-live-baseline.phase-24a.v1",
+      "costs": {
+        "buildingUpgradeById": {
+          "archives": null,
+          "command": null,
+          "hearth": null,
+          "training": null
+        },
+        "fellowCampaignStageOne": {
+          "baseCost": 10000,
+          "discount": 0.35,
+          "effectiveCost": 6500
+        }
+      },
+      "economy": {
+        "buildings": [
+          {
+            "atLevelCap": true,
+            "base": 7200,
+            "capStatus": "level-cap",
+            "companionRosterMultiplier": 1.0668,
+            "familyAssignmentMultiplier": 1.2,
+            "fellowRosterMultiplier": 1.1454,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "training",
+            "level": 52,
+            "levelMultiplier": 1246.2060578215462,
+            "oathMultiplier": 1.3,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 17103584.539565254,
+            "upgradeCost": null
+          },
+          {
+            "atLevelCap": true,
+            "base": 6500,
+            "capStatus": "level-cap",
+            "companionRosterMultiplier": 1.0668,
+            "familyAssignmentMultiplier": 1.2,
+            "fellowRosterMultiplier": 1.1454,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "command",
+            "level": 52,
+            "levelMultiplier": 1246.2060578215462,
+            "oathMultiplier": 1.3,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 15440736.042663077,
+            "upgradeCost": null
+          },
+          {
+            "atLevelCap": true,
+            "base": 5600,
+            "capStatus": "level-cap",
+            "companionRosterMultiplier": 1.0668,
+            "familyAssignmentMultiplier": 1.2,
+            "fellowRosterMultiplier": 1.1454,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "archives",
+            "level": 52,
+            "levelMultiplier": 1246.2060578215462,
+            "oathMultiplier": 1.3,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 13302787.97521742,
+            "upgradeCost": null
+          },
+          {
+            "atLevelCap": true,
+            "base": 6100,
+            "capStatus": "level-cap",
+            "companionRosterMultiplier": 1.0668,
+            "familyAssignmentMultiplier": 1.2,
+            "fellowRosterMultiplier": 1.1454,
+            "formulaOrder": [
+              "base",
+              "levelMultiplier",
+              "familyAssignmentMultiplier",
+              "fellowRosterMultiplier",
+              "companionRosterMultiplier",
+              "overallDayMultiplier",
+              "oathMultiplier"
+            ],
+            "id": "hearth",
+            "level": 52,
+            "levelMultiplier": 1246.2060578215462,
+            "oathMultiplier": 1.3,
+            "overallDayMultiplier": 1,
+            "unroundedGoldPerHour": 14490536.90157612,
+            "upgradeCost": null
+          }
+        ],
+        "companionRosterBps": 668,
+        "fellowRosterBps": 1454,
+        "totalGoldPerHour": 60337645.45902187
+      },
+      "fellowCombat": {
+        "members": [
+          {
+            "assignedCompanionId": "arcanine",
+            "basePower": 6100,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1052.94,
+            "effectivePower": 200418,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "cael",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 1052.94,
+            "unroundedPower": 200418.22080000007
+          },
+          {
+            "assignedCompanionId": "dewgong",
+            "basePower": 6400,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 223504,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "lyra",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "emberglass-sigil",
+            "relicMultiplier": 1.065,
+            "transferredPower": 915.6,
+            "unroundedPower": 223504.35609600006
+          },
+          {
+            "assignedCompanionId": "snorlax",
+            "basePower": 5900,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1052.94,
+            "effectivePower": 193905,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "orin",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 1052.94,
+            "unroundedPower": 193905.12960000001
+          },
+          {
+            "assignedCompanionId": "dragonite",
+            "basePower": 5350,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1144.4999999999998,
+            "effectivePower": 176148,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "selene",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 1144.4999999999998,
+            "unroundedPower": 176147.94960000002
+          },
+          {
+            "assignedCompanionId": "charizard",
+            "basePower": 6200,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1144.4999999999998,
+            "effectivePower": 203829,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "rook",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 1144.4999999999998,
+            "unroundedPower": 203828.58720000004
+          },
+          {
+            "assignedCompanionId": "venusaur",
+            "basePower": 5200,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1052.94,
+            "effectivePower": 171109,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "mira",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 1052.94,
+            "unroundedPower": 171109.31040000002
+          },
+          {
+            "assignedCompanionId": "blastoise",
+            "basePower": 6250,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1052.94,
+            "effectivePower": 211918,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "zamorak",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "mossbound-compass",
+            "relicMultiplier": 1.0325,
+            "transferredPower": 1052.94,
+            "unroundedPower": 211917.89745000002
+          },
+          {
+            "assignedCompanionId": "jolteon",
+            "basePower": 6150,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 201816,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "darrow",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 201815.7624
+          },
+          {
+            "assignedCompanionId": "machamp",
+            "basePower": 5450,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 174225,
+            "familyBondMultiplier": 1.09,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "deadpool",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 174224.76615000004
+          },
+          {
+            "assignedCompanionId": "meganium",
+            "basePower": 5500,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 180648,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "star-lord",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 180648.21600000004
+          },
+          {
+            "assignedCompanionId": "feraligatr",
+            "basePower": 6300,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1052.94,
+            "effectivePower": 213599,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "iron-man",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "first-road-lantern",
+            "relicMultiplier": 1.0325,
+            "transferredPower": 1052.94,
+            "unroundedPower": 213599.08911600002
+          },
+          {
+            "assignedCompanionId": "miltank",
+            "basePower": 6000,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 191656,
+            "familyBondMultiplier": 1.09,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "daredevil",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 191656.00800000006
+          },
+          {
+            "assignedCompanionId": "donphan",
+            "basePower": 6500,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 227588,
+            "familyBondMultiplier": 1.09,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "thor",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "stormforged-emblem",
+            "relicMultiplier": 1.0975,
+            "transferredPower": 915.6,
+            "unroundedPower": 227588.13608625004
+          },
+          {
+            "assignedCompanionId": "lucario",
+            "basePower": 6200,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 203444,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "captain-america",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 203444.03520000004
+          },
+          {
+            "assignedCompanionId": "boltund",
+            "basePower": 5600,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 183905,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "spider-man",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 183904.76160000003
+          },
+          {
+            "assignedCompanionId": "stoutland",
+            "basePower": 6350,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 215830,
+            "familyBondMultiplier": 1.09,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "wolverine",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "tideglass-charm",
+            "relicMultiplier": 1.065,
+            "transferredPower": 915.6,
+            "unroundedPower": 215829.97112925007
+          },
+          {
+            "assignedCompanionId": "mabosstiff",
+            "basePower": 5550,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 915.6,
+            "effectivePower": 182276,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "obi-wan",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "transferredPower": 915.6,
+            "unroundedPower": 182276.48880000005
+          },
+          {
+            "assignedCompanionId": "zacian",
+            "basePower": 6450,
+            "bond": 99,
+            "bondMilestoneMultiplier": 1,
+            "companionPowerTransfer": 1144.4999999999998,
+            "effectivePower": 232450,
+            "familyBondMultiplier": 1.12,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "bondMilestoneMultiplier",
+              "relicMultiplier",
+              "companionPowerTransfer",
+              "familyBondMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "anakin",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightMultiplier": 1.5,
+            "migrationTransferFloorApplied": 0,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "oathkeeper-crest",
+            "relicMultiplier": 1.0975,
+            "transferredPower": 1144.4999999999998,
+            "unroundedPower": 232449.552342
+          }
+        ],
+        "rosterPower": 3588268
+      },
+      "fellowEconomy": {
+        "members": [
+          {
+            "basePower": 6100,
+            "effectivePower": 177365,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "cael",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 177365.43000000002
+          },
+          {
+            "basePower": 6400,
+            "effectivePower": 198184,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "lyra",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "emberglass-sigil",
+            "relicMultiplier": 1.065,
+            "unroundedPower": 198184.0608
+          },
+          {
+            "basePower": 5900,
+            "effectivePower": 171550,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "orin",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 171550.16999999998
+          },
+          {
+            "basePower": 5350,
+            "effectivePower": 155558,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "selene",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 155558.20500000002
+          },
+          {
+            "basePower": 6200,
+            "effectivePower": 180273,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "rook",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 180273.06
+          },
+          {
+            "basePower": 5200,
+            "effectivePower": 151197,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "mira",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 151196.76
+          },
+          {
+            "basePower": 6250,
+            "effectivePower": 187633,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "zamorak",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "mossbound-compass",
+            "relicMultiplier": 1.0325,
+            "unroundedPower": 187632.99843749998
+          },
+          {
+            "basePower": 6150,
+            "effectivePower": 178819,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "darrow",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 178819.245
+          },
+          {
+            "basePower": 5450,
+            "effectivePower": 158466,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "deadpool",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 158465.835
+          },
+          {
+            "basePower": 5500,
+            "effectivePower": 159920,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "star-lord",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 159919.65000000002
+          },
+          {
+            "basePower": 6300,
+            "effectivePower": 189134,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "iron-man",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "first-road-lantern",
+            "relicMultiplier": 1.0325,
+            "unroundedPower": 189134.062425
+          },
+          {
+            "basePower": 6000,
+            "effectivePower": 174458,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "daredevil",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 174457.80000000002
+          },
+          {
+            "basePower": 6500,
+            "effectivePower": 207423,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "thor",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "stormforged-emblem",
+            "relicMultiplier": 1.0975,
+            "unroundedPower": 207423.055125
+          },
+          {
+            "basePower": 6200,
+            "effectivePower": 180273,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "captain-america",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 180273.06
+          },
+          {
+            "basePower": 5600,
+            "effectivePower": 162827,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "spider-man",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 162827.28
+          },
+          {
+            "basePower": 6350,
+            "effectivePower": 196636,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "wolverine",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "tideglass-charm",
+            "relicMultiplier": 1.065,
+            "unroundedPower": 196635.74782500003
+          },
+          {
+            "basePower": 5550,
+            "effectivePower": 161373,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "obi-wan",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": null,
+            "relicMultiplier": 1,
+            "unroundedPower": 161373.46500000003
+          },
+          {
+            "basePower": 6450,
+            "effectivePower": 205827,
+            "formulaOrder": [
+              "basePower",
+              "levelMultiplier",
+              "rarityMultiplier",
+              "relicMultiplier",
+              "globalMightMultiplier",
+              "round"
+            ],
+            "globalMightMultiplier": 1.5,
+            "id": "anakin",
+            "level": 120,
+            "levelMultiplier": 14.685,
+            "mightLevel": 50,
+            "mightMultiplier": 1.5,
+            "rarity": 5,
+            "rarityMultiplier": 1.32,
+            "relicId": "oathkeeper-crest",
+            "relicMultiplier": 1.0975,
+            "unroundedPower": 205827.4931625
+          }
+        ],
+        "rosterPower": 3196916
+      },
+      "formulaOrder": {
+        "building": [
+          "base",
+          "levelMultiplier",
+          "familyAssignmentMultiplier",
+          "fellowRosterMultiplier",
+          "companionRosterMultiplier",
+          "overallDayMultiplier",
+          "oathMultiplier"
+        ],
+        "campaignEfficiency": [
+          "totalRosterPower",
+          "recommendedPower",
+          "surplusRatio",
+          "discountScale",
+          "discountCap",
+          "baseCost",
+          "ceil"
+        ],
+        "companionActual": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "masteryMultiplier",
+          "round-per-member",
+          "sum-rounded-members"
+        ],
+        "companionThreshold": [
+          "actualRosterPower",
+          "migrationFloorRosterPower",
+          "max"
+        ],
+        "fellowCombat": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "bondMilestoneMultiplier",
+          "relicMultiplier",
+          "companionPowerTransfer",
+          "migrationTransferFloor",
+          "familyBondMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "fellowEconomy": [
+          "basePower",
+          "levelMultiplier",
+          "rarityMultiplier",
+          "relicMultiplier",
+          "globalMightMultiplier",
+          "round"
+        ],
+        "rosterBonus": [
+          "numeratorBps",
+          "rosterPower",
+          "divide-by-power-plus-knee",
+          "integer-floor",
+          "capBps"
+        ]
+      },
+      "inputs": {
+        "buildings": [
+          {
+            "id": "training",
+            "level": 52,
+            "oathBoost": 0.3
+          },
+          {
+            "id": "command",
+            "level": 52,
+            "oathBoost": 0.3
+          },
+          {
+            "id": "archives",
+            "level": 52,
+            "oathBoost": 0.3
+          },
+          {
+            "id": "hearth",
+            "level": 52,
+            "oathBoost": 0.3
+          }
+        ],
+        "companions": [
+          {
+            "assignedFellowId": "cael",
+            "basePower": 115,
+            "exp": 49714965,
+            "id": "arcanine",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "lyra",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "dewgong",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "orin",
+            "basePower": 115,
+            "exp": 49714965,
+            "id": "snorlax",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "selene",
+            "basePower": 125,
+            "exp": 49714965,
+            "id": "dragonite",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "rook",
+            "basePower": 125,
+            "exp": 49714965,
+            "id": "charizard",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "mira",
+            "basePower": 115,
+            "exp": 49714965,
+            "id": "venusaur",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "zamorak",
+            "basePower": 115,
+            "exp": 49714965,
+            "id": "blastoise",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "darrow",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "jolteon",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "deadpool",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "machamp",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "star-lord",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "meganium",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "iron-man",
+            "basePower": 115,
+            "exp": 49714965,
+            "id": "feraligatr",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "daredevil",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "miltank",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "thor",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "donphan",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "captain-america",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "lucario",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "spider-man",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "boltund",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "wolverine",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "stoutland",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "obi-wan",
+            "basePower": 100,
+            "exp": 49714965,
+            "id": "mabosstiff",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": "anakin",
+            "basePower": 125,
+            "exp": 49714965,
+            "id": "zacian",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 49714965,
+            "id": "lugia",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          },
+          {
+            "assignedFellowId": null,
+            "basePower": 125,
+            "exp": 49714965,
+            "id": "suicune",
+            "level": 100,
+            "rarity": 5,
+            "shards": 0
+          }
+        ],
+        "family": [
+          {
+            "assignedBuildingId": "hearth",
+            "id": "elara",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": "training",
+            "id": "tamsin",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": "archives",
+            "id": "isolde",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": "command",
+            "id": "violet",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "virginia",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "captain-marvel",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "scarlet-witch",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "ahsoka",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "rey",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "syl",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shallan",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "yennefer",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "jaina",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tyrande",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "shadowheart",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "amara",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "aerith",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "tifa",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "hermione",
+            "intimacy": 1000,
+            "rarity": 5
+          },
+          {
+            "assignedBuildingId": null,
+            "id": "misty",
+            "intimacy": 1000,
+            "rarity": 5
+          }
+        ],
+        "fellows": [
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "cael",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "lyra",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "emberglass-sigil"
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "orin",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "selene",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "rook",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "mira",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "zamorak",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "mossbound-compass"
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "darrow",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "deadpool",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "star-lord",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "iron-man",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "first-road-lantern"
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "daredevil",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "thor",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "stormforged-emblem"
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "captain-america",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "spider-man",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "wolverine",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "tideglass-charm"
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "obi-wan",
+            "level": 120,
+            "rarity": 5,
+            "relicId": null
+          },
+          {
+            "bond": 99,
+            "exp": 599463646,
+            "id": "anakin",
+            "level": 120,
+            "rarity": 5,
+            "relicId": "oathkeeper-crest"
+          }
+        ],
+        "frozenNow": 1800000000000,
+        "masteryPoints": 50000,
+        "mightPoints": 50000,
+        "migrationFloorRosterPower": 0,
+        "migrationLineage": null,
+        "persisted": false,
+        "rank": 5,
+        "rankExp": 350,
+        "sourceFixtureId": null
+      },
+      "kind": "canonical-true-high-investment",
+      "offline": {
+        "elapsedCapMs": 86400000,
+        "expeditionIntervalMs": 3600000,
+        "pendingByLane": {
+          "apothecary": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": false,
+            "creditedMs": 28800000,
+            "discardedMs": 57600000,
+            "elapsedMs": 86400000,
+            "intervalMs": 3600000,
+            "intervals": 8,
+            "opportunityReady": true,
+            "pendingAfter": 8,
+            "pendingBefore": 0,
+            "sourcePolicyId": "economy-policy.apothecary.approved-v1"
+          },
+          "companionTower": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": true,
+            "creditedMs": 86400000,
+            "discardedMs": 0,
+            "elapsedMs": 86400000,
+            "intervalMs": 3600000,
+            "intervals": 24,
+            "opportunityReady": false,
+            "pendingAfter": 24,
+            "pendingBefore": 0,
+            "sourcePolicyId": "companion-tower-targeting.phase-23.v1"
+          },
+          "fellowExpedition": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": true,
+            "creditedMs": 86400000,
+            "discardedMs": 0,
+            "elapsedMs": 86400000,
+            "intervalMs": 3600000,
+            "intervals": 24,
+            "opportunityReady": false,
+            "pendingAfter": 24,
+            "pendingBefore": 0,
+            "sourcePolicyId": "phase-7-fellow-progression-v1"
+          },
+          "restaurant": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": false,
+            "creditedMs": 21600000,
+            "discardedMs": 64800000,
+            "elapsedMs": 86400000,
+            "intervalMs": 1800000,
+            "intervals": 12,
+            "opportunityReady": true,
+            "pendingAfter": 12,
+            "pendingBefore": 0,
+            "sourcePolicyId": "economy-policy.restaurant.candidate-v1"
+          },
+          "schoolhouse": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": false,
+            "creditedMs": 43200000,
+            "discardedMs": 43200000,
+            "elapsedMs": 86400000,
+            "intervalMs": 5400000,
+            "intervals": 8,
+            "opportunityReady": true,
+            "pendingAfter": 8,
+            "pendingBefore": 0,
+            "sourcePolicyId": "economy-policy.schoolhouse.approved-v1"
+          },
+          "villageGold": {
+            "at": 1800000000000,
+            "capMs": 86400000,
+            "claimReady": true,
+            "creditedMs": 86400000,
+            "discardedMs": 0,
+            "elapsedMs": 86400000,
+            "intervalMs": null,
+            "intervals": null,
+            "opportunityReady": false,
+            "pendingAfter": 923019963.6103376,
+            "pendingBefore": 0,
+            "sourcePolicyId": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f"
+          }
+        },
+        "reportSettlesNothing": true,
+        "towerIntervalMs": 3600000
+      },
+      "pendingOffline": {
+        "apothecary": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": false,
+          "creditedMs": 28800000,
+          "discardedMs": 57600000,
+          "elapsedMs": 86400000,
+          "intervalMs": 3600000,
+          "intervals": 8,
+          "opportunityReady": true,
+          "pendingAfter": 8,
+          "pendingBefore": 0,
+          "sourcePolicyId": "economy-policy.apothecary.approved-v1"
+        },
+        "companionTower": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": true,
+          "creditedMs": 86400000,
+          "discardedMs": 0,
+          "elapsedMs": 86400000,
+          "intervalMs": 3600000,
+          "intervals": 24,
+          "opportunityReady": false,
+          "pendingAfter": 24,
+          "pendingBefore": 0,
+          "sourcePolicyId": "companion-tower-targeting.phase-23.v1"
+        },
+        "fellowExpedition": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": true,
+          "creditedMs": 86400000,
+          "discardedMs": 0,
+          "elapsedMs": 86400000,
+          "intervalMs": 3600000,
+          "intervals": 24,
+          "opportunityReady": false,
+          "pendingAfter": 24,
+          "pendingBefore": 0,
+          "sourcePolicyId": "phase-7-fellow-progression-v1"
+        },
+        "restaurant": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": false,
+          "creditedMs": 21600000,
+          "discardedMs": 64800000,
+          "elapsedMs": 86400000,
+          "intervalMs": 1800000,
+          "intervals": 12,
+          "opportunityReady": true,
+          "pendingAfter": 12,
+          "pendingBefore": 0,
+          "sourcePolicyId": "economy-policy.restaurant.candidate-v1"
+        },
+        "schoolhouse": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": false,
+          "creditedMs": 43200000,
+          "discardedMs": 43200000,
+          "elapsedMs": 86400000,
+          "intervalMs": 5400000,
+          "intervals": 8,
+          "opportunityReady": true,
+          "pendingAfter": 8,
+          "pendingBefore": 0,
+          "sourcePolicyId": "economy-policy.schoolhouse.approved-v1"
+        },
+        "villageGold": {
+          "at": 1800000000000,
+          "capMs": 86400000,
+          "claimReady": true,
+          "creditedMs": 86400000,
+          "discardedMs": 0,
+          "elapsedMs": 86400000,
+          "intervalMs": null,
+          "intervals": null,
+          "opportunityReady": false,
+          "pendingAfter": 923019963.6103376,
+          "pendingBefore": 0,
+          "sourcePolicyId": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f"
+        }
+      },
+      "profileId": "phase24a.true-high-investment.schema13.v1",
+      "requirements": {
+        "companionCampaign": [
+          2000,
+          2360,
+          2785,
+          3286,
+          3878,
+          4576,
+          5399,
+          6371,
+          7518,
+          8871
+        ],
+        "companionTower": {
+          "1": 2000,
+          "2": 2120,
+          "3": 2247,
+          "4": 2382,
+          "5": 2525,
+          "6": 2676,
+          "7": 2837,
+          "8": 3007,
+          "9": 3188,
+          "10": 3379,
+          "11": 3582,
+          "12": 3797,
+          "13": 4024,
+          "14": 4266,
+          "15": 4522,
+          "16": 4793,
+          "17": 5081,
+          "18": 5386,
+          "19": 5709,
+          "20": 6051,
+          "21": 6414,
+          "22": 6799,
+          "23": 7207,
+          "24": 7639,
+          "25": 8098,
+          "26": 8584,
+          "27": 9099,
+          "28": 9645,
+          "29": 10223,
+          "30": 10837,
+          "31": 11487,
+          "32": 12176,
+          "33": 12907,
+          "34": 13681,
+          "35": 14502,
+          "36": 15372,
+          "37": 16295,
+          "38": 17272,
+          "39": 18309,
+          "40": 19407,
+          "41": 20571,
+          "42": 21806,
+          "43": 23114,
+          "44": 24501,
+          "45": 25971,
+          "46": 27529,
+          "47": 29181,
+          "48": 30932,
+          "49": 32788,
+          "50": 34755
+        },
+        "fellowCampaign": [
+          22000,
+          28500,
+          36000,
+          45000,
+          56000,
+          69000,
+          84000,
+          101000,
+          121000,
+          144000
+        ],
+        "fellowExpedition": {
+          "1": 5500,
+          "2": 5940,
+          "3": 6415,
+          "4": 6928,
+          "5": 7483,
+          "6": 8081,
+          "7": 8728,
+          "8": 9426,
+          "9": 10180,
+          "10": 10995,
+          "11": 11874,
+          "12": 12824,
+          "13": 13850,
+          "14": 14958,
+          "15": 16155,
+          "16": 17447,
+          "17": 18843,
+          "18": 20350,
+          "19": 21978,
+          "20": 23736,
+          "21": 25635,
+          "22": 27686,
+          "23": 29901,
+          "24": 32293,
+          "25": 34876,
+          "26": 37667,
+          "27": 40680,
+          "28": 43934,
+          "29": 47449,
+          "30": 51245,
+          "31": 55345,
+          "32": 59772,
+          "33": 64554,
+          "34": 69718,
+          "35": 75296,
+          "36": 81319,
+          "37": 87825,
+          "38": 94851,
+          "39": 102439,
+          "40": 110634,
+          "41": 119485,
+          "42": 129044,
+          "43": 139367,
+          "44": 150517,
+          "45": 162558,
+          "46": 175562,
+          "47": 189607,
+          "48": 204776,
+          "49": 221158,
+          "50": 238851
+        }
+      },
+      "safeIntegerAudit": {
+        "checkedCount": 1086,
+        "maxAbsInteger": 1800000000000,
+        "ok": true
+      },
+      "schemaVersion": 13,
+      "sourceProof": {
+        "activeAuthorityIdentity": "fnv1a32:4652:41af9cbc",
+        "activeConfigIdentity": "6abf706b4450f61a708a0baba5e431a374f8de085fbf614e7334b6071bca534f",
+        "collectionAuthorityActive": false,
+        "formulaOrderIdentity": "fnv1a32:922:31f076e1",
+        "legacyAppliedToReport": false,
+        "phase23CatalogManifestId": "everstead-companions-2026-09-01"
+      }
+    }
+  ],
+  "safeIntegerHeadroom": {
+    "allNumeric": {
+      "count": 3071,
+      "integerCount": 2617,
+      "maxAbsInteger": 1800000000000,
+      "maxAbsNumber": 1800000000000
+    },
+    "allRemainingHeadroom": 9005399254740991,
+    "gameplayNumeric": {
+      "count": 2780,
+      "integerCount": 2355,
+      "maxAbsInteger": 923019963,
+      "maxAbsNumber": 923019963.6103376
+    },
+    "gameplayRemainingHeadroom": 9007198331721028,
+    "maximumSafeInteger": 9007199254740991,
+    "ok": true
+  }
+}

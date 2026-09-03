@@ -1,3 +1,6 @@
 .DS_Store
 *.log
 
+# Phase 23 Companion portraits are authorized for private builds only.
+# Keep generated runtime derivatives out of the public repository.
+/private-assets/companions/

@@ -1,0 +1,47 @@
+{
+  "contractId": "phase-24c-independent-qa.v1",
+  "status": "inactive-authority-physically-loaded-zero-integration-only",
+  "foundationVersion": 2,
+  "acceptedUnloadedLineages": [
+    "direct-schema-14",
+    "safe-reset-schema-14",
+    "schema-13-to-14-migration"
+  ],
+  "productionSha256": {
+    "index.html": "73737ab74efd4e33b2a5fdae1d1c76a6e88b4e51b1bb43453e034f47d5d5c7fb",
+    "src/phase18-19-runtime.js": "26686c97cc7c2a617224b8a287ab92933222e137c53bc309dedad6102d68df2e",
+    "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40",
+    "src/phase24-scaling-authority.js": "819fd4e308a98c699ac01a0c3df780eab11e777d933038b118850679d0f39d5c"
+  },
+  "phase24bPins": {
+    "design/phase-24/PHASE_24B_PROGRESSION_SIMULATION_CONTRACT.md": "44a9a1366de9eb217f72f79289b89f7d9a0738cb50bc6c88901813e1eb32ab9e",
+    "design/phase-24/phase24b-progression-candidates.json": "00f37707f72e08ed71d9d649cda2155858740059c85f7799ed6705ee8544fb5a",
+    "scripts/phase24b-simulate-progression.mjs": "e2f06fe9979fc32eb9649cd28efa7a901ecf4e36cdb329671b1d0a4c38996436",
+    "qa/phase-24b-progression/reports/phase24b-progression-simulation.json": "45603077138a24be83f0a17968807305772f00cc94b92f6b1a5ad87459175324",
+    "qa/phase-24b-progression/reports/phase24b-progression-simulation.md": "4883d1cb741958f03d7bf289d81e1575320c82457f3b17cddaa9458eae3d9dfb",
+    "qa/phase-24b-progression/reports/checksums.sha256": "fdf683f84b4339f4ba74c9c8c2c51a6c86cde96411056db277bc46f26882563d",
+    "docs/PHASE_24B_PROGRESSION_SIMULATION_QA_CONTRACT.md": "ff4e746a19df67a08063ed2f4025cbc65b6b5b18d588278cc65e82e0a1fec365",
+    "docs/PHASE_24B_PROGRESSION_SIMULATION_QA_RESULT.md": "e246427f055f02772017d1817af3410b764ba75bfa5b4384f523ecdb00153076",
+    "qa/phase-24b-independent/fixtures/contract.json": "6dc03c1b7c0119a324535f59373551ab2fc44f94a0aa5fe67657379965ed2b3f",
+    "qa/phase-24b-independent/verify.mjs": "6ce5d7dfd69ba66dbaa89369a5d2453c5b965cf86ca002ca45ace172a681163c",
+    "qa/phase-24b-independent/checksums.sha256": "d37bbc747f6a4a7bb37a03b20ba3d724cb8b283891a07ba054089d745a840f5c"
+  },
+  "phase24bTableSha256": {
+    "fellow": "36c9af018a8e098d4aa2ee068e427eee8aebf8824682842a6e559910e0a591e0",
+    "companion": "f88fd74c2fe50abf7c4718948996c46bf4aaa31d35d098e43ce8fd46676b18f6",
+    "releasedRequirements": "8780262c2fb105fd685704826cd1088571250f60af8a2e5b4eb666f9983d34f7"
+  },
+  "sourceSha256": {
+    "src/phase24c-durable-definitions.js": "101377044214d87478475ba9064c4342b9ce8fcbe62e5d4e1743a08f31767f70",
+    "src/phase24c-durable-foundation.js": "fbf9c7865977b195786c15ffe6b6725649b5c6552c8f46b831421083831e4479"
+  },
+  "zeroIntegrationLoader": {
+    "beginMarker": "<!-- Phase 24C-2C zero-only authority load BEGIN -->",
+    "endMarker": "<!-- Phase 24C-2C zero-only authority load END -->",
+    "exactOrder": [
+      "src/phase24c-zero-activation-authority.js",
+      "src/phase24c-durable-definitions.js",
+      "src/phase24c-durable-foundation.js"
+    ]
+  }
+}

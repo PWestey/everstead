@@ -1,0 +1,144 @@
+{
+  "contractId": "phase-24b-progression-simulation-independent-v1",
+  "contractVersion": 1,
+  "phase": "24B",
+  "status": "simulation-only",
+  "modelArtifacts": {
+    "contract": "design/phase-24/PHASE_24B_PROGRESSION_SIMULATION_CONTRACT.md",
+    "candidate": "design/phase-24/phase24b-progression-candidates.json",
+    "generator": "scripts/phase24b-simulate-progression.mjs",
+    "reportsRoot": "qa/phase-24b-progression/reports"
+  },
+  "phase24aAnchors": {
+    "authorityId": "everstead-scaling-live-baseline.phase-24a.v1",
+    "fresh": {
+      "fellowEconomyPower": 35150,
+      "fellowCombatPower": 35565,
+      "companionActualPower": 2200,
+      "companionMigrationFloor": 0,
+      "companionEffectivePower": 2200,
+      "villageGoldPerHour": 27320.8092192
+    },
+    "migratedEstablished": {
+      "fellowEconomyPower": 35150,
+      "fellowCombatPower": 36645,
+      "companionActualPower": 2272,
+      "companionMigrationFloor": 2892,
+      "companionEffectivePower": 2892,
+      "villageGoldPerHour": 27328.94041242
+    },
+    "trueHigh": {
+      "fellowEconomyPower": 3196916,
+      "fellowCombatPower": 3588268,
+      "companionActualPower": 50355,
+      "companionMigrationFloor": 0,
+      "companionEffectivePower": 50355,
+      "villageGoldPerHour": 60337645.45902187
+    },
+    "historicalFreshlyMigratedSchema12CombatPower": 36366,
+    "collectionBps": 0
+  },
+  "currentContent": {
+    "brokenRoadsRequirements": [
+      22000,
+      28500,
+      36000,
+      45000,
+      56000,
+      69000,
+      84000,
+      101000,
+      121000,
+      144000
+    ]
+  },
+  "levelLanes": {
+    "fellow": {
+      "min": 1,
+      "max": 750,
+      "breakthroughLevels": [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700]
+    },
+    "companion": {
+      "min": 1,
+      "max": 500,
+      "breakthroughLevels": [50, 100, 150, 200, 250, 300, 350, 400, 450],
+      "level500RosterFixtures": {
+        "actualMemberRounded": {
+          "star1Mastery0": 111985,
+          "star5Mastery0": 156775,
+          "star5Mastery50": 235155
+        },
+        "aggregateUnroundedTheoretical": {
+          "star1Mastery0": 111980,
+          "star5Mastery0": 156772,
+          "star5Mastery50": 235158
+        }
+      }
+    }
+  },
+  "horizonsDays": [1, 7, 30, 90, 365],
+  "throughputProfiles": ["current-live", "proposed-launch-budget"],
+  "currentLiveThroughputInputs": [
+    "released-gold-per-hour",
+    "stage-access",
+    "stage-gold-cost",
+    "stage-efficiency",
+    "first-clear-exp",
+    "replay-exp",
+    "companion-campaign-exp",
+    "companion-tower-exp"
+  ],
+  "fellowReplayConstraint": "gold-limited-not-daily-capped",
+  "fellowPacingReferenceBands": {
+    "first-substantial-session": {
+      "focused": [100, 250],
+      "broad": [50, 150]
+    },
+    "end-first-week": {
+      "focused": [450, 550],
+      "broad": [250, 400]
+    },
+    "early-established": {
+      "focused": [600, 650],
+      "broad": [400, 500]
+    },
+    "long-term": {
+      "focused": [700, 750],
+      "broad": [500, 650]
+    }
+  },
+  "collectionStressBps": [0, 2500, 5000, 10000, 25000, 50000, 100000],
+  "mandatoryCollectionProfiles": ["zero-collection", "permanent-only", "all-content"],
+  "migrationRecipes": [
+    "fellow-mid-level",
+    "fellow-level-120",
+    "fellow-excess-at-cap",
+    "companion-mid-level",
+    "companion-level-100",
+    "companion-excess-at-cap"
+  ],
+  "migrationBreakthroughPolicy": {
+    "oldExpInterpretation": "old-curve-cumulative-convert-do-not-reinterpret",
+    "lineagePolicy": "distinguish-converted-baseline-from-earned-surplus-when-known",
+    "postCapSurplus": "retain-auditable-banked-exp",
+    "belowSavedLevel": "grandfathered-no-material-charge",
+    "fellowLevel120": {
+      "grandfathered": [50, 100],
+      "nextGate": 150
+    },
+    "companionLevel100": {
+      "manualLegacyClaim": true,
+      "free": true,
+      "exactlyOnce": true,
+      "nextGate": 150
+    }
+  },
+  "forbidden": {
+    "newCurrencies": true,
+    "aptitude": true,
+    "dynamicScaling": true,
+    "oldExponentialExtension": true,
+    "delayedClaimRepricing": true,
+    "productionMutation": true
+  }
+}

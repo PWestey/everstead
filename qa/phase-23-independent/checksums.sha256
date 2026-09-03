@@ -1,0 +1,7 @@
+eeab6d6622d2a1ca20d36122ff101898caedfae33b3fa36cd2592ec717446574  qa/phase-23-independent/README.md
+bd8f5269a61b248b18e3cfc4067a9190def632257a971dc2a931c96828319a78  qa/phase-23-independent/fixtures/contract.json
+b324d6493348a25455b6e1cf57d1b7803723a8890d39050e7a7d0dd75fbe204c  qa/phase-23-independent/index.html
+69aeb193510ed4bd46d206520fbd9225381a2219b99b38f3ef7574a35ff37b33  qa/phase-23-independent/realm.html
+7ae2666157da9b636dc9b063425be1fab72e2761d5e1c31c0e8642c3b9e81d74  qa/phase-23-independent/realm.js
+0bda683f241d4fe68e8aea87aca69eab752e353cd468bbfb27d02d6194dc5cc6  qa/phase-23-independent/runner.js
+4d801d9ca5b9107f304225809f00eb16334ea970f066ffb0bb85a19050068cf4  qa/phase-23-independent/verify.mjs

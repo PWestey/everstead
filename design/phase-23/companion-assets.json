@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "policyId": "everstead.phase23.companion-assets.private-v1",
+  "rosterVersion": "phase-23-accepted-20",
+  "rights": {
+    "distribution": "private-build-only",
+    "publicReleaseAllowed": false,
+    "rightsReviewStatus": "unresolved",
+    "trackedPrivateBinariesAllowed": false
+  },
+  "source": {
+    "expectedWidth": 1024,
+    "expectedHeight": 1536,
+    "format": "png",
+    "hashInventory": "design/phase-23/companion-source-hashes.sha256"
+  },
+  "privateGitBlobInventory": "design/phase-23/companion-private-git-blobs.sha1",
+  "runtime": {
+    "root": "private-assets/companions",
+    "tracked": false,
+    "composition": "full-frame-no-crop",
+    "portrait": {
+      "filename": "portrait.webp",
+      "width": 1024,
+      "height": 1536,
+      "quality": 92,
+      "method": 6
+    },
+    "thumbnail": {
+      "filename": "thumb.webp",
+      "width": 320,
+      "height": 480,
+      "quality": 88,
+      "method": 6
+    },
+    "localManifest": "private-assets/companions/runtime-manifest.json",
+    "hashInventory": "design/phase-23/companion-runtime-hashes.sha256"
+  },
+  "companions": [
+    {
+      "id": "arcanine",
+      "displayName": "Arcanine",
+      "order": 1,
+      "masterFilename": "arcanine.png",
+      "sourceSha256": "9038a6cc7c24c016229ec666cf690afd2d1a357404a5673eaaca0c373e27c44c"
+    },
+    {
+      "id": "dewgong",
+      "displayName": "Dewgong",
+      "order": 2,
+      "masterFilename": "dewgong.png",
+      "sourceSha256": "f1e9d1a83b40b111cf43803ec200bd76f1aef9a5e22eb241a26b43c7048795d3"
+    },
+    {
+      "id": "snorlax",
+      "displayName": "Snorlax",
+      "order": 3,
+      "masterFilename": "snorlax.png",
+      "sourceSha256": "db37fb9fabb7b7aa7135b65410c315e3d67f80d0a3bb64666d670ea0ff17b862"
+    },
+    {
+      "id": "dragonite",
+      "displayName": "Dragonite",
+      "order": 4,
+      "masterFilename": "dragonite.png",
+      "sourceSha256": "4afe9db832b4a8e69254f1088a9c48cbde74f415710d8ad575b75011e75259b7"
+    },
+    {
+      "id": "charizard",
+      "displayName": "Charizard",
+      "order": 5,
+      "masterFilename": "charizard.png",
+      "sourceSha256": "fa43580a2cbd278c3358f8043d5c31e201091fe780328674a80c48390fb00aa0"
+    },
+    {
+      "id": "venusaur",
+      "displayName": "Venusaur",
+      "order": 6,
+      "masterFilename": "venusaur.png",
+      "sourceSha256": "6bc2f5ed958deda8600e35c07cfe5d5610fcfc2dd87af5ecff59b4bb49f8d760"
+    },
+    {
+      "id": "blastoise",
+      "displayName": "Blastoise",
+      "order": 7,
+      "masterFilename": "blastoise.png",
+      "sourceSha256": "e20fc93f091cc5ac3b65f59d6e8267e3a5e4cfcb39bef8acd8bff0021dfebae6"
+    },
+    {
+      "id": "jolteon",
+      "displayName": "Jolteon",
+      "order": 8,
+      "masterFilename": "jolteon.png",
+      "sourceSha256": "ea5ec0cf7e3b66cec7dab074d9a02c5701845ead1a603aec998a82b1c96cab8b"
+    },
+    {
+      "id": "machamp",
+      "displayName": "Machamp",
+      "order": 9,
+      "masterFilename": "machamp.png",
+      "sourceSha256": "6c0d4c5f844ed951b4a0c85136bb280715dd0f3b85f13ef813bccdb61ed921b5"
+    },
+    {
+      "id": "meganium",
+      "displayName": "Meganium",
+      "order": 10,
+      "masterFilename": "meganium.png",
+      "sourceSha256": "ec9c628d431c45b1773dedae44549efc23507ef7670e95c4b98af7a367a6009d"
+    },
+    {
+      "id": "feraligatr",
+      "displayName": "Feraligatr",
+      "order": 11,
+      "masterFilename": "feraligatr.png",
+      "sourceSha256": "b3e954394948323cb3f036315a9666ddf7ebe3e4cb057d9262896893e9be0346"
+    },
+    {
+      "id": "miltank",
+      "displayName": "Miltank",
+      "order": 12,
+      "masterFilename": "miltank.png",
+      "sourceSha256": "1267d48678d0e70b88ebb625cbb6dcd355dad15b9498c7901c550a015afb0fc3"
+    },
+    {
+      "id": "donphan",
+      "displayName": "Donphan",
+      "order": 13,
+      "masterFilename": "donphan.png",
+      "sourceSha256": "2298de36aa1a9e18c0a7f92136dd05dcb2b2f70e682a2faf97158ee0a1357024"
+    },
+    {
+      "id": "lucario",
+      "displayName": "Lucario",
+      "order": 14,
+      "masterFilename": "lucario.png",
+      "sourceSha256": "8e640ede6636c4cf4ebe2717e1c4bcdef33c4ae49a4a93f24795fe9a6864419b"
+    },
+    {
+      "id": "boltund",
+      "displayName": "Boltund",
+      "order": 15,
+      "masterFilename": "boltund.png",
+      "sourceSha256": "49bfc9fa2b1f80f1ce45ba7581f15af78846858d3cc78e60561742d1cecdd545"
+    },
+    {
+      "id": "stoutland",
+      "displayName": "Stoutland",
+      "order": 16,
+      "masterFilename": "stoutland.png",
+      "sourceSha256": "5ee5ad5c5c7d8e7d53ce56faeb5b5d7204582117313cb10bfb33dbd81fd182f2"
+    },
+    {
+      "id": "mabosstiff",
+      "displayName": "Mabosstiff",
+      "order": 17,
+      "masterFilename": "mabosstiff.png",
+      "sourceSha256": "efa0bde77a08f2860d80bf0adac4ac5345845c13102531c6088b82ac4ce21a08"
+    },
+    {
+      "id": "zacian",
+      "displayName": "Zacian",
+      "order": 18,
+      "form": "Hero of Many Battles",
+      "retainedAlternative": "Crowned Sword",
+      "masterFilename": "zacian.png",
+      "sourceSha256": "9e994ff6cb79201a3234f16f1332ed7d706d6eb28271c7c9399f548078771b98"
+    },
+    {
+      "id": "lugia",
+      "displayName": "Lugia",
+      "order": 19,
+      "masterFilename": "lugia.png",
+      "sourceSha256": "1572c02c073c4069cba9faf9b82d6e07e0f623afbf585dbcddbb40242a934e24"
+    },
+    {
+      "id": "suicune",
+      "displayName": "Suicune",
+      "order": 20,
+      "masterFilename": "suicune.png",
+      "sourceSha256": "26799151913ab21efc106123f6f02a7a85fa5e90ffa8f6e5516ec1dde6ba756c"
+    }
+  ]
+}

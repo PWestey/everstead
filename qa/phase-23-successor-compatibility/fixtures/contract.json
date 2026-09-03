@@ -1,0 +1,62 @@
+{
+  "contractVersion": 1,
+  "phase": 23,
+  "schemaVersion": 13,
+  "bridgeVersion": "phase-23-independent-qa-v1",
+  "frozenNow": 1800000000000,
+  "fixtureIds": {
+    "fresh": "p23.qa.fresh.v1",
+    "allUnlocked": "p23.qa.all-unlocked.v1"
+  },
+  "joinedFellowIdsAtRank1": ["cael", "lyra", "orin", "selene", "rook", "mira"],
+  "allFellowIds": ["cael", "lyra", "orin", "selene", "rook", "mira", "zamorak", "darrow", "deadpool", "star-lord", "iron-man", "daredevil", "thor", "captain-america", "spider-man", "wolverine", "obi-wan", "anakin"],
+  "stageOneTargetPool": ["cael", "lyra", "orin"],
+  "freshEconomy": {
+    "fellowPower": 35150,
+    "fellowBps": 390,
+    "fellowMultiplier": 1.039,
+    "companionPower": 2200,
+    "companionBps": 80,
+    "companionMultiplier": 1.008,
+    "buildings": {
+      "command": {"base": 6500, "familyMultiplier": 1, "rate": 6807.528},
+      "archives": {"base": 5600, "familyMultiplier": 1.0316, "rate": 6050.27953152},
+      "training": {"base": 7200, "familyMultiplier": 1.0352, "rate": 7806.07715328},
+      "hearth": {"base": 6100, "familyMultiplier": 1.042, "rate": 6656.9245344}
+    },
+    "totalRate": 27320.8092192
+  },
+  "freshCombatFellowPower": 36366,
+  "buildingUpgrade": {
+    "id": "command",
+    "baseCost": 15000,
+    "growth": 1.24,
+    "levelCap": 52,
+    "costsByStartingLevel": [15000, 18600, 23064, 28599, 35463, 43974, 54528, 67615, 83843, 103965, 128916, 159856, 198222, 245795, 304786, 377934, 468639, 581112, 720579, 893518, 1107962, 1373873, 1703603, 2112467, 2619460, 3248130, 4027681, 4994325, 6192962, 7679273, 9522299, 11807651, 14641487, 18155444, 22512750, 27915810, 34615605, 42923350, 53224954, 65998943, 81838689, 101479975, 125835169, 156035609, 193484155, 239920353, 297501237, 368901534, 457437903, 567222999, 703356519]
+  },
+  "relic": {
+    "id": "first-road-lantern",
+    "fellowId": "cael",
+    "tier": 1,
+    "level": 1,
+    "bonusBps": 100,
+    "multiplier": 1.01
+  },
+  "rankOneLockedRoutes": {
+    "companionCampaign": 2,
+    "companionTower": 3,
+    "fellowExpedition": 5
+  },
+  "expeditionBoundary": {
+    "intervalMs": 3600000,
+    "capMs": 86400000,
+    "firstElapsedMs": 7200000,
+    "secondElapsedMs": 108000000,
+    "firstIntervals": 2,
+    "secondIntervals": 22,
+    "totalIntervals": 24,
+    "discardedMs": 28800000
+  },
+  "minimumTouchTargetPx": 44,
+  "viewport": {"id": "phone-390x844", "width": 390, "height": 844}
+}

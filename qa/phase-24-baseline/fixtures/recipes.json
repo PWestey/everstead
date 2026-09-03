@@ -1,0 +1,253 @@
+{
+  "contractVersion": 1,
+  "contractId": "phase-24a-balance-baseline-v1",
+  "frozenNow": 1800000000000,
+  "authority": {
+    "globalName": "EVERSTEAD_PHASE24_SCALING",
+    "minimumVersion": 1,
+    "bridgeReadMethods": [
+      "scalingDefinitions",
+      "scalingReport"
+    ]
+  },
+  "profiles": [
+    {
+      "id": "phase24a.fresh.schema13.v1",
+      "kind": "pure-authority-recipe",
+      "fixtureId": null,
+      "canonical": true,
+      "persisted": false,
+      "label": "True fresh schema 13",
+      "expectedAnchors": {
+        "rank": 1,
+        "joinedFellowIds": ["cael", "lyra", "orin", "selene", "rook", "mira"],
+        "fellowEconomyPower": 35150,
+        "fellowEconomyBps": 390,
+        "fellowCombatPower": 35565,
+        "companionActualPower": 2200,
+        "companionMigrationFloor": 0,
+        "companionThresholdPower": 2200,
+        "companionEconomyPower": 2200,
+        "companionEconomyBps": 80,
+        "buildingRates": {
+          "training": 7806.07715328,
+          "command": 6807.528,
+          "archives": 6050.27953152,
+          "hearth": 6656.9245344
+        },
+        "villageGoldPerHour": 27320.8092192,
+        "fellowCampaignStageOne": {
+          "requirement": 22000,
+          "baseCost": 10000,
+          "discount": 0.15414772727272727,
+          "effectiveCost": 8459
+        }
+      }
+    },
+    {
+      "id": "phase24a.migrated-established.schema13.v1",
+      "kind": "qa-fixture",
+      "fixtureId": "p23.qa.schema12-invested.v1",
+      "canonical": true,
+      "persisted": true,
+      "label": "Migrated established",
+      "expectedAnchors": {
+        "rank": 1,
+        "fellowEconomyPower": 35150,
+        "fellowEconomyBps": 390,
+        "fellowCombatPower": 36645,
+        "companionActualPower": 2272,
+        "companionMigrationFloor": 2892,
+        "companionThresholdPower": 2892,
+        "companionEconomyPower": 2272,
+        "companionEconomyBps": 83,
+        "buildingRates": {
+          "training": 7808.400390528,
+          "command": 6809.55405,
+          "archives": 6052.080209952,
+          "hearth": 6658.90576194
+        },
+        "villageGoldPerHour": 27328.94041242,
+        "fellowCampaignStageOne": {
+          "requirement": 22000,
+          "baseCost": 10000,
+          "effectiveCost": 8336
+        },
+        "migrationLineage": {
+          "schema12PredecessorIdentity": "fnv1a32:15245:827978cf",
+          "legacyHistoryIdentity": "fnv1a32:1728:3e4d2025",
+          "initializationIdentity": "fnv1a32:425:0851907f"
+        },
+        "legacyCompanions": {
+          "arcanine": {"level": 3, "rarity": 3, "exp": 182, "shards": 37, "assignedFellowId": "orin"},
+          "dewgong": {"level": 2, "rarity": 2, "exp": 80, "shards": 11, "assignedFellowId": "cael"}
+        }
+      }
+    },
+    {
+      "id": "phase24a.true-high-investment.schema13.v1",
+      "kind": "pure-authority-recipe",
+      "canonical": true,
+      "persisted": false,
+      "label": "True high investment",
+      "input": {
+        "rank": 5,
+        "prosperity": 120,
+        "fellows": {
+          "all": {"level": 120, "rarity": 5, "bond": 99},
+          "mightPoints": 50000,
+          "relicAssignments": {
+            "stormforged-emblem": "thor",
+            "oathkeeper-crest": "anakin",
+            "emberglass-sigil": "lyra",
+            "tideglass-charm": "wolverine",
+            "first-road-lantern": "iron-man",
+            "mossbound-compass": "zamorak"
+          },
+          "relicLevel": 10
+        },
+        "companions": {
+          "all": {"level": 100, "rarity": 5},
+          "masteryPoints": 50000,
+          "assignInOrder": {
+            "companionIds": [
+              "arcanine", "dewgong", "snorlax", "dragonite", "charizard",
+              "venusaur", "blastoise", "jolteon", "machamp", "meganium",
+              "feraligatr", "miltank", "donphan", "lucario", "boltund",
+              "stoutland", "mabosstiff", "zacian"
+            ],
+            "fellowIds": [
+              "cael", "lyra", "orin", "selene", "rook", "mira",
+              "zamorak", "darrow", "deadpool", "star-lord", "iron-man",
+              "daredevil", "thor", "captain-america", "spider-man",
+              "wolverine", "obi-wan", "anakin"
+            ]
+          },
+          "unassignedIds": ["lugia", "suicune"],
+          "migrationFloor": 0
+        },
+        "family": {
+          "all": {"intimacy": 1000, "rarity": 5},
+          "assignments": {
+            "training": "tamsin",
+            "command": "violet",
+            "archives": "isolde",
+            "hearth": "elara"
+          }
+        },
+        "buildings": {
+          "all": {"level": 52, "oathBoost": 0.3}
+        },
+        "campaign": {"allStagesCleared": true, "selectedStageOrdinal": 10},
+        "companionTower": {"highestFloor": 50, "pendingElapsedMs": 86400000},
+        "fellowExpedition": {"highestStage": 50, "pendingElapsedMs": 86400000},
+        "facilities": {
+          "restaurant": {"bankState": "full"},
+          "apothecary": {"bankState": "full"},
+          "schoolhouse": {"bankState": "full"}
+        },
+        "legacy": {"currentReleasedClaims": "ready-unclaimed"},
+        "collections": {"status": "reserved-inactive", "contributionBps": 0, "multiplier": 1}
+      },
+      "expectedAnchors": {
+        "rank": 5,
+        "joinedFellowCount": 18,
+        "fellowEconomyPower": 3196916,
+        "fellowEconomyBps": 1454,
+        "fellowCombatPower": 3588268,
+        "companionUnroundedAggregate": 50358,
+        "companionActualPower": 50355,
+        "companionMigrationFloor": 0,
+        "companionThresholdPower": 50355,
+        "companionEconomyBps": 668,
+        "buildingRates": {
+          "training": 17103584.539565254,
+          "command": 15440736.042663077,
+          "archives": 13302787.97521742,
+          "hearth": 14490536.90157612
+        },
+        "villageGoldPerHour": 60337645.45902187,
+        "fellowCampaignStageOne": {
+          "requirement": 22000,
+          "baseCost": 10000,
+          "discount": 0.35,
+          "effectiveCost": 6500
+        },
+        "pendingOfflineSha256": "dfa9384a3b5fcf529ee51524de07c728beca5c28ef00bca9f1e0f2e2dbe0c7b2",
+        "claimStateSha256": "42345a461cc9181cf42a7db9af0d86528246d017d77832b5572d01dfc7a22471",
+        "claimsSha256": "600eb325b1508e913d83370905cf278e6e2052b1c5767c33ac7578c664da5a0d",
+        "offlineSha256": "63c5475333d8677b70293fa03bf2607ef992f117236fff7c99b0e2ecb81e3792",
+        "readyClaimCount": 6,
+        "pendingOpportunityCount": 28,
+        "collectionsStatus": "reserved-inactive",
+        "collectionsContributionBps": 0,
+        "collectionsMultiplier": 1
+      }
+    }
+  ],
+  "historicalMigrationComparisons": {
+    "freshSchema12To13": {
+      "fixtureId": "p23.qa.fresh.v1",
+      "canonicalProfile": false,
+      "classification": "freshly-migrated-schema12-reference",
+      "label": "Fresh schema-12 predecessor migrated to schema 13 — not true fresh",
+      "expectedAnchors": {
+        "fellowEconomyPower": 35150,
+        "fellowCombatPower": 36366,
+        "companionActualPower": 2200,
+        "companionMigrationFloor": 2200,
+        "companionThresholdPower": 2200,
+        "fellowCampaignStageOneEffectiveCost": 8368,
+        "migrationTransferFloors": {
+          "dewgong": {"assignedFellowId": "cael", "actualTransfer": 40, "protectedTransfer": 480},
+          "arcanine": {"assignedFellowId": "orin", "actualTransfer": 46, "protectedTransfer": 400}
+        }
+      }
+    }
+  },
+  "nearCapQaEvidence": {
+    "fixtureId": "p23.qa.all-unlocked.v1",
+    "canonicalProfile": false,
+    "classification": "near-cap-qa-reference",
+    "label": "Near-cap QA reference — not high investment",
+    "expectedAnchors": {
+      "fellowEconomyPower": 1039700,
+      "fellowEconomyBps": 1368,
+      "fellowCombatPower": 1054194,
+      "companionActualPower": 4329,
+      "companionMigrationFloor": 23980,
+      "companionThresholdPower": 23980,
+      "companionEconomyPower": 4329,
+      "companionEconomyBps": 147,
+      "villageGoldPerHour": 30091.179009136,
+      "fellowCampaignStageOneEffectiveCost": 6500
+    }
+  },
+  "reportRequirements": {
+    "profileSections": [
+      "identity",
+      "power",
+      "economy",
+      "costs",
+      "requirements",
+      "claims",
+      "offline",
+      "achievements",
+      "facilities",
+      "safeIntegerHeadroom"
+    ],
+    "separatePowerLanes": [
+      "fellowEconomy",
+      "fellowCombat",
+      "companionActual",
+      "companionMigrationFloor",
+      "companionThreshold",
+      "companionEconomy"
+    ],
+    "collections": {"currentStatus": "reserved-inactive", "currentContributionBps": 0, "currentMultiplier": 1},
+    "forbidPrivateAssetPaths": true,
+    "requireSafeIntegers": true,
+    "requireFiniteNumbers": true,
+    "requireDeterministicBytes": true
+  }
+}
