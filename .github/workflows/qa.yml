@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  phase-11h:
+  phase-24c2d:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -21,5 +21,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run Phase 11H successor gate
-        run: node qa/phase-11h/verify.mjs
+      - name: Verify Phase 24C-2D release authority
+        run: node qa/phase-24c2d-release-authority/verify.mjs
+      - name: Verify Phase 24C-2D integration contract
+        run: node qa/phase-24c2d-integration/verify.mjs
+      - name: Verify Phase 24C-2D frozen evidence
+        run: shasum -a 256 -c qa/phase-24c2d-integration/checksums.sha256
