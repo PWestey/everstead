@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  phase-24f:
+  phase-24g:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -21,30 +21,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Export accepted Phase 24E predecessor
+      - name: Export accepted Phase 24F predecessor
         run: |
-          mkdir -p "$RUNNER_TEMP/everstead-phase-24e"
-          git archive dc4f038d0553ea79cdae3b096f10e2cb70494f56 | tar -x -C "$RUNNER_TEMP/everstead-phase-24e"
-      - name: Verify frozen Phase 24E predecessor
-        working-directory: ${{ runner.temp }}/everstead-phase-24e
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24f"
+          git archive da16b52bcbf0bde8ba1c7e8261e66cbde73890c6 | tar -x -C "$RUNNER_TEMP/everstead-phase-24f"
+      - name: Verify frozen Phase 24F predecessor
+        working-directory: ${{ runner.temp }}/everstead-phase-24f
         env:
           GIT_DIR: ${{ github.workspace }}/.git
-          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24e
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24f
         run: |
-          node qa/phase-24e-shell/verify.mjs
-          shasum -a 256 -c qa/phase-24e-shell/checksums.sha256
-      - name: Verify Phase 24F current-schema More contract
-        run: node qa/phase-24f-more/verify.mjs
-      - name: Verify Phase 24F frozen evidence
-        run: shasum -a 256 -c qa/phase-24f-more/checksums.sha256
+          node qa/phase-24f-more/verify.mjs
+          shasum -a 256 -c qa/phase-24f-more/checksums.sha256
+      - name: Verify Phase 24G Chapter I successor contract
+        run: node qa/phase-24g-chapter1/verify.mjs
+      - name: Verify Phase 24G frozen evidence
+        run: shasum -a 256 -c qa/phase-24g-chapter1/checksums.sha256
       - name: Install browser verification dependencies
         run: npm ci
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Run frozen Phase 24E ordinary public-path shell matrix
-        working-directory: ${{ runner.temp }}/everstead-phase-24e
+      - name: Run frozen Phase 24F ordinary public-path More matrix
+        working-directory: ${{ runner.temp }}/everstead-phase-24f
         run: |
           npm ci
-          npm run qa:phase24e-shell
-      - name: Run Phase 24F ordinary public-path More matrix
-        run: npm run qa:phase24f-more
+          npm run qa:phase24f-more
+      - name: Run Phase 24G ordinary public-path Chapter I matrix
+        run: npm run qa:phase24g-chapter1

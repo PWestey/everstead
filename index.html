@@ -92,6 +92,9 @@
 <!-- Phase 24F More polish styles BEGIN -->
 <link rel="stylesheet" href="src/phase24f-more-polish.css?v=phase24f-v1">
 <!-- Phase 24F More polish styles END -->
+<!-- Phase 24G Chapter I polish styles BEGIN -->
+<link rel="stylesheet" href="src/phase24g-story-polish.css?v=phase24g-v1">
+<!-- Phase 24G Chapter I polish styles END -->
 </head>
 <body>
 <div id="app" class="app"></div><div id="overlay"></div><div id="toast" class="toast"></div><div id="everstead-status" class="visually-hidden-status" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -120,6 +123,11 @@
   <!-- Phase 24D limited public-preview profile load BEGIN -->
   <script src="src/phase24d-public-preview-profile.js?v=phase24d-v1"></script>
   <!-- Phase 24D limited public-preview profile load END -->
+<!-- Phase 24G Chapter I authority load BEGIN -->
+  <script src="src/phase24g-book1-chapter1.js?v=phase24g-v1"></script>
+  <script src="src/phase24g-public-release-profile.js?v=phase24g-v1"></script>
+  <script src="src/phase24g-story-runtime.js?v=phase24g-v1"></script>
+<!-- Phase 24G Chapter I authority load END -->
   <!-- Phase 24E current-schema shell controller BEGIN -->
   <script src="src/phase24e-shell-controller.js?v=phase24e-v1"></script>
   <!-- Phase 24E current-schema shell controller END -->
@@ -3169,6 +3177,60 @@ function phase24fPublicPreviewCardHtml(){const profile=PHASE_24D_RELEASE_PROFILE
 function phase24fCurrentMoreScreen(){const inherited=moreScreenBeforePhase24D(),anchor='<section class="card" data-campaign-efficiency-preview>',card=phase24fPublicPreviewCardHtml(),previous=inherited.replace(anchor,card+anchor);if(S?.schemaVersion!==14)return previous;const anchors=inherited.split(anchor).length-1,roots=inherited.match(/<main class="screen"(?=[^>]*data-phase22b-feature-surface="more")[^>]*>/g)||[];if(anchors!==1||roots.length!==1)throw new Error('The Everstead current-schema More surface is unavailable or ambiguous');return previous.replace(roots[0],roots[0].replace('<main class="screen"',`<main class="screen" data-phase24f-more-owner="${PHASE_24F_MORE_OWNER_ID}"`))}
 moreScreen=phase24fCurrentMoreScreen;
 /* Phase 24F current-schema More ownership END */
+/* Phase 24G Chapter I current-schema ownership BEGIN */
+const PHASE_24G_CHAPTER_ONE=globalThis.EVERSTEAD_PHASE24G_CHAPTER_ONE,PHASE_24G_STORY_RUNTIME=globalThis.EVERSTEAD_PHASE24G_STORY_RUNTIME,PHASE_24G_RELEASE_PROFILE=globalThis.EVERSTEAD_PHASE24G_PUBLIC_RELEASE_PROFILE;
+if(!PHASE_24G_CHAPTER_ONE||PHASE_24G_CHAPTER_ONE.authorityId!=='everstead.phase24g.book1.chapter1.v1'||PHASE_24G_CHAPTER_ONE.schemaVersion!==14||!PHASE_24G_STORY_RUNTIME||PHASE_24G_STORY_RUNTIME.id!=='everstead.phase24g.story-runtime.schema14.v1'||PHASE_24G_STORY_RUNTIME.schemaVersion!==14||!PHASE_24G_RELEASE_PROFILE||PHASE_24G_RELEASE_PROFILE.id!=='everstead.release-profile.chapter-one-preview.v1'||PHASE_24G_RELEASE_PROFILE.schemaVersion!==14)throw new Error('The Everstead Chapter I successor is unavailable or incompatible');
+const PHASE_24G_TUTORIAL_ID=PHASE_24G_CHAPTER_ONE.tutorialId,PHASE_24G_TUTORIAL_STEP_ID=PHASE_24G_CHAPTER_ONE.tutorial.steps[0].id,PHASE_24G_TUTORIAL_RECEIPT_ID=`tutorial.receipt.${PHASE_24G_TUTORIAL_ID.slice('tutorial.'.length)}`;
+function phase24gTutorialProjection(state){const projected=clone(state),progress=projected?.tutorialProgress;if(progress){for(const key of ['seenStepIds','completedStepIds','dismissedStepIds'])if(Array.isArray(progress[key]))progress[key]=progress[key].filter(id=>id!==PHASE_24G_TUTORIAL_STEP_ID);if(Array.isArray(progress.completionReceiptIds))progress.completionReceiptIds=progress.completionReceiptIds.filter(id=>id!==PHASE_24G_TUTORIAL_RECEIPT_ID);if(isObject(progress.replayCountsByTutorial))delete progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID]}return projected}
+function phase24gTutorialPublicStatus(state=S){const progress=state?.tutorialProgress;if(!phase24c2eTutorialStateAvailable(state))return'unavailable';return progress.completedStepIds.includes(PHASE_24G_TUTORIAL_STEP_ID)?'completed':progress.dismissedStepIds.includes(PHASE_24G_TUTORIAL_STEP_ID)?'dismissed':progress.seenStepIds.includes(PHASE_24G_TUTORIAL_STEP_ID)?'seen':'unseen'}
+function phase24gTutorialPreservedHistory(state=S){const predecessor=phase2021PredecessorTutorialStatus(state,PHASE_24G_TUTORIAL_ID),successor=state?.phase2021?.tutorials,status=successor?.statusById?.[PHASE_24G_TUTORIAL_ID],normalized=status==='open'||status==='active'?'seen':status==='skipped'?'dismissed':status,preserved=['unseen','seen','completed','dismissed'].includes(normalized)?normalized:predecessor.status==='available'?'unseen':predecessor.status,replayCount=Math.max(predecessor.replayCount,Number.isSafeInteger(successor?.replayCountsById?.[PHASE_24G_TUTORIAL_ID])?successor.replayCountsById[PHASE_24G_TUTORIAL_ID]:0);return{status:preserved,replayCount}}
+function phase24gTutorialHistory(state=S){const publicStatus=phase24gTutorialPublicStatus(state);if(publicStatus==='unavailable')return{status:'unavailable',replayCount:0};const preserved=phase24gTutorialPreservedHistory(state),status=['completed','dismissed'].includes(preserved.status)?preserved.status:['completed','dismissed'].includes(publicStatus)?publicStatus:preserved.status==='seen'||publicStatus==='seen'?'seen':'unseen',publicReplay=state.tutorialProgress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID],replayCount=Math.max(preserved.replayCount,Number.isSafeInteger(publicReplay)?publicReplay:0);return{status,replayCount}}
+function phase24gTutorialValid(state){const progress=state?.tutorialProgress;if(!phase24c2eTutorialStateAvailable(state))return true;const count=(values,id)=>values.filter(value=>value===id).length,seenCount=count(progress.seenStepIds,PHASE_24G_TUTORIAL_STEP_ID),completedCount=count(progress.completedStepIds,PHASE_24G_TUTORIAL_STEP_ID),dismissedCount=count(progress.dismissedStepIds,PHASE_24G_TUTORIAL_STEP_ID),receiptCount=count(progress.completionReceiptIds,PHASE_24G_TUTORIAL_RECEIPT_ID),hasReplay=Object.hasOwn(progress.replayCountsByTutorial,PHASE_24G_TUTORIAL_ID),replayCount=progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID],publicStatus=completedCount===1?'completed':dismissedCount===1?'dismissed':seenCount===1?'seen':'unseen',preservedStatus=phase24gTutorialPreservedHistory(state).status;if(seenCount>1||completedCount>1||dismissedCount>1||receiptCount>1||completedCount&&!seenCount||dismissedCount&&!seenCount||completedCount&&dismissedCount||(completedCount===1)!==(receiptCount===1)||hasReplay&&(!Number.isSafeInteger(replayCount)||replayCount<0)||!hasReplay&&(seenCount||completedCount||dismissedCount||receiptCount))return false;return!(['completed','dismissed'].includes(publicStatus)&&['completed','dismissed'].includes(preservedStatus)&&publicStatus!==preservedStatus)}
+const phase24c2cPredecessorValidBeforePhase24G=phase24c2cPredecessorValid;phase24c2cPredecessorValid=function(candidate,physical=null){return phase24c2cPredecessorValidBeforePhase24G(phase24gTutorialProjection(candidate),physical)};
+const phase24c2cValidateBeforePhase24G=phase24c2cValidate;phase24c2cValidate=function(state,physical=null){const checked=phase24c2cValidateBeforePhase24G(state,physical);if(!checked.ok)return checked;return phase24gTutorialValid(state)?{ok:true,errors:[]}:{ok:false,errors:['phase24g.tutorial']}};
+function phase24gMutateTutorialInState(state,action){const history=phase24gTutorialHistory(state),progress=state?.tutorialProgress;if(history.status==='unavailable'||!progress)throw new PersistenceError('phase24g-tutorial-state','The public Chapter-change tutorial ledger is unavailable');if(!['open','complete','skip','replay'].includes(action))throw new PersistenceError('phase24g-tutorial-action','The Chapter-change tutorial action is invalid');if(action==='replay'&&history.status==='unseen'||action==='open'&&['completed','dismissed'].includes(history.status)||['complete','skip'].includes(action)&&history.status!=='seen')throw new PersistenceError('phase24g-tutorial-transition','The Chapter-change tutorial status changed before commit');const add=(values,id)=>{if(!values.includes(id))values.push(id)};progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID]=history.replayCount;if(history.status!=='unseen')add(progress.seenStepIds,PHASE_24G_TUTORIAL_STEP_ID);if(history.status==='completed'){add(progress.completedStepIds,PHASE_24G_TUTORIAL_STEP_ID);add(progress.completionReceiptIds,PHASE_24G_TUTORIAL_RECEIPT_ID)}else if(history.status==='dismissed')add(progress.dismissedStepIds,PHASE_24G_TUTORIAL_STEP_ID);let target=history.status;if(action==='replay')progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID]=safeAddInteger(history.replayCount,1,'Chapter-change tutorial replay');else if(action==='open'){add(progress.seenStepIds,PHASE_24G_TUTORIAL_STEP_ID);target='seen'}else if(action==='complete'){add(progress.completedStepIds,PHASE_24G_TUTORIAL_STEP_ID);add(progress.completionReceiptIds,PHASE_24G_TUTORIAL_RECEIPT_ID);target='completed'}else{add(progress.dismissedStepIds,PHASE_24G_TUTORIAL_STEP_ID);target='dismissed'}const successor=state?.phase2021?.tutorials;if(successor&&Object.hasOwn(successor.statusById,PHASE_24G_TUTORIAL_ID)&&Object.hasOwn(successor.replayCountsById,PHASE_24G_TUTORIAL_ID)){successor.statusById[PHASE_24G_TUTORIAL_ID]=target;successor.replayCountsById[PHASE_24G_TUTORIAL_ID]=progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID];successor.pendingIds=successor.pendingIds.filter(id=>id!==PHASE_24G_TUTORIAL_ID)}return{status:target,replayCount:progress.replayCountsByTutorial[PHASE_24G_TUTORIAL_ID]}}
+const phase24gCurrentClassify=phase24c2cClassify;phase24c2cClassify=function(raw,physical=null){if(raw===null)return phase24gCurrentClassify(raw,physical);let value;try{value=JSON.parse(raw)}catch{return phase24gCurrentClassify(raw,physical)}if(isObject(value)&&value.schemaVersion==null)return{kind:'predecessor',raw,value,schemaVersion:0};return phase24gCurrentClassify(raw,physical)};
+const phase24gCurrentCommitPrepared=commitPrepared;commitPrepared=function(state,expectedActiveRaw,options={}){const version=state?.schemaVersion;if(!Number.isInteger(version)||version<1||version>=14||version===CURRENT_SCHEMA_VERSION)return phase24gCurrentCommitPrepared(state,expectedActiveRaw,options);const prior=CURRENT_SCHEMA_VERSION;CURRENT_SCHEMA_VERSION=version;try{return phase24gCurrentCommitPrepared(state,expectedActiveRaw,options)}finally{CURRENT_SCHEMA_VERSION=prior}};
+function phase24gEnsureLegacyPublicStoryFoundations(){
+ if(PERSISTENCE_BLOCKED||PERSISTENCE_STALE||S?.schemaVersion!==12)return false;
+ const before=phaseElevenFReadProtectedSlots();let changed=false;
+ if(!phaseElevenGReceipt(S)){const activated=phaseElevenGEnsureActivated();if(activated!==true||!phaseElevenGReceipt(S))throw new PersistenceError('phase24g-public-story-foundation','The released Phase 11G roster did not activate exactly');changed=true}
+ if(!phaseTwelveReceipt(S)){const activated=phaseTwelveEnsureActivated();if(activated!==true||!phaseTwelveReceipt(S))throw new PersistenceError('phase24g-public-story-foundation','The released Phase 12 foundation did not activate exactly');changed=true}
+ if(!phaseThirteenProgress(S)){const activated=phaseThirteenEnsureActivated();if(activated!==true||!phaseThirteenProgress(S))throw new PersistenceError('phase24g-public-story-foundation','The released Phase 13 story did not activate exactly');changed=true}
+ const checked=validation(S,12,{allowLegacyTimestampRepair:false}),after=phaseElevenFReadProtectedSlots();
+ if(!checked.ok)throw new PersistenceError('phase24g-public-story-validation',checked.errors.join(', '));
+ if(after.activeRaw!==PERSISTED_RAW||PERSISTED_RAW!==JSON.stringify(S)||after.stagingRaw!==null)throw new PersistenceError('phase24g-public-story-persistence','The released public-story foundations were not exactly persisted');
+ if(JSON.stringify(phaseElevenFPermanentSlots(after))!==JSON.stringify(phaseElevenFPermanentSlots(before)))throw new PersistenceConflictError('Phase 24G public-story activation changed protected checkpoint lineage');
+ return changed;
+}
+function phase24gLegacyBootstrapOperation(operation){return String(operation).replace(/\s/g,'')==='()=>bootstrapPersistenceBeforePhase23()'}
+const phase24gCurrentLegacySaveAndRuntimeScope=phase23LegacySaveAndRuntimeScope;phase23LegacySaveAndRuntimeScope=function(operation){const prior=bootstrapPersistence,bootstrapOperation=phase24gLegacyBootstrapOperation(operation);bootstrapPersistence=bootstrapPersistenceBeforePhase23;try{return phase24gCurrentLegacySaveAndRuntimeScope(()=>{const result=operation();if(bootstrapOperation)phase24gEnsureLegacyPublicStoryFoundations();return result})}finally{bootstrapPersistence=prior;PHASE_24G_INSTALL_RESULT?.restoreOwnership?.()}};
+CURRENT_TRANSACTION_SOURCES.add('phase24g-story');
+const phase24gSlot=(get,set)=>Object.freeze({get,set});
+const PHASE_24G_INSTALL_RESULT=PHASE_24G_STORY_RUNTIME.install(Object.freeze({
+ version:1,
+ releaseVersion:RELEASE_VERSION,
+ document,
+ phase13Scenes:PHASE_THIRTEEN.scenes,
+ phase13Ui:PHASE_THIRTEEN_UI,
+ registries:Object.freeze({sceneIds:PHASE_THIRTEEN_SCENE_IDS,chronicleIds:PHASE_THIRTEEN_CHRONICLE_IDS,sceneById:PHASE_THIRTEEN_SCENE_BY_ID,entryByScene:PHASE_THIRTEEN_ENTRY_BY_SCENE,storyNodeIds:PHASE_TWELVE_STORY_NODE_IDS,chronicleEntryIds:PHASE_TWELVE_CHRONICLE_ENTRY_IDS,dialogueContentByActor:PHASE_TWELVE_DIALOGUE_CONTENT_BY_ACTOR}),
+ slots:Object.freeze({
+  runFellowCampaign:phase24gSlot(()=>runFellowCampaign,value=>runFellowCampaign=value),
+  openChronicle:phase24gSlot(()=>phaseThirteenOpenChronicle,value=>phaseThirteenOpenChronicle=value),
+  objective:phase24gSlot(()=>phaseThirteenObjective,value=>phaseThirteenObjective=value),
+  objectiveAction:phase24gSlot(()=>phaseThirteenObjectiveAction,value=>phaseThirteenObjectiveAction=value),
+  villageScreen:phase24gSlot(()=>villageScreen,value=>villageScreen=value),
+  publicPreviewCard:phase24gSlot(()=>phase24fPublicPreviewCardHtml,value=>phase24fPublicPreviewCardHtml=value),
+  tutorial:phase24gSlot(()=>phaseThirteenTutorial,value=>phaseThirteenTutorial=value),
+  tutorialHtml:phase24gSlot(()=>phaseThirteenTutorialHtml,value=>phaseThirteenTutorialHtml=value),
+  tutorialAction:phase24gSlot(()=>phaseThirteenTutorialAction,value=>phaseThirteenTutorialAction=value),
+  tutorialLog:phase24gSlot(()=>phaseThirteenShowTutorialLog,value=>phaseThirteenShowTutorialLog=value),
+  modalBinding:phase24gSlot(()=>bindModal,value=>bindModal=value)
+ }),
+ api:Object.freeze({state:()=>S,mutatePersisted,clone,escape:esc,showModal,render,closeModal,bindModal,showTutorial:phaseThirteenShowTutorial,campaignPreview,sceneResolved:phaseThirteenSceneResolved,queueSceneInState:phaseThirteenQueueSceneInState,promoteSceneInState:phaseThirteenPromoteSceneInState,presentActiveScene:phaseThirteenPresentActiveScene,recordSceneInState:phaseThirteenRecordSceneInState,storyProgress:phaseThirteenProgress,tutorialStatus:state=>phase24gTutorialHistory(state).status,mutateTutorialInState:phase24gMutateTutorialInState})
+}));
+if(!PHASE_24G_INSTALL_RESULT?.ok||PHASE_24G_INSTALL_RESULT.ownerId!=='everstead.phase24g.story-runtime.schema14.v1'||PHASE_24G_INSTALL_RESULT.rewardNeutral!==true)throw new Error('The Everstead Chapter I successor did not install safely');
+/* Phase 24G Chapter I current-schema ownership END */
 /* Phase 24E current-schema shell ownership BEGIN */
 const PHASE_24E_SHELL_CONTROLLER=globalThis.EVERSTEAD_PHASE24E_SHELL_CONTROLLER;
 if(!PHASE_24E_SHELL_CONTROLLER||PHASE_24E_SHELL_CONTROLLER.version!==1||PHASE_24E_SHELL_CONTROLLER.id!=='everstead.phase24e.shell-controller.v1'||PHASE_24E_SHELL_CONTROLLER.schemaVersion!==14)throw new Error('The Everstead current-schema shell controller is unavailable or incompatible');

@@ -1,0 +1,95 @@
+{
+  "contractVersion": 1,
+  "phase": "24G-A",
+  "authorityId": "everstead.phase24g.chapter-one-gate.v1",
+  "status": "candidate",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "frozenNow": 1800000000000,
+  "predecessor": {
+    "commit": "da16b52bcbf0bde8ba1c7e8261e66cbde73890c6",
+    "indexSha256": "d5dff326d20897a08ebab22be313e31c494767b4ed9dc4fee5e5642643fd4b7d",
+    "phase13SourceSha256": "fc5ecd19fbf7345dfa7929d164af02f5db2e4f182888443009b7e0a7c062681a",
+    "phase17BookSourceSha256": "058eb4b38ca3541bd8143db7d5239cb394f731ac3d678c66c57e620c559739a6",
+    "phase17RuntimeSourceSha256": "ca47c5aec5280bbd7116253801294047c81cfd3f9084508b69f1c84354194815",
+    "phase24dProfileSourceSha256": "8cd937c134b8a79bbb4979377e96e918aaf697b0f4a2f5a08fd79fbeef6cddf8"
+  },
+  "markers": {
+    "stylesBegin": "<!-- Phase 24G Chapter I polish styles BEGIN -->",
+    "stylesEnd": "<!-- Phase 24G Chapter I polish styles END -->",
+    "authorityBegin": "<!-- Phase 24G Chapter I authority load BEGIN -->",
+    "authorityEnd": "<!-- Phase 24G Chapter I authority load END -->",
+    "ownershipBegin": "/* Phase 24G Chapter I current-schema ownership BEGIN */",
+    "ownershipEnd": "/* Phase 24G Chapter I current-schema ownership END */"
+  },
+  "sources": {
+    "authority": "src/phase24g-book1-chapter1.js",
+    "runtime": "src/phase24g-story-runtime.js",
+    "releaseProfile": "src/phase24g-public-release-profile.js",
+    "styles": "src/phase24g-story-polish.css"
+  },
+  "authority": {
+    "global": "EVERSTEAD_PHASE24G_CHAPTER_ONE",
+    "id": "everstead.phase24g.book1.chapter1.v1"
+  },
+  "runtime": {
+    "global": "EVERSTEAD_PHASE24G_STORY_RUNTIME",
+    "id": "everstead.phase24g.story-runtime.schema14.v1",
+    "transactionSource": "phase24g-story"
+  },
+  "releaseProfile": {
+    "global": "EVERSTEAD_PHASE24G_PUBLIC_RELEASE_PROFILE",
+    "id": "everstead.release-profile.chapter-one-preview.v1"
+  },
+  "stageId": "broken-roads-2",
+  "scenes": [
+    {
+      "id": "story.book1.chapter1.merchant-dispute.intro",
+      "chronicleId": "chronicle.book1.chapter1.merchant-dispute.intro",
+      "title": "Terms at the Crossroads",
+      "speakers": ["fellow.cael", "family.isolde"],
+      "beatCount": 5
+    },
+    {
+      "id": "story.book1.chapter1.merchant-dispute.resolution",
+      "chronicleId": "chronicle.book1.chapter1.merchant-dispute.resolution",
+      "title": "A Market Reopened",
+      "speakers": ["fellow.lyra", "family.elara"],
+      "beatCount": 5
+    }
+  ],
+  "tutorialId": "tutorial.story.objective.chapter-change",
+  "visualChangeId": "village-change.western-plaza-open",
+  "existingPhase13Claims": [
+    {"claimId": "qa.phase13.claim.first-covenant.v1", "sourceId": "story.book1.chapter1.village-toll.resolution", "gold": 1500},
+    {"claimId": "legacy.oathkeeper.tier-1", "sourceId": "legacy.oathkeeper.tier-1", "gold": 750},
+    {"claimId": "legacy.first-campaign-clear", "sourceId": "legacy.feat.first-campaign-clear", "gold": 500}
+  ],
+  "profiles": [
+    {"id": "fresh", "seed": "empty"},
+    {"id": "established", "seed": "phase24d.public-established.production-actions.v1"},
+    {"id": "stage2-already-cleared", "seed": "phase24d.public-established.production-actions.v1"},
+    {"id": "foundation-thin", "seed": "phase24c2e.schema14-foundation-thin.v1"},
+    {"id": "high", "seed": "phase24d.public-high-investment.production-actions.v1"}
+  ],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "minimumTargetPx": 44,
+  "textScale": 1.3,
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "52d00d1c400b57608a25ea35126aa20d52a0dcfe30a4a6ac212489de8e528e33",
+    "README.md": "c95a4e4d0a6d9cfb990e1bfac532aa7fd2d5ba6c4a9941f2c7ac1b6fe051e68e",
+    "index.html": "b056714caef0e320bc69b1aaab7c6ef0821fecd24611bf8077b4b90e6a355004",
+    "package.json": "3d9ffbf975725bff99428f6f1a76625657b542ba80537391ccff2198814cf64b",
+    "qa/phase-24g-chapter1/README.md": "05c0bef91ff90b914969fb958f1ee2d16e1625f1d65b84420bfde6e7520357a6",
+    "qa/phase-24g-chapter1/RESULT.md": "f514be1327924e8b9f983e8c81084d04ae8149151e2708742a7c0144ea3cab0e",
+    "qa/phase-24g-chapter1/browser.mjs": "83fc1388c3422b962353739a559d9445dcf309a00d7606950e53c639056355ba",
+    "qa/phase-24g-chapter1/verify.mjs": "afcc2a64e66cd14a81bbf5b386e5a7be140d3fbf4c0057b0a94e8310f59c03fe",
+    "src/phase24g-book1-chapter1.js": "1a06d798f80fea1dd2d3f3fb3c65a3a0cfaddbd8b1b91538279fe0c3bf672ba8",
+    "src/phase24g-public-release-profile.js": "0794c3e0894a71578a2cda9d50ad18621c3f6601efd7d29dac459ac9cef0e4dd",
+    "src/phase24g-story-polish.css": "e7b5954f5c7291308736330e8d06c5345636b79bee30ff834999c14cc5e4b1ee",
+    "src/phase24g-story-runtime.js": "a7caa6fa96837bad84c19ffb538f0e04b6c7d97aa5b19166e466217bc5312e88"
+  }
+}
