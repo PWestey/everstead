@@ -1,0 +1,53 @@
+{
+  "contractVersion": 1,
+  "phase": "24E",
+  "authorityId": "everstead.phase24e.shell-gate.v1",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "frozenNow": 1800000000000,
+  "predecessor": {
+    "commit": "8544a70586a21504a377cea6cb578c461f2463cd",
+    "indexSha256": "47efcceac0990e9b1c9b7f020d3fff3700a9be19258bb90c1371ad4414210668",
+    "phase24dContractSha256": "d0fdff50be3cf4a4461b37177e33c3f22fa1a55e8365796a62206af59db468bf",
+    "phase24dChecksumsSha256": "d22fb4dd9290cf9a478a16bac6e7842cb9d64fd8acbe62e67a994788f14c47d1"
+  },
+  "controller": {
+    "id": "everstead.phase24e.shell-controller.v1",
+    "version": 1,
+    "global": "EVERSTEAD_PHASE24E_SHELL_CONTROLLER"
+  },
+  "markers": {
+    "stylesBegin": "<!-- Phase 24E current-schema shell styles BEGIN -->",
+    "stylesEnd": "<!-- Phase 24E current-schema shell styles END -->",
+    "controllerBegin": "<!-- Phase 24E current-schema shell controller BEGIN -->",
+    "controllerEnd": "<!-- Phase 24E current-schema shell controller END -->",
+    "ownershipBegin": "/* Phase 24E current-schema shell ownership BEGIN */",
+    "ownershipEnd": "/* Phase 24E current-schema shell ownership END */"
+  },
+  "profiles": [
+    {"id": "fresh", "seed": "empty"},
+    {"id": "established", "seed": "phase24d.public-established.production-actions.v1"},
+    {"id": "thin", "seed": "phase24c2e.schema14-foundation-thin.v1"},
+    {"id": "high", "seed": "phase24d.public-high-investment.production-actions.v1"}
+  ],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "navigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "rosters": ["fellows", "family", "companions", "relics"],
+  "expectedRosterCounts": {"fellows": 18, "family": 20, "companions": 20, "relics": 6},
+  "minimumTargetPx": 44,
+  "textScale": 1.3,
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "9bcba66cbfd1d804cb14d4e89a07280d9c0c4d0eeb7494b353e04b64fb8b7ef0",
+    "README.md": "73b4fa4d43487314912a41a732fe231cc9cbd0591da40beea9203a0c2e8b48d2",
+    "index.html": "b70e1fdf456fd8ae30b36b72f27d8bd3189bfe98ce15145473e5fc917fd453c1",
+    "package-lock.json": "d7059c8a2d9b63a98a53c1fa6477b2ecf20feba2720cd5b999a45ef7f9a0585c",
+    "package.json": "2d88d97439f18937c63c3de1afeb7baa1bfc43204a239ce2b94fd5aa73d77004",
+    "qa/phase-24e-shell/browser.mjs": "5c675dd65b5a92d4adc42d930864bb31597caba130d05c2ae9371c925772d095",
+    "qa/phase-24e-shell/verify.mjs": "e5919645a382da96d5a6d06b2f39cf47d1d50281c146afc8ecdf8fd0ff7b4a05",
+    "src/phase24e-shell-controller.js": "4d99a5051260db440eeb675b05e235b546156bb76268f8ef6ceaa18829052dc7",
+    "src/phase24e-shell-polish.css": "a4b479d90d58f9f8d2fa1a65f2f721bd16d8a4a5c3dd7d1aaceebc956377121b"
+  }
+}

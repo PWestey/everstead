@@ -1,0 +1,82 @@
+/* Phase 24E keeps the current release identity visible at both supported mobile widths. */
+.topbar[data-phase24e-topbar]{
+  gap:6px;
+  min-height:58px;
+}
+.topbar [data-phase24e-brand]{
+  flex:0 1 auto;
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.topbar [data-phase24e-brand] small{
+  color:#8ff4e6;
+  letter-spacing:.14em;
+}
+.topbar [data-phase24e-brand] b{
+  display:block;
+  white-space:nowrap;
+}
+.topbar [data-phase24e-resources]{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.topbar [data-phase24e-resources] .collect-mini,
+.topbar [data-phase24e-resources] .player-profile-pill{
+  min-width:44px;
+  min-height:44px;
+}
+.topbar [data-phase24e-resources] .collect-mini{
+  max-width:128px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:0 2px;
+  line-height:1.05;
+  overflow:visible;
+  text-overflow:clip;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.topbar [data-phase24e-resources] .collect-mini b,
+.topbar [data-phase24e-resources] .res-pill b{
+  white-space:nowrap;
+}
+
+@media(max-width:420px){
+  .topbar [data-phase24e-brand] small{display:none}
+}
+
+@media(min-width:361px) and (max-width:420px){
+  .topbar [data-phase24e-brand]{
+    flex:0 0 88px;
+    max-width:none;
+  }
+  .topbar [data-phase24e-brand] b{
+    font-size:12px;
+    letter-spacing:.045em;
+  }
+}
+
+@media(max-width:360px){
+  .topbar[data-phase24e-topbar]{padding-left:8px;padding-right:8px}
+  .topbar [data-phase24e-brand]{display:block;width:100%;max-width:none}
+  .topbar [data-phase24e-brand] b{font-size:12px;letter-spacing:.045em}
+  .topbar [data-phase24e-resources]{
+    display:grid;
+    flex:1 1 auto;
+    width:auto;
+    grid-template-columns:minmax(44px,1fr) auto auto 44px;
+    gap:3px;
+  }
+  .topbar [data-phase24e-resources] .collect-mini,
+  .topbar [data-phase24e-resources] .res-pill{padding-left:4px;padding-right:4px}
+  .topbar [data-phase24e-resources] .collect-mini{width:100%;max-width:none;min-width:44px}
+  .topbar [data-phase24e-resources] [data-resource]{font-size:9px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .phase24e-topbar,.phase24e-topbar *{animation:none!important;transition:none!important}
+}
+html.phase15-reduced-motion .phase24e-topbar,
+html.phase15-reduced-motion .phase24e-topbar *{animation:none!important;transition:none!important}

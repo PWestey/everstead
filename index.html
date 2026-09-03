@@ -86,6 +86,9 @@
     @media(max-width:340px){.phase24c2d-pools{grid-template-columns:1fr}.phase24c2d-equation{grid-template-columns:1fr}.phase24c2d-equation>span{display:none}.phase24c2d-restaurant-breakdown{grid-template-columns:1fr}}
     @media(prefers-reduced-motion:reduce){.phase24c2d-collection,.phase24c2d-claim-result{animation:none!important;transition:none!important}}
   </style>
+  <!-- Phase 24E current-schema shell styles BEGIN -->
+  <link rel="stylesheet" href="src/phase24e-shell-polish.css?v=phase24e-v1">
+  <!-- Phase 24E current-schema shell styles END -->
 </head>
 <body>
 <div id="app" class="app"></div><div id="overlay"></div><div id="toast" class="toast"></div><div id="everstead-status" class="visually-hidden-status" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -114,6 +117,9 @@
   <!-- Phase 24D limited public-preview profile load BEGIN -->
   <script src="src/phase24d-public-preview-profile.js?v=phase24d-v1"></script>
   <!-- Phase 24D limited public-preview profile load END -->
+  <!-- Phase 24E current-schema shell controller BEGIN -->
+  <script src="src/phase24e-shell-controller.js?v=phase24e-v1"></script>
+  <!-- Phase 24E current-schema shell controller END -->
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3154,6 +3160,18 @@ const PHASE_24D_RELEASE_PROFILE=globalThis.EVERSTEAD_PUBLIC_RELEASE_PROFILE;
 if(!PHASE_24D_RELEASE_PROFILE||PHASE_24D_RELEASE_PROFILE.version!==1||PHASE_24D_RELEASE_PROFILE.id!=='everstead.release-profile.limited-public-preview.v1'||PHASE_24D_RELEASE_PROFILE.status!=='active'||PHASE_24D_RELEASE_PROFILE.schemaVersion!==14)throw new Error('The Everstead public-preview release profile is unavailable or incompatible');
 const moreScreenBeforePhase24D=moreScreen;moreScreen=function(){const profile=PHASE_24D_RELEASE_PROFILE,card=`<section class="card" data-phase24d-release-profile><div class="eyebrow">${esc(profile.label)} · ${esc(RELEASE_VERSION)}</div><h3>Everstead is growing in public</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, the First Covenant opening, and the first permanent Collection.</p><p class="soft">More Book I story, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`;return moreScreenBeforePhase24D().replace('<section class="card" data-campaign-efficiency-preview>',card+'<section class="card" data-campaign-efficiency-preview>')};
 /* Phase 24D limited public-preview presentation END */
+/* Phase 24E current-schema shell ownership BEGIN */
+const PHASE_24E_SHELL_CONTROLLER=globalThis.EVERSTEAD_PHASE24E_SHELL_CONTROLLER;
+if(!PHASE_24E_SHELL_CONTROLLER||PHASE_24E_SHELL_CONTROLLER.version!==1||PHASE_24E_SHELL_CONTROLLER.id!=='everstead.phase24e.shell-controller.v1'||PHASE_24E_SHELL_CONTROLLER.schemaVersion!==14)throw new Error('The Everstead current-schema shell controller is unavailable or incompatible');
+function phase24eResetScroll(){const scroller=document.scrollingElement||document.documentElement;if(scroller)scroller.scrollTop=0;if(typeof globalThis.scrollTo==='function')try{globalThis.scrollTo({top:0,left:0,behavior:'auto'})}catch{globalThis.scrollTo(0,0)}}
+nav=function(view){return PHASE_24E_SHELL_CONTROLLER.navigate({state:S,view,activityRunning:Boolean(PHASE_ELEVEN_C_JOB),stopActivity:phaseElevenCRequestStop,rotateVillage:phaseElevenERotateFeatured,complete:phaseElevenESaveNeutralResult,resetScroll:phase24eResetScroll})};
+setRoster=function(tab){return PHASE_24E_SHELL_CONTROLLER.selectRoster({state:S,roster:tab,activityRunning:Boolean(PHASE_ELEVEN_C_JOB),stopActivity:phaseElevenCRequestStop,complete:phaseElevenESaveNeutralResult})};
+topbar=function(){const pendingGold=S.pendingGold||0,pendingExtras=S.familyDrops.pendingGifts+Object.values(S.familyDrops.pendingShards).reduce((sum,value)=>sum+value,0);return PHASE_24E_SHELL_CONTROLLER.renderTopbar({pendingGold,pendingExtras,gifts:S.gifts,gold:S.gold,rank:S.player.rank,format:fmt,escape:esc})};
+function phase24eCurrentRosterCounts(html){const joined=phaseElevenGJoinedIds(S).length;return html.replace(/\d+ joined Fellows · 20 Family · 2 Companions/,`${joined} joined Fellows · 20 Family · 20 owned Companions`).replace('40 starting characters · all unlocked',`${joined} joined Fellows · 20 Family · 20 owned Companions`).replace(/Fellows · \d+(?:\/18)?/g,`Fellows · ${joined}/18`).replace(/Family · \d+/g,'Family · 20').replace(/Companions · (?:\d+|<span data-phase23-companion-count="\d+">\d+<\/span>)/g,`Companions · <span data-phase23-companion-count="${PHASE_23_CATALOG.ids.length}">${PHASE_23_CATALOG.ids.length}</span>`)}
+function phase24eCurrentRelicRoster(){const currentSchema=S.schemaVersion;try{S.schemaVersion=9;return phase24eCurrentRosterCounts(relicRosterScreen())}finally{S.schemaVersion=currentSchema}}
+function phase24eCurrentRosterScreen(){if(S?.schemaVersion!==14)return rosterScreenBeforePhase23();let html;if((S.ui.roster||'fellows')==='relics')html=phase24eCurrentRelicRoster();else{html=phase24eCurrentRosterCounts(rosterScreenBeforePhase23());html=html.replace(/(<button[^>]*data-roster="companions"[\s\S]*?<\/button>)(<\/div>)/,`$1<button data-roster="relics">Relics · ${RELIC_DEFS.length}</button>$2`);if(S.ui.roster==='companions')html=html.replace('<main class="screen"','<main class="screen" data-phase23-companion-roster').replace(/data-companion="([^"]+)"/g,'data-companion="$1" data-phase23-companion-card="$1"').replace('<section class="roster-grid">',`<section class="card"><div class="eyebrow">Complete Companion roster</div><h3>All 20 Companions are already yours</h3><p class="soft">There is no summoning, pull currency, or duplicate conversion. Progress comes from Campaign, Tower, assignments, and Mastery.</p></section>${phase23TutorialCard(['tutorial.companions.roster-and-power'])}<section class="roster-grid">`)}return html.replace('<main class="screen"',`<main class="screen" data-phase24e-roster-owner="${PHASE_24E_SHELL_CONTROLLER.id}"`)}
+rosterScreen=phase24eCurrentRosterScreen;
+/* Phase 24E current-schema shell ownership END */
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24C-2B QA bridge install BEGIN */
 phase24c2bInstallQaBridge();
