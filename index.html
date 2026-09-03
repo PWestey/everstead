@@ -89,6 +89,9 @@
   <!-- Phase 24E current-schema shell styles BEGIN -->
   <link rel="stylesheet" href="src/phase24e-shell-polish.css?v=phase24e-v1">
   <!-- Phase 24E current-schema shell styles END -->
+<!-- Phase 24F More polish styles BEGIN -->
+<link rel="stylesheet" href="src/phase24f-more-polish.css?v=phase24f-v1">
+<!-- Phase 24F More polish styles END -->
 </head>
 <body>
 <div id="app" class="app"></div><div id="overlay"></div><div id="toast" class="toast"></div><div id="everstead-status" class="visually-hidden-status" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -3160,6 +3163,12 @@ const PHASE_24D_RELEASE_PROFILE=globalThis.EVERSTEAD_PUBLIC_RELEASE_PROFILE;
 if(!PHASE_24D_RELEASE_PROFILE||PHASE_24D_RELEASE_PROFILE.version!==1||PHASE_24D_RELEASE_PROFILE.id!=='everstead.release-profile.limited-public-preview.v1'||PHASE_24D_RELEASE_PROFILE.status!=='active'||PHASE_24D_RELEASE_PROFILE.schemaVersion!==14)throw new Error('The Everstead public-preview release profile is unavailable or incompatible');
 const moreScreenBeforePhase24D=moreScreen;moreScreen=function(){const profile=PHASE_24D_RELEASE_PROFILE,card=`<section class="card" data-phase24d-release-profile><div class="eyebrow">${esc(profile.label)} · ${esc(RELEASE_VERSION)}</div><h3>Everstead is growing in public</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, the First Covenant opening, and the first permanent Collection.</p><p class="soft">More Book I story, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`;return moreScreenBeforePhase24D().replace('<section class="card" data-campaign-efficiency-preview>',card+'<section class="card" data-campaign-efficiency-preview>')};
 /* Phase 24D limited public-preview presentation END */
+/* Phase 24F current-schema More ownership BEGIN */
+const PHASE_24F_MORE_OWNER_ID='everstead.phase24f.more.schema14.v1';
+function phase24fPublicPreviewCardHtml(){const profile=PHASE_24D_RELEASE_PROFILE;return`<section class="card" data-phase24d-release-profile><div class="eyebrow">${esc(profile.label)} · ${esc(RELEASE_VERSION)}</div><h3>Everstead is growing in public</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, the First Covenant opening, and the first permanent Collection.</p><p class="soft">More Book I story, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`}
+function phase24fCurrentMoreScreen(){const inherited=moreScreenBeforePhase24D(),anchor='<section class="card" data-campaign-efficiency-preview>',card=phase24fPublicPreviewCardHtml(),previous=inherited.replace(anchor,card+anchor);if(S?.schemaVersion!==14)return previous;const anchors=inherited.split(anchor).length-1,roots=inherited.match(/<main class="screen"(?=[^>]*data-phase22b-feature-surface="more")[^>]*>/g)||[];if(anchors!==1||roots.length!==1)throw new Error('The Everstead current-schema More surface is unavailable or ambiguous');return previous.replace(roots[0],roots[0].replace('<main class="screen"',`<main class="screen" data-phase24f-more-owner="${PHASE_24F_MORE_OWNER_ID}"`))}
+moreScreen=phase24fCurrentMoreScreen;
+/* Phase 24F current-schema More ownership END */
 /* Phase 24E current-schema shell ownership BEGIN */
 const PHASE_24E_SHELL_CONTROLLER=globalThis.EVERSTEAD_PHASE24E_SHELL_CONTROLLER;
 if(!PHASE_24E_SHELL_CONTROLLER||PHASE_24E_SHELL_CONTROLLER.version!==1||PHASE_24E_SHELL_CONTROLLER.id!=='everstead.phase24e.shell-controller.v1'||PHASE_24E_SHELL_CONTROLLER.schemaVersion!==14)throw new Error('The Everstead current-schema shell controller is unavailable or incompatible');

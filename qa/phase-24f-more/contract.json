@@ -1,0 +1,56 @@
+{
+  "contractVersion": 1,
+  "phase": "24F",
+  "authorityId": "everstead.phase24f.more-gate.v1",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "frozenNow": 1800000000000,
+  "predecessor": {
+    "commit": "dc4f038d0553ea79cdae3b096f10e2cb70494f56",
+    "indexSha256": "b70e1fdf456fd8ae30b36b72f27d8bd3189bfe98ce15145473e5fc917fd453c1",
+    "phase24eContractSha256": "15bac9c8565f127084a2c6bf895a0b9acb17eb2eb31c6d9b3d145a520d4693ef",
+    "phase24eChecksumsSha256": "94c39aa0227caa7d16c97448ec5a71f8eae37ad139f5e90e7f5c28a2ac399fe8"
+  },
+  "owner": {
+    "id": "everstead.phase24f.more.schema14.v1"
+  },
+  "markers": {
+    "stylesBegin": "<!-- Phase 24F More polish styles BEGIN -->",
+    "stylesEnd": "<!-- Phase 24F More polish styles END -->",
+    "ownershipBegin": "/* Phase 24F current-schema More ownership BEGIN */",
+    "ownershipEnd": "/* Phase 24F current-schema More ownership END */"
+  },
+  "profiles": [
+    {"id": "fresh", "seed": "empty"},
+    {"id": "established", "seed": "phase24d.public-established.production-actions.v1"},
+    {"id": "thin", "seed": "phase24c2e.schema14-foundation-thin.v1"},
+    {"id": "high", "seed": "phase24d.public-high-investment.production-actions.v1"}
+  ],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "minimumTargetPx": 44,
+  "textScale": 1.3,
+  "requiredUnconditionalSections": [
+    "player-profile",
+    "codex",
+    "scaling",
+    "release-profile",
+    "campaign-guidance",
+    "preferences",
+    "save-recovery",
+    "save-health",
+    "migration-history"
+  ],
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "c788ecb6598332697aa87252d311fdddff6e03bfba98ee366b91b65e4a71f6e3",
+    "README.md": "8d4c487eeab8c4ebfc4dfd2dea44c4cb16ebe440b4384fd1463800be9169d954",
+    "index.html": "d5dff326d20897a08ebab22be313e31c494767b4ed9dc4fee5e5642643fd4b7d",
+    "package-lock.json": "d7059c8a2d9b63a98a53c1fa6477b2ecf20feba2720cd5b999a45ef7f9a0585c",
+    "package.json": "00edb33d7ec23c47a7c7ea4759737b86ec5e9a92324be798bb34be15bf5a3ffd",
+    "qa/phase-24f-more/browser.mjs": "5266ebbb1f9d3cc75ef4cfd582c4d426ccc93ddabec36fd275754ac23096ba21",
+    "qa/phase-24f-more/verify.mjs": "b598f7b5733ff048074dcfeea0cded183c07d0f0aee46a6ab450e2621546d765",
+    "src/phase24f-more-polish.css": "7e3573ff88ede7f7bf645d6e3a5168c53519c6ed091879bfda2cee327be031e4"
+  }
+}

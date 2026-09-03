@@ -5,7 +5,8 @@
   "description": "Everstead limited public preview and release verification",
   "scripts": {
     "qa:public-preview": "node qa/phase-24d-public-preview/browser.mjs",
-    "qa:phase24e-shell": "node qa/phase-24e-shell/browser.mjs"
+    "qa:phase24e-shell": "node qa/phase-24e-shell/browser.mjs",
+    "qa:phase24f-more": "node qa/phase-24f-more/browser.mjs"
   },
   "devDependencies": {
     "playwright": "1.57.0"
