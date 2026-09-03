@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#081019">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Everstead · 1.0 Release Candidate</title>
+  <title>Everstead · Limited Public Preview</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23081019'/%3E%3Cpath d='M18 45c16-2 24-12 29-29-17 5-27 13-29 29Zm3-2c8-9 14-14 24-23' fill='none' stroke='%2366e1d2' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="src/phase20-21-presentation.css?v=phase20-21-v3">
   <style>
@@ -111,6 +111,9 @@
   <!-- Phase 24C-2D Founding Table successor authority load BEGIN -->
   <script src="src/phase24c2d-founding-table-release-authority.js?v=phase24c2d-v1"></script>
   <!-- Phase 24C-2D Founding Table successor authority load END -->
+  <!-- Phase 24D limited public-preview profile load BEGIN -->
+  <script src="src/phase24d-public-preview-profile.js?v=phase24d-v1"></script>
+  <!-- Phase 24D limited public-preview profile load END -->
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3146,6 +3149,11 @@ const phase23TutorialCardBeforePhase24C2E=phase23TutorialCard;phase23TutorialCar
 const phase24c2dTutorialVisibleBeforePhase24C2E=phase24c2dTutorialVisible;phase24c2dTutorialVisible=function(item,state=S){return phase24c2eTutorialStateAvailable(state)&&phase24c2dTutorialVisibleBeforePhase24C2E(item,state)};
 /* Phase 24C-2E migrated tutorial-state compatibility hotfix END */
 /* Phase 24C-2D Founding Table Collection integration END */
+/* Phase 24D limited public-preview presentation BEGIN */
+const PHASE_24D_RELEASE_PROFILE=globalThis.EVERSTEAD_PUBLIC_RELEASE_PROFILE;
+if(!PHASE_24D_RELEASE_PROFILE||PHASE_24D_RELEASE_PROFILE.version!==1||PHASE_24D_RELEASE_PROFILE.id!=='everstead.release-profile.limited-public-preview.v1'||PHASE_24D_RELEASE_PROFILE.status!=='active'||PHASE_24D_RELEASE_PROFILE.schemaVersion!==14)throw new Error('The Everstead public-preview release profile is unavailable or incompatible');
+const moreScreenBeforePhase24D=moreScreen;moreScreen=function(){const profile=PHASE_24D_RELEASE_PROFILE,card=`<section class="card" data-phase24d-release-profile><div class="eyebrow">${esc(profile.label)} · ${esc(RELEASE_VERSION)}</div><h3>Everstead is growing in public</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, the First Covenant opening, and the first permanent Collection.</p><p class="soft">More Book I story, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`;return moreScreenBeforePhase24D().replace('<section class="card" data-campaign-efficiency-preview>',card+'<section class="card" data-campaign-efficiency-preview>')};
+/* Phase 24D limited public-preview presentation END */
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24C-2B QA bridge install BEGIN */
 phase24c2bInstallQaBridge();

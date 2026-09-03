@@ -1,5 +1,8 @@
 .DS_Store
 *.log
+node_modules/
+playwright-report/
+test-results/
 
 # Phase 23 Companion portraits are authorized for private builds only.
 # Keep generated runtime derivatives out of the public repository.

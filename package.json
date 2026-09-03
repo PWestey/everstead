@@ -1,0 +1,12 @@
+{
+  "name": "everstead",
+  "version": "1.0.0-preview.1",
+  "private": true,
+  "description": "Everstead limited public preview and release verification",
+  "scripts": {
+    "qa:public-preview": "node qa/phase-24d-public-preview/browser.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.57.0"
+  }
+}

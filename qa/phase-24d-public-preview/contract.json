@@ -1,0 +1,42 @@
+{
+  "contractVersion": 1,
+  "phase": "24D",
+  "authorityId": "phase-24d-limited-public-preview-release-profile.v1",
+  "status": "release-candidate",
+  "profileId": "everstead.release-profile.limited-public-preview.v1",
+  "profileSource": "src/phase24d-public-preview-profile.js",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "frozenNow": 1800000000000,
+  "predecessor": {
+    "commit": "db25dc01b48e32ddd873496407b69e047f8d4e1f",
+    "indexSha256": "cc444aaab670eef836b9fe09a0e2389739c14b8bdf41db734216291f2399ff20",
+    "candidateSourceSha256": "4645f30b7a2eeac1dc5ef9056fdd522aea5f4dbd5fe0634c09c57d2f5b648084",
+    "authoritySha256": "7eae0b97ace1f4e88261f877cd1043780867d8a876941ef34c0f682c6d0de7ce",
+    "releaseManifestSha256": "98831cc04f125fcc88e78ceac7dae50b5e7434258e66d6c5b2bcb0370fc2ff60"
+  },
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "57b346edd92a349cfebe4919480b7bfebb5bc292d83fa7fda8aca529f8bae35d",
+    "README.md": "718e6b067437033fb5436be3a65f5beec22e55ac5033bc68859dce80e9f3c0f8",
+    "index.html": "47efcceac0990e9b1c9b7f020d3fff3700a9be19258bb90c1371ad4414210668",
+    "package-lock.json": "d7059c8a2d9b63a98a53c1fa6477b2ecf20feba2720cd5b999a45ef7f9a0585c",
+    "package.json": "884c67a9b4f17f6bcb8cf8bc37e27656afcd33c144cb2451289b3ead34732a90",
+    "qa/phase-24d-public-preview/browser.mjs": "18f6940ac3aa41bad848b33bae70aa124a20c5958a85b999e909896b21d1f090",
+    "qa/phase-24d-public-preview/verify.mjs": "7ced78e9082a7eb75cc486255ad45123153fe676258e8035aea21b3bc52b00a5",
+    "src/phase24d-public-preview-profile.js": "8cd937c134b8a79bbb4979377e96e918aaf697b0f4a2f5a08fd79fbeef6cddf8"
+  },
+  "profiles": [
+    {"id": "fresh", "seed": "empty"},
+    {"id": "established", "seed": "phase24d.public-established.production-actions.v1"},
+    {"id": "thin", "seed": "phase24c2e.schema14-foundation-thin.v1"},
+    {"id": "high", "seed": "phase24d.public-high-investment.production-actions.v1"}
+  ],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "primaryNavigation": ["village", "oaths", "fellows", "adventure", "more"],
+  "adventureRoutes": ["fellowCampaign", "fellowExpedition", "companionCampaign", "companionTower"],
+  "criticalModals": ["player", "building", "oath-editor", "fellow", "family", "companion", "codex", "chronicle", "tutorials", "legacy", "scaling"],
+  "expectedRosterCounts": {"fellows": 18, "family": 20, "companions": 20}
+}

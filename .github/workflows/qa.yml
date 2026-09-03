@@ -9,9 +9,9 @@ permissions:
   contents: read
 
 jobs:
-  phase-24c2d:
+  phase-24d:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out Everstead
         uses: actions/checkout@v4
@@ -21,9 +21,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Verify Phase 24C-2D release authority
-        run: node qa/phase-24c2d-release-authority/verify.mjs
-      - name: Verify Phase 24C-2D integration contract
-        run: node qa/phase-24c2d-integration/verify.mjs
-      - name: Verify Phase 24C-2D frozen evidence
-        run: shasum -a 256 -c qa/phase-24c2d-integration/checksums.sha256
+      - name: Export accepted Phase 24C-2D predecessor
+        run: |
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24c2d"
+          git archive db25dc01b48e32ddd873496407b69e047f8d4e1f | tar -x -C "$RUNNER_TEMP/everstead-phase-24c2d"
+      - name: Verify frozen Phase 24C-2D predecessor
+        working-directory: ${{ runner.temp }}/everstead-phase-24c2d
+        run: |
+          node qa/phase-24c2d-release-authority/verify.mjs
+          node qa/phase-24c2d-integration/verify.mjs
+          shasum -a 256 -c qa/phase-24c2d-integration/checksums.sha256
+      - name: Verify Phase 24D public-preview contract
+        run: node qa/phase-24d-public-preview/verify.mjs
+      - name: Verify Phase 24D frozen evidence
+        run: shasum -a 256 -c qa/phase-24d-public-preview/checksums.sha256
+      - name: Install browser verification dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run Phase 24D ordinary public-path browser matrix
+        run: npm run qa:public-preview
