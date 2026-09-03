@@ -1,0 +1,78 @@
+{
+  "contractVersion": 1,
+  "phase": "24C-2D",
+  "status": "release-candidate-final-identities-frozen",
+  "schemaVersion": 14,
+  "frozenNow": 1800000000000,
+  "candidate": {
+    "indexPath": "index.html",
+    "indexSha256": "ea1add113b1fe5e86f4afc69cced568a726147493e4cc8982e22f1207ffcfe7b",
+    "predecessorIndexSha256": "7073db350bddfdea932bf89d900a449346c2e3e6b2b636bf55a1e8f8f3aa3356",
+    "authorityPath": "src/phase24c2d-founding-table-release-authority.js",
+    "authoritySourceSha256": "4645f30b7a2eeac1dc5ef9056fdd522aea5f4dbd5fe0634c09c57d2f5b648084",
+    "authoritySha256": "7eae0b97ace1f4e88261f877cd1043780867d8a876941ef34c0f682c6d0de7ce"
+  },
+  "release": {
+    "id": "release.phase-24c2d.founding-table.v1",
+    "grantId": "collection.grant.restaurant.founding-table.facility.v1",
+    "facilityId": "facility.restaurant",
+    "bps": 200,
+    "activationReceiptId": "authority-epoch.phase-24c2c-to-phase-24c2d.founding-table.v1",
+    "recipeIds": [
+      "restaurant.recipe.hearth-stew",
+      "restaurant.recipe.garden-flatbread",
+      "restaurant.recipe.roadside-tea"
+    ]
+  },
+  "bridge": {
+    "global": "__EVERSTEAD_PHASE_24C2D_QA__",
+    "version": "phase-24c2d-founding-table-qa-v1",
+    "readMethods": ["snapshot", "formula"],
+    "destructiveMethods": ["activate", "prepareRestaurant", "completeFoundingRecipes", "claim", "tutorial", "probeTutorialTamper"],
+    "restaurantBridgeGlobal": "__EVERSTEAD_PHASE_16_QA__",
+    "restaurantBridgeVersion": "phase-16-independent-qa-v1",
+    "recoveryBridgeGlobal": "__EVERSTEAD_PHASE_24C2C_QA__",
+    "recoveryBridgeVersion": "phase-24c2c-zero-integration-qa-v1"
+  },
+  "formula": {
+    "rounding": "floor",
+    "cases": [
+      {"baseSaleGold": 1, "beforeClaim": 1, "afterClaim": 1},
+      {"baseSaleGold": 99, "beforeClaim": 99, "afterClaim": 100},
+      {"baseSaleGold": 101, "beforeClaim": 101, "afterClaim": 103},
+      {"baseSaleGold": 10000, "beforeClaim": 10000, "afterClaim": 10200}
+    ]
+  },
+  "restaurant": {
+    "activityId": "activity.restaurant-service",
+    "discoveryContentId": "story.book1.chapter1.village-toll.resolution",
+    "requiredCapabilityId": "capability.restaurant-service.v1",
+    "recipeId": "restaurant.recipe.hearth-stew",
+    "stationId": "restaurant.station.hearth",
+    "stockIdentityPrefix": "stock.qa.phase24c2d",
+    "minimumCustomerCount": 2
+  },
+  "tutorials": [
+    {
+      "id": "tutorial.phase-24c.collection-first-ready.v1",
+      "stepId": "tutorial.phase-24c.collection-first-ready.v1.step.open",
+      "actorId": "family.isolde",
+      "actorName": "Isolde"
+    },
+    {
+      "id": "tutorial.phase-24c.collection-first-claim.v1",
+      "stepId": "tutorial.phase-24c.collection-first-claim.v1.step.open",
+      "actorId": "fellow.lyra",
+      "actorName": "Lyra"
+    }
+  ],
+  "viewports": [
+    {"id": "claim-320x568", "scenario": "claim", "width": 320, "height": 568, "reducedMotion": false, "sharedId": "founding-table"},
+    {"id": "reload-390x844", "scenario": "reload", "width": 390, "height": 844, "reducedMotion": true, "sharedId": "founding-table"}
+  ],
+  "minimumTouchTargetPx": 44,
+  "storage": {
+    "activeKey": "oathforge-prototype-v2",
+    "stagingKey": "oathforge-prototype-v2-staging"
+  }
+}

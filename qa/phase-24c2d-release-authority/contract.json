@@ -1,0 +1,95 @@
+{
+  "contractId": "phase-24c2d-founding-table-release-authority-qa.v2",
+  "status": "active-production-successor-authority-final-identities-frozen",
+  "candidateSource": "src/phase24c2d-founding-table-release-authority.js",
+  "candidateGlobal": "EVERSTEAD_PHASE24C2D_FOUNDING_TABLE_AUTHORITY",
+  "productionIndex": "index.html",
+  "expectedCandidateSourceSha256": "4645f30b7a2eeac1dc5ef9056fdd522aea5f4dbd5fe0634c09c57d2f5b648084",
+  "expectedCandidateSemanticSha256": "417a5da7af5743f940a1ec721f350bd231d203b1aba30827f923bb106b9e7683",
+  "expectedAuthoritySha256": "7eae0b97ace1f4e88261f877cd1043780867d8a876941ef34c0f682c6d0de7ce",
+  "expectedReleaseManifestSha256": "98831cc04f125fcc88e78ceac7dae50b5e7434258e66d6c5b2bcb0370fc2ff60",
+  "expectedProductionIndexSha256": "ea1add113b1fe5e86f4afc69cced568a726147493e4cc8982e22f1207ffcfe7b",
+  "expectedUnfrozenIdentityFailures": 0,
+  "acceptedHistoricalSourcePins": {
+    "src/phase24c-durable-definitions.js": "101377044214d87478475ba9064c4342b9ce8fcbe62e5d4e1743a08f31767f70",
+    "src/phase24c-durable-foundation.js": "fbf9c7865977b195786c15ffe6b6725649b5c6552c8f46b831421083831e4479",
+    "src/phase24c-zero-activation-authority.js": "88ba60568041b764794b74dec6b926e34890354d6c13175491f5f87c4c92a03f",
+    "src/phase16-restaurant.js": "925c71c864489876d3ed06d1b0a158a4e3f0f6405bba27b31534456471f11454"
+  },
+  "predecessorDeployment": {
+    "commit": "2770bb95a970eaef93db65fe4ade39172943fc5e",
+    "indexSha256": "7073db350bddfdea932bf89d900a449346c2e3e6b2b636bf55a1e8f8f3aa3356"
+  },
+  "release": {
+    "id": "release.phase-24c2d.founding-table.v1",
+    "version": 1,
+    "sequence": 2,
+    "name": "The Founding Table",
+    "status": "active",
+    "releasedRankThrough": 5,
+    "limitedContentRequired": false
+  },
+  "grant": {
+    "id": "collection.grant.restaurant.founding-table.facility.v1",
+    "claimSourceId": "collection.source.restaurant.founding-table.v1",
+    "definitionVersion": 1,
+    "rewardVersion": 1,
+    "classification": "permanent",
+    "targetPool": "facility",
+    "facilityId": "facility.restaurant",
+    "bps": 200,
+    "releaseState": "active"
+  },
+  "contentDependencyIds": [
+    "facility.restaurant",
+    "restaurant.recipe.hearth-stew",
+    "restaurant.recipe.garden-flatbread",
+    "restaurant.recipe.roadside-tea",
+    "tutorial.phase-24c.collection-first-ready.v1",
+    "tutorial.phase-24c.collection-first-claim.v1"
+  ],
+  "recipeIds": [
+    "restaurant.recipe.hearth-stew",
+    "restaurant.recipe.garden-flatbread",
+    "restaurant.recipe.roadside-tea"
+  ],
+  "tutorials": [
+    {
+      "id": "tutorial.phase-24c.collection-first-ready.v1",
+      "featureId": "feature.phase-24c.collection-first-ready",
+      "trigger": "first-collection-set-ready",
+      "primaryActorId": "family.isolde",
+      "fallbackActorId": "family.isolde"
+    },
+    {
+      "id": "tutorial.phase-24c.collection-first-claim.v1",
+      "featureId": "feature.phase-24c.collection-first-claim",
+      "trigger": "first-collection-claim",
+      "primaryActorId": "fellow.lyra",
+      "fallbackActorId": "family.isolde"
+    }
+  ],
+  "fixtureKinds": [
+    "zero-permanent",
+    "median-permanent",
+    "high-permanent",
+    "high-all-content"
+  ],
+  "expectedTotals": {
+    "zero": {"powerBps": 0, "earningsBps": 0, "expBps": 0, "facilityBpsByFacilityId": {}},
+    "nonzero": {"powerBps": 0, "earningsBps": 0, "expBps": 0, "facilityBpsByFacilityId": {"facility.restaurant": 200}}
+  },
+  "baseSaleOnlyFormulaCases": [
+    {"baseSaleGold": 1, "tipGold": 0, "collectionBps": 200, "collectionGold": 0, "finalGold": 1},
+    {"baseSaleGold": 99, "tipGold": 7, "collectionBps": 200, "collectionGold": 1, "finalGold": 107},
+    {"baseSaleGold": 101, "tipGold": 11, "collectionBps": 200, "collectionGold": 2, "finalGold": 114},
+    {"baseSaleGold": 10000, "tipGold": 625, "collectionBps": 200, "collectionGold": 200, "finalGold": 10825}
+  ],
+  "expectedEvidenceReportHashes": {
+    "grantPlanSha256": "9bd4b2d01f3a5a43cc2691a3781fbc136a86c763931ea54f6882d9f5f01de1de",
+    "releaseBudgetSha256": "1f236257044d749a928ac6ee97f27a8a074881d2aa5143fe90b08b1d0b8947b8",
+    "longHorizonSha256": "bbf640fb68e04d040e529d915950c496a379d75756d9bc54acd01cfe9b468d2b",
+    "safeIntegerSha256": "9ca1e2467b9259d44c1628b3f1190bcb9eb5451285b7313d151b6f6b7cd72753",
+    "fixtureMatrixSha256": "a8854a8b96192c2083d0c41ad39118ab41c05a8e249a1cda6753cc0f80f3e047"
+  }
+}
