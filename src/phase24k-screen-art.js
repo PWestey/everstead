@@ -8,7 +8,6 @@
  let villageSpeakerVisible=true;
  let fellowshipPanel=null;
  let fellowshipActivationCount=0;
- let lastFellowshipActivation={key:'',at:Number.NEGATIVE_INFINITY};
 
  function install(adapter){
   if(installed)return Object.freeze({ok:true,id:ID,version:VERSION,schemaVersion:SCHEMA_VERSION,reused:true});
@@ -95,9 +94,6 @@
    const key=button.dataset.phase24kPanelToggle;
    if(!['might','path','tools'].includes(key))return;
    event.preventDefault();
-   const activationAt=Number(event.timeStamp)||0;
-   if(lastFellowshipActivation.key===key&&activationAt-lastFellowshipActivation.at<250)return;
-   lastFellowshipActivation={key,at:activationAt};
    fellowshipPanel=button.getAttribute('aria-expanded')==='true'?null:key;
    fellowshipActivationCount+=1;
    updateFellowshipPanels(document);
