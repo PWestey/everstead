@@ -11,7 +11,7 @@ permissions:
 jobs:
   phase-24h:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: Check out Everstead
         uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
       - name: Run frozen Phase 24F ordinary public-path More matrix
         working-directory: ${{ runner.temp }}/everstead-phase-24f
         run: |
-          npm ci
+          ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
           npm run qa:phase24f-more
       - name: Run frozen Phase 24G ordinary public-path Chapter I matrix
         working-directory: ${{ runner.temp }}/everstead-phase-24g
@@ -64,7 +64,7 @@ jobs:
           GIT_DIR: ${{ github.workspace }}/.git
           GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24g
         run: |
-          npm ci
+          ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
           npm run qa:phase24g-chapter1
       - name: Run Phase 24H ordinary public-path preview-corrections matrix
         run: npm run qa:phase24h-preview

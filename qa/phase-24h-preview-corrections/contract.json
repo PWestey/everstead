@@ -28,7 +28,7 @@
     "wrapper-consolidation"
   ],
   "expectedArtifacts": {
-    ".github/workflows/qa.yml": "21c988ebc00ce3b23a85fde57f106a8d29445a62b05b96cc2cc17b311d3c15ef",
+    ".github/workflows/qa.yml": "0c79871f44ea3e8060f3682ce3637e57532bd1e17a956875aeb0faf83d19b612",
     "README.md": "ca1a479e5f784646e1278ec9b5f3616ffd8ea372986f03cd76fb699abf5b1df8",
     "index.html": "355bc95ad2c5d4581eac4cfbcf795d141d204dca5eff17a8dc9e978a2e876c85",
     "package.json": "1a2675629cc79a88a81c2f7c3df629f33d4d929367ebbebf10a066d4333eff92",
