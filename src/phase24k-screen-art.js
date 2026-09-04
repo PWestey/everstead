@@ -82,9 +82,18 @@
    screen.querySelectorAll('[data-phase24k-panel-toggle]').forEach(button=>{
     const key=button.dataset.phase24kPanelToggle;
     button.setAttribute('aria-expanded',String(fellowshipPanel===key));
-    button.onclick=()=>{fellowshipPanel=fellowshipPanel===key?null:key;updateFellowshipPanels(root)};
    });
   }
+
+  document.addEventListener('click',event=>{
+   const button=event.target?.closest?.('[data-phase24k-panel-toggle]');
+   if(!button||!button.closest('[data-phase24k-fellowship]'))return;
+   const key=button.dataset.phase24kPanelToggle;
+   if(!['might','path','tools'].includes(key))return;
+   event.preventDefault();
+   fellowshipPanel=fellowshipPanel===key?null:key;
+   updateFellowshipPanels(document);
+  });
 
   function bindVillage(root=document){
    const speech=root.querySelector?.('[data-phase24k-village-speech]'),character=root.querySelector?.('[data-phase24k-village-character]'),hide=root.querySelector?.('[data-phase24k-speaker-hide]'),show=root.querySelector?.('[data-phase24k-speaker-show]');
