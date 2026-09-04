@@ -1,0 +1,85 @@
+{
+  "contractVersion": 1,
+  "phase": "24L-A",
+  "authorityId": "everstead.phase24l.profile-shell.v1",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "releaseVersion": "1.0.0-preview.1",
+  "predecessor": {
+    "commit": "fb1eff823681b4180c78eb25e222010860176bd2",
+    "indexSha256": "eda6e232c6019cedb057fdee387629abf3b3266a130d7c46a8231cdd72a6d331"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844},
+    {"id": "phone-430x932", "width": 430, "height": 932}
+  ],
+  "profiles": {
+    "fellow": {
+      "roster": "fellows",
+      "card": "[data-fellow]",
+      "tabs": ["overview", "level", "rank", "relics", "bonds"],
+      "primaryControls": {
+        "overview": [],
+        "level": [],
+        "rank": ["[data-modal-act=\"ascend-fellow\"]"],
+        "relics": ["[data-fellow-relic-select]", "[data-fellow-relic-apply]", "[data-phase24l-relic-detail]"],
+        "bonds": []
+      }
+    },
+    "family": {
+      "roster": "family",
+      "card": "[data-family]",
+      "tabs": ["overview", "gifts", "rank", "building", "bonds"],
+      "primaryControls": {
+        "overview": [],
+        "gifts": ["[data-modal-act=\"give-family-gift\"]"],
+        "rank": ["[data-modal-act=\"ascend-family\"]"],
+        "building": ["[data-phase24l-family-building-select]", "[data-phase24l-family-building-apply]"],
+        "bonds": []
+      }
+    },
+    "companion": {
+      "roster": "companions",
+      "card": "[data-companion]",
+      "tabs": ["overview", "level", "rank", "assignment", "mastery"],
+      "primaryControls": {
+        "overview": [],
+        "level": [],
+        "rank": ["[data-modal-act=\"ascend-companion\"]"],
+        "assignment": ["[data-companion-assignment]", "[data-companion-assignment-save]"],
+        "mastery": []
+      }
+    },
+    "wayfarer": {
+      "card": "[data-player-profile]",
+      "tabs": ["overview", "rank", "unlocks", "chronicle", "settings"],
+      "primaryControls": {
+        "overview": [],
+        "rank": [],
+        "unlocks": [],
+        "chronicle": [],
+        "settings": []
+      }
+    }
+  },
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "dockHeightPx": 64,
+    "maximumSheetViewportRatio": 0.46,
+    "maximumSheetPx": 360,
+    "minimumVisibleArtViewportRatio": 0.34,
+    "bottomSafeAreaProbePx": 20,
+    "emergencyScrollMaximumViewportHeightPx": 500,
+    "fitTolerancePx": 1
+  },
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "economy-change",
+    "progression-change",
+    "reward-change",
+    "roster-change",
+    "banked-exp"
+  ]
+}
