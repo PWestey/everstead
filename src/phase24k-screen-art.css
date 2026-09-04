@@ -1,0 +1,80 @@
+/* Everstead Phase 24K: original art-first Fellowship, Adventure, Village speaker, and Wayfarer profile presentation. */
+:root{--phase24k-parchment:#f3e6c6;--phase24k-ink:#251b13;--phase24k-gold:#f1c76b;--phase24k-teal:#70eadb}
+
+/* Village speaker: dismissible for the current session, with no save mutation. */
+[data-phase24k-village-speaker] [hidden]{display:none!important}
+.phase24k-speaker-hide,.phase24k-speaker-show{min-width:44px;min-height:44px;border:1px solid #f1c76b8c;background:#07131bee;color:#fff;box-shadow:0 8px 24px #000c;font:900 9px/1 var(--font);letter-spacing:.06em}
+.phase24k-speaker-hide{position:absolute;right:-20px;top:-20px;border-radius:50%;font-size:19px;z-index:2}
+.phase24k-speaker-show{position:absolute;z-index:10;left:8px;bottom:calc(80px + var(--safe));padding:0 13px;border-radius:999px;white-space:nowrap}
+
+/* Fellowship: a guild-hall presentation with character art before administrative detail. */
+[data-phase24k-fellowship]{position:relative;isolation:isolate;padding-top:10px;background:linear-gradient(180deg,#07131b30 0,#07131bdb 420px,#07131b 760px),url("../assets/backgrounds/fellowship-hall-phase24k.webp") center top/100% auto no-repeat,#07131b}
+[data-phase24k-fellowship]>.page-head{min-height:58px;margin:0 0 8px;padding:8px 4px;background:linear-gradient(90deg,#07131bde 0,#07131b70 72%,transparent)}
+[data-phase24k-fellowship]>.page-head h1{font-size:28px;line-height:1;margin:2px 0}
+[data-phase24k-fellowship]>.page-head p{max-width:300px;margin:3px 0;font-size:9px;line-height:1.25}
+.phase24k-fellowship-hero{position:relative;display:block;width:100%;height:238px;margin:0 0 8px;padding:0;overflow:hidden;border:1px solid #f1c76b8c;border-radius:21px;background:#0b1720;box-shadow:0 18px 34px #000b,inset 0 1px #fff4;color:#fff;text-align:left}
+.phase24k-fellowship-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#061018ee 0,#06101875 48%,transparent 72%),linear-gradient(transparent 45%,#061018e8 100%);pointer-events:none}
+.phase24k-fellowship-hero-art,.phase24k-fellowship-hero-art img{position:absolute;inset:0;width:100%;height:100%}
+.phase24k-fellowship-hero-art img{object-fit:cover;object-position:center 20%;filter:saturate(1.04) contrast(1.03)}
+.phase24k-fellowship-hero-copy{position:absolute;z-index:2;left:15px;right:15px;bottom:14px;display:grid;justify-items:start;gap:2px;text-shadow:0 2px 8px #000}
+.phase24k-fellowship-hero-copy small{color:var(--phase24k-teal);font-size:9px;font-weight:950;letter-spacing:.15em}
+.phase24k-fellowship-hero-copy strong{font:700 30px/1 Georgia,serif;color:#fff8e8}
+.phase24k-fellowship-hero-copy em{font:italic 12px/1.2 Georgia,serif;color:#f4ddb0}
+.phase24k-fellowship-hero-copy>span{margin-top:5px;padding:5px 8px;border:1px solid #f1c76b61;border-radius:999px;background:#07131bdc;color:#fff;font-size:10px;font-style:normal}
+[data-phase24k-fellowship]>.tabs{margin:0 0 7px}
+.phase24k-fellowship-ribbon{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:0 0 8px;padding:4px;border:1px solid #f1c76b4c;border-radius:15px;background:linear-gradient(180deg,#efe1bf,#cdb687);box-shadow:0 8px 22px #0008}
+.phase24k-fellowship-ribbon button{min-width:0;min-height:44px;padding:5px 3px;border:1px solid #4b342c50;border-radius:11px;background:#fff8e0b8;color:var(--phase24k-ink);font:900 9px/1 var(--font);letter-spacing:.08em}
+.phase24k-fellowship-ribbon button b{display:block;margin-top:4px;font:800 12px/1 Georgia,serif}
+.phase24k-fellowship-ribbon button[aria-expanded="true"]{border-color:#284c4d;background:#173a3b;color:#eafffb;box-shadow:inset 0 0 0 1px #70eadb45}
+[data-phase24k-fellowship] [data-phase24k-disclosure]{margin:0 0 8px}
+[data-phase24k-fellowship] [data-phase24k-disclosure][hidden]{display:none!important}
+[data-phase24k-fellowship] .roster-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+[data-phase24k-fellowship] .roster-grid .char-card{min-height:176px;padding:0;overflow:hidden;border-radius:14px;background:linear-gradient(180deg,#122532,#08131b)}
+[data-phase24k-fellowship] .roster-grid .char-card .art-wrap{height:126px;min-height:126px}
+[data-phase24k-fellowship] .roster-grid .char-card .art-wrap img{height:100%;object-fit:cover;object-position:center 18%}
+[data-phase24k-fellowship] .roster-grid .char-card .char-copy{padding:6px 7px 8px}
+[data-phase24k-fellowship] .roster-grid .char-card h3{margin:0;font-size:12px;line-height:1.05}
+[data-phase24k-fellowship] .roster-grid .char-card p{margin:3px 0 0;font-size:9px;line-height:1.15}
+[data-phase24k-fellowship] .roster-grid .char-card p:nth-of-type(n+2){display:none}
+[data-phase24k-fellowship] .roster-grid .type-badge,[data-phase24k-fellowship] .roster-grid .focus-flag{font-size:8px;padding:4px 5px}
+
+/* Adventure: the painted road is the board; stats and controls remain compact overlays/sheets. */
+.screen:has(.adventure-tabs){position:relative;background:linear-gradient(180deg,#0b1d28,#07131b 560px)}
+.screen:has(.adventure-tabs)>.page-head{min-height:62px;margin:0 0 6px}
+.screen:has(.adventure-tabs)>.page-head h1{font-size:27px;line-height:1;margin:2px 0}
+.screen:has(.adventure-tabs)>.page-head p{margin:3px 0;font-size:9px;line-height:1.2}
+.screen:has(.adventure-tabs) .adventure-tabs{margin-bottom:6px;padding:3px;border:1px solid #ffffff20;border-radius:14px;background:#07131bd9}
+.screen:has(.adventure-tabs) .adventure-tabs button{min-height:44px;padding:5px 3px;font-size:8px;line-height:1.1;white-space:normal;overflow:visible;text-overflow:clip}
+.screen:has(.adventure-tabs) .phase-11c-claim-card{min-height:54px;margin:0 0 7px;padding:8px 10px;border-color:#f1c76b61;background:linear-gradient(90deg,#172a2b,#241d12)}
+.screen:has(.adventure-tabs) .phase-11c-claim-card h3{font-size:15px;margin:1px 0}.screen:has(.adventure-tabs) .phase-11c-claim-card p{font-size:9px;margin:2px 0}.screen:has(.adventure-tabs) .phase-11c-claim-card .btn{min-height:44px}
+.screen:has(.adventure-tabs) [data-phase24k-adventure-scene].campaign-walk{height:350px;margin:0;border:1px solid #f1c76b75;background-image:linear-gradient(to top,#061018ef 0,transparent 58%),linear-gradient(to bottom,#06101870 0,transparent 26%),url("../assets/backgrounds/broken-roads-phase24k.webp");background-size:cover,cover,auto 100%;background-position:center,center,var(--campaign-bg) center;background-repeat:no-repeat;box-shadow:0 18px 38px #000a}
+.screen:has(.adventure-tabs) [data-phase24k-adventure-scene].campaign-walk::before{border-color:#ffe8ad30}
+.phase24k-wayfarer-cutout.campaign-player{left:12%;bottom:68px;width:92px;height:190px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 12px 9px #000b);animation:phase24kWayfarerIdle 3.2s ease-in-out infinite}
+.phase24k-wayfarer-cutout.campaign-player::before,.phase24k-wayfarer-cutout.campaign-player::after{display:none}
+.phase24k-wayfarer-badge{position:absolute;z-index:5;right:10px;top:10px;display:flex;align-items:center;gap:6px;min-height:44px;padding:4px 8px 4px 4px;border:1px solid #f1c76b8c;border-radius:999px;background:#07131be8;color:#fff;box-shadow:0 8px 22px #000b}
+.phase24k-wayfarer-badge img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:center 12%;border:1px solid #f1c76b}
+.phase24k-wayfarer-badge span{font:900 8px/1.15 var(--font);letter-spacing:.09em}.phase24k-wayfarer-badge b{display:block;color:var(--phase24k-gold);font-size:10px}
+.screen:has(.adventure-tabs) [data-phase24k-adventure-scene] .campaign-encounter{right:14%;bottom:88px;width:40px;height:58px;border-radius:45% 55% 50% 50%;background:linear-gradient(145deg,#dffffa 4%,#58dcc9 28%,#126277 68%,#082a3b);clip-path:polygon(50% 0,92% 31%,74% 100%,25% 100%,8% 31%);box-shadow:0 0 12px #dffffa,0 0 32px #66e1d2}
+.screen:has(.adventure-tabs) [data-phase24k-adventure-scene] .campaign-copy{left:12px;right:12px;bottom:8px;padding:34px 4px 7px;background:linear-gradient(transparent,#07131bc4);border-radius:0 0 14px 14px}
+.screen:has(.adventure-tabs) [data-phase24k-adventure-scene] .campaign-copy h2{font-size:27px;color:#fff8e8;text-shadow:0 2px 8px #000}.screen:has(.adventure-tabs) [data-phase24k-adventure-scene] .campaign-copy .eyebrow{color:#b8fff5;text-shadow:0 1px 5px #000}
+.screen:has(.adventure-tabs) .node-row{margin-top:0;padding:7px 2px 5px;overflow-x:auto;justify-content:flex-start}.screen:has(.adventure-tabs) .campaign-node[data-campaign-stage]{flex:0 0 44px}
+.screen:has(.adventure-tabs) .phase22b-campaign-record{margin:6px 0}
+
+/* The current Player profile now exposes the already-approved full-background Wayfarer art. */
+.overlay:has(.phase24k-wayfarer-profile-modal){padding:0;background:#020609f2}
+.phase24k-wayfarer-profile-modal{width:min(100%,560px);max-height:100dvh;padding:0;overflow:auto;border-radius:0;background:#07131b;box-shadow:0 22px 70px #000}
+.phase24k-wayfarer-profile-modal>.modal-head{display:none}
+.phase24k-wayfarer-profile-art{position:relative;height:min(76dvh,720px);min-height:520px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#244652,#08131b 72%)}
+.phase24k-wayfarer-profile-art>img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+.phase24k-wayfarer-profile-art::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#02060985,transparent 18%),linear-gradient(transparent 48%,#07131be8 91%,#07131b);pointer-events:none}
+.phase24k-wayfarer-profile-close{position:absolute;z-index:5;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));min-width:44px;min-height:44px;border:1px solid #fff7;border-radius:50%;background:#07131be8;color:#fff;font-size:21px;box-shadow:0 8px 22px #000b}
+.phase24k-wayfarer-profile-title{position:absolute;z-index:3;left:14px;right:14px;bottom:16px;padding:12px 13px;border:1px solid #f1c76b5c;border-left:3px solid var(--phase24k-teal);border-radius:15px;background:#07131be0;backdrop-filter:blur(9px);box-shadow:0 14px 30px #000a}
+.phase24k-wayfarer-profile-title h2{margin:2px 0;font:700 clamp(30px,9vw,43px)/1 Georgia,serif;color:#fff8e8}.phase24k-wayfarer-profile-title p{margin:5px 0 0;color:#d8e7e7;font-size:10px;line-height:1.35}
+.phase24k-wayfarer-profile-modal>.player-rank,.phase24k-wayfarer-profile-modal>.rank-roadmap{margin:10px 12px}.phase24k-wayfarer-profile-modal>.rank-roadmap{margin-bottom:calc(24px + var(--safe))}
+.phase24k-wayfarer-profile-art[data-image-state="fallback"]::before{content:"THE WAYFARER";position:absolute;inset:0;display:grid;place-items:center;color:#f1c76b;font:700 26px Georgia,serif;letter-spacing:.08em}
+
+@keyframes phase24kWayfarerIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:360px){[data-phase24k-fellowship] .roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.phase24k-fellowship-hero{height:208px}.screen:has(.adventure-tabs) [data-phase24k-adventure-scene].campaign-walk{height:250px}.phase24k-wayfarer-cutout.campaign-player{width:70px;height:142px;bottom:66px}.screen:has(.adventure-tabs)>.page-head p{display:none}.screen:has(.adventure-tabs) .phase-11c-claim-card{min-height:48px;padding:5px 7px}.screen:has(.adventure-tabs) .phase-11c-claim-card p{display:none}.phase24k-wayfarer-profile-art{min-height:470px;height:78dvh}}
+@media(prefers-reduced-motion:reduce){.phase24k-wayfarer-cutout.campaign-player{animation:none!important}.phase24k-speaker-show{transition:none!important}}
+html.phase15-reduced-motion .phase24k-wayfarer-cutout.campaign-player{animation:none!important}
+@media(forced-colors:active){[data-phase24k-fellowship],.screen:has(.adventure-tabs) [data-phase24k-adventure-scene].campaign-walk{background:Canvas}.phase24k-fellowship-hero::after,.phase24k-wayfarer-profile-art::after{display:none}.phase24k-fellowship-ribbon button,.phase24k-wayfarer-badge,.phase24k-speaker-hide,.phase24k-speaker-show{border:1px solid ButtonText}}

@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  phase-24j:
+  phase-24k:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -37,6 +37,10 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/everstead-phase-24i"
           git archive 5a01e815e6b0af3c90feed798a171167ebc2b76a | tar -x -C "$RUNNER_TEMP/everstead-phase-24i"
+      - name: Export accepted Phase 24J predecessor
+        run: |
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24j"
+          git archive 8d82073100a2f5f409834b21f011b5c6019ac1aa | tar -x -C "$RUNNER_TEMP/everstead-phase-24j"
       - name: Verify frozen Phase 24F predecessor
         working-directory: ${{ runner.temp }}/everstead-phase-24f
         env:
@@ -69,10 +73,18 @@ jobs:
         run: |
           node qa/phase-24i-village-panels/verify.mjs
           shasum -a 256 -c qa/phase-24i-village-panels/checksums.sha256
-      - name: Verify Phase 24J navigation-art contract
-        run: node qa/phase-24j-navigation-art/verify.mjs
-      - name: Verify Phase 24J frozen evidence
-        run: shasum -a 256 -c qa/phase-24j-navigation-art/checksums.sha256
+      - name: Verify frozen Phase 24J navigation-art contract
+        working-directory: ${{ runner.temp }}/everstead-phase-24j
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24j
+        run: |
+          node qa/phase-24j-navigation-art/verify.mjs
+          shasum -a 256 -c qa/phase-24j-navigation-art/checksums.sha256
+      - name: Verify Phase 24K art-first screen contract
+        run: |
+          node qa/phase-24k-screen-art/verify.mjs
+          shasum -a 256 -c qa/phase-24k-screen-art/checksums.sha256
       - name: Install browser verification dependencies
         run: npm ci
       - name: Install Chromium
@@ -103,5 +115,10 @@ jobs:
         run: |
           ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
           npm run qa:phase24i-village-panels
-      - name: Run Phase 24J navigation-art matrix
-        run: npm run qa:phase24j-navigation-art
+      - name: Run frozen Phase 24J navigation-art matrix
+        working-directory: ${{ runner.temp }}/everstead-phase-24j
+        run: |
+          ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
+          npm run qa:phase24j-navigation-art
+      - name: Run Phase 24K art-first screen matrix
+        run: npm run qa:phase24k-screen-art

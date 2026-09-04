@@ -1,0 +1,35 @@
+{
+  "contractVersion": 1,
+  "phase": "24K",
+  "authorityId": "everstead.phase24k.screen-art.v1",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "releaseVersion": "1.0.0-preview.1",
+  "predecessor": {
+    "commit": "8d82073100a2f5f409834b21f011b5c6019ac1aa",
+    "indexSha256": "8ac5ace09a6e6c5153062889abb25206b6113a2baece2b869f0a67d39afbfdad"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844},
+    {"id": "phone-430x932", "width": 430, "height": 932}
+  ],
+  "assets": {
+    "fellowship": "assets/backgrounds/fellowship-hall-phase24k.webp",
+    "adventure": "assets/backgrounds/broken-roads-phase24k.webp",
+    "campaignWayfarer": "assets/player/wayfarer-campaign-phase24k.png",
+    "profileWayfarer": "assets/player/wayfarer-profile-full.png"
+  },
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "maximumNewArtBytes": 2097152
+  },
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "economy-change",
+    "progression-change",
+    "story-change",
+    "roster-change"
+  ]
+}

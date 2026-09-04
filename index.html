@@ -103,6 +103,9 @@
 <!-- Phase 24J navigation art styles BEGIN -->
 <link rel="stylesheet" href="src/phase24j-navigation-art.css?v=phase24j-v1">
 <!-- Phase 24J navigation art styles END -->
+<!-- Phase 24K art-first screens BEGIN -->
+<link rel="stylesheet" href="src/phase24k-screen-art.css?v=phase24k-v1">
+<!-- Phase 24K art-first screens END -->
 </head>
 <body>
 <div id="app" class="app"></div><div id="overlay"></div><div id="toast" class="toast"></div><div id="everstead-status" class="visually-hidden-status" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -139,6 +142,7 @@
   <!-- Phase 24E current-schema shell controller BEGIN -->
   <script src="src/phase24e-shell-controller.js?v=phase24e-v1"></script>
   <!-- Phase 24E current-schema shell controller END -->
+  <script src="src/phase24k-screen-art.js?v=phase24k-v1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3253,6 +3257,13 @@ function phase24eCurrentRelicRoster(){const currentSchema=S.schemaVersion;try{S.
 function phase24eCurrentRosterScreen(){if(S?.schemaVersion!==14)return rosterScreenBeforePhase23();let html;if((S.ui.roster||'fellows')==='relics')html=phase24eCurrentRelicRoster();else{html=phase24eCurrentRosterCounts(rosterScreenBeforePhase23());html=html.replace(/(<button[^>]*data-roster="companions"[\s\S]*?<\/button>)(<\/div>)/,`$1<button data-roster="relics">Relics · ${RELIC_DEFS.length}</button>$2`);if(S.ui.roster==='companions')html=html.replace('<main class="screen"','<main class="screen" data-phase23-companion-roster').replace(/data-companion="([^"]+)"/g,'data-companion="$1" data-phase23-companion-card="$1"').replace('<section class="roster-grid">',`<section class="card"><div class="eyebrow">Complete Companion roster</div><h3>All 20 Companions are already yours</h3><p class="soft">There is no summoning, pull currency, or duplicate conversion. Progress comes from Campaign, Tower, assignments, and Mastery.</p></section>${phase23TutorialCard(['tutorial.companions.roster-and-power'])}<section class="roster-grid">`)}return html.replace('<main class="screen"',`<main class="screen" data-phase24e-roster-owner="${PHASE_24E_SHELL_CONTROLLER.id}"`)}
 rosterScreen=phase24eCurrentRosterScreen;
 /* Phase 24E current-schema shell ownership END */
+/* Phase 24K art-first screen ownership BEGIN */
+const PHASE_24K_SCREEN_ART=globalThis.EVERSTEAD_PHASE24K_SCREEN_ART;
+if(!PHASE_24K_SCREEN_ART||PHASE_24K_SCREEN_ART.version!==1||PHASE_24K_SCREEN_ART.id!=='everstead.phase24k.screen-art.v1'||PHASE_24K_SCREEN_ART.schemaVersion!==14)throw new Error('The Everstead Phase 24K screen presentation is unavailable or incompatible');
+const phase24kSlot=(get,set)=>Object.freeze({get,set});
+const PHASE_24K_INSTALL_RESULT=PHASE_24K_SCREEN_ART.install(Object.freeze({version:1,document,slots:Object.freeze({villageScreen:phase24kSlot(()=>villageScreen,value=>villageScreen=value),rosterScreen:phase24kSlot(()=>rosterScreen,value=>rosterScreen=value),campaignView:phase24kSlot(()=>campaignView,value=>campaignView=value),openPlayerProfile:phase24kSlot(()=>openPlayerProfile,value=>openPlayerProfile=value),bindCommon:phase24kSlot(()=>bindCommon,value=>bindCommon=value)}),api:Object.freeze({state:()=>S,escape:esc,format:fmt,atlas,fellow,power,joinedIds:phaseElevenGJoinedIds,might:fellowMightComponents,bindModal,decorateModal:phaseTenBThreeDecorateModal,defer:callback=>runtimeSetTimeout(callback,0)})}));
+if(!PHASE_24K_INSTALL_RESULT?.ok||PHASE_24K_INSTALL_RESULT.id!=='everstead.phase24k.screen-art.v1')throw new Error('The Everstead Phase 24K screen presentation did not install safely');
+/* Phase 24K art-first screen ownership END */
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24C-2B QA bridge install BEGIN */
 phase24c2bInstallQaBridge();
