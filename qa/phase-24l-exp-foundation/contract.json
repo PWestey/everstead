@@ -1,0 +1,120 @@
+{
+  "contractId": "phase-24l-b0-banked-exp-foundation-qa.v1",
+  "status": "schema-15-zero-wallet-migration-gate",
+  "predecessor": {
+    "commit": "cb4e7d9",
+    "schema": 14,
+    "indexSha256": "25383241f849f2c989651da93b554f6538ce123c491dc37df491267926019390",
+    "profileJsSha256": "5761d272f87d414350ee28ffa2a5753f9166765d430ad6ea4d2f260ec79d5089",
+    "profileCssSha256": "7da31d4508b43f9e96ad582c966fcde02293c3e68454ef201a2f727b1370968d",
+    "packageSha256": "e776311128b541d33729e5e4b7bd4ab7ed0a72936275aa67f70e57b45fbe5735"
+  },
+  "candidate": {
+    "source": "src/phase24l-exp-foundation.js",
+    "global": "EVERSTEAD_PHASE24L_EXP_FOUNDATION",
+    "version": 1,
+    "status": "schema-15-foundation",
+    "rootKey": "experienceProgression",
+    "predecessorSchema": 14,
+    "successorSchema": 15,
+    "policyId": "everstead.exp-wallet.phase-24l.v1",
+    "migrationId": "migration.schema-14-to-15.phase-24l-exp-wallet.v1",
+    "checkpointKind": "phase24l.pre-v15-checkpoint.v1",
+    "directOriginKind": "phase24l.direct-schema-15-origin.v1",
+    "requiredFunctions": [
+      "canonicalStringify",
+      "sha256",
+      "capturePredecessorCheckpoint",
+      "attestPredecessorCheckpoint",
+      "captureDirectOriginAttestation",
+      "migrateSchema14To15",
+      "createDirectSchema15",
+      "currentSchema14Projection",
+      "validateSuccessorState"
+    ],
+    "forbiddenMutationFunctions": [
+      "credit",
+      "creditExp",
+      "spend",
+      "spendExp",
+      "grantLevel",
+      "applyReward",
+      "settlePending"
+    ]
+  },
+  "lineages": [
+    "schema-14-to-15-migration",
+    "direct-schema-15",
+    "safe-reset-schema-15"
+  ],
+  "fixtures": [
+    "fresh",
+    "established",
+    "high-progression",
+    "pending-entitlements"
+  ],
+  "actorIds": {
+    "fellows": [
+      "cael", "lyra", "orin", "selene", "rook", "mira", "zamorak", "darrow",
+      "deadpool", "star-lord", "iron-man", "daredevil", "thor", "captain-america",
+      "spider-man", "wolverine", "obi-wan", "anakin"
+    ],
+    "companions": [
+      "arcanine", "dewgong", "snorlax", "dragonite", "charizard", "venusaur",
+      "blastoise", "jolteon", "machamp", "meganium", "feraligatr", "miltank",
+      "donphan", "lucario", "boltund", "stoutland", "mabosstiff", "zacian",
+      "lugia", "suicune"
+    ]
+  },
+  "rootTopology": {
+    "keys": ["version", "policyId", "activatedAt", "baselines", "wallets", "ledger", "migration"],
+    "baselineKeys": ["fellowExpById", "companionExpById"],
+    "walletRosters": ["fellow", "companion"],
+    "walletKeys": ["balance", "creditedTotal", "spentTotal"],
+    "ledgerKeys": ["version", "throughSequence", "entryCount", "foldedIdentity", "entries"],
+    "migrationKeys": [
+      "lineageKind", "predecessorSemanticIdentity", "predecessorRawIdentity",
+      "predecessorCheckpointIdentity", "directOriginAttestation", "baselineIdentity",
+      "walletIdentity"
+    ]
+  },
+  "storage": {
+    "namespace": "oathforge_new_world_proto_v01",
+    "activeKey": "oathforge_new_world_proto_v01",
+    "preV15Key": "oathforge_new_world_proto_v01__raw_backup_v14",
+    "semanticSlots": 16,
+    "fullSnapshotSlots": 19,
+    "formatVersion": 4,
+    "acceptedImportVersions": [1, 2, 3, 4]
+  },
+  "integration": {
+    "scriptMarker": "Phase 24L-B0",
+    "productionBridge": "__EVERSTEAD_PHASE_24L_B0_QA__",
+    "storageQuery": "phase24l-exp-qa",
+    "noRewardOrLevelChange": true,
+    "pendingEntitlementsConverted": false,
+    "checkpointWriteOnce": true,
+    "migrationIdempotent": true,
+    "physicalFirstBootLineage": "schema-14-to-15-migration",
+    "physicalFirstBootRequiresExactPreV15": true,
+    "pureDirectConstructorCovered": true,
+    "safeResetLineage": "safe-reset-schema-15",
+    "schema14ForensicPreviousSurvivesMigration": true,
+    "previousSaveRemainsDownloadableAndForgettable": true,
+    "ordinarySchema15StagingRecovery": ["source-active", "target-active"],
+    "legacyExpPaths": [
+      "fellow-campaign",
+      "general-fellow-reward",
+      "companion-campaign",
+      "companion-tower"
+    ]
+  },
+  "allowedSuccessorPaths": [
+    "index.html",
+    "package.json",
+    "src/phase24l-exp-foundation.js",
+    "docs/PHASE_24L_B0_EXP_FOUNDATION_CONTRACT.md",
+    "docs/PHASE_24L_B0_EXP_FOUNDATION_RESULT.md",
+    "qa/phase-24l-exp-foundation"
+  ]
+}

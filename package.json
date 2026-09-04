@@ -12,7 +12,8 @@
     "qa:phase24i-village-panels": "node qa/phase-24i-village-panels/browser.mjs",
     "qa:phase24j-navigation-art": "node qa/phase-24j-navigation-art/browser.mjs",
     "qa:phase24k-screen-art": "node qa/phase-24k-screen-art/verify.mjs && node qa/phase-24k-screen-art/browser.mjs",
-    "qa:phase24l-profile-shell": "node qa/phase-24l-profile-shell/verify.mjs && node qa/phase-24l-profile-shell/browser.mjs"
+    "qa:phase24l-profile-shell": "node qa/phase-24l-profile-shell/verify.mjs && node qa/phase-24l-profile-shell/browser.mjs",
+    "qa:phase24l-exp-foundation": "node qa/phase-24l-exp-foundation/verify.mjs && node qa/phase-24l-exp-foundation/browser.mjs"
   },
   "devDependencies": {
     "playwright": "1.57.0"
