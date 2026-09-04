@@ -1,0 +1,67 @@
+{
+  "contractVersion": 1,
+  "phase": "24J",
+  "authorityId": "everstead.phase24j.navigation-art.v1",
+  "status": "candidate",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "releaseVersion": "1.0.0-preview.1",
+  "predecessor": {
+    "commit": "5a01e815e6b0af3c90feed798a171167ebc2b76a",
+    "indexSha256": "806eed3d90c2a580d929bf11b29356d893aafb75e780b7781831b1e2dea73a49"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "routes": [
+    {"id": "village", "label": "VILLAGE", "glyph": "⌂", "asset": "assets/ui/navigation/village.png"},
+    {"id": "oaths", "label": "OATHS", "glyph": "✓", "asset": "assets/ui/navigation/oaths.png"},
+    {"id": "fellows", "label": "FELLOWSHIP", "glyph": "♙", "asset": "assets/ui/navigation/fellowship.png"},
+    {"id": "adventure", "label": "ADVENTURE", "glyph": "⌁", "asset": "assets/ui/navigation/adventure.png"},
+    {"id": "more", "label": "MORE", "glyph": "•••", "asset": "assets/ui/navigation/more.png"}
+  ],
+  "housingAsset": "assets/ui/navigation/nav-frame.png",
+  "ownedProductionFiles": [
+    "index.html",
+    "src/phase24j-navigation-art.css",
+    "assets/ui/navigation/village.png",
+    "assets/ui/navigation/oaths.png",
+    "assets/ui/navigation/fellowship.png",
+    "assets/ui/navigation/adventure.png",
+    "assets/ui/navigation/more.png",
+    "assets/ui/navigation/nav-frame.png"
+  ],
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "maximumDecodeShiftPx": 1,
+    "minimumIconSourcePx": 256,
+    "maximumAssetBytes": 524288,
+    "maximumTotalAssetBytes": 2097152
+  },
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "navigation-route-change",
+    "economy-change",
+    "progression-change",
+    "story-change"
+  ],
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "16813b2d2974ba0b160421bde99b59ec934c9603694c32495bf33b73a8c43646",
+    "index.html": "8ac5ace09a6e6c5153062889abb25206b6113a2baece2b869f0a67d39afbfdad",
+    "package.json": "f900951d6ae676eb90e6d8e6e8289200d4fa829c6028149a95d26cc4b3863dfe",
+    "src/phase24j-navigation-art.css": "7b896fd324cf93fa4c93384435f11f1d67dc5240f33105607cf1cb24253fbc52",
+    "assets/ui/navigation/README.md": "1e13d4dea54d0e483478c182f6977786f8c7fe9017641dab7c260b2972df4e89",
+    "assets/ui/navigation/village.png": "c6ad1aad48ef1f32181682d88a41c77016399c62dc83008f0ce5910659ffe32a",
+    "assets/ui/navigation/oaths.png": "537fdd74cd80ca90c78d49734bbcdc96c1932c66e0d9d2dc7fe70cfc6943e463",
+    "assets/ui/navigation/fellowship.png": "e6ae0cbc590f349b96109cd4756d1744a6f7083ca50d90f9be47f5506ba6b2bb",
+    "assets/ui/navigation/adventure.png": "3b0921c681ab4d5a5ce0dbad0e2cd608f323a98be456163cb14e144b6a24e5eb",
+    "assets/ui/navigation/more.png": "8c6db88c447576b42b6dd07f47ac4260fec94c14d017ce108566b6a377b9020e",
+    "assets/ui/navigation/nav-frame.png": "ce54abd4d38b0f2a09ac095856c549101759a912d0fa09980de57378da98a121",
+    "qa/phase-24j-navigation-art/README.md": "21922a503d6bf9e0528df4a2a45de28eeee56552b7f6c6ecba9f43f0d7e0a500",
+    "qa/phase-24j-navigation-art/RESULT.md": "33fec6cd2a1447ba8f066358a5bd68e79148960c95ee02500c323ecbdc6d34db",
+    "qa/phase-24j-navigation-art/browser.mjs": "efbcfa34aa25ce2744b0a5a10cdeda405b26d3f2277b48ba52a87d09b8202a91",
+    "qa/phase-24j-navigation-art/verify.mjs": "db21fe09345cd57a133b6362e63ff10f79dbaa72524f3ae1935a252728dde771"
+  }
+}

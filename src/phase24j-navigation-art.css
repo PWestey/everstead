@@ -1,0 +1,148 @@
+/* Everstead Phase 24J: decorative art for the persistent five-route navigation. */
+.bottom-nav {
+  isolation: isolate;
+  overflow: visible;
+  background:
+    linear-gradient(180deg, #06111b4d 0, #06111bb8 40%, #06111bf2 100%),
+    url("../assets/ui/navigation/nav-frame.png") center / 100% 100% no-repeat,
+    #06111b;
+  border-top-color: #e6bd6c73;
+  box-shadow:
+    0 -15px 38px #000c,
+    inset 0 1px #ffe6a552,
+    inset 0 9px 18px #08131cb5;
+}
+
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 var(--safe);
+  pointer-events: none;
+  border-top: 1px solid #f1c76b80;
+  background:
+    linear-gradient(90deg, transparent 0 5%, #e2b65d1f 18%, transparent 32% 68%, #e2b65d1f 82%, transparent 95%),
+    linear-gradient(180deg, #b67d2d18, transparent 20% 76%, #02070c69);
+}
+
+.bottom-nav button {
+  z-index: 1;
+  isolation: isolate;
+  color: #c1c9c7;
+  text-shadow: 0 1px 3px #000, 0 0 8px #06111b;
+}
+
+.bottom-nav button i {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  color: #9aaeb1;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: 0 1px 3px #000;
+}
+
+.bottom-nav button i::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: -4px;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 122%;
+  opacity: .9;
+  filter: saturate(.88) brightness(.96) drop-shadow(0 3px 4px #000b);
+  transform: scale(.98);
+  transform-origin: center;
+  transition: opacity .16s ease, filter .16s ease, transform .16s ease;
+}
+
+.bottom-nav button[data-nav="village"] i::before {
+  background-image: url("../assets/ui/navigation/village.png");
+}
+
+.bottom-nav button[data-nav="oaths"] i::before {
+  background-image: url("../assets/ui/navigation/oaths.png");
+}
+
+.bottom-nav button[data-nav="fellows"] i::before {
+  background-image: url("../assets/ui/navigation/fellowship.png");
+}
+
+.bottom-nav button[data-nav="adventure"] i::before {
+  background-image: url("../assets/ui/navigation/adventure.png");
+}
+
+.bottom-nav button[data-nav="more"] i::before {
+  background-image: url("../assets/ui/navigation/more.png");
+}
+
+.bottom-nav button.on,
+.bottom-nav button[aria-current="page"] {
+  border-color: #f1c76b63;
+  background: linear-gradient(180deg, #66e1d20f, #f1c76b15);
+  color: #fff7e7;
+}
+
+.bottom-nav button.on i,
+.bottom-nav button[aria-current="page"] i {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: #dcebea;
+}
+
+.bottom-nav button.on i::before,
+.bottom-nav button[aria-current="page"] i::before {
+  opacity: 1;
+  filter: saturate(1.08) brightness(1.14) drop-shadow(0 0 6px #66e1d281) drop-shadow(0 4px 5px #000c);
+  transform: scale(1.04) translateY(-1px);
+}
+
+.bottom-nav button.on::after,
+.bottom-nav button[aria-current="page"]::after {
+  z-index: 2;
+  width: 25px;
+  background: #f1c76b;
+  box-shadow: 0 0 4px #fff1bf, 0 0 12px #f1c76ba6;
+}
+
+.bottom-nav .phase-11c-nav-badge {
+  z-index: 3;
+  box-shadow: 0 0 0 2px #07111b, 0 0 10px #f1c76b8c;
+}
+
+@media (max-width: 360px) {
+  .bottom-nav button i::before {
+    inset: -3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav button i::before {
+    transition: none !important;
+  }
+}
+
+html.phase15-reduced-motion .bottom-nav button i::before {
+  transition: none !important;
+}
+
+@media (forced-colors: active) {
+  .bottom-nav {
+    background: Canvas;
+    border-top: 1px solid CanvasText;
+  }
+
+  .bottom-nav::before,
+  .bottom-nav button i::before {
+    display: none;
+  }
+
+  .bottom-nav button {
+    color: ButtonText;
+    text-shadow: none;
+  }
+}
