@@ -34,6 +34,9 @@ async function exercise(browser,baseURL,viewport,reduced=false){const prefix=`${
  step('zero-warning-error-console',errors.length===0,errors);await context.close();
 }
 
+const selectedViewports=process.env.PHASE24K_VIEWPORT?contract.viewports.filter(viewport=>viewport.id===process.env.PHASE24K_VIEWPORT):contract.viewports;
+const selectedMotions=process.env.PHASE24K_MOTION==='normal'?[false]:process.env.PHASE24K_MOTION==='reduced'?[true]:[false,true];
+if(!selectedViewports.length)throw new Error(`Unknown PHASE24K_VIEWPORT: ${process.env.PHASE24K_VIEWPORT}`);
 const instance=server();let browser;
-try{const baseURL=await listen(instance);browser=await chromium.launch({headless:true});for(const viewport of contract.viewports){await exercise(browser,baseURL,viewport,false);await exercise(browser,baseURL,viewport,true)}}finally{if(browser)await browser.close();instance.closeAllConnections?.();await new Promise(resolve=>instance.close(resolve))}
+try{const baseURL=await listen(instance);browser=await chromium.launch({headless:true});for(const viewport of selectedViewports)for(const reduced of selectedMotions)await exercise(browser,baseURL,viewport,reduced)}finally{if(browser)await browser.close();instance.closeAllConnections?.();await new Promise(resolve=>instance.close(resolve))}
 const failed=rows.filter(row=>!row.pass);for(const row of failed)console.error(`FAIL ${row.id}${row.detail?` · ${row.detail}`:''}`);console.log(`RESULT ${rows.length-failed.length} passed, ${failed.length} failed`);if(failed.length)process.exitCode=1;

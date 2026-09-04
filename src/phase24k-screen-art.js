@@ -93,7 +93,7 @@
    event.preventDefault();
    fellowshipPanel=fellowshipPanel===key?null:key;
    updateFellowshipPanels(document);
-  });
+  },true);
 
   function bindVillage(root=document){
    const speech=root.querySelector?.('[data-phase24k-village-speech]'),character=root.querySelector?.('[data-phase24k-village-character]'),hide=root.querySelector?.('[data-phase24k-speaker-hide]'),show=root.querySelector?.('[data-phase24k-speaker-show]');
