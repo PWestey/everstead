@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  phase-24g:
+  phase-24h:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,6 +25,10 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/everstead-phase-24f"
           git archive da16b52bcbf0bde8ba1c7e8261e66cbde73890c6 | tar -x -C "$RUNNER_TEMP/everstead-phase-24f"
+      - name: Export accepted Phase 24G predecessor
+        run: |
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24g"
+          git archive 4425e41085a3f338c82f389415e0d8cffe2b6ac9 | tar -x -C "$RUNNER_TEMP/everstead-phase-24g"
       - name: Verify frozen Phase 24F predecessor
         working-directory: ${{ runner.temp }}/everstead-phase-24f
         env:
@@ -33,10 +37,18 @@ jobs:
         run: |
           node qa/phase-24f-more/verify.mjs
           shasum -a 256 -c qa/phase-24f-more/checksums.sha256
-      - name: Verify Phase 24G Chapter I successor contract
-        run: node qa/phase-24g-chapter1/verify.mjs
-      - name: Verify Phase 24G frozen evidence
-        run: shasum -a 256 -c qa/phase-24g-chapter1/checksums.sha256
+      - name: Verify frozen Phase 24G predecessor
+        working-directory: ${{ runner.temp }}/everstead-phase-24g
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24g
+        run: |
+          node qa/phase-24g-chapter1/verify.mjs
+          shasum -a 256 -c qa/phase-24g-chapter1/checksums.sha256
+      - name: Verify Phase 24H preview-corrections contract
+        run: node qa/phase-24h-preview-corrections/verify.mjs
+      - name: Verify Phase 24H frozen evidence
+        run: shasum -a 256 -c qa/phase-24h-preview-corrections/checksums.sha256
       - name: Install browser verification dependencies
         run: npm ci
       - name: Install Chromium
@@ -46,5 +58,13 @@ jobs:
         run: |
           npm ci
           npm run qa:phase24f-more
-      - name: Run Phase 24G ordinary public-path Chapter I matrix
-        run: npm run qa:phase24g-chapter1
+      - name: Run frozen Phase 24G ordinary public-path Chapter I matrix
+        working-directory: ${{ runner.temp }}/everstead-phase-24g
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24g
+        run: |
+          npm ci
+          npm run qa:phase24g-chapter1
+      - name: Run Phase 24H ordinary public-path preview-corrections matrix
+        run: npm run qa:phase24h-preview

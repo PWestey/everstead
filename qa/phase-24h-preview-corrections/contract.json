@@ -1,0 +1,42 @@
+{
+  "contractVersion": 1,
+  "phase": "24H",
+  "authorityId": "everstead.phase24h.preview-corrections.v1",
+  "status": "candidate",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "releaseVersion": "1.0.0-preview.1",
+  "predecessor": {
+    "commit": "4425e41085a3f338c82f389415e0d8cffe2b6ac9",
+    "indexSha256": "b056714caef0e320bc69b1aaab7c6ef0821fecd24611bf8077b4b90e6a355004"
+  },
+  "profiles": ["fresh", "foundation-thin"],
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "ownedProductionFiles": [
+    "README.md",
+    "index.html",
+    "src/phase24d-public-preview-profile.js",
+    "src/phase24g-story-runtime.js"
+  ],
+  "deferred": [
+    "schema14-native-story-foundation-repair",
+    "restaurant-public-release",
+    "startup-diagnostics",
+    "wrapper-consolidation"
+  ],
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "21c988ebc00ce3b23a85fde57f106a8d29445a62b05b96cc2cc17b311d3c15ef",
+    "README.md": "ca1a479e5f784646e1278ec9b5f3616ffd8ea372986f03cd76fb699abf5b1df8",
+    "index.html": "355bc95ad2c5d4581eac4cfbcf795d141d204dca5eff17a8dc9e978a2e876c85",
+    "package.json": "1a2675629cc79a88a81c2f7c3df629f33d4d929367ebbebf10a066d4333eff92",
+    "src/phase24d-public-preview-profile.js": "84d5062337a0980bd70ff6c083475993ed5c666a9cccf22c074054ca952f7eb9",
+    "src/phase24g-story-runtime.js": "70cdfe024a0484a1758ffc2f347e5a32ccd6c638d9e5eca02dfdd37074ae6662",
+    "qa/phase-24h-preview-corrections/README.md": "9315e67f4978213377046d4765d922947c70912840a3451d92244ccfd00435a1",
+    "qa/phase-24h-preview-corrections/RESULT.md": "4e91b04e60d8c6fea96be1eef0aaec0544924936b42ea2c9c261be72e1bf3aef",
+    "qa/phase-24h-preview-corrections/browser.mjs": "a7fa2f1d51467c036801f5f944ccc16ff5f62fe5019c6fdd10fe76707720e192",
+    "qa/phase-24h-preview-corrections/verify.mjs": "46a1f5dbb7bfd3e8516aadd08109c589c2f869b53ce346e9408c4cfe7e30dc80"
+  }
+}

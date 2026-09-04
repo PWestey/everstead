@@ -32,10 +32,12 @@
       'fellow-expedition',
       'companion-campaign',
       'companion-tower',
-      'first-covenant-opening',
-      'founding-table-collection'
+      'first-covenant-opening'
     ],
     previewExcludedSystems:[
+      // The Founding Table exists in the durable framework, but its requirements need the
+      // Restaurant, which is a private facility runtime. Not reachable on the public path.
+      'founding-table-collection',
       'extended-book-one',
       'legacy-v2',
       'family-romance',

@@ -238,7 +238,7 @@
       if(!phase24gIsCurrent())return previousProfileCard();
       const profile=root.EVERSTEAD_PHASE24G_PUBLIC_RELEASE_PROFILE;
       if(!profile||profile.id!=='everstead.release-profile.chapter-one-preview.v1'||profile.schemaVersion!==14||profile.status!=='active')throw new Error('The Chapter I public-release profile is unavailable');
-      return `<section class="card" data-phase24d-release-profile data-phase24g-release-profile="${api.escape(profile.id)}"><div class="eyebrow">${api.escape(profile.label)} \u00b7 ${api.escape(adapter.releaseVersion)}</div><h3>Chapter I is open in Everstead</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, the complete First Covenant Chapter I, and the first permanent Collection.</p><p class="soft">Later Book I chapters, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`;
+      return `<section class="card" data-phase24d-release-profile data-phase24g-release-profile="${api.escape(profile.id)}"><div class="eyebrow">${api.escape(profile.label)} \u00b7 ${api.escape(adapter.releaseVersion)}</div><h3>Chapter I is open in Everstead</h3><p class="soft">This playable preview includes Oaths, Village growth, all three rosters, four Adventure roads, and the complete First Covenant Chapter I.</p><p class="soft">Later Book I chapters, expanded Legacy, relationships, events, facilities, and long-term progression are still being completed. Saves stay in this browser; keep a private Recovery File backup.</p></section>`;
     }
 
     function restoreOwnership(){

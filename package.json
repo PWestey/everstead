@@ -7,7 +7,8 @@
     "qa:public-preview": "node qa/phase-24d-public-preview/browser.mjs",
     "qa:phase24e-shell": "node qa/phase-24e-shell/browser.mjs",
     "qa:phase24f-more": "node qa/phase-24f-more/browser.mjs",
-    "qa:phase24g-chapter1": "node qa/phase-24g-chapter1/browser.mjs"
+    "qa:phase24g-chapter1": "node qa/phase-24g-chapter1/browser.mjs",
+    "qa:phase24h-preview": "node qa/phase-24h-preview-corrections/browser.mjs"
   },
   "devDependencies": {
     "playwright": "1.57.0"

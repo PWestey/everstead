@@ -8,7 +8,7 @@ Everstead is a mobile-first browser RPG evolving from the original **OATHFORGE â
 
 ## Current status
 
-The deployed app is an active **Chapter I Public Preview** on schema 14. It includes Oaths, passive Village growth, all 18 Fellows, all 20 Family members, all 20 Companions, Fellow Campaign, Fellow Expedition, Companion Campaign, Companion Tower, the complete First Covenant Chapter I, gradual tutorials, protected Save & Recovery, and the first permanent Collection release, The Founding Table.
+The deployed app is an active **Chapter I Public Preview** on schema 14. It includes Oaths, passive Village growth, all 18 Fellows, all 20 Family members, all 20 Companions, Fellow Campaign, Fellow Expedition, Companion Campaign, Companion Tower, the complete First Covenant Chapter I, gradual tutorials, and protected Save & Recovery. The Founding Table Collection framework ships, but its requirements need the private Restaurant runtime, so it is not reachable in the public preview yet.
 
 This is not yet the complete locked Everstead. Extended Book I, Legacy v2, automatic Family romance, rotating events, the privately accepted facility runtimes, and long-horizon progression curves remain preview-excluded until their economy, migration, presentation, and public-release gates pass. Rights-limited Companion portraits are not distributed in the public repository; the public build uses an original Everstead crest fallback. Saves remain local to the current browser, so players should keep a private Recovery File backup.
 
