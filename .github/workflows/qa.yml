@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  phase-24h:
+  phase-24i:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -29,6 +29,10 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/everstead-phase-24g"
           git archive 4425e41085a3f338c82f389415e0d8cffe2b6ac9 | tar -x -C "$RUNNER_TEMP/everstead-phase-24g"
+      - name: Export accepted Phase 24H predecessor
+        run: |
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24h"
+          git archive 420c3c3da1619776b680d1455da9f804f615f4d1 | tar -x -C "$RUNNER_TEMP/everstead-phase-24h"
       - name: Verify frozen Phase 24F predecessor
         working-directory: ${{ runner.temp }}/everstead-phase-24f
         env:
@@ -45,10 +49,18 @@ jobs:
         run: |
           node qa/phase-24g-chapter1/verify.mjs
           shasum -a 256 -c qa/phase-24g-chapter1/checksums.sha256
-      - name: Verify Phase 24H preview-corrections contract
-        run: node qa/phase-24h-preview-corrections/verify.mjs
-      - name: Verify Phase 24H frozen evidence
-        run: shasum -a 256 -c qa/phase-24h-preview-corrections/checksums.sha256
+      - name: Verify frozen Phase 24H predecessor
+        working-directory: ${{ runner.temp }}/everstead-phase-24h
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24h
+        run: |
+          node qa/phase-24h-preview-corrections/verify.mjs
+          shasum -a 256 -c qa/phase-24h-preview-corrections/checksums.sha256
+      - name: Verify Phase 24I compact Village-panel contract
+        run: node qa/phase-24i-village-panels/verify.mjs
+      - name: Verify Phase 24I frozen evidence
+        run: shasum -a 256 -c qa/phase-24i-village-panels/checksums.sha256
       - name: Install browser verification dependencies
         run: npm ci
       - name: Install Chromium
@@ -66,5 +78,13 @@ jobs:
         run: |
           ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
           npm run qa:phase24g-chapter1
-      - name: Run Phase 24H ordinary public-path preview-corrections matrix
-        run: npm run qa:phase24h-preview
+      - name: Run frozen Phase 24H ordinary public-path preview-corrections matrix
+        working-directory: ${{ runner.temp }}/everstead-phase-24h
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24h
+        run: |
+          ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
+          npm run qa:phase24h-preview
+      - name: Run Phase 24I compact Village-panel matrix
+        run: npm run qa:phase24i-village-panels

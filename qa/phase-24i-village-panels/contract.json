@@ -1,0 +1,44 @@
+{
+  "contractVersion": 1,
+  "phase": "24I",
+  "authorityId": "everstead.phase24i.village-panels.v1",
+  "status": "candidate",
+  "schemaVersion": 14,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "releaseVersion": "1.0.0-preview.1",
+  "predecessor": {
+    "commit": "420c3c3da1619776b680d1455da9f804f615f4d1",
+    "indexSha256": "355bc95ad2c5d4581eac4cfbcf795d141d204dca5eff17a8dc9e978a2e876c85"
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "ownedProductionFiles": [
+    "index.html",
+    "src/phase17-runtime.js"
+  ],
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "openWidthPx": 272,
+    "smallPhoneOpenWidthPx": 252,
+    "openBodyViewportRatio": 0.35
+  },
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "economy-change",
+    "progression-change",
+    "story-content-change"
+  ],
+  "expectedArtifacts": {
+    ".github/workflows/qa.yml": "1f336f329fa3ad51f826ab5225d54fc8ce7e15328acccaff9ad74ae7c4aef246",
+    "index.html": "806eed3d90c2a580d929bf11b29356d893aafb75e780b7781831b1e2dea73a49",
+    "package.json": "29cf528864db689c25231bce66ef3b1d013398f8059ca3bd0b8a51ff41c5c40f",
+    "src/phase17-runtime.js": "df285e73a952a82626479ca2f5c4204e1953998c8b2174b46411c7662a1d25e5",
+    "qa/phase-24i-village-panels/README.md": "c1f9fccb505241e6f20e9d2046eaadb277ab54af658501237a878a81addd19bb",
+    "qa/phase-24i-village-panels/RESULT.md": "2a499b28b261f4388e973249fe03de4959c4916922415c2f7a72dd12c419da40",
+    "qa/phase-24i-village-panels/browser.mjs": "812930a96f4ae40367d261d0f2b30b43ac9b269d8aaf5f1911a8deb34c5d2712",
+    "qa/phase-24i-village-panels/verify.mjs": "d285cad0457235a5e897ec23a95585991b4daab0fbb68c89f0149aef14a2ca98"
+  }
+}
