@@ -7,6 +7,8 @@
  let installed=false;
  let villageSpeakerVisible=true;
  let fellowshipPanel=null;
+ let fellowshipActivationCount=0;
+ let lastFellowshipActivation={key:'',at:Number.NEGATIVE_INFINITY};
 
  function install(adapter){
   if(installed)return Object.freeze({ok:true,id:ID,version:VERSION,schemaVersion:SCHEMA_VERSION,reused:true});
@@ -77,6 +79,8 @@
   function updateFellowshipPanels(root=document){
    const screen=root.querySelector?.('[data-phase24k-fellowship]');
    if(!screen)return;
+   screen.dataset.phase24kPanelState=fellowshipPanel||'closed';
+   screen.dataset.phase24kPanelActivations=String(fellowshipActivationCount);
    const targets={might:screen.querySelector('[data-fellow-might-summary]'),path:screen.querySelector('[data-phase-11g-path]'),tools:screen.querySelector('[data-phase-11d-roster-tools]')};
    for(const [key,node] of Object.entries(targets))if(node){node.hidden=fellowshipPanel!==key;node.dataset.phase24kDisclosure=key}
    screen.querySelectorAll('[data-phase24k-panel-toggle]').forEach(button=>{
@@ -91,7 +95,11 @@
    const key=button.dataset.phase24kPanelToggle;
    if(!['might','path','tools'].includes(key))return;
    event.preventDefault();
-   fellowshipPanel=fellowshipPanel===key?null:key;
+   const activationAt=Number(event.timeStamp)||0;
+   if(lastFellowshipActivation.key===key&&activationAt-lastFellowshipActivation.at<250)return;
+   lastFellowshipActivation={key,at:activationAt};
+   fellowshipPanel=button.getAttribute('aria-expanded')==='true'?null:key;
+   fellowshipActivationCount+=1;
    updateFellowshipPanels(document);
   },true);
 
