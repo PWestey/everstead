@@ -41,9 +41,15 @@
   if(shell)shell.dataset.phase24lExpLive='true';
   content.querySelectorAll('[data-phase24l-exp-mode]').forEach(button=>button.onclick=()=>decorate(document,id,api,button.dataset.phase24lExpMode));
   const commit=content.querySelector('[data-phase24l-exp-commit]');
-  if(commit)commit.onclick=()=>{
+  if(commit)commit.onclick=event=>{
+   event.stopPropagation();
    const result=api.spend(id,preview.mode,preview.identity);
-   if(result?.ok){decorate(document,id,api,preview.mode);api.onSpent?.(result,id)}
+   if(result?.ok){
+    api.refreshProfile?.(id);
+    const refreshed=decorate(document,id,api,preview.mode);
+    (refreshed?.querySelector('[data-phase24l-exp-commit]:not([disabled])')||refreshed?.querySelector(`[data-phase24l-exp-mode="${preview.mode}"]`))?.focus();
+    api.onSpent?.(result,id);
+   }
    else{
     const refreshed=decorate(document,id,api,preview.mode),status=refreshed?.querySelector('[data-phase24l-exp-status]');
     if(status)status.textContent=result?.reason||'The EXP investment was not applied.';

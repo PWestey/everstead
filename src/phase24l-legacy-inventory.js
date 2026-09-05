@@ -50,8 +50,10 @@
   const state=api.state();
   const definitions=api.definitions;
   const fellowWallet=state?.experienceProgression?.wallets?.fellow?.balance??0;
+  const companionWallet=state?.experienceProgression?.wallets?.companion?.balance??0;
   const materials=[
    {key:'material.fellow-exp',kind:'material',name:'Fellow EXP',amount:fellowWallet,glyph:'EXP',detail:'Earned EXP is banked here. It levels no one until you choose a Fellow and invest it.',route:{kind:'roster',roster:'fellows'}},
+   {key:'material.companion-exp',kind:'material',name:'Companion EXP',amount:companionWallet,glyph:'EXP',detail:'Earned EXP is banked here. Choose a Companion and invest it from their Level tab.',route:{kind:'roster',roster:'companions'}},
    {key:'material.relic-stones',kind:'material',name:'Relic Stones',amount:state?.relicStones??0,glyph:'✦',detail:'Used by the established Relic upgrade screen. This Inventory view cannot spend them.',route:{kind:'relics'}}
   ];
   const gifts=[{key:'gift.generic',kind:'gift',name:'Gifts',amount:state?.gifts??0,glyph:'♡',detail:'Gifts are deliberately given from a Family profile to raise Intimacy.',route:{kind:'roster',roster:'family'}}];

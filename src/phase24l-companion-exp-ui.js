@@ -81,11 +81,13 @@
   if(shell)shell.dataset.phase24lCompanionExpLive='true';
   content.querySelectorAll('[data-phase24l-c1-exp-mode]').forEach(button=>button.onclick=()=>decorate(document,id,api,button.dataset.phase24lC1ExpMode,{focus:'mode'}));
   const commit=content.querySelector('[data-phase24l-c1-exp-commit]');
-  if(commit)commit.onclick=()=>{
+  if(commit)commit.onclick=event=>{
+   event.stopPropagation();
    commit.disabled=true;
    let result;
    try{result=api.spend(id,mode,preview?.identity)}catch(error){result={ok:false,reason:String(error?.message||'The Companion EXP investment was not applied.')}}
    if(result?.ok){
+    api.refreshProfile?.(id);
     const announcement=successMessage(result,preview,api),refreshed=decorate(document,id,api,mode,{focus:'commit',announcement});
     api.onSpent?.(result,id,preview,refreshed);
    }else{
