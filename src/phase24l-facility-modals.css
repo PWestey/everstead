@@ -1,0 +1,58 @@
+/* Phase 24L-B3C: bounded, tabbed Building and Restaurant game sheets. */
+.overlay:has([data-phase24l-b3c-modal]){align-items:center;padding:max(8px,env(safe-area-inset-top)) 7px max(8px,env(safe-area-inset-bottom));background:#020609e8}
+.modal[data-phase24l-b3c-modal]{display:flex;flex-direction:column;width:min(100%,506px);height:min(760px,calc(100dvh - max(16px,env(safe-area-inset-top)) - max(16px,env(safe-area-inset-bottom))));max-height:none;overflow:hidden;padding:8px;border-color:#f1c76b58;border-radius:20px;background:linear-gradient(160deg,#17303a,#08131b 72%)}
+.modal[data-phase24l-b3c-modal="building"]>.modal-head{flex:0 0 auto;min-height:52px;padding:2px 2px 7px 5px;border-bottom:1px solid #ffffff16}
+.modal[data-phase24l-b3c-modal="building"]>.modal-head h2{font-size:22px}
+.modal[data-phase24l-b3c-modal] .close{flex:0 0 44px;min-width:44px;min-height:44px}
+
+.phase24l-b3c-sheet,.phase16-restaurant[data-phase24l-b3c-restaurant]{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;gap:6px;overflow:hidden;outline:none}
+.phase24l-b3c-scene,.phase24l-b3c-restaurant-scene{position:relative;flex:0 0 118px;min-height:0;overflow:hidden;border:1px solid #f1c76b5c;border-radius:15px!important;padding:12px!important;background:linear-gradient(180deg,#07131b18,#07131be8),url('../assets/backgrounds/village.webp') center 47%/cover no-repeat!important;text-shadow:0 2px 8px #000}
+.phase24l-b3c-scene{display:flex;align-items:flex-end;justify-content:space-between}
+.phase24l-b3c-scene h3,.phase24l-b3c-restaurant-scene h2{margin:3px 0!important;color:#fff7e7!important;font:700 24px/1 Georgia,serif!important}
+.phase24l-b3c-scene p,.phase24l-b3c-restaurant-scene p{max-width:315px!important;margin:0!important;color:#d2dedc!important;font-size:8px!important;line-height:1.35!important}
+.phase24l-b3c-scene>span{color:#f1c76b;font:46px/1 Georgia,serif;filter:drop-shadow(0 0 15px #f1c76b)}
+.phase24l-b3c-restaurant-scene:after{content:'♨'!important;right:14px!important;top:11px!important;color:#f1c76b99!important;font-size:45px!important}
+
+.phase24l-b3c-panel-stack{display:flex;flex:1 1 auto;min-height:0;overflow:hidden}
+.phase24l-b3c-panel{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:1px;scrollbar-width:thin;scrollbar-color:#f1c76b66 transparent}
+.phase24l-b3c-panel[hidden]{display:none!important}
+.phase24l-b3c-panel>.card,.phase24l-b3c-panel>[data-building-production-details],.phase24l-b3c-panel>[data-building-upgrade-preview]{margin:0!important;padding:10px!important;border-radius:13px!important}
+.phase24l-b3c-panel .card h3{font-size:16px}
+.phase24l-b3c-panel .soft{font-size:8px!important;line-height:1.35}
+.phase24l-b3c-panel .metric-row{gap:4px;margin:7px 0}
+.phase24l-b3c-panel .metric{min-width:0;padding:6px 3px}
+.phase24l-b3c-panel .metric b{font-size:11px;overflow-wrap:anywhere}
+.phase24l-b3c-panel .metric span{font-size:6.5px}
+.phase24l-b3c-panel .field select{min-height:44px}
+.phase24l-b3c-action-dock{position:sticky;bottom:0;margin-top:6px;padding-top:5px;background:linear-gradient(transparent,#0b171ff0 22%)}
+.phase24l-b3c-action-dock .btn{min-height:44px}
+
+.phase24l-b3c-tabs{display:grid;flex:0 0 54px;gap:4px;padding:4px;border:1px solid #ffffff18;border-radius:14px;background:#07131bf2}
+.phase24l-b3c-tabs[data-phase24l-b3c-tabs="building"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.phase24l-b3c-tabs[data-phase24l-b3c-tabs="restaurant"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.phase24l-b3c-tabs button{min-width:0;min-height:44px;padding:3px 2px;border:1px solid transparent;border-radius:10px;background:transparent;color:#a9bbbe;font:900 8px/1 Inter,ui-sans-serif,sans-serif;text-transform:uppercase}
+.phase24l-b3c-tabs button i{display:block;margin-bottom:3px;color:#d9bd7e;font:normal 17px/1 Georgia,serif}
+.phase24l-b3c-tabs button[aria-selected="true"]{border-color:#f1c76b70;background:#f1c76b16;color:#fff7e7;box-shadow:inset 0 0 0 1px #66e1d225}
+.phase24l-b3c-tabs button:focus-visible,.phase24l-b3c-panel:focus-visible{outline:3px solid white;outline-offset:2px}
+
+.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase24l-b3c-panel-stack{order:2}
+.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase16-actions{order:3;display:grid;flex:0 0 auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0;padding:5px;border:1px solid #ffffff18;border-radius:13px;background:#07131be8}
+.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase16-actions .btn{min-height:44px;padding:7px 5px;font-size:8.5px}
+.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase16-actions .wide{grid-column:auto}
+.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase24l-b3c-tabs{order:4}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-progress{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-bottom:5px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-progress>div{padding:6px 3px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-customer{padding:10px;border-radius:13px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-customer h3{font-size:17px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-service-grid{grid-template-columns:1fr;gap:7px;margin:0;padding:8px;border:1px solid #ffffff18;border-radius:13px;background:#0a171dcc}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-stock{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-stock div{padding:7px 3px}
+.phase16-restaurant[data-phase24l-b3c-restaurant] .phase16-result,.phase16-restaurant[data-phase24l-b3c-restaurant] [data-phase24c2d-restaurant-collection]{margin:0 0 5px;padding:10px;border-radius:13px}
+.phase24l-b3c-empty{display:grid;place-items:center;align-content:center;min-height:130px;padding:14px;border:1px dashed #ffffff27;border-radius:14px;background:#07131b99;color:#b9c9cb;text-align:center}
+.phase24l-b3c-empty b{color:#f1c76b;font:700 17px Georgia,serif}.phase24l-b3c-empty p{max-width:290px;margin:6px 0 0;font-size:8px;line-height:1.4}
+
+@media(max-width:369px){.phase24l-b3c-scene,.phase24l-b3c-restaurant-scene{flex-basis:88px;padding:9px!important}.phase24l-b3c-scene p,.phase24l-b3c-restaurant-scene p{display:none}.phase24l-b3c-scene h3,.phase24l-b3c-restaurant-scene h2{font-size:20px!important}.phase24l-b3c-tabs button{font-size:7px}.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase16-actions .btn{font-size:8px}}
+@media(max-height:640px){.phase24l-b3c-scene,.phase24l-b3c-restaurant-scene{flex-basis:72px}.phase24l-b3c-scene p,.phase24l-b3c-restaurant-scene p{display:none}}
+@media(prefers-reduced-motion:reduce){[data-phase24l-b3c-modal],[data-phase24l-b3c-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html.phase15-reduced-motion [data-phase24l-b3c-modal],html.phase15-reduced-motion [data-phase24l-b3c-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(forced-colors:active){.phase24l-b3c-scene,.phase24l-b3c-tabs,.phase24l-b3c-panel>.card,.phase16-restaurant[data-phase24l-b3c-restaurant]>.phase16-actions{background:Canvas!important}.phase24l-b3c-tabs button{border:1px solid ButtonText!important}}

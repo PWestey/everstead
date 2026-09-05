@@ -1,0 +1,12 @@
+{
+  "id": "everstead.phase24l.facility-modals.v1",
+  "phase": "24L-B3C",
+  "schemaVersion": 15,
+  "predecessorCommit": "5181a5f30d8a2821f887633e9022a4ce6b050318",
+  "predecessorIndexSha256": "e562f0cd63bdde61d1e40af98c4f29fc6346bbcebe8b17bc04ea853b37c8952f",
+  "mechanicsChanged": false,
+  "saveChanged": false,
+  "buildingTabs": ["assign", "production", "upgrade"],
+  "restaurantTabs": ["guest", "kitchen", "pantry", "result"],
+  "viewports": ["320x568", "390x844"]
+}

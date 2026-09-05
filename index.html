@@ -112,6 +112,7 @@
 <link rel="stylesheet" href="src/phase24l-game-screen-shell.css?v=phase24l-b2-v2">
 <link rel="stylesheet" href="src/phase24l-compact-hubs.css?v=phase24l-b3a-v1">
 <link rel="stylesheet" href="src/phase24l-legacy-inventory.css?v=phase24l-b3b-v1">
+<link rel="stylesheet" href="src/phase24l-facility-modals.css?v=phase24l-b3c-v1">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -160,6 +161,7 @@
 <script src="src/phase24l-game-screen-shell.js?v=phase24l-b2-v2"></script>
 <script src="src/phase24l-compact-hubs.js?v=phase24l-b3a-v1"></script>
 <script src="src/phase24l-legacy-inventory.js?v=phase24l-b3b-v1"></script>
+<script src="src/phase24l-facility-modals.js?v=phase24l-b3c-v1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -1057,7 +1059,7 @@ function phaseTenBThreeRelicSummaries(){document.querySelectorAll('button.char-c
 function phaseTenBThreeRosterTabs(){const list=[...document.querySelectorAll('.tabs')].find(item=>item.querySelector('[data-roster]'));if(!list)return;list.setAttribute('role','tablist');list.setAttribute('aria-label','Fellowship roster');const tabs=[...list.querySelectorAll('[data-roster]')],selected=tabs.find(item=>item.dataset.roster===S.ui.roster)||tabs[0],panel=list.closest('main')?.querySelector('.roster-grid');tabs.forEach((tab,index)=>{const active=tab===selected;tab.id=`fellowship-tab-${tab.dataset.roster}`;tab.setAttribute('role','tab');tab.setAttribute('aria-selected',String(active));tab.setAttribute('aria-controls','fellowship-panel');tab.tabIndex=active?0:-1;tab.onkeydown=event=>{let target=null;if(event.key==='ArrowRight')target=tabs[(index+1)%tabs.length];else if(event.key==='ArrowLeft')target=tabs[(index-1+tabs.length)%tabs.length];else if(event.key==='Home')target=tabs[0];else if(event.key==='End')target=tabs[tabs.length-1];if(!target)return;event.preventDefault();const targetId=target.id;target.click();document.getElementById(targetId)?.focus()}});if(panel&&selected){panel.id='fellowship-panel';panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',selected.id)}}
 function phaseTenBThreeFocusDescriptor(element){if(!element||element.nodeType!==1||!$('#app').contains(element))return null;for(const attribute of ['data-building','data-fellow','data-family','data-companion','data-player-profile','data-relic-open','data-edit-oath','data-act','data-nav'])if(element.hasAttribute(attribute))return{element,attribute,value:element.getAttribute(attribute)};return{element,attribute:null,value:null}}
 function phaseTenBThreeResolveFocus(descriptor){if(descriptor?.element?.isConnected&&!descriptor.element.disabled)return descriptor.element;if(descriptor?.attribute){const candidates=[...document.querySelectorAll(`[${descriptor.attribute}]`)],match=candidates.find(item=>item.getAttribute(descriptor.attribute)===descriptor.value);if(match&&!match.disabled)return match}return document.querySelector('.bottom-nav button.on:not([disabled])')||document.querySelector('.bottom-nav button:not([disabled])')}
-function phaseTenBThreeFocusable(modal){return[...modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(item=>!item.hidden&&getComputedStyle(item).display!=='none'&&getComputedStyle(item).visibility!=='hidden')}
+function phaseTenBThreeFocusable(modal){return[...modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]')].filter(item=>item.getAttribute('tabindex')!=='-1'&&!item.hidden&&!item.closest('[hidden],[inert],[aria-hidden="true"]')&&item.getClientRects().length>0&&getComputedStyle(item).display!=='none'&&getComputedStyle(item).visibility!=='hidden')}
 let PHASE_TEN_B_THREE_RETURN_FOCUS=null;
 function phaseTenBThreeModalKeydown(event){const modal=document.querySelector('.modal[role="dialog"]');if(!modal)return;if(event.key==='Escape'){event.preventDefault();closeModal();return}if(event.key==='Tab'){const focusable=phaseTenBThreeFocusable(modal);if(!focusable.length){event.preventDefault();modal.focus();return}const first=focusable[0],last=focusable.at(-1),active=document.activeElement;if(event.shiftKey&&(active===modal||active===first||!modal.contains(active))){event.preventDefault();last.focus()}else if(!event.shiftKey&&(active===modal||active===last||!modal.contains(active))){event.preventDefault();first.focus()}}}
 function phaseTenBThreeDecorateModal(){const overlay=$('[data-overlay]'),modal=overlay?.querySelector('.modal');if(!modal)return;const title=modal.querySelector('h2');modal.querySelectorAll('#everstead-modal-title').forEach(item=>item.removeAttribute('id'));if(title){title.id='everstead-modal-title';modal.setAttribute('aria-labelledby','everstead-modal-title');modal.removeAttribute('aria-label')}else{modal.removeAttribute('aria-labelledby');modal.setAttribute('aria-label','Everstead dialog')}modal.querySelectorAll('.close').forEach(button=>{if(!button.getAttribute('aria-label'))button.setAttribute('aria-label','Close dialog')});$('#app').inert=true;document.removeEventListener('keydown',phaseTenBThreeModalKeydown);document.addEventListener('keydown',phaseTenBThreeModalKeydown);modal.focus()}
@@ -3513,6 +3515,23 @@ const PHASE_24L_B3B_RESULT=PHASE_24L_B3B.install(Object.freeze({version:1,docume
 if(!PHASE_24L_B3B_RESULT?.ok||PHASE_24L_B3B_RESULT.id!=='everstead.phase24l.legacy-inventory.v1'||PHASE_24L_B3B_RESULT.mechanicsChanged!==false||PHASE_24L_B3B_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3B Legacy and Inventory did not install safely');
 Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3B_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3B_RESULT,diagnostics:()=>PHASE_24L_B3B.diagnostics()})});
 /* Phase 24L-B3B compact Legacy and truthful Inventory END */
+
+/* Phase 24L-B3C bounded Building and Restaurant game sheets BEGIN */
+const PHASE_24L_B3C=globalThis.EVERSTEAD_PHASE24L_FACILITY_MODALS;
+if(!PHASE_24L_B3C||PHASE_24L_B3C.version!==1||PHASE_24L_B3C.id!=='everstead.phase24l.facility-modals.v1')throw new Error('The Everstead Phase 24L-B3C facility modal runtime is unavailable or incompatible');
+const PHASE_24L_B3C_RESULT=PHASE_24L_B3C.install(Object.freeze({version:1,document,slots:Object.freeze({bindModal:phase24lSlot(()=>bindModal,value=>bindModal=value)})}));
+if(!PHASE_24L_B3C_RESULT?.ok||PHASE_24L_B3C_RESULT.id!=='everstead.phase24l.facility-modals.v1'||PHASE_24L_B3C_RESULT.mechanicsChanged!==false||PHASE_24L_B3C_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3C facility modal runtime did not install safely');
+Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3C_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3C_RESULT,diagnostics:()=>PHASE_24L_B3C.diagnostics()})});
+function phase24lB3cInstallQaBridge(){
+ try{delete window.__EVERSTEAD_PHASE_24L_B3C_QA__}catch{}
+ if(!QA_BRIDGE_ALLOWED||!QA_ALLOW_DESTRUCTIVE)return false;
+ const authorized=operation=>bridgeCall(()=>{requireQaDestructiveAuthorization();return operation()}),destructive=Object.freeze({
+  prepareRestaurant:()=>authorized(()=>{const prepare=PHASE_SEVENTEEN_INSTALL_RESULT?.qaPrepareFacilityIntroductionInState;if(typeof prepare!=='function')return{ok:false,reason:'phase17-qa-unavailable',writes:0};return mutatePersisted((state,now)=>{if(prepare(state,PHASE_24C2D_FACILITY_ID,now)!==true)throw new PersistenceError('phase24l-b3c-qa-restaurant','The isolated Restaurant discovery could not be prepared');if(!phaseSixteenState(state).storyEvents.discoveryResolved||!phaseFifteenState(state).capabilityIds.includes(PHASE_SIXTEEN.requiredCapabilityId))throw new PersistenceError('phase24l-b3c-qa-restaurant','Canonical Restaurant story reconciliation did not run')},PHASE_24C2D_QA_SOURCE,{renderAfter:false})})
+ }),bridge=Object.freeze({version:'phase-24l-b3c-facility-modals-qa-v1',destructive});
+ Object.defineProperty(window,'__EVERSTEAD_PHASE_24L_B3C_QA__',{configurable:true,enumerable:false,get:()=>QA_ALLOW_DESTRUCTIVE&&qaBridgeAllowed()?bridge:undefined});return true
+}
+phase24lB3cInstallQaBridge();
+/* Phase 24L-B3C bounded Building and Restaurant game sheets END */
 
 const PHASE_24L_B1_QA_RUNTIME=globalThis.EVERSTEAD_PHASE24L_FELLOW_EXP_QA_RUNTIME;
 if(!PHASE_24L_B1_QA_RUNTIME||PHASE_24L_B1_QA_RUNTIME.version!==1||PHASE_24L_B1_QA_RUNTIME.bridgeName!=='__EVERSTEAD_PHASE_24L_B1_QA__')throw new Error('The Everstead Phase 24L-B1 QA runtime is unavailable or incompatible');
