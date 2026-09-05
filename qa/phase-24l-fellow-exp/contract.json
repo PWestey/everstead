@@ -1,0 +1,109 @@
+{
+  "contractId": "phase-24l-b1-banked-fellow-exp-qa.v1",
+  "phase": "24L-B1",
+  "status": "banked-fellow-exp-release-gate",
+  "schemaVersion": 15,
+  "predecessor": {
+    "commit": "abbadebe848d5d2a4a1e4b4969e1987fc4786139",
+    "rootVersion": 1,
+    "foundationGlobal": "EVERSTEAD_PHASE24L_EXP_FOUNDATION",
+    "foundationSource": "src/phase24l-exp-foundation.js"
+  },
+  "candidate": {
+    "rootVersion": 2,
+    "source": "src/phase24l-fellow-exp-wallet.js",
+    "css": "src/phase24l-fellow-exp-wallet.css",
+    "uiSource": "src/phase24l-fellow-exp-ui.js",
+    "global": "EVERSTEAD_PHASE24L_FELLOW_EXP_WALLET",
+    "version": 1,
+    "status": "phase-24l-b1-fellow-exp-wallet",
+    "policyId": "everstead.exp-wallet.phase-24l.v2",
+    "activationId": "activation.phase-24l-b1-fellow-exp-wallet.v1",
+    "ledgerVersion": 2,
+    "maxTailEntries": 256,
+    "requiredFunctions": [
+      "canonicalStringify",
+      "sha256",
+      "rootIdentity",
+      "makeSource",
+      "sourceIdentity",
+      "creditAward",
+      "ledgerHeadIdentity",
+      "validateV1State",
+      "validateV2State",
+      "validateState",
+      "activateV1State",
+      "projectToV1",
+      "previewSpend",
+      "stageCredit",
+      "stageSpend",
+      "validateRootTransition"
+    ]
+  },
+  "wallet": {
+    "roster": "fellow",
+    "companionNeutral": true,
+    "rounding": "floor",
+    "bpsDenominator": 10000,
+    "highCollectionBps": 100000,
+    "modes": ["x1", "x10", "max"]
+  },
+  "ledger": {
+    "liveTailMaximum": 256,
+    "entryKinds": ["credit", "spend"],
+    "creditRoutes": ["fellow-campaign", "manual-reward-claim"],
+    "directInvestedRoutes": ["phase11g-catch-up", "qa-fixture-grant"],
+    "nonProducers": ["village-offline", "fellow-expedition"]
+  },
+  "tutorials": {
+    "requiredKinds": ["first-credit", "first-affordable-spend"],
+    "currentRosterSpeakersOnly": true,
+    "skippable": true,
+    "replayable": true
+  },
+  "integration": {
+    "productionBridge": "__EVERSTEAD_PHASE_24L_B1_QA__",
+    "queryKey": "phase24l-fellow-exp-qa",
+    "queryValue": "1",
+    "profileKind": "fellow",
+    "levelTab": "level",
+    "selectors": {
+      "profile": "[data-phase24l-profile=\"fellow\"]",
+      "levelTab": "[data-phase24l-profile-tab=\"level\"]",
+      "levelPanel": "[data-phase24l-panel=\"level\"]",
+      "wallet": "[data-phase24l-exp-wallet]",
+      "invested": "[data-phase24l-exp-invested]",
+      "mode": "[data-phase24l-exp-mode]",
+      "commit": "[data-phase24l-exp-commit]",
+      "tutorial": "[data-phase24l-b1-tutorial]"
+    },
+    "adapter": {
+      "read": {
+        "snapshot": "read.snapshot",
+        "validate": "read.validate",
+        "wallet": "read.wallet",
+        "fellow": "read.fellow",
+        "preview": "read.preview",
+        "tutorials": "read.tutorials"
+      },
+      "destructive": {
+        "reset": "destructive.reset",
+        "activate": "destructive.activate",
+        "credit": "destructive.credit",
+        "campaign": "destructive.campaign",
+        "claim": "destructive.claim",
+        "spend": "destructive.spend",
+        "reload": "destructive.reload",
+        "roundTripImport": "destructive.roundTripImport",
+        "recoverInterrupted": "destructive.recoverInterrupted",
+        "multiClient": "destructive.multiClient",
+        "tutorial": "destructive.tutorial",
+        "probeRefusal": "destructive.probeRefusal"
+      }
+    }
+  },
+  "viewports": [
+    {"id": "compact", "width": 320, "height": 568},
+    {"id": "standard", "width": 390, "height": 844}
+  ]
+}
