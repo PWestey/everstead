@@ -1,0 +1,99 @@
+/* Phase 24L-B2: bounded, art-first Fellowship and Adventure game screens. */
+:root{--phase24l-b2-top:68px;--phase24l-b2-bottom:68px;--phase24l-b2-local:62px;--phase24l-b2-sheet:min(46dvh,360px)}
+html.phase24l-b2-active,html.phase24l-b2-active body{height:100%;max-height:100%;overflow:hidden;overscroll-behavior:none}
+html.phase24l-b2-active .app{height:100dvh;min-height:0;max-height:100dvh;overflow:hidden}
+[data-phase24l-game-screen]{height:100dvh!important;min-height:0!important;max-height:100dvh!important;overflow:hidden!important;padding:calc(var(--phase24l-b2-top) + 4px) 8px calc(var(--phase24l-b2-bottom) + var(--phase24l-b2-local) + 6px)!important;animation:phase24lB2In .2s ease}
+[data-phase24l-game-screen]>.page-head{position:relative;z-index:2;flex:0 0 auto;min-height:42px!important;margin:0 0 5px!important;padding:3px 2px!important;align-items:center!important;background:linear-gradient(90deg,#07131be8,transparent)!important}
+[data-phase24l-game-screen]>.page-head h1{margin:1px 0!important;font-size:clamp(20px,7vw,28px)!important}
+[data-phase24l-game-screen]>.page-head p{display:none!important}
+[data-phase24l-game-screen]>.page-head .eyebrow{font-size:7px!important}
+.phase24l-guide-button{flex:0 0 auto;min-width:58px;min-height:44px;border:1px solid #f1c76b66;border-radius:999px;background:#07131bd9;color:#f7dfaa;font:900 8px/1 Inter,ui-sans-serif,sans-serif;letter-spacing:.08em}
+.phase24l-local-dock{position:fixed!important;z-index:34;top:auto!important;left:50%!important;bottom:var(--phase24l-b2-bottom)!important;transform:translateX(-50%)!important;width:min(100%,520px)!important;height:var(--phase24l-b2-local)!important;margin:0!important;padding:4px 5px!important;border:1px solid #f1c76b42;border-width:1px 0 0;background:linear-gradient(180deg,#18303afa,#08131b 78%);box-shadow:0 -12px 28px #000b;overflow:visible!important}
+.phase24l-local-dock button{position:relative;min-width:0!important;min-height:52px!important;padding:3px 2px!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;color:#a9bbbe!important;font:900 7px/1 Inter,ui-sans-serif,sans-serif!important;letter-spacing:.03em!important;text-transform:uppercase;white-space:normal!important}
+.phase24l-local-dock button i{display:block;margin:0 auto 3px;color:#d9bd7e;font:normal 20px/1 Georgia,serif}
+.phase24l-local-dock button.on,.phase24l-local-dock button[aria-selected="true"]{border-color:#f1c76b70!important;background:#f1c76b16!important;color:#fff7e7!important;box-shadow:inset 0 0 0 1px #66e1d225}
+.phase24l-local-dock button.on::after,.phase24l-local-dock button[aria-selected="true"]::after{content:"";position:absolute;left:28%;right:28%;bottom:2px;height:2px;border-radius:2px;background:#70eadb;box-shadow:0 0 8px #70eadb}
+.phase24l-local-panel,.phase24l-route-guide{position:absolute!important;z-index:25;left:7px;right:7px;bottom:calc(var(--phase24l-b2-bottom) + var(--phase24l-b2-local) + 4px);width:auto!important;max-height:var(--phase24l-b2-sheet)!important;margin:0!important;padding:0!important;overflow:hidden!important;border:1px solid #f1c76b73!important;border-radius:19px 19px 8px 8px!important;background:linear-gradient(155deg,#17313bf8,#08131bfc 72%)!important;box-shadow:0 -14px 38px #000d!important;color:#fff7e7}
+.phase24l-local-panel[hidden],.phase24l-route-guide[hidden]{display:none!important}
+.phase24l-local-panel-head{position:sticky;z-index:3;top:0;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:6px 7px 6px 12px;border-bottom:1px solid #ffffff1b;background:#091821fa}
+.phase24l-local-panel-title small{display:block;color:#70eadb;font-size:7px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.phase24l-local-panel-title h2{margin:2px 0 0;font:700 18px/1 Georgia,serif;color:#fff7e7}
+.phase24l-local-panel-close{flex:0 0 44px;width:44px;height:44px;border:1px solid #fff5;border-radius:50%;background:#20333c;color:#fff;font-size:20px;box-shadow:0 5px 15px #0008}
+.phase24l-local-panel-body,.phase24l-route-guide-body{max-height:calc(var(--phase24l-b2-sheet) - 56px);padding:7px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#f1c76b66 transparent}
+.phase24l-adventure-panel:has(>.phase24l-primary-action-bar)>.phase24l-local-panel-body{max-height:calc(var(--phase24l-b2-sheet) - 112px)}
+.phase24l-primary-action-bar{position:relative;z-index:4;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);align-items:center;gap:6px;min-height:56px;padding:5px 7px;border-top:1px solid #f1c76b4d;background:linear-gradient(180deg,#102630,#07131b)}
+.phase24l-primary-action-bar>.btn,.phase24l-primary-action-bar>button{width:100%!important;min-height:44px!important;margin:0!important;padding:6px 8px!important}
+.phase24l-local-panel-body>.card,.phase24l-local-panel-body>.phase22b-campaign-record{margin:0!important}.phase24l-local-panel-body>*+*{margin-top:6px!important}
+.phase24l-empty-panel,.phase24l-route-guide-body p{margin:0;padding:12px;color:#c2d0d1;font-size:10px;line-height:1.45}
+[data-phase24l-game-screen] button:focus-visible,[data-phase24l-game-screen] select:focus-visible,[data-phase24l-game-screen] [tabindex]:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+/* Fellowship is a direct portrait gallery. Only the gallery owns vertical scrolling. */
+[data-phase24l-game-screen="fellowship"]{display:flex;flex-direction:column;background:linear-gradient(180deg,#07131b38 0,#07131bd5 42%,#07131b 100%),url("../assets/backgrounds/fellowship-hall-phase24k.webp") center top/cover no-repeat,#07131b}
+[data-phase24l-game-screen="fellowship"] .phase24k-fellowship-hero{display:none!important}
+[data-phase24l-game-screen="fellowship"]>.phase24l-fellowship-utility{position:relative;z-index:3;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);flex:0 0 auto;gap:4px;margin:0 0 5px;padding:3px;border:1px solid #f1c76b45;border-radius:13px;background:#07131bd9;box-shadow:0 8px 22px #0007}
+[data-phase24l-game-screen="fellowship"]>.phase24l-fellowship-utility button{min-width:0;min-height:44px;padding:3px;border:1px solid #ffffff16;border-radius:9px;background:#102731;color:#e9dab5;font:900 7px/1 Inter,ui-sans-serif,sans-serif;letter-spacing:.08em}
+[data-phase24l-game-screen="fellowship"]>.phase24l-fellowship-utility button b{display:block;margin-top:3px;font:800 10px/1 Georgia,serif}
+[data-phase24l-game-screen="fellowship"]>.phase24l-fellowship-utility button[aria-expanded="true"]{border-color:#70eadb83;background:#173f42;color:#fff}
+[data-phase24l-game-screen="fellowship"]>[data-phase24l-roster-scroll]{position:relative;z-index:1;display:grid;flex:1 1 auto;min-height:0;margin:0!important;padding:2px 1px 10px;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#f1c76b66 transparent;align-content:start}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:2px!important;overflow:hidden!important}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button{position:relative}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button::before{display:block;margin:0 auto 3px;font:normal 18px/1 Georgia,serif;color:#d9bd7e}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button[data-roster="fellows"]::before{content:"♙"}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button[data-roster="family"]::before{content:"♡"}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button[data-roster="companions"]::before{content:"✦"}
+[data-phase24l-game-screen="fellowship"] .phase24l-fellowship-roster-dock button[data-roster="relics"]::before{content:"◇"}
+[data-phase24l-game-screen="fellowship"] .phase24l-local-panel{overflow:auto!important}
+[data-phase24l-game-screen="fellowship"] .phase24l-roster-notice>h3{margin:4px 0 6px;color:#fff7e7;font:700 18px/1.1 Georgia,serif}
+[data-phase24l-game-screen="fellowship"] .phase24l-roster-notice>.soft{margin:0;color:#c2d0d1;font-size:10px;line-height:1.5}
+
+/* Adventure keeps one illustrated board visible while one existing control group opens in a tray. */
+[data-phase24l-game-screen="adventure"]{display:flex;flex-direction:column;background:linear-gradient(180deg,#0b1d28,#07131b)}
+[data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage{flex:1 1 auto;min-height:0!important;height:auto!important;max-height:none!important;margin:0!important;overflow:hidden!important;border-radius:18px!important}
+[data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage.campaign-walk{background-size:cover,cover,auto 100%!important}
+[data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage.tower-hero,[data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage.expedition-hero{display:flex;flex-direction:column;justify-content:flex-end;padding:14px!important}
+.phase24l-adventure-dock{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+.phase24l-panel-host{display:contents}
+[data-phase24l-game-screen="adventure"] .adventure-tabs{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0!important;padding:2px!important;background:transparent!important;border:0!important}
+[data-phase24l-game-screen="adventure"] .adventure-tabs button{min-height:44px!important;padding:6px!important;white-space:normal!important}
+[data-phase24l-game-screen="adventure"] .node-row{display:flex!important;min-height:54px;margin:0!important;padding:4px!important;overflow-x:auto!important}
+[data-phase24l-game-screen="adventure"] .phase-11c-claim-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin:5px 0}
+[data-phase24l-game-screen="adventure"] .phase-11c-claim-lane{padding:5px}
+[data-phase24l-game-screen="adventure"] .card{padding:8px;border-radius:13px}
+[data-phase24l-game-screen="adventure"] .card h3{font-size:14px}
+[data-phase24l-game-screen="adventure"] .campaign-reward-grid{gap:4px;margin:5px 0}
+[data-phase24l-game-screen="adventure"] .metric{padding:5px}.phase24l-adventure-panel .metric b{font-size:11px}
+[data-phase24l-game-screen="adventure"] .btn.wide{min-height:44px;padding:7px}
+[data-phase24l-game-screen="adventure"] .expedition-roster{max-height:120px;overflow:auto}
+[data-phase24l-local-panel="action"] .campaign-reward-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+[data-phase24l-local-panel="action"] .phase-11g-training{min-height:0;margin:5px 0!important;padding:5px 7px!important}
+[data-phase24l-local-panel="action"] .phase-11g-training-target{display:block!important}
+[data-phase24l-local-panel="action"] .phase-11g-training .art-wrap,[data-phase24l-local-panel="action"] .phase-11g-training p{display:none!important}
+[data-phase24l-local-panel="action"] .phase-11g-training .eyebrow{font-size:6px}[data-phase24l-local-panel="action"] .phase-11g-training h3{margin:2px 0!important;font-size:11px!important}
+
+/* Make the existing Village speaker control self-explanatory without changing its session-only behavior. */
+.phase24k-speaker-hide{right:-12px!important;top:-30px!important;width:auto!important;min-width:58px!important;padding:0 10px!important;border-radius:999px!important;font-size:0!important}
+.phase24k-speaker-hide::after{content:"HIDE";font:900 8px/1 Inter,ui-sans-serif,sans-serif;letter-spacing:.09em}
+
+@media(max-width:340px){
+ :root{--phase24l-b2-local:58px;--phase24l-b2-sheet:min(48dvh,300px)}
+ [data-phase24l-game-screen]{padding-inline:5px!important}
+ [data-phase24l-game-screen]>.page-head{min-height:38px!important}.phase24l-guide-button{min-width:50px}
+ [data-phase24l-game-screen="fellowship"] .roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px!important}
+ [data-phase24l-game-screen="fellowship"] .roster-grid .char-card{display:block!important;min-height:148px!important}
+ [data-phase24l-game-screen="fellowship"] .roster-grid .char-card .art-wrap{height:104px!important;min-height:104px!important}
+ .phase24l-local-dock button{min-height:49px!important;font-size:6.5px!important}.phase24l-local-dock button i{font-size:18px}
+ [data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage .campaign-copy p{display:none}
+ [data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage .campaign-copy h2{font-size:21px!important}
+ .phase24k-wayfarer-cutout.campaign-player{height:150px!important;width:74px!important;bottom:48px!important}
+}
+@media(min-width:341px){[data-phase24l-game-screen="fellowship"] .roster-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-height:640px){
+ :root{--phase24l-b2-sheet:min(49dvh,270px)}
+ [data-phase24l-game-screen]>.page-head{min-height:36px!important}
+ [data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage .campaign-copy p{display:none}
+ [data-phase24l-game-screen="adventure"]>.phase24l-adventure-stage .campaign-copy h2{font-size:20px!important}
+ [data-phase24l-game-screen="adventure"] .phase24k-wayfarer-badge{top:4px;right:4px}
+}
+@media(prefers-reduced-motion:reduce){[data-phase24l-game-screen] *,[data-phase24l-game-screen] *::before,[data-phase24l-game-screen] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html.phase15-reduced-motion [data-phase24l-game-screen] *,html.phase15-reduced-motion [data-phase24l-game-screen] *::before,html.phase15-reduced-motion [data-phase24l-game-screen] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(forced-colors:active){.phase24l-local-dock,.phase24l-local-panel,.phase24l-route-guide,.phase24l-local-panel-head{background:Canvas!important}.phase24l-local-dock button,.phase24l-local-panel-close,.phase24l-guide-button{border:1px solid ButtonText!important}.phase24l-local-dock button[aria-selected="true"]{outline:2px solid Highlight}}
+@keyframes phase24lB2In{from{opacity:.2}to{opacity:1}}

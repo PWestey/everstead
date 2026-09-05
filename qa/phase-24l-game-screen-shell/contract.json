@@ -1,0 +1,104 @@
+{
+  "contractVersion": 1,
+  "phase": "24L-B2",
+  "status": "fellowship-adventure-game-screen-release-gate",
+  "schemaVersion": 15,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "predecessor": {
+    "commit": "c90cfd26e34c54b05537b030761c4760540d51c7",
+    "indexSha256": "8d81cb14870f92955c55de5a0e81e03940dba3698ce07600f3da3fc5831ea682"
+  },
+  "candidate": {
+    "source": "src/phase24l-game-screen-shell.js",
+    "css": "src/phase24l-game-screen-shell.css",
+    "global": "EVERSTEAD_PHASE24L_GAME_SCREEN_SHELL",
+    "resultGlobal": "__EVERSTEAD_PHASE24L_B2_RESULT__",
+    "version": 1,
+    "id": "everstead.phase24l.game-screen-shell.v1",
+    "styleVersion": "phase24l-b2-v2",
+    "ownershipBegin": "/* Phase 24L-B2 bounded Fellowship and Adventure game screens BEGIN */",
+    "ownershipEnd": "/* Phase 24L-B2 bounded Fellowship and Adventure game screens END */"
+  },
+  "integration": {
+    "b1Bridge": "__EVERSTEAD_PHASE_24L_B1_QA__",
+    "queryKey": "phase24l-fellow-exp-qa",
+    "queryValue": "1",
+    "selectors": {
+      "screen": "[data-phase24l-game-screen]",
+      "fellowship": "[data-phase24l-game-screen=\"fellowship\"]",
+      "adventure": "[data-phase24l-game-screen=\"adventure\"]",
+      "localDock": "[data-phase24l-local-dock]",
+      "localTab": "[data-phase24l-local-tab]",
+      "localPanel": "[data-phase24l-local-panel]",
+      "rosterDock": "[data-phase24l-local-dock=\"fellowship-roster\"]",
+      "rosterScroll": "[data-phase24l-roster-scroll]",
+      "guide": "[data-phase24l-guide]",
+      "guideOpen": "[data-phase24l-guide-open]",
+      "guideClose": "[data-phase24l-guide-close]"
+    }
+  },
+  "fellowship": {
+    "rosters": [
+      {"id": "fellows", "card": "[data-fellow]", "expectedCount": 18},
+      {"id": "family", "card": "[data-family]", "expectedCount": 20},
+      {"id": "companions", "card": "[data-companion]", "expectedCount": 20},
+      {"id": "relics", "card": "[data-relic-card]", "expectedCount": 6}
+    ],
+    "utilityPanels": ["might", "path", "tools", "notice"],
+    "guideSpeaker": "Tavi"
+  },
+  "adventure": {
+    "panels": ["action", "stages", "rewards", "records", "routes"],
+    "guideSpeaker": "Vex’ahlia",
+    "routes": [
+      {
+        "id": "fellowCampaign",
+        "primary": ["[data-campaign-run]"],
+        "stages": ["[data-campaign-stage]"],
+        "records": ["[data-phase22b-campaign-record]", "[data-phase-11c-repeat-panel=\"fellowCampaign\"]"]
+      },
+      {
+        "id": "fellowExpedition",
+        "primary": ["[data-expedition-push]", "[data-expedition-claim]"],
+        "stages": [],
+        "records": [".expedition-history"]
+      },
+      {
+        "id": "companionCampaign",
+        "primary": ["[data-companion-campaign-run]"],
+        "stages": ["[data-companion-campaign-stage]"],
+        "records": ["[data-phase-11c-repeat-panel=\"companionCampaign\"]"]
+      },
+      {
+        "id": "companionTower",
+        "primary": ["[data-companion-tower-clear]", "[data-companion-tower-claim]"],
+        "stages": [],
+        "records": [".tower-history"]
+      }
+    ],
+    "sharedReward": "[data-phase-11c-claim-card]",
+    "routeControl": "[data-adventure]",
+    "wayfarerCutout": "[data-phase24k-wayfarer-cutout]",
+    "wayfarerProfile": "[data-player-profile]"
+  },
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "maximumPanelViewportRatio": 0.54,
+    "fitTolerancePx": 2,
+    "browserHardTimeoutMs": 900000
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "columns": 2},
+    {"id": "phone-390x844", "width": 390, "height": 844, "columns": 3}
+  ],
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "economy-change",
+    "reward-change",
+    "progression-change",
+    "roster-change",
+    "new-art",
+    "gacha-or-premium-ui"
+  ]
+}

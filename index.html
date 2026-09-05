@@ -109,6 +109,7 @@
 <!-- Phase 24L-A viewport profile shell BEGIN -->
 <link rel="stylesheet" href="src/phase24l-profile-shell.css?v=phase24l-v1">
 <link rel="stylesheet" href="src/phase24l-fellow-exp-wallet.css?v=phase24l-b1-v1">
+<link rel="stylesheet" href="src/phase24l-game-screen-shell.css?v=phase24l-b2-v2">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -154,6 +155,7 @@
   <script src="src/phase24l-profile-shell.js?v=phase24l-v1"></script>
   <script src="src/phase24l-fellow-exp-ui.js?v=phase24l-b1-v1"></script>
   <script src="src/phase24l-fellow-exp-qa.js?v=phase24l-b1-v1"></script>
+<script src="src/phase24l-game-screen-shell.js?v=phase24l-b2-v2"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3483,6 +3485,14 @@ function phase24lB1Spend(id,mode,expectedIdentity){if(S?.experienceProgression?.
 function phase24lB1ReplayTutorial(){toast("Vex'ahlia: Earn Fellow EXP from rewards, open a Fellow's Level tab, preview x1, x10, or Max, then invest only when the result is right.")}
 const PHASE_24L_B1_UI_RESULT=PHASE_24L_B1_UI.install(Object.freeze({version:1,document,slot:phase24lSlot(()=>openFellow,value=>openFellow=value),api:Object.freeze({preview:phase24lB1PreviewForUi,spend:phase24lB1Spend,format:fmt,escape:esc,onSpent:result=>{toast(result.firstSpendTutorial?"Vex'ahlia: That EXP went only to the Fellow you chose. Rank still uses shards separately.":`Invested ${fmt(result.spentAmount)} Fellow EXP.`)},onRefused:result=>toast(result?.reason==='stale-spend-preview'?'That preview changed. Review the refreshed result.':'That EXP investment was not applied.'),replayTutorial:phase24lB1ReplayTutorial})}));
 if(!PHASE_24L_B1_UI_RESULT?.ok||PHASE_24L_B1_UI_RESULT.id!=='everstead.phase24l.fellow-exp-ui.v1'||PHASE_24L_B1_UI_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B1 Fellow EXP interface did not install safely');
+
+/* Phase 24L-B2 bounded Fellowship and Adventure game screens BEGIN */
+const PHASE_24L_B2=globalThis.EVERSTEAD_PHASE24L_GAME_SCREEN_SHELL;
+if(!PHASE_24L_B2||PHASE_24L_B2.version!==1||PHASE_24L_B2.id!=='everstead.phase24l.game-screen-shell.v1')throw new Error('The Everstead Phase 24L-B2 game-screen shell is unavailable or incompatible');
+const PHASE_24L_B2_RESULT=PHASE_24L_B2.install(Object.freeze({version:1,document,slots:Object.freeze({rosterScreen:phase24lSlot(()=>rosterScreen,value=>rosterScreen=value),adventureScreen:phase24lSlot(()=>adventureScreen,value=>adventureScreen=value),bindCommon:phase24lSlot(()=>bindCommon,value=>bindCommon=value)}),api:Object.freeze({state:()=>phase24lB1ActualState(S),defer:callback=>runtimeSetTimeout(callback,0)})}));
+if(!PHASE_24L_B2_RESULT?.ok||PHASE_24L_B2_RESULT.id!=='everstead.phase24l.game-screen-shell.v1'||PHASE_24L_B2_RESULT.mechanicsChanged!==false||PHASE_24L_B2_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B2 game-screen shell did not install safely');
+Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B2_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B2_RESULT,diagnostics:()=>PHASE_24L_B2.diagnostics()})});
+/* Phase 24L-B2 bounded Fellowship and Adventure game screens END */
 
 const PHASE_24L_B1_QA_RUNTIME=globalThis.EVERSTEAD_PHASE24L_FELLOW_EXP_QA_RUNTIME;
 if(!PHASE_24L_B1_QA_RUNTIME||PHASE_24L_B1_QA_RUNTIME.version!==1||PHASE_24L_B1_QA_RUNTIME.bridgeName!=='__EVERSTEAD_PHASE_24L_B1_QA__')throw new Error('The Everstead Phase 24L-B1 QA runtime is unavailable or incompatible');
