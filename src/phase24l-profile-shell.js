@@ -178,7 +178,7 @@
   dock.dataset.phase24lProfileDock=kind;
   dock.setAttribute('role','tablist');
   dock.setAttribute('aria-label',`${profileTitle(shell)} profile sections`);
-  dock.innerHTML=PROFILE_DEFINITIONS[kind].map(definition=>`<button type="button" id="phase24l-${kind}-${definition.id}-tab" data-phase24l-profile-tab="${definition.id}" role="tab" aria-controls="phase24l-${kind}-${definition.id}-panel" aria-selected="false" aria-expanded="false"><i aria-hidden="true">${definition.icon}</i><span>${definition.label}</span></button>`).join('');
+  dock.innerHTML=PROFILE_DEFINITIONS[kind].map(definition=>`<button type="button" id="phase24l-${kind}-${definition.id}-tab" data-phase24l-profile-tab="${definition.id}" role="tab" aria-controls="phase24l-${kind}-${definition.id}-panel" aria-selected="false" aria-expanded="false"><i aria-hidden="true">${kind==='fellow'?`<img src="assets/ui/fellow-panels/${definition.id}.svg" alt="">`:definition.icon}</i><span>${definition.label}</span></button>`).join('');
   return dock;
  }
 
