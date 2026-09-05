@@ -192,6 +192,7 @@
   for(const panel of panels){
    const shown=panel.dataset.phase24lPanel===active;
    panel.hidden=!shown;
+   panel.inert=!shown;
    panel.setAttribute('aria-hidden',String(!shown));
    setPanelInteractive(panel,shown);
   }

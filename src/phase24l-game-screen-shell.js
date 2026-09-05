@@ -365,7 +365,7 @@
    }
   });
   document.addEventListener('keydown',event=>{
-   if(event.key!=='Escape')return;
+   if(event.key!=='Escape'||document.querySelector('#overlay [data-overlay],#overlay [role="dialog"]'))return;
    const guideNode=document.querySelector('[data-phase24l-guide]:not([hidden])');
    if(guideNode){event.preventDefault();event.stopPropagation();closeGuide(document,guideNode.dataset.phase24lGuide);return}
    const screen=document.querySelector('[data-phase24l-game-screen="adventure"]');

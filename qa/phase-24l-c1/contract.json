@@ -1,0 +1,181 @@
+{
+  "contractId": "phase-24l-c1-banked-companion-exp-qa.v1",
+  "phase": "24L-C1",
+  "status": "banked-companion-exp-release-gate",
+  "schemaVersion": 15,
+  "contractDocument": "docs/PHASE_24L_C1_COMPANION_EXP_CONTRACT.md",
+  "predecessor": {
+    "commit": "7cf2ccaca447e15cfa5e9aa8f77b6306f775abc1",
+    "rootVersion": 2,
+    "source": "src/phase24l-fellow-exp-wallet.js",
+    "global": "EVERSTEAD_PHASE24L_FELLOW_EXP_WALLET",
+    "policyId": "everstead.exp-wallet.phase-24l.v2",
+    "activationId": "activation.phase-24l-b1-fellow-exp-wallet.v1",
+    "frozenAuthoritySha256": {
+      "src/phase24l-exp-foundation.js": "7611fb363490915b7551951011dc46810f8b94c4ff14c10e5f32f77e6297858d",
+      "src/phase24l-fellow-exp-wallet.js": "1cef5a784c35364337130c8099bfaf0ba4272fc625305f7fa714169c90d7bf87",
+      "src/phase24l-fellow-exp-wallet.css": "71012ae4d1b6f8020f34ddd3cc686b39d596d04ae7c62d3facb5221d40cd573f",
+      "src/phase24l-fellow-exp-ui.js": "d63bbe06f9a01ada39656535e07c633e0acaa466db401e706aab48dfcc56cc5f",
+      "src/phase23-companion-runtime.js": "fd1455fef5cb5632fc53b055c935848e6b6f13f40175518520f0f4aa548dde40"
+    }
+  },
+  "candidate": {
+    "rootVersion": 3,
+    "source": "src/phase24l-companion-exp-wallet.js",
+    "css": "styles/phase24l-companion-exp-ui.css",
+    "uiSource": "src/phase24l-companion-exp-ui.js",
+    "global": "EVERSTEAD_PHASE24L_COMPANION_EXP_WALLET",
+    "version": 1,
+    "policyId": "everstead.exp-wallet.phase-24l.v3",
+    "activationId": "activation.phase-24l-c1-companion-exp-wallet.v1",
+    "activationSource": "phase24l-c1-activation",
+    "creditSource": "phase24l-c1-companion-exp-credit",
+    "spendSource": "phase24l-c1-companion-exp-spend",
+    "ledgerVersion": 3,
+    "maxTailEntries": 256,
+    "rootFields": ["companionActivation", "companionLedger", "companionTutorials"],
+    "requiredFunctions": [
+      "canonicalStringify",
+      "sha256",
+      "rootIdentity",
+      "creditAward",
+      "ledgerHeadIdentity",
+      "validateV3State",
+      "validateState",
+      "activateV2State",
+      "projectToV2",
+      "previewSpend",
+      "stageCredit",
+      "stageSpend",
+      "validateRootTransition"
+    ]
+  },
+  "wallet": {
+    "roster": "companion",
+    "shared": true,
+    "rounding": "floor-once-at-credit",
+    "bpsDenominator": 10000,
+    "highCollectionBps": 100000,
+    "levelCap": 100,
+    "expBase": 80,
+    "expGrowth": 1.12,
+    "modes": ["x1", "x10", "max"]
+  },
+  "ledger": {
+    "liveTailMaximum": 256,
+    "entryKinds": ["credit", "spend"],
+    "creditRoutes": [
+      "companion-campaign",
+      "companion-tower-clear",
+      "companion-tower-idle",
+      "manual-reward-claim"
+    ],
+    "qaCreditSource": "qa-companion-exp",
+    "towerCreditsPerPositiveTarget": true,
+    "canonicalCompanionCount": 20,
+    "projectionUsesRawCredits": true,
+    "projectionExcludesCollectionBonus": true
+  },
+  "activation": {
+    "changesActors": false,
+    "grantsRewards": false,
+    "convertsPendingTower": false,
+    "startsCompanionWalletAtZero": true,
+    "preservesFellowAuthority": true,
+    "receiptExactlyOnce": true
+  },
+  "tutorials": {
+    "ids": [
+      "tutorial.phase-24l-c1.companion-exp-earned.v1",
+      "tutorial.phase-24l-c1.companion-exp-spent.v1"
+    ],
+    "requiredKinds": ["first-credit", "first-affordable-spend"],
+    "currentRosterSpeakersOnly": true,
+    "skippable": true,
+    "replayable": true,
+    "rewardApplications": 0
+  },
+  "integration": {
+    "productionBridge": "__EVERSTEAD_PHASE_24L_C1_QA__",
+    "queryKey": "phase24l-companion-exp-qa",
+    "queryValue": "1",
+    "profileKind": "companion",
+    "levelTab": "level",
+    "selectors": {
+      "profile": "#overlay [data-phase24l-profile=\"companion\"]",
+      "levelTab": "[data-phase24l-profile-tab=\"level\"]",
+      "levelPanel": "[data-phase24l-panel=\"level\"]",
+      "investment": "[data-phase24l-c1-exp-investment]",
+      "wallet": "[data-phase24l-c1-exp-wallet]",
+      "invested": "[data-phase24l-c1-exp-invested]",
+      "modeGroup": "[data-phase24l-c1-exp-modes]",
+      "mode": "[data-phase24l-c1-exp-mode]",
+      "commit": "[data-phase24l-c1-exp-commit]",
+      "status": "[data-phase24l-c1-exp-status]",
+      "help": "[data-phase24l-c1-tutorial=\"replay\"]",
+      "tutorial": "[data-phase24l-c1-tutorial]",
+      "profileClose": "#overlay [data-modal-close]"
+    },
+    "adapter": {
+      "read": {
+        "snapshot": "read.snapshot",
+        "validate": "read.validate",
+        "wallet": "read.wallet",
+        "companion": "read.companion",
+        "preview": "read.preview",
+        "tutorials": "read.tutorials",
+        "projection": "read.projection"
+      },
+      "destructive": {
+        "reset": "destructive.reset",
+        "activate": "destructive.activate",
+        "credit": "destructive.credit",
+        "campaign": "destructive.campaign",
+        "towerClear": "destructive.towerClear",
+        "towerSettle": "destructive.towerSettle",
+        "towerClaim": "destructive.towerClaim",
+        "manualClaim": "destructive.manualClaim",
+        "mixedClaim": "destructive.mixedClaim",
+        "spend": "destructive.spend",
+        "reload": "destructive.reload",
+        "roundTripImport": "destructive.roundTripImport",
+        "roundTripPrevious": "destructive.roundTripPrevious",
+        "safeResetRecovery": "destructive.safeResetRecovery",
+        "multiClient": "destructive.multiClient",
+        "tutorial": "destructive.tutorial",
+        "probeRefusal": "destructive.probeRefusal",
+        "foldLedger": "destructive.foldLedger"
+      }
+    }
+  },
+  "fixtures": [
+    "fresh-v2",
+    "established-v2",
+    "pending-tower-v2",
+    "campaign-ready-v2",
+    "tower-ready-v2",
+    "manual-claim-ready-v2",
+    "mixed-claim-ready-v2",
+    "assigned-partial-v2"
+  ],
+  "refusals": [
+    "duplicate-credit",
+    "duplicate-campaign-credit",
+    "duplicate-tower-clear-credit",
+    "duplicate-tower-idle-claim",
+    "duplicate-manual-claim",
+    "stale-spend",
+    "duplicate-spend",
+    "insufficient-wallet",
+    "at-level-cap",
+    "companion-unavailable",
+    "unsafe-credit-overflow",
+    "malformed-bps",
+    "corrupt-ledger",
+    "locked-future-gate"
+  ],
+  "viewports": [
+    {"id": "compact", "width": 320, "height": 568},
+    {"id": "standard", "width": 390, "height": 844}
+  ]
+}
