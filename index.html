@@ -111,6 +111,7 @@
 <link rel="stylesheet" href="src/phase24l-fellow-exp-wallet.css?v=phase24l-b1-v1">
 <link rel="stylesheet" href="src/phase24l-game-screen-shell.css?v=phase24l-b2-v2">
 <link rel="stylesheet" href="src/phase24l-compact-hubs.css?v=phase24l-b3a-v1">
+<link rel="stylesheet" href="src/phase24l-legacy-inventory.css?v=phase24l-b3b-v1">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -158,6 +159,7 @@
   <script src="src/phase24l-fellow-exp-qa.js?v=phase24l-b1-v1"></script>
 <script src="src/phase24l-game-screen-shell.js?v=phase24l-b2-v2"></script>
 <script src="src/phase24l-compact-hubs.js?v=phase24l-b3a-v1"></script>
+<script src="src/phase24l-legacy-inventory.js?v=phase24l-b3b-v1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3503,6 +3505,14 @@ const PHASE_24L_B3A_RESULT=PHASE_24L_B3A.install(Object.freeze({version:1,docume
 if(!PHASE_24L_B3A_RESULT?.ok||PHASE_24L_B3A_RESULT.id!=='everstead.phase24l.compact-hubs.v1'||PHASE_24L_B3A_RESULT.mechanicsChanged!==false||PHASE_24L_B3A_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3A compact hubs did not install safely');
 Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3A_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3A_RESULT,diagnostics:()=>PHASE_24L_B3A.diagnostics()})});
 /* Phase 24L-B3A compact Oaths and More hubs END */
+
+/* Phase 24L-B3B compact Legacy and truthful Inventory BEGIN */
+const PHASE_24L_B3B=globalThis.EVERSTEAD_PHASE24L_LEGACY_INVENTORY;
+if(!PHASE_24L_B3B||PHASE_24L_B3B.version!==1||PHASE_24L_B3B.id!=='everstead.phase24l.legacy-inventory.v1')throw new Error('The Everstead Phase 24L-B3B Legacy and Inventory runtime is unavailable or incompatible');
+const PHASE_24L_B3B_RESULT=PHASE_24L_B3B.install(Object.freeze({version:1,document,slots:Object.freeze({bindCommon:phase24lSlot(()=>bindCommon,value=>bindCommon=value),bindModal:phase24lSlot(()=>bindModal,value=>bindModal=value)}),api:Object.freeze({state:()=>phase24lB1ActualState(S),definitions:Object.freeze({fellows:FELLOW_DEFS.map(item=>Object.freeze({id:item.id,name:item.name})),family:FAMILY_DEFS.map(item=>Object.freeze({id:item.id,name:item.name})),companions:COMPANION_DEFS.map(item=>Object.freeze({id:item.id,name:item.name})),relics:RELIC_DEFS.map(item=>Object.freeze({id:item.id,name:item.name,icon:item.icon,tier:item.tier}))}),showModal,openLegacy:()=>phaseThirteenOpenLegacy(),format:fmt,escape:esc,defer:callback=>runtimeSetTimeout(callback,0),wideInventory:()=>window.matchMedia('(min-width:370px)').matches,isFellowAvailable:(state,id)=>phaseElevenGFellowAvailable(id,state),requiredFellowRank:id=>phaseElevenGRequiredRank(id),route:route=>{closeModal();if(route.kind==='relic'){openRelic(route.id);return true}if(route.kind==='relics'){nav('fellows');setRoster('relics');return true}if(route.kind==='roster'){nav('fellows');setRoster(route.roster);return true}if(route.kind==='actor'){const roster=route.actorKind==='fellow'?'fellows':route.actorKind==='family'?'family':'companions';nav('fellows');setRoster(roster);runtimeSetTimeout(()=>{if(route.actorKind==='fellow')openFellow(route.id);else if(route.actorKind==='family')openFamily(route.id);else openCompanion(route.id)},0);return true}return false}})}));
+if(!PHASE_24L_B3B_RESULT?.ok||PHASE_24L_B3B_RESULT.id!=='everstead.phase24l.legacy-inventory.v1'||PHASE_24L_B3B_RESULT.mechanicsChanged!==false||PHASE_24L_B3B_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3B Legacy and Inventory did not install safely');
+Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3B_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3B_RESULT,diagnostics:()=>PHASE_24L_B3B.diagnostics()})});
+/* Phase 24L-B3B compact Legacy and truthful Inventory END */
 
 const PHASE_24L_B1_QA_RUNTIME=globalThis.EVERSTEAD_PHASE24L_FELLOW_EXP_QA_RUNTIME;
 if(!PHASE_24L_B1_QA_RUNTIME||PHASE_24L_B1_QA_RUNTIME.version!==1||PHASE_24L_B1_QA_RUNTIME.bridgeName!=='__EVERSTEAD_PHASE_24L_B1_QA__')throw new Error('The Everstead Phase 24L-B1 QA runtime is unavailable or incompatible');

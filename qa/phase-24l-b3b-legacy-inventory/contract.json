@@ -1,0 +1,80 @@
+{
+  "contractVersion": 1,
+  "phase": "24L-B3B",
+  "status": "compact-legacy-truthful-inventory-release-gate",
+  "schemaVersion": 15,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "predecessor": {
+    "commit": "b84dbd8f3bab1be3ac9a9c08e4fd6e9571ce4218",
+    "indexSha256": "a1e0a1adfd85655931550fa3405bb9be6196c667db7c0926da664eebf3f8b6a0"
+  },
+  "candidate": {
+    "source": "src/phase24l-legacy-inventory.js",
+    "css": "src/phase24l-legacy-inventory.css",
+    "global": "EVERSTEAD_PHASE24L_LEGACY_INVENTORY",
+    "resultGlobal": "__EVERSTEAD_PHASE24L_B3B_RESULT__",
+    "version": 1,
+    "id": "everstead.phase24l.legacy-inventory.v1",
+    "styleVersion": "phase24l-b3b-v1",
+    "ownershipBegin": "/* Phase 24L-B3B compact Legacy and truthful Inventory BEGIN */",
+    "ownershipEnd": "/* Phase 24L-B3B compact Legacy and truthful Inventory END */"
+  },
+  "integration": {
+    "phase13Bridge": "__EVERSTEAD_PHASE_13_QA__",
+    "phase24lB0Bridge": "__EVERSTEAD_PHASE_24L_B0_QA__",
+    "phase24lB1Bridge": "__EVERSTEAD_PHASE_24L_B1_QA__",
+    "query": "qa=1&phase24l-exp-qa=1&phase24l-fellow-exp-qa=1"
+  },
+  "selectors": {
+    "more": "[data-phase24l-compact-screen=\"more\"]",
+    "launches": "[data-phase24l-b3b-launches]",
+    "inventoryOpen": "[data-phase24l-b3b-inventory-open]",
+    "inventory": "[data-phase24l-b3b-inventory]",
+    "inventoryTab": "[data-phase24l-b3b-category]",
+    "inventoryGrid": "[data-phase24l-b3b-grid]",
+    "inventoryItem": "[data-phase24l-b3b-item]",
+    "inventoryDetail": "[data-phase24l-b3b-detail]",
+    "legacy": "[data-phase24l-b3b-legacy]",
+    "legacyTab": "[data-phase24l-b3b-legacy-tab]",
+    "legacyPanel": "[data-phase24l-b3b-legacy-panel]"
+  },
+  "inventory": {
+    "tabs": ["materials", "gifts", "shards", "relics", "keepsakes"],
+    "materials": ["Fellow EXP", "Relic Stones"],
+    "gift": "Gifts",
+    "shardCatalogSize": 58,
+    "compactPageSize": 9,
+    "standardPageSize": 12,
+    "emptyKeepsakes": "Keepsakes are not active yet"
+  },
+  "legacy": {
+    "tabs": ["tracks", "feats", "ready", "history"],
+    "allowedClaimSources": [
+      "story.book1.chapter1.village-toll.resolution",
+      "legacy.oathkeeper.tier-1",
+      "legacy.feat.first-campaign-clear"
+    ],
+    "forbiddenClaimTerms": ["apothecary", "schoolhouse", "phase18", "phase19"]
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568, "inventoryPageSize": 9},
+    {"id": "phone-390x844", "width": 390, "height": 844, "inventoryPageSize": 12}
+  ],
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "fitTolerancePx": 2,
+    "browserHardTimeoutMs": 600000
+  },
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "new-item-authority",
+    "inventory-capacity",
+    "inventory-conversion",
+    "inventory-randomness",
+    "new-claim-authority",
+    "phase18-or-phase19-achievement-claims",
+    "economy-or-progression-change",
+    "third-party-art-or-trade-dress"
+  ]
+}
