@@ -1,0 +1,70 @@
+/* Everstead Phase 24L-B3E: bounded, tabbed Phase 20/21 successor facility sheets. */
+.overlay:has([data-phase24l-b3e-modal]){align-items:center;padding:max(8px,env(safe-area-inset-top)) 7px max(8px,env(safe-area-inset-bottom));background:#020609e8}
+.modal[data-phase24l-b3e-modal]{display:flex;flex-direction:column;width:min(100%,506px);height:min(760px,calc(100dvh - max(16px,env(safe-area-inset-top)) - max(16px,env(safe-area-inset-bottom))));max-height:none;overflow:hidden;padding:8px;border-color:#f1c76b58;border-radius:20px;background:linear-gradient(160deg,#17303a,#08131b 72%)}
+.modal[data-phase24l-b3e-modal] .close{flex:0 0 44px;min-width:44px;min-height:44px}
+
+.phase20-21-sheet[data-phase24l-b3e-facility]{display:flex;flex:1 1 auto;min-height:0;max-width:100%;flex-direction:column;gap:6px;overflow:hidden;outline:none}
+.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene{position:relative;flex:0 0 92px;min-height:0;overflow:hidden;border:1px solid #f1c76b5c;border-radius:15px;padding:10px 12px;background:linear-gradient(180deg,#07131b26,#07131bea),url('../assets/backgrounds/village.webp') center 57%/cover no-repeat;text-shadow:0 2px 8px #000}
+.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene:after{content:attr(data-phase24l-b3e-scene-icon);position:absolute;right:18px;bottom:6px;color:#f1c76b99;font:42px/1 Georgia,serif}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.command-center"]>.phase24l-b3e-scene{background-position:center 26%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.archives"]>.phase24l-b3e-scene{background-position:center 15%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.training-grounds"]>.phase24l-b3e-scene{background-position:left 72%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.hearth"]>.phase24l-b3e-scene{background-position:right 70%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.gatehouse"]>.phase24l-b3e-scene{background-position:center bottom}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.market-workshop"]>.phase24l-b3e-scene{background-position:left 57%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.gardens"]>.phase24l-b3e-scene{background-position:right 82%}
+.phase20-21-sheet[data-phase24l-b3e-facility="facility.forge"]>.phase24l-b3e-scene{background-position:right 48%}
+.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene h2{margin:3px 0;color:#fff7e7;font:700 23px/1 Georgia,serif}
+.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene p{max-width:315px;margin:0;color:#d2dedc;font-size:10px;line-height:1.35}
+
+.phase24l-b3e-panel-stack{display:flex;flex:1 1 auto;min-height:0;max-width:100%;overflow:hidden}
+.phase24l-b3e-panel{flex:1 1 auto;min-width:0;min-height:0;max-width:100%;overflow:hidden;padding:1px}
+.phase24l-b3e-panel[hidden]{display:none!important}
+.phase24l-b3e-panel>section,.phase24l-b3e-panel>article,.phase24l-b3e-panel>aside,.phase24l-b3e-panel>footer,.phase24l-b3e-panel>div{margin:0 0 6px!important}
+.phase24l-b3e-panel>.phase20-21-opportunity{gap:7px;padding:10px!important;border-radius:13px!important;overflow:visible}
+.phase24l-b3e-panel>.phase20-21-opportunity>header{gap:7px}
+.phase24l-b3e-panel>.phase20-21-opportunity h3,.phase24l-b3e-panel>.phase20-21-empty h3,.phase24l-b3e-panel>.phase20-21-queue h3,.phase24l-b3e-panel>.phase20-21-participants h3{font-size:16px}
+.phase24l-b3e-panel>.phase20-21-opportunity>p,.phase24l-b3e-panel>.phase20-21-empty p,.phase24l-b3e-panel .phase20-21-tutorial p{font-size:10px;line-height:1.4}
+.phase24l-b3e-panel .es-stat-ribbon{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+.phase24l-b3e-panel .es-stat-ribbon>div{min-block-size:38px;padding:4px 2px}
+.phase24l-b3e-panel .es-stat-ribbon span{font-size:8px}
+.phase24l-b3e-panel .es-stat-ribbon b{font-size:11px}
+.phase24l-b3e-panel .es-option-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.phase24l-b3e-panel .phase20-21-option{min-width:0;min-height:44px;padding:7px 5px;font-size:10px}
+.phase24l-b3e-panel .es-requirement-row{padding:9px}
+.phase24l-b3e-panel .es-requirement-row span{font-size:9px}
+.phase24l-b3e-panel .es-requirement-row b,.phase24l-b3e-panel .es-requirement-row p{font-size:10px}
+.phase24l-b3e-panel .phase20-21-actor{min-height:72px;font-size:10px}
+.phase24l-b3e-panel .phase20-21-actor b,.phase24l-b3e-panel .phase20-21-presenter b{font-size:10px}
+.phase24l-b3e-panel .phase20-21-presenter small{font-size:9px}
+.phase24l-b3e-panel .phase20-21-record-row{min-height:44px}
+.phase24l-b3e-panel .phase20-21-record-row span{font-size:10px}
+.phase24l-b3e-panel .phase20-21-record-row b{font-size:9px}
+.phase24l-b3e-panel .phase20-21-queue{gap:4px;padding:7px}
+.phase24l-b3e-queue-rail{display:flex;gap:5px;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:1px 1px 4px;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#f1c76b66 transparent}
+.phase24l-b3e-queue-rail>.phase20-21-record-row{flex:0 0 min(176px,76vw);min-width:0}
+.phase24l-b3e-panel .phase20-21-sheet-footer{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.phase24l-b3e-panel .phase20-21-sheet-footer .btn{min-height:44px;padding:6px 4px;font-size:9px}
+.phase24l-b3e-panel .phase20-21-policy-note{padding:3px 5px;font-size:9px}
+.phase24l-b3e-panel [data-phase20-21-receipt-summary]{font-size:10px}
+.phase24l-b3e-panel .es-reward-preview h3{font-size:17px}
+.phase24l-b3e-panel .es-reward-preview p{font-size:10px}
+
+.phase20-21-sheet[data-phase24l-b3e-facility]>[data-phase20-21-action-dock]{position:relative;inset:auto;z-index:2;display:grid;flex:0 0 auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0;padding:5px;border:1px solid #ffffff18;border-radius:13px;background:#07131be8}
+.phase20-21-sheet[data-phase24l-b3e-facility]>[data-phase20-21-action-dock] .btn{min-width:0;min-height:44px;padding:6px 4px;font-size:10px;white-space:normal}
+
+.phase24l-b3e-tabs{display:grid;flex:0 0 54px;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border:1px solid #ffffff18;border-radius:14px;background:#07131bf2}
+.phase24l-b3e-tabs button{min-width:0;min-height:44px;padding:3px 2px;border:1px solid transparent;border-radius:10px;background:transparent;color:#a9bbbe;font:900 9px/1 Inter,ui-sans-serif,sans-serif;text-transform:uppercase}
+.phase24l-b3e-tabs button i{display:block;margin-bottom:3px;color:#d9bd7e;font:normal 17px/1 Georgia,serif}
+.phase24l-b3e-tabs button[aria-selected="true"]{border-color:#f1c76b70;background:#f1c76b16;color:#fff7e7;box-shadow:inset 0 0 0 1px #66e1d225}
+.phase24l-b3e-tabs button:focus-visible,.phase24l-b3e-panel:focus-visible{outline:3px solid white;outline-offset:2px}
+.phase24l-b3e-empty{display:grid;place-items:center;align-content:center;min-height:126px;padding:14px;border:1px dashed #ffffff27;border-radius:14px;background:#07131b99;color:#b9c9cb;text-align:center}
+.phase24l-b3e-empty b{color:#f1c76b;font:700 16px Georgia,serif}
+.phase24l-b3e-empty p{max-width:300px;margin:6px 0 0;font-size:10px;line-height:1.4}
+
+@media(min-width:370px){.phase24l-b3e-tabs button{font-size:10px}}
+@media(max-width:369px){.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene{flex-basis:72px;padding:8px 9px}.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene p{display:none}.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene h2{font-size:20px}.phase24l-b3e-tabs button{font-size:8.5px}.phase24l-b3e-panel .phase20-21-sheet-footer .btn{font-size:8.5px}}
+@media(max-height:640px){.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene{flex-basis:64px}.phase20-21-sheet[data-phase24l-b3e-facility]>.phase24l-b3e-scene p,.phase20-21-sheet[data-phase24l-b3e-facility] .phase20-21-policy-note{display:none}}
+@media(prefers-reduced-motion:reduce){[data-phase24l-b3e-modal],[data-phase24l-b3e-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html.phase15-reduced-motion [data-phase24l-b3e-modal],html.phase15-reduced-motion [data-phase24l-b3e-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(forced-colors:active){.phase24l-b3e-scene,.phase24l-b3e-tabs,.phase24l-b3e-panel>section,.phase24l-b3e-panel>article,.phase24l-b3e-empty,.phase20-21-sheet[data-phase24l-b3e-facility]>[data-phase20-21-action-dock]{background:Canvas!important}.phase24l-b3e-tabs button{border:1px solid ButtonText!important}}

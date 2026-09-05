@@ -1,0 +1,33 @@
+{
+  "id": "everstead.phase24l.successor-facility-modals.qa.v1",
+  "phase": "24L-B3E",
+  "schemaVersion": 15,
+  "runtimeId": "everstead.phase24l.successor-facility-modals.v1",
+  "runtimeGlobal": "EVERSTEAD_PHASE24L_SUCCESSOR_FACILITY_MODALS",
+  "resultGlobal": "__EVERSTEAD_PHASE24L_B3E_RESULT__",
+  "bridgeVersion": "phase-20-21-independent-qa-v2",
+  "predecessorCommit": "6ff7d60be2df438813624483c5b62fca084a0d96",
+  "predecessorIndexSha256": "c3eb746be66c930d9a0909b305f37dc4c3c18ad601bf2d2e0ee6d8c89d2fb718",
+  "predecessorAuthoritySha256": {
+    "src/phase20-21-runtime.js": "b6894ef6b7b031c4acf6457b658e99b996a816ca9900d7b12e7d711d5e41dc62",
+    "src/phase20-21-presentation.js": "1bfefa4e148e6c4a7d5a27641dcfeaa8880b6c7f56c87fc023c01f69f8fcb3fd",
+    "src/phase20-21-facilities.js": "51f9f7b0b4fd1a5bfe4aa5b9f09ec30e251eefedbb0eae25a6911d5c3cc7de8b"
+  },
+  "mechanicsChanged": false,
+  "saveChanged": false,
+  "publicReleaseChanged": false,
+  "viewports": [
+    {"id": "small", "width": 320, "height": 568},
+    {"id": "standard", "width": 390, "height": 844}
+  ],
+  "facilities": [
+    {"id": "facility.command-center", "key": "command-center", "fixture": "p20-21.qa.command-center-banked.v2", "tabs": ["petition", "decision", "queue", "record"], "participants": false, "passiveBuilding": true},
+    {"id": "facility.archives", "key": "archives", "fixture": "p20-21.qa.archives-banked.v2", "tabs": ["lead", "evidence", "queue", "record"], "participants": false, "passiveBuilding": true},
+    {"id": "facility.training-grounds", "key": "training-grounds", "fixture": "p20-21.qa.training-grounds-banked.v2", "tabs": ["drill", "formation", "team", "result"], "participants": true, "passiveBuilding": true},
+    {"id": "facility.hearth", "key": "hearth", "fixture": "p20-21.qa.hearth-banked.v2", "tabs": ["gathering", "theme", "guests", "result"], "participants": true, "passiveBuilding": true},
+    {"id": "facility.gatehouse", "key": "gatehouse", "fixture": "p20-21.qa.gatehouse-banked.v2", "tabs": ["arrival", "reception", "queue", "result"], "participants": false, "passiveBuilding": false},
+    {"id": "facility.market-workshop", "key": "market-workshop", "fixture": "p20-21.qa.market-workshop-banked.v2", "tabs": ["order", "fulfillment", "materials", "result"], "participants": false, "passiveBuilding": false},
+    {"id": "facility.gardens", "key": "gardens", "fixture": "p20-21.qa.gardens-banked.v2", "tabs": ["plot", "cultivate", "growth", "harvest"], "participants": false, "passiveBuilding": false},
+    {"id": "facility.forge", "key": "forge", "fixture": "p20-21.qa.forge-banked.v2", "tabs": ["commission", "method", "materials", "result"], "participants": false, "passiveBuilding": false}
+  ]
+}
