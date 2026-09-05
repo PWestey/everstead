@@ -1,0 +1,13 @@
+{
+  "id": "everstead.phase24l.private-facility-modals.qa.v1",
+  "phase": "24L-B3D",
+  "schemaVersion": 15,
+  "predecessorCommit": "03afa4d36391c08870316e174645e15c3ce5fb0c",
+  "predecessorIndexSha256": "c22c8fab07355f7db5d75a529ea0f42239307f63af390ef07dc20c6a852d1c53",
+  "mechanicsChanged": false,
+  "saveChanged": false,
+  "usesExistingPhase1819QaBridge": true,
+  "apothecaryTabs": ["case", "diagnose", "remedy", "result"],
+  "schoolhouseTabs": ["pupils", "lesson", "teach", "result"],
+  "viewports": ["320x568", "390x844"]
+}

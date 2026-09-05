@@ -1,0 +1,47 @@
+/* Everstead Phase 24L-B3D: bounded, tabbed private facility game sheets. */
+.overlay:has([data-phase24l-b3d-modal]){align-items:center;padding:max(8px,env(safe-area-inset-top)) 7px max(8px,env(safe-area-inset-bottom));background:#020609e8}
+.modal[data-phase24l-b3d-modal]{display:flex;flex-direction:column;width:min(100%,506px);height:min(760px,calc(100dvh - max(16px,env(safe-area-inset-top)) - max(16px,env(safe-area-inset-bottom))));max-height:none;overflow:hidden;padding:8px;border-color:#f1c76b58;border-radius:20px;background:linear-gradient(160deg,#17303a,#08131b 72%)}
+.modal[data-phase24l-b3d-modal] .close{flex:0 0 44px;min-width:44px;min-height:44px}
+
+.phase-1819-sheet[data-phase24l-b3d-facility]{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;gap:6px;overflow:hidden;outline:none}
+.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene{position:relative;flex:0 0 98px;min-height:0;overflow:hidden;border:1px solid #f1c76b5c;border-radius:15px;padding:10px 12px;background:linear-gradient(180deg,#07131b30,#07131bea),url('../assets/backgrounds/village.webp') center 57%/cover no-repeat;text-shadow:0 2px 8px #000}
+.phase-1819-sheet[data-phase24l-b3d-facility="apothecary"]>.phase24l-b3d-scene:after,.phase-1819-sheet[data-phase24l-b3d-facility="schoolhouse"]>.phase24l-b3d-scene:after{position:absolute;right:18px;bottom:6px;color:#f1c76b99;font:42px/1 Georgia,serif}
+.phase-1819-sheet[data-phase24l-b3d-facility="apothecary"]>.phase24l-b3d-scene:after{content:'⚗'}
+.phase-1819-sheet[data-phase24l-b3d-facility="schoolhouse"]>.phase24l-b3d-scene:after{content:'◇'}
+.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene h2{margin:3px 0;color:#fff7e7;font:700 23px/1 Georgia,serif}
+.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene p{max-width:310px;margin:0;color:#d2dedc;font-size:10px;line-height:1.35}
+.phase-1819-sheet[data-phase24l-b3d-facility]>[data-phase22c-local-summary]{flex:0 0 auto;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.phase-1819-sheet[data-phase24l-b3d-facility]>[data-phase22c-local-summary]>div{padding:5px 3px}
+.phase-1819-sheet[data-phase24l-b3d-facility]>[data-phase22c-local-summary] span{font-size:9px}
+.phase-1819-sheet[data-phase24l-b3d-facility]>[data-phase22c-local-summary] b{font-size:11px}
+
+.phase24l-b3d-panel-stack{display:flex;flex:1 1 auto;min-height:0;overflow:hidden}
+.phase24l-b3d-panel{flex:1 1 auto;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:1px;scrollbar-width:thin;scrollbar-color:#f1c76b66 transparent}
+.phase24l-b3d-panel[hidden]{display:none!important}
+.phase24l-b3d-panel>section,.phase24l-b3d-panel>aside{margin:0 0 6px!important;padding:9px!important;border-radius:12px!important}
+.phase24l-b3d-panel>p.soft{margin:0 0 6px;padding:7px 9px;border:1px solid #ffffff12;border-radius:10px;background:#07131b;color:#b9c9cb;font-size:10px;line-height:1.35}
+.phase24l-b3d-panel .phase-1819-section-head h3,.phase24l-b3d-panel>section>h3{font-size:15px}
+.phase24l-b3d-panel .phase-1819-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.phase24l-b3d-panel .phase-1819-choice{min-width:0;min-height:44px;padding:7px 5px;font-size:10px}
+.phase24l-b3d-panel .phase-1819-evidence{min-width:0;padding:7px 5px;font-size:10px;overflow-wrap:anywhere}
+.phase24l-b3d-panel .phase-1819-pupil-progress{gap:4px}
+.phase24l-b3d-panel .phase-1819-pupil-progress>div{padding:5px 3px}
+
+.phase-1819-sheet[data-phase24l-b3d-facility]>.phase-1819-actions{display:grid;flex:0 0 auto;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:0;padding:5px;border:1px solid #ffffff18;border-radius:13px;background:#07131be8}
+.phase-1819-sheet[data-phase24l-b3d-facility="schoolhouse"]>.phase-1819-actions{grid-template-columns:repeat(3,minmax(0,1fr))}
+.phase-1819-sheet[data-phase24l-b3d-facility]>.phase-1819-actions .btn{min-width:0;min-height:44px;padding:6px 3px;font-size:10px;white-space:normal}
+.phase-1819-sheet[data-phase24l-b3d-facility="schoolhouse"]>.phase-1819-actions .btn{font-size:9px}
+
+.phase24l-b3d-tabs{display:grid;flex:0 0 54px;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;border:1px solid #ffffff18;border-radius:14px;background:#07131bf2}
+.phase24l-b3d-tabs button{min-width:0;min-height:44px;padding:3px 2px;border:1px solid transparent;border-radius:10px;background:transparent;color:#a9bbbe;font:900 10px/1 Inter,ui-sans-serif,sans-serif;text-transform:uppercase}
+.phase24l-b3d-tabs button i{display:block;margin-bottom:3px;color:#d9bd7e;font:normal 17px/1 Georgia,serif}
+.phase24l-b3d-tabs button[aria-selected="true"]{border-color:#f1c76b70;background:#f1c76b16;color:#fff7e7;box-shadow:inset 0 0 0 1px #66e1d225}
+.phase24l-b3d-tabs button:focus-visible,.phase24l-b3d-panel:focus-visible{outline:3px solid white;outline-offset:2px}
+.phase24l-b3d-empty{display:grid;place-items:center;align-content:center;min-height:130px;padding:14px;border:1px dashed #ffffff27;border-radius:14px;background:#07131b99;color:#b9c9cb;text-align:center}
+.phase24l-b3d-empty b{color:#f1c76b;font:700 17px Georgia,serif}.phase24l-b3d-empty p{max-width:290px;margin:6px 0 0;font-size:10px;line-height:1.4}
+
+@media(max-width:369px){.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene{flex-basis:78px;padding:8px 9px}.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene p{display:none}.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene h2{font-size:20px}.phase24l-b3d-tabs button{font-size:9px}.phase-1819-sheet[data-phase24l-b3d-facility="schoolhouse"]>.phase-1819-actions .btn{font-size:8.5px}}
+@media(max-height:640px){.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene{flex-basis:68px}.phase-1819-sheet[data-phase24l-b3d-facility]>.phase24l-b3d-scene p{display:none}}
+@media(prefers-reduced-motion:reduce){[data-phase24l-b3d-modal],[data-phase24l-b3d-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html.phase15-reduced-motion [data-phase24l-b3d-modal],html.phase15-reduced-motion [data-phase24l-b3d-modal] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(forced-colors:active){.phase24l-b3d-scene,.phase24l-b3d-tabs,.phase24l-b3d-panel>section,.phase-1819-sheet[data-phase24l-b3d-facility]>.phase-1819-actions{background:Canvas!important}.phase24l-b3d-tabs button{border:1px solid ButtonText!important}}

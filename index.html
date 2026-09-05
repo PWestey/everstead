@@ -113,6 +113,7 @@
 <link rel="stylesheet" href="src/phase24l-compact-hubs.css?v=phase24l-b3a-v1">
 <link rel="stylesheet" href="src/phase24l-legacy-inventory.css?v=phase24l-b3b-v1">
 <link rel="stylesheet" href="src/phase24l-facility-modals.css?v=phase24l-b3c-v1">
+<link rel="stylesheet" href="src/phase24l-private-facility-modals.css?v=phase24l-b3d-v1">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -162,6 +163,7 @@
 <script src="src/phase24l-compact-hubs.js?v=phase24l-b3a-v1"></script>
 <script src="src/phase24l-legacy-inventory.js?v=phase24l-b3b-v1"></script>
 <script src="src/phase24l-facility-modals.js?v=phase24l-b3c-v1"></script>
+<script src="src/phase24l-private-facility-modals.js?v=phase24l-b3d-v1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3532,6 +3534,14 @@ function phase24lB3cInstallQaBridge(){
 }
 phase24lB3cInstallQaBridge();
 /* Phase 24L-B3C bounded Building and Restaurant game sheets END */
+
+/* Phase 24L-B3D bounded private facility game sheets BEGIN */
+const PHASE_24L_B3D=globalThis.EVERSTEAD_PHASE24L_PRIVATE_FACILITY_MODALS;
+if(!PHASE_24L_B3D||PHASE_24L_B3D.version!==1||PHASE_24L_B3D.id!=='everstead.phase24l.private-facility-modals.v1')throw new Error('The Everstead Phase 24L-B3D private facility modal runtime is unavailable or incompatible');
+const PHASE_24L_B3D_RESULT=PHASE_24L_B3D.install(Object.freeze({version:1,document,slots:Object.freeze({bindModal:phase24lSlot(()=>bindModal,value=>bindModal=value)})}));
+if(!PHASE_24L_B3D_RESULT?.ok||PHASE_24L_B3D_RESULT.id!=='everstead.phase24l.private-facility-modals.v1'||PHASE_24L_B3D_RESULT.mechanicsChanged!==false||PHASE_24L_B3D_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3D private facility modal runtime did not install safely');
+Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3D_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3D_RESULT,diagnostics:()=>PHASE_24L_B3D.diagnostics()})});
+/* Phase 24L-B3D bounded private facility game sheets END */
 
 const PHASE_24L_B1_QA_RUNTIME=globalThis.EVERSTEAD_PHASE24L_FELLOW_EXP_QA_RUNTIME;
 if(!PHASE_24L_B1_QA_RUNTIME||PHASE_24L_B1_QA_RUNTIME.version!==1||PHASE_24L_B1_QA_RUNTIME.bridgeName!=='__EVERSTEAD_PHASE_24L_B1_QA__')throw new Error('The Everstead Phase 24L-B1 QA runtime is unavailable or incompatible');
