@@ -110,6 +110,7 @@
 <link rel="stylesheet" href="src/phase24l-profile-shell.css?v=phase24l-v1">
 <link rel="stylesheet" href="src/phase24l-fellow-exp-wallet.css?v=phase24l-b1-v1">
 <link rel="stylesheet" href="src/phase24l-game-screen-shell.css?v=phase24l-b2-v2">
+<link rel="stylesheet" href="src/phase24l-compact-hubs.css?v=phase24l-b3a-v1">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -156,6 +157,7 @@
   <script src="src/phase24l-fellow-exp-ui.js?v=phase24l-b1-v1"></script>
   <script src="src/phase24l-fellow-exp-qa.js?v=phase24l-b1-v1"></script>
 <script src="src/phase24l-game-screen-shell.js?v=phase24l-b2-v2"></script>
+<script src="src/phase24l-compact-hubs.js?v=phase24l-b3a-v1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3493,6 +3495,14 @@ const PHASE_24L_B2_RESULT=PHASE_24L_B2.install(Object.freeze({version:1,document
 if(!PHASE_24L_B2_RESULT?.ok||PHASE_24L_B2_RESULT.id!=='everstead.phase24l.game-screen-shell.v1'||PHASE_24L_B2_RESULT.mechanicsChanged!==false||PHASE_24L_B2_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B2 game-screen shell did not install safely');
 Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B2_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B2_RESULT,diagnostics:()=>PHASE_24L_B2.diagnostics()})});
 /* Phase 24L-B2 bounded Fellowship and Adventure game screens END */
+
+/* Phase 24L-B3A compact Oaths and More hubs BEGIN */
+const PHASE_24L_B3A=globalThis.EVERSTEAD_PHASE24L_COMPACT_HUBS;
+if(!PHASE_24L_B3A||PHASE_24L_B3A.version!==1||PHASE_24L_B3A.id!=='everstead.phase24l.compact-hubs.v1')throw new Error('The Everstead Phase 24L-B3A compact hubs are unavailable or incompatible');
+const PHASE_24L_B3A_RESULT=PHASE_24L_B3A.install(Object.freeze({version:1,document,slots:Object.freeze({oathScreen:phase24lSlot(()=>oathScreen,value=>oathScreen=value),moreScreen:phase24lSlot(()=>moreScreen,value=>moreScreen=value),bindCommon:phase24lSlot(()=>bindCommon,value=>bindCommon=value)})}));
+if(!PHASE_24L_B3A_RESULT?.ok||PHASE_24L_B3A_RESULT.id!=='everstead.phase24l.compact-hubs.v1'||PHASE_24L_B3A_RESULT.mechanicsChanged!==false||PHASE_24L_B3A_RESULT.saveChanged!==false)throw new Error('The Everstead Phase 24L-B3A compact hubs did not install safely');
+Object.defineProperty(globalThis,'__EVERSTEAD_PHASE24L_B3A_RESULT__',{configurable:false,enumerable:false,writable:false,value:Object.freeze({...PHASE_24L_B3A_RESULT,diagnostics:()=>PHASE_24L_B3A.diagnostics()})});
+/* Phase 24L-B3A compact Oaths and More hubs END */
 
 const PHASE_24L_B1_QA_RUNTIME=globalThis.EVERSTEAD_PHASE24L_FELLOW_EXP_QA_RUNTIME;
 if(!PHASE_24L_B1_QA_RUNTIME||PHASE_24L_B1_QA_RUNTIME.version!==1||PHASE_24L_B1_QA_RUNTIME.bridgeName!=='__EVERSTEAD_PHASE_24L_B1_QA__')throw new Error('The Everstead Phase 24L-B1 QA runtime is unavailable or incompatible');

@@ -1,0 +1,71 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+
+const here=path.dirname(fileURLToPath(import.meta.url));
+const root=path.resolve(here,'../..');
+const contract=JSON.parse(fs.readFileSync(path.join(here,'contract.json'),'utf8'));
+const rows=[];
+const record=(id,pass,detail='')=>rows.push({id,pass:Boolean(pass),detail:typeof detail==='string'?detail:JSON.stringify(detail)});
+const read=relative=>fs.readFileSync(path.join(root,relative));
+const text=relative=>read(relative).toString('utf8');
+const optional=relative=>fs.existsSync(path.join(root,relative))?text(relative):'';
+const sha=value=>crypto.createHash('sha256').update(value).digest('hex');
+const fallback='/Users/westmanfamily/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback/git';
+const git=(args)=>spawnSync(fs.existsSync(fallback)?fallback:'git',args,{cwd:root,encoding:null,maxBuffer:64*1024*1024,timeout:30000});
+const escape=value=>value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+
+const index=text('index.html');
+const source=optional(contract.candidate.source);
+const css=optional(contract.candidate.css);
+const predecessor=git(['show',`${contract.predecessor.commit}:index.html`]);
+const sourceTagPattern=new RegExp(`^[ \\t]*<script[^>]+src=["']${escape(contract.candidate.source)}\\?v=${escape(contract.candidate.styleVersion)}["'][^>]*><\\/script>[ \\t]*\\r?\\n`,'gm');
+const cssTagPattern=new RegExp(`^[ \\t]*<link[^>]+href=["']${escape(contract.candidate.css)}\\?v=${escape(contract.candidate.styleVersion)}["'][^>]*>[ \\t]*\\r?\\n`,'gm');
+const installPattern=new RegExp(`${escape(contract.candidate.ownershipBegin)}[\\s\\S]*?${escape(contract.candidate.ownershipEnd)}\\r?\\n(?:\\r?\\n)?`,'g');
+const sourceTags=index.match(sourceTagPattern)||[];
+const cssTags=index.match(cssTagPattern)||[];
+const installBlocks=index.match(installPattern)||[];
+const stripped=index.replace(cssTagPattern,'').replace(sourceTagPattern,'').replace(installPattern,'');
+
+record('contract-identifies-phase-24l-b3a',contract.contractVersion===1&&contract.phase==='24L-B3A'&&contract.schemaVersion===15&&contract.candidate.version===1&&contract.candidate.id==='everstead.phase24l.compact-hubs.v1');
+record('locked-implementation-contract-is-present',fs.existsSync(path.join(root,'docs/PHASE_24L_B3A_COMPACT_HUBS_CONTRACT.md')));
+record('predecessor-index-identity-is-exact',predecessor.status===0&&sha(predecessor.stdout)===contract.predecessor.indexSha256,{expected:contract.predecessor.indexSha256,actual:predecessor.status===0?sha(predecessor.stdout):null,status:predecessor.status});
+record('candidate-files-exist',Boolean(source&&css),{sourceBytes:Buffer.byteLength(source),cssBytes:Buffer.byteLength(css)});
+record('index-has-one-versioned-css-and-script',cssTags.length===1&&sourceTags.length===1,{cssTags:cssTags.length,sourceTags:sourceTags.length});
+record('index-has-one-bounded-ownership-install',installBlocks.length===1,installBlocks.length);
+record('index-change-is-additive-to-exact-b2-index',predecessor.status===0&&Buffer.compare(Buffer.from(stripped),predecessor.stdout)===0,{strippedSha256:sha(Buffer.from(stripped)),predecessorSha256:predecessor.status===0?sha(predecessor.stdout):null});
+record('style-loads-before-head-closes',index.indexOf(contract.candidate.css)>=0&&index.indexOf(contract.candidate.css)<index.indexOf('</head>'));
+record('runtime-loads-before-inline-owner',index.indexOf(contract.candidate.source)>=0&&index.indexOf(contract.candidate.source)<index.indexOf(contract.candidate.ownershipBegin));
+record('owner-installs-after-b2-and-before-b1-qa-bootstrap',index.indexOf(contract.candidate.ownershipBegin)>index.indexOf('PHASE_24L_B2_RESULT')&&index.indexOf(contract.candidate.ownershipEnd)<index.indexOf('PHASE_24L_B1_QA_RUNTIME'));
+record('save-schema-namespace-and-release-stay-unchanged',index.includes("const NS='oathforge_new_world_proto_v01'")&&index.includes('CURRENT_SCHEMA_VERSION=15')&&index.includes("RELEASE_VERSION='1.0.0-preview.1'"));
+
+record('runtime-declares-exact-hidden-api-identity',source.includes(`const VERSION=${contract.candidate.version}`)&&source.includes(`const ID='${contract.candidate.id}'`)&&source.includes(contract.candidate.global)&&source.includes('Object.defineProperty'));
+record('runtime-is-presentation-only-without-storage-authority',!/(?:\blocalStorage\b|\bsessionStorage\b|\bindexedDB\b|\.setItem\s*\(|\.removeItem\s*\(|\bmutatePersisted\b|\bcommitPrepared\b|\bPERSISTED_RAW\b|\bSTAGING_KEY\b)/m.test(source));
+record('runtime-has-no-economy-reward-progression-or-claim-authority',!/(?:\bcompleteOath\b|\bcollectGold\b|\bstageCredit\b|\bstageSpend\b|\bclaim[A-Z]\w*\b|\b(?:gold|prosperity|rankExp|shards|rarity|bond|level|exp)\s*(?:\+\+|--|[+\-*/]?=))/m.test(source));
+record('runtime-does-not-create-network-timer-or-random-authority',!/(?:\bfetch\s*\(|\bXMLHttpRequest\b|\bWebSocket\b|\bpostMessage\s*\(|\bsetInterval\s*\(|\bMath\.random\s*\()/m.test(source));
+record('runtime-wraps-exact-current-render-and-bind-slots',['oathScreen','moreScreen','bindCommon'].every(name=>source.includes(name)));
+record('runtime-invokes-inherited-binder-first',/slots\.bindCommon\.set\(function[\s\S]*?const result=bindBefore\(\.\.\.args\);[\s\S]*?decorateOaths/.test(source));
+record('runtime-moves-rather-than-clones-live-nodes',source.includes('stage.append(add)')&&source.includes('for(const node of nodes)body.append(node)')&&!source.includes('cloneNode'));
+record('runtime-does-not-reimplement-live-oath-or-more-controls',!/<(?:button|select)[^>]+data-(?:oath|edit-oath|act|setting|phase-11d-codex-open|player-profile)/.test(source));
+record('runtime-covers-all-five-oath-mappings',contract.oaths.tabs.every(tab=>source.includes(`id:'${tab.id}'`)&&(tab.id==='manage'||source.includes(`source:'${tab.source}'`))),contract.oaths.tabs);
+record('runtime-covers-all-five-more-mappings',contract.more.tabs.every(id=>source.includes(`id:'${id}'`)),contract.more.tabs);
+record('runtime-accounts-for-phase17-sibling-reference',source.includes("node.matches?.('[data-phase17-reference]')")&&source.includes('screen.parentElement'));
+record('runtime-enforces-exclusive-panel-and-collapse-state',source.includes("screen.dataset.phase24lCompactSheetOpen=String(Boolean(selected))")&&source.includes('toggle&&stateFor(kind)===key')&&source.includes("panel.hidden=panel.dataset.phase24lCompactPanel!==selected"));
+record('runtime-covers-escape-before-navigation',source.includes("event.key!=='Escape'")&&source.includes("document.querySelector('#overlay [data-overlay],#overlay [role=\"dialog\"]')")&&source.includes('event.stopPropagation()'));
+record('runtime-guides-use-current-cast-and-module-memory',source.includes('Tavi')&&source.includes('Shallan')&&source.includes('oathGuideSeen')&&source.includes('moreGuideSeen')&&source.includes('data-phase24l-b3a-guide'));
+record('runtime-has-no-third-party-brand-or-monetization-copy',!/(?:Isekai|Slow Life|VIP|summon|gacha|premium pass)/i.test(source+css));
+
+record('css-locks-document-only-while-compact-screen-active',css.includes('phase24l-b3a-active')&&/phase24l-b3a-active[^\{]*\{[^}]*overflow\s*:\s*hidden/s.test(css));
+record('css-keeps-fixed-five-button-local-dock',css.includes('.phase24l-b3a-dock')&&/grid-template-columns\s*:\s*repeat\(5\s*,/m.test(css)&&/position\s*:\s*fixed/.test(css));
+record('css-bounds-one-local-sheet',css.includes('.phase24l-b3a-panel')&&/max-height\s*:\s*var\(--phase24l-b3a-sheet\)/.test(css)&&/phase24l-b3a-panel\[hidden\][^\{]*\{[^}]*display\s*:\s*none/s.test(css));
+record('css-gives-only-panel-body-an-explicit-local-scroll-lane',/phase24l-b3a-panel-body[^\{]*\{[^}]*overflow\s*:\s*auto/s.test(css)&&!/phase24l-b3a-stage[^\{]*\{[^}]*overflow\s*:\s*auto/s.test(css));
+record('css-enforces-minimum-44px-interactive-targets',css.includes('44px')&&css.includes('.phase24l-b3a-panel-close')&&css.includes('.phase24l-b3a-dock button'));
+record('css-covers-small-phone-and-short-viewport-layouts',/max-width\s*:\s*340px/.test(css)&&/max-height\s*:\s*640px/.test(css));
+record('css-preserves-reduced-motion-and-forced-colors',css.includes('prefers-reduced-motion')&&css.includes('forced-colors'));
+
+const failed=rows.filter(row=>!row.pass);
+for(const row of rows)console.log(`${row.pass?'PASS':'FAIL'} ${row.id}${row.detail?` · ${row.detail}`:''}`);
+console.log(`RESULT ${rows.length-failed.length} passed, ${failed.length} failed`);
+if(failed.length)process.exitCode=1;

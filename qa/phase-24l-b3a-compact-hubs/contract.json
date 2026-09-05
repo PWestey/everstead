@@ -1,0 +1,77 @@
+{
+  "contractVersion": 1,
+  "phase": "24L-B3A",
+  "status": "compact-oaths-more-release-gate",
+  "schemaVersion": 15,
+  "storageKey": "oathforge_new_world_proto_v01",
+  "predecessor": {
+    "commit": "1e0ba74349ab99ee4e20b89a5bec4d66263b8d45",
+    "indexSha256": "5c477cff4ef8ff0d4904f0c17e0be548f71241914b7fd04a2296b78471622acb"
+  },
+  "candidate": {
+    "source": "src/phase24l-compact-hubs.js",
+    "css": "src/phase24l-compact-hubs.css",
+    "global": "EVERSTEAD_PHASE24L_COMPACT_HUBS",
+    "resultGlobal": "__EVERSTEAD_PHASE24L_B3A_RESULT__",
+    "version": 1,
+    "id": "everstead.phase24l.compact-hubs.v1",
+    "styleVersion": "phase24l-b3a-v1",
+    "ownershipBegin": "/* Phase 24L-B3A compact Oaths and More hubs BEGIN */",
+    "ownershipEnd": "/* Phase 24L-B3A compact Oaths and More hubs END */"
+  },
+  "selectors": {
+    "screen": "[data-phase24l-compact-screen]",
+    "oaths": "[data-phase24l-compact-screen=\"oaths\"]",
+    "more": "[data-phase24l-compact-screen=\"more\"]",
+    "stage": "[data-phase24l-b3a-stage]",
+    "dock": "[data-phase24l-compact-dock]",
+    "tab": "[data-phase24l-compact-tab]",
+    "panel": "[data-phase24l-compact-panel]",
+    "guide": "[data-phase24l-b3a-guide]",
+    "guideOpen": "[data-phase24l-b3a-guide-open]",
+    "guideClose": "[data-phase24l-b3a-guide-close]"
+  },
+  "oaths": {
+    "guideSpeaker": "Tavi",
+    "tabs": [
+      {"id": "prepare", "source": "Pre-Gaming"},
+      {"id": "work", "source": "Work & Chores"},
+      {"id": "family", "source": "Family Time"},
+      {"id": "shutdown", "source": "Shutdown"},
+      {"id": "manage", "source": "Manage"}
+    ]
+  },
+  "more": {
+    "guideSpeaker": "Shallan",
+    "tabs": ["journey", "codex", "guide", "settings", "save"],
+    "requiredMovedSelectors": [
+      "[data-player-profile]",
+      "[data-phase-11d-codex-card]",
+      "[data-campaign-efficiency-preview]",
+      "[data-setting]",
+      "[data-save-recovery]",
+      "[data-save-health]",
+      "[data-migration-history]"
+    ]
+  },
+  "limits": {
+    "minimumTouchTargetPx": 44,
+    "maximumPanelViewportRatio": 0.55,
+    "fitTolerancePx": 2,
+    "browserHardTimeoutMs": 600000
+  },
+  "viewports": [
+    {"id": "phone-320x568", "width": 320, "height": 568},
+    {"id": "phone-390x844", "width": 390, "height": 844}
+  ],
+  "nonGoals": [
+    "save-schema-change",
+    "storage-namespace-change",
+    "economy-change",
+    "reward-change",
+    "progression-change",
+    "new-inventory-authority",
+    "new-claim-authority",
+    "third-party-art-or-trade-dress"
+  ]
+}
