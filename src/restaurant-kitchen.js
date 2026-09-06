@@ -12,12 +12,13 @@
  const spent=r=>r.levels.reduce((n,l,i)=>n+(l?recipes[i].unlock+3*l*(l-1)/2:0),0);
  function create(now){if(!int(now))throw Error('Invalid kitchen clock');return{version:1,activatedAt:now,lastArrival:now,lastDelivery:now,diners:4,crates:3,deliveries:0,pantry:[0,0,0,0],levels:[0,0,0,0],cooked:recipes.map(()=>Array(10).fill(0)),served:0,notes:0,gold:0,pending:null,tutorial:false};}
  function valid(r){try{
-  if(!exact(r,['version','activatedAt','lastArrival','lastDelivery','diners','crates','deliveries','pantry','levels','cooked','served','notes','gold','pending','tutorial'])||r.version!==1||![r.activatedAt,r.lastArrival,r.lastDelivery,r.diners,r.crates,r.deliveries,r.served,r.notes,r.gold].every(int)||r.lastArrival<r.activatedAt||r.lastDelivery<r.activatedAt||r.diners>12||r.crates>6||r.deliveries>1e8||typeof r.tutorial!=='boolean')return false;
+  if(!exact(r,['version','activatedAt','lastArrival','lastDelivery','diners','crates','deliveries','pantry','levels','cooked','served','notes','gold','pending','tutorial',...(r?.version===2?['fieldSupplies']:[])])||![1,2].includes(r.version)||![r.activatedAt,r.lastArrival,r.lastDelivery,r.diners,r.crates,r.deliveries,r.served,r.notes,r.gold].every(int)||r.lastArrival<r.activatedAt||r.lastDelivery<r.activatedAt||r.diners>12||r.crates>6||r.deliveries>1e8||typeof r.tutorial!=='boolean')return false;
+  if(r.version===2&&(!Array.isArray(r.fieldSupplies)||r.fieldSupplies.length!==4||!r.fieldSupplies.every(int)))return false;
   if(!Array.isArray(r.pantry)||r.pantry.length!==4||!r.pantry.every(int)||!Array.isArray(r.levels)||r.levels.length!==4||!r.levels.every(l=>int(l)&&l<=10)||!Array.isArray(r.cooked)||r.cooked.length!==4)return false;
   let meals=0,gold=0,used=[0,0,0,0];
   for(let i=0;i<4;i++){const counts=r.cooked[i];if(!Array.isArray(counts)||counts.length!==10||!counts.every((v,j)=>int(v)&&v<=1e8&&(j<r.levels[i]||v===0)))return false;counts.forEach((n,j)=>{meals+=n;gold+=n*recipes[i].gold*(j+1);used=used.map((v,k)=>v+n*recipes[i].cost[k]);});}
   if(r.pending!==null){const p=r.pending;if(!exact(p,['id','recipe','level','gold'])||p.id!==r.served+1||!int(p.recipe)||p.recipe>3||!int(p.level)||p.level<1||p.level>r.levels[p.recipe]||r.cooked[p.recipe][p.level-1]<1||p.gold!==recipes[p.recipe].gold*p.level)return false;gold-=p.gold;}
-  return int(gold)&&meals===r.served+(r.pending?1:0)&&r.gold===gold&&r.notes===2*r.served-spent(r)&&r.pantry.every((n,i)=>n===r.deliveries*crate[i]-used[i]);
+  return int(gold)&&meals===r.served+(r.pending?1:0)&&r.gold===gold&&r.notes===2*r.served-spent(r)&&r.pantry.every((n,i)=>n===r.deliveries*crate[i]+(r.fieldSupplies?.[i]||0)-used[i]);
  }catch{return false;}}
  function settle(root,now){if(!valid(root)||!int(now))return null;const r=copy(root);for(const [clock,bank,period,cap]of [['lastArrival','diners',900000,12],['lastDelivery','crates',1800000,6]]){if(now<=r[clock])continue;const elapsed=Math.min(86400000,now-r[clock]);r[bank]=Math.min(cap,r[bank]+Math.floor(elapsed/period));r[clock]=r[bank]===cap?now:now-elapsed%period;}return r;}
  function bonuses(r){const levels=valid(r)?r.levels.reduce((a,b)=>a+b,0):0;return{power:levels*10,earnings:levels*120};}
@@ -32,5 +33,6 @@
   return valid(r)?{ok:true,root:r,gold:reward}:fail('Kitchen accounting refused this action.');
  }
  recipes.forEach(r=>{Object.freeze(r.cost);Object.freeze(r)});
- g.EVERSTEAD_KITCHEN=Object.freeze({recipes:Object.freeze(recipes),ingredients:Object.freeze(ingredients),create,valid,settle,act,bonuses,price});
+ function receive(root,amounts,now){const r=settle(root,now);if(!r||!Array.isArray(amounts)||amounts.length!==4||!amounts.every(int))return null;if(r.version===1){r.version=2;r.fieldSupplies=[0,0,0,0]}r.fieldSupplies=r.fieldSupplies.map((n,i)=>n+amounts[i]);r.pantry=r.pantry.map((n,i)=>n+amounts[i]);return valid(r)?r:null;}
+ g.EVERSTEAD_KITCHEN=Object.freeze({recipes:Object.freeze(recipes),ingredients:Object.freeze(ingredients),create,valid,settle,act,bonuses,price,receive});
 })(globalThis);

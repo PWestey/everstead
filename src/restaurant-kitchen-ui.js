@@ -3,7 +3,7 @@
  const ingredients=r=>r.pantry.map((n,i)=>`<span>${E.ingredients[i]} <b>${n}</b></span>`).join('');
  function render(){const r=E.settle(A.state().restaurantKitchen,A.now()),d=E.recipes[selected],level=r.levels[selected],bonus=E.bonuses(r);if(!r)return;let body='';
   if(!r.tutorial||tab==='guide')body=`<h3>A kitchen that grows with you</h3><p>Collect deliveries in Pantry. Unlock Hearthbread free in Recipes, then cook for waiting customers in Service.</p><p>Each served table pays Gold and 2 Chef Notes. Spend Notes to unlock and improve dishes: each recipe level adds <b>120 Village Gold/hr and 10 Power to each owned Fellow</b>.</p><p>Customers bank up to 12; supply crates bank up to 6. Tables and ingredients never expire. EXP stays yours to spend separately.</p><button class="va-primary" data-k-action="tutorial">OPEN THE KITCHEN</button>`;
-  else if(tab==='pantry')body=`<div class="k-dish-art">🧺</div><h3>Village deliveries</h3><div class="va-stats">${ingredients(r)}</div><p>Each crate: 4 Grain · 3 Vegetables · 2 Herbs · 2 Fish.</p><p>${r.crates} crates waiting. One arrives every 30 minutes.</p><button class="va-primary" data-k-action="supplies" ${r.crates?'':'disabled'}>UNPACK ONE CRATE</button>`;
+  else if(tab==='pantry')body=`<h3>Village deliveries</h3><div class="va-stats">${ingredients(r)}</div><p>Each crate: 4 Grain · 3 Vegetables · 2 Herbs · 2 Fish.</p><p>${r.crates} crates waiting. One arrives every 30 minutes.</p><button class="va-primary" data-k-action="supplies" ${r.crates?'':'disabled'}>UNPACK ONE CRATE</button><p>Grow additional ingredients or land culinary fish. Outdoor supplies arrive here automatically.</p><div class="k-outdoors"><button class="va-primary" data-k-outdoors="gardens">GARDENS</button><button class="va-primary" data-k-outdoors="fishing">FISHING</button></div>`;
   else if(tab==='service'&&r.pending){const p=r.pending,meal=E.recipes[p.recipe];body=`<div class="k-dish-art">${meal.icon}</div><h3>${meal.name} · served!</h3><p>Your guest has finished their level ${p.level} dish. Payment will wait here until collected.</p><div class="va-reward"><strong>+${p.gold} Gold</strong><span>+2 Chef Notes</span></div><button class="va-primary va-claim" data-k-action="claim" data-k-id="${p.id}">COLLECT TABLE PAYMENT</button>`;}
   else{
    body=`<div class="k-dish-picker"><button data-k-shift="-1" aria-label="Previous dish">‹</button><div class="k-dish-art">${d.icon}</div><button data-k-shift="1" aria-label="Next dish">›</button></div><h3>${d.name} <small>${level?'Lv. '+level:'Locked'}</small></h3><p>Recipe ${selected+1} of ${E.recipes.length}</p>`;
@@ -17,6 +17,7 @@
   root.querySelectorAll('[data-k-shift]').forEach(b=>b.onclick=()=>{selected=(selected+Number(b.dataset.kShift)+4)%4;message='';render()});
   root.querySelectorAll('[data-k-action]').forEach(b=>b.onclick=()=>{const result=A.act(b.dataset.kAction,Number(b.dataset.kId));message=result.ok?'':result.reason;if(result.ok&&b.dataset.kAction==='tutorial')tab='recipes';render()});
   root.querySelector('[data-k-legacy]')?.addEventListener('click',A.legacy);
+  root.querySelectorAll('[data-k-outdoors]').forEach(b=>b.onclick=()=>A.outdoors?.(b.dataset.kOutdoors));
  }
  return()=>{tab='service';message='';render()};
 };})(globalThis);
