@@ -6,6 +6,9 @@
  const SCHEMA_VERSION=14;
  let installed=false;
  let villageSpeakerVisible=true;
+ const quietKey='everstead.village-speaker.quiet-until';
+ let quietUntil=0;
+ try{quietUntil=Number(sessionStorage.getItem(quietKey))||0}catch{}
  let fellowshipPanel=null;
  let fellowshipActivationCount=0;
 
@@ -21,12 +24,11 @@
   slots.villageScreen.set(function(){
    let html=villageBefore();
    if(api.state()?.schemaVersion!==SCHEMA_VERSION)return html;
+   villageSpeakerVisible=Date.now()>=quietUntil;
    const hidden=villageSpeakerVisible?'':' hidden';
-   const shown=villageSpeakerVisible?' hidden':'';
    html=html.replace('<main class="screen village-screen"','<main class="screen village-screen" data-phase24k-village-speaker');
    html=html.replace('<div class="speech">',`<div class="speech" data-phase24k-village-speech${hidden}><button type="button" class="phase24k-speaker-hide" data-phase24k-speaker-hide aria-label="Hide Village character and quote">×</button>`);
    html=html.replace('<div class="village-character">',`<div class="village-character" data-phase24k-village-character${hidden}>`);
-   html=html.replace('<details class="phase24i-village-panel phase24i-production-panel"',`<button type="button" class="phase24k-speaker-show" data-phase24k-speaker-show aria-label="Show Village character and quote"${shown}>SHOW CHARACTER</button><details class="phase24i-village-panel phase24i-production-panel"`);
    return html;
   });
 
@@ -102,8 +104,10 @@
   function bindVillage(root=document){
    const speech=root.querySelector?.('[data-phase24k-village-speech]'),character=root.querySelector?.('[data-phase24k-village-character]'),hide=root.querySelector?.('[data-phase24k-speaker-hide]'),show=root.querySelector?.('[data-phase24k-speaker-show]');
    const apply=()=>{if(speech)speech.hidden=!villageSpeakerVisible;if(character)character.hidden=!villageSpeakerVisible;if(hide)hide.hidden=!villageSpeakerVisible;if(show)show.hidden=villageSpeakerVisible};
-   if(hide)hide.onclick=()=>{villageSpeakerVisible=false;apply();show?.focus()};
-   if(show)show.onclick=()=>{villageSpeakerVisible=true;apply();hide?.focus()};
+   const dismiss=()=>{villageSpeakerVisible=false;quietUntil=Date.now()+600000;try{sessionStorage.setItem(quietKey,String(quietUntil))}catch{}apply()};
+   if(hide)hide.onclick=dismiss;
+   if(speech)speech.onclick=dismiss;
+   if(character){character.onclick=dismiss;character.tabIndex=0;character.setAttribute('role','button');character.setAttribute('aria-label','Dismiss Village character for ten minutes');character.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();dismiss()}}}
    apply();
   }
 

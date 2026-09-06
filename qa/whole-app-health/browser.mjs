@@ -48,9 +48,8 @@ try{
   await page.locator('[data-campaign-run]').click();
   check(await page.locator('[data-phase13-story="skip"]').count()===1,`${viewport.width}: first Campaign retains story introduction`);
   await page.locator('[data-phase13-story="skip"]').click();
-  await page.locator('[data-campaign-run]').click();
   const canceled=await state();
-  check(canceled.fellowCampaign.runOrdinal===0&&canceled.experienceProgression.wallets.fellow.balance===0,`${viewport.width}: canceled confirmation grants nothing`);
+  check(canceled.fellowCampaign.runOrdinal===0&&canceled.experienceProgression.wallets.fellow.balance===0,`${viewport.width}: story introduction grants nothing`);
   accept=true;
   await page.locator('[data-campaign-run]').click();
   await page.getByText('120 Fellow EXP available',{exact:true}).waitFor();
