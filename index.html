@@ -175,6 +175,9 @@
 <script src="src/phase24l-facility-modals.js?v=phase24l-b3c-v1"></script>
 <script src="src/phase24l-private-facility-modals.js?v=phase24l-b3d-v1"></script>
 <script src="src/phase24l-successor-facility-modals.js?v=phase24l-b3e-v1"></script>
+<link rel="stylesheet" href="styles/village-activities.css?v=1">
+<script src="src/village-activities.js?v=1"></script>
+<script src="src/village-activities-ui.js?v=1"></script>
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3848,6 +3851,59 @@ const phase24lPhase23InstallQaBridge=phase23InstallQaBridge,phase24lPhase23Insta
 phase23InstallQaBridge=function(){return CURRENT_SCHEMA_VERSION>=15?false:phase24lPhase23InstallQaBridge()};
 phase23InstallInheritedQaCompatibility=function(){return CURRENT_SCHEMA_VERSION>=15?false:phase24lPhase23InstallInheritedQaCompatibility()};
 /* Phase 24L-B0 predecessor Phase 23 QA compatibility END */
+/* Public Village activities v1: additive, versioned extension; legacy EXP stays untouched. */
+const VILLAGE_PLAY=window.EVERSTEAD_VILLAGE_ACTIVITIES;
+CURRENT_TRANSACTION_SOURCES.add('village-activity');
+function villagePlayActual(state=S){return PHASE_24L_RELEASED_VIEWS.get(state)||state}
+const validateBeforeVillagePlay=phase24lValidate;
+phase24lValidate=function(state,physical=null){
+ if(Object.hasOwn(state||{},'villageActivities')){
+  const root=state.villageActivities;
+  if(!VILLAGE_PLAY.validate(root))return{ok:false,errors:['villageActivities.invalidRoot']};
+  if(!state.saveMeta||Object.values(root.facilities).some(f=>f.lastAccrued>state.saveMeta.updatedAt))return{ok:false,errors:['villageActivities.timestamp']};
+  if(Object.keys(root.mastery).some(id=>!FELLOW_DEFS.some(d=>d.id===id)))return{ok:false,errors:['villageActivities.actor']};
+ }
+ return validateBeforeVillagePlay(state,physical);
+};
+const mutateBeforeVillagePlay=mutatePersisted;
+mutatePersisted=function(mutator,source='gameplay',options={}){
+ return mutateBeforeVillagePlay((state,now,refuse)=>{
+  const actual=villagePlayActual(state);
+  // Explicit extension migration: no existing progression or balances are rewritten.
+  if(actual.schemaVersion===15&&!Object.hasOwn(actual,'villageActivities'))actual.villageActivities=VILLAGE_PLAY.create(now);
+  return mutator(state,now,refuse);
+ },source,options);
+};
+const powerBeforeVillagePlay=effectiveFellowPowerComponents;
+effectiveFellowPowerComponents=function(id,state=S){
+ const prior=powerBeforeVillagePlay(id,state),bonus=VILLAGE_PLAY.power(villagePlayActual(state)?.villageActivities,id);
+ if(!bonus)return prior;
+ const effectivePower=safeAddInteger(prior.effectivePower,bonus,'Village Mastery Power');
+ return{...prior,effectivePower,unroundedPower:prior.unroundedPower+bonus,villageMasteryPower:bonus,formulaOrder:[...prior.formulaOrder,'villageMasteryFlatPower']};
+};
+function villagePlayChange(id,action,payload={},train=false){
+ if(PERSISTENCE_BLOCKED||PERSISTENCE_STALE)return{ok:false,reason:'Reload the latest save before continuing.'};
+ const actual=villagePlayActual(),expected=JSON.stringify(actual.villageActivities),now=runtimeNow();
+ if(train&&(actual.fellows?.[id]?.owned!==true||!phaseElevenGFellowAvailable(id,actual)))return{ok:false,reason:'Choose an owned Fellow.'};
+ let outcome;
+ const saved=mutatePersisted((state,at,refuse)=>{
+  const live=villagePlayActual(state);
+  if(expected!==undefined&&JSON.stringify(live.villageActivities)!==expected)refuse('Activity changed. Please reopen it.');
+  outcome=train?VILLAGE_PLAY.train(live.villageActivities,id,at):VILLAGE_PLAY.act(live.villageActivities,id,action,payload,at);
+  if(!outcome.ok)refuse(outcome.reason);
+  live.villageActivities=outcome.root;
+  if(outcome.reward?.gold)live.gold=safeAddInteger(live.gold,outcome.reward.gold,'Village activity Gold');
+ },'village-activity',{renderAfter:false,allowRefusal:true,capturedNow:now});
+ return saved.ok?{ok:true,reward:outcome.reward}: {ok:false,reason:saved.reason||saved.error?.message||'The activity was not saved.'};
+}
+const VILLAGE_PLAY_UI=window.EVERSTEAD_VILLAGE_ACTIVITIES_UI.install({document,engine:VILLAGE_PLAY,state:()=>villagePlayActual(),now:runtimeNow,showModal,bindModal,closeModal,format:fmt,escape:esc,act:villagePlayChange,train:id=>villagePlayChange(id,'train',{},true),openBuilding:id=>openBuilding(id),
+ fellows:()=>FELLOW_DEFS.filter(d=>phaseElevenGFellowAvailable(d.id,S)).map(d=>({id:d.id,name:d.name,power:power(d.id,S),portrait:`assets/portraits/fellows/thumb/${d.art}.webp`})),
+ cast:()=>[...FELLOW_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/fellows/thumb/${d.art}.webp`,quote:'Let’s put what we learn here to work on the road.'})),...FAMILY_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/family/thumb/${d.art}.webp`,quote:'A little shared work makes the whole Village stronger.'}))]
+});
+const bindBeforeVillagePlay=bindCommon;
+bindCommon=function(...args){const result=bindBeforeVillagePlay(...args);if(villagePlayActual()?.villageActivities)VILLAGE_PLAY_UI.bind();return result};
+const buildingBeforeVillagePlay=openBuilding;
+openBuilding=function(id){const result=buildingBeforeVillagePlay(id);if(VILLAGE_PLAY.definitions[id]){const head=document.querySelector('#overlay .modal-head');if(head){const button=document.createElement('button');button.className='btn';button.textContent='PLAY ACTIVITY';button.onclick=()=>VILLAGE_PLAY_UI.open(id);head.after(button)}}return result};
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24L-B0 predecessor Phase 24C QA guard open BEGIN */
 if(CURRENT_SCHEMA_VERSION<15){

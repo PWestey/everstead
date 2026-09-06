@@ -9,6 +9,13 @@ Gold, banked opportunities, full-roster progression and no gacha preserved.
 This document distinguishes shipped gameplay from dormant code. Private QA
 passes do not count as delivery to players.
 
+Update 2026-09-06: the [first public Village activity release](PUBLIC_VILLAGE_ACTIVITIES_RELEASE.md)
+adds 13 themed multi-step choice activities and manually purchased flat Fellow
+Mastery Power. This is a separate public extension, not activation of the dormant
+facility simulations discussed below. Full facility inventory/progression and
+Family's independent support economy remain gaps; the baseline findings below
+describe the state before this release.
+
 ## Evidence and confidence
 
 Reference: supplied screenshots plus public community documentation linked
