@@ -120,6 +120,7 @@
 <link rel="stylesheet" href="styles/family-art-panels.css?v=1">
 <link rel="stylesheet" href="styles/companion-art-panels.css?v=1">
 <link rel="stylesheet" href="styles/village-storage-art.css?v=1">
+<link rel="stylesheet" href="styles/exploration.css?v=1">
 <!-- Phase 24L-A viewport profile shell END -->
 </head>
 <body>
@@ -3749,6 +3750,40 @@ const PHASE_24L_C1_QA_INSTALL=PHASE_24L_C1_QA_RUNTIME.install(Object.freeze({ver
 if(!PHASE_24L_C1_QA_INSTALL?.ok||PHASE_24L_C1_QA_INSTALL.id!=='everstead.phase24l.companion-exp-qa-runtime.v1')throw new Error('The Everstead Phase 24L-C1 QA bridge did not install safely');
 /* Phase 24L-C1 query-scoped Companion EXP QA bridge END */
 
+/* Passive Gold is deposited by the same transaction that settles elapsed time.
+   Fractional Gold remains pending; bonus drops retain their manual claim path. */
+const accrueBeforeAutomaticGold=accrue;
+accrue=function(opening=false,at=runtimeNow()){
+ const report=accrueBeforeAutomaticGold(opening,at);
+ if((PHASE_24L_RELEASED_VIEWS.get(S)||S)?.schemaVersion===15){const amount=Math.floor(S.pendingGold);if(amount>0){if(!Number.isSafeInteger(amount)||!Number.isSafeInteger(S.gold+amount))throw new PersistenceError('gold-overflow','Automatic Gold exceeds safe precision');S.gold+=amount;S.pendingGold-=amount}}
+ return report;
+};
+const topbarBeforeAutomaticGold=topbar;
+const offlineBeforeAutomaticGold=openOffline;
+openOffline=function(report){const result=offlineBeforeAutomaticGold(report);const label=document.querySelector('[data-offline-gold-total] span');if(label)label.textContent='Gold deposited automatically';const button=document.querySelector('[data-modal-act="collect-offline"]');if(button)button.textContent='CLAIM BONUS DROPS';return result};
+topbar=function(){return topbarBeforeAutomaticGold().replace(/(<button[^>]*class="collect-mini"[^>]*>)[\s\S]*?(<\/button>)/,`<button class="collect-mini" data-act="collect" aria-label="Claim Village bonus gifts and shards">BONUS CLAIM</button>`)};
+const bindBeforeExploration=bindCommon;
+let villageCameraRatio=.5;
+bindCommon=function(...args){const result=bindBeforeExploration(...args),village=document.querySelector('main.village-screen');
+ if(village&&!village.querySelector('.village-camera')){
+  const camera=document.createElement('div'),map=document.createElement('div');camera.className='village-camera';camera.tabIndex=0;camera.setAttribute('aria-label','Village map: scroll left and right');map.className='village-map';
+  for(const node of [...village.children])if(node.matches('.village-art,.village-vignette,.building-hotspot,.phase15-board'))map.append(node);
+  camera.append(map);village.prepend(camera);camera.scrollLeft=(camera.scrollWidth-camera.clientWidth)*villageCameraRatio;
+  camera.addEventListener('scroll',()=>{villageCameraRatio=camera.scrollLeft/Math.max(1,camera.scrollWidth-camera.clientWidth)},{passive:true});
+  const home=document.createElement('button');home.className='village-recenter';home.textContent='⌖ Waystone';home.onclick=()=>{camera.scrollLeft=(camera.scrollWidth-camera.clientWidth)/2};village.append(home);
+ }
+ const stage=document.querySelector('[data-phase24l-game-screen="adventure"]');
+ if(stage?.querySelector('.campaign-walk')){
+  stage.classList.add('simple-stage');
+  const action=stage.querySelector('[data-phase24l-local-panel="action"]'),records=stage.querySelector('[data-phase24l-local-panel="records"]');
+  if(action&&records){const log=document.createElement('section');log.className='stage-records';log.innerHTML='<h3>Stage Records</h3>';for(const node of [...records.querySelector('.phase24l-local-panel-body').children])if(!node.matches('.phase-11c-repeat'))log.append(node);if(log.children.length===1)log.insertAdjacentHTML('beforeend','<p>Your next journey begins here.</p>');action.querySelector('.phase24l-local-panel-body').prepend(log)}
+  if(action){const body=action.querySelector('.phase24l-local-panel-body'),details=stage.querySelector('[data-phase24l-local-panel="rewards"] .phase24l-local-panel-body');if(details)for(const node of [...body.children])if(!node.matches('.stage-records'))details.append(node);body.insertAdjacentHTML('beforeend','<p class="stage-wallet-note">EXP to shared wallet · invest from character profiles.</p>');const heading=action.querySelector('.phase24l-local-panel-head h2');if(heading)heading.textContent='Journey';const go=action.querySelector('[data-campaign-run],[data-companion-campaign-run]');if(go)go.textContent=go.textContent.replace(/BEGIN STAGE|RUN STAGE|REPLAY STAGE/,'GO')}
+ }
+ document.querySelectorAll('[data-act="collect"]').forEach(button=>{button.textContent='BONUS DROPS';button.title='Passive Gold is deposited automatically. Gifts and shards are claimed here.'});
+ return result;
+};
+function automaticGoldPulse(){try{if(!document.hidden&&!PERSISTENCE_BLOCKED&&!PERSISTENCE_STALE&&!PERSISTENCE_WRITE_IN_PROGRESS&&S?.schemaVersion===15){const result=mutatePersisted(()=>{},'gameplay',{renderAfter:false});if(result.ok)document.querySelectorAll('[data-gold]').forEach(node=>node.textContent=fmt(S.gold))}}finally{runtimeSetTimeout(automaticGoldPulse,5000)}}
+runtimeSetTimeout(automaticGoldPulse,5000);
 const bootstrapPersistenceBeforeB1=bootstrapPersistence;
 bootstrapPersistence=function(){const result=bootstrapPersistenceBeforeB1();if(!PERSISTENCE_BLOCKED&&S?.schemaVersion===15&&S.experienceProgression?.version===1)phase24lB1Activate();if(!PERSISTENCE_BLOCKED&&S?.schemaVersion===15&&S.experienceProgression?.version===2)phase24lC1Activate();return result};
 const persistenceActionBeforeB1=persistenceAction;
