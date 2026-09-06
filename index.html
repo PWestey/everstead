@@ -177,7 +177,7 @@
 <script src="src/phase24l-successor-facility-modals.js?v=phase24l-b3e-v1"></script>
 <link rel="stylesheet" href="styles/village-activities.css?v=3">
 <script src="src/village-activities.js?v=1"></script>
-<script src="src/village-activities-ui.js?v=2"></script>
+<script src="src/village-activities-ui.js?v=3"></script>
 <script src="src/restaurant-kitchen.js?v=2"></script>
 <script src="src/restaurant-hospitality.js?v=1"></script>
 <script src="src/restaurant-kitchen-ui.js?v=3"></script>
@@ -188,6 +188,9 @@
 <script src="src/river-garden.js?v=1"></script>
 <script src="src/river-garden-ui.js?v=1"></script>
 <link rel="stylesheet" href="styles/river-garden.css?v=1">
+<script src="src/village-professions.js?v=1"></script>
+<script src="src/village-professions-ui.js?v=1"></script>
+<link rel="stylesheet" href="styles/village-professions.css?v=1">
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3892,7 +3895,7 @@ effectiveFellowPowerComponents=function(id,state=S){
  return{...prior,effectivePower,unroundedPower:prior.unroundedPower+bonus,villageMasteryPower:bonus,formulaOrder:[...prior.formulaOrder,'villageMasteryFlatPower']};
 };
 function villagePlayChange(id,action,payload={},train=false){
- if(['restaurant','school','hearth','fishing','gardens'].includes(id)&&action==='start')return{ok:false,reason:'Open the redesigned activity from the Village.'};
+ if(action==='start')return{ok:false,reason:'Open the redesigned activity from the Village.'};
  if(PERSISTENCE_BLOCKED||PERSISTENCE_STALE)return{ok:false,reason:'Reload the latest save before continuing.'};
  const actual=villagePlayActual(),expected=JSON.stringify(actual.villageActivities),now=runtimeNow();
  if(train&&(actual.fellows?.[id]?.owned!==true||!phaseElevenGFellowAvailable(id,actual)))return{ok:false,reason:'Choose an owned Fellow.'};
@@ -3908,8 +3911,8 @@ function villagePlayChange(id,action,payload={},train=false){
  return saved.ok?{ok:true,reward:outcome.reward}: {ok:false,reason:saved.reason||saved.error?.message||'The activity was not saved.'};
 }
 const VILLAGE_PLAY_UI=window.EVERSTEAD_VILLAGE_ACTIVITIES_UI.install({document,engine:VILLAGE_PLAY,state:()=>villagePlayActual(),now:runtimeNow,showModal,bindModal,closeModal,format:fmt,escape:esc,act:villagePlayChange,train:id=>villagePlayChange(id,'train',{},true),openBuilding:id=>openBuilding(id),
- openPlace:id=>id==='restaurant'?openKitchen():['school','hearth'].includes(id)?openHearthSchool(id):['fishing','gardens'].includes(id)?openRiverGarden(id):VILLAGE_PLAY_UI.open(id),
- placeStatus:id=>{if(['fishing','gardens'].includes(id)){const r=RIVER_GARDEN.settle(villagePlayActual().riverGarden,runtimeNow()),ready=r?.plots.filter(p=>p&&p.readyAt<=runtimeNow()).length;return r?{waiting:id==='fishing'?r.bait:ready,pending:id==='fishing'?r.pending:ready>0}:null}if(['school','hearth'].includes(id)){const r=HEARTH_SCHOOL.settle(villagePlayActual().hearthSchool,runtimeNow());return r?{waiting:id==='school'?r.lessons:r.visits,pending:id==='school'&&r.pupils.some(p=>p.lessons===4)}:null}if(id!=='restaurant')return null;const r=KITCHEN.settle(villagePlayActual().restaurantKitchen,runtimeNow());return r?{waiting:r.diners,pending:r.pending}:null},
+ openPlace:id=>id==='restaurant'?openKitchen():['school','hearth'].includes(id)?openHearthSchool(id):['fishing','gardens'].includes(id)?openRiverGarden(id):openProfessions(id),
+ placeStatus:id=>{if(window.EVERSTEAD_PROFESSIONS.definitions[id]){const r=window.EVERSTEAD_PROFESSIONS.status(villagePlayActual().villageProfessions,id,runtimeNow());return r?{waiting:r.bank,pending:r.actions.some(a=>['claim','collect','deliver','fulfill','promote'].includes(a.action)&&!a.disabled)}:null}if(['fishing','gardens'].includes(id)){const r=RIVER_GARDEN.settle(villagePlayActual().riverGarden,runtimeNow()),ready=r?.plots.filter(p=>p&&p.readyAt<=runtimeNow()).length;return r?{waiting:id==='fishing'?r.bait:ready,pending:id==='fishing'?r.pending:ready>0}:null}if(['school','hearth'].includes(id)){const r=HEARTH_SCHOOL.settle(villagePlayActual().hearthSchool,runtimeNow());return r?{waiting:id==='school'?r.lessons:r.visits,pending:id==='school'&&r.pupils.some(p=>p.lessons===4)}:null}if(id!=='restaurant')return null;const r=KITCHEN.settle(villagePlayActual().restaurantKitchen,runtimeNow());return r?{waiting:r.diners,pending:r.pending}:null},
  fellows:()=>FELLOW_DEFS.filter(d=>phaseElevenGFellowAvailable(d.id,S)).map(d=>({id:d.id,name:d.name,power:power(d.id,S),portrait:`assets/portraits/fellows/thumb/${d.art}.webp`})),
  cast:()=>[...FELLOW_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/fellows/thumb/${d.art}.webp`,quote:'Let’s put what we learn here to work on the road.'})),...FAMILY_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/family/thumb/${d.art}.webp`,quote:'A little shared work makes the whole Village stronger.'}))]
 });
@@ -3977,6 +3980,21 @@ const hospitalityPowerBefore=effectiveFellowPowerComponents;
 effectiveFellowPowerComponents=function(id,state=S){const prior=hospitalityPowerBefore(id,state),actual=villagePlayActual(state),h=actual?.restaurantHospitality,stationPower=actual?.fellows?.[id]?.owned&&HOSPITALITY.valid(h,actual.restaurantKitchen)?HOSPITALITY.totals(h).power:0;return stationPower?{...prior,effectivePower:safeAddInteger(prior.effectivePower,stationPower,'Kitchen station Power'),unroundedPower:prior.unroundedPower+stationPower,stationPower,formulaOrder:[...prior.formulaOrder,'stationFlatPower']}:prior};
 const hospitalityRateBefore=buildingRateComponents;
 buildingRateComponents=function(id,state=S,at=runtimeNow()){const prior=hospitalityRateBefore(id,state,at),actual=villagePlayActual(state),h=actual?.restaurantHospitality,stationEarnings=HOSPITALITY.valid(h,actual?.restaurantKitchen)?HOSPITALITY.totals(h).earnings/BUILDING_DEFS.length:0;return stationEarnings?{...prior,rate:prior.rate+stationEarnings,stationEarnings,formulaOrder:[...prior.formulaOrder,'stationFlatEarningsShare']}:prior};
+/* Village professions v1: independent conserved inventories and additive permanent growth. */
+const PROFESSIONS=window.EVERSTEAD_PROFESSIONS;
+CURRENT_TRANSACTION_SOURCES.add('village-professions');
+const professionsValidateBefore=phase24lValidate;
+phase24lValidate=function(state,physical=null){const r=state?.villageProfessions;if(Object.hasOwn(state||{},'villageProfessions')&&(!PROFESSIONS.valid(r)||!state.saveMeta||PROFESSIONS.latestTime(r)>state.saveMeta.updatedAt||Object.keys(r.facilities.training.data.fellows).some(id=>!FELLOW_DEFS.some(f=>f.id===id))))return{ok:false,errors:['villageProfessions.invalid']};return professionsValidateBefore(state,physical)};
+const professionsMutateBefore=mutatePersisted;
+mutatePersisted=function(mutator,source='gameplay',options={}){return professionsMutateBefore((state,now,refuse)=>{const actual=villagePlayActual(state);if(actual.schemaVersion===15&&!Object.hasOwn(actual,'villageProfessions'))actual.villageProfessions=PROFESSIONS.create(now);return mutator(state,now,refuse)},source,options)};
+const professionsPowerBefore=effectiveFellowPowerComponents;
+effectiveFellowPowerComponents=function(id,state=S){const prior=professionsPowerBefore(id,state),actual=villagePlayActual(state),professionPower=actual?.fellows?.[id]?.owned?PROFESSIONS.bonuses(actual.villageProfessions,id).power:0;return professionPower?{...prior,effectivePower:safeAddInteger(prior.effectivePower,professionPower,'Village profession Power'),unroundedPower:prior.unroundedPower+professionPower,professionPower,formulaOrder:[...prior.formulaOrder,'professionFlatPower']}:prior};
+const professionsRateBefore=buildingRateComponents;
+buildingRateComponents=function(id,state=S,at=runtimeNow()){const prior=professionsRateBefore(id,state,at),professionEarnings=PROFESSIONS.bonuses(villagePlayActual(state)?.villageProfessions).earnings/BUILDING_DEFS.length;return professionEarnings?{...prior,rate:prior.rate+professionEarnings,professionEarnings,formulaOrder:[...prior.formulaOrder,'professionFlatEarningsShare']}:prior};
+function professionsChange(place,action,input={}){let outcome;const saved=mutatePersisted((state,now,refuse)=>{const actual=villagePlayActual(state);if(place==='training'&&['drill','promote'].includes(action)&&(!actual.fellows?.[input.fellowId]?.owned||!phaseElevenGFellowAvailable(input.fellowId,actual)))refuse('Choose an owned Fellow.');outcome=PROFESSIONS.act(actual.villageProfessions,place,action,input,now);if(!outcome.ok)refuse(outcome.reason);actual.villageProfessions=outcome.root},'village-professions',{renderAfter:false,allowRefusal:true});return saved.ok?{ok:true,message:outcome.message}:{ok:false,reason:saved.reason||saved.error?.message||'This workshop action could not be saved.'}}
+const openProfessions=window.installProfessionsUI({state:()=>villagePlayActual(),now:runtimeNow,escape:esc,showModal,close:()=>{closeModal();VILLAGE_PLAY_UI.bind()},act:professionsChange,legacy:(id,mode)=>VILLAGE_PLAY_UI.open(id,mode),fellows:()=>FELLOW_DEFS.filter(f=>villagePlayActual().fellows?.[f.id]?.owned&&phaseElevenGFellowAvailable(f.id,S)).map(f=>({id:f.id,name:f.name,portrait:`assets/portraits/fellows/thumb/${f.art}.webp`}))});
+const professionsBuildingBefore=openBuilding;
+openBuilding=function(id){const result=professionsBuildingBefore(id);if(PROFESSIONS.definitions[id]){const button=[...document.querySelectorAll('#overlay button')].find(b=>b.textContent==='PLAY ACTIVITY');if(button)button.onclick=()=>openProfessions(id)}return result};
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24L-B0 predecessor Phase 24C QA guard open BEGIN */
 if(CURRENT_SCHEMA_VERSION<15){

@@ -80,7 +80,7 @@
    const heading=root.querySelector('.va-content h3');
    if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
   }
-  function open(id){if(!PLACES[id])return;current=id;tab='activity';page=0;message='';render();}
+  function open(id,mode='activity'){if(!PLACES[id])return;current=id;tab=mode==='training'?'training':'activity';page=0;message='';render();}
   function bind(){
    const map=document.querySelector('.village-map');if(!map)return;
    map.classList.add('va-enabled');

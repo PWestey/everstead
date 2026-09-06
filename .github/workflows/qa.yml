@@ -41,6 +41,10 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/everstead-phase-24j"
           git archive 8d82073100a2f5f409834b21f011b5c6019ac1aa | tar -x -C "$RUNNER_TEMP/everstead-phase-24j"
+      - name: Export accepted Phase 24K predecessor
+        run: |
+          mkdir -p "$RUNNER_TEMP/everstead-phase-24k"
+          git archive 7f64c69a6d5e8d55e79140b8c6fa18c514e21d1e | tar -x -C "$RUNNER_TEMP/everstead-phase-24k"
       - name: Verify frozen Phase 24F predecessor
         working-directory: ${{ runner.temp }}/everstead-phase-24f
         env:
@@ -81,7 +85,11 @@ jobs:
         run: |
           node qa/phase-24j-navigation-art/verify.mjs
           shasum -a 256 -c qa/phase-24j-navigation-art/checksums.sha256
-      - name: Verify Phase 24K art-first screen contract
+      - name: Verify frozen Phase 24K art-first screen contract
+        working-directory: ${{ runner.temp }}/everstead-phase-24k
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24k
         run: |
           node qa/phase-24k-screen-art/verify.mjs
           shasum -a 256 -c qa/phase-24k-screen-art/checksums.sha256
@@ -120,5 +128,42 @@ jobs:
         run: |
           ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
           npm run qa:phase24j-navigation-art
-      - name: Run Phase 24K art-first screen matrix
-        run: npm run qa:phase24k-screen-art
+      - name: Run frozen Phase 24K art-first screen matrix
+        working-directory: ${{ runner.temp }}/everstead-phase-24k
+        env:
+          GIT_DIR: ${{ github.workspace }}/.git
+          GIT_WORK_TREE: ${{ runner.temp }}/everstead-phase-24k
+        run: |
+          ln -s "$GITHUB_WORKSPACE/node_modules" node_modules
+          npm run qa:phase24k-screen-art
+  current-village:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out current Everstead
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify current Village gameplay engines
+        run: |
+          node qa/restaurant-kitchen.mjs
+          node qa/hearth-school.mjs
+          node qa/river-garden.mjs
+          node qa/restaurant-hospitality.mjs
+          node qa/village-professions.mjs
+      - name: Install browser verification dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify current Village browser and save safety
+        run: |
+          python3 -m http.server 8857 --bind 127.0.0.1 > "$RUNNER_TEMP/everstead-current-village-server.log" 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8857/index.html > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:8857/index.html > /dev/null
+          node qa/village-professions-browser.mjs
+          node qa/village-professions-safety.mjs
