@@ -28,7 +28,7 @@ async function fresh(){
  return {context,page};
 }
 const snapshot=page=>page.evaluate(()=>window.__villageSafety.snapshot());
-async function pending(page,id='restaurant'){
+async function pending(page,id='command'){
  await page.evaluate(id=>{
   const api=window.__villageSafety;
   for(const [action,payload]of [['tutorial',{}],['start',{}]])if(!api.action(id,action,payload).ok)throw Error('Setup failed');
@@ -57,7 +57,7 @@ try{
  }
  for(const point of ['staging','active']){
   const {context,page}=await fresh(),claimId=await pending(page),before=await snapshot(page);
-  const failure=await page.evaluate(({claimId,point})=>window.__villageSafety.interruptClaim('restaurant',claimId,point),{claimId,point});
+  const failure=await page.evaluate(({claimId,point})=>window.__villageSafety.interruptClaim('command',claimId,point),{claimId,point});
   ok(failure.injected,`${point} failure was exercised`);ok(!failure.result.ok,`${point} interruption rejects immediate claim result`);
   const interrupted=await snapshot(page);
   eq(interrupted.raw,before.raw,`${point} interrupted active bytes remain unchanged`);
@@ -69,15 +69,15 @@ try{
   let recovered=await snapshot(page);
   ok(!recovered.blocked,`${point} reload recovers normally`);
   if(point==='staging'){
-   eq(recovered.state.villageActivities.facilities.restaurant.claimed,0,'Before-stage failure keeps reward pending');
-   ok((await page.evaluate(claimId=>window.__villageSafety.action('restaurant','claim',{claimId}),claimId)).ok,'Pending reward remains claimable once');
+   eq(recovered.state.villageActivities.facilities.command.claimed,0,'Before-stage failure keeps reward pending');
+   ok((await page.evaluate(claimId=>window.__villageSafety.action('command','claim',{claimId}),claimId)).ok,'Pending reward remains claimable once');
    recovered=await snapshot(page);
   }
-  eq(recovered.state.villageActivities.facilities.restaurant.claimed,1,`${point} terminal state contains exactly one claim`);
-  eq(recovered.state.gold-before.state.gold,before.state.villageActivities.facilities.restaurant.pending.gold,`${point} recovery awards exact Gold once`);
+  eq(recovered.state.villageActivities.facilities.command.claimed,1,`${point} terminal state contains exactly one claim`);
+  eq(recovered.state.gold-before.state.gold,before.state.villageActivities.facilities.command.pending.gold,`${point} recovery awards exact Gold once`);
   eq(recovered.state.villageActivities.training-before.state.villageActivities.training,3,`${point} recovery awards Training once`);
   eq(recovered.staged,null,`${point} recovery cleans staging`);
-  const replay=await page.evaluate(claimId=>window.__villageSafety.action('restaurant','claim',{claimId}),claimId);
+  const replay=await page.evaluate(claimId=>window.__villageSafety.action('command','claim',{claimId}),claimId);
   ok(!replay.ok,`${point} replayed claim refuses`);
   eq((await snapshot(page)).raw,recovered.raw,`${point} replay writes nothing`);
   await page.reload({waitUntil:'load'});

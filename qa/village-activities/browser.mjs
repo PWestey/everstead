@@ -11,12 +11,13 @@ try{for(const width of [390,320]){
  const defs=await page.evaluate(()=>window.EVERSTEAD_VILLAGE_ACTIVITIES.definitions);
  assert.equal(await page.locator('[data-va-open]').count(),13);
  for(const [id,d] of Object.entries(defs)){
+  if(id==='restaurant')continue; // Recipe kitchen has its own end-to-end suite.
   await page.locator(`[data-va-open="${id}"]`).click();
   await page.locator('[data-va-action="tutorial"]').click();
   await page.locator('[data-va-action="start"]').click();
   for(const step of d.scenarios[0].steps)await page.locator(`[data-va-choice="${step.answer}"]`).click();
   const completed=await state();assert.equal(completed.villageActivities.facilities[id].completed,1);assert.equal(completed.villageActivities.facilities[id].claimed,0);
-  if(id==='restaurant'){await page.screenshot({path:`/tmp/village-restaurant-${width}.png`});await page.reload();await page.locator(`[data-va-open="${id}"]`).click();}
+  if(id==='command'){await page.screenshot({path:`/tmp/village-command-${width}.png`});await page.reload();await page.locator(`[data-va-open="${id}"]`).click();}
   await page.locator('[data-va-action="claim"]').click();
   assert.equal((await state()).villageActivities.facilities[id].claimed,1);
   assert.equal(await page.locator('[data-va-action="claim"]').count(),0);

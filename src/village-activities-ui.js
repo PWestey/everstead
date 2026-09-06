@@ -87,11 +87,11 @@
    for(const [id,place]of Object.entries(PLACES)){
     let button=map.querySelector(`[data-va-open="${id}"]`);
     if(!button){button=document.createElement('button');button.type='button';button.className='va-map-entrance';button.dataset.vaOpen=id;button.style.cssText=`--va-x:${place.x}%;--va-y:${place.y}%;--va-color:${place.color}`;map.append(button);}
-    const p=preview(id);const ready=!!p.pending;
+    const p=adapter.placeStatus?.(id)||preview(id);const ready=!!p.pending;
     button.dataset.ready=String(ready);
     button.innerHTML=`<span aria-hidden="true">${place.icon}</span><b>${esc(place.name)}</b>${ready?'<small>✦</small>':p.waiting?`<small>${fmt(p.waiting)}</small>`:''}`;
     button.setAttribute('aria-label',`${place.name}: ${ready?'reward ready':`${p.waiting||0} opportunities waiting`}`);
-    button.onclick=()=>open(id);
+    button.onclick=()=>adapter.openPlace?adapter.openPlace(id):open(id);
    }
   }
   return Object.freeze({bind,open});

@@ -175,9 +175,12 @@
 <script src="src/phase24l-facility-modals.js?v=phase24l-b3c-v1"></script>
 <script src="src/phase24l-private-facility-modals.js?v=phase24l-b3d-v1"></script>
 <script src="src/phase24l-successor-facility-modals.js?v=phase24l-b3e-v1"></script>
-<link rel="stylesheet" href="styles/village-activities.css?v=2">
+<link rel="stylesheet" href="styles/village-activities.css?v=3">
 <script src="src/village-activities.js?v=1"></script>
-<script src="src/village-activities-ui.js?v=1"></script>
+<script src="src/village-activities-ui.js?v=2"></script>
+<script src="src/restaurant-kitchen.js?v=1"></script>
+<script src="src/restaurant-kitchen-ui.js?v=1"></script>
+<link rel="stylesheet" href="styles/restaurant-kitchen.css?v=1">
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3882,6 +3885,7 @@ effectiveFellowPowerComponents=function(id,state=S){
  return{...prior,effectivePower,unroundedPower:prior.unroundedPower+bonus,villageMasteryPower:bonus,formulaOrder:[...prior.formulaOrder,'villageMasteryFlatPower']};
 };
 function villagePlayChange(id,action,payload={},train=false){
+ if(id==='restaurant'&&action==='start')return{ok:false,reason:'Visit the Restaurant kitchen to cook and improve recipes.'};
  if(PERSISTENCE_BLOCKED||PERSISTENCE_STALE)return{ok:false,reason:'Reload the latest save before continuing.'};
  const actual=villagePlayActual(),expected=JSON.stringify(actual.villageActivities),now=runtimeNow();
  if(train&&(actual.fellows?.[id]?.owned!==true||!phaseElevenGFellowAvailable(id,actual)))return{ok:false,reason:'Choose an owned Fellow.'};
@@ -3897,6 +3901,8 @@ function villagePlayChange(id,action,payload={},train=false){
  return saved.ok?{ok:true,reward:outcome.reward}: {ok:false,reason:saved.reason||saved.error?.message||'The activity was not saved.'};
 }
 const VILLAGE_PLAY_UI=window.EVERSTEAD_VILLAGE_ACTIVITIES_UI.install({document,engine:VILLAGE_PLAY,state:()=>villagePlayActual(),now:runtimeNow,showModal,bindModal,closeModal,format:fmt,escape:esc,act:villagePlayChange,train:id=>villagePlayChange(id,'train',{},true),openBuilding:id=>openBuilding(id),
+ openPlace:id=>id==='restaurant'?openKitchen():VILLAGE_PLAY_UI.open(id),
+ placeStatus:id=>{if(id!=='restaurant')return null;const r=KITCHEN.settle(villagePlayActual().restaurantKitchen,runtimeNow());return r?{waiting:r.diners,pending:r.pending}:null},
  fellows:()=>FELLOW_DEFS.filter(d=>phaseElevenGFellowAvailable(d.id,S)).map(d=>({id:d.id,name:d.name,power:power(d.id,S),portrait:`assets/portraits/fellows/thumb/${d.art}.webp`})),
  cast:()=>[...FELLOW_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/fellows/thumb/${d.art}.webp`,quote:'Let’s put what we learn here to work on the road.'})),...FAMILY_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/family/thumb/${d.art}.webp`,quote:'A little shared work makes the whole Village stronger.'}))]
 });
@@ -3904,6 +3910,19 @@ const bindBeforeVillagePlay=bindCommon;
 bindCommon=function(...args){const result=bindBeforeVillagePlay(...args);if(villagePlayActual()?.villageActivities)VILLAGE_PLAY_UI.bind();return result};
 const buildingBeforeVillagePlay=openBuilding;
 openBuilding=function(id){const result=buildingBeforeVillagePlay(id);if(VILLAGE_PLAY.definitions[id]){const head=document.querySelector('#overlay .modal-head');if(head){const button=document.createElement('button');button.className='btn';button.textContent='PLAY ACTIVITY';button.onclick=()=>VILLAGE_PLAY_UI.open(id);head.after(button)}}return result};
+/* Restaurant v1: explicit optional extension, settled before recipe changes. */
+const KITCHEN=window.EVERSTEAD_KITCHEN;
+CURRENT_TRANSACTION_SOURCES.add('restaurant-kitchen');
+const kitchenValidateBefore=phase24lValidate;
+phase24lValidate=function(state,physical=null){const r=state?.restaurantKitchen;if(Object.hasOwn(state||{},'restaurantKitchen')&&(!KITCHEN.valid(r)||!state.saveMeta||Math.max(r.lastArrival,r.lastDelivery)>state.saveMeta.updatedAt))return{ok:false,errors:['restaurantKitchen.invalid']};return kitchenValidateBefore(state,physical)};
+const kitchenMutateBefore=mutatePersisted;
+mutatePersisted=function(mutator,source='gameplay',options={}){return kitchenMutateBefore((state,now,refuse)=>{const actual=villagePlayActual(state);if(actual.schemaVersion===15&&!Object.hasOwn(actual,'restaurantKitchen'))actual.restaurantKitchen=KITCHEN.create(now);return mutator(state,now,refuse)},source,options)};
+const kitchenPowerBefore=effectiveFellowPowerComponents;
+effectiveFellowPowerComponents=function(id,state=S){const prior=kitchenPowerBefore(id,state),actual=villagePlayActual(state),bonus=actual?.fellows?.[id]?.owned===true?KITCHEN.bonuses(actual.restaurantKitchen).power:0;return bonus?{...prior,effectivePower:safeAddInteger(prior.effectivePower,bonus,'Recipe Power'),unroundedPower:prior.unroundedPower+bonus,recipePower:bonus,formulaOrder:[...prior.formulaOrder,'recipeFlatPower']}:prior};
+const kitchenRateBefore=buildingRateComponents;
+buildingRateComponents=function(id,state=S,at=runtimeNow()){const prior=kitchenRateBefore(id,state,at),recipeEarnings=KITCHEN.bonuses(villagePlayActual(state)?.restaurantKitchen).earnings/BUILDING_DEFS.length;return recipeEarnings?{...prior,rate:prior.rate+recipeEarnings,recipeEarnings,formulaOrder:[...prior.formulaOrder,'recipeFlatEarningsShare']}:prior};
+function kitchenChange(action,id){let outcome;const result=mutatePersisted((state,now,refuse)=>{const actual=villagePlayActual(state);outcome=KITCHEN.act(actual.restaurantKitchen,action,id,now);if(!outcome.ok)refuse(outcome.reason);actual.restaurantKitchen=outcome.root;actual.gold=safeAddInteger(actual.gold,outcome.gold,'Restaurant payment')},'restaurant-kitchen',{renderAfter:false,allowRefusal:true});return result.ok?{ok:true}:{ok:false,reason:result.reason||result.error?.message||'Kitchen action could not be saved.'}}
+const openKitchen=window.installKitchenUI({state:()=>villagePlayActual(),now:runtimeNow,escape:esc,showModal,close:()=>{closeModal();VILLAGE_PLAY_UI.bind()},act:kitchenChange,legacy:()=>VILLAGE_PLAY_UI.open('restaurant')});
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24L-B0 predecessor Phase 24C QA guard open BEGIN */
 if(CURRENT_SCHEMA_VERSION<15){

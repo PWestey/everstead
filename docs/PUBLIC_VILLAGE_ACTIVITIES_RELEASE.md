@@ -2,6 +2,10 @@
 
 Date: 2026-09-06. Base: c303494. No private facility policy gates enabled.
 
+Follow-up: [Restaurant kitchen](RESTAURANT_KITCHEN_RELEASE.md) replaces the
+Restaurant quiz with recipes, ingredients, serving and permanent progression.
+The remaining initial activity descriptions below are historical release scope.
+
 ## Player-facing scope
 
 Every mapped building now opens a playable, themed activity: Command Center
