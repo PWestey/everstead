@@ -1,4 +1,5 @@
 /* Village activities: map-local entrances and compact, illustrated game sheets. */
+[data-phase24k-village-speech]{z-index:8!important}
 .village-map.va-enabled>.building-hotspot,.village-map.va-enabled>.phase15-board{display:none!important}
 .va-map-entrance{position:absolute;left:var(--va-x);top:var(--va-y);transform:translate(-50%,-50%);z-index:7;width:90px;min-height:60px;padding:3px;border:0!important;background:transparent!important;color:#fff7dd!important;text-align:center;text-shadow:0 2px 3px #130e08,1px 0 #130e08,-1px 0 #130e08}
 .va-map-entrance>span{display:grid;place-items:center;width:43px;height:43px;margin:auto;background:linear-gradient(145deg,color-mix(in srgb,var(--va-color) 75%,#fff),var(--va-color));border:3px double #f7d389;border-radius:14px 4px;box-shadow:0 3px 9px #000a;font-size:24px;color:#fff4d5}

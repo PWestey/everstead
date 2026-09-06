@@ -14,7 +14,8 @@ try{for(const width of [390,320]){
  assert(await page.locator('[data-phase24k-village-character]').isVisible());
  await page.locator('[data-phase24k-village-character]').press('Enter');
  assert.equal(await page.locator('[data-phase24k-village-character]').isVisible(),false);
- await page.locator('[data-building="command"]').first().click();
+ await page.locator('[data-va-open="command"]').click();
+ await page.locator('[data-va-building]').click();
  await page.locator('[data-phase24l-b3c-tab="upgrade"]').click();
  const buildingBefore=await state();await page.locator('[data-modal-act="upgrade-building"]').click();
  const buildingAfter=await state();assert.equal(buildingAfter.buildings.command.level,buildingBefore.buildings.command.level+1);assert(buildingAfter.gold<buildingBefore.gold);
