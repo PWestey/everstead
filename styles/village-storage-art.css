@@ -1,0 +1,51 @@
+/* Screenshot-inspired presentation only; existing navigation and claim handlers. */
+.phase15-hotspot{background:radial-gradient(circle at 35% 25%,#fff0bd,#aa8652)!important;border:3px double #674726!important;color:#392d20!important;box-shadow:0 3px 0 #4c3424,0 7px 14px #0008!important;text-shadow:0 1px #fff8}
+.phase15-hotspot[data-phase15-state="ready"]{border-color:#ffe6a0!important;box-shadow:0 0 0 2px #85652d,0 0 18px #ffe090!important}
+.phase15-hotspot[data-phase15-state="discovered"]{filter:saturate(.25);opacity:.65}
+.building-hotspot{background:linear-gradient(110deg,#493422ed,#755431da)!important;border:2px double #e9c38a!important;border-radius:4px 14px 4px 14px!important}
+.phase24l-b3a-more-stage{background-image:linear-gradient(180deg,#07131b00 8%,#07131b33 66%,#07131bd9),url('../assets/backgrounds/fellowship-hall-phase24k.webp')!important}
+.phase24l-b3a-archive-sigil{background:radial-gradient(circle,#ad8951,#4a3525);border:4px double #eed39a;box-shadow:0 0 0 3px #503929,0 8px 22px #0008}
+.modal[data-phase24l-b3c-modal],.modal:has([data-phase24l-b3b-inventory]),.modal[data-phase24l-b3b-modal="legacy"]{--ink:#3b2d23;--muted:#75614c;color:#3b2d23;background:radial-gradient(ellipse at top left,#fff8e8,transparent 75%),#ded0b6;border:4px double #b38b52;border-radius:9px}
+.modal[data-phase24l-b3c-modal]>.modal-head,.modal:has([data-phase24l-b3b-inventory])>.modal-head,.modal[data-phase24l-b3b-modal="legacy"]>.modal-head{border-bottom:3px double #b79a70;background:linear-gradient(90deg,#b7986444,transparent)}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) :is(.card,.metric,[data-building-production-details],[data-building-upgrade-preview],.phase-13-legacy-track){background:#fff5e2!important;border-color:#c1a278!important;border-radius:5px!important;color:#3b2d23}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) :is(.soft,p,label,.metric span){color:#715b45!important}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) :is(h3,.metric b){color:#47341f!important}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) .eyebrow{color:#876132}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) .btn{background:linear-gradient(#edc17a,#be873e);border:3px double #9c6c36;color:#3a291a;box-shadow:inset 0 0 0 1px #ffe1aa,0 3px 0 #9e784a}
+:is(.phase24l-b3c-panel,.phase24l-b3b-legacy-panel) .btn.teal{background:linear-gradient(#648e63,#355940);color:#fff4da;border-color:#acb98a}
+.phase24l-b3c-action-dock{background:linear-gradient(transparent,#ded0b6 22%)}
+.phase24l-b3c-panel select{background:#fff7e5;color:#433326;border-color:#b59b75}
+.phase24l-b3c-scene{flex-basis:clamp(100px,25dvh,200px);border:3px double #a5814f;border-radius:5px!important;background-position:center 34%!important}
+:is(.phase24l-b3c-tabs,.phase24l-b3b-tabs){border:3px double #ac8957;background:linear-gradient(#725337,#432e23);border-radius:5px}
+:is(.phase24l-b3c-tabs,.phase24l-b3b-tabs) button{border-radius:5px;color:#ead4ad}
+:is(.phase24l-b3c-tabs,.phase24l-b3b-tabs) button[aria-selected="true"]{background:linear-gradient(#fff0be,#d8b776);color:#473322;border-color:#fce3ad;box-shadow:0 0 12px #f2c57766}
+.phase24l-b3c-tabs button i{width:26px;height:26px;margin:0 auto 2px;background:url('../assets/ui/fellow-panels/building.svg') center/contain no-repeat;font-size:0}
+.phase24l-b3b-truth,.phase24l-b3b-pager span{color:#756049}
+.phase24l-b3b-grid{gap:6px;padding:4px;background:#baa48255;border:2px solid #c9b28c;grid-template-rows:repeat(3,minmax(0,105px));align-content:start}
+.modal:has([data-phase24l-b3b-inventory]) .eyebrow{color:#795a2e}
+.phase24l-b3b-item{position:relative;border:3px double #caa968;border-radius:3px;background:radial-gradient(ellipse at 50% 30%,#607c8b,#203543 70%);box-shadow:inset 0 0 10px #0009,0 2px 2px #654b3866}
+.phase24l-b3b-item[data-phase24l-b3b-kind="gift"]{background:radial-gradient(ellipse at 50% 30%,#b87ba0,#57335f 75%)}
+.phase24l-b3b-item[data-phase24l-b3b-kind="relic"]{background:radial-gradient(ellipse at 50% 30%,#d5ab54,#674122 75%)}
+.phase24l-b3b-item[data-phase24l-b3b-kind="shard"]{background:radial-gradient(ellipse at 50% 30%,#9180b9,#43375f 75%)}
+.phase24l-b3b-item[aria-pressed="true"]{border-color:#fff2b4;box-shadow:inset 0 0 12px #e5c37966,0 0 8px #b38a42}
+.phase24l-b3b-item-glyph{width:42px;height:42px;border:0;background:url('../assets/ui/fellow-panels/level.svg') center/contain no-repeat;font-size:0;filter:drop-shadow(0 3px 2px #0008)}
+[data-phase24l-b3b-kind="shard"] .phase24l-b3b-item-glyph{background-image:url('../assets/ui/fellow-panels/rank.svg')}
+[data-phase24l-b3b-kind="gift"] .phase24l-b3b-item-glyph{background-image:url('../assets/ui/fellow-panels/gifts.svg')}
+[data-phase24l-b3b-kind="relic"] .phase24l-b3b-item-glyph,[data-phase24l-b3b-item="material.relic-stones"] .phase24l-b3b-item-glyph{background-image:url('../assets/ui/fellow-panels/relics.svg')}
+.phase24l-b3b-item b{color:#ffe3a3;text-shadow:0 2px #37261e;font:bold 12px Georgia,serif}
+.phase24l-b3b-item-name{color:#fff2d8;text-shadow:0 1px 3px #000}
+.phase24l-b3b-pager button{background:linear-gradient(#99764c,#583e2b);border:3px double #dbc08a;color:#fff2ce;border-radius:6px}
+.phase24l-b3b-legacy-panel .phase-13-legacy-track{border:3px double #b6996b!important;box-shadow:inset 0 0 0 4px #e5d4b5;padding:13px!important}
+.phase24l-b3b-legacy-panel .phase-13-legacy-track h3:before{content:'✦ ';color:#a77930}
+.phase24l-b3c-tabs button:first-child i{background-image:url('../assets/ui/fellow-panels/assignment.svg')}
+.phase24l-b3c-tabs button:last-child i{background-image:url('../assets/ui/fellow-panels/rank.svg')}
+.modal:has(.phase-13-legacy-track){color:#493522;background:radial-gradient(ellipse at top,#fff8e8,#dfcdae);border:4px double #b38b52;border-radius:8px}
+.modal:has(.phase-13-legacy-track) .modal-head{border-bottom:3px double #b49667;padding-bottom:8px}
+.modal:has(.phase-13-legacy-track) .eyebrow{color:#866332}
+.modal:has(.phase-13-legacy-track) .card{background:#fff2d9;border:3px double #bea171;border-radius:5px;color:#493522;margin-top:8px;box-shadow:inset 0 0 0 4px #e9d8b7}
+.modal:has(.phase-13-legacy-track) :is(p,.soft){color:#70583e}
+.modal:has(.phase-13-legacy-track) h3:before{content:'✦ ';color:#b38434}
+.modal:has(.phase-13-legacy-track) .btn{background:linear-gradient(#678d5d,#365c40);color:#fff3d6;border:3px double #afba85}
+.modal[data-phase24l-b3c-modal]>.modal-head .eyebrow{color:#866332}
+@media(max-height:640px){.phase24l-b3c-scene{flex-basis:82px}.phase24l-b3b-grid{grid-template-rows:repeat(3,minmax(0,80px))}.phase24l-b3b-item-glyph{width:30px;height:30px}.phase24l-b3b-item b{font-size:10px}}
+@media(forced-colors:active){.phase15-hotspot,.phase24l-b3b-item,.modal[data-phase24l-b3c-modal]{background:Canvas!important;color:CanvasText!important}.phase24l-b3b-item-glyph{font-size:12px}}
