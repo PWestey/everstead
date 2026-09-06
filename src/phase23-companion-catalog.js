@@ -31,8 +31,8 @@
     id:row[0],name:row[1],title:row[2],base:row[3],basePower:row[3],sourceSha256:row[4],legacySourceId:row[5],idx:index,
     fullWidth:1024,fullHeight:1536,thumbWidth:320,thumbHeight:480,
     art:Object.freeze({
-      portrait:`private-assets/companions/${row[0]}/portrait.webp`,
-      thumb:`private-assets/companions/${row[0]}/thumb.webp`
+      portrait:`assets/portraits/companions/${row[0]}/portrait.webp`,
+      thumb:`assets/portraits/companions/${row[0]}/thumb.webp`
     })
   })));
   const ids=Object.freeze(roster.map(item=>item.id));
@@ -65,8 +65,8 @@
     campaignPolicyId:'companion-campaign-targeting.phase-23.v1',
     towerPolicyId:'companion-tower-targeting.phase-23.v1',
     manifestId:'everstead-companions-2026-09-01',
-    privateBuildOnly:true,
-    publicReleaseAllowed:false,
+    privateBuildOnly:false,
+    publicReleaseAllowed:true,
     roster,
     ids,
     campaignPools,
@@ -75,7 +75,7 @@
     basePowerTotal:roster.reduce((sum,item)=>sum+item.base,0),
     tutorials,
     acquisition:Object.freeze({allVisible:true,allOwned:true,summoning:false,pulls:false,acquisitionCurrency:false,duplicateConversion:false,gachaGate:false}),
-    artPolicy:Object.freeze({manifestVersion:1,privateBuildOnly:true,publicReleaseAllowed:false,trackedRightsLimitedBinariesAllowed:false,runtimeRoot:'private-assets/companions',fullFile:'portrait.webp',thumbFile:'thumb.webp',fullWidth:1024,fullHeight:1536,thumbWidth:320,thumbHeight:480,fallbackMode:'original-companion-crest',fakeTransparentCutoutAllowed:false,transparentCutouts:false})
+    artPolicy:Object.freeze({manifestVersion:1,privateBuildOnly:false,publicReleaseAllowed:true,trackedRightsLimitedBinariesAllowed:true,runtimeRoot:'assets/portraits/companions',fullFile:'portrait.webp',thumbFile:'thumb.webp',fullWidth:1024,fullHeight:1536,thumbWidth:320,thumbHeight:480,fallbackMode:'original-companion-crest',fakeTransparentCutoutAllowed:false,transparentCutouts:false})
   });
   Object.defineProperty(global,'EVERSTEAD_PHASE23_COMPANIONS',{configurable:false,enumerable:false,writable:false,value:catalog});
 })(globalThis);
