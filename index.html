@@ -181,6 +181,9 @@
 <script src="src/restaurant-kitchen.js?v=1"></script>
 <script src="src/restaurant-kitchen-ui.js?v=1"></script>
 <link rel="stylesheet" href="styles/restaurant-kitchen.css?v=1">
+<script src="src/hearth-school.js?v=1"></script>
+<script src="src/hearth-school-ui.js?v=1"></script>
+<link rel="stylesheet" href="styles/hearth-school.css?v=1">
   <script>
 (()=>{'use strict';
 		const PHASE_24_SCALING=globalThis.EVERSTEAD_PHASE24_SCALING;
@@ -3885,7 +3888,7 @@ effectiveFellowPowerComponents=function(id,state=S){
  return{...prior,effectivePower,unroundedPower:prior.unroundedPower+bonus,villageMasteryPower:bonus,formulaOrder:[...prior.formulaOrder,'villageMasteryFlatPower']};
 };
 function villagePlayChange(id,action,payload={},train=false){
- if(id==='restaurant'&&action==='start')return{ok:false,reason:'Visit the Restaurant kitchen to cook and improve recipes.'};
+ if(['restaurant','school','hearth'].includes(id)&&action==='start')return{ok:false,reason:'Open the new kitchen, School or Hearth activity from the Village.'};
  if(PERSISTENCE_BLOCKED||PERSISTENCE_STALE)return{ok:false,reason:'Reload the latest save before continuing.'};
  const actual=villagePlayActual(),expected=JSON.stringify(actual.villageActivities),now=runtimeNow();
  if(train&&(actual.fellows?.[id]?.owned!==true||!phaseElevenGFellowAvailable(id,actual)))return{ok:false,reason:'Choose an owned Fellow.'};
@@ -3901,8 +3904,8 @@ function villagePlayChange(id,action,payload={},train=false){
  return saved.ok?{ok:true,reward:outcome.reward}: {ok:false,reason:saved.reason||saved.error?.message||'The activity was not saved.'};
 }
 const VILLAGE_PLAY_UI=window.EVERSTEAD_VILLAGE_ACTIVITIES_UI.install({document,engine:VILLAGE_PLAY,state:()=>villagePlayActual(),now:runtimeNow,showModal,bindModal,closeModal,format:fmt,escape:esc,act:villagePlayChange,train:id=>villagePlayChange(id,'train',{},true),openBuilding:id=>openBuilding(id),
- openPlace:id=>id==='restaurant'?openKitchen():VILLAGE_PLAY_UI.open(id),
- placeStatus:id=>{if(id!=='restaurant')return null;const r=KITCHEN.settle(villagePlayActual().restaurantKitchen,runtimeNow());return r?{waiting:r.diners,pending:r.pending}:null},
+ openPlace:id=>id==='restaurant'?openKitchen():['school','hearth'].includes(id)?openHearthSchool(id):VILLAGE_PLAY_UI.open(id),
+ placeStatus:id=>{if(['school','hearth'].includes(id)){const r=HEARTH_SCHOOL.settle(villagePlayActual().hearthSchool,runtimeNow());return r?{waiting:id==='school'?r.lessons:r.visits,pending:id==='school'&&r.pupils.some(p=>p.lessons===4)}:null}if(id!=='restaurant')return null;const r=KITCHEN.settle(villagePlayActual().restaurantKitchen,runtimeNow());return r?{waiting:r.diners,pending:r.pending}:null},
  fellows:()=>FELLOW_DEFS.filter(d=>phaseElevenGFellowAvailable(d.id,S)).map(d=>({id:d.id,name:d.name,power:power(d.id,S),portrait:`assets/portraits/fellows/thumb/${d.art}.webp`})),
  cast:()=>[...FELLOW_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/fellows/thumb/${d.art}.webp`,quote:'Let’s put what we learn here to work on the road.'})),...FAMILY_DEFS.map(d=>({name:d.name,portrait:`assets/portraits/family/thumb/${d.art}.webp`,quote:'A little shared work makes the whole Village stronger.'}))]
 });
@@ -3923,6 +3926,29 @@ const kitchenRateBefore=buildingRateComponents;
 buildingRateComponents=function(id,state=S,at=runtimeNow()){const prior=kitchenRateBefore(id,state,at),recipeEarnings=KITCHEN.bonuses(villagePlayActual(state)?.restaurantKitchen).earnings/BUILDING_DEFS.length;return recipeEarnings?{...prior,rate:prior.rate+recipeEarnings,recipeEarnings,formulaOrder:[...prior.formulaOrder,'recipeFlatEarningsShare']}:prior};
 function kitchenChange(action,id){let outcome;const result=mutatePersisted((state,now,refuse)=>{const actual=villagePlayActual(state);outcome=KITCHEN.act(actual.restaurantKitchen,action,id,now);if(!outcome.ok)refuse(outcome.reason);actual.restaurantKitchen=outcome.root;actual.gold=safeAddInteger(actual.gold,outcome.gold,'Restaurant payment')},'restaurant-kitchen',{renderAfter:false,allowRefusal:true});return result.ok?{ok:true}:{ok:false,reason:result.reason||result.error?.message||'Kitchen action could not be saved.'}}
 const openKitchen=window.installKitchenUI({state:()=>villagePlayActual(),now:runtimeNow,escape:esc,showModal,close:()=>{closeModal();VILLAGE_PLAY_UI.bind()},act:kitchenChange,legacy:()=>VILLAGE_PLAY_UI.open('restaurant')});
+/* Family–School v1: optional extension, no prior progress reset. */
+const HEARTH_SCHOOL=window.EVERSTEAD_HEARTH_SCHOOL,HS_SOURCE='hearth-school';
+CURRENT_TRANSACTION_SOURCES.add(HS_SOURCE);PHASE_24L_B1_CREDIT_SOURCES.add(HS_SOURCE);
+function hsContext(state){return{family:FAMILY_DEFS.filter(f=>state.family[f.id]).map(f=>({id:f.id,intimacy:state.family[f.id].intimacy}))}}
+const hsValidateBefore=phase24lValidate;
+phase24lValidate=function(state,physical=null){const r=state?.hearthSchool;if(Object.hasOwn(state||{},'hearthSchool')&&(!HEARTH_SCHOOL.valid(r)||!state.saveMeta||Math.max(r.visitClock,r.lessonClock,r.last?.at||0)>state.saveMeta.updatedAt||Object.keys(r.family).some(id=>!FAMILY_IDS.has(id))))return{ok:false,errors:['hearthSchool.invalid']};return hsValidateBefore(state,physical)};
+const hsMutateBefore=mutatePersisted;
+mutatePersisted=function(mutator,source='gameplay',options={}){return hsMutateBefore((state,now,refuse)=>{const actual=villagePlayActual(state);if(actual.schemaVersion===15&&!Object.hasOwn(actual,'hearthSchool'))actual.hearthSchool=HEARTH_SCHOOL.create(now);return mutator(state,now,refuse)},source,options)};
+const hsPowerBefore=effectiveFellowPowerComponents;
+effectiveFellowPowerComponents=function(id,state=S){const prior=hsPowerBefore(id,state),actual=villagePlayActual(state),r=actual?.hearthSchool;const bonus=actual?.fellows?.[id]?.owned&&HEARTH_SCHOOL.valid(r)?FAMILY_DEFS.reduce((n,f)=>n+(f.links.includes(id)?(r.family[f.id]?.level||0)*40:0),0):0;return bonus?{...prior,effectivePower:safeAddInteger(prior.effectivePower,bonus,'Family Blessing Power'),unroundedPower:prior.unroundedPower+bonus,familyBlessingPower:bonus,formulaOrder:[...prior.formulaOrder,'familyBlessingFlatPower']}:prior};
+const hsRateBefore=buildingRateComponents;
+buildingRateComponents=function(id,state=S,at=runtimeNow()){const prior=hsRateBefore(id,state,at),graduateEarnings=HEARTH_SCHOOL.earnings(villagePlayActual(state)?.hearthSchool)/BUILDING_DEFS.length;return graduateEarnings?{...prior,rate:prior.rate+graduateEarnings,graduateEarnings,formulaOrder:[...prior.formulaOrder,'graduateFlatEarningsShare']}:prior};
+function hsExactLesson(before,after){const last=after.hearthSchool?.last;if(!last||last.action!=='lesson')return null;const result=HEARTH_SCHOOL.act(before.hearthSchool,last.action,last.id,last.job,last.at,hsContext(before));return result.ok&&result.rawExp>0&&JSON.stringify(result.root)===JSON.stringify(after.hearthSchool)?result:null}
+const hsCreditAuthorityBefore=phase24lB1CreditAuthority;
+phase24lB1CreditAuthority=function(before,after,source,entries){if(source!==HS_SOURCE)return hsCreditAuthorityBefore(before,after,source,entries);const result=hsExactLesson(before,after),entry=entries[0],last=after.hearthSchool?.last,bps=phase24lB1CollectionExpBps(before),target=FELLOW_DEFS[0].id,sourceId=`hearth-school:${last?.sequence}`;if(!result||entries.length!==1||entry.source.kind!=='manual-reward-claim'||entry.source.id!==sourceId||entry.historicalTargetId!==target||entry.rawAmount!==result.rawExp||entry.authoredBps!==0||entry.collectionBps!==bps||bps!==phase24lB1CollectionExpBps(after)||entry.occurredAt!==last.at)return null;return{kind:'manual-reward-claim',saveId:after.saveMeta.saveId,collectionBps:bps,rewards:[{sourceId,targetId:target,rawAmount:result.rawExp}]}};
+const hsC1AuthorityBefore=phase24lC1TransitionAuthority;
+phase24lC1TransitionAuthority=function(before,after,source){return source===HS_SOURCE&&hsExactLesson(before,after)?{expected:[],allowQaSource:false}:hsC1AuthorityBefore(before,after,source)};
+function hearthSchoolChange(action,id,job){let outcome,awarded=0;const saved=mutatePersisted((state,now,refuse)=>{const actual=villagePlayActual(state);outcome=HEARTH_SCHOOL.act(actual.hearthSchool,action,id,job,now,hsContext(actual));if(!outcome.ok)refuse(outcome.reason);if(outcome.rawExp){const balance=actual.experienceProgression.wallets.fellow.balance;phase24lB1Credit(actual,{sourceKind:'manual-reward-claim',sourceId:`hearth-school:${outcome.root.sequence}`,historicalTargetId:FELLOW_DEFS[0].id,rawAmount:outcome.rawExp,occurredAt:now,isSourceAvailable:(_state,source)=>source.id===`hearth-school:${actual.hearthSchool.sequence+1}`});awarded=actual.experienceProgression.wallets.fellow.balance-balance;}actual.hearthSchool=outcome.root},HS_SOURCE,{renderAfter:false,allowRefusal:true});return saved.ok?{ok:true,awarded}:{ok:false,reason:saved.reason||saved.error?.message||'This action could not be saved.'}}
+const openHearthSchool=window.installHearthSchoolUI({state:()=>villagePlayActual(),now:runtimeNow,escape:esc,showModal,close:()=>{closeModal();VILLAGE_PLAY_UI.bind()},act:hearthSchoolChange,legacy:id=>VILLAGE_PLAY_UI.open(id),wallet:()=>fmt(villagePlayActual().experienceProgression.wallets.fellow.balance),family:()=>FAMILY_DEFS.map(f=>({id:f.id,name:f.name,intimacy:villagePlayActual().family[f.id].intimacy,linkNames:f.links.map(id=>fellow(id)?.name||id),portrait:`assets/portraits/family/thumb/${f.art}.webp`}))});
+const hsFamilyBefore=openFamily;
+openFamily=function(id){const result=hsFamilyBefore(id),root=document.querySelector('#overlay .modal');if(root){const button=document.createElement('button');button.textContent='HEARTH & BLESSINGS';button.className='btn';button.dataset.hsFamily=id;button.style.cssText='position:absolute;top:55px;right:12px;z-index:20';button.onclick=()=>openHearthSchool('hearth',id);root.append(button)}return result};
+const hsBuildingBefore=openBuilding;
+openBuilding=function(id){const result=hsBuildingBefore(id);if(id==='hearth'){const button=[...document.querySelectorAll('#overlay button')].find(b=>b.textContent==='PLAY ACTIVITY');if(button)button.onclick=()=>openHearthSchool('hearth')}return result};
 CURRENT_TRANSACTION_SOURCES.add('phase23-qa-fixture');PERSISTED_RAW=null;PERSISTED_IDENTITY=null;PERSISTENCE_BLOCKED=null;PERSISTENCE_NOTICE=null;PERSISTENCE_OUTCOME='NORMAL';PERSISTENCE_STALE=false;PERSISTENCE_WRITE_IN_PROGRESS=false;bootstrapPersistence();if(!PERSISTENCE_BLOCKED){phase23EnsureCurrentFoundations();const boot=mutatePersisted(()=>{},'boot',{renderAfter:false,opening:true});if(!boot.ok)throw boot.error}render();if(!PERSISTENCE_BLOCKED&&S.ui.view==='village')nav('village');phase23InstallRosterDelegation();phase23InstallQaBridge();phase23InstallInheritedQaCompatibility();
 /* Phase 24L-B0 predecessor Phase 24C QA guard open BEGIN */
 if(CURRENT_SCHEMA_VERSION<15){
