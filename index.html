@@ -3781,6 +3781,16 @@ const runFellowBeforeDirect=runFellowCampaign,runCompanionBeforeDirect=runCompan
 runFellowCampaign=function(id,options={}){return runFellowBeforeDirect(id,{...options,confirmed:true})};
 runCompanionCampaign=function(id,options={}){return runCompanionBeforeDirect(id,{...options,confirmed:true})};
 let stageAutoJob=null;
+function openStageGrowth(){
+ stopStageAuto('');
+ const companion=S.ui.adventure==='companionCampaign',preview=companion?companionCampaignEfficiencyPreview(S.companionCampaign.selectedStageId,S):campaignPreview(S.fellowCampaign.selectedStageId,S);
+ const power=preview?.totalRosterPower||0,required=preview?.stage?.recommendedPower||0,cost=preview?.effectiveCost??preview?.efficiency?.effectiveCost??0;
+ const gap=Math.max(0,Math.ceil(required-power)),goldGap=Math.max(0,Math.ceil(cost-S.gold));
+ const fellowExp=S.experienceProgression?.wallets?.fellow?.balance||0,companionExp=S.experienceProgression?.wallets?.companion?.balance||0;
+ const choices=[['fellows','↑','Train Fellows',`${fmt(fellowExp)} EXP banked · choose who receives it`],['family','♡','Family support',`${fmt(S.gifts)} Gifts · Intimacy and Rank boost linked Fellows`],['relics','◇','Equip & improve Relics',`${fmt(S.relicStones)} Relic Stones · inspect each Power preview`],['companions','◆','Companion growth',`${fmt(companionExp)} EXP banked · level, rank and assign`]];
+ showModal(`<div class="modal-head"><div><div class="eyebrow">Your next step</div><h2>Grow stronger</h2></div><button class="close" data-modal-close aria-label="Close growth options">×</button></div><section class="growth-summary"><b>${esc(preview?.stage?.name||'The next stage')}</b><p>${gap?`${fmt(gap)} more ${companion?'Companion':'Fellow'} Power needed.`:'Your roster meets the Power requirement.'} ${goldGap?`${fmt(goldGap)} more Gold needed; Village income arrives automatically.`:'Gold cost is covered.'}</p></section><div class="growth-routes">${choices.map(([route,icon,title,copy])=>`<button type="button" data-growth-route="${route}"><span aria-hidden="true">${icon}</span><div><b>${title}</b><small>${copy}</small></div><i aria-hidden="true">›</i></button>`).join('')}</div><p class="growth-footnote">Opening a route spends nothing. Review the upgrade before investing. ${companion?'Companion stages use Companion roster Power.':'Fellow stages use total owned Fellow Power.'}</p>`);
+ bindModal();document.querySelectorAll('[data-growth-route]').forEach(button=>{button.onclick=()=>{closeModal();nav('fellows');setRoster(button.dataset.growthRoute)}});
+}
 function stopStageAuto(message='Auto stopped.'){stageAutoJob=null;document.querySelectorAll('[data-stage-auto]').forEach(b=>{b.textContent='AUTO';b.setAttribute('aria-pressed','false')});if(message)toast(message)}
 function stepStageAuto(job){
  if(stageAutoJob!==job)return;
@@ -3815,6 +3825,7 @@ bindCommon=function(...args){const result=bindBeforeExploration(...args),village
  const stage=document.querySelector('[data-phase24l-game-screen="adventure"]');
  if(stage?.querySelector('.campaign-walk')){
   stage.classList.add('simple-stage');
+  const growth=document.createElement('button');growth.className='stage-growth-button';growth.dataset.stageGrowth='';growth.textContent='✦ GROW';growth.setAttribute('aria-label','Open growth options');growth.onclick=openStageGrowth;stage.querySelector('.phase24l-adventure-stage')?.append(growth);
   const action=stage.querySelector('[data-phase24l-local-panel="action"]'),records=stage.querySelector('[data-phase24l-local-panel="records"]');
   if(action&&records){const log=document.createElement('section');log.className='stage-records';log.innerHTML='<h3>Stage Records</h3>';for(const node of [...records.querySelector('.phase24l-local-panel-body').children])if(!node.matches('.phase-11c-repeat'))log.append(node);if(log.children.length===1)log.insertAdjacentHTML('beforeend','<p>Your next journey begins here.</p>');action.querySelector('.phase24l-local-panel-body').prepend(log)}
   if(action){const body=action.querySelector('.phase24l-local-panel-body'),details=stage.querySelector('[data-phase24l-local-panel="rewards"] .phase24l-local-panel-body');if(details)for(const node of [...body.children])if(!node.matches('.stage-records'))details.append(node);body.insertAdjacentHTML('beforeend','<p class="stage-wallet-note">EXP to shared wallet · invest from character profiles.</p>');const heading=action.querySelector('.phase24l-local-panel-head h2');if(heading)heading.textContent='Journey';const go=action.querySelector('[data-campaign-run],[data-companion-campaign-run]');if(go)go.textContent=go.textContent.replace(/BEGIN STAGE|RUN STAGE|REPLAY STAGE/,'GO')}

@@ -24,6 +24,17 @@
 .simple-stage .stage-records{min-height:0!important}
 .simple-stage .stage-records h3{display:none}
 .stage-wallet-note{font-size:9px;color:#715537;margin:4px}
+.stage-growth-button{position:absolute;left:10px;top:10px;z-index:4;min-height:44px;padding:8px 11px;border:3px double #dac487;border-radius:10px;color:#fff0d5;background:linear-gradient(#675033,#302821);font-weight:800;font-size:11px;box-shadow:0 3px 10px #0008}
+.growth-summary{border:1px solid #ae8e57;border-radius:9px;background:linear-gradient(120deg,#55402b,#283d3c);padding:10px;color:#ffedc8}
+.growth-summary p{font-size:12px;line-height:1.4;margin:5px 0 0}
+.growth-routes{display:grid;gap:7px;margin-top:10px}
+.growth-routes button{display:flex;align-items:center;gap:10px;min-height:59px;padding:9px;border:2px solid #a58a58;border-radius:10px;background:linear-gradient(115deg,#ead7af,#b99d72);color:#382b20;text-align:left}
+.growth-routes button>span{font-size:26px;width:32px;text-align:center;color:#755029}
+.growth-routes button:nth-child(2){background:linear-gradient(115deg,#eacac9,#c79792)}
+.growth-routes button:nth-child(3){background:linear-gradient(115deg,#d9d0ed,#a99abb)}
+.growth-routes button:nth-child(4){background:linear-gradient(115deg,#cde0cb,#96b69b)}
+.growth-routes button div{flex:1;min-width:0}.growth-routes b{display:block;font-size:14px}.growth-routes small{display:block;font-size:11px;margin-top:3px;line-height:1.3}.growth-routes i{font-size:24px}
+.growth-footnote{font-size:11px;line-height:1.4;color:#d7c8aa}
 .simple-stage .stage-records .phase22b-campaign-record{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;margin:0!important;border-radius:3px!important;background:#c3a87e!important}
 .simple-stage .stage-records .phase22b-campaign-record>span{background:#e5cfab!important;color:#60482d!important;padding:4px!important;min-height:36px!important;font-size:8px!important}
 @media(max-height:640px){.stage-records{min-height:65px!important;padding:7px!important}.stage-records h3{font-size:15px}.village-recenter{bottom:86px}}
