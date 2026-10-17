@@ -1,21 +1,41 @@
 {
-  "name": "everstead",
-  "version": "1.0.0-preview.1",
-  "private": true,
-  "description": "Everstead limited public preview and release verification",
-  "scripts": {
-    "qa:public-preview": "node qa/phase-24d-public-preview/browser.mjs",
-    "qa:phase24e-shell": "node qa/phase-24e-shell/browser.mjs",
-    "qa:phase24f-more": "node qa/phase-24f-more/browser.mjs",
-    "qa:phase24g-chapter1": "node qa/phase-24g-chapter1/browser.mjs",
-    "qa:phase24h-preview": "node qa/phase-24h-preview-corrections/browser.mjs",
-    "qa:phase24i-village-panels": "node qa/phase-24i-village-panels/browser.mjs",
-    "qa:phase24j-navigation-art": "node qa/phase-24j-navigation-art/browser.mjs",
-    "qa:phase24k-screen-art": "node qa/phase-24k-screen-art/verify.mjs && node qa/phase-24k-screen-art/browser.mjs",
-    "qa:phase24l-profile-shell": "node qa/phase-24l-profile-shell/verify.mjs && node qa/phase-24l-profile-shell/browser.mjs",
-    "qa:phase24l-exp-foundation": "node qa/phase-24l-exp-foundation/verify.mjs && node qa/phase-24l-exp-foundation/browser.mjs"
-  },
-  "devDependencies": {
-    "playwright": "1.57.0"
-  }
+    "name":  "everstead",
+    "version":  "0.1.0",
+    "private":  true,
+    "engines":  {
+                    "node":  "\u003e=22.13.0"
+                },
+    "scripts":  {
+                    "dev":  "vite",
+                    "build":  "vite build \u0026\u0026 node scripts/prepare-offline.mjs",
+                    "start":  "vite preview --host 127.0.0.1 --port 5187",
+                    "lint":  "oxlint",
+                    "format":  "oxfmt",
+                    "test":  "node --test tests/*.test.mjs"
+                },
+    "dependencies":  {
+                         "react":  "19.2.6",
+                         "react-dom":  "19.2.6",
+                         "@base-ui/react":  "1.7.0",
+                         "class-variance-authority":  "0.7.1",
+                         "clsx":  "2.1.1",
+                         "date-fns":  "4.1.0",
+                         "lucide-react":  "1.31.0",
+                         "tailwind-merge":  "3.6.0",
+                         "tw-animate-css":  "1.4.0"
+                     },
+    "devDependencies":  {
+                            "@tailwindcss/postcss":  "4.2.1",
+                            "@types/node":  "22.19.19",
+                            "@types/react":  "19.2.14",
+                            "@types/react-dom":  "19.2.3",
+                            "@vitejs/plugin-react":  "6.0.2",
+                            "oxfmt":  "0.61.0",
+                            "oxlint":  "1.76.0",
+                            "oxlint-tsgolint":  "7.0.2001",
+                            "tailwindcss":  "4.2.1",
+                            "typescript":  "5.9.3",
+                            "vite":  "8.0.13"
+                        },
+    "type":  "module"
 }

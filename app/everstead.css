@@ -1,0 +1,99 @@
+/* Everstead additions on top of the inherited village styles (globals.css). Kept small on purpose. */
+
+/* Screens fill the modal body (Everkai wrapped them in tab containers that did this). */
+.game-modal .modal-body>*{flex:1 1 auto;min-width:0;width:100%}
+
+/* Character art: full height, anchored to the bottom, over a soft village backdrop. */
+.character-artwork{position:relative;height:100%;width:100%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;
+ background:linear-gradient(180deg,rgba(20,32,28,.15),rgba(20,32,28,.55)),url(/assets/ui-scenes/Bg_Village_01_Mid.jpg) center/cover no-repeat}
+.character-artwork>img,.character-artwork>.art-placeholder{height:100%;width:100%;object-fit:contain;object-position:center bottom}
+.character-screen-art .character-showcase>.character-artwork{height:100%}
+.character-art-view .character-artwork{height:70dvh;border-radius:12px}
+.character-preview .character-artwork>img{filter:grayscale(1) brightness(.8)}
+/* "Living still": a slow breath. Real animation can replace this later without touching any screen. */
+@media (prefers-reduced-motion:no-preference){
+ .art-alive>img,.art-alive>.art-placeholder{transform-origin:50% 100%;animation:es-breathe 5.5s ease-in-out infinite}
+}
+@keyframes es-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012) translateY(-2px)}}
+
+/* Roster cards show the top of the full-screen art. */
+.es-roster-art{overflow:hidden}
+.es-roster-art>img,.es-roster-art>.art-placeholder{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:center top;position:static}
+.es-area-chip{position:absolute;top:26px;left:50%;transform:translateX(-50%);white-space:nowrap;z-index:2;padding:1px 7px;border-radius:999px;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.5)}
+
+.es-mini-art{display:inline-block;width:40px;height:40px;flex:none;border-radius:50%;overflow:hidden;background:#2b2118;border:2px solid #c9a96e}
+.es-mini-art>img,.es-mini-art>.art-placeholder{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:center top}
+.es-face-fallback{display:grid;place-items:center;width:100%;height:100%;font-size:18px;color:#f3dca7}
+
+/* Not-yet-joined card. */
+.es-join-card{background:rgba(32,24,16,.82);color:#fff5dc;border:1px solid #a88b55;border-radius:12px;padding:12px 14px;display:grid;gap:10px;max-width:520px;margin:0 auto}
+.es-join-card p{margin:0}
+
+/* Breakdown tables. */
+.es-breakdown{width:100%;border-collapse:collapse;font-size:14px}
+.es-breakdown th,.es-breakdown td{padding:6px 4px;border-bottom:1px solid rgba(168,139,85,.35);text-align:left}
+.es-breakdown td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.es-breakdown .es-total th,.es-breakdown .es-total td{border-bottom:0;font-size:16px}
+
+/* Family bond bar and gifts. */
+.es-bond-bar,.es-hp{position:relative;height:14px;border-radius:999px;background:rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(243,220,167,.5)}
+.es-bond-bar>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#f28ab2,#f6c177)}
+.es-bond-bar>span,.es-hp>span{position:relative;display:block;text-align:center;font-size:10px;line-height:12px;color:#fff;font-weight:700;text-shadow:0 1px 1px #000}
+.es-gifts{display:grid;gap:10px}
+.es-gift{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border:1px solid rgba(168,139,85,.5);border-radius:10px}
+.es-gift p{margin:0;font-size:13px;opacity:.8}
+
+/* Hero screen. */
+.es-radar{width:min(220px,46vw);height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.es-radar-ring{fill:rgba(20,16,10,.45);stroke:rgba(243,220,167,.45);stroke-width:1}
+.es-radar-shape{fill:rgba(243,193,119,.55);stroke:#f6c177;stroke-width:2}
+.es-radar-label{font-size:11px;font-weight:800;paint-order:stroke;stroke:rgba(0,0,0,.7);stroke-width:3px}
+.es-xp{display:block;font-size:10px;opacity:.85}
+.es-stat-list{padding-left:18px;margin:8px 0 0}
+.es-looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.es-looks figure{margin:0;display:grid;gap:4px;text-align:center}
+.es-looks .character-artwork{height:180px;border-radius:10px}
+.es-looks figcaption{display:grid;font-size:12px}
+.es-looks .es-locked{opacity:.45}
+.es-looks .es-locked .character-artwork>img{filter:grayscale(1) brightness(.4)}
+
+/* Buildings on the map: unbuilt ones are faded, today's habit areas glow. */
+.village-building.es-unbuilt>img{filter:grayscale(.8) brightness(.85);opacity:.75}
+.village-building.es-lit>img{filter:drop-shadow(0 0 12px var(--area)) drop-shadow(0 0 4px var(--area))}
+.village-canvas.blighted::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 60%,transparent 40%,rgba(60,60,80,.28));mix-blend-mode:multiply}
+.es-building .es-modifiers{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px;font-size:14px}
+.es-building .es-modifiers li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed rgba(168,139,85,.4);padding-bottom:3px}
+.es-residents{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.es-residents button{display:flex;align-items:center;gap:8px;height:auto;padding:6px 10px}
+.es-residents small{opacity:.7;margin-left:4px}
+
+/* Watchtower and Village Gate. */
+.es-stage,.es-roam{display:grid;gap:12px;padding:12px;align-content:start}
+.es-today{padding:12px}
+.es-stage-scene{border-radius:14px;background-size:cover;background-position:center;padding:18px 12px;min-height:300px;display:grid;place-items:center}
+.es-stage-card{background:rgba(28,20,12,.84);color:#fff5dc;border:1px solid #a88b55;border-radius:14px;padding:14px 16px;display:grid;gap:10px;max-width:440px;width:100%;text-align:center}
+.es-stage-card h2{margin:0;font-size:20px}.es-stage-card small{letter-spacing:.12em;opacity:.8}.es-stage-card p{margin:0}
+.es-versus{display:flex;align-items:center;justify-content:space-around;gap:8px}
+.es-versus div{display:grid}.es-versus span{font-size:12px;opacity:.8}.es-versus strong{font-size:22px;font-variant-numeric:tabular-nums}
+.es-versus em{font-style:normal;font-weight:800;opacity:.6}
+.es-versus .short{color:#ff9b8a}.es-versus .enough{color:#9be38f}
+.es-blight{border:1px solid #7b6aa8;border-radius:14px;padding:12px 14px;background:linear-gradient(160deg,rgba(60,48,90,.92),rgba(30,24,44,.92));color:#efe6ff;display:grid;gap:8px}
+.es-blight header{display:grid}.es-blight h3{margin:0}.es-blight small{letter-spacing:.12em;opacity:.8}.es-blight p{margin:0}
+.es-hp>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#9be38f,#f6e27a)}
+.es-blight.es-defeated{border-color:#9be38f}
+.es-charges{display:flex;justify-content:center;gap:5px}
+.es-charges i{width:14px;height:14px;border-radius:50%;border:1px solid #f3dca7;background:transparent}
+.es-charges i.on{background:#f6c177}
+
+/* Story scenes. */
+.es-story-lines{display:grid;gap:10px;max-height:55dvh;overflow:auto}
+.es-narration{margin:0;font-style:italic;opacity:.9}
+.es-line{display:flex;gap:10px;align-items:flex-start}
+.es-line p{margin:2px 0 0}
+
+/* Today. */
+.es-today ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.es-today li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid rgba(168,139,85,.5);border-radius:12px;background:rgba(255,248,230,.06)}
+.es-today li p{margin:2px 0 0;font-size:13px;opacity:.8}
+.es-area-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.es-area-row span{display:flex;gap:6px;align-items:center;padding:3px 9px;border:2px solid;border-radius:999px;font-size:12px}

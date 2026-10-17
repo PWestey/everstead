@@ -1,0 +1,73 @@
+import {countryIcon,petCardIcon,cardStyle} from '@/lib/ui-sprites.mjs';
+import {useState,useEffect,Fragment} from 'react';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import {filterRoster} from '@/lib/roster-filter.mjs';
+import {useState as useArtState} from 'react';
+import {Placeholder} from './character-artwork';
+/** A roster card's portrait: the top of the full-screen art, or the drawn placeholder until it exists. */
+function RosterArt({person,path}:{person:any,path:string}){
+ const [missing,setMissing]=useArtState(false);
+ return <span className="roster-tile-art es-roster-art">{missing?<Placeholder person={person} compact/>:<img src={'./assets/'+path} alt="" loading="lazy" decoding="async" onError={()=>setMissing(true)}/>}</span>}
+/** THE ROSTER CARD, rebuilt to docs/fellow-screen-specs/01-roster.md.
+ *
+ *  The original puts exactly FOUR pieces of data on a card: level, class, name, and "has an action".
+ *  Everkai put six -- power, level, a rarity LETTER, the class medallion, the name and a status line.
+ *  What changed, and why:
+ *
+ *   * the LEVEL BANNER is a notched tab on the card's top edge and is ABSENT ENTIRELY on a not-yet-
+ *     joined card. That absence is the single strongest owned/unowned signal in the capture;
+ *   * the red `!` BADGE means "something here can be improved right now" (difference R4). It is what
+ *     makes a 244-card roster scannable and it is the entry point to the whole upgrade loop;
+ *   * RARITY moves from a letter tag into the NAME PLATE'S COLOUR (R5) -- the letter belongs on the
+ *     detail screen, where the rarity badge already is;
+ *   * POWER leaves the card (R3): it belongs on the detail stat block, and the sort order already
+ *     says which way the grid is ordered;
+ *   * the CLASS FILTER becomes a floating capsule over the foot of the grid (R2), thumb-reachable,
+ *     rather than a full-width toolbar pinned under the header;
+ *   * the `Everyone` select is gone (R1) -- the Joined / Not joined dividers already say it.
+ *
+ *  KEPT AGAINST THE SPEC, deliberately: the `Find a fellow…` search. The spec drops it because the
+ *  captured roster is 58 cards and "the class filter + sort covers it at this roster size". Everkai's
+ *  is 244, four times that, and the capture is no evidence about a roster it never showed. Flagged
+ *  for the owner rather than decided silently. */
+export default function RosterPicker({entries,selected,onSelect,status,owned={},family=false,pageSize=null,grouped=false,badge,countPill,search=true,sub}:any){
+ // `pageSize={0}` means NO PAGER: one continuously scrolling grid. The Familiar roster asks for it
+ // (02-growth-roster.md) because the original scrolls 70 cards and Everkai drew `Previous · n / m ·
+ // Next` under nine -- the same control both character rebuilds deleted. Fellow and Family keep theirs.
+ const paged=pageSize!==0;
+ const size=(pageSize||null)??(family?2:3),[query,setQuery]=useState(''),[country,setCountry]=useState('all'),[page,setPage]=useState(Math.max(0,Math.floor(entries.findIndex((f:any)=>f.id===selected)/size)));
+ useEffect(()=>{const i=entries.findIndex((f:any)=>f.id===selected);if(i>=0){setQuery('');setPage(Math.floor(i/size))}},[selected,entries,size]);
+ // The types present in THIS roster, in catalogue order: Fellows have five countries, Familiars have
+ // four classes, and a set with one type or none needs no capsule row at all.
+ const types=[...new Set(entries.map((f:any)=>f.type).filter(Boolean))] as string[];
+ const matches=filterRoster(entries,query,'all',owned).filter((f:any)=>country==='all'||f.type===country),pages=paged?Math.max(1,Math.ceil(matches.length/size)):1,current=Math.min(page,pages-1),kind=family?'Family':'Fellow';
+ const rarity=(r:string)=>'plate-'+String(r||'n').toLowerCase().replace(/[^a-z0-9]/g,'');
+ return <section className="roster-picker" aria-label={kind+' roster'}>
+  <div className="roster-search">
+   {countPill?countPill(matches.length):<p className="roster-count" role="status">{matches.length} shown</p>}
+   {search&&<Input type="search" aria-label={'Search playable '+kind.toLowerCase()} placeholder={'Find a '+kind.toLowerCase()+'…'} value={query} onChange={e=>{setQuery(e.target.value);setPage(0)}}/>}
+  </div>
+  <div className={family?'family-roster':'roster'}>{(paged?matches.slice(current*size,(current+1)*size):matches).map((f:any,i:number,page:any[])=><Fragment key={f.id}>
+   {grouped&&(i===0||!!owned[page[i-1].id]!==!!owned[f.id])&&<p className="roster-group">{owned[f.id]?'Joined':'Not Yet Joined'}</p>}
+   <Button variant="outline" className={'roster-tile '+(selected===f.id?'chosen':'')+(!owned[f.id]?' not-joined':'')} aria-pressed={selected===f.id} style={cardStyle(f.rarity) as any} onClick={()=>onSelect(f.id)}>
+    {f.portrait||f.art?<RosterArt person={f} path={f.portrait||f.art}/>:<img className="roster-card-only" src={petCardIcon(f.rarity)||''} alt=""/>}
+    {owned[f.id]&&status?<span className="level-banner">{status(f.id)}</span>:null}
+    {countryIcon(f.type)?<img className="class-medallion" src={countryIcon(f.type)!} alt={f.type}/>:null}
+    {badge?.(f.id)?<span className="action-badge" aria-label="Upgrade available">!</span>:null}
+    {sub?.(f)}
+    <strong className={'name-plate '+rarity(f.rarity)}>{f.name}</strong>
+   </Button></Fragment>)}
+  </div>
+  {!matches.length&&<p className="roster-count">No matches. Try another search or another type.</p>}
+  {pages>1&&<nav className="roster-pagination" aria-label="Roster pages"><Button variant="outline" disabled={current===0} onClick={()=>setPage(current-1)}>Previous</Button><span>{current+1} / {pages}</span><Button variant="outline" disabled={current===pages-1} onClick={()=>setPage(current+1)}>Next</Button></nav>}
+  {/* The capsule row is built from the TYPES THESE ENTRIES ACTUALLY HAVE, not a hardcoded list of the
+     five Fellow countries. Measured 2026-09-23: the 71 Familiars are Cool 19, Cute 19, Playful 19 and
+     Legendary 14, and countryIcon() returns null for every one of them -- so the Companions roster was
+     drawing five Fellow-country icons, and pressing any of them filtered 71 cards down to "No matches".
+     A type with no icon shows its name; only the `all` capsule says ALL. */}
+ {!family&&types.length>1&&<nav className="type-capsule" aria-label="Types">{['all',...types].map(type=>
+   <Button key={type} variant="ghost" aria-label={type==='all'?'All types':type} aria-pressed={country===type} onClick={()=>{setCountry(type);setPage(0)}}>
+    {type==='all'?'ALL':countryIcon(type)?<img src={countryIcon(type)!} alt=""/>:<span className="type-word">{type}</span>}</Button>)}</nav>}
+ </section>;
+}

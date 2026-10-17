@@ -1,0 +1,233 @@
+{
+  "Icon_Rarity_N_1": {
+    "src": "ui-original/Base--Icon_Rarity_N_1.png",
+    "sha256": "a85ca09cd0620470c8e4d194fd892ec8c9adc94a0c8ede83a6d9551407c91770",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_R_1": {
+    "src": "ui-original/Base--Icon_Rarity_R_1.png",
+    "sha256": "80fc3b1a5db0496bd241b69e56d3b5ac522dad21ec8a4c65c64ceabea5a4ce54",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_SR_1": {
+    "src": "ui-original/Base--Icon_Rarity_SR_1.png",
+    "sha256": "264e9add9e60bb0f412700a204ae9e75e5575f85637e24df25170cf8cda82839",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_SSR_1": {
+    "src": "ui-original/Base--Icon_Rarity_SSR_1.png",
+    "sha256": "4d070e30627cfc105bc0a1425b742892fef8e4d4395229fdecb050c1ff1c097b",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_UR_1": {
+    "src": "ui-original/Base--Icon_Rarity_UR_1.png",
+    "sha256": "184d0531c5effafcc62a797714da459bc1ccda54c29a3d2be644de97593140db",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_URPlus_1": {
+    "src": "ui-original/Base--Icon_Rarity_URPlus_1.png",
+    "sha256": "fc50967bd20b904f563c6576c4c70572699892f16085bab4421c7a9c7ce3a530",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_SSRPlus_1": {
+    "src": "ui-original/Base--Icon_Rarity_SSRPlus_1.png",
+    "sha256": "4b0dad4abac0582d8af42ee756c4747f9aef56c3f7fd7b029b249c39dcc9cc70",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Rarity_LR_1": {
+    "src": "ui-original/Base--Icon_Rarity_LR_1.png",
+    "sha256": "dd2c1d76bc1ddfcdbccaa3ae11bd85cd12f7f657e5d7cac1512672426414c396",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 108,
+    "height": 110
+  },
+  "Icon_Hero_Country_1": {
+    "src": "ui-original/Base--Icon_Hero_Country_1.png",
+    "sha256": "b2697bfbab385bdd7e3c72656c37851d6da1117949bcd985e4edb5f84c5fee50",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 102,
+    "height": 102
+  },
+  "Icon_Hero_Country_3": {
+    "src": "ui-original/Base--Icon_Hero_Country_3.png",
+    "sha256": "00458014b98b359fe5c30d50c4a1e651093e775531e66644420e8e98d2d5a283",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 102,
+    "height": 102
+  },
+  "Icon_Hero_Country_4": {
+    "src": "ui-original/Base--Icon_Hero_Country_4.png",
+    "sha256": "6aa393302e1efb172bebc14648fbcdcbf0dde6a0fc72ce14d85281ce9db5bec8",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 102,
+    "height": 102
+  },
+  "Icon_Hero_Country_5": {
+    "src": "ui-original/Base--Icon_Hero_Country_5.png",
+    "sha256": "7e47c31a89cc53e2b4fefd85737cf239c8f5218ef982ffb5a236c8851c23d5bb",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 102,
+    "height": 102
+  },
+  "Icon_Hero_Country_2": {
+    "src": "ui-original/Base--Icon_Hero_Country_2.png",
+    "sha256": "086ee66c03fcbb3fa18422a6174fc6e9244c4e793528b04cd7a1b81307013e3b",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 102,
+    "height": 102
+  },
+  "Icon_Pet_Career_1": {
+    "src": "ui-original/Pet--Icon_Pet_Career_1.png",
+    "sha256": "22af66e6524d8cb2396dbe2d6501f02c7c02bbff6ec166b26911090bef1be369",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 70,
+    "height": 70
+  },
+  "Icon_Pet_Career_2": {
+    "src": "ui-original/Pet--Icon_Pet_Career_2.png",
+    "sha256": "833b26a014b95dd68371c531f9401ffce497cdd8aead380db4f602d267a81c07",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 70,
+    "height": 70
+  },
+  "Icon_Pet_Career_3": {
+    "src": "ui-original/Pet--Icon_Pet_Career_3.png",
+    "sha256": "feb36fa6657754227f5353cda3629ea69acc34f4576d3d759468056fc1b31b6f",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 70,
+    "height": 70
+  },
+  "Bg_PetList_Rarity_6": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_6.png",
+    "sha256": "b58a51f14eca330513c8f78e1feda745adb448ab96fb7dae38de42e5b0070b1b",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_6": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_6.png",
+    "sha256": "e843610913189af20727a34a74b77e666152f000e38bfdf6e0a3f0fa08557f69",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_5": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_5.png",
+    "sha256": "a589243e41b050e1b2355907bb12bc4c4a36852e0d7441ff1c0209fa531d24ea",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Bg_PetList_Rarity_1": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_1.png",
+    "sha256": "5c493af222b8fb463732eb13041e3f71c9b97c42e74f1741916f6bc8cce332b9",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Bg_PetList_Rarity_2": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_2.png",
+    "sha256": "e350ab74ae55bf133995d5f3050cf1bbddcf78087c5f7096e06dc97a04277a78",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Bg_PetList_Rarity_3": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_3.png",
+    "sha256": "9c31d8286b1bb340be921efa8cfaa96621e1d98d654fc02e70b38e3016d90ba3",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Bg_PetList_Rarity_4": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_4.png",
+    "sha256": "15b8814c66aaad227e992df151c55775a45605bf346ed14b4c046c6a54bc2df1",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Bg_PetList_Rarity_5": {
+    "src": "ui-original/Pet--Bg_PetList_Rarity_5.png",
+    "sha256": "9d6eee20cb0778fa6e08745353d1f213f76c94a3bbfc01f423df0e0114ddd5f7",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_1": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_1.png",
+    "sha256": "83c59291006eb6c7bc42743563b5a6ccee4760fc8b2eee89d201c5d04f21bf43",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_2": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_2.png",
+    "sha256": "4ae94596d48ddbc234e6384a61129b8b696cb210b4d87e78797f1ecf66616771",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_3": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_3.png",
+    "sha256": "047bb3a12c85b029405dceacd5beba644fba9252381e8097a88b0021e99aa170",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Frame_PetList_Rarity_4": {
+    "src": "ui-original/Pet--Frame_PetList_Rarity_4.png",
+    "sha256": "3abf59ac1adeb9ae3f26fd3c77c36fbc67f06812eb045fbdad2493b1c8eac367",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 206,
+    "height": 280
+  },
+  "Icon_Intimacy_1": {
+    "src": "ui-original/Icons--Icon_Intimacy_1.png",
+    "sha256": "24d30ed3e0b78b5626069b4a959e1ada11a4cdeec8641a76a6f81d6cab913f7a",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 138,
+    "height": 138
+  },
+  "Icon_Intimacy_2": {
+    "src": "ui-original/Icons--Icon_Intimacy_2.png",
+    "sha256": "831c745495e90dfd8f3f66d97423c04c77465ec7bca73683c04116d3aa286a8d",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 138,
+    "height": 138
+  },
+  "Icon_EmblemStrength_1": {
+    "src": "ui-original/Icons--Icon_EmblemStrength_1.png",
+    "sha256": "043dc50290ad0cd490f6b73e7c4752531e64d5db69fff0098c0e01a01d1cc80c",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 138,
+    "height": 138
+  },
+  "Icon_EmblemStrength_2": {
+    "src": "ui-original/Icons--Icon_EmblemStrength_2.png",
+    "sha256": "3f8eeb7d4f090110d25f71195a8cc13f0898e25cfdc5bf24ddfb779a7e24d6d5",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 138,
+    "height": 138
+  },
+  "Icon_Intimacy_3": {
+    "src": "ui-original/Icons--Icon_Intimacy_3.png",
+    "sha256": "f73aa1fcc8eb870ec9ba42f868a71907463d87e46f0e334410285fd3e554a207",
+    "sourceIndexSha256": "b11445f106363ab64ea6e52d794f77575bbbac7441805ab43cd0318c12a4385f",
+    "width": 138,
+    "height": 138
+  }
+}

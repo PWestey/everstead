@@ -1,0 +1,31 @@
+# Working rules for Everstead
+
+Everstead is a habit tracker inside a cozy village game. DESIGN.md is the source of truth for every
+rule and number. Read it before changing gameplay.
+
+## The rules that keep this project from repeating Oathforge and Everkai
+
+1. **Every game system is fed by real habits.** Before adding anything, say which habit input drives
+   it. If none does, don't build it.
+2. **No parity goals.** Everstead borrows Everkai's look, not the original game's numbers. Never import
+   formulas, tables or data from the original.
+3. **Formulas stay one line.** All of them live in `lib/game.mjs` under "Formulas". If a change needs a
+   paragraph to explain, simplify it instead. Update DESIGN.md in the same change.
+4. **The roster grows slowly.** Six Fellows and six Family, one per life area. New characters only when
+   the owner asks and has art for them.
+5. **Original characters only.** No franchise characters (no Marvel, Star Wars, Pokémon, etc.).
+6. **Art is still images.** Breathing motion comes from CSS (`.art-alive`). No video, no Spine, until
+   the owner decides otherwise.
+
+## Code
+
+- `lib/cast.mjs` world data, `lib/game.mjs` formulas and actions, `lib/habits.mjs` the journal,
+  `lib/stories.mjs` scenes. Screens in `app/`; `page.tsx` wires them.
+- The UI reuses Everkai's class names and `app/globals.css`. Put new styles in `app/everstead.css`.
+- Saves are localStorage key `everstead-save-v1`. A change that adds a required field must keep old
+  saves loading (`decode()` merges defaults from `fresh()`), or bump `SAVE_VERSION` with a migration.
+
+## Checks
+
+`pnpm test`, `pnpm exec tsc --noEmit`, `pnpm build`. All three run in CI before every deploy.
+Tests for game rules go in `tests/game.test.mjs`. UI changes: check in the browser at phone width.
