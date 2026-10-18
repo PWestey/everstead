@@ -22,7 +22,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 
 | Area | Stat | Fellow | Family | Building |
 |---|---|---|---|---|
-| Faith | Spirit | Aldric, Chapel Warden | Liora, Lamplighter | Chapel |
+| Faith | Spirit | Aldric, Chapel Warden | Ariane Lumenhart, Wizard of Light | Chapel |
 | Family | Heart | Bram, Hearthguard | Maren, Hearthkeeper | Hearth Inn |
 | Fitness | Might | Kael, Ironhand | Kira, Blade Dancer | Training Yard |
 | Work | Craft | Corin, Quartermaster | Shallan, Scholar & Artist | Market |
