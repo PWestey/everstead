@@ -10,7 +10,7 @@ Put images in `public/assets/cast/`, named exactly:
 |---|---|
 | You, 5 looks | `player-1.webp` … `player-5.webp` (Wanderer, Squire, Knight, Champion, Legend) |
 | Fellows | `aldric.webp`, `bram.webp`, `kael.webp`, `corin.webp`, `tobin.webp`, `ren.webp` |
-| Family | `liora.webp`, `maren.webp`, `sable.webp`, `elise.webp`, `wren.webp`, `isolde.webp` |
+| Family | `liora.webp`, `maren.webp`, `sable.webp`, `elise.webp`, `wren.webp`, `violet.webp` (done) |
 
 PNG works too: change the extension in `lib/cast.mjs` (`art()` and `PLAYER_STAGES`).
 

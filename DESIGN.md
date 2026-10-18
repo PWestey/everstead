@@ -27,7 +27,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 | Fitness | Might | Kael, Ironhand | Sable, Huntress | Training Yard |
 | Work | Craft | Corin, Quartermaster | Elise, Merchant | Market |
 | Home | Hearth | Tobin, Master Builder | Wren, Gardener | Workshop |
-| Discipline | Will | Ren, Dawnblade | Isolde, Scholar | Library |
+| Discipline | Will | Ren, Dawnblade | Violet, Dragon Rider | Library |
 
 Names are placeholders. Rename anyone in `lib/cast.mjs`.
 
