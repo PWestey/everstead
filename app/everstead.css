@@ -19,7 +19,7 @@
 /* Roster cards show the top of the full-screen art. */
 .es-roster-art{overflow:hidden}
 .es-roster-art>img,.es-roster-art>.art-placeholder{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:center top;position:static}
-.es-area-chip{position:absolute;top:26px;left:50%;transform:translateX(-50%);white-space:nowrap;z-index:2;padding:1px 7px;border-radius:999px;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.5)}
+.es-area-chip{position:absolute;bottom:22%;left:50%;transform:translateX(-50%);white-space:nowrap;z-index:2;padding:1px 7px;border-radius:999px;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.5)}
 
 .es-mini-art{display:inline-block;width:40px;height:40px;flex:none;border-radius:50%;overflow:hidden;background:#2b2118;border:2px solid #c9a96e}
 .es-mini-art>img,.es-mini-art>.art-placeholder{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:center top}
