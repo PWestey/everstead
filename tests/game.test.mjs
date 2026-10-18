@@ -27,7 +27,7 @@ test('a Fellow is ready after enough habit points in their area, and announced o
 test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(playerPower(4),600);
  let s=fresh(T);s={...s,fellows:{kael:{level:10,stars:2}}};assert.equal(fellowPower(s,'kael'),1500);assert.equal(rosterPower(s),1500+playerPower(playerLevel(0)))});
 
-test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{kael:{level:10,stars:0}},family:{sable:{bond:0}}};
+test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{kael:{level:10,stars:0}},family:{kira:{bond:0}}};
  // Bond level 1: linked +3%, everyone +0.5%.
  assert.equal(fellowPower(s,'kael'),Math.round(1000*1.03*1.005))});
 

@@ -10,7 +10,7 @@ Put images in `public/assets/cast/`, named exactly:
 |---|---|
 | You, 5 looks | `player-1.webp` … `player-5.webp` (Wanderer, Squire, Knight, Champion, Legend) |
 | Fellows | `aldric.webp`, `bram.webp`, `kael.webp`, `corin.webp`, `tobin.webp`, `ren.webp` |
-| Family | `liora.webp`, `maren.webp`, `sable.webp`, `shallan.webp` (done), `wren.webp`, `violet.webp` (done) |
+| Family | `liora.webp`, `maren.webp`, `kira.webp` (done), `shallan.webp` (done), `wren.webp`, `violet.webp` (done) |
 
 PNG works too: change the extension in `lib/cast.mjs` (`art()` and `PLAYER_STAGES`).
 
@@ -47,6 +47,5 @@ Then add the character, for example:
 - **You, Champion:** ornate engraved armour, flowing cape, faint golden aura, battle-worn but proud.
 - **You, Legend:** radiant gilded armour, glowing runes, banner of Everstead, strong golden aura.
 - **Kael, Ironhand (Fitness):** muscular brawler, hand wraps, sleeveless tunic, short dark hair, stern.
-- **Sable, Huntress (Fitness):** athletic ranger, bow, braided hair, grinning, light leather armour.
 
 Descriptions for everyone are in `lib/cast.mjs`.
