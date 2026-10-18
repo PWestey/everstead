@@ -23,11 +23,11 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 | Area | Stat | Fellow | Family | Building |
 |---|---|---|---|---|
 | Faith | Spirit | Aldric, Chapel Warden | Ariane Lumenhart, Wizard of Light | Chapel |
-| Family | Heart | Bram, Hearthguard | Maren, Hearthkeeper | Hearth Inn |
-| Fitness | Might | Kael, Ironhand | Kira, Blade Dancer | Training Yard |
-| Work | Craft | Corin, Quartermaster | Shallan, Scholar & Artist | Market |
+| Family | Heart | Bram, Hearthguard | Tyrande Whisperwind, High Priestess of the Moon | Hearth Inn |
+| Fitness | Might | Kael, Ironhand | Kira Carsen, Blade Dancer | Training Yard |
+| Work | Craft | Corin, Quartermaster | Shallan Davar, Scholar & Artist | Market |
 | Home | Hearth | Tobin, Master Builder | Wren, Gardener | Workshop |
-| Discipline | Will | Ren, Dawnblade | Violet, Dragon Rider | Library |
+| Discipline | Will | Ren, Dawnblade | Violet Sorrengail, Dragon Rider | Library |
 
 Names are placeholders. Rename anyone in `lib/cast.mjs`.
 

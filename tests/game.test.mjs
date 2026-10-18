@@ -49,7 +49,7 @@ test('buildings earn gold over time, boosted by today’s habits in their area',
 
 test('roaming spends a charge and works before anyone has joined',()=>{const s=fresh(T);const r=act(s,'roam',T);assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,s.roam.charges-1);assert.ok(r.scene)});
 
-test('family visits and gifts raise bond',()=>{let s={...fresh(T),gold:1e4,family:{maren:{bond:0}}};const v=act(s,'visit',T,'maren');assert.equal(v.state.family.maren.bond,30);assert.ok(act(v.state,'visit',T+1000,'maren').error);const g=act(v.state,'gift',T,'maren','posy');assert.equal(g.state.family.maren.bond,80)});
+test('family visits and gifts raise bond',()=>{let s={...fresh(T),gold:1e4,family:{tyrande:{bond:0}}};const v=act(s,'visit',T,'tyrande');assert.equal(v.state.family.tyrande.bond,30);assert.ok(act(v.state,'visit',T+1000,'tyrande').error);const g=act(v.state,'gift',T,'tyrande','posy');assert.equal(g.state.family.tyrande.bond,80)});
 
 test('new journey keeps the habit journal and resets the village',()=>{const {s,id}=withHabit('faith');const done={...act(s,'habitComplete',T,id).state,fellows:{aldric:{level:5,stars:1}}};const n=newJourney(done,T);assert.deepEqual(n.fellows,{});assert.equal(n.habits.history.length,done.habits.history.length)});
 

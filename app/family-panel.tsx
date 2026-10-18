@@ -58,7 +58,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
   </CharacterScreen>}
  const visited=game.visits[person.id]===habitDay(game.lastAt);
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly
-  info={<table className="member-info-table"><tbody><tr><th scope="row">Name</th><td>{person.name}</td><th scope="row">Title</th><td>{person.title}</td></tr><tr><th scope="row">Area</th><td colSpan={3}>{area.name}</td></tr><tr><th scope="row">Bio</th><td colSpan={3}>{person.description}</td></tr></tbody></table>}
+  info={<table className="member-info-table"><tbody><tr><th scope="row">Full name</th><td colSpan={3}>{person.fullName||person.name}</td></tr><tr><th scope="row">Title</th><td colSpan={3}>{person.title}</td></tr><tr><th scope="row">Area</th><td colSpan={3}>{area.name}</td></tr><tr><th scope="row">Bio</th><td colSpan={3}>{person.description}</td></tr></tbody></table>}
   statBlock={<FamilyStats game={game} id={person.id}/>}
   primary={<div className="spend-controls"><PrimaryAction verb={visited?'Visited today':'Spend time together'} disabled={locked||visited} onClick={()=>action('visit',person.id)}>+{VISIT_BOND} bond</PrimaryAction></div>}
   rail={<Button variant="outline" className="rail-icon" onClick={()=>setGift(true)} aria-label="Gift"><img src="./assets/menu/gifts.png" alt=""/><span>Gift</span></Button>}>

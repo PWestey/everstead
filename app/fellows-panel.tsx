@@ -60,5 +60,5 @@ export default function FellowsPanel({game,action,locked,selected,setSelected,br
   </CharacterScreen>}
  return <CharacterScreen person={person} subtitle={area.name+' Fellow'} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}
   statBlock={<FellowStats game={game} id={person.id}/>} primary={<FellowUpgrade game={game} id={person.id} action={action} locked={locked}/>}
-  info={<p className="small-note">Works at the {buildingForArea(person.area).name}, adding 25% to its income.</p>}>{null}</CharacterScreen>;
+  info={<p className="small-note">{(person as any).fullName?<><b>{(person as any).fullName}</b>. </>:null}Works at the {buildingForArea(person.area).name}, adding 25% to its income.</p>}>{null}</CharacterScreen>;
 }
