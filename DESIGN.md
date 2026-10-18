@@ -26,7 +26,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 | Family | Heart | Bram, Hearthguard | Tyrande Whisperwind, High Priestess of the Moon | Hearth Inn |
 | Fitness | Might | Kael, Ironhand | Kira Carsen, Blade Dancer | Training Yard |
 | Work | Craft | Corin, Quartermaster | Shallan Davar, Scholar & Artist | Market |
-| Home | Hearth | Tobin, Master Builder | Wren, Gardener | Workshop |
+| Home | Hearth | Tobin, Master Builder | Kate Bishop, Archer | Workshop |
 | Discipline | Will | Ren, Dawnblade | Violet Sorrengail, Dragon Rider | Library |
 
 Names are placeholders. Rename anyone in `lib/cast.mjs`.
