@@ -20,23 +20,23 @@ test('a habit cannot pay twice in one day',()=>{const {s,id}=withHabit('work');l
 test('undo reverses gold, XP and area rewards',()=>{const {s,id}=withHabit('home');const done=act(s,'habitComplete',T,id).state;const undone=act(done,'habitUndo',T+1000);assert.ok(!undone.error,undone.error);
  assert.equal(undone.state.xp,0);assert.equal(undone.state.sigils.home,0);assert.equal(undone.state.roam.charges,s.roam.charges);assert.ok(Math.abs(undone.state.gold-s.gold)<1)});
 
-test('a Fellow is ready after enough habit points in their area, and announced once',()=>{const {s,id}=withHabit('fitness','hard');const kael=FELLOWS.find(f=>f.area==='fitness');
- assert.ok(act(s,'recruitFellow',T,kael.id).error);const r=act(s,'habitComplete',T,id);assert.ok(3>=FELLOW_JOIN_POINTS);assert.deepEqual(r.arrivals.map(a=>a.id),[kael.id]);
- const j=act(r.state,'recruitFellow',T,kael.id);assert.ok(!j.error,j.error);assert.deepEqual(j.state.fellows[kael.id],{level:1,stars:0})});
+test('a Fellow is ready after enough habit points in their area, and announced once',()=>{const {s,id}=withHabit('fitness','hard');const darrow=FELLOWS.find(f=>f.area==='fitness');
+ assert.ok(act(s,'recruitFellow',T,darrow.id).error);const r=act(s,'habitComplete',T,id);assert.ok(3>=FELLOW_JOIN_POINTS);assert.deepEqual(r.arrivals.map(a=>a.id),[darrow.id]);
+ const j=act(r.state,'recruitFellow',T,darrow.id);assert.ok(!j.error,j.error);assert.deepEqual(j.state.fellows[darrow.id],{level:1,stars:0})});
 
 test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(playerPower(4),600);
- let s=fresh(T);s={...s,fellows:{kael:{level:10,stars:2}}};assert.equal(fellowPower(s,'kael'),1500);assert.equal(rosterPower(s),1500+playerPower(playerLevel(0)))});
+ let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterPower(s),1500+playerPower(playerLevel(0)))});
 
-test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{kael:{level:10,stars:0}},family:{kira:{bond:0}}};
+test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:0}},family:{kira:{bond:0}}};
  // Bond level 1: linked +3%, everyone +0.5%.
- assert.equal(fellowPower(s,'kael'),Math.round(1000*1.03*1.005))});
+ assert.equal(fellowPower(s,'darrow'),Math.round(1000*1.03*1.005))});
 
-test('levelling costs gold and respects the star cap',()=>{let s={...fresh(T),gold:1e9,fellows:{kael:{level:1,stars:0}}};const r=act(s,'levelUp',T,'kael','max');assert.equal(r.state.fellows.kael.level,20);assert.ok(act(r.state,'levelUp',T,'kael',1).error);
+test('levelling costs gold and respects the star cap',()=>{let s={...fresh(T),gold:1e9,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');assert.equal(r.state.fellows.darrow.level,20);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
  assert.equal(s.gold-r.state.gold,Array.from({length:19},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0))});
 
-test('stars cost sigils of the Fellow’s own area',()=>{let s={...fresh(T),fellows:{kael:{level:1,stars:0}}};assert.ok(act(s,'starUp',T,'kael').error);s={...s,sigils:{...s.sigils,fitness:starCost(1)}};const r=act(s,'starUp',T,'kael');assert.equal(r.state.fellows.kael.stars,1);assert.equal(r.state.sigils.fitness,0)});
+test('stars cost sigils of the Fellow’s own area',()=>{let s={...fresh(T),fellows:{darrow:{level:1,stars:0}}};assert.ok(act(s,'starUp',T,'darrow').error);s={...s,sigils:{...s.sigils,fitness:starCost(1)}};const r=act(s,'starUp',T,'darrow');assert.equal(r.state.fellows.darrow.stars,1);assert.equal(r.state.sigils.fitness,0)});
 
-test('stages are a power check',()=>{const s=fresh(T);assert.ok(act(s,'challenge',T).error);const strong={...s,fellows:{kael:{level:20,stars:0}}};const r=act(strong,'challenge',T);assert.ok(!r.error,r.error);assert.equal(r.state.stage.cleared,1);assert.ok(stagePower(2)>stagePower(1))});
+test('stages are a power check',()=>{const s=fresh(T);assert.ok(act(s,'challenge',T).error);const strong={...s,fellows:{darrow:{level:20,stars:0}}};const r=act(strong,'challenge',T);assert.ok(!r.error,r.error);assert.equal(r.state.stage.cleared,1);assert.ok(stagePower(2)>stagePower(1))});
 
 test('the weekly blight takes double damage from its opposed areas',()=>{const {s,id}=withHabit('fitness','hard');const b0=currentBlight(s,T);const n=act(s,'habitComplete',T,id).state;const b=currentBlight(n,T);
  assert.equal(b.damage-b0.damage,b.opposed.includes('fitness')?6:3);assert.equal(b.hp,blightHp(0))});
