@@ -16,20 +16,23 @@ fed by real habits.** If a system can grow without habits, it does not belong he
    - **Building boost:** +5% per point to that area's building today (max +50%).
 2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams at the Village Gate.
 3. **Grow Roster Power**, clear stages at the Watchtower, and push back the weekly Blight.
-4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 6 + min(0.5, 0.07 × dailies today)`.
+4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 8 + min(0.5, 0.07 × dailies today)`.
 
-## Six life areas
+## Eight life areas
 
-| Area | Stat | Fellow | Family | Building |
-|---|---|---|---|---|
-| Faith | Spirit | Aldric, Chapel Warden | Ariane Lumenhart, Wizard of Light | Chapel |
-| Family | Heart | Bram, Hearthguard | Tyrande Whisperwind, High Priestess of the Moon | Hearth Inn |
-| Fitness | Might | Darrow of Lykos, The Reaper | Kira Carsen, Blade Dancer | Training Yard |
-| Work | Craft | Corin, Quartermaster | Shallan Davar, Scholar & Artist | Market |
-| Home | Hearth | Tobin, Master Builder | Kate Bishop, Archer | Workshop |
-| Discipline | Will | Kaladin Stormblessed, Windrunner | Violet Sorrengail, Dragon Rider | Library |
+| Area | Stat | Building |
+|---|---|---|
+| Faith | Spirit | Chapel |
+| Marriage | Heart | Rose Café |
+| Fatherhood | Legacy | Hearth Inn |
+| Fitness | Might | Training Yard |
+| Work | Craft | Market |
+| Home | Hearth | Workshop |
+| Discipline | Will | Library |
+| Hobbies | Joy | Guildhall |
 
-Names are placeholders. Rename anyone in `lib/cast.mjs`.
+The cast lives in `lib/cast.mjs`: Fellows are the men, Family the women, and each belongs to one area.
+An area can hold several of each. They join in list order (see the join queue below).
 
 ## You
 
@@ -41,17 +44,17 @@ Names are placeholders. Rename anyone in `lib/cast.mjs`.
 
 ## Fellows (Power)
 
-- **Recruit** when their area reaches 3 habit points.
+- **Recruit** by lifetime habit points in their area. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level × (1 + 0.25 × Stars)`
 - Level cost: `50 × Level^1.5` gold. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
-- A recruited Fellow works at their area's building: +25% income.
+- Every recruited Fellow works at their area's building: +25% income each.
 
 ## Family (Blessings)
 
-- **Welcome** when their area reaches 15 points and you are level 3.
+- **Welcome** by area points and your level. Queue: 15, 60, 150, 280, 450… points, and level 3, 7, 11, 15… for the 1st, 2nd, 3rd… Family member.
 - Bond level from bond XP; level L → L+1 costs `100 × L`.
-- Per Bond level: **+3%** Power to her linked Fellow, **+0.5%** to every Fellow, **+2%** to her building's income.
+- Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals), roaming scenes.
 
 ## Roster Power
@@ -81,6 +84,6 @@ Everything here should be explainable in one line. If a new system needs a parag
 
 - `lib/cast.mjs`: areas, characters, buildings, player looks, blights
 - `lib/game.mjs`: every formula and every action
-- `lib/habits.mjs`: the habit journal (inherited from Everkai, adapted to six areas)
+- `lib/habits.mjs`: the habit journal (inherited from Everkai, adapted to eight areas)
 - `lib/stories.mjs`: introductions, roaming scenes and village vignettes
 - `app/`: screens. `page.tsx` wires them together.

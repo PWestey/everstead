@@ -8,12 +8,12 @@ import {AREAS,PLAYER_STAGES} from '@/lib/cast.mjs';
 import {playerLevelProgress,playerStage,playerPower,playerStats,rosterPower,powerBreakdown} from '@/lib/game.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 
-/** The six life-area stats as a hexagon. Scale grows with your best area so the shape stays readable. */
+/** The life-area stats as a polygon (one point per area). Scale grows with your best area so the shape stays readable. */
 export function StatRadar({stats}:{stats:Record<string,number>}){
- const max=Math.max(10,...Object.values(stats)),R=78,C=100,pt=(i:number,r:number)=>{const a=-Math.PI/2+i*Math.PI/3;return [C+r*Math.cos(a),C+r*Math.sin(a)]};
+ const max=Math.max(10,...Object.values(stats)),R=78,C=100,pt=(i:number,r:number)=>{const a=-Math.PI/2+i*2*Math.PI/AREAS.length;return [C+r*Math.cos(a),C+r*Math.sin(a)]};
  const ring=(f:number)=>AREAS.map((_,i)=>pt(i,R*f).join(',')).join(' ');
  const shape=AREAS.map((a,i)=>pt(i,R*Math.max(.04,(stats[a.id]||0)/max)).join(',')).join(' ');
- return <svg className="es-radar" viewBox="0 0 200 200" role="img" aria-label={'Life stats: '+AREAS.map(a=>a.stat+' '+(stats[a.id]||0)).join(', ')}>
+ return <svg className="es-radar" viewBox="-24 -6 248 212" role="img" aria-label={'Life stats: '+AREAS.map(a=>a.stat+' '+(stats[a.id]||0)).join(', ')}>
   {[.33,.66,1].map(f=><polygon key={f} points={ring(f)} className="es-radar-ring"/>)}
   {AREAS.map((_,i)=>{const [x,y]=pt(i,R);return <line key={i} x1={C} y1={C} x2={x} y2={y} className="es-radar-ring"/>})}
   <polygon points={shape} className="es-radar-shape"/>

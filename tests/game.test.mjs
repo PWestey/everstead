@@ -2,7 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,playerLevel,playerPower,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
 import {habitDue} from '../lib/habits.mjs';
-import {FELLOWS,FAMILY,AREA_IDS} from '../lib/cast.mjs';
+import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
+import {introFor,SCENES} from '../lib/stories.mjs';
+import {joinNeed,migrate,blessings,BLESS_LINKED} from '../lib/game.mjs';
 
 const T=new Date('2026-10-14T10:00:00').getTime(); // a Wednesday
 /** A save with a custom habit in `area`, so tests do not depend on the starter list. */
@@ -53,4 +55,13 @@ test('family visits and gifts raise bond',()=>{let s={...fresh(T),gold:1e4,famil
 
 test('new journey keeps the habit journal and resets the village',()=>{const {s,id}=withHabit('faith');const done={...act(s,'habitComplete',T,id).state,fellows:{aldric:{level:5,stars:1}}};const n=newJourney(done,T);assert.deepEqual(n.fellows,{});assert.equal(n.habits.history.length,done.habits.history.length)});
 
-test('every character belongs to a real area and every area has a full set',()=>{for(const a of AREA_IDS){assert.equal(FELLOWS.filter(f=>f.area===a).length,1);assert.equal(FAMILY.filter(f=>f.area===a).length,1)}});
+test('every area has at least one Fellow, one Family member and a building; every character is in a real area',()=>{for(const a of AREA_IDS){assert.ok(FELLOWS.some(f=>f.area===a),'fellow for '+a);assert.ok(FAMILY.some(f=>f.area===a),'family for '+a);assert.ok(BUILDINGS.some(b=>b.area===a),'building for '+a)}for(const c of [...FELLOWS,...FAMILY])assert.ok(AREA_IDS.includes(c.area),c.id);assert.equal(new Set([...FELLOWS,...FAMILY].map(c=>c.id)).size,FELLOWS.length+FAMILY.length,'ids are unique')});
+
+test('the second character in an area joins later than the first',()=>{const fam=familyInArea('fitness');assert.ok(fam.length>=2);const [a,b]=fam.map(joinNeed);assert.ok(b.points>a.points&&b.level>a.level)});
+
+test('a Family member blesses every Fellow in her area',()=>{const area=AREA_IDS.find(a=>fellowsInArea(a).length&&familyInArea(a).length);const f=fellowsInArea(area)[0],m=familyInArea(area)[0];const s={...fresh(T),fellows:{[f.id]:{level:1,stars:0}},family:{[m.id]:{bond:0}}};assert.equal(blessings(s).linked[f.id],BLESS_LINKED)});
+
+test('old saves load: swapped characters are renamed, removed ones dropped, old habit areas remapped',()=>{const s=fresh(T);const old={...s,fellows:{kael:{level:4,stars:1},nobody:{level:2,stars:0}},family:{maren:{bond:90}},sigils:{faith:1,family:7,fitness:2,work:0,home:0,discipline:0},habits:{...s.habits,items:s.habits.items.map((x,i)=>i===0?{...x,domain:'family'}:x),totals:{...s.habits.totals,family:{actions:3,points:6}}}};delete old.sigils.marriage;
+ const m=decode(JSON.stringify(old));assert.deepEqual(m.fellows,{darrow:{level:4,stars:1}});assert.deepEqual(m.family,{tyrande:{bond:90}});assert.equal(m.sigils.marriage,7);assert.equal(m.habits.items[0].domain,'marriage');assert.equal(m.habits.totals.marriage.points,6);assert.ok(valid(m))});
+
+test('every character has an introduction, written or generated',()=>{for(const c of [...FELLOWS,...FAMILY]){const s=introFor(c.id);assert.ok(s&&s.lines.length,c.id)}});

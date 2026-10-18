@@ -4,8 +4,8 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-controls';
-import {FELLOWS,areaById,buildingForArea,familyForArea} from '@/lib/cast.mjs';
-import {fellowPower,fellowBasePower,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,FELLOW_JOIN_POINTS} from '@/lib/game.mjs';
+import {FELLOWS,areaById,buildingForArea,familyInArea} from '@/lib/cast.mjs';
+import {fellowPower,fellowBasePower,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,joinNeed,familyBond,BLESS_LINKED} from '@/lib/game.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
@@ -15,7 +15,7 @@ function plan(level:number,cap:number,gold:number,times:Quantity){const limit=ti
 
 function FellowStats({game,id}:any){
  const f=game.fellows[id],def=FELLOWS.find(x=>x.id===id)!,cap=fellowLevelCap(f.stars),[open,setOpen]=useState(false),b=blessings(game);
- const building=buildingForArea(def.area),family=familyForArea(def.area);
+ const building=buildingForArea(def.area),family=familyInArea(def.area);
  return <div className="fellow-stats">
   <div className="fellow-stat fellow-power"><img src={ICON} alt=""/><span>POW</span><strong>{n(fellowPower(game,id))}</strong><button type="button" className="info-dot" aria-label="Where this Power comes from" onClick={()=>setOpen(true)}>i</button></div>
   <div className="fellow-stat fellow-level"><span>Lv.</span><strong>{f.level}</strong>
@@ -26,7 +26,7 @@ function FellowStats({game,id}:any){
   <Dialog open={open} onOpenChange={setOpen}><DialogContent className="breakdown-dialog"><DialogTitle>Power Details</DialogTitle><DialogDescription className="sr-only">How this Fellow's Power is calculated.</DialogDescription>
    <table className="es-breakdown"><tbody>
     <tr><th>Base</th><td>100 × Lv {f.level} × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars))}</td></tr>
-    <tr><th>{family.name}'s blessing</th><td>{game.family[family.id]?'linked bonus':'not yet family'}</td><td>+{((b.linked[id]||0)*100).toFixed(1)}%</td></tr>
+    {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>
@@ -52,11 +52,11 @@ export default function FellowsPanel({game,action,locked,selected,setSelected,br
   summary={<p className="management-hint">Fellows bring Power. Each one belongs to a life area: complete habits in that area to recruit them and earn their stars.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
  const back=<Button className="collection-open" variant="outline" onClick={()=>setBrowse(true)}>‹ Fellows roster</Button>;
- if(!f){const ready=fellowReady(game,person),have=areaPoints(game,person.area);
+ if(!f){const ready=fellowReady(game,person),have=areaPoints(game,person.area),need=joinNeed(person).points;
   return <CharacterScreen preview person={person} subtitle={area.name+' Fellow'} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}>
    <div className="es-join-card"><p>{person.description}</p>
     {ready?<Button className="primary-action primary-tier" disabled={locked} onClick={()=>action('recruitFellow',person.id)}><b>Recruit {person.name}</b></Button>
-     :<p className="next-goal">Complete {area.name} habits to meet {person.name}: {Math.min(have,FELLOW_JOIN_POINTS)} / {FELLOW_JOIN_POINTS} points.</p>}</div>
+     :<p className="next-goal">Complete {area.name} habits to meet {person.name}: {Math.min(have,need)} / {need} points.</p>}</div>
   </CharacterScreen>}
  return <CharacterScreen person={person} subtitle={area.name+' Fellow'} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}
   statBlock={<FellowStats game={game} id={person.id}/>} primary={<FellowUpgrade game={game} id={person.id} action={action} locked={locked}/>}

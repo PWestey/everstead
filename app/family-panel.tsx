@@ -4,8 +4,8 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction} from './original-controls';
-import {FAMILY,areaById,fellowForArea,buildingForArea} from '@/lib/cast.mjs';
-import {familyBond,bondProgress,familyReady,areaPoints,playerLevel,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,FAMILY_JOIN_POINTS,FAMILY_JOIN_LEVEL} from '@/lib/game.mjs';
+import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
+import {familyBond,bondProgress,familyReady,areaPoints,playerLevel,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 
@@ -16,7 +16,7 @@ const pct=(x:number)=>(x*100).toFixed(1)+'%';
 
 function FamilyStats({game,id}:any){
  const def=FAMILY.find(f=>f.id===id)!,bond=game.family[id].bond,L=familyBond(game,id),p=bondProgress(bond),[open,setOpen]=useState<string|null>(null);
- const fellow=fellowForArea(def.area),building=buildingForArea(def.area);
+ const fellows=fellowsInArea(def.area),building=buildingForArea(def.area);
  return <div className="family-stat-block">
   <div className={'rung-ribbon rung-'+(L<5?'green':'gold')}><b>{rung(L)}</b><i aria-hidden="true">&#9671;</i></div>
   <div className="family-medallions">
@@ -27,7 +27,7 @@ function FamilyStats({game,id}:any){
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{open==='Bond'?'Bond':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
    {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming.</p>
    :<table className="es-breakdown"><tbody>
-     <tr><th>{fellow.name}</th><td>linked Fellow</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
+     <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
      <tr><th>Every Fellow</th><td>village-wide</td><td>+{pct(BLESS_ALL*L)}</td></tr>
      <tr><th>{building.name}</th><td>income</td><td>+{pct(BLESS_BUILDING*L)}</td></tr>
     </tbody></table>}
@@ -50,11 +50,11 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
  const back=<Button className="collection-open" variant="outline" onClick={()=>setBrowse(true)}>‹ Family</Button>;
- if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=playerLevel(game.xp);
+ if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=playerLevel(game.xp),need=joinNeed(person);
   return <CharacterScreen preview person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}>
    <div className="es-join-card"><p>{person.description}</p>
     {ready?<Button className="primary-action primary-tier" disabled={locked} onClick={()=>action('recruitFamily',person.id)}><b>Welcome {person.name}</b></Button>
-     :<p className="next-goal">To welcome {person.name}: {area.name} habits {Math.min(have,FAMILY_JOIN_POINTS)} / {FAMILY_JOIN_POINTS} points · your level {Math.min(lvl,FAMILY_JOIN_LEVEL)} / {FAMILY_JOIN_LEVEL}.</p>}</div>
+     :<p className="next-goal">To welcome {person.name}: {area.name} habits {Math.min(have,need.points)} / {need.points} points · your level {Math.min(lvl,need.level)} / {need.level}.</p>}</div>
   </CharacterScreen>}
  const visited=game.visits[person.id]===habitDay(game.lastAt);
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly

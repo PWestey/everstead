@@ -3,7 +3,7 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import {PrimaryAction,abbrev} from './original-controls';
 import {MiniArt} from './character-artwork';
 import {useState} from 'react';
-import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowForArea,familyForArea,characterById} from '@/lib/cast.mjs';
+import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowsInArea,familyInArea,characterById} from '@/lib/cast.mjs';
 import {buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerLevelProgress} from '@/lib/game.mjs';
 import {habitDue,habitEarnings} from '@/lib/habits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
@@ -11,7 +11,7 @@ const pct=(x:number)=>Math.round(x*100)+'%';
 
 /** A building's sheet: what it earns and why, and the one action that improves it. */
 export function BuildingPanel({game,id,action,locked,onCharacter}:any){
- const b=BUILDINGS.find(x=>x.id===id)!,area=areaById(b.area),lvl=game.buildings[id].level,fellow=fellowForArea(b.area),family=familyForArea(b.area);
+ const b=BUILDINGS.find(x=>x.id===id)!,area=areaById(b.area),lvl=game.buildings[id].level,fellows=fellowsInArea(b.area),family=familyInArea(b.area);
  const cost=lvl?buildingUpgradeCost(lvl):BUILDING_OPEN_COST,boost=areaBoost(game,b.area,game.lastAt),bless=blessings(game).building[b.area]||0;
  return <section className="business-list es-building" style={{['--area' as any]:area.color}}>
   <article className="business-card"><div className="identity"><h2>{b.name}</h2><span className="level">{lvl?'Lv. '+lvl:'Not built'}</span></div>
@@ -19,12 +19,12 @@ export function BuildingPanel({game,id,action,locked,onCharacter}:any){
    {lvl>0&&<div className="worker"><span>Earning</span><strong>+{abbrev(buildingRate(game,id)*momentum(game,game.lastAt)*60)} gold/min</strong></div>}
    <ul className="es-modifiers">
     <li><span>Today’s {area.name} habits</span><b>+{pct(boost)}</b></li>
-    <li><span>{fellow.name} working here</span><b>{game.fellows[fellow.id]?'+25%':'not recruited'}</b></li>
-    <li><span>{family.name}’s blessing</span><b>{game.family[family.id]?'+'+pct(bless):'not yet family'}</b></li>
+    <li><span>Fellows working here</span><b>+{fellows.filter((f:any)=>game.fellows[f.id]).length*25}%</b></li>
+    <li><span>Family blessings</span><b>+{pct(bless)}</b></li>
     <li><span>Momentum (all habits)</span><b>×{momentum(game,game.lastAt).toFixed(2)}</b></li>
    </ul>
    <div className="business-actions"><PrimaryAction verb={lvl?'Upgrade':'Build'} tier={!lvl} disabled={locked} currency="Gold" have={game.gold} cost={cost} onClick={()=>action('buildingUpgrade',id)}/></div>
-   <div className="es-residents">{[fellow,family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div>
+   <div className="es-residents">{[...fellows,...family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div>
   </article></section>;
 }
 
@@ -80,7 +80,7 @@ export function TodayPanel({game,onNavigate}:any){
  const ready=[...FELLOWS.filter(f=>fellowReady(game,f)),...FAMILY.filter(f=>familyReady(game,f))],improve=FELLOWS.filter(f=>fellowCanImprove(game,f.id));
  const rows:[string,string,string][]=[
   [`Daily habits: ${done} / ${due.length}`,done<due.length?'Each one earns gold, XP, sigils and a roam.':'All done today. Well kept.','habits'],
-  [`Momentum ×${earn.multiplier.toFixed(2)}`,`${earn.areas} of 6 life areas touched this week · ${earn.dailies} dailies today`,'habits'],
+  [`Momentum ×${earn.multiplier.toFixed(2)}`,`${earn.areas} of 8 life areas touched this week · ${earn.dailies} dailies today`,'habits'],
   [`Level ${p.level}`,`${n(p.into)} / ${n(p.need)} XP to level ${p.level+1}`,'hero'],
   [`${b.name}: ${b.damage} / ${b.hp}`,b.defeated?(b.claimed?'Driven out this week.':'Ready to drive out!'):`${b.opposed.map((a:string)=>areaById(a).name).join(' and ')} habits hit hardest.`,'stage'],
   [`Roams: ${game.roam.charges}`,game.roam.charges?'Someone might be waiting at the gate.':'Complete dailies to earn roams.','roaming'],
