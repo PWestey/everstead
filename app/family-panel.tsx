@@ -45,7 +45,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const owned=game.family,order=rosterOrder(FAMILY,owned,(id:string)=>owned[id]?.bond||0);
  const person=FAMILY.find(f=>f.id===selected)||FAMILY[0],f=owned[person.id],area=areaById(person.area),[gift,setGift]=useState(false);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','name']} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&game.visits[id]!==habitDay(game.lastAt))} search={false} pageSize={6}
+ if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','name']} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&game.visits[id]!==habitDay(game.lastAt))} search={false} pageSize={9}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{familyReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;

@@ -65,3 +65,6 @@ test('old saves load: swapped characters are renamed, removed ones dropped, old 
  const m=decode(JSON.stringify(old));assert.deepEqual(m.fellows,{darrow:{level:4,stars:1}});assert.deepEqual(m.family,{tyrande:{bond:90}});assert.equal(m.sigils.marriage,7);assert.equal(m.habits.items[0].domain,'marriage');assert.equal(m.habits.totals.marriage.points,6);assert.ok(valid(m))});
 
 test('every character has an introduction, written or generated',()=>{for(const c of [...FELLOWS,...FAMILY]){const s=introFor(c.id);assert.ok(s&&s.lines.length,c.id)}});
+
+test('written scenes only use real characters as speakers, and every character has an intro and roams',()=>{const ids=new Set([...FELLOWS,...FAMILY].map(c=>c.id));for(const c of [...FELLOWS,...FAMILY]){assert.ok(SCENES[c.id],'scenes for '+c.id);assert.ok(SCENES[c.id].roams.length>=1,c.id)}
+ for(const [id,s] of Object.entries(SCENES)){assert.ok(ids.has(id),'scene owner '+id+' is in the cast');for(const lines of [s.intro,...s.roams.map(r=>r.lines)])for(const l of lines)if(Array.isArray(l))assert.ok(ids.has(l[0]),id+' speaker '+l[0])}});
