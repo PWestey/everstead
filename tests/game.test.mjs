@@ -97,3 +97,7 @@ test('adventures cost a roam each time and pay every time',()=>{let s={...fresh(
  let r=act(s,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,1);assert.equal(r.state.bonusXp.fitness,600);
  r=act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.equal(r.state.roam.charges,0);assert.equal(r.state.bonusXp.fitness,1200);
  assert.ok(act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0}).error,'no roams left')});
+
+test('habits complete after buildings have earned fractional gold',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;s=settle(s,T+61000);assert.ok(!Number.isInteger(s.gold),'gold is fractional');
+ const id=s.habits.items.find(x=>x.freq==='daily'&&x.days.includes(new Date(T).getDay())).id;const r=act(s,'habitComplete',T+62000,id);assert.ok(!r.error,r.error);assert.ok(r.state.gold>s.gold);
+ const u=act(r.state,'habitUndo',T+63000);assert.ok(!u.error,u.error)});
