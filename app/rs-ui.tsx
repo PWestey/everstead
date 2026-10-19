@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {AREAS,characterById} from '@/lib/cast.mjs';
 import {skillInfo,skillIcon,capeArt,totalLevel,MAX_TOTAL,MAX_LEVEL} from '@/lib/skills.mjs';
-import {QUESTS,questIds,questStatus,questPoints} from '@/lib/quests.mjs';
+import {QUESTS,questIds,questStatus,questPoints,questLock} from '@/lib/quests.mjs';
 import {TREES,ADVENTURES} from '@/lib/dialogue.mjs';
 import {playerStage} from '@/lib/game.mjs';
 import {MiniArt} from './character-artwork';
@@ -53,7 +53,7 @@ export function QuestCompleteScroll({questId,onClose}:{questId:string|null,onClo
 
 /** The quest journal: red not started, yellow in progress, green complete. */
 export function QuestJournal({game,onTalk}:{game:any,onTalk:(tree:string)=>void}){
- const [sel,setSel]=useState(questIds[0]);const q=QUESTS[sel],st=questStatus(game,sel),giver=characterById(q.giver);
+ const [sel,setSel]=useState(()=>questIds.find(id=>['active','available'].includes(questStatus(game,id).status))||questIds[0]);const q=QUESTS[sel],st=questStatus(game,sel),giver=characterById(q.giver);
  return <section className="rs-quests">
   <header><img src="./assets/rs/quest.png" alt=""/><b>Quest Points: {questPoints(game)}</b></header>
   <ul className="rs-quest-list">{questIds.map(id=>{const s=questStatus(game,id);return <li key={id}><button type="button" className={'rs-q-'+s.status+(id===sel?' rs-q-sel':'')} onClick={()=>setSel(id)}>{QUESTS[id].name}</button></li>})}</ul>
@@ -61,7 +61,7 @@ export function QuestJournal({game,onTalk}:{game:any,onTalk:(tree:string)=>void}
    <h3>{q.name}</h3>
    <p className="rs-journal-giver"><MiniArt person={giver}/>{giver?.name} · {areaName(q.area)}</p>
    <p>{q.blurb}</p>
-   {st.status==='locked'&&<p className="rs-step-now">Recruit {giver?.name} to begin this quest. ({areaName(q.area)} habits bring {giver?.name} to Everstead.)</p>}
+   {st.status==='locked'&&<p className="rs-step-now">To begin: {questLock(game,sel)}</p>}
    <ol className="rs-steps">{q.steps.map((step:any,i:number)=>{const done=st.status==='done'||i<st.stepIndex,now=st.status!=='locked'&&st.status!=='done'&&i===st.stepIndex;if(!done&&!now)return null;
     return <li key={i} className={done?'rs-step-done':'rs-step-now'}>{step.text}{now&&st.progress?<b> ({st.progress.have}/{st.progress.need})</b>:null}</li>})}</ol>
    {st.status==='done'&&<p className="rs-step-done">QUEST COMPLETE!</p>}

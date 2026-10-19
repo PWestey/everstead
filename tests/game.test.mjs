@@ -101,3 +101,41 @@ test('adventures cost a roam each time and pay every time',()=>{let s={...fresh(
 test('habits complete after buildings have earned fractional gold',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;s=settle(s,T+61000);assert.ok(!Number.isInteger(s.gold),'gold is fractional');
  const id=s.habits.items.find(x=>x.freq==='daily'&&x.days.includes(new Date(T).getDay())).id;const r=act(s,'habitComplete',T+62000,id);assert.ok(!r.error,r.error);assert.ok(r.state.gold>s.gold);
  const u=act(r.state,'habitUndo',T+63000);assert.ok(!u.error,u.error)});
+
+// ---------------- Written quests and moments ----------------
+import {execFileSync} from 'node:child_process';
+import {questIds,questLock,questBefore,TIERS} from '../lib/quests.mjs';
+import {FELLOW_MOMENTS,FAMILY_MOMENTS,momentId} from '../lib/moments.mjs';
+import {readdirSync} from 'node:fs';
+
+test('every written content file passes the content checker',()=>{for(const dir of ['lib/quests','lib/moments'])for(const f of readdirSync(dir))execFileSync(process.execPath,['scripts/check-content.mjs',dir+'/'+f],{stdio:'pipe'})});
+
+test('every Fellow has moments, and every Family member has visits and gifts',()=>{for(const f of FELLOWS)assert.ok(FELLOW_MOMENTS[f.id],f.id);for(const f of FAMILY)assert.ok(FAMILY_MOMENTS[f.id],f.id);
+ for(const id of Object.keys(TREES).filter(k=>k.startsWith('m:')))assert.ok(TREES[id].nodes.o0,id)});
+
+/** Where a tree triggers a quest effect: {node, opt}. */
+function questSpot(tree,op){for(const [k,n] of Object.entries(TREES[tree].nodes)){if(n.do?.some(e=>e.quest?.[1]===op))return {node:k,opt:null};for(const [i,o] of (n.opts||[]).entries())if(o.do?.some(e=>e.quest?.[1]===op))return {node:k,opt:i}}throw new Error(tree+' has no '+op)}
+
+test('every quest can be played start to finish and pays once',()=>{const big=Object.fromEntries(AREA_IDS.map(a=>[a,2e6]));
+ for(const qid of questIds){const q=QUESTS[qid];let {s,id}=withHabit(q.area,'hard');const prev=questBefore(qid);
+  s={...s,fellows:{[q.giver]:{level:1,stars:0}},bonusXp:big,quests:prev?{[prev]:{step:5,at:T,done:true}}:{}};
+  assert.equal(questStatus(s,qid).status,'available',qid+': '+questLock(s,qid));
+  let day=T,r=act(s,'dialogue',day,q.steps[0].tree,questSpot(q.steps[0].tree,'start'));assert.ok(!r.error,qid+' start: '+r.error);s=r.state;
+  for(let d=0;d<q.steps[1].count;d++){day+=864e5;s=act(s,'habitComplete',day,id).state}
+  assert.equal(pendingTalk(s,q.giver)?.tree,q.steps[2].tree,qid+' reached report-back');
+  day+=864e5;r=act(s,'dialogue',day,q.steps[2].tree,questSpot(q.steps[2].tree,'advance'));assert.ok(!r.error,qid+' advance: '+r.error);s=r.state;
+  for(let d=0;d<q.steps[3].count;d++){day+=864e5;s=act(s,'habitComplete',day,id).state}
+  assert.equal(pendingTalk(s,q.giver)?.tree,q.steps[4].tree,qid+' reached finale');
+  day+=864e5;r=act(s,'dialogue',day,q.steps[4].tree,questSpot(q.steps[4].tree,'complete'));assert.ok(!r.error,qid+' complete: '+r.error);assert.equal(r.questDone,qid);
+  assert.ok(r.state.gold>=s.gold+(QUESTS[qid].rewards.gold),qid+' paid')}});
+
+test('quests in an area unlock one after another, gated by total level',()=>{const roy=questIds.find(id=>QUESTS[id].giver==='roy');assert.equal(questBefore(roy),'iron-body');
+ let s={...fresh(T),fellows:{roy:{level:1,stars:0}}};assert.match(questLock(s,roy),/Iron Body/);
+ s={...s,quests:{'iron-body':{step:5,at:T,done:true}}};assert.match(questLock(s,roy),/total level 100/);
+ s={...s,bonusXp:{...s.bonusXp,fitness:13e6}};assert.equal(questLock(s,roy),null);assert.equal(TIERS[QUESTS[roy].tier].total,100)});
+
+test('levelling a Fellow past every 5th level, starring him, and visiting Family open a moment',()=>{let s={...fresh(T),gold:1e7,sigils:{...fresh(T).sigils,fitness:1e4},fellows:{darrow:{level:3,stars:0}},family:{kira:{bond:0}}};
+ let r=act(s,'levelUp',T,'darrow',1);assert.equal(r.talk,null,'level 4: nothing');r=act(r.state,'levelUp',T,'darrow',1);assert.equal(r.talk,'m:darrow:level:0');
+ r=act(r.state,'levelUp',T,'darrow',10);assert.equal(r.talk,'m:darrow:level:2','one moment for a multi-level purchase');
+ r=act(r.state,'starUp',T,'darrow');assert.equal(r.talk,'m:darrow:star:0');assert.ok(TREES[r.talk]);
+ r=act(r.state,'visit',T,'kira');assert.ok(TREES[r.talk],r.talk);const next=act(r.state,'visit',T+864e5,'kira');assert.notEqual(next.talk,r.talk,'visits rotate')});

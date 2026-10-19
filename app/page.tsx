@@ -61,6 +61,7 @@ export default function App(){
   if(result.welcomed){setMember(result.welcomed);setFamilyBrowse(false)}
   if(result.levelUps?.length)setUps(u=>[...u,...result.levelUps]);
   if(result.questDone)setQuestDone(result.questDone);
+  if(result.talk)setTalk(result.talk);
   if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
  function exportSave(){const rescue=failedLoad,stored=rescue?storage.current.raw:null;if(rescue&&stored===null){tell('No saved village was found in this browser');return}

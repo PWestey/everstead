@@ -11,8 +11,8 @@ rule and number. Read it before changing gameplay.
    formulas, tables or data from the original.
 3. **Formulas stay one line.** All of them live in `lib/game.mjs` under "Formulas". If a change needs a
    paragraph to explain, simplify it instead. Update DESIGN.md in the same change.
-4. **The roster grows slowly.** Six Fellows and six Family, one per life area. New characters only when
-   the owner asks and has art for them.
+4. **The roster grows slowly.** Several Fellows and Family per life area (see `lib/cast.mjs`). New characters only
+   when the owner asks and has art for them. Dialogue follows docs/WRITING-BRIEF.md.
 5. **The owner picks the cast.** Characters arrive as the owner's own art, one per life-area slot.
    Don't add characters, art or franchises on your own.
 6. **Art is still images.** Breathing motion comes from CSS (`.art-alive`). No video, no Spine, until

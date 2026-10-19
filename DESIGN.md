@@ -58,6 +58,19 @@ An area can hold several of each. They join in list order (see the join queue be
 - **Quests** (`lib/quests.mjs`): chains that alternate *real habits* ("3 Fitness habits", "3 different days") with
   conversations. Habit steps advance automatically; talks happen with the quest giver. Journal colours: red not
   started, yellow in progress, green done. First quest: **The Iron Body** (Darrow, Fitness).
+- **One quest per Fellow** (23), written in `lib/quests/*.mjs`. Every quest is talk → H habits → talk → D days → talk.
+  Within an area they unlock in order, lowest tier first, and each tier needs a total level:
+
+  | Tier | Habits | Days | Quest pts | XP | Gold | Sigils | Total level |
+  |---|---|---|---|---|---|---|---|
+  | 1 | 3 | 3 | 1 | 5,000 | 1,500 | 40 | — |
+  | 2 | 5 | 4 | 2 | 10,000 | 3,000 | 60 | 100 |
+  | 3 | 8 | 5 | 3 | 20,000 | 5,000 | 80 | 200 |
+  | 4 | 12 | 7 | 4 | 35,000 | 8,000 | 100 | 300 |
+- **Moments** (`lib/moments.mjs`, content in `lib/moments/*.mjs`): short pop-up conversations, flavour only.
+  Fellows speak at every 5th level and every star (comradery, motivation). Family speak on each
+  "Spend time together" and each gift (romantic; Liko, Nemona, Misty and Gwen are written as platonic friends).
+  `docs/WRITING-BRIEF.md` is the style guide; `node scripts/check-content.mjs <file>` checks a content file.
 - **Adventures**: art cards at a location; each costs a roam (earned by daily habits) and plays a short scene with a
   choice that decides the reward. First location: the **Training Yard**.
 
