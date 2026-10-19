@@ -8,7 +8,7 @@ Put images in `public/assets/cast/`, named exactly:
 
 | Who | File |
 |---|---|
-| You, 5 looks | `player-1.webp` … `player-5.webp` (Wanderer, Squire, Knight, Champion, Legend) |
+| You, 7 armour tiers | `player-1.webp` … `player-7.webp` (Bronze, Iron, Mithril, Rune, Dragon, Barrows, Saradomin) |
 | Fellows and Family | All done: one file per character id in `lib/cast.mjs` (e.g. `kaladin.webp`) |
 
 PNG works too: change the extension in `lib/cast.mjs` (`art()` and `PLAYER_STAGES`).
@@ -22,7 +22,7 @@ PNG works too: change the extension in `lib/cast.mjs` (`art()` and `PLAYER_STAGE
 - **Same framing for everyone**, so switching characters with the arrows feels steady.
 - WebP keeps the download small (aim for under 400 KB each).
 
-## Keeping your five looks consistent
+## Keeping your looks consistent
 
 1. Make **one master image of you** first, from a photo, using a character-reference feature
    (ChatGPT image generation with your photo attached, or Midjourney's character reference).

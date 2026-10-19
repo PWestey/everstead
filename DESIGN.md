@@ -37,8 +37,8 @@ An area can hold several of each. They join in list order (see the join queue be
 ## You
 
 - Level from XP. Level L → L+1 costs `60 × L` XP. No cap.
-- **Five looks**: Wanderer (1), Squire (8), Knight (18), Champion (32), Legend of Everstead (50).
-  At a steady routine (~300 XP/day) that is Squire in about a week, Champion around six months.
+- **Seven armour tiers** (RuneScape style): Bronze (1), Iron (6), Mithril (12), Rune (20), Dragon (30), Barrows (42), Saradomin (56).
+  At a steady routine (~300 XP/day): Iron in ~3 days, Rune ~5 weeks, Dragon ~3 months, Saradomin ~10 months.
 - Your stats are lifetime habit points per area, drawn as a hexagon on the Hero screen.
 - Your Power: `150 × Level`.
 
