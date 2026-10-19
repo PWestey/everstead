@@ -12,22 +12,25 @@ const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 
 export default function HeroPanel({game,action,locked}:any){
  const tl=totalLevel(game),stage=playerStage(tl),next=PLAYER_STAGES.find(s=>s.level>tl);
- const [looks,setLooks]=useState(false),[power,setPower]=useState(false),[naming,setNaming]=useState(false),[name,setName]=useState(game.playerName);
+ const [skills,setSkills]=useState(false),[looks,setLooks]=useState(false),[power,setPower]=useState(false),[naming,setNaming]=useState(false),[name,setName]=useState(game.playerName);
  const person={id:'player',name:game.playerName,title:stage.title,art:stage.art,description:'You. Every habit you keep trains a skill, and your total level earns your armour.'};
  const b=powerBreakdown(game),heroShare=b.hero+b.roster?b.hero/(b.hero+b.roster):1;
- return <CharacterScreen person={person} subtitle={'Total level '+tl}
-  statBlock={<div className="fellow-stats es-hero-stats">
+ return <CharacterScreen person={person} subtitle={stage.title+' · Total level '+tl}
+  summary={<div className="es-sum"><span><img src="./assets/rs/stats_icon.png" alt=""/>Total <b>{tl}</b></span><span><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><b>{n(rosterPower(game))}</b> POW</span></div>}
+  primary={<Button className="primary-action es-skills-btn" onClick={()=>setSkills(true)}><b>Skills</b></Button>}
+  details={<div className="fellow-stats es-hero-stats">
    <div className="fellow-stat fellow-power"><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Power</span><strong>{n(rosterPower(game))}</strong><button type="button" className="info-dot" aria-label="Power details" onClick={()=>setPower(true)}>i</button></div>
    <div className="fellow-stat es-split" aria-label={`Hero ${Math.round(heroShare*100)}%, roster ${100-Math.round(heroShare*100)}%`}><span>You</span><div className="es-split-bar"><i style={{width:heroShare*100+'%'}}/></div><span>Roster</span></div>
    {next&&<div className="fellow-stat"><span className="glyph">⬆</span><span>Next armour</span><strong>{next.title} · total {next.level}</strong></div>}
   </div>}
-  primary={<SkillsPanel game={game}/>}
+  detailsLabel="Power"
   rail={<>
-   <Button variant="outline" className="rail-icon" onClick={()=>setLooks(true)} aria-label="Armour"><img src="./assets/menu/rank.png" alt=""/><span>Armour</span></Button>
-   <Button variant="outline" className="rail-icon" onClick={()=>setNaming(true)} aria-label="Name"><img src="./assets/menu/overview.png" alt=""/><span>Name</span></Button>
+   <Button variant="outline" className="es-rail-btn" onClick={()=>setLooks(true)} aria-label="Armour"><img src="./assets/menu/rank.png" alt=""/><span>Armour</span></Button>
+   <Button variant="outline" className="es-rail-btn" onClick={()=>setNaming(true)} aria-label="Name"><img src="./assets/menu/overview.png" alt=""/><span>Name</span></Button>
   </>}
   info={<p>Each life area is a skill from 1 to 99. Your total level (out of {MAX_TOTAL}) unlocks each armour tier, and your Power is half you, half your roster.</p>}
   collection={null}>
+  <Dialog open={skills} onOpenChange={setSkills}><DialogContent className="es-char-sheet es-skills-sheet"><DialogTitle>Skills</DialogTitle><DialogDescription>Tap a skill for its XP and cape.</DialogDescription><SkillsPanel game={game}/></DialogContent></Dialog>
   <Dialog open={looks} onOpenChange={setLooks}><DialogContent className="character-sheet panel-centered"><DialogTitle>Your armour</DialogTitle><DialogDescription>Each tier unlocks at a total level.</DialogDescription>
    <div className="character-sheet-body es-looks">{PLAYER_STAGES.map(s=><figure key={s.stage} className={tl>=s.level?'':'es-locked'}><CharacterArtwork person={{id:'player-'+s.stage,name:s.title,art:s.art}}/><figcaption><b>{s.title}</b><span>Total level {s.level}</span></figcaption></figure>)}</div>
   </DialogContent></Dialog>

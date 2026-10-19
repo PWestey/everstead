@@ -50,7 +50,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{familyReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
- const back=<Button className="collection-open" variant="outline" onClick={()=>setBrowse(true)}>‹ Family</Button>;
+ const back=<Button className="es-back-btn" variant="outline" onClick={()=>setBrowse(true)} aria-label="Back to the Family roster">‹ Family</Button>;
  if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=totalLevel(game),need=joinNeed(person);
   return <CharacterScreen preview person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}>
    <div className="es-join-card"><p>{person.description}</p>
@@ -60,9 +60,10 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const visited=game.visits[person.id]===habitDay(game.lastAt);
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly
   info={<table className="member-info-table"><tbody><tr><th scope="row">Full name</th><td colSpan={3}>{person.fullName||person.name}</td></tr><tr><th scope="row">Title</th><td colSpan={3}>{person.title}</td></tr><tr><th scope="row">Area</th><td colSpan={3}>{area.name}</td></tr><tr><th scope="row">Bio</th><td colSpan={3}>{person.description}</td></tr></tbody></table>}
-  statBlock={<FamilyStats game={game} id={person.id}/>}
+  summary={<div className="es-sum"><span><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/>Bond <b>{familyBond(game,person.id)}</b></span><span>Blessing <b>+{pct(BLESS_LINKED*familyBond(game,person.id))}</b></span></div>}
+  details={<FamilyStats game={game} id={person.id}/>} detailsLabel="Bond"
   primary={<div className="spend-controls"><PrimaryAction verb={visited?'Visited today':'Spend time together'} disabled={locked||visited} onClick={()=>action('visit',person.id)}>+{VISIT_BOND} bond</PrimaryAction></div>}
-  rail={<Button variant="outline" className="rail-icon" onClick={()=>setGift(true)} aria-label="Gift"><img src="./assets/menu/gifts.png" alt=""/><span>Gift</span></Button>}>
+  rail={<Button variant="outline" className="es-rail-btn" onClick={()=>setGift(true)} aria-label="Gift"><img src="./assets/menu/gifts.png" alt=""/><span>Gift</span></Button>}>
   <Dialog open={gift} onOpenChange={setGift}><DialogContent className="character-sheet panel-centered"><DialogTitle>Gift for {person.name}</DialogTitle><DialogDescription className="sr-only">Choose a gift.</DialogDescription><div className="character-sheet-body"><GiftSheet game={game} id={person.id} action={action} locked={locked}/></div></DialogContent></Dialog>
  </CharacterScreen>;
 }

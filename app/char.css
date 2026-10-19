@@ -1,0 +1,64 @@
+/* Character screens (Fellows, Family, Hero): the art gets the screen, everything else stays slim. */
+
+/* iPhone fix: size the modal to the real screen (top/bottom 0), not 100dvh, which iOS reports
+   shorter than the screen in home-screen apps and so left a gap above and below. */
+html,body{background:#2a1b12}
+.game-modal{position:fixed!important;top:0!important;bottom:0!important;left:50%!important;translate:-50% 0!important;transform:none!important;height:auto!important;max-height:none!important}
+
+.character-modal .modal-body{display:flex;padding:0;overflow:hidden}
+.es-char{position:relative;flex:1;width:100%;height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;isolation:isolate;font-family:'Texturina',Georgia,serif}
+.es-char-scene{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,14,8,.35),rgba(20,14,8,0) 20%,rgba(20,14,8,0) 75%,rgba(20,14,8,.55)),url(/assets/ui-scenes/Bg_Village_01_Mid.jpg) center/cover}
+
+/* Top strip */
+.es-char-top{display:grid;grid-template-columns:minmax(76px,auto) 1fr minmax(76px,auto);align-items:center;gap:6px;padding:6px 8px;background:linear-gradient(rgba(30,20,12,.88),rgba(30,20,12,.55));z-index:2}
+.es-char-name{display:grid;text-align:center;line-height:1.1;color:#ffe8be;text-shadow:0 1px 3px #000}
+.es-char-name b{font-size:20px}
+.es-char-name small{font-size:12px;color:#f4d18b}
+.es-char-rarity{text-align:right}
+.es-char-rarity img{height:26px}
+.es-back-btn{min-height:36px!important;height:auto!important;padding:4px 10px!important;font:700 13px/1 'Texturina',Georgia,serif!important;background:#62442ed9!important;border:2px solid #c09e64!important;color:#fff0d0!important;border-radius:8px}
+
+/* Art stage: the whole figure, head to feet */
+.es-char-stage{position:relative;min-height:0}
+.es-char-stage .character-artwork{position:absolute;inset:6px 0 0 0;height:auto;width:auto;background:none!important}
+.es-char-stage .character-artwork>img,.es-char-stage .character-artwork>.art-placeholder{height:100%;width:100%;object-fit:contain;object-position:center bottom}
+.es-char-preview .es-char-stage .character-artwork>img{filter:grayscale(1) brightness(.85)}
+
+/* Rail and arrows float over the art's edges */
+.es-char-rail{position:absolute;right:6px;top:6px;display:grid;gap:6px;z-index:2}
+.es-rail-btn{width:54px;height:54px!important;min-height:0!important;display:grid!important;place-items:center;align-content:center;gap:1px;padding:3px!important;background:rgba(55,36,22,.82)!important;border:2px solid #c09e64!important;color:#fff0d0!important;border-radius:10px!important;font:700 10px/1 'Texturina',Georgia,serif!important}
+.es-rail-btn svg,.es-rail-btn img{width:20px;height:20px;image-rendering:auto}
+.es-rail-talk{border-color:#ffd24a!important;box-shadow:0 0 10px #ffd24a99}
+.es-char-arrow{position:absolute;bottom:10px;z-index:2;width:40px;height:48px!important;min-height:0!important;padding:0!important;font-size:30px;line-height:1;color:#ffe8be!important;background:rgba(30,20,12,.55)!important;border-radius:10px!important}
+.es-char-prev{left:6px}
+.es-char-next{right:6px}
+
+/* Bottom bar: a short summary and one main action */
+.es-char-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(rgba(30,20,12,.7),rgba(30,20,12,.94));color:#fff0c9;z-index:2}
+.es-char-summary{flex:1;min-width:0}
+.es-char-primary{flex:none}
+.es-char-primary .spend-controls{display:block;margin:0}
+.es-char-primary .primary-action{min-width:150px;min-height:48px!important}
+.es-sum{display:flex;gap:4px 14px;flex-wrap:wrap;align-items:center;font:700 14px 'Texturina',Georgia,serif;text-shadow:0 1px 2px #000}
+.es-sum b{color:#ffd37a;font-size:18px}
+.es-sum img{width:20px;height:20px;vertical-align:-4px;margin-right:4px}
+.es-stars{font-style:normal;color:#ffd37a;letter-spacing:-1px;font-size:13px}
+.es-stars em{font-style:normal;color:#7b6a52}
+.es-char-bar .es-join-card{flex:1 1 100%;max-width:none;margin:0;background:transparent;border:0;padding:2px 0}
+.es-skills-btn{min-width:110px!important}
+
+/* Hide: just the art */
+.es-char-hidden .es-char-top,.es-char-hidden .es-char-bar{display:none}
+
+/* Sheets opened from the rail */
+.es-char-sheet{max-height:86dvh;overflow:auto;background:var(--rs-parch,#eadfcf)!important;color:#1d1c19;border:3px solid #3e3529;font-family:'Texturina',Georgia,serif}
+.es-char-sheet-body{display:grid;gap:12px}
+.es-char-sheet .fellow-stats,.es-char-sheet .family-stat-block{position:static;color:#1d1c19;text-shadow:none;background:none}
+.es-char-sheet .fellow-stat{color:#1d1c19}
+.es-char-sheet .fellow-stat strong{color:#7a4a10}
+.es-skills-sheet .rs-stats{margin:0 auto}
+.es-sum>span{white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
+.es-skills-sheet .rs-stats{grid-template-columns:repeat(4,minmax(64px,76px));gap:4px;padding:8px}
+.es-skills-sheet .rs-skill{height:48px}
+.es-skills-sheet .rs-skill img{width:30px;height:30px}
+.es-skills-sheet .rs-lvl{font-size:14px}
