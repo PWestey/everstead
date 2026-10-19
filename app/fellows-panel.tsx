@@ -7,6 +7,7 @@ import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-cont
 import {FELLOWS,areaById,buildingForArea,familyInArea} from '@/lib/cast.mjs';
 import {fellowPower,fellowBasePower,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,joinNeed,familyBond,BLESS_LINKED} from '@/lib/game.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
+import {pendingTalk} from '@/lib/quests.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
 
@@ -43,7 +44,7 @@ function FellowUpgrade({game,id,action,locked}:any){
   <PrimaryAction verb={p.count?`Level up x${p.count}`:'Level up'} disabled={locked||!p.count} currency="Gold" have={game.gold} cost={p.count?p.cost:fellowLevelCost(f.level)} onClick={()=>action('levelUp',id,q)}/></div>;
 }
 
-export default function FellowsPanel({game,action,locked,selected,setSelected,browse,setBrowse}:any){
+export default function FellowsPanel({game,action,locked,onTalk,selected,setSelected,browse,setBrowse}:any){
  const owned=game.fellows,order=rosterOrder(FELLOWS,owned,(id:string)=>fellowPower(game,id));
  const person=FELLOWS.find(f=>f.id===selected)||FELLOWS[0],f=owned[person.id],area=areaById(person.area);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
@@ -60,5 +61,6 @@ export default function FellowsPanel({game,action,locked,selected,setSelected,br
   </CharacterScreen>}
  return <CharacterScreen person={person} subtitle={area.name+' Fellow'} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}
   statBlock={<FellowStats game={game} id={person.id}/>} primary={<FellowUpgrade game={game} id={person.id} action={action} locked={locked}/>}
+  rail={pendingTalk(game,person.id)?<Button variant="outline" className="rail-icon rs-talk-rail" onClick={()=>onTalk(pendingTalk(game,person.id)!.tree)} aria-label={'Talk to '+person.name}><img src="./assets/rs/quest.png" alt=""/><span>Talk</span></Button>:undefined}
   info={<p className="small-note">{(person as any).fullName?<><b>{(person as any).fullName}</b>. </>:null}Works at the {buildingForArea(person.area).name}, adding 25% to its income.</p>}>{null}</CharacterScreen>;
 }

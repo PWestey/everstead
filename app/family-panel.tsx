@@ -5,9 +5,10 @@ import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction} from './original-controls';
 import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
-import {familyBond,bondProgress,familyReady,areaPoints,playerLevel,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
+import {familyBond,bondProgress,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
+import {totalLevel} from '@/lib/skills.mjs';
 
 /** Bond rungs, named the way the old Family screen named them, every 5 levels. */
 const RUNGS=['Acquainted','Friendly','Close','Loving','Loving★','Loving★★','Forever'];
@@ -50,11 +51,11 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
  const back=<Button className="collection-open" variant="outline" onClick={()=>setBrowse(true)}>‹ Family</Button>;
- if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=playerLevel(game.xp),need=joinNeed(person);
+ if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=totalLevel(game),need=joinNeed(person);
   return <CharacterScreen preview person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}>
    <div className="es-join-card"><p>{person.description}</p>
     {ready?<Button className="primary-action primary-tier" disabled={locked} onClick={()=>action('recruitFamily',person.id)}><b>Welcome {person.name}</b></Button>
-     :<p className="next-goal">To welcome {person.name}: {area.name} habits {Math.min(have,need.points)} / {need.points} points · your level {Math.min(lvl,need.level)} / {need.level}.</p>}</div>
+     :<p className="next-goal">To welcome {person.name}: {area.name} habits {Math.min(have,need.points)} / {need.points} points · total level {Math.min(lvl,need.level)} / {need.level}.</p>}</div>
   </CharacterScreen>}
  const visited=game.visits[person.id]===habitDay(game.lastAt);
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly

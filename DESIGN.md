@@ -15,7 +15,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
    - **Blight damage:** its points, doubled if the area opposes this week's Blight.
    - **Building boost:** +5% per point to that area's building today (max +50%).
 2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams at the Village Gate.
-3. **Grow Roster Power**, clear stages at the Watchtower, and push back the weekly Blight.
+3. **Grow your Power**, clear stages at the Watchtower, and push back the weekly Blight.
 4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 8 + min(0.5, 0.07 × dailies today)`.
 
 ## Eight life areas
@@ -34,13 +34,32 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 The cast lives in `lib/cast.mjs`: Fellows are the men, Family the women, and each belongs to one area.
 An area can hold several of each. They join in list order (see the join queue below).
 
-## You
+## You: eight skills (RuneScape style)
 
-- Level from XP. Level L → L+1 costs `60 × L` XP. No cap.
-- **Seven armour tiers** (RuneScape style): Bronze (1), Iron (6), Mithril (12), Rune (20), Dragon (30), Barrows (42), Saradomin (56).
-  At a steady routine (~300 XP/day): Iron in ~3 days, Rune ~5 weeks, Dragon ~3 months, Saradomin ~10 months.
-- Your stats are lifetime habit points per area, drawn as a hexagon on the Hero screen.
-- Your Power: `150 × Level`.
+- Each life area is a **skill, levelled 1–99 on RuneScape's own XP table** (level 2 = 83 XP, 92 = 6.5M, 99 = 13,034,431).
+  Each one wears an OSRS skill's icon and cape: Faith/Prayer, Marriage/Hitpoints, Fatherhood/Farming, Fitness/Strength,
+  Work/Smithing, Home/Construction, Discipline/Defence, Hobbies/Fishing.
+- **Skill XP = lifetime habit points in the area × 500**, plus bonus XP from quests and adventures. Derived, never stored,
+  so undo and old saves just work. ~4 points a day in an area ≈ level 37 in two weeks, 55 at three months, 69 at a year.
+- **Total level** = sum of the eight (8 to 792). It unlocks the **seven armour tiers**: Bronze (8), Iron (150),
+  Mithril (280), Rune (360), Dragon (440), Barrows (490), Saradomin (540). A skillcape at 99; the max cape at 792.
+- Level-up message on every new level, RuneScape style.
+
+## Power: half you, half your roster
+
+- **Hero Power** = `25 × total level × (1 + 0.15 per armour tier above Bronze)`.
+- **Roster Power** = the sum of your Fellows' Power (Family blessings included).
+- **Total Power** = `(Hero + Roster) × (1 + 0.2 × balance)`, balance = smaller half ÷ larger half. Used by every Power check.
+
+## Quests, dialogue and adventures
+
+- **Dialogue** (`lib/dialogue.mjs`): full-screen backdrop, speaker portrait, RS chatbox, 2–3 choices. Choices can set
+  flags, give XP, gold, sigils or bond, and drive quests. Story rewards pay once per save.
+- **Quests** (`lib/quests.mjs`): chains that alternate *real habits* ("3 Fitness habits", "3 different days") with
+  conversations. Habit steps advance automatically; talks happen with the quest giver. Journal colours: red not
+  started, yellow in progress, green done. First quest: **The Iron Body** (Darrow, Fitness).
+- **Adventures**: art cards at a location; each costs a roam (earned by daily habits) and plays a short scene with a
+  choice that decides the reward. First location: the **Training Yard**.
 
 ## Fellows (Power)
 
@@ -52,18 +71,14 @@ An area can hold several of each. They join in list order (see the join queue be
 
 ## Family (Blessings)
 
-- **Welcome** by area points and your level. Queue: 15, 60, 150, 280, 450… points, and level 3, 7, 11, 15… for the 1st, 2nd, 3rd… Family member.
+- **Welcome** by area points and your total level. Queue: 15, 60, 150, 280, 450… points, and total level 20, 60, 100, 140… for the 1st, 2nd, 3rd… Family member.
 - Bond level from bond XP; level L → L+1 costs `100 × L`.
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals), roaming scenes.
 
-## Roster Power
-
-`(Your Power + Σ Fellow Power × (1 + linked blessing)) × (1 + Σ everyone blessing)`
-
 ## Watchtower
 
-- **Stages**: stage n needs `300 × 1.12^(n−1)` Roster Power. Reward `100 × n` gold, +10 crystals every 5th.
+- **Stages**: stage n needs `300 × 1.12^(n−1)` total Power. Reward `100 × n` gold, +10 crystals every 5th.
 - **Blights** (the vices): one rises each week, rotating through Sloth, Distraction, Doubt, Neglect,
   Pride and Excess. HP `60 × (1 + 0.25 × tier)`. Damage comes only from that week's habits.
   Defeat it for crystals and sigils; it returns one tier stronger next time round.

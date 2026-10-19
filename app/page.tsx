@@ -14,12 +14,14 @@ import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
 import {introFor} from '@/lib/stories.mjs';
-import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerLevel,playerStage,currentBlight} from '@/lib/game.mjs';
+import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight} from '@/lib/game.mjs';
+import {totalLevel} from '@/lib/skills.mjs';
+import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './rs-ui';
 
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'journey'},fellows:{title:'Fellows',icon:'fellows'},family:{title:'Family',icon:'family'},
  stage:{title:'Watchtower',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
- today:{title:'Today',icon:'journey'},building:{title:'Building',icon:'businesses'}};
+ today:{title:'Today',icon:'journey'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 export default function App(){
@@ -27,6 +29,7 @@ export default function App(){
  const [saveStatus,setSaveStatus]=useState('Loading save…'),[offline,setOffline]=useState('Preparing offline play…'),[panel,setPanel]=useState(false),[failedLoad,setFailedLoad]=useState(false),[saveFailed,setSaveFailed]=useState(false),[loadError,setLoadError]=useState('');
  const [tab,setTab]=useState('fellows'),[moduleOpen,setModuleOpen]=useState(false),[building,setBuilding]=useState(BUILDINGS[0].id);
  const [fellow,setFellow]=useState(FELLOWS[0].id),[fellowBrowse,setFellowBrowse]=useState(true),[member,setMember]=useState(FAMILY[0].id),[familyBrowse,setFamilyBrowse]=useState(true);
+ const [talk,setTalk]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
  const [arrivals,setArrivals]=useState<any[]>([]),[scene,setScene]=useState<any>(null),[restore,setRestore]=useState<any>(null),[restart,setRestart]=useState(false);
  const storage=useRef(createPersistence(()=>localStorage)),state=useRef(game),ready=useRef(false),timer=useRef<any>(null),file=useRef<HTMLInputElement>(null);
  function tell(message:string){if(!message)return;setNotice(message);clearTimeout(timer.current);timer.current=setTimeout(()=>setNotice(''),4000)}
@@ -56,13 +59,15 @@ export default function App(){
   if(result.scene)setScene(result.scene);
   if(result.recruited){setFellow(result.recruited);setFellowBrowse(false)}
   if(result.welcomed){setMember(result.welcomed);setFamilyBrowse(false)}
-  if(result.levelUp&&playerStage(result.levelUp).stage>playerStage(playerLevel(before.xp)).stage)setArrivals([{id:'look',name:'A new look: '+playerStage(result.levelUp).title,kind:'hero'}]);
+  if(result.levelUps?.length)setUps(u=>[...u,...result.levelUps]);
+  if(result.questDone)setQuestDone(result.questDone);
+  if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
  function exportSave(){const rescue=failedLoad,stored=rescue?storage.current.raw:null;if(rescue&&stored===null){tell('No saved village was found in this browser');return}
   const blob=new Blob([rescue?stored:JSON.stringify(settle(state.current,Date.now()),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=rescue?'everstead-recovery.json':'everstead-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);tell('Save exported')}
  async function importSave(e:any){const f=e.target.files?.[0];if(!f)return;try{setRestore(decode(await readSaveFile(f)))}catch(err:any){tell(err.message||'Could not read that save.')}finally{e.target.value=''}}
 
- const locked=!loaded||failedLoad||saveFailed,level=playerLevel(game.xp),stage=playerStage(level),blight=currentBlight(game,game.lastAt);
+ const locked=!loaded||failedLoad||saveFailed,level=totalLevel(game),stage=playerStage(level),blight=currentBlight(game,game.lastAt);
  const resources=<GameResources gold={game.gold} crystals={game.crystals} income={totalRate(game,game.lastAt)} multiplier={momentum(game,game.lastAt)} onSettings={()=>setPanel(true)} level={level} face={stage.art} onProfile={()=>openModule('hero')}/>;
  const dock=<nav className="village-dock original-primary-dock" aria-label="Everstead destinations">{([['Hero','hero','journey'],['Fellows','fellows','fellows'],['Family','family','family'],['Village','village','businesses'],['Watchtower','stage','adventure'],['Journal','habits','school']] as const).map(([label,id,icon])=>
   <Button key={id} className="village-icon" aria-current={!moduleOpen&&id==='village'?'page':undefined} onClick={()=>openModule(id)}><img src={'./assets/ui/'+icon+'.webp'} alt=""/><span>{label}</span></Button>)}</nav>;
@@ -75,21 +80,23 @@ export default function App(){
    side={<div className="village-side-buttons">
     <Button className="village-helper village-today" variant="outline" onClick={()=>openModule('today')}><img src="./assets/ui/journey.webp" alt=""/><span>Today</span></Button>
     <Button className="village-helper" variant="outline" onClick={()=>openModule('roaming')}><img src="./assets/ui/journey.webp" alt=""/><span>Roam · {game.roam.charges}</span></Button>
+    <Button className="village-helper rs-quest-btn" variant="outline" onClick={()=>openModule('quests')}><img src="./assets/rs/quest.png" alt=""/><span>Quests</span></Button>
    </div>}
-   objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
+   objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
   {dock}
   <Dialog open={moduleOpen} onOpenChange={setModuleOpen}><DialogContent className={'game-modal'+(CHARACTER_MODULES.includes(tab)?' character-modal':'')} showCloseButton={false}>
    {resources}
    <div className="modal-heading"><img src={'./assets/ui/'+meta.icon+'.webp'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div><DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
    <div className="modal-body" key={tab}>
     {tab==='hero'&&<HeroPanel game={game} action={action} locked={locked}/>}
-    {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
+    {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} onTalk={setTalk} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
     {tab==='family'&&<FamilyPanel game={game} action={action} locked={locked} selected={member} setSelected={setMember} browse={familyBrowse} setBrowse={setFamilyBrowse}/>}
     {tab==='habits'&&<HabitPanel game={game} action={action} locked={locked} onSaveSettings={()=>setPanel(true)}/>}
     {tab==='stage'&&<StagePanel game={game} action={action} locked={locked}/>}
     {tab==='roaming'&&<RoamingPanel game={game} action={action} locked={locked}/>}
     {tab==='today'&&<TodayPanel game={game} onNavigate={openModule}/>}
-    {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
+    {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
+    {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onTalk={setTalk} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
    </div>
    {!CHARACTER_MODULES.includes(tab)&&dock}
    {notice&&<div className="module-notice" key={pulse} role="status">{notice}</div>}
@@ -102,6 +109,9 @@ export default function App(){
    <Button onClick={()=>{const a=arrivals[0];setArrivals([]);if(a.kind==='hero')openModule('hero');else if(a.kind==='family'){openModule('family');setMember(a.id);setFamilyBrowse(false)}else{openModule('fellows');setFellow(a.id);setFellowBrowse(false)}}}>{arrivals[0]?.kind==='hero'?'See your hero':'Meet '+arrivals[0]?.name}</Button>
    <Button variant="outline" onClick={()=>setArrivals([])}>Later</Button>
   </DialogContent></Dialog>
+  <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>setTalk(null)}/>
+  <LevelUpDialog up={talk?null:ups[0]} onClose={()=>setUps(u=>u.slice(1))}/>
+  <QuestCompleteScroll questId={talk||ups.length?null:questDone} onClose={()=>setQuestDone(null)}/>
   <StoryDialog scene={scene} playerName={game.playerName} onClose={()=>setScene(null)}/>
 
   {(saveFailed||/download (incomplete|interrupted|stalled)/.test(offline))&&<footer><button onClick={()=>setPanel(true)}><ShieldCheck size={14}/>{saveStatus}</button><button onClick={()=>setPanel(true)}>{offline==='Ready for offline play'?<Check size={14}/>:<HardDrive size={14}/>}Offline & saves</button></footer>}
@@ -116,7 +126,7 @@ export default function App(){
   </DialogContent></Dialog>
   <AlertDialog open={restart} onOpenChange={setRestart}><AlertDialogContent><AlertDialogTitle>Start a new journey?</AlertDialogTitle><AlertDialogDescription>Your village, Fellows, Family and progress start over. Your habit journal keeps its tasks, history and settings. Export a copy first if you want one.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
    <AlertDialogAction onClick={()=>{try{const saved=storage.current.restore(newJourney(state.current,Date.now()),Date.now());state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setRestart(false);setModuleOpen(false);setPanel(false);tell('New journey started')}catch{saveFailure()}}}>Start over</AlertDialogAction></AlertDialogContent></AlertDialog>
-  <AlertDialog open={!!restore} onOpenChange={open=>{if(!open)setRestore(null)}}><AlertDialogContent><AlertDialogTitle>Restore this village?</AlertDialogTitle><AlertDialogDescription>Replace your current save with level {restore?playerLevel(restore.xp):0} and {Math.floor(restore?.gold||0).toLocaleString()} gold.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
+  <AlertDialog open={!!restore} onOpenChange={open=>{if(!open)setRestore(null)}}><AlertDialogContent><AlertDialogTitle>Restore this village?</AlertDialogTitle><AlertDialogDescription>Replace your current save with total level {restore?totalLevel(restore):0} and {Math.floor(restore?.gold||0).toLocaleString()} gold.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
    <AlertDialogAction onClick={()=>{try{const saved=storage.current.restore(restore,Date.now());state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setRestore(null);tell('Village restored')}catch{saveFailure()}}}>Restore village</AlertDialogAction></AlertDialogContent></AlertDialog>
   {notice&&!moduleOpen&&<div className="toast" key={pulse} role="status">{notice}</div>}
  </main>;

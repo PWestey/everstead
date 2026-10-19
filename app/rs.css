@@ -1,0 +1,113 @@
+/* RuneScape layer: skills, dialogue, quests, adventures. Fonts: Texturina (OFL, bundled locally). */
+@font-face{font-family:'Texturina';src:url(/assets/fonts/Texturina.ttf) format('truetype');font-weight:100 900;font-display:swap}
+:root{--rs-ink:#1d1c19;--rs-stone:#3e3529;--rs-stone-2:#4f4434;--rs-edge:#2a241b;--rs-parch:#eadfcf;--rs-parch-2:#dccbaf;--rs-gold:#f5b942;--rs-yellow:#ffff00;--rs-orange:#ff981f;--rs-green:#0dc10d;--rs-blue:#2b4ea8;--rs-maroon:#800000}
+.rs-stats,.rs-quests,.rs-adventures,.rs-sheet,.rs-dialogue,.rs-levelup,.rs-scroll{font-family:'Texturina',Georgia,serif}
+
+/* Skills panel */
+.rs-stats{display:grid;grid-template-columns:repeat(4,58px);gap:3px;padding:6px;background:var(--rs-stone);border:2px solid var(--rs-edge);border-radius:6px;box-shadow:inset 0 0 0 1px #6b5c45,0 3px 10px rgba(0,0,0,.5);position:relative}
+.rs-skill{display:flex;align-items:center;justify-content:space-between;gap:2px;height:34px;padding:2px 4px;background:var(--rs-stone-2);border:1px solid var(--rs-edge);border-radius:3px;box-shadow:inset 0 1px 0 #6b5c45;cursor:pointer}
+.rs-skill:hover{filter:brightness(1.15)}
+.rs-skill img{width:22px;height:22px;image-rendering:pixelated;object-fit:contain}
+.rs-lvl{display:grid;line-height:1;font-size:12px;font-weight:700;text-shadow:1px 1px 0 #000}
+.rs-lvl b{color:var(--rs-yellow)}
+.rs-lvl i{color:var(--rs-yellow);font-style:normal;opacity:.75;transform:translateX(5px)}
+.rs-total{grid-column:1/-1;display:flex;justify-content:center;gap:6px;align-items:baseline;color:var(--rs-yellow);text-shadow:1px 1px 0 #000;font-weight:700;padding-top:2px}
+.rs-total small{font-size:12px}
+.rs-total b{font-size:15px}
+.rs-max{position:absolute;right:-30px;top:-10px;height:60px}
+.rs-sheet{background:var(--rs-parch);color:var(--rs-ink);border:3px solid var(--rs-stone)}
+.rs-sheet h2{display:flex;align-items:center;gap:8px}
+.rs-sheet h2 img{width:28px;image-rendering:pixelated}
+.rs-xp-rows p{display:flex;justify-content:space-between;margin:2px 0;font-size:14px}
+.rs-bar{position:relative;height:18px;background:#5a1a0c;border:1px solid var(--rs-ink);margin:8px 0}
+.rs-bar>i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#36c436,#1d8f1d)}
+.rs-bar>span{position:relative;display:block;text-align:center;font-size:12px;color:#fff;text-shadow:1px 1px 0 #000;line-height:16px}
+.rs-cape{margin:6px auto;text-align:center}
+.rs-cape img{height:170px}
+.rs-cape figcaption{font-size:13px}
+.rs-cape.rs-locked img{filter:grayscale(1) brightness(.55);opacity:.7}
+
+/* Level-up message */
+.rs-levelup{background:transparent;border:0;box-shadow:none;padding:0;max-width:520px}
+.rs-levelup-body{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--rs-parch-2);border:3px solid var(--rs-stone);border-radius:4px;padding:14px;cursor:pointer;box-shadow:0 0 0 2px var(--rs-edge),0 10px 30px rgba(0,0,0,.6);animation:rs-pop .35s ease-out}
+.rs-levelup-body img{width:48px;height:48px;image-rendering:pixelated}
+.rs-levelup-body h2{color:var(--rs-blue);font-size:16px;margin:0}
+.rs-levelup-body p{color:var(--rs-ink);margin:4px 0}
+@keyframes rs-pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* Quest complete scroll */
+.rs-scroll{background:var(--rs-parch);color:var(--rs-ink);text-align:center;border:3px solid #8a6a3b;max-width:420px}
+.rs-scroll h2{color:var(--rs-maroon);font-size:22px}
+.rs-scroll-icon{width:42px;margin:0 auto;image-rendering:pixelated}
+.rs-scroll-head{font-weight:700;margin:6px 0 2px}
+.rs-scroll ul{list-style:none;padding:0;margin:0 0 10px}
+.rs-scroll li{margin:2px 0}
+
+/* Quest journal */
+.rs-quests{padding:10px;display:grid;gap:10px;color:var(--rs-parch)}
+.rs-quests header{display:flex;gap:8px;align-items:center;color:var(--rs-orange);text-shadow:1px 1px 0 #000}
+.rs-quests header img{width:22px;image-rendering:pixelated}
+.rs-quest-list{list-style:none;margin:0;padding:8px;background:var(--rs-stone);border:2px solid var(--rs-edge);border-radius:4px}
+.rs-quest-list button{background:none;border:0;padding:3px 2px;font:inherit;font-weight:700;text-shadow:1px 1px 0 #000;cursor:pointer}
+.rs-q-locked,.rs-q-available{color:#ff0000}
+.rs-q-active{color:var(--rs-yellow)}
+.rs-q-done{color:var(--rs-green)}
+.rs-q-sel{text-decoration:underline}
+.rs-journal{background:var(--rs-parch);color:var(--rs-ink);border:3px solid #8a6a3b;border-radius:3px;padding:14px;display:grid;gap:6px}
+.rs-journal h3{margin:0;color:var(--rs-maroon);font-size:20px;text-align:center}
+.rs-journal p{margin:0}
+.rs-journal-giver{display:flex;align-items:center;gap:8px;justify-content:center;font-weight:700}
+.rs-steps{margin:4px 0;padding-left:20px}
+.rs-step-done{text-decoration:line-through;color:#5a4a33}
+.rs-step-now{color:var(--rs-blue);font-weight:700}
+.rs-journal-rewards{font-size:13px;border-top:1px solid #b9a27a;padding-top:6px}
+
+/* Adventures */
+.rs-adventures{padding:10px 0 0;display:grid;gap:8px}
+.rs-adventures h3{margin:0;display:flex;justify-content:space-between;align-items:baseline}
+.rs-adventures h3 small{font-size:13px;opacity:.8}
+.rs-adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.rs-adv{position:relative;min-height:150px;border:2px solid var(--rs-edge);border-radius:8px;background-size:cover;background-position:center;overflow:hidden;display:flex;align-items:flex-end;padding:0;cursor:pointer;text-align:left;box-shadow:0 3px 8px rgba(0,0,0,.4);transition:transform .15s}
+.rs-adv:hover:not(:disabled){transform:translateY(-2px)}
+.rs-adv:disabled{filter:grayscale(.8);cursor:not-allowed}
+.rs-adv-text{display:grid;gap:2px;width:100%;padding:8px;background:linear-gradient(transparent,rgba(20,14,8,.92) 35%);color:var(--rs-parch)}
+.rs-adv-text b{font-family:'Texturina',Georgia,serif;font-size:16px;color:var(--rs-gold)}
+.rs-adv-text small{font-size:12px;line-height:1.3}
+.rs-adv-skills{display:flex;gap:4px;align-items:center;margin-top:3px}
+.rs-adv-skills img{width:18px;image-rendering:pixelated}
+.rs-adv-skills em{margin-left:auto;font-style:normal;font-size:11px;color:var(--rs-yellow)}
+.rs-talk{width:100%;margin-top:8px}
+
+/* Dialogue: full-screen backdrop, portrait, RS chatbox */
+.rs-dialogue{position:fixed;inset:0;max-width:none;width:100vw;height:100dvh;border:0;border-radius:0;padding:0;background-size:cover;background-position:center;display:block;transform:none;top:0;left:0;overflow:hidden}
+.rs-dialogue::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 40%,rgba(0,0,0,.55))}
+.rs-portrait{position:absolute;bottom:150px;right:2%;height:min(78dvh,760px);max-width:70vw;object-fit:contain;object-position:bottom;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6));animation:rs-enter .35s ease-out}
+.rs-portrait-player{right:auto;left:2%}
+.rs-portrait-dim{filter:brightness(.55) drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+@keyframes rs-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rs-skip{position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;border:2px solid var(--rs-edge);background:var(--rs-stone);color:var(--rs-parch);font-size:16px;cursor:pointer}
+.rs-chatbox{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:min(760px,calc(100vw - 24px));min-height:150px;z-index:2;background:var(--rs-parch-2);border:4px solid var(--rs-stone);border-radius:4px;box-shadow:0 0 0 2px var(--rs-edge),0 10px 30px rgba(0,0,0,.6);padding:12px 18px;text-align:center;cursor:pointer;color:#000}
+.rs-speaker{margin:0 0 4px;color:var(--rs-maroon);font-weight:800;font-size:17px}
+.rs-line{margin:0;font-size:17px;line-height:1.4;min-height:48px}
+.rs-narration{font-style:italic;color:#3a2f22}
+.rs-continue{margin:8px 0 0;color:var(--rs-blue);font-weight:700;font-size:14px;min-height:18px}
+.rs-options{display:grid;gap:4px;margin-top:8px;cursor:default}
+.rs-select{margin:0;color:var(--rs-maroon);font-weight:800}
+.rs-options button{background:none;border:0;padding:5px 8px;font:inherit;font-size:16px;color:#000;cursor:pointer;border-radius:3px}
+.rs-options button:hover,.rs-options button:focus-visible{color:#fff;background:rgba(43,78,168,.85);outline:none}
+.rs-quest-btn img{image-rendering:pixelated}
+.es-split{min-width:150px}
+.es-split-bar{flex:1;height:10px;background:#3a5a8a;border:1px solid #000;border-radius:5px;overflow:hidden;margin:0 6px}
+.es-split-bar>i{display:block;height:100%;background:var(--rs-gold)}
+.es-breakdown .es-sub th,.es-breakdown .es-sub td{font-size:12px;opacity:.8}
+@media (max-width:520px){.rs-portrait{bottom:170px;height:62dvh}.rs-line{font-size:15px}}
+.character-lower-row:has(.rs-stats){flex-direction:column-reverse;align-items:center;gap:6px}
+.character-lower-row:has(.rs-stats) .character-primary{width:auto}
+.character-lower-row:has(.rs-stats) .es-hero-stats{width:100%;max-width:420px}
+.es-residents-title{margin:10px 0 2px;font-weight:700;font-size:13px;opacity:.75}
+.es-residents-wrap .es-residents button{padding:3px 8px 3px 3px;font-size:13px}
+.es-residents-wrap .es-mini-art{width:28px;height:28px}
+.rs-adventures{color:inherit}
+.rs-adv{min-height:200px}
+.rs-adv-text{background:linear-gradient(transparent,rgba(20,14,8,.94) 28%)}
+.rs-dialogue{translate:none !important;scale:none !important;inset:0 !important;max-width:none !important;width:100vw !important;height:100dvh !important;border-radius:0 !important;padding:0 !important;display:block !important;box-shadow:none !important}

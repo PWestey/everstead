@@ -1,10 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,playerLevel,playerPower,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
+import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
 import {habitDue} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,migrate,blessings,BLESS_LINKED} from '../lib/game.mjs';
+import {joinNeed,migrate,blessings,BLESS_LINKED,playerStage} from '../lib/game.mjs';
+import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
+import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
+import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
 
 const T=new Date('2026-10-14T10:00:00').getTime(); // a Wednesday
 /** A save with a custom habit in `area`, so tests do not depend on the starter list. */
@@ -26,8 +29,9 @@ test('a Fellow is ready after enough habit points in their area, and announced o
  assert.ok(act(s,'recruitFellow',T,darrow.id).error);const r=act(s,'habitComplete',T,id);assert.ok(3>=FELLOW_JOIN_POINTS);assert.deepEqual(r.arrivals.map(a=>a.id),[darrow.id]);
  const j=act(r.state,'recruitFellow',T,darrow.id);assert.ok(!j.error,j.error);assert.deepEqual(j.state.fellows[darrow.id],{level:1,stars:0})});
 
-test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(playerPower(4),600);
- let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterPower(s),1500+playerPower(playerLevel(0)))});
+test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(heroPowerFor(100,1),2500);assert.equal(heroPowerFor(100,3),3250);
+ assert.equal(combinePower(1000,1000),2400);assert.equal(combinePower(1000,0),1000);
+ let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterHalf(s),1500);assert.equal(rosterPower(s),combinePower(heroPower(s),1500))});
 
 test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:0}},family:{kira:{bond:0}}};
  // Bond level 1: linked +3%, everyone +0.5%.
@@ -68,3 +72,28 @@ test('every character has an introduction, written or generated',()=>{for(const 
 
 test('written scenes only use real characters as speakers, and every character has an intro and roams',()=>{const ids=new Set([...FELLOWS,...FAMILY].map(c=>c.id));for(const c of [...FELLOWS,...FAMILY]){assert.ok(SCENES[c.id],'scenes for '+c.id);assert.ok(SCENES[c.id].roams.length>=1,c.id)}
  for(const [id,s] of Object.entries(SCENES)){assert.ok(ids.has(id),'scene owner '+id+' is in the cast');for(const lines of [s.intro,...s.roams.map(r=>r.lines)])for(const l of lines)if(Array.isArray(l))assert.ok(ids.has(l[0]),id+' speaker '+l[0])}});
+
+test('skills use RuneScape\'s XP table',()=>{assert.equal(XP_TABLE[2],83);assert.equal(XP_TABLE[50],101333);assert.equal(XP_TABLE[92],6517253);assert.equal(XP_TABLE[99],13034431);assert.equal(levelForXp(0),1);assert.equal(levelForXp(13034431),99);assert.equal(levelForXp(1e9),99)});
+
+test('habits train their area\'s skill and total level starts at 8',()=>{const {s,id}=withHabit('fitness','hard');assert.equal(totalLevel(s),8);const r=act(s,'habitComplete',T,id);assert.equal(skillLevel(r.state,'fitness'),levelForXp(3*XP_PER_POINT));assert.deepEqual(r.levelUps.map(u=>u.area),['fitness'])});
+
+test('armour tiers unlock by total level',()=>{assert.equal(playerStage(8).stage,1);assert.equal(playerStage(150).stage,2);assert.equal(playerStage(540).stage,7)});
+
+test('dialogue trees only point at nodes that exist, and every adventure has a tree',()=>{for(const [id,t] of Object.entries(TREES)){assert.ok(t.nodes[t.start],id+' start');for(const [k,n] of Object.entries(t.nodes)){if(n.next)assert.ok(t.nodes[n.next],id+':'+k+' next');for(const o of n.opts||[])assert.ok(t.nodes[o.next],id+':'+k+' opt '+o.next);assert.ok(n.next||n.opts||n.end,id+':'+k+' leads somewhere')}}for(const a of Object.values(ADVENTURES).flat())assert.ok(TREES[a.id]?.adventure,a.id)});
+
+test('The Iron Body: talk, habits, talk, three days, talk, complete',()=>{let {s,id}=withHabit('fitness','hard');s={...s,fellows:{darrow:{level:1,stars:0}}};
+ assert.equal(questStatus(s,'iron-body').status,'available');assert.equal(pendingTalk(s,'darrow').tree,'iron-body-1');
+ let r=act(s,'dialogue',T,'iron-body-1',{node:'offer',opt:0});assert.ok(!r.error,r.error);s=r.state;assert.equal(questStatus(s,'iron-body').step.type,'habits');
+ assert.ok(act(s,'dialogue',T,'iron-body-2',{node:'e',opt:0}).error,'cannot skip ahead');
+ for(let d=0;d<3;d++){s=act(s,'habitComplete',T+d*864e5,id).state}
+ assert.equal(pendingTalk(s,'darrow').tree,'iron-body-2');
+ const D=T+3*864e5;r=act(s,'dialogue',D,'iron-body-2',{node:'e',opt:0});assert.ok(!r.error,r.error);s=r.state;assert.equal(questStatus(s,'iron-body').step.type,'days');
+ for(let d=1;d<=3;d++){s=act(s,'habitComplete',D+d*864e5,id).state}
+ assert.equal(pendingTalk(s,'darrow').tree,'iron-body-3');
+ const gold=s.gold;r=act(s,'dialogue',D+5*864e5,'iron-body-3',{node:'d',opt:null});assert.ok(!r.error,r.error);assert.equal(r.questDone,'iron-body');assert.equal(questStatus(r.state,'iron-body').status,'done');assert.ok(r.state.gold>=gold+1500);assert.ok(r.state.bonusXp.fitness>=5000);
+ const again=act(r.state,'dialogue',D+6*864e5,'iron-body-3',{node:'d',opt:null});assert.equal(again.state.gold,r.state.gold,'rewards pay once')});
+
+test('adventures cost a roam each time and pay every time',()=>{let s={...fresh(T),roam:{charges:2,seen:[]}};
+ let r=act(s,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,1);assert.equal(r.state.bonusXp.fitness,600);
+ r=act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.equal(r.state.roam.charges,0);assert.equal(r.state.bonusXp.fitness,1200);
+ assert.ok(act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0}).error,'no roams left')});

@@ -4,13 +4,17 @@ import {PrimaryAction,abbrev} from './original-controls';
 import {MiniArt} from './character-artwork';
 import {useState} from 'react';
 import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowsInArea,familyInArea,characterById} from '@/lib/cast.mjs';
-import {buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerLevelProgress} from '@/lib/game.mjs';
+import {buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerStage} from '@/lib/game.mjs';
+import {totalLevel} from '@/lib/skills.mjs';
+import {PLAYER_STAGES} from '@/lib/cast.mjs';
+import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
+import {AdventureCards} from './rs-ui';
 import {habitDue,habitEarnings} from '@/lib/habits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const pct=(x:number)=>Math.round(x*100)+'%';
 
 /** A building's sheet: what it earns and why, and the one action that improves it. */
-export function BuildingPanel({game,id,action,locked,onCharacter}:any){
+export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){
  const b=BUILDINGS.find(x=>x.id===id)!,area=areaById(b.area),lvl=game.buildings[id].level,fellows=fellowsInArea(b.area),family=familyInArea(b.area);
  const cost=lvl?buildingUpgradeCost(lvl):BUILDING_OPEN_COST,boost=areaBoost(game,b.area,game.lastAt),bless=blessings(game).building[b.area]||0;
  return <section className="business-list es-building" style={{['--area' as any]:area.color}}>
@@ -24,8 +28,11 @@ export function BuildingPanel({game,id,action,locked,onCharacter}:any){
     <li><span>Momentum (all habits)</span><b>×{momentum(game,game.lastAt).toFixed(2)}</b></li>
    </ul>
    <div className="business-actions"><PrimaryAction verb={lvl?'Upgrade':'Build'} tier={!lvl} disabled={locked} currency="Gold" have={game.gold} cost={cost} onClick={()=>action('buildingUpgrade',id)}/></div>
-   <div className="es-residents">{[...fellows,...family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div>
-  </article></section>;
+   {[...fellows,...family].map((p:any)=>{const t=pendingTalk(game,p.id);return t&&((p.kind==='fellow'?game.fellows:game.family)[p.id])?<Button key={'talk-'+p.id} className="primary-action primary-tier rs-talk" onClick={()=>onTalk(t.tree)}><b>Talk to {p.name}</b><small>Quest: {QUESTS[t.quest].name}</small></Button>:null})}
+   <AdventureCards game={game} location={id} onStart={onTalk}/>
+   <div className="es-residents-wrap"><p className="es-residents-title">Residents</p><div className="es-residents">{[...fellows,...family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div></div>
+  </article>
+  </section>;
 }
 
 /** The Watchtower: the stage ladder (a Power check) and this week's Blight. */
@@ -76,12 +83,14 @@ export function RoamingPanel({game,action,locked}:any){
 
 /** Today: everything worth doing right now, each with a way to get there. */
 export function TodayPanel({game,onNavigate}:any){
- const h=game.habits,now=game.lastAt,due=(h?.items||[]).filter((x:any)=>x.freq==='daily'&&habitDue(x,now)),done=due.filter((x:any)=>x.done).length,earn=habitEarnings(h,now),b=currentBlight(game,now),p=playerLevelProgress(game.xp);
+ const h=game.habits,now=game.lastAt,due=(h?.items||[]).filter((x:any)=>x.freq==='daily'&&habitDue(x,now)),done=due.filter((x:any)=>x.done).length,earn=habitEarnings(h,now),b=currentBlight(game,now),tl=totalLevel(game),nextTier=PLAYER_STAGES.find(s=>s.level>tl);
+ const quest=questIds.map(id=>({id,...questStatus(game,id)})).find(q=>q.status==='active'||q.status==='available');
  const ready=[...FELLOWS.filter(f=>fellowReady(game,f)),...FAMILY.filter(f=>familyReady(game,f))],improve=FELLOWS.filter(f=>fellowCanImprove(game,f.id));
  const rows:[string,string,string][]=[
   [`Daily habits: ${done} / ${due.length}`,done<due.length?'Each one earns gold, XP, sigils and a roam.':'All done today. Well kept.','habits'],
   [`Momentum ×${earn.multiplier.toFixed(2)}`,`${earn.areas} of 8 life areas touched this week · ${earn.dailies} dailies today`,'habits'],
-  [`Level ${p.level}`,`${n(p.into)} / ${n(p.need)} XP to level ${p.level+1}`,'hero'],
+  [`Total level ${tl}`,nextTier?`${nextTier.title} armour at total level ${nextTier.level}`:'Every armour tier unlocked','hero'],
+  ...(quest?[[`Quest: ${QUESTS[quest.id].name}`,quest.step?.text||'',`quests`] as [string,string,string]]:[]),
   [`${b.name}: ${b.damage} / ${b.hp}`,b.defeated?(b.claimed?'Driven out this week.':'Ready to drive out!'):`${b.opposed.map((a:string)=>areaById(a).name).join(' and ')} habits hit hardest.`,'stage'],
   [`Roams: ${game.roam.charges}`,game.roam.charges?'Someone might be waiting at the gate.':'Complete dailies to earn roams.','roaming'],
   ...ready.map((f:any)=>[`${f.name} is ready to join`,`${areaById(f.area).name} · ${f.kind==='fellow'?'Fellow':'Family'}`,f.kind==='fellow'?'fellows':'family'] as [string,string,string]),
