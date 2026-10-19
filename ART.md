@@ -9,8 +9,7 @@ Put images in `public/assets/cast/`, named exactly:
 | Who | File |
 |---|---|
 | You, 5 looks | `player-1.webp` … `player-5.webp` (Wanderer, Squire, Knight, Champion, Legend) |
-| Fellows | `aldric.webp`, `bram.webp`, `darrow.webp` (done), `corin.webp`, `tobin.webp`, `kaladin.webp` (done) |
-| Family | `ariane.webp` (done), `tyrande.webp` (done), `kira.webp` (done), `shallan.webp` (done), `kate.webp` (done), `violet.webp` (done) |
+| Fellows and Family | All done: one file per character id in `lib/cast.mjs` (e.g. `kaladin.webp`) |
 
 PNG works too: change the extension in `lib/cast.mjs` (`art()` and `PLAYER_STAGES`).
 
