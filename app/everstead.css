@@ -97,3 +97,9 @@
 .es-today li p{margin:2px 0 0;font-size:13px;opacity:.8}
 .es-area-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .es-area-row span{display:flex;gap:6px;align-items:center;padding:3px 9px;border:2px solid;border-radius:999px;font-size:12px}
+
+/* Village shortcuts (Today, Roam, Quests): one slim row along the top of the map, in the menus' brown. */
+.village-side-buttons{top:8px!important;bottom:auto!important;right:8px!important;left:auto;display:flex!important;gap:6px!important}
+.village-side-buttons .village-helper{min-height:34px!important;height:34px!important;padding:3px 10px 3px 6px!important;gap:5px;border-radius:999px!important;background:linear-gradient(#573724,#3c2419)!important;border:2px solid #c09e64!important;color:#fff0d0!important;box-shadow:0 2px 6px #0008!important}
+.village-side-buttons .village-helper img{width:20px;height:20px}
+.village-side-buttons .village-helper span{font:700 13px Georgia,serif;color:#fff0d0}
