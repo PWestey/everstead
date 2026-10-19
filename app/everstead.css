@@ -103,3 +103,43 @@
 .village-side-buttons .village-helper{min-height:34px!important;height:34px!important;padding:3px 10px 3px 6px!important;gap:5px;border-radius:999px!important;background:linear-gradient(#573724,#3c2419)!important;border:2px solid #c09e64!important;color:#fff0d0!important;box-shadow:0 2px 6px #0008!important}
 .village-side-buttons .village-helper img{width:20px;height:20px}
 .village-side-buttons .village-helper span{font:700 13px Georgia,serif;color:#fff0d0}
+
+/* Expedition map (OSRS stone and parchment). */
+.xp-map{display:grid;gap:10px;padding:10px;font-family:'Texturina',Georgia,serif;background:var(--rs-ink,#1d1c19);min-height:100%}
+.xp-top{display:flex;justify-content:space-between;gap:8px;color:#ffff00;text-shadow:1px 1px 0 #000;font-weight:700}
+.xp-top span{display:flex;align-items:center;gap:5px;background:#3e3529;border:2px solid #2a241b;border-radius:6px;padding:4px 10px;color:#ffe8be}
+.xp-top b{color:#ffff00}.xp-top img{width:20px;height:20px}
+.xp-regions{display:flex;gap:6px;overflow-x:auto}
+.xp-regions button{flex:none;padding:6px 12px;border-radius:6px;background:#4f4434;border:2px solid #2a241b;color:#ff981f;font:700 14px 'Texturina',Georgia,serif;text-shadow:1px 1px 0 #000}
+.xp-regions button.xp-on{background:#6b5c45;color:#ffff00;box-shadow:inset 0 0 0 1px #c09e64}
+.xp-regions button.xp-locked{color:#9a8a72}
+.xp-region{position:relative;height:150px;border-radius:8px;border:3px solid #3e3529;background:center/cover;overflow:hidden}
+.xp-region-text{position:absolute;inset:auto 0 0 0;padding:8px 10px;background:linear-gradient(#0000,#000d 45%);color:#fff0c9}
+.xp-region-text h2{margin:0;font-size:22px;color:#ff981f;text-shadow:1px 1px 0 #000}
+.xp-region-text p{margin:0;font-size:13px}.xp-region-text small{color:#ffd37a;font-size:12px}
+.xp-lockmsg{margin:0;padding:8px 10px;background:#800000cc;border:2px solid #2a241b;border-radius:6px;color:#ffe8be;font-size:14px}
+.xp-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.xp-card{display:grid;grid-template-columns:96px 1fr;gap:8px;padding:6px;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;color:#1d1c19;box-shadow:0 2px 6px #0008}
+.xp-boss{border-color:#b8860b;background:linear-gradient(#f3e3b5,#eadfcf);box-shadow:0 0 0 2px #2a241b,0 0 14px #f5b94299}
+.xp-closed{filter:grayscale(.85);opacity:.7}
+.xp-art{position:relative;border-radius:4px;background:center/cover;border:1px solid #2a241b;min-height:110px;overflow:hidden}
+.xp-art img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 3px 3px #000a)}
+.xp-boss .xp-art{min-height:130px}
+.xp-body{display:grid;gap:3px;min-width:0}
+.xp-body h3{margin:0;font-size:16px;color:#800000}.xp-body h3 em{font-style:normal;color:#b8860b}
+.xp-done{color:#0a8a0a}
+.xp-body p{margin:0;font-size:12px;line-height:1.25;color:#4f4434}
+.xp-need{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.xp-badge{font-style:normal;font-weight:700;font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid #2a241b;color:#fff;text-shadow:1px 1px 0 #000}
+.xp-success{background:#2b4ea8}.xp-great{background:#0a8a0a}.xp-overwhelm{background:#b8860b}.xp-locked-b{background:#7a6a55}
+.xp-loot{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:12px;color:#3e3529}
+.xp-loot span{display:inline-flex;align-items:center;gap:3px}.xp-loot img{width:15px;height:15px}
+.xp-go{min-height:36px!important;margin-top:2px;background:linear-gradient(#5b7c3a,#3e5a24)!important;color:#fff0c9!important;border:2px solid #2a241b!important;font:700 14px 'Texturina',Georgia,serif!important}
+.xp-boss .xp-go{background:linear-gradient(#b8860b,#8a5a00)!important}
+.xp-go:disabled{background:#7a6a55!important;opacity:.8}
+.xp-note{color:#c8b28f!important;margin:0}
+.xp-map .es-blight{margin:0}
+.xp-result ul{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px}
+.xp-result li{display:flex;align-items:center;gap:6px}.xp-result li img{width:18px;height:18px}
+.xp-result h2.xp-r-great{color:#0a8a0a}.xp-result h2.xp-r-overwhelm{color:#b8860b}
+.xp-perk{background:#f5b94233;border:1px solid #b8860b;border-radius:4px;padding:6px 8px;margin:4px 0}

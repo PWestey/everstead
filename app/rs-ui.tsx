@@ -95,7 +95,7 @@ export function DialogueScreen({treeId,game,act,onClose}:{treeId:string|null,gam
  const advance=()=>{if(typing){setShown(text.length);return}if(node.end){onClose();return}if(node.next)enter(node.next)};
  const choose=(i:number)=>{const o=node.opts[i];if(o.do?.length&&!act(treeId!,key!,i))return;if(o.next)enter(o.next);else onClose()};
  const speaker=node.s==='player'?{name:game.playerName,art:playerStage(totalLevel(game)).art,id:'player'}:node.s==='narrator'?null:characterById(node.s);
- const portrait=speaker||(tree.who?characterById(tree.who):null);
+ const portrait=speaker||(tree.who?characterById(tree.who):tree.art?{name:tree.title,art:tree.art,id:'scene'}:null);
  return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-dialogue" showCloseButton={false} style={{backgroundImage:`url(./assets/${tree.bg})`}}>
   <DialogTitle className="sr-only">{portrait?.name||'Scene'}</DialogTitle><DialogDescription className="sr-only">Conversation</DialogDescription>
   {portrait&&<img key={portrait.art} className={'rs-portrait'+(node.s==='player'?' rs-portrait-player':'')+(node.s==='narrator'?' rs-portrait-dim':'')} src={'./assets/'+portrait.art} alt=""/>}

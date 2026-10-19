@@ -108,7 +108,7 @@ import {questIds,questLock,questBefore,TIERS} from '../lib/quests.mjs';
 import {FELLOW_MOMENTS,FAMILY_MOMENTS,momentId} from '../lib/moments.mjs';
 import {readdirSync} from 'node:fs';
 
-test('every written content file passes the content checker',()=>{for(const dir of ['lib/quests','lib/moments'])for(const f of readdirSync(dir))execFileSync(process.execPath,['scripts/check-content.mjs',dir+'/'+f],{stdio:'pipe'})});
+test('every written content file passes the content checker',()=>{for(const dir of ['lib/quests','lib/moments','lib/expeditions'])for(const f of readdirSync(dir))execFileSync(process.execPath,['scripts/check-content.mjs',dir+'/'+f],{stdio:'pipe'})});
 
 test('every Fellow has moments, and every Family member has visits and gifts',()=>{for(const f of FELLOWS)assert.ok(FELLOW_MOMENTS[f.id],f.id);for(const f of FAMILY)assert.ok(FAMILY_MOMENTS[f.id],f.id);
  for(const id of Object.keys(TREES).filter(k=>k.startsWith('m:')))assert.ok(TREES[id].nodes.o0,id)});
@@ -139,3 +139,26 @@ test('levelling a Fellow past every 5th level, starring him, and visiting Family
  r=act(r.state,'levelUp',T,'darrow',10);assert.equal(r.talk,'m:darrow:level:2','one moment for a multi-level purchase');
  r=act(r.state,'starUp',T,'darrow');assert.equal(r.talk,'m:darrow:star:0');assert.ok(TREES[r.talk]);
  r=act(r.state,'visit',T,'kira');assert.ok(TREES[r.talk],r.talk);const next=act(r.state,'visit',T+864e5,'kira');assert.notEqual(next.talk,r.talk,'visits rotate')});
+
+// ---------------- Expeditions ----------------
+import {EXPEDITIONS,expeditionNeed,expeditionOutcome,expeditionView,perks,roamCap,regionOpen} from '../lib/game.mjs';
+import {REGIONS} from '../lib/expedition-data.mjs';
+import {existsSync} from 'node:fs';
+
+test('every place on the map has art, a backdrop and a first-visit scene',()=>{for(const e of EXPEDITIONS){assert.ok(existsSync('public/assets/'+e.art),e.art);assert.ok(existsSync('public/assets/'+(e.bg||e.region.bg)),e.id+' bg');assert.ok(TREES['x:'+e.id]?.nodes.o0,e.id+' scene')}});
+
+test('needs climb along the map and outcomes follow the Power ratio',()=>{for(let k=1;k<EXPEDITIONS.length;k++)assert.ok(expeditionNeed(k)>expeditionNeed(k-1));
+ assert.equal(expeditionOutcome(0.99),null);assert.equal(expeditionOutcome(1).mult,1);assert.equal(expeditionOutcome(1.5).mult,1.5);assert.equal(expeditionOutcome(3).mult,2)});
+
+/** A save with roughly `power` Total Power, from one Fellow. */
+const withPower=(power,roams=10)=>({...fresh(T),fellows:{darrow:{level:Math.ceil(power/100),stars:0}},roam:{charges:roams,seen:[]}});
+
+test('a run costs a Roam, pays loot into gold, sigils and XP, and counts',()=>{let s=withPower(2000);const v=expeditionView(s,'cow-field');assert.ok(v.outcome);
+ const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,9);assert.equal(r.state.gold,s.gold+v.loot.gold);assert.equal(r.state.sigils.home,v.loot.sigils);assert.equal(r.state.bonusXp.fitness,v.loot.xp);assert.equal(r.state.expeditions.runs['cow-field'],1);
+ assert.ok(act({...s,roam:{charges:0,seen:[]}},'expedition',T,'cow-field').error,'no roams');
+ assert.ok(act({...fresh(T),roam:{charges:5,seen:[]}},'expedition',T,'cow-field').error,'not strong enough')});
+
+test('beating a boss opens the next region once and grants its perk',()=>{let s=withPower(1e6);assert.equal(regionOpen(s,1),false);assert.ok(act(s,'expedition',T,'dwarven-mine').error,'Asgarnia closed');
+ let r=act(s,'expedition',T,'count-draynor');assert.ok(!r.error,r.error);assert.equal(r.expedition.perk,REGIONS[0].perk.text);assert.equal(r.expedition.opened,'Asgarnia');s=r.state;
+ assert.equal(regionOpen(s,1),true);assert.equal(roamCap(s),12);r=act(s,'expedition',T,'count-draynor');assert.equal(r.expedition.perk,null,'perk pays once');assert.equal(r.state.expeditions.bosses.length,1);
+ s={...s,expeditions:{...s.expeditions,bosses:['count-draynor','giant-mole','barrows']}};assert.deepEqual(perks(s),{roamCap:2,income:0.1,power:0.1})});

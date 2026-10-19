@@ -47,5 +47,9 @@ if(mod.QUESTS){const T=mod.TREES||{};
    for(const [e,w] of fx){const k=Object.keys(e)[0];if(!['quest','flag','xp','gold'].includes(k))err(w+': effect '+k+' not allowed');if(e.xp&&(e.xp[1]>1000||!AREA_IDS.includes(e.xp[0])))err(w+': xp effects ≤1000 and a real area');if(e.gold&&e.gold>500)err(w+': gold effects ≤500')}
    if(n===3){const done=Object.values(t.nodes).find(nd=>nd.do?.some(e=>e.quest));if(!done?.end)err(tid+': the complete effect goes on an end node')}
   }}}
-if(!mod.FELLOW_MOMENTS&&!mod.FAMILY_MOMENTS&&!mod.QUESTS)err('file exports none of FELLOW_MOMENTS, FAMILY_MOMENTS, QUESTS');
+if(mod.EXPEDITION_SCENES){const {ADVENTURE_IDS}=await import('../lib/expedition-data.mjs');
+ for(const id of ADVENTURE_IDS)if(!mod.EXPEDITION_SCENES[id])err('missing scene '+id);
+ for(const [id,m] of Object.entries(mod.EXPEDITION_SCENES)){if(!ADVENTURE_IDS.includes(id))err('unknown adventure '+id);moment(m,id);
+  for(const l of [...(m.open||[]),...(m.opts||[]).flatMap(o=>o.r||[])]){const sp=/^([a-z]+): /.exec(l)?.[1];if(sp&&sp!=='player'&&!characterById(sp))err(id+': unknown speaker '+sp)}}}
+if(!mod.FELLOW_MOMENTS&&!mod.FAMILY_MOMENTS&&!mod.QUESTS&&!mod.EXPEDITION_SCENES)err('file exports none of FELLOW_MOMENTS, FAMILY_MOMENTS, QUESTS');
 if(errs.length){console.log(errs.join('\n'));process.exit(1)}else console.log('OK');

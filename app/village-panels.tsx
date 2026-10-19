@@ -35,17 +35,10 @@ export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){
   </section>;
 }
 
-/** The Watchtower: the stage ladder (a Power check) and this week's Blight. */
-export function StagePanel({game,action,locked}:any){
- const next=game.stage.cleared+1,need=stagePower(next),power=rosterPower(game),reward=stageReward(next),b=currentBlight(game,game.lastAt),bg=['Bg_Field_01_Mid','Bg_City_01_Mid','Bg_Level_03_Mid','Bg_Village_01_Mid'][Math.floor((next-1)/10)%4];
- return <section className="es-stage">
-  <div className="es-stage-scene" style={{backgroundImage:`url(./assets/ui-scenes/${bg}.jpg)`}}>
-   <div className="es-stage-card"><small>STAGE {next}</small><h2>{next%10===0?'Boss gate':'The road beyond Everstead'}</h2>
-    <div className="es-versus"><div><span>Your Power</span><strong>{n(power)}</strong></div><em>vs</em><div><span>Needed</span><strong className={power>=need?'enough':'short'}>{n(need)}</strong></div></div>
-    <Button className="primary-action primary-tier" disabled={locked||power<need} onClick={()=>action('challenge')}><b>{power>=need?'Challenge':'Not strong enough yet'}</b><small>+{n(reward.gold)} gold{reward.crystals?` · +${reward.crystals} crystals`:''}</small></Button>
-    <p className="small-note">Raise Power by levelling Fellows, earning their stars and deepening Family bonds.</p>
-   </div>
-  </div>
+/** This week's Blight: habits push it back; once it's down you drive it out for crystals and sigils. */
+export function BlightCard({game,action,locked}:any){
+ const b=currentBlight(game,game.lastAt);
+ return <>
   <article className={'es-blight'+(b.defeated?' es-defeated':'')}>
    <header><small>THIS WEEK’S BLIGHT · TIER {b.tier+1}</small><h3>{b.name}: {b.title}</h3></header>
    <p>{b.description}</p>
@@ -54,7 +47,7 @@ export function StagePanel({game,action,locked}:any){
    {b.defeated&&!b.claimed&&<Button className="primary-action primary-tier" disabled={locked} onClick={()=>action('blightClaim')}><b>Drive it out</b><small>+{blightReward(b.tier).crystals} crystals · +{blightReward(b.tier).sigils} sigils</small></Button>}
    {b.claimed&&<p className="next-goal">Driven out! It will return stronger in a few weeks.</p>}
   </article>
- </section>;
+ </>;
 }
 
 /** A written scene: narration and character lines, one after another. */

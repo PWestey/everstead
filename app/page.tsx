@@ -9,7 +9,9 @@ import HabitPanel from './habit-panel';
 import FellowsPanel from './fellows-panel';
 import FamilyPanel from './family-panel';
 import HeroPanel from './hero-panel';
-import {BuildingPanel,StagePanel,RoamingPanel,StoryDialog,TodayPanel} from './village-panels';
+import {BuildingPanel,RoamingPanel,StoryDialog,TodayPanel} from './village-panels';
+import {MapPanel,ExpeditionResult} from './map-panel';
+import {TREES} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
@@ -20,7 +22,7 @@ import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './r
 
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'journey'},fellows:{title:'Fellows',icon:'fellows'},family:{title:'Family',icon:'family'},
- stage:{title:'Watchtower',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
+ stage:{title:'Expedition Map',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
  today:{title:'Today',icon:'journey'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
@@ -29,7 +31,7 @@ export default function App(){
  const [saveStatus,setSaveStatus]=useState('Loading save…'),[offline,setOffline]=useState('Preparing offline play…'),[panel,setPanel]=useState(false),[failedLoad,setFailedLoad]=useState(false),[saveFailed,setSaveFailed]=useState(false),[loadError,setLoadError]=useState('');
  const [tab,setTab]=useState('fellows'),[moduleOpen,setModuleOpen]=useState(false),[building,setBuilding]=useState(BUILDINGS[0].id);
  const [fellow,setFellow]=useState(FELLOWS[0].id),[fellowBrowse,setFellowBrowse]=useState(true),[member,setMember]=useState(FAMILY[0].id),[familyBrowse,setFamilyBrowse]=useState(true);
- const [talk,setTalk]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
+ const [talk,setTalk]=useState<string|null>(null),[runResult,setRunResult]=useState<any>(null),[sceneRun,setSceneRun]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
  const [arrivals,setArrivals]=useState<any[]>([]),[scene,setScene]=useState<any>(null),[restore,setRestore]=useState<any>(null),[restart,setRestart]=useState(false);
  const storage=useRef(createPersistence(()=>localStorage)),state=useRef(game),ready=useRef(false),timer=useRef<any>(null),file=useRef<HTMLInputElement>(null);
  function tell(message:string){if(!message)return;setNotice(message);clearTimeout(timer.current);timer.current=setTimeout(()=>setNotice(''),4000)}
@@ -62,15 +64,18 @@ export default function App(){
   if(result.levelUps?.length)setUps(u=>[...u,...result.levelUps]);
   if(result.questDone)setQuestDone(result.questDone);
   if(result.talk)setTalk(result.talk);
+  if(result.expedition)setRunResult(result.expedition);
   if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
+ /** An expedition run: the first visit plays its scene, then the run resolves (result scroll). */
+ function run(id:string){const seen=((game.expeditions.runs as Record<string,number>)[id]||0)>0;if(!seen&&TREES['x:'+id]){setSceneRun(id);setTalk('x:'+id);return}action('expedition',id)}
  function exportSave(){const rescue=failedLoad,stored=rescue?storage.current.raw:null;if(rescue&&stored===null){tell('No saved village was found in this browser');return}
   const blob=new Blob([rescue?stored:JSON.stringify(settle(state.current,Date.now()),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=rescue?'everstead-recovery.json':'everstead-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);tell('Save exported')}
  async function importSave(e:any){const f=e.target.files?.[0];if(!f)return;try{setRestore(decode(await readSaveFile(f)))}catch(err:any){tell(err.message||'Could not read that save.')}finally{e.target.value=''}}
 
  const locked=!loaded||failedLoad||saveFailed,level=totalLevel(game),stage=playerStage(level),blight=currentBlight(game,game.lastAt);
  const resources=<GameResources gold={game.gold} crystals={game.crystals} income={totalRate(game,game.lastAt)} multiplier={momentum(game,game.lastAt)} onSettings={()=>setPanel(true)} level={level} face={stage.art} onProfile={()=>openModule('hero')}/>;
- const dock=<nav className="village-dock original-primary-dock" aria-label="Everstead destinations">{([['Hero','hero','journey'],['Fellows','fellows','fellows'],['Family','family','family'],['Village','village','businesses'],['Watchtower','stage','adventure'],['Journal','habits','school']] as const).map(([label,id,icon])=>
+ const dock=<nav className="village-dock original-primary-dock" aria-label="Everstead destinations">{([['Hero','hero','journey'],['Fellows','fellows','fellows'],['Family','family','family'],['Village','village','businesses'],['Map','stage','adventure'],['Journal','habits','school']] as const).map(([label,id,icon])=>
   <Button key={id} className="village-icon" aria-current={!moduleOpen&&id==='village'?'page':undefined} onClick={()=>openModule(id)}><img src={'./assets/ui/'+icon+'.webp'} alt=""/><span>{label}</span></Button>)}</nav>;
  const due=(game.habits?.items||[]).filter((x:any)=>x.freq==='daily'&&!x.done&&x.days.includes(new Date(game.lastAt).getDay())).length;
  const meta=MODULES[tab]||MODULES.today,title=tab==='building'?BUILDINGS.find(b=>b.id===building)?.name:meta.title;
@@ -93,7 +98,7 @@ export default function App(){
     {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} onTalk={setTalk} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
     {tab==='family'&&<FamilyPanel game={game} action={action} locked={locked} selected={member} setSelected={setMember} browse={familyBrowse} setBrowse={setFamilyBrowse}/>}
     {tab==='habits'&&<HabitPanel game={game} action={action} locked={locked} onSaveSettings={()=>setPanel(true)}/>}
-    {tab==='stage'&&<StagePanel game={game} action={action} locked={locked}/>}
+    {tab==='stage'&&<MapPanel game={game} action={action} locked={locked} onRun={run}/>}
     {tab==='roaming'&&<RoamingPanel game={game} action={action} locked={locked}/>}
     {tab==='today'&&<TodayPanel game={game} onNavigate={openModule}/>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
@@ -110,8 +115,9 @@ export default function App(){
    <Button onClick={()=>{const a=arrivals[0];setArrivals([]);if(a.kind==='hero')openModule('hero');else if(a.kind==='family'){openModule('family');setMember(a.id);setFamilyBrowse(false)}else{openModule('fellows');setFellow(a.id);setFellowBrowse(false)}}}>{arrivals[0]?.kind==='hero'?'See your hero':'Meet '+arrivals[0]?.name}</Button>
    <Button variant="outline" onClick={()=>setArrivals([])}>Later</Button>
   </DialogContent></Dialog>
-  <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>setTalk(null)}/>
+  <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>{setTalk(null);if(sceneRun){const id=sceneRun;setSceneRun(null);action('expedition',id)}}}/>
   <LevelUpDialog up={talk?null:ups[0]} onClose={()=>setUps(u=>u.slice(1))}/>
+  <ExpeditionResult run={talk?null:runResult} onClose={()=>setRunResult(null)}/>
   <QuestCompleteScroll questId={talk||ups.length?null:questDone} onClose={()=>setQuestDone(null)}/>
   <StoryDialog scene={scene} playerName={game.playerName} onClose={()=>setScene(null)}/>
 

@@ -14,8 +14,8 @@ fed by real habits.** If a system can grow without habits, it does not belong he
    - **A roam:** one per *daily* habit (up to 10 banked, never expire).
    - **Blight damage:** its points, doubled if the area opposes this week's Blight.
    - **Building boost:** +5% per point to that area's building today (max +50%).
-2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams at the Village Gate.
-3. **Grow your Power**, clear stages at the Watchtower, and push back the weekly Blight.
+2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams on the Expedition Map.
+3. **Grow your Power** to open and crush more of the map, and push back the weekly Blight.
 4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 8 + min(0.5, 0.07 × dailies today)`.
 
 ## Eight life areas
@@ -89,9 +89,20 @@ An area can hold several of each. They join in list order (see the join queue be
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals), roaming scenes.
 
-## Watchtower
+## Expedition Map (replaced the Watchtower stages)
 
-- **Stages**: stage n needs `300 × 1.12^(n−1)` total Power. Reward `100 × n` gold, +10 crystals every 5th.
+The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows need, Fellows raise Power,
+Power opens and crushes more of the map. Old School RuneScape places and art (`public/assets/osrs/`).
+
+- **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania. Each has 4 adventures and a boss.
+  Beating a region's boss opens the next region and grants a permanent perk: +2 Roam storage, +10% building
+  income, +10% Power.
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.35^k` Power.
+- **Loot per run** = gold `150 × 1.35^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
+  `250 × 1.3^k`. Bosses pay double.
+- **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
+- **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along
+  (`lib/expeditions/scenes.mjs`); repeats are one tap and a result scroll.
 - **Blights** (the vices): one rises each week, rotating through Sloth, Distraction, Doubt, Neglect,
   Pride and Excess. HP `60 × (1 + 0.25 × tier)`. Damage comes only from that week's habits.
   Defeat it for crystals and sigils; it returns one tier stronger next time round.
