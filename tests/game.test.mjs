@@ -53,7 +53,7 @@ test('defeating a blight raises its tier for next time',()=>{let s=fresh(T);cons
 test('buildings earn gold over time, boosted by today’s habits in their area',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;const base=totalRate(s,T);assert.ok(base>0);const {id}=withHabit('fitness');
  const later=settle(s,T+3600e3);assert.ok(later.gold>s.gold)});
 
-test('roaming spends a charge and works before anyone has joined',()=>{const s=fresh(T);const r=act(s,'roam',T);assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,s.roam.charges-1);assert.ok(r.scene)});
+test('the village walk costs no Roam and works before anyone has joined',()=>{const s=fresh(T);const r=act(s,'roam',T);assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,s.roam.charges);assert.ok(r.scene)});
 
 test('family visits and gifts raise bond',()=>{let s={...fresh(T),gold:1e4,family:{tyrande:{bond:0}}};const v=act(s,'visit',T,'tyrande');assert.equal(v.state.family.tyrande.bond,30);assert.ok(act(v.state,'visit',T+1000,'tyrande').error);const g=act(v.state,'gift',T,'tyrande','posy');assert.equal(g.state.family.tyrande.bond,80)});
 
@@ -93,10 +93,17 @@ test('The Iron Body: talk, habits, talk, three days, talk, complete',()=>{let {s
  const gold=s.gold;r=act(s,'dialogue',D+5*864e5,'iron-body-3',{node:'d',opt:null});assert.ok(!r.error,r.error);assert.equal(r.questDone,'iron-body');assert.equal(questStatus(r.state,'iron-body').status,'done');assert.ok(r.state.gold>=gold+1500);assert.ok(r.state.bonusXp.fitness>=5000);
  const again=act(r.state,'dialogue',D+6*864e5,'iron-body-3',{node:'d',opt:null});assert.equal(again.state.gold,r.state.gold,'rewards pay once')});
 
-test('adventures cost a roam each time and pay every time',()=>{let s={...fresh(T),roam:{charges:2,seen:[]}};
- let r=act(s,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,1);assert.equal(r.state.bonusXp.fitness,600);
- r=act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.equal(r.state.roam.charges,0);assert.equal(r.state.bonusXp.fitness,1200);
- assert.ok(act(r.state,'dialogue',T,'yard-sandbags',{node:'b',opt:0}).error,'no roams left')});
+test('building adventures are free once a day each and pay every day',()=>{let s={...fresh(T),roam:{charges:0,seen:[]}};
+ let r=act(s,'dialogue',T,'yard-sandbags',{node:'b',opt:0});assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,0,'no roam spent');assert.equal(r.state.bonusXp.fitness,600);
+ assert.ok(act(r.state,'dialogue',T+1000,'yard-sandbags',{node:'b',opt:0}).error,'once a day');
+ assert.ok(!act(r.state,'dialogue',T+1000,'yard-hill',{node:'b',opt:0}).error,'another adventure is separate');
+ r=act(r.state,'dialogue',T+864e5,'yard-sandbags',{node:'b',opt:0});assert.ok(!r.error,r.error);assert.equal(r.state.bonusXp.fitness,1200)});
+
+test('the Village Gate is a free walk once a day',()=>{let s={...fresh(T),fellows:{darrow:{level:1,stars:0}},roam:{charges:0,seen:[]}};let r=act(s,'roam',T);assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,0);
+ assert.ok(act(r.state,'roam',T+1000).error,'once a day');assert.ok(!act(r.state,'roam',T+864e5).error,'tomorrow again')});
+
+test('old saves get a one-time full bar of Roams back; new saves do not',()=>{const old={...fresh(T),flags:{},roam:{charges:2,seen:[]}};const m=migrate(old);assert.equal(m.roam.charges,10);assert.equal(migrate({...m,roam:{...m.roam,charges:1}}).roam.charges,1,'only once');
+ assert.equal(migrate(fresh(T)).roam.charges,3,'a new save starts with the usual 3')});
 
 test('habits complete after buildings have earned fractional gold',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;s=settle(s,T+61000);assert.ok(!Number.isInteger(s.gold),'gold is fractional');
  const id=s.habits.items.find(x=>x.freq==='daily'&&x.days.includes(new Date(T).getDay())).id;const r=act(s,'habitComplete',T+62000,id);assert.ok(!r.error,r.error);assert.ok(r.state.gold>s.gold);

@@ -85,7 +85,7 @@ export default function App(){
   <VillageMap game={game} blight={blight} openBuilding={(id:string)=>{setBuilding(id);openModule('building')}} openModule={openModule}
    side={<div className="village-side-buttons">
     <Button className="village-helper village-today" variant="outline" onClick={()=>openModule('today')}><img src="./assets/ui/journey.webp" alt=""/><span>Today</span></Button>
-    <Button className="village-helper" variant="outline" onClick={()=>openModule('roaming')}><img src="./assets/ui/journey.webp" alt=""/><span>Roam · {game.roam.charges}</span></Button>
+    <Button className="village-helper" variant="outline" onClick={()=>openModule('stage')}><img src="./assets/ui/journey.webp" alt=""/><span>Map · {game.roam.charges}</span></Button>
     <Button className="village-helper rs-quest-btn" variant="outline" onClick={()=>openModule('quests')}><img src="./assets/rs/quest.png" alt=""/><span>Quests</span></Button>
    </div>}
    objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>

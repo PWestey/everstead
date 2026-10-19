@@ -14,7 +14,8 @@ fed by real habits.** If a system can grow without habits, it does not belong he
    - **A roam:** one per *daily* habit (up to 10 banked, never expire).
    - **Blight damage:** its points, doubled if the area opposes this week's Blight.
    - **Building boost:** +5% per point to that area's building today (max +50%).
-2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams on the Expedition Map.
+2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams on the Expedition Map (the only thing Roams buy).
+   The Village Gate walk and each building adventure are free once a day.
 3. **Grow your Power** to open and crush more of the map, and push back the weekly Blight.
 4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 8 + min(0.5, 0.07 × dailies today)`.
 

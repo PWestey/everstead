@@ -1,4 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
+import {habitDay} from '@/lib/habits.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {AREAS,characterById} from '@/lib/cast.mjs';
@@ -71,13 +72,12 @@ export function QuestJournal({game,onTalk}:{game:any,onTalk:(tree:string)=>void}
  </section>;
 }
 
-/** Art cards for a location's adventures. Each costs a roam. */
+/** Art cards for a location's adventures. Each is free once a day. */
 export function AdventureCards({game,location,onStart}:{game:any,location:string,onStart:(tree:string)=>void}){
- const list=ADVENTURES[location]||[];if(!list.length)return null;const roams=game.roam.charges;
- return <section className="rs-adventures"><h3>Adventures <small>{roams} roam{roams===1?'':'s'} left</small></h3>
-  <div className="rs-adv-grid">{list.map((a:any)=><button key={a.id} type="button" className="rs-adv" disabled={roams<1} onClick={()=>onStart(a.id)} style={{backgroundImage:`url(./assets/${a.art})`}}>
-   <span className="rs-adv-text"><b>{a.title}</b><small>{a.blurb}</small><span className="rs-adv-skills">{a.skills.map((s:string)=><img key={s} src={'./assets/'+skillIcon(s)} alt={areaName(s)}/>)}<em>1 roam</em></span></span></button>)}</div>
-  {roams<1&&<p className="small-note">Complete daily habits to earn roams.</p>}
+ const list=ADVENTURES[location]||[];if(!list.length)return null;const today=habitDay(Date.now()),doneToday=(id:string)=>game.roam.advDays?.[id]===today;
+ return <section className="rs-adventures"><h3>Adventures <small>free once a day each</small></h3>
+  <div className="rs-adv-grid">{list.map((a:any)=><button key={a.id} type="button" className="rs-adv" disabled={doneToday(a.id)} onClick={()=>onStart(a.id)} style={{backgroundImage:`url(./assets/${a.art})`}}>
+   <span className="rs-adv-text"><b>{a.title}</b><small>{a.blurb}</small><span className="rs-adv-skills">{a.skills.map((s:string)=><img key={s} src={'./assets/'+skillIcon(s)} alt={areaName(s)}/>)}<em>{doneToday(a.id)?'Done today':'Free today'}</em></span></span></button>)}</div>
  </section>;
 }
 

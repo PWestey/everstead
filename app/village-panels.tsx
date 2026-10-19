@@ -9,7 +9,7 @@ import {totalLevel} from '@/lib/skills.mjs';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
 import {AdventureCards} from './rs-ui';
-import {habitDue,habitEarnings} from '@/lib/habits.mjs';
+import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const pct=(x:number)=>Math.round(x*100)+'%';
 
@@ -60,16 +60,15 @@ export function StoryDialog({scene,playerName,onClose}:any){
  </DialogContent></Dialog>;
 }
 
-/** The Village Gate: spend roams earned from daily habits to meet people. */
+/** The Village Gate: one free walk a day to bump into a Fellow, Family or the village. */
 export function RoamingPanel({game,action,locked}:any){
- const c=game.roam.charges;
+ const done=game.roam.gateDay===habitDay(Date.now());
  return <section className="es-roam">
   <div className="es-stage-scene" style={{backgroundImage:'url(./assets/ui-scenes/Bg_Village_01_Mid.jpg)'}}>
-   <div className="es-stage-card"><small>VILLAGE GATE</small><h2>Go roaming</h2>
-    <p>Walk the village and the roads around it. You might meet a Fellow, spend time with Family, or stumble on something good.</p>
-    <div className="es-charges" aria-label={`${c} of ${ROAM_CAP} roams`}>{Array.from({length:ROAM_CAP},(_,i)=><i key={i} className={i<c?'on':''}/>)}</div>
-    <Button className="primary-action" disabled={locked||c<1} onClick={()=>action('roam')}><b>{c?'Roam':'No roams left'}</b><small>{c} / {ROAM_CAP}</small></Button>
-    <p className="small-note">Each daily habit you complete earns one roam. Unused roams never expire.</p>
+   <div className="es-stage-card"><small>VILLAGE GATE</small><h2>Take a walk</h2>
+    <p>Once a day, walk the village and the roads around it. You might meet a Fellow, spend time with Family, or stumble on something good.</p>
+    <Button className="primary-action" disabled={locked||done} onClick={()=>action('roam')}><b>{done?'Walked today':'Take today’s walk'}</b><small>{done?'Back tomorrow':'Free'}</small></Button>
+    <p className="small-note">Roams from your daily habits are spent on the Expedition Map.</p>
    </div></div>
  </section>;
 }
@@ -85,7 +84,7 @@ export function TodayPanel({game,onNavigate}:any){
   [`Total level ${tl}`,nextTier?`${nextTier.title} armour at total level ${nextTier.level}`:'Every armour tier unlocked','hero'],
   ...(quest?[[`Quest: ${QUESTS[quest.id].name}`,quest.step?.text||'',`quests`] as [string,string,string]]:[]),
   [`${b.name}: ${b.damage} / ${b.hp}`,b.defeated?(b.claimed?'Driven out this week.':'Ready to drive out!'):`${b.opposed.map((a:string)=>areaById(a).name).join(' and ')} habits hit hardest.`,'stage'],
-  [`Roams: ${game.roam.charges}`,game.roam.charges?'Someone might be waiting at the gate.':'Complete dailies to earn roams.','roaming'],
+  [`Roams: ${game.roam.charges}`,game.roam.charges?'Spend them on the Expedition Map.':'Complete dailies to earn roams.','stage'],
   ...ready.map((f:any)=>[`${f.name} is ready to join`,`${areaById(f.area).name} · ${f.kind==='fellow'?'Fellow':'Family'}`,f.kind==='fellow'?'fellows':'family'] as [string,string,string]),
   ...(improve.length?[[`${improve.length} Fellow${improve.length>1?'s':''} can improve`,improve.map((f:any)=>f.name).join(', '),'fellows'] as [string,string,string]]:[]),
  ];
