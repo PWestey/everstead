@@ -3,7 +3,9 @@
 /* iPhone fix: size the modal to the real screen (top/bottom 0), not 100dvh, which iOS reports
    shorter than the screen in home-screen apps and so left a gap above and below. */
 html,body{background:#2a1b12}
-.game-modal{position:fixed!important;top:0!important;bottom:0!important;left:50%!important;translate:-50% 0!important;transform:none!important;height:auto!important;max-height:none!important}
+/* No translate here: the minifier drops a translate override, so cancel the dialog's centering via its
+   Tailwind variables and centre horizontally with margins instead. */
+.game-modal,.game-modal.character-modal{position:fixed!important;inset:0!important;margin:0 auto!important;--tw-translate-x:0!important;--tw-translate-y:0!important;transform:none!important;height:auto!important;max-height:none!important}
 
 .character-modal .modal-body{display:flex;padding:0;overflow:hidden}
 .es-char{position:relative;flex:1;width:100%;height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;isolation:isolate;font-family:'Texturina',Georgia,serif}
