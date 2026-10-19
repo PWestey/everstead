@@ -10,11 +10,7 @@
 .character-screen-art .character-showcase>.character-artwork{height:100%}
 .character-art-view .character-artwork{height:70dvh;border-radius:12px}
 .character-preview .character-artwork>img{filter:grayscale(1) brightness(.8)}
-/* "Living still": a slow breath. Real animation can replace this later without touching any screen. */
-@media (prefers-reduced-motion:no-preference){
- .art-alive>img,.art-alive>.art-placeholder{transform-origin:50% 100%;animation:es-breathe 5.5s ease-in-out infinite}
-}
-@keyframes es-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012) translateY(-2px)}}
+/* Character art is still: no idle motion (it clipped heads and feet without adding much). */
 
 /* Roster cards show the top of the full-screen art. */
 .es-roster-art{overflow:hidden}
@@ -143,3 +139,8 @@
 .xp-result li{display:flex;align-items:center;gap:6px}.xp-result li img{width:18px;height:18px}
 .xp-result h2.xp-r-great{color:#0a8a0a}.xp-result h2.xp-r-overwhelm{color:#b8860b}
 .xp-perk{background:#f5b94233;border:1px solid #b8860b;border-radius:4px;padding:6px 8px;margin:4px 0}
+
+/* Hero badge (top left): crop the full-length portrait to the face. Portraits are 1024x1536 with the figure
+   bottom-centred, so the head sits in the box x 312-712, y 0-400. */
+.player-badge>.es-face{position:absolute;inset:0;border-radius:50%;overflow:hidden}
+.player-badge>.es-face>img{position:absolute;max-width:none;width:256%;height:auto;left:-78%;top:0;border-radius:0}

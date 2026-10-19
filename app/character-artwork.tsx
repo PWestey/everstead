@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {areaById} from '@/lib/cast.mjs';
 /** A character's full-screen art. Until the real file exists at public/assets/<art>, a drawn
  *  placeholder stands in: the area colour, a silhouette and the name, so every screen is usable now.
- *  The CSS class `art-alive` adds a gentle breathing motion (no video, no rigging). */
+ *  Art is still; the `art-alive` class is kept as a hook for real animation later. */
 export function Placeholder({person,compact=false}:{person:any,compact?:boolean}){
  const color=areaById(person.area)?.color||'#c9a96e';
  return <svg className="art-placeholder" viewBox="0 0 400 600" preserveAspectRatio="xMidYMax meet" role="img" aria-label={person.name+' (art coming soon)'}>

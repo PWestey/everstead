@@ -15,7 +15,7 @@ rule and number. Read it before changing gameplay.
    when the owner asks and has art for them. Dialogue follows docs/WRITING-BRIEF.md.
 5. **The owner picks the cast.** Characters arrive as the owner's own art, one per life-area slot.
    Don't add characters, art or franchises on your own.
-6. **Art is still images.** Breathing motion comes from CSS (`.art-alive`). No video, no Spine, until
+6. **Art is still images.** No idle motion. No video, no Spine, until
    the owner decides otherwise.
 
 ## Code
