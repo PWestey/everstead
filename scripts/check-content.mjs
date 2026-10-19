@@ -27,7 +27,7 @@ if(mod.QUESTS){const T=mod.TREES||{};
  for(const [qid,q] of Object.entries(mod.QUESTS)){
   if(!FELLOWS.some(f=>f.id===q.giver))err(qid+': giver must be a fellow id');
   if(!AREA_IDS.includes(q.area))err(qid+': bad area');
-  if(![1,2,3,4,5].includes(q.tier))err(qid+': tier 1-5');
+  if(![1,2,3,4,5,6].includes(q.tier))err(qid+': tier 1-6');
   str(q.name,qid+'.name');str(q.blurb,qid+'.blurb');
   if(!Array.isArray(q.say)||q.say.length!==3)err(qid+': say needs 3 step texts');
   for(const n of [1,2,3]){const tid=qid+'-'+n,t=T[tid];if(!t){err('missing tree '+tid);continue}

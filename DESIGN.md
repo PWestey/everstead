@@ -59,7 +59,7 @@ An area can hold several of each. They join in list order (see the join queue be
 - **Quests** (`lib/quests.mjs`): chains that alternate *real habits* ("3 Fitness habits", "3 different days") with
   conversations. Habit steps advance automatically; talks happen with the quest giver. Journal colours: red not
   started, yellow in progress, green done. First quest: **The Iron Body** (Darrow, Fitness).
-- **One quest per Fellow** (38), written in `lib/quests/*.mjs`. Every quest is talk → H habits → talk → D days → talk.
+- **One quest per Fellow** (41), written in `lib/quests/*.mjs`. Every quest is talk → H habits → talk → D days → talk.
   Within an area they unlock in order, lowest tier first, and each tier needs a total level:
 
   | Tier | Habits | Days | Quest pts | XP | Gold | Sigils | Total level |
@@ -69,6 +69,7 @@ An area can hold several of each. They join in list order (see the join queue be
   | 3 | 8 | 5 | 3 | 20,000 | 5,000 | 80 | 200 |
   | 4 | 12 | 7 | 4 | 35,000 | 8,000 | 100 | 300 |
   | 5 | 15 | 10 | 5 | 50,000 | 12,000 | 120 | 400 |
+  | 6 | 20 | 14 | 6 | 75,000 | 18,000 | 150 | 500 |
 - **Moments** (`lib/moments.mjs`, content in `lib/moments/*.mjs`): short pop-up conversations, flavour only.
   Fellows speak at every 5th level and every star (comradery, motivation). Family speak on each
   "Spend time together" and each gift (romantic; Liko, Nemona, Misty and Gwen are written as platonic friends).
