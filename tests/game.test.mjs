@@ -168,4 +168,4 @@ test('a run costs a Roam, pays loot into gold, sigils and XP, and counts',()=>{l
 test('beating a boss opens the next region once and grants its perk',()=>{let s=withPower(1e6);assert.equal(regionOpen(s,1),false);assert.ok(act(s,'expedition',T,'dwarven-mine').error,'Asgarnia closed');
  let r=act(s,'expedition',T,'count-draynor');assert.ok(!r.error,r.error);assert.equal(r.expedition.perk,REGIONS[0].perk.text);assert.equal(r.expedition.opened,'Asgarnia');s=r.state;
  assert.equal(regionOpen(s,1),true);assert.equal(roamCap(s),12);r=act(s,'expedition',T,'count-draynor');assert.equal(r.expedition.perk,null,'perk pays once');assert.equal(r.state.expeditions.bosses.length,1);
- s={...s,expeditions:{...s.expeditions,bosses:['count-draynor','giant-mole','barrows']}};assert.deepEqual(perks(s),{roamCap:2,income:0.1,power:0.1})});
+ s={...s,expeditions:{...s.expeditions,bosses:['count-draynor','giant-mole','barrows','tztok-jad']}};assert.deepEqual(perks(s),{roamCap:2,income:0.1,power:0.1,loot:0.1})});

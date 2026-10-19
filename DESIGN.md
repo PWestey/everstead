@@ -95,11 +95,11 @@ An area can hold several of each. They join in list order (see the join queue be
 The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows need, Fellows raise Power,
 Power opens and crushes more of the map. Old School RuneScape places and art (`public/assets/osrs/`).
 
-- **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania. Each has 4 adventures and a boss.
-  Beating a region's boss opens the next region and grants a permanent perk: +2 Roam storage, +10% building
-  income, +10% Power.
-- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.35^k` Power.
-- **Loot per run** = gold `150 × 1.35^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
+- **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania → Karamja → Kharidian Desert →
+  Fremennik Province → the Wilderness. Each has 4 adventures and a boss (35 places). Beating a region's boss
+  opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.3^k` Power (Count Draynor 1,100 … King Black Dragon about 3M).
+- **Loot per run** = gold `150 × 1.3^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
   `250 × 1.3^k`. Bosses pay double.
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along

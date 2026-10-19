@@ -48,7 +48,7 @@ if(mod.QUESTS){const T=mod.TREES||{};
    if(n===3){const done=Object.values(t.nodes).find(nd=>nd.do?.some(e=>e.quest));if(!done?.end)err(tid+': the complete effect goes on an end node')}
   }}}
 if(mod.EXPEDITION_SCENES){const {ADVENTURE_IDS}=await import('../lib/expedition-data.mjs');
- for(const id of ADVENTURE_IDS)if(!mod.EXPEDITION_SCENES[id])err('missing scene '+id);
+ // Scenes may be split across files; tests/game.test.mjs checks every place has one.
  for(const [id,m] of Object.entries(mod.EXPEDITION_SCENES)){if(!ADVENTURE_IDS.includes(id))err('unknown adventure '+id);moment(m,id);
   for(const l of [...(m.open||[]),...(m.opts||[]).flatMap(o=>o.r||[])]){const sp=/^([a-z]+): /.exec(l)?.[1];if(sp&&sp!=='player'&&!characterById(sp))err(id+': unknown speaker '+sp)}}}
 if(!mod.FELLOW_MOMENTS&&!mod.FAMILY_MOMENTS&&!mod.QUESTS&&!mod.EXPEDITION_SCENES)err('file exports none of FELLOW_MOMENTS, FAMILY_MOMENTS, QUESTS');
