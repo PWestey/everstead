@@ -4,11 +4,11 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {filterRoster} from '@/lib/roster-filter.mjs';
 import {useState as useArtState} from 'react';
-import {Placeholder} from './character-artwork';
-/** A roster card's portrait: the top of the full-screen art, or the drawn placeholder until it exists. */
+import {Placeholder,framedStyle} from './character-artwork';
+/** A roster card's portrait: head to waist, framed by the figure's bounds, or the drawn placeholder until it exists. */
 function RosterArt({person,path}:{person:any,path:string}){
  const [missing,setMissing]=useArtState(false);
- return <span className="roster-tile-art es-roster-art">{missing?<Placeholder person={person} compact/>:<img src={'./assets/'+path} alt="" loading="lazy" decoding="async" onError={()=>setMissing(true)}/>}</span>}
+ return <span className="roster-tile-art es-roster-art">{missing?<Placeholder person={person} compact/>:<img src={'./assets/'+path} alt="" loading="lazy" decoding="async" style={framedStyle(path,'card')} onError={()=>setMissing(true)}/>}</span>}
 /** THE ROSTER CARD, rebuilt to docs/fellow-screen-specs/01-roster.md.
  *
  *  The original puts exactly FOUR pieces of data on a card: level, class, name, and "has an action".

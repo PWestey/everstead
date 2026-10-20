@@ -16,10 +16,17 @@ export function Placeholder({person,compact=false}:{person:any,compact?:boolean}
   {!compact&&<text x="200" y="560" textAnchor="middle" fill="#fff5dc" fontSize="26" fontWeight="700" style={{paintOrder:'stroke',stroke:'rgba(0,0,0,.6)',strokeWidth:5}}>Art coming soon</text>}
  </svg>;
 }
-/** A small portrait for lists and story lines: the top of the art, or the placeholder. */
+/** Frames a portrait inside a box by the figure's recorded bounds (lib/art-bounds.json), using only percentages of
+ *  the box width so it works at any size. `kind` 'card' shows head to waist; 'face' zooms to the head.
+ *  Both centre on the head. Returns undefined when the art has no bounds. */
+export function framedStyle(art:string,kind:'card'|'face'):any{const box=(BOUNDS as Record<string,number[]>)[art];if(!box)return undefined;
+ // card: the top 55% of the figure (from the head) fills a ~2:3 card; face: the top 20% fills a square.
+ const [l,t0,r,b,bl=l,br=r,hx=(bl+br)/2,t=t0]=box,w=kind==='face'?1/(1.5*(b-t)*0.2):1/((b-t)*0.55);
+ return {position:'static',maxWidth:'none',minHeight:0,width:w*100+'%',height:'auto',objectFit:'fill',marginLeft:(50-hx*w*100)+'%',marginTop:((kind==='face'?2:3)-t*1.5*w*100)+'%'}}
+/** A small portrait for lists and story lines: the face, or the placeholder. */
 export function MiniArt({person}:{person:any}){
  const [missing,setMissing]=useState(false);
- return <span className="es-mini-art">{missing||!person?.art?<Placeholder person={person||{id:'x',name:''}} compact/>:<img src={'./assets/'+person.art} alt="" loading="lazy" onError={()=>setMissing(true)}/>}</span>;
+ return <span className="es-mini-art">{missing||!person?.art?<Placeholder person={person||{id:'x',name:''}} compact/>:<img src={'./assets/'+person.art} alt="" loading="lazy" style={framedStyle(person.art,'face')} onError={()=>setMissing(true)}/>}</span>;
 }
 /** Portraits are 1024x1536 with the figure bottom-centred; lib/art-bounds.json records where the figure sits. */
 const ART_W=1024,ART_H=1536;
