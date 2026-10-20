@@ -22,6 +22,8 @@ rule and number. Read it before changing gameplay.
 
 - Knowledge cards (the Codex) live in `lib/codex-cards.json`; the owner adds new knowledge through Claude. Keep the id rule
   in `lib/codex.mjs` so review progress stays attached.
+- After adding or changing cast art, run `node scripts/art-bounds.mjs` (records each figure's bounds so the character
+  screen can zoom wide poses to fill the stage). A test fails if a portrait has no bounds.
 - `lib/cast.mjs` world data, `lib/game.mjs` formulas and actions, `lib/habits.mjs` the journal,
   `lib/stories.mjs` scenes. Screens in `app/`; `page.tsx` wires them.
 - The UI reuses Everkai's class names and `app/globals.css`. Put new styles in `app/everstead.css`.
