@@ -24,7 +24,7 @@ html,body{background:#2a1b12}
 .es-char-stage{position:relative;min-height:0}
 .es-char-stage .character-artwork{position:absolute;inset:6px 0 0 0;height:auto;width:auto;background:none!important}
 .es-char-stage .character-artwork>img,.es-char-stage .character-artwork>.art-placeholder{height:100%;width:100%;object-fit:contain;object-position:center bottom}
-.es-char-preview .es-char-stage .character-artwork>img{filter:grayscale(1) brightness(.85)}
+.es-char-preview .es-char-stage .character-artwork img{filter:grayscale(1) brightness(.85)}
 
 /* Rail and arrows float over the art's edges */
 .es-char-rail{position:absolute;right:6px;top:6px;display:grid;gap:6px;z-index:2}
@@ -64,3 +64,6 @@ html,body{background:#2a1b12}
 .es-skills-sheet .rs-skill{height:48px}
 .es-skills-sheet .rs-skill img{width:30px;height:30px}
 .es-skills-sheet .rs-lvl{font-size:14px}
+
+/* Zoomed art (see FilledArt): the box fills the stage; the image is positioned in JS. */
+.es-char-stage .art-fill{position:absolute;inset:0;overflow:hidden}

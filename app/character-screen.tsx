@@ -21,7 +21,7 @@ export default function CharacterScreen({person,collection,children,subtitle,sum
    <div className="es-char-rarity">{person.rarity&&rarityIcon(person.rarity)?<img src={rarityIcon(person.rarity)!} alt={person.rarity}/>:null}</div>
   </header>
   <div className="es-char-stage">
-   <CharacterArtwork key={person.id+'-'+(person.art||'')} person={person}/>
+   <CharacterArtwork key={person.id+'-'+(person.art||'')} person={person} fill/>
    <aside className="es-char-rail" aria-label="Character actions">
     <Button variant="outline" className="es-rail-btn" onClick={()=>setHidden(v=>!v)} aria-pressed={hidden} aria-label={hidden?'Show interface':'Hide interface'}>{hidden?<EyeOff aria-hidden="true"/>:<Eye aria-hidden="true"/>}<span>{hidden?'Show':'Hide'}</span></Button>
     {!hidden&&<>

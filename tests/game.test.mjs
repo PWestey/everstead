@@ -193,3 +193,6 @@ test('Codex: 15 new cards a day, the first 40 reviews pay, and mastery adds buil
  const cards={};for(const c of CODEX_CARDS.slice(0,60))cards[c.id]={box:3,due:'2026-10-14'};s={...fresh(T),codex:{...fresh(T).codex,cards}};
  let paid=0;for(let i=0;i<50;i++){const r=act(s,'codexReview',T,CODEX_CARDS[i].id,true);if(r.codex.gold>0)paid++;s=r.state}assert.equal(paid,CODEX_PAID_PER_DAY);
  const m={};for(const c of CODEX_CARDS.slice(0,50))m[c.id]={box:7,due:'2027-01-01',mastered:true};assert.ok(Math.abs(perks({...fresh(T),codex:{...fresh(T).codex,cards:m}}).income-0.04)<1e-9)});
+
+import BOUNDS from '../lib/art-bounds.json' with {type:'json'};
+test('every cast portrait has recorded figure bounds (run node scripts/art-bounds.mjs after adding art)',()=>{for(const f of readdirSync('public/assets/cast').filter(x=>x.endsWith('.webp'))){const b=BOUNDS['cast/'+f];assert.ok(b,'missing bounds for '+f);assert.ok(b[0]<b[2]&&b[1]<b[3],f)}});
