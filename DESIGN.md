@@ -77,6 +77,20 @@ An area can hold several of each. They join in list order (see the join queue be
 - **Adventures**: art cards at a location; each costs a roam (earned by daily habits) and plays a short scene with a
   choice that decides the reward. First location: the **Training Yard**.
 
+## The Archives (the Codex)
+
+The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, podcasts and talks
+(`lib/codex-cards.json`, engine in `lib/codex.mjs`). The old Habit Journal building is now the Archives.
+
+- Leitner spaced repetition: boxes 1–7 come back after 1, 2, 4, 7, 14, 30, 60 days. Got it → up a box; forgot → box 1, tomorrow.
+- New cards arrive **15 a day**, rotating through topics. Topics map to areas (Parenting → Fatherhood, Marriage, Faith,
+  Leadership/Money → Work, Habits & Systems → Discipline, Lifting/Nutrition → Fitness, Growth → Hobbies).
+- **Each review pays 10 minutes of village income** (at least 50 gold) **+ 150 XP** in its area, the same for got it and
+  forgot, for the first **40 reviews a day**.
+- **Mastered** = reached box 7. Every 25 mastered adds **+2% building income**.
+- Any card can become a weekly habit with one tap.
+- Adding knowledge: append `{id, topic, front, back, source}` to the JSON; id = `'k' + sha1(topic + '|' + front)` first 8 hex.
+
 ## Fellows (Power)
 
 - **Recruit** by lifetime habit points in their area. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.

@@ -4,9 +4,9 @@ import {BUILDINGS,areaById} from '@/lib/cast.mjs';
 import {BUILDING_OPEN_COST,areaBoost} from '@/lib/game.mjs';
 const GROUND=art.ground,ASPECT=GROUND.width/GROUND.height,SCROLL_KEY='everstead-village-scroll';
 const sprites=art.buildings as Record<string,{src:string,width:number,height:number}>;
-/** Places that are not life-area buildings: the habit journal, the watchtower (expedition map) and the gate (roaming). */
+/** Places that are not life-area buildings: the Archives (the Codex), the watchtower (expedition map) and the gate (roaming). */
 const LANDMARKS=[
- {id:'habits',label:'Habit Journal',sprite:'habits',module:'habits',x:36,y:36},
+ {id:'habits',label:'The Archives',sprite:'habits',module:'codex',x:36,y:36},
  {id:'tower',label:'Expedition Map',sprite:'Building_1501',module:'stage',x:66,y:52},
  {id:'gate',label:'Village Gate',sprite:'Building_601',module:'roaming',x:33,y:81.1},
 ];

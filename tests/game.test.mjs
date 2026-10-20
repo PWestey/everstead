@@ -169,3 +169,27 @@ test('beating a boss opens the next region once and grants its perk',()=>{let s=
  let r=act(s,'expedition',T,'count-draynor');assert.ok(!r.error,r.error);assert.equal(r.expedition.perk,REGIONS[0].perk.text);assert.equal(r.expedition.opened,'Asgarnia');s=r.state;
  assert.equal(regionOpen(s,1),true);assert.equal(roamCap(s),12);r=act(s,'expedition',T,'count-draynor');assert.equal(r.expedition.perk,null,'perk pays once');assert.equal(r.state.expeditions.bosses.length,1);
  s={...s,expeditions:{...s.expeditions,bosses:['count-draynor','giant-mole','barrows','tztok-jad']}};assert.deepEqual(perks(s),{roamCap:2,income:0.1,power:0.1,loot:0.1})});
+
+// ---------------- The Codex (Archives) ----------------
+import {CODEX_CARDS,TOPIC_AREA,codexQueue,INTRO_ORDER} from '../lib/codex.mjs';
+import {codexReward,CODEX_PAID_PER_DAY,CODEX_NEW_PER_DAY} from '../lib/game.mjs';
+import {createHash} from 'node:crypto';
+
+test('the Codex holds the 324 cards with stable ids, and every topic maps to a life area',()=>{assert.ok(CODEX_CARDS.length>=324);assert.equal(new Set(CODEX_CARDS.map(c=>c.id)).size,CODEX_CARDS.length);
+ for(const c of CODEX_CARDS){assert.ok(TOPIC_AREA[c.topic],c.topic);assert.ok(AREA_IDS.includes(TOPIC_AREA[c.topic]));assert.ok(c.front&&c.back,c.id);
+  assert.equal(c.id,'k'+createHash('sha1').update(c.topic+'|'+c.front).digest('hex').slice(0,8),'id rule for '+c.front)}
+ assert.equal(INTRO_ORDER.length,CODEX_CARDS.length)});
+
+test('a Codex review schedules like Leitner boxes and pays the same for got it and forgot',()=>{const s=fresh(T),id=codexQueue(s,'2026-10-14',CODEX_NEW_PER_DAY).queue[0].id;
+ const got=act(s,'codexReview',T,id,true),forgot=act(s,'codexReview',T,id,false);assert.ok(!got.error,got.error);
+ assert.deepEqual([got.state.codex.cards[id].box,got.state.codex.cards[id].due],[2,'2026-10-16']);
+ assert.deepEqual([forgot.state.codex.cards[id].box,forgot.state.codex.cards[id].due],[1,'2026-10-15']);
+ assert.equal(got.state.gold,forgot.state.gold,'honest answers cost nothing');assert.equal(got.state.gold-s.gold,codexReward(s));
+ assert.ok(act(got.state,'codexReview',T+1000,id,true).error,'not due again yet')});
+
+test('Codex: 15 new cards a day, the first 40 reviews pay, and mastery adds building income',()=>{let s=fresh(T);
+ for(let i=0;i<CODEX_NEW_PER_DAY;i++){const id=codexQueue(s,'2026-10-14',CODEX_NEW_PER_DAY).queue[0].id;s=act(s,'codexReview',T,id,true).state}
+ assert.equal(codexQueue(s,'2026-10-14',CODEX_NEW_PER_DAY).queue.length,0,'no 16th new card today');
+ const cards={};for(const c of CODEX_CARDS.slice(0,60))cards[c.id]={box:3,due:'2026-10-14'};s={...fresh(T),codex:{...fresh(T).codex,cards}};
+ let paid=0;for(let i=0;i<50;i++){const r=act(s,'codexReview',T,CODEX_CARDS[i].id,true);if(r.codex.gold>0)paid++;s=r.state}assert.equal(paid,CODEX_PAID_PER_DAY);
+ const m={};for(const c of CODEX_CARDS.slice(0,50))m[c.id]={box:7,due:'2027-01-01',mastered:true};assert.ok(Math.abs(perks({...fresh(T),codex:{...fresh(T).codex,cards:m}}).income-0.04)<1e-9)});

@@ -10,6 +10,8 @@ import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
 import {AdventureCards} from './rs-ui';
 import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
+import {codexQueue} from '@/lib/codex.mjs';
+import {CODEX_NEW_PER_DAY} from '@/lib/game.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const pct=(x:number)=>Math.round(x*100)+'%';
 
@@ -80,6 +82,7 @@ export function TodayPanel({game,onNavigate}:any){
  const ready=[...FELLOWS.filter(f=>fellowReady(game,f)),...FAMILY.filter(f=>familyReady(game,f))],improve=FELLOWS.filter(f=>fellowCanImprove(game,f.id));
  const rows:[string,string,string][]=[
   [`Daily habits: ${done} / ${due.length}`,done<due.length?'Each one earns gold, XP, sigils and a roam.':'All done today. Well kept.','habits'],
+  ...(()=>{const q=codexQueue(game,habitDay(Date.now()),CODEX_NEW_PER_DAY).queue.length;return [[`Codex: ${q} card${q===1?'':'s'} to review`,q?'Each review pays gold and trains its area.':'All caught up in the Archives.','codex'] as [string,string,string]]})(),
   [`Momentum ×${earn.multiplier.toFixed(2)}`,`${earn.areas} of 8 life areas touched this week · ${earn.dailies} dailies today`,'habits'],
   [`Total level ${tl}`,nextTier?`${nextTier.title} armour at total level ${nextTier.level}`:'Every armour tier unlocked','hero'],
   ...(quest?[[`Quest: ${QUESTS[quest.id].name}`,quest.step?.text||'',`quests`] as [string,string,string]]:[]),

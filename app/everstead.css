@@ -144,3 +144,33 @@
    bottom-centred, so the head sits in the box x 312-712, y 0-400. */
 .player-badge>.es-face{position:absolute;inset:0;border-radius:50%;overflow:hidden}
 .player-badge>.es-face>img{position:absolute;max-width:none;width:256%;height:auto;left:-78%;top:0;border-radius:0}
+
+/* The Archives (Codex reviews), OSRS parchment. */
+.cx{display:grid;gap:10px;padding:10px;font-family:'Texturina',Georgia,serif;background:#1d1c19;min-height:100%;color:#1d1c19}
+.cx-top{display:flex;flex-wrap:wrap;gap:6px}
+.cx-top span{background:#3e3529;border:2px solid #2a241b;border-radius:6px;padding:3px 9px;color:#ffe8be;font-size:13px}
+.cx-top b{color:#ffff00}
+.cx-tabs{display:flex;gap:6px}
+.cx-tabs button{flex:1;padding:6px;border-radius:6px;background:#4f4434;border:2px solid #2a241b;color:#ff981f;font:700 15px 'Texturina',Georgia,serif}
+.cx-tabs button.on{background:#6b5c45;color:#ffff00}
+.cx-card{background:#eadfcf;border:3px solid #3e3529;border-radius:8px;padding:14px;box-shadow:0 0 0 2px #2a241b,0 6px 18px #000a;min-height:260px;display:flex;flex-direction:column;gap:10px;cursor:pointer}
+.cx-meta{display:flex;align-items:center;gap:6px;margin:0;font-size:13px;color:#4f4434}
+.cx-meta img{width:18px;height:18px}.cx-meta em{margin-left:auto;font-style:normal;background:#3e3529;color:#ffe8be;border-radius:8px;padding:0 8px;font-size:12px}
+.cx-card h3{margin:0;font-size:22px;color:#800000;line-height:1.2}
+.cx-back{margin:0;font-size:16px;line-height:1.45;white-space:pre-wrap}
+.cx-source{margin:0;font-size:13px;color:#6b5c45;font-style:italic}
+.cx-tap{margin:auto 0 0;color:#6b5c45;font-size:14px;text-align:center}
+.cx-answer{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.cx-answer button{min-height:46px!important;font:700 16px 'Texturina',Georgia,serif!important;border:2px solid #2a241b!important;color:#fff0c9!important}
+.cx-forgot{background:linear-gradient(#9a3b2a,#6e2416)!important}.cx-got{background:linear-gradient(#5b7c3a,#3e5a24)!important}
+.cx-practice{background:none;border:0;color:#2b4ea8;font:600 13px 'Texturina',Georgia,serif;text-decoration:underline;cursor:pointer}
+.cx-done{background:#eadfcf;border:3px solid #3e3529;border-radius:8px;padding:20px;text-align:center}.cx-done h3{margin:0 0 6px;color:#0a6a0a}
+.cx-note{color:#c8b28f!important;margin:0}
+.cx-lib{display:grid;gap:6px}
+.cx-lib>details{background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:6px 8px}
+.cx-lib>details>summary{display:flex;align-items:center;gap:6px;font-weight:700;color:#800000;cursor:pointer}
+.cx-lib>details>summary img{width:18px;height:18px}.cx-lib summary em,.cx-lib summary i{margin-left:auto;font-style:normal;font-weight:400;font-size:12px;color:#4f4434}
+.cx-lib ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.cx-lib li details{border-top:1px solid #c8b28f;padding-top:4px}
+.cx-lib li summary{display:flex;gap:6px;font-size:14px;cursor:pointer}
+.cx-lib li p{margin:4px 0;font-size:14px;line-height:1.4}.cx-lib li small{color:#6b5c45;font-style:italic}

@@ -11,6 +11,7 @@ import FamilyPanel from './family-panel';
 import HeroPanel from './hero-panel';
 import {BuildingPanel,RoamingPanel,StoryDialog,TodayPanel} from './village-panels';
 import {MapPanel,ExpeditionResult} from './map-panel';
+import {CodexPanel} from './codex-panel';
 import {TREES} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
@@ -23,7 +24,7 @@ import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './r
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'journey'},fellows:{title:'Fellows',icon:'fellows'},family:{title:'Family',icon:'family'},
  stage:{title:'Expedition Map',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
- today:{title:'Today',icon:'journey'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
+ today:{title:'Today',icon:'journey'},codex:{title:'The Archives',icon:'school'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 export default function App(){
@@ -101,6 +102,7 @@ export default function App(){
     {tab==='stage'&&<MapPanel game={game} action={action} locked={locked} onRun={run}/>}
     {tab==='roaming'&&<RoamingPanel game={game} action={action} locked={locked}/>}
     {tab==='today'&&<TodayPanel game={game} onNavigate={openModule}/>}
+    {tab==='codex'&&<CodexPanel game={game} action={action} locked={locked}/>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
     {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onTalk={setTalk} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
    </div>
