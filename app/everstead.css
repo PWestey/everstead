@@ -176,3 +176,27 @@
 .cx-lib li p{margin:4px 0;font-size:14px;line-height:1.4}.cx-lib li small{color:#6b5c45;font-style:italic}
 
 .es-cheers-toggle{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:14px}
+
+/* The War Table (game modes), OSRS stone and parchment. */
+.wt{display:grid;gap:10px;padding:10px;font-family:'Texturina',Georgia,serif;background:#1d1c19;min-height:100%;color:#1d1c19}
+.wt-head h2{margin:0;color:#ff981f;text-shadow:1px 1px 0 #000}.wt-head p{margin:2px 0 0;color:#c8b28f;font-size:14px}
+.wt-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.wt-card{display:grid;gap:2px;width:100%;text-align:left;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:8px 10px;cursor:pointer;box-shadow:0 2px 6px #0008}
+.wt-card b{color:#800000;font-size:17px}.wt-card small{color:#6b5c45}.wt-card span{font-size:13px}.wt-card em{font-style:normal;font-weight:700;color:#0a6a0a;font-size:13px}
+.wt-back{justify-self:start;background:#4f4434;border:2px solid #2a241b;border-radius:6px;color:#ffe8be;padding:4px 10px;font:700 13px 'Texturina',Georgia,serif;cursor:pointer}
+.wt>p,.wt>h3{margin:0;color:#ffe8be;font-size:14px}.wt>h3{color:#ff981f}
+.wt-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.wt-char{display:flex;align-items:center;gap:6px;text-align:left;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:4px 6px;cursor:pointer;font-family:inherit}
+.wt-char.on{background:#f5d97a;border-color:#b8860b;box-shadow:0 0 0 2px #2a241b}.wt-char:disabled{opacity:.5}
+.wt-char span{display:grid;line-height:1.15}.wt-char b{font-size:13px}.wt-char small{font-size:11px;color:#4f4434}
+.wt-char .es-mini-art{width:34px;height:34px}
+.wt-vs{margin:0;padding:6px 10px;border-radius:6px;background:#800000cc;color:#ffe8be;font-size:15px;text-align:center}.wt-vs.ok{background:#3e5a24}
+.wt-go{min-height:44px!important;background:linear-gradient(#5b7c3a,#3e5a24)!important;color:#fff0c9!important;border:2px solid #2a241b!important;font:700 15px 'Texturina',Georgia,serif!important}
+.wt-done{margin:0;padding:10px;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;color:#0a6a0a!important;font-weight:700}
+.wt-row{display:flex;align-items:center;gap:8px;justify-content:space-between;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:6px 8px}
+.wt-row span{display:grid}.wt-row small{color:#4f4434;font-size:12px}
+.wt-offer{display:flex;align-items:center;gap:8px;text-align:left;width:100%;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:6px 8px;cursor:pointer;font-family:inherit}
+.wt-offer.on{background:#f5d97a;border-color:#b8860b}.wt-offer:disabled{opacity:.5}.wt-offer img{width:22px;height:22px}.wt-offer span{display:grid;flex:1}.wt-offer small{color:#4f4434;font-size:12px}.wt-offer em{font-style:normal;color:#800000}
+.wt-fronts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.wt-front{display:grid;justify-items:center;gap:1px;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;padding:6px 2px;cursor:pointer;font-family:inherit}
+.wt-front.on{background:#f5d97a;border-color:#b8860b}.wt-front:disabled{opacity:.55}.wt-front img{width:22px;height:22px}.wt-front b{font-size:12px}.wt-front small{font-size:10px;color:#4f4434;text-align:center}

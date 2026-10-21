@@ -248,3 +248,19 @@ test('every gift alias delivers the complete reaction, including its last line',
 test('all Family portrayals are explicitly adult in this setting',()=>{
  assert.equal(FAMILY.length,97);for(const f of FAMILY)assert.equal(f.ageMinimum,24,f.id);
 });
+
+// ---------------- The War Table ----------------
+import * as WT from '../lib/modes.mjs';
+import {FRANCHISE} from '../lib/franchises.mjs';
+test('every character has a franchise for the Arena',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(FRANCHISE[c.id],'no franchise for '+c.id)});
+test('War Table modes pay out, respect once-a-day and once-a-week rules',()=>{let s={...fresh(T),fellows:{darrow:{level:20,stars:1},geralt:{level:10,stars:0}},family:{kira:{bond:2000},vin:{bond:500}}};
+ let r=act(s,'mode:rift',T,null,['darrow']);assert.ok(r.floors>0,r.error);s=r.state;assert.ok(act(s,'mode:rift',T+1000,null,['geralt']).error,'one Rift run a day');
+ r=act(s,'mode:front',T,'fitness',['darrow','kira']);assert.ok(!r.error,r.error);s=r.state;assert.ok(act(s,'mode:front',T,'work',['darrow']).error,'Darrow already fought this week');
+ r=act(s,'mode:trial',T,'work',['darrow']);assert.match(r.error,/Family/);
+ const hp=WT.strikeDamage(s,['kira'],1000);r=act(s,'mode:strike',T,null,['kira']);assert.ok(!r.error,r.error);assert.equal(r.state.modes.strike.dmg,hp);
+ for(let i=0;i<WT.ARENA_TRIES;i++)s=act(s,'mode:arena',T,null,['geralt']).state;assert.ok(act(s,'mode:arena',T,null,['geralt']).error,'tries run out');
+ assert.ok(!act(s,'mode:rift',T+864e5,null,['darrow']).error,'Rift is back tomorrow')});
+test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={...fresh(T),fellows:{darrow:{level:5,stars:0},geralt:{level:5,stars:0},obiwan:{level:5,stars:0},tony:{level:1,stars:0}}};
+ const day='2026-10-14',d=WT.gauntletDraft(s,day);let r=act(s,'mode:gauntletStart',T,null,d.slice(0,3));assert.ok(!r.error,r.error);s=r.state;let offered=false;
+ for(let i=0;i<200&&s.modes.gauntlet.run;i++){const run=s.modes.gauntlet.run;if(run.offer){offered=true;s=act(s,'mode:gauntletChoose',T,run.offer.draft[0]||'rally').state}else s=act(s,'mode:gauntletFight',T,null,null).state}
+ assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});

@@ -12,6 +12,7 @@ import HeroPanel from './hero-panel';
 import {BuildingPanel,RoamingPanel,StoryDialog,TodayPanel} from './village-panels';
 import {MapPanel,ExpeditionResult} from './map-panel';
 import {CodexPanel} from './codex-panel';
+import {ModesPanel} from './modes-panel';
 import {TREES,cheerTree} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
@@ -24,7 +25,7 @@ import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './r
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'journey'},fellows:{title:'Fellows',icon:'fellows'},family:{title:'Family',icon:'family'},
  stage:{title:'Expedition Map',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
- today:{title:'Today',icon:'journey'},codex:{title:'The Archives',icon:'school'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
+ today:{title:'Today',icon:'journey'},codex:{title:'The Archives',icon:'school'},modes:{title:'The War Table',icon:'adventure'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 /** Cheers (character pop-ups after habits) can be turned off per device. */
@@ -94,6 +95,7 @@ export default function App(){
    side={<div className="village-side-buttons">
     <Button className="village-helper village-today" variant="outline" onClick={()=>openModule('today')}><img src="./assets/ui/journey.webp" alt=""/><span>Today</span></Button>
     <Button className="village-helper" variant="outline" onClick={()=>openModule('stage')}><img src="./assets/ui/journey.webp" alt=""/><span>Map · {game.roam.charges}</span></Button>
+    <Button className="village-helper" variant="outline" onClick={()=>openModule('modes')}><img src="./assets/ui/journey.webp" alt=""/><span>War Table</span></Button>
     <Button className="village-helper rs-quest-btn" variant="outline" onClick={()=>openModule('quests')}><img src="./assets/rs/quest.png" alt=""/><span>Quests</span></Button>
    </div>}
    objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
@@ -110,6 +112,7 @@ export default function App(){
     {tab==='roaming'&&<RoamingPanel game={game} action={action} locked={locked}/>}
     {tab==='today'&&<TodayPanel game={game} onNavigate={openModule}/>}
     {tab==='codex'&&<CodexPanel game={game} action={action} locked={locked}/>}
+    {tab==='modes'&&<ModesPanel game={game} action={action} locked={locked}/>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
     {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onTalk={setTalk} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
    </div>

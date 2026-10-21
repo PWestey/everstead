@@ -92,6 +92,23 @@ character); engine: `lib/cheers.mjs`.
   bed); if none match, one of your Codex notes from that area, introduced in their voice.
 - Can be switched off per device in Settings ("Character cheers after habits").
 
+## The War Table (game modes)
+
+Eight modes, all settled by team power against a need (no battle engine); engine `lib/modes.mjs`, screen
+`app/modes-panel.tsx`. Family fight at `150 × bond level`; Fellows at their Fellow Power. Rewards are multiples of
+10 minutes of village income. Franchise tags for the Arena are in `lib/franchises.mjs`.
+
+| Mode | Roster | Cadence | Rule |
+|---|---|---|---|
+| Errands | Family | daily, 5 offers, 3 out | timed jobs (1/4/8h) paying gold, sigils or bond; +7% per daily done |
+| The Rift | Fellows (3) | 1 run/day | climbs floors `250×1.15^f`; today's area ×2 |
+| Blight Strikes | Family (3) | 3/day, bank 9 | each strike adds damage to this week's Blight |
+| The Arena | Both (5) | 5 tries/day | franchise teams `600×1.1^r`; own franchise ×0.75 |
+| Draft Gauntlet | Both | 1 run/day | everyone = 100 power; floors `240×1.06^f`; wounds carry; pick a draft or boon every 3 floors |
+| Eight Fronts | Both (3) | weekly | each character once a week; waves `300×1.13^w`, easier with that area's weekly habits |
+| The Trials | Family-led (3) | weekly | 8 rooms with rule twists; tier cap from the area's skill level |
+| The Spire | Fellows (5) | any time | endless `400×1.12^f` (bosses ×2/×4); Resolve +1%/habit after a failure (max 20%) |
+
 ## The Archives (the Codex)
 
 The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, podcasts and talks
