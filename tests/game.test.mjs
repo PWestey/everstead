@@ -115,7 +115,7 @@ import {questIds,questLock,questBefore,TIERS} from '../lib/quests.mjs';
 import {FELLOW_MOMENTS,FAMILY_MOMENTS,momentId} from '../lib/moments.mjs';
 import {readdirSync} from 'node:fs';
 
-test('every written content file passes the content checker',()=>{for(const dir of ['lib/quests','lib/moments','lib/expeditions'])for(const f of readdirSync(dir))execFileSync(process.execPath,['scripts/check-content.mjs',dir+'/'+f],{stdio:'pipe'})});
+test('every written content file passes the content checker',()=>{for(const dir of ['lib/quests','lib/moments','lib/expeditions','lib/cheers'])for(const f of readdirSync(dir))execFileSync(process.execPath,['scripts/check-content.mjs',dir+'/'+f],{stdio:'pipe'})});
 
 test('every Fellow has moments, and every Family member has visits and gifts',()=>{for(const f of FELLOWS)assert.ok(FELLOW_MOMENTS[f.id],f.id);for(const f of FAMILY)assert.ok(FAMILY_MOMENTS[f.id],f.id);
  for(const id of Object.keys(TREES).filter(k=>k.startsWith('m:')))assert.ok(TREES[id].nodes.o0,id)});
@@ -196,3 +196,18 @@ test('Codex: 15 new cards a day, the first 40 reviews pay, and mastery adds buil
 
 import BOUNDS from '../lib/art-bounds.json' with {type:'json'};
 test('every cast portrait has recorded figure bounds (run node scripts/art-bounds.mjs after adding art)',()=>{for(const f of readdirSync('public/assets/cast').filter(x=>x.endsWith('.webp'))){const b=BOUNDS['cast/'+f];assert.ok(b,'missing bounds for '+f);assert.ok(b[0]<b[2]&&b[1]<b[3],f)}});
+
+// ---------------- Cheers ----------------
+import {CHEERS,cheerMoment} from '../lib/cheers.mjs';
+import {cheerTree} from '../lib/dialogue.mjs';
+
+test('every Fellow and Family member has cheers',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(CHEERS[c.id],'no cheers for '+c.id)});
+
+test('a cheer comes on the first habit in an area each day, and when every daily is done',()=>{
+ let s=fresh(T);const add=(title,domain)=>{const r=act(s,'habitSave',T,null,{title,freq:'daily',diff:'med',domain});s=r.state;return s.habits.items.at(-1).id};
+ s={...s,habits:{...s.habits,items:[]}};const a=add('Pray','faith'),b=add('Read Psalms','faith'),c=add('Lift','fitness');
+ let r=act(s,'habitComplete',T,a);assert.ok(r.cheer,'first faith habit cheers');assert.equal(FELLOWS.concat(FAMILY).find(x=>x.id===r.cheer.who).area,'faith');
+ const tid=cheerTree(r.cheer);assert.ok(TREES[tid]?.big&&TREES[tid].nodes.o0,'tree built');
+ r=act(r.state,'habitComplete',T+1000,b);assert.equal(r.cheer,null,'second faith habit is quiet');
+ r=act(r.state,'habitComplete',T+2000,c);assert.equal(r.cheer?.kind,'done','last daily of the day');
+ const codex=cheerMoment({who:'darrow',kind:'codex',i:0,cardId:CODEX_CARDS[0].id});assert.match(codex.open[1],/From your Codex/);assert.equal(codex.opts[0].t,'I am committed!')});

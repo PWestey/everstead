@@ -12,7 +12,7 @@ import HeroPanel from './hero-panel';
 import {BuildingPanel,RoamingPanel,StoryDialog,TodayPanel} from './village-panels';
 import {MapPanel,ExpeditionResult} from './map-panel';
 import {CodexPanel} from './codex-panel';
-import {TREES} from '@/lib/dialogue.mjs';
+import {TREES,cheerTree} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
@@ -26,6 +26,12 @@ const MODULES:Record<string,{title:string,icon:string}>={
  stage:{title:'Expedition Map',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
  today:{title:'Today',icon:'journey'},codex:{title:'The Archives',icon:'school'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
+
+/** Cheers (character pop-ups after habits) can be turned off per device. */
+const CHEERS_KEY='everstead-cheers';
+function cheersOn(){try{return localStorage.getItem(CHEERS_KEY)!=='off'}catch{return true}}
+function CheersToggle(){const [on,setOn]=useState(cheersOn);
+ return <label className="es-cheers-toggle"><input type="checkbox" checked={on} onChange={e=>{const v=e.target.checked;setOn(v);try{localStorage.setItem(CHEERS_KEY,v?'on':'off')}catch{}}}/> Character cheers after habits</label>}
 
 export default function App(){
  const [game,setGame]=useState(()=>fresh()),[loaded,setLoaded]=useState(false),[notice,setNotice]=useState(''),[pulse,setPulse]=useState(0);
@@ -65,6 +71,7 @@ export default function App(){
   if(result.levelUps?.length)setUps(u=>[...u,...result.levelUps]);
   if(result.questDone)setQuestDone(result.questDone);
   if(result.talk)setTalk(result.talk);
+  if(result.cheer&&cheersOn()){const id=cheerTree(result.cheer);if(id)setTalk(t=>t||id)}
   if(result.expedition)setRunResult(result.expedition);
   if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
@@ -131,6 +138,7 @@ export default function App(){
    <Button className="wide" variant="outline" onClick={cacheGame}>Download / check offline files</Button>
    <div className="install-steps"><h3>On your iPhone</h3><ol><li>Open this link in Safari.</li><li>Tap Share <Share2 size={14}/> → Add to Home Screen.</li><li>Open the app online once and wait for “Ready for offline play” here.</li></ol></div>
    <div className="backup-row"><Button onClick={exportSave}>Export save</Button><Button variant="outline" onClick={()=>file.current?.click()}>Restore save</Button><input type="file" accept="application/json,.json" hidden ref={file} onChange={importSave}/><Button variant="outline" disabled={failedLoad} onClick={()=>setRestart(true)}>New journey</Button></div>
+   <CheersToggle/>
    <details className="rules-note"><summary>About Everstead</summary><p>A habit tracker that lives inside a village. Real habits earn gold, XP, sigils and roams; your Fellows, Family and buildings grow from them. Away earnings are capped at 12 hours. Safari and the Home Screen app keep separate saves; export and restore to move progress.</p></details>
   </DialogContent></Dialog>
   <AlertDialog open={restart} onOpenChange={setRestart}><AlertDialogContent><AlertDialogTitle>Start a new journey?</AlertDialogTitle><AlertDialogDescription>Your village, Fellows, Family and progress start over. Your habit journal keeps its tasks, history and settings. Export a copy first if you want one.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>

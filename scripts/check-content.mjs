@@ -51,5 +51,9 @@ if(mod.EXPEDITION_SCENES){const {ADVENTURE_IDS}=await import('../lib/expedition-
  // Scenes may be split across files; tests/game.test.mjs checks every place has one.
  for(const [id,m] of Object.entries(mod.EXPEDITION_SCENES)){if(!ADVENTURE_IDS.includes(id))err('unknown adventure '+id);moment(m,id);
   for(const l of [...(m.open||[]),...(m.opts||[]).flatMap(o=>o.r||[])]){const sp=/^([a-z]+): /.exec(l)?.[1];if(sp&&sp!=='player'&&!characterById(sp))err(id+': unknown speaker '+sp)}}}
-if(!mod.FELLOW_MOMENTS&&!mod.FAMILY_MOMENTS&&!mod.QUESTS&&!mod.EXPEDITION_SCENES)err('file exports none of FELLOW_MOMENTS, FAMILY_MOMENTS, QUESTS');
+if(mod.CHEERS){for(const [id,v] of Object.entries(mod.CHEERS)){if(!characterById(id))err('unknown character '+id);
+ const two=(m,w)=>{moment(m,w);if(!m?.opts||m.opts.length!==2)err(w+': needs exactly 2 opts');if(m?.open?.length>2)err(w+': open is 1-2 lines')};
+ if(!Array.isArray(v.cheers)||v.cheers.length!==4)err(id+': cheers needs exactly 4 moments');else v.cheers.forEach((m,i)=>two(m,id+'.cheers['+i+']'));
+ str(v.codex,id+'.codex');str(v.ack,id+'.ack');two(v.done,id+'.done')}}
+if(!mod.FELLOW_MOMENTS&&!mod.FAMILY_MOMENTS&&!mod.QUESTS&&!mod.EXPEDITION_SCENES&&!mod.CHEERS)err('file exports none of FELLOW_MOMENTS, FAMILY_MOMENTS, QUESTS');
 if(errs.length){console.log(errs.join('\n'));process.exit(1)}else console.log('OK');

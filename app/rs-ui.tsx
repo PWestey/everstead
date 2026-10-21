@@ -98,7 +98,7 @@ export function DialogueScreen({treeId,game,act,onClose}:{treeId:string|null,gam
  const portrait=speaker||(tree.who?characterById(tree.who):tree.art?{name:tree.title,art:tree.art,id:'scene'}:null);
  return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-dialogue" showCloseButton={false} style={{backgroundImage:`url(./assets/${tree.bg})`}}>
   <DialogTitle className="sr-only">{portrait?.name||'Scene'}</DialogTitle><DialogDescription className="sr-only">Conversation</DialogDescription>
-  {portrait&&<img key={portrait.art} className={'rs-portrait'+(node.s==='player'?' rs-portrait-player':'')+(node.s==='narrator'?' rs-portrait-dim':'')} src={'./assets/'+portrait.art} alt=""/>}
+  {portrait&&<img key={portrait.art} className={'rs-portrait'+(tree.big?' rs-portrait-big':'')+(node.s==='player'?' rs-portrait-player':'')+(node.s==='narrator'?' rs-portrait-dim':'')} src={'./assets/'+portrait.art} alt=""/>}
   <button type="button" className="rs-skip" onClick={onClose} aria-label="Leave conversation">✕</button>
   <div className="rs-chatbox" onClick={node.opts&&!typing?undefined:advance}>
    {speaker&&<p className="rs-speaker">{speaker.name}</p>}

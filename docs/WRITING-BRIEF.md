@@ -63,3 +63,22 @@ number of options must stay exactly the same. After editing a file run:
 
     node scripts/same-shape.mjs <file>        (must print "Same shape: OK")
     node scripts/check-content.mjs <file>      (for quest, moment and expedition-scene files; must print OK)
+
+## Cheers (task-completion pop-ups)
+
+When the player checks off a habit, a character from that habit's life area steps in, nearly full screen, says 1-2
+lines, and the player picks one of two RPG-style replies. One reply is always a commitment line the player will love
+clicking ("I am committed!", or a version in that character's world: "Bridge Four." is a canon quote, avoid those;
+"Next swing." / "Tomorrow too." / "Count me in."). The other is lighter or funnier. The character answers in one line.
+
+Format, in lib/cheers/<group>.mjs:
+
+    export const CHEERS={ <castId>:{
+      cheers:[M,M,M,M],    // after a habit in their life area; about THAT area of the player's real life
+      codex:'line',        // lead-in before one of the player's own Codex notes is shown, e.g. "You wrote this down. Read it again."
+      ack:'line',          // their short reply when the player commits after a Codex note
+      done:M,              // when the player finishes every daily for the day
+    }}
+    M = {open:['1-2 lines they say'], opts:[{t:'player reply',r:['their one-line answer']},{t:'...',r:['...']}]}
+
+Same voice rules as above: natural, specific to their IP, plain words about real life. 15-second read.

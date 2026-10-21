@@ -77,6 +77,18 @@ An area can hold several of each. They join in list order (see the join queue be
 - **Adventures**: art cards at a location; each costs a roam (earned by daily habits) and plays a short scene with a
   choice that decides the reward. First location: the **Training Yard**.
 
+## Cheers (after a habit)
+
+A character from the habit's life area steps in nearly full screen and says a line or two; you answer RPG-style
+("I am committed!"). Content: `lib/cheers/*.mjs` (4 cheers, a Codex lead-in, an ack and an all-done moment per
+character); engine: `lib/cheers.mjs`.
+
+- **When:** the first habit you complete in each area each day, and the moment you finish every daily.
+- **Who:** a recruited Fellow or Family member from that area (anyone from the area until you've recruited one).
+- **What:** the cheer whose spoken words best match the habit's title (word families: "Make My Bed" → a line about the
+  bed); if none match, one of your Codex notes from that area, introduced in their voice.
+- Can be switched off per device in Settings ("Character cheers after habits").
+
 ## The Archives (the Codex)
 
 The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, podcasts and talks

@@ -111,3 +111,7 @@
 .rs-adv{min-height:200px}
 .rs-adv-text{background:linear-gradient(transparent,rgba(20,14,8,.94) 28%)}
 .rs-dialogue{translate:none !important;scale:none !important;inset:0 !important;max-width:none !important;width:100vw !important;height:100dvh !important;border-radius:0 !important;padding:0 !important;display:block !important;box-shadow:none !important}
+
+/* Cheers: the character nearly fills the screen behind the chatbox. */
+.rs-portrait-big{height:min(90dvh,920px);max-width:96vw;right:50%;translate:50% 0;bottom:96px}
+@media (max-width:520px){.rs-portrait-big{height:82dvh;bottom:110px}}
