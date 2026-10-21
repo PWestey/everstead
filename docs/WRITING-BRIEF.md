@@ -24,7 +24,7 @@ upkeep), discipline (focus, screens, routines), hobbies (reading, learning, crea
 - Family (female): romantic and spicy. Flirtation, tension, teasing, warmth, desire, longing looks,
   a kiss, a hand on the chest, an invitation left hanging. Keep it PG-13: suggestive, never explicit,
   no sex acts or nudity described. Fade to black is fine.
-- EXCEPTION, platonic only: Liko, Nemona, Misty and Gwen are young characters. Write them as warm,
+- EXCEPTION, platonic only: Liko, Nemona, Misty, Gwen, Poppy, Lulu and Syl are young or child-presenting characters. Write them as warm,
   funny, admiring friends or a little-sister energy who cheer him on. No romance, no flirting at all.
 
 ## File syntax checks
