@@ -1,15 +1,12 @@
 # Writing brief: Everstead dialogue
 
-Everstead is a personal habit tracker dressed as a cozy RPG village. The player is a real man (a husband
-and father) whose daily habits in eight life areas level up his character. The cast are fictional
-characters he loves; they live in his village. Read `lib/cast.mjs` for the cast (ids, areas, titles,
-descriptions) and `lib/dialogue.mjs` for the Darrow quest "The Iron Body", which the owner loved. Match
-its quality: short punchy lines, a real voice for the character, choices that matter emotionally, and
-always a thread back to the player's actual habits in that life area.
+Everstead is a habit tracker dressed as a cozy RPG village. Daily habits in eight life areas
+level up the player character. The fictional cast live in the village. Read `lib/cast.mjs` for
+cast ids, areas, titles and descriptions, and `lib/dialogue.mjs` for the Darrow quest “The Iron Body”.
+Match its short, character-specific lines and emotionally meaningful choices, with a thread back
+to the relevant habit.
 
-Life areas: faith (prayer, scripture, gratitude), marriage (his wife: time, attention, date nights),
-fatherhood (his kids: presence, play, bedtime), fitness, work (career, deep work, money), home (chores,
-upkeep), discipline (focus, screens, routines), hobbies (reading, learning, creating, play).
+Life areas: faith, marriage, fatherhood, fitness, work, home, discipline and hobbies.
 
 ## Style rules
 
@@ -24,8 +21,12 @@ upkeep), discipline (focus, screens, routines), hobbies (reading, learning, crea
 - Family (female): romantic and spicy. Flirtation, tension, teasing, warmth, desire, longing looks,
   a kiss, a hand on the chest, an invitation left hanging. Keep it PG-13: suggestive, never explicit,
   no sex acts or nudity described. Fade to black is fine.
-- EXCEPTION, platonic only: Liko, Nemona, Misty, Gwen, Poppy, Lulu, Syl, Moana, Vanellope, Jubilee and Kamala are young or child-presenting characters. Write them as warm,
-  funny, admiring friends or a little-sister energy who cheer him on. No romance, no flirting at all.
+- **Adult alternate universe:** every Family character is an adult aged 24 or older in Everstead, including characters whose source versions are younger. Preserve older characters’ greater ages. Adult careers, independent choices and adult relationships must agree with this setting throughout descriptions, scenes and dialogue. Small fantasy races are adults, not children.
+- Every Family member can express romantic interest. Retire the old platonic exception list and little-sister framing. Keep the romance consensual and non-explicit.
+- **Own the attraction.** Let her say what she wants. Avoid repeatedly cancelling a compliment with “almost,” “don’t tell anyone,” or a joke. Humor can coexist with desire without ending every close moment.
+- A habit remains the reason for a cheer. Follow the concrete acknowledgment with personal interest, an invitation or anticipation. Keep the player’s commitment choice meaningful.
+- Keep each woman’s rhythm and interests. Do not paste the same seduction into every voice. Warm, blunt, guarded, exuberant and quietly confident characters should remain distinct.
+- A gift response is one complete three-line scene. Its setup, thanks and payoff are displayed together. Visits play in order once, then revisit the final two scenes.
 
 ## File syntax checks
 
@@ -54,7 +55,7 @@ sounded alike. Rewrite so each line sounds like that specific person talking, ou
 - **Habits in plain words.** Refer to the player's real life casually (the kids' bedtime, a workout, a date night,
   the phone, the dishes) instead of "your habits" or "showing up."
 - Keep it short: most lines under 140 characters.
-- Romance stays PG-13 and the platonic characters stay platonic, exactly as above.
+- Romance stays non-explicit: direct attraction, suggestive banter, consensual kisses and invitations; no graphic sexual detail.
 
 ## Rewrite mechanics
 

@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {habitDay} from '../lib/habits.mjs';
 import assert from 'node:assert/strict';
 import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
 import {habitDue} from '../lib/habits.mjs';
@@ -211,3 +212,39 @@ test('a cheer comes on the first habit in an area each day, and when every daily
  r=act(r.state,'habitComplete',T+1000,b);assert.equal(r.cheer,null,'second faith habit is quiet');
  r=act(r.state,'habitComplete',T+2000,c);assert.equal(r.cheer?.kind,'done','last daily of the day');
  const codex=cheerMoment({who:'darrow',kind:'codex',i:0,cardId:CODEX_CARDS[0].id});assert.match(codex.open[1],/From your Codex/);assert.equal(codex.opts[0].t,'I am committed!')});
+
+
+// Family conversation delivery: independent of habit-earned bond and compatible with older saves.
+test('Family visits progress once, then keep the established relationship scenes',()=>{
+ let s={...fresh(T),gold:1e7,crystals:1000,family:{yennefer:{bond:4000}}};const shown=[];
+ for(let i=0;i<9;i++){
+  const now=T+i*864e5;const r=act(s,'visit',now,'yennefer');assert.ok(!r.error,r.error);shown.push(r.talk);
+  const rejected=act(r.state,'visit',now+1000,'yennefer');assert.ok(rejected.error);assert.equal(rejected.state.familyTalks.yennefer,i+1);
+  s=act(r.state,'gift',now+2000,'yennefer',i%2?'sweets':'jewel').state;
+  s=decode(JSON.stringify(s));assert.equal(s.familyTalks.yennefer,i+1);
+ }
+ assert.deepEqual(shown.map(x=>Number(x.split(':').at(-1))),[0,1,2,3,4,3,4,3,4]);
+});
+test('habit bond changes do not skip Family visit dialogue',()=>{
+ let {s,id}=withHabit('fitness');s={...s,family:{kira:{bond:0}}};
+ s=act(s,'visit',T,'kira').state;s=act(s,'habitComplete',T+1000,id).state;
+ const next=act(s,'visit',T+864e5,'kira');assert.equal(next.talk,'m:kira:visit:1');
+});
+test('old saves keep Family bond and visit cooldown while acquiring conversation counts',()=>{
+ const s={...fresh(T),family:{tyrande:{bond:1234}},visits:{tyrande:habitDay(T)}};delete s.familyTalks;
+ const loaded=decode(JSON.stringify(s));assert.equal(loaded.family.tyrande.bond,1234);assert.deepEqual(loaded.familyTalks,{});
+ assert.ok(act(loaded,'visit',T,'tyrande').error);
+ assert.equal(act(loaded,'visit',T+864e5,'tyrande').talk,'m:tyrande:visit:0');
+});
+test('every gift alias delivers the complete reaction, including its last line',()=>{
+ for(const f of FAMILY)for(const i of [0,1,2]){
+  const t=TREES[`m:${f.id}:gift:${i}`];let key=t.start,count=0;
+  for(;;){const n=t.nodes[key];count++;if(n.end)break;assert.ok(n.next);key=n.next;assert.ok(count<=3)}
+  assert.equal(count,FAMILY_MOMENTS[f.id].gift.length,f.id);
+ }
+ let s={...fresh(T),gold:10000,family:{vampanna:{bond:0}}};
+ for(let i=0;i<3;i++){const r=act(s,'gift',T+i,'vampanna','sweets');assert.ok(!r.error);assert.ok(TREES[r.talk].nodes.o2.end);s=r.state;}
+});
+test('all Family portrayals are explicitly adult in this setting',()=>{
+ assert.equal(FAMILY.length,97);for(const f of FAMILY)assert.equal(f.ageMinimum,24,f.id);
+});
