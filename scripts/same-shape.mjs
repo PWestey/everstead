@@ -1,7 +1,6 @@
 // Checks that a rewritten content file changed only its prose: node scripts/same-shape.mjs <file>
 // Compares the file's exports with the committed version (git HEAD). Object keys, array lengths, numbers, booleans and
-// every string WITHOUT a space (ids, speaker ids, backdrops, flags, quest ids) must be identical. Strings with a space
-// (dialogue, narration, titles, descriptions) may change. Prints the differences; exits 1 if there are any.
+// every non-prose string WITHOUT a space (ids, speaker ids, backdrops, flags, quest ids) must be identical. Prose fields (including one-word replies) and other strings with spaces may change. Prints the differences; exits 1 if there are any.
 import {execFileSync} from 'node:child_process';
 import {writeFileSync,unlinkSync} from 'node:fs';
 import {dirname,basename,join,resolve} from 'node:path';
@@ -14,7 +13,7 @@ try{before=await import(pathToFileURL(resolve(tmp)).href);after=await import(pat
 const errs=[];
 function cmp(a,b,path){
  if(typeof a!==typeof b||Array.isArray(a)!==Array.isArray(b)||(a===null)!==(b===null))return errs.push(path+': type changed');
- if(typeof a==='string'){if(!a.includes(' ')||!b.includes(' ')){if(a!==b)errs.push(`${path}: "${a}" → "${b}" (ids and keys must not change)`)}return}
+ if(typeof a==='string'){const prose=/\.(?:open|r|gift)\[\d+\]$|\.(?:t|codex|ack|title|blurb|description|name)$|\.(?:lines|intro)\[\d+\](?:\[1\])?$/.test(path);if(!prose&&(!a.includes(' ')||!b.includes(' '))){if(a!==b)errs.push(`${path}: "${a}" → "${b}" (ids and keys must not change)`)}return}
  if(typeof a!=='object'||a===null){if(a!==b)errs.push(`${path}: ${a} → ${b}`);return}
  if(Array.isArray(a)){if(a.length!==b.length)errs.push(`${path}: ${a.length} items → ${b.length} (keep the same number of lines and options)`);for(let i=0;i<Math.min(a.length,b.length);i++)cmp(a[i],b[i],path+'['+i+']');return}
  const ka=Object.keys(a).sort().join(','),kb=Object.keys(b).sort().join(',');if(ka!==kb)errs.push(`${path}: keys {${ka}} → {${kb}}`);

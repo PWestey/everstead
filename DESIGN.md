@@ -72,7 +72,10 @@ An area can hold several of each. They join in list order (see the join queue be
   | 6 | 20 | 14 | 6 | 75,000 | 18,000 | 150 | 500 |
 - **Moments** (`lib/moments.mjs`, content in `lib/moments/*.mjs`): short pop-up conversations, flavour only.
   Fellows speak at every 5th level and every star (comradery, motivation). Family speak on each
-  "Spend time together" and each gift (romantic; Liko, Nemona, Misty and Gwen are written as platonic friends).
+  "Spend time together" and each gift (romantic; all Family characters are adult alternate-universe portrayals aged 24+).
+  Visits advance by successful daily visits, independently of bond, through five scenes once and then repeat scenes 4–5.
+  Gifts show all three reaction lines together. Existing gift tree IDs remain valid. Older saves start visit narration
+  at the beginning without changing their bond, recruitment, rewards or visit cooldown.
   `docs/WRITING-BRIEF.md` is the style guide; `node scripts/check-content.mjs <file>` checks a content file.
 - **Adventures**: art cards at a location; each costs a roam (earned by daily habits) and plays a short scene with a
   choice that decides the reward. First location: the **Training Yard**.
