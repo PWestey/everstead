@@ -34,3 +34,32 @@ After writing your file, run from the repo root (Git Bash):
     node -e "import('./<your file>').then(m=>console.log(Object.keys(m)))"
 
 and the checker named in your task. Fix anything it reports. Don't edit any other file.
+
+## Sound like real people (added 2026-10-20: this is the owner's top note)
+
+The first draft read like motivational posters: every character spoke in polished, quotable aphorisms, and they all
+sounded alike. Rewrite so each line sounds like that specific person talking, out loud, in the moment.
+
+- **Talk, don't pronounce.** Contractions, fragments, interruptions, a half-finished thought, a joke that lands badly.
+  At most one "wise" line per conversation, and earn it. Cut lines like "Strength is built in the hours no one sees."
+- **Specific beats general.** Mention concrete things from their world and from the moment: Obi-Wan's sand-scoured
+  robes and Tatooine, Darrow's Lykos and the mines and Sevro, Kaladin's bridge crew and Syl, Geralt's potions and Roach,
+  Tony's workshop and JARVIS-style tinkering, Kelsier's coins and crew, Logan's beer and claws. Their history,
+  relationships, habits, gear, places and verbal tics. Paraphrase canon; never quote it verbatim.
+- **Each voice is distinct.** If you swapped the name on a line and it still worked, rewrite it. Geralt is terse and dry
+  ("Hm."). Deadpool rambles. Steve is earnest and a bit old-fashioned. Kelsier is charming and smug. Grog is simple and
+  loud. Jester is bubbly. Lae'zel is blunt and contemptuous. Yennefer is cutting. Match vocabulary, rhythm and attitude.
+- **Real reactions to the player.** They tease, notice, ask questions, get distracted, admit things. Praise is concrete
+  ("You went for a run in that rain? Idiot. Respect.") rather than abstract.
+- **Habits in plain words.** Refer to the player's real life casually (the kids' bedtime, a workout, a date night,
+  the phone, the dishes) instead of "your habits" or "showing up."
+- Keep it short: most lines under 140 characters.
+- Romance stays PG-13 and the platonic characters stay platonic, exactly as above.
+
+## Rewrite mechanics
+
+Change only the words. Every id, speaker id, key, backdrop, flag, effect, the number of lines in each list and the
+number of options must stay exactly the same. After editing a file run:
+
+    node scripts/same-shape.mjs <file>        (must print "Same shape: OK")
+    node scripts/check-content.mjs <file>      (for quest, moment and expedition-scene files; must print OK)
