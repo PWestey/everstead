@@ -1,4 +1,5 @@
 import {rarityIcon} from '@/lib/ui-sprites.mjs';
+import {ORIGINS} from '@/lib/origins.mjs';
 import {useState,type ReactNode} from 'react';
 import {Eye,EyeOff,Info,SlidersHorizontal} from 'lucide-react';
 import {Button} from '@/components/ui/button';
@@ -40,6 +41,6 @@ export default function CharacterScreen({person,collection,children,subtitle,sum
   </footer>
   {details&&<Dialog open={detailsOpen} onOpenChange={setDetails}><DialogContent className="es-char-sheet"><DialogTitle>{person.name}</DialogTitle><DialogDescription>{detailsLabel}</DialogDescription><div className="es-char-sheet-body">{details}</div></DialogContent></Dialog>}
   <Dialog open={infoOpen} onOpenChange={setInfo}><DialogContent className="es-char-sheet"><DialogTitle>{infoOnly?'Info':person.name}</DialogTitle><DialogDescription className={infoOnly?'sr-only':undefined}>{person.title}</DialogDescription>
-   {infoOnly?info:<><p>{person.description||''}</p>{info}</>}</DialogContent></Dialog>
+   {infoOnly?info:<><p>{person.description||''}</p>{ORIGINS[person.id]&&<p className="es-origin"><b>How they got here.</b> {ORIGINS[person.id]}</p>}{info}</>}</DialogContent></Dialog>
  </section>;
 }

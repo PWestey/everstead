@@ -1,4 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
+import {nextChapter,hearthLine,fillTokens} from '@/lib/story.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
@@ -53,10 +54,18 @@ export function QuestCompleteScroll({questId,onClose}:{questId:string|null,onClo
 }
 
 /** The quest journal: red not started, yellow in progress, green complete. */
+/** The main story's next chapter, at the top of the Quest Journal and the Today panel. */
+export function StoryCard({game,onTalk}:{game:any,onTalk:(tree:string)=>void}){const nx=nextChapter(game),hl=hearthLine(game);
+ if(!nx)return <div className="rs-story"><b>The Thief of Days</b><p>The story is complete.{hl?` The Hearth reads: “${hl}”`:''}</p></div>;
+ const c=nx.chapter;return <div className="rs-story"><small>MAIN STORY{c.n<9?` · CHAPTER ${c.n}`:''}</small><b>{c.title}</b>
+  {nx.lock?<p>{nx.lock}</p>:<Button className="primary-action primary-tier" onClick={()=>onTalk('story-'+c.n)}><b>{c.n===1?'Begin the story':'Play chapter '+c.n}</b></Button>}
+  {hl&&<p className="small-note">The Hearth reads: “{hl}”</p>}</div>}
+
 export function QuestJournal({game,onTalk}:{game:any,onTalk:(tree:string)=>void}){
  const [sel,setSel]=useState(()=>questIds.find(id=>['active','available'].includes(questStatus(game,id).status))||questIds[0]);const q=QUESTS[sel],st=questStatus(game,sel),giver=characterById(q.giver);
  return <section className="rs-quests">
   <header><img src="./assets/rs/quest.png" alt=""/><b>Quest Points: {questPoints(game)}</b></header>
+  <StoryCard game={game} onTalk={onTalk}/>
   <ul className="rs-quest-list">{questIds.map(id=>{const s=questStatus(game,id);return <li key={id}><button type="button" className={'rs-q-'+s.status+(id===sel?' rs-q-sel':'')} onClick={()=>setSel(id)}>{QUESTS[id].name}</button></li>})}</ul>
   <article className="rs-journal">
    <h3>{q.name}</h3>
@@ -86,7 +95,7 @@ export function AdventureCards({game,location,onStart}:{game:any,location:string
 export function DialogueScreen({treeId,game,act,onClose}:{treeId:string|null,game:any,act:(tree:string,node:string,opt:number|null)=>boolean,onClose:()=>void}){
  const tree=treeId?TREES[treeId]:null;const [key,setKey]=useState<string|null>(null),[shown,setShown]=useState(0);
  const node=tree&&key?tree.nodes[key]:null;
- const text=useMemo(()=>(node?.t||'').replaceAll('{name}',game.playerName),[node,game.playerName]);
+ const text=useMemo(()=>fillTokens((node?.t||'').replaceAll('{name}',game.playerName),game),[node,game]);
  function enter(k:string){if(!tree)return;const nd=tree.nodes[k];if(nd?.do?.length&&!act(treeId!,k,null)){onClose();return}setKey(k);setShown(0)}
  useEffect(()=>{if(tree)enter(tree.start);else setKey(null)},[treeId]);// eslint-disable-line react-hooks/exhaustive-deps
  useEffect(()=>{if(!node||shown>=text.length)return;const t=setTimeout(()=>setShown(s=>Math.min(text.length,s+2)),16);return()=>clearTimeout(t)},[node,shown,text]);
@@ -103,7 +112,7 @@ export function DialogueScreen({treeId,game,act,onClose}:{treeId:string|null,gam
   <div className="rs-chatbox" onClick={node.opts&&!typing?undefined:advance}>
    {speaker&&<p className="rs-speaker">{speaker.name}</p>}
    <p className={'rs-line'+(node.s==='narrator'?' rs-narration':'')}>{text.slice(0,shown)}</p>
-   {node.opts&&!typing?<div className="rs-options"><p className="rs-select">Select an Option</p>{node.opts.map((o:any,i:number)=><button key={i} type="button" onClick={e=>{e.stopPropagation();choose(i)}}>{o.t}</button>)}</div>
+   {node.opts&&!typing?<div className="rs-options"><p className="rs-select">Select an Option</p>{node.opts.map((o:any,i:number)=><button key={i} type="button" onClick={e=>{e.stopPropagation();choose(i)}}>{fillTokens(o.t,game)}</button>)}</div>
     :<p className="rs-continue">{typing?'':'Click here to continue'}</p>}
   </div>
  </DialogContent></Dialog>;

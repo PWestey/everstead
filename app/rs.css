@@ -115,3 +115,7 @@
 /* Cheers: the character nearly fills the screen behind the chatbox. */
 .rs-portrait-big{height:min(90dvh,920px);max-width:96vw;right:50%;translate:50% 0;bottom:96px}
 @media (max-width:520px){.rs-portrait-big{height:82dvh;bottom:110px}}
+
+.rs-story{display:grid;gap:4px;margin:6px 0;padding:8px 10px;background:linear-gradient(#3e3529,#2a241b);border:2px solid #b8860b;border-radius:6px;color:#ffe8be}
+.rs-story small{color:#ff981f;font-weight:700;letter-spacing:.05em}.rs-story b{font-size:17px;color:#ffff00}.rs-story p{margin:0}
+.es-origin{margin-top:8px;font-style:italic}.es-origin b{font-style:normal}

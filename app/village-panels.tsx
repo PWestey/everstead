@@ -11,6 +11,7 @@ import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
 import {AdventureCards} from './rs-ui';
 import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
 import {codexQueue} from '@/lib/codex.mjs';
+import {nextChapter} from '@/lib/story.mjs';
 import {CODEX_NEW_PER_DAY} from '@/lib/game.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const pct=(x:number)=>Math.round(x*100)+'%';
@@ -85,6 +86,7 @@ export function TodayPanel({game,onNavigate}:any){
   ...(()=>{const q=codexQueue(game,habitDay(Date.now()),CODEX_NEW_PER_DAY).queue.length;return [[`Codex: ${q} card${q===1?'':'s'} to review`,q?'Each review pays gold and trains its area.':'All caught up in the Archives.','codex'] as [string,string,string]]})(),
   [`Momentum ×${earn.multiplier.toFixed(2)}`,`${earn.areas} of 8 life areas touched this week · ${earn.dailies} dailies today`,'habits'],
   [`Total level ${tl}`,nextTier?`${nextTier.title} armour at total level ${nextTier.level}`:'Every armour tier unlocked','hero'],
+  ...(()=>{const nx=nextChapter(game);return nx?[[`Story: Chapter ${nx.chapter.n<9?nx.chapter.n+' · ':''}${nx.chapter.title}`,nx.lock||'Ready to play in the Quest Journal.','quests'] as [string,string,string]]:[]})(),
   ...(quest?[[`Quest: ${QUESTS[quest.id].name}`,quest.step?.text||'',`quests`] as [string,string,string]]:[]),
   [`${b.name}: ${b.damage} / ${b.hp}`,b.defeated?(b.claimed?'Driven out this week.':'Ready to drive out!'):`${b.opposed.map((a:string)=>areaById(a).name).join(' and ')} habits hit hardest.`,'stage'],
   [`Roams: ${game.roam.charges}`,game.roam.charges?'Spend them on the Expedition Map.':'Complete dailies to earn roams.','stage'],

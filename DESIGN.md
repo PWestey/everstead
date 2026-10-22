@@ -92,6 +92,27 @@ character); engine: `lib/cheers.mjs`.
   bed); if none match, one of your Codex notes from that area, introduced in their voice.
 - Can be switched off per device in Settings ("Character cheers after habits").
 
+## The main story
+
+Morrow, the Thief of Days, against the Hearth of Everstead (full outline: `docs/STORY.md`). Engine `lib/story.mjs`,
+chapters in `lib/story/*.mjs` as dialogue trees `story-1`…`story-9`. Chapters unlock in order:
+
+| Ch | Title | Needs |
+|---|---|---|
+| 1 | Embers | first habit |
+| 2 | The House on the Hill | Count Draynor + total 60 |
+| 3 | Something Under Falador | Giant Mole + total 150 |
+| 4 | Six Brothers | Barrows + total 220 |
+| 5 | Sixty-Two Waves | TzTok-Jad + total 280 |
+| 6 | The Hive of Tomorrows | Kalphite Queen + total 360 |
+| 7 | The Offer | Dagannoth Kings + total 440 |
+| 8 | The Thief of Days | King Black Dragon + total 490 |
+| 9 | Epilogue: A Visitor | total 540 |
+
+Each pays 1,000 × chapter gold once. Choices set flags; Chapter 8 reads real stats ({habits}, {streak}, {areas50})
+and the player's Chapter 1 answer ({motive}); its final choice becomes the Hearth's line. Every character's
+"how they got here" origin is in `lib/origins/`, shown in their Info panel.
+
 ## The War Table (game modes)
 
 Eight modes, all settled by team power against a need (no battle engine); engine `lib/modes.mjs`, screen

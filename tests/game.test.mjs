@@ -264,3 +264,18 @@ test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={..
  const day='2026-10-14',d=WT.gauntletDraft(s,day);let r=act(s,'mode:gauntletStart',T,null,d.slice(0,3));assert.ok(!r.error,r.error);s=r.state;let offered=false;
  for(let i=0;i<200&&s.modes.gauntlet.run;i++){const run=s.modes.gauntlet.run;if(run.offer){offered=true;s=act(s,'mode:gauntletChoose',T,run.offer.draft[0]||'rally').state}else s=act(s,'mode:gauntletFight',T,null,null).state}
  assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});
+
+// ---------------- Main story ----------------
+import {CHAPTERS,chapterLock,nextChapter,fillTokens,hearthLine} from '../lib/story.mjs';
+import {ORIGINS} from '../lib/origins.mjs';
+const allEffects=t=>Object.values(t.nodes).flatMap(n=>[...(n.do||[]),...(n.opts||[]).flatMap(o=>o.do||[])]);
+test('every chapter tree exists, is well formed and finishes with its story flag',()=>{for(const c of CHAPTERS){const t=TREES['story-'+c.n];assert.ok(t,'missing story-'+c.n);
+ for(const [k,n] of Object.entries(t.nodes)){if(n.next)assert.ok(t.nodes[n.next],c.n+':'+k);for(const o of n.opts||[])assert.ok(t.nodes[o.next],c.n+':'+k+' opt');assert.ok(n.next||n.opts||n.end,c.n+':'+k+' leads somewhere')}
+ const fin=Object.values(t.nodes).filter(n=>n.end&&n.do?.some(e=>e.flag==='story:'+c.n));assert.ok(fin.length,'story-'+c.n+' never sets story:'+c.n)}
+ const f1=allEffects(TREES['story-1']).map(e=>e.flag);for(const m of ['motive:order','motive:start','motive:fire'])assert.ok(f1.includes(m),m);
+ const f8=allEffects(TREES['story-8']).map(e=>e.flag);for(const h of ['hearth:today','hearth:same','hearth:motive'])assert.ok(f8.includes(h),h)});
+test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T);assert.equal(nextChapter(s).chapter.n,1);assert.equal(nextChapter(s).lock,null);
+ s={...s,flags:{...s.flags,'story:1':true}};assert.match(chapterLock(s,CHAPTERS[1]),/Count Draynor/);
+ s={...s,expeditions:{...s.expeditions,bosses:['count-draynor']}};assert.match(chapterLock(s,CHAPTERS[1]),/total level 60/);
+ s={...s,flags:{...s.flags,'motive:fire':true}};assert.match(fillTokens('I came {motive}.',s),/fire/);assert.equal(hearthLine(s),null)});
+test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
