@@ -34,7 +34,7 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
     <h3>{v.boss&&<em>BOSS · </em>}{v.title}{v.defeated&&<span className="xp-done"> ✓</span>}</h3>
     <p>{v.blurb}</p>
     <div className="xp-need"><span>Needs <b>{n(v.need)}</b></span>{v.outcome?<i className={'xp-badge xp-'+v.outcome.key}>{v.outcome.label}</i>:<i className="xp-badge xp-locked-b">{v.open?`${Math.floor(power/v.need*100)}%`:'Locked'}</i>}</div>
-    <div className="xp-loot"><span>+{n(v.loot.gold)} gold</span>{v.areas.map((a:string)=><span key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{v.loot.sigils} · {n(v.loot.xp)} XP</span>)}</div>
+    <div className="xp-loot"><span>+{n(v.loot.gold)} gold</span><span>+{n(v.loot.exp)} Fellow EXP</span>{v.areas.map((a:string)=><span key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{v.loot.sigils} · {n(v.loot.xp)} XP</span>)}</div>
     <Button className="xp-go" disabled={locked||!v.outcome||game.roam.charges<1} onClick={()=>onRun(v.id)}>{!v.open?'Locked':!v.outcome?'Not strong enough':game.roam.charges<1?'No Roams':v.runs?'Go · 1 Roam':'Explore · 1 Roam'}</Button>
    </div>
   </li>)}</ul>
@@ -49,7 +49,7 @@ export function ExpeditionResult({run,onClose}:{run:any,onClose:()=>void}){
   {run&&<>
    <DialogTitle className={'xp-r-'+run.outcome.key}>{run.outcome.label}!</DialogTitle>
    <DialogDescription>{run.title}</DialogDescription>
-   <ul><li>+{n(run.loot.gold)} gold</li>{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
+   <ul><li>+{n(run.loot.gold)} gold</li><li>+{n(run.loot.exp)} Fellow EXP</li>{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
    {run.perk&&<p className="xp-perk"><b>Boss defeated!</b> {run.perk}</p>}
    {run.opened&&<p className="xp-perk"><b>New region:</b> {run.opened} is open on the map.</p>}
    <Button onClick={onClose}>Continue</Button>

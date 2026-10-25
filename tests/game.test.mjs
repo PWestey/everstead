@@ -38,8 +38,8 @@ test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellow
  // Bond level 1: linked +3%, everyone +0.5%.
  assert.equal(fellowPower(s,'darrow'),Math.round(1000*1.03*1.005))});
 
-test('levelling costs gold and respects the star cap',()=>{let s={...fresh(T),gold:1e9,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');assert.equal(r.state.fellows.darrow.level,20);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
- assert.equal(s.gold-r.state.gold,Array.from({length:19},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0))});
+test('levelling costs Fellow EXP and respects the star cap',()=>{let s={...fresh(T),fellowExp:1e9,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');assert.equal(r.state.fellows.darrow.level,20);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
+ assert.equal(s.fellowExp-r.state.fellowExp,Array.from({length:19},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0));assert.equal(r.state.gold,s.gold,'gold untouched')});
 
 test('stars cost sigils of the Fellow’s own area',()=>{let s={...fresh(T),fellows:{darrow:{level:1,stars:0}}};assert.ok(act(s,'starUp',T,'darrow').error);s={...s,sigils:{...s.sigils,fitness:starCost(1)}};const r=act(s,'starUp',T,'darrow');assert.equal(r.state.fellows.darrow.stars,1);assert.equal(r.state.sigils.fitness,0)});
 
@@ -142,7 +142,7 @@ test('quests in an area unlock one after another, gated by total level',()=>{con
  s={...s,quests:{'iron-body':{step:5,at:T,done:true}}};assert.match(questLock(s,roy),/total level 100/);
  s={...s,bonusXp:{...s.bonusXp,fitness:13e6}};assert.equal(questLock(s,roy),null);assert.equal(TIERS[QUESTS[roy].tier].total,100)});
 
-test('levelling a Fellow past every 5th level, starring him, and visiting Family open a moment',()=>{let s={...fresh(T),gold:1e7,sigils:{...fresh(T).sigils,fitness:1e4},fellows:{darrow:{level:3,stars:0}},family:{kira:{bond:0}}};
+test('levelling a Fellow past every 5th level, starring him, and visiting Family open a moment',()=>{let s={...fresh(T),gold:1e7,fellowExp:1e7,sigils:{...fresh(T).sigils,fitness:1e4},fellows:{darrow:{level:3,stars:0}},family:{kira:{bond:0}}};
  let r=act(s,'levelUp',T,'darrow',1);assert.equal(r.talk,null,'level 4: nothing');r=act(r.state,'levelUp',T,'darrow',1);assert.equal(r.talk,'m:darrow:level:0');
  r=act(r.state,'levelUp',T,'darrow',10);assert.equal(r.talk,'m:darrow:level:2','one moment for a multi-level purchase');
  r=act(r.state,'starUp',T,'darrow');assert.equal(r.talk,'m:darrow:star:0');assert.ok(TREES[r.talk]);
@@ -279,3 +279,13 @@ test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T)
  s={...s,expeditions:{...s.expeditions,bosses:['count-draynor']}};assert.match(chapterLock(s,CHAPTERS[1]),/total level 60/);
  s={...s,flags:{...s.flags,'motive:fire':true}};assert.match(fillTokens('I came {motive}.',s),/fire/);assert.equal(hearthLine(s),null)});
 test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
+
+// ---------------- Everkai spine: EXP from stages, Power feeds buildings, staffing ----------------
+import {buildingStaff,staffSlots,buildingRate} from '../lib/game.mjs';
+test('Map runs pay Fellow EXP',()=>{const s={...fresh(T),fellows:{darrow:{level:20,stars:0}},roam:{charges:3,seen:[]}};const v=expeditionView(s,'cow-field');const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.fellowExp,s.fellowExp+v.loot.exp);assert.ok(v.loot.exp>0)});
+test('more Power means more income in every open building',()=>{let s={...fresh(T),buildings:{...fresh(T).buildings,yard:{level:1},chapel:{level:1}}};const a=buildingRate(s,'chapel'),b=buildingRate({...s,fellows:{darrow:{level:200,stars:5}}},'chapel');assert.ok(b>a,'Darrow’s Power raises the Chapel too')});
+test('staff: area Fellows fill slots automatically, can be chosen, and raise income',()=>{let s={...fresh(T),fellows:{darrow:{level:30,stars:1},roy:{level:5,stars:0},obiwan:{level:5,stars:0}},buildings:{...fresh(T).buildings,yard:{level:4}}};
+ assert.equal(staffSlots(4),2);assert.deepEqual(buildingStaff(s,'yard'),['darrow','roy']);const auto=buildingRate(s,'yard');
+ assert.ok(act(s,'staffSet',T,'yard',['obiwan']).error,'Obi-Wan is Faith');assert.ok(act(s,'staffSet',T,'yard',['darrow','roy','grog']).error);
+ const r=act(s,'staffSet',T,'yard',['roy']);assert.ok(!r.error,r.error);assert.deepEqual(buildingStaff(r.state,'yard'),['roy']);assert.ok(buildingRate(r.state,'yard')<auto);
+ assert.deepEqual(buildingStaff(act(r.state,'staffSet',T,'yard',null).state,'yard'),['darrow','roy'],'null goes back to automatic')});

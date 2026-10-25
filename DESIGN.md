@@ -14,7 +14,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
    - **A roam:** one per *daily* habit (up to 10 banked, never expire).
    - **Blight damage:** its points, doubled if the area opposes this week's Blight.
    - **Building boost:** +5% per point to that area's building today (max +50%).
-2. **Spend** gold on Fellow levels and buildings, sigils on stars, roams on the Expedition Map (the only thing Roams buy).
+2. **Spend** Fellow EXP (from the Map and the War Table) on Fellow levels, gold on buildings, gifts and visits, sigils on stars, roams on the Expedition Map (the only thing Roams buy).
    The Village Gate walk and each building adventure are free once a day.
 3. **Grow your Power** to open and crush more of the map, and push back the weekly Blight.
 4. **Momentum** multiplies all building income: `1 + 0.5 × areas touched this week / 8 + min(0.5, 0.07 × dailies today)`.
@@ -148,9 +148,10 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 
 - **Recruit** by lifetime habit points in their area. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level × (1 + 0.25 × Stars)`
-- Level cost: `50 × Level^1.5` gold. Level cap: `20 + 20 × Stars`.
+- Level cost: `50 × Level^1.5` **Fellow EXP**. EXP comes only from stages: Map runs pay `200 × 1.3^k` (bosses ×2); the Rift, Spire, Arena and Gauntlet pay too. New saves start with 1,500. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
-- Every recruited Fellow works at their area's building: +25% income each.
+- **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + Power/40,000` income. Untouched, the strongest fill the slots; pick by hand on the building screen.
+- **Power is wealth:** every open building earns an extra `Village Power / 40,000` gold per second on top of its base rate, before multipliers.
 
 ## Family (Blessings)
 
