@@ -8,6 +8,7 @@ import {FELLOWS,areaById,buildingForArea,familyInArea} from '@/lib/cast.mjs';
 import {fellowPower,fellowBasePower,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,joinNeed,familyBond,BLESS_LINKED} from '@/lib/game.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {pendingTalk} from '@/lib/quests.mjs';
+import {areaCompanionBoost} from '@/lib/companions.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
 
@@ -28,6 +29,7 @@ function FellowStats({game,id}:any){
    <table className="es-breakdown"><tbody>
     <tr><th>Base</th><td>100 × Lv {f.level} × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars))}</td></tr>
     {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
+    <tr><th>Companions</th><td>{areaById(def.area).name} companions</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>

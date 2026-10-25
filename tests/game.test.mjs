@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {COMPANIONS,companionLevel,companionLevelCost,companionBoost,areaCompanionBoost,HABIT_EXP,TREAT_EXP,EVOLVE_AT} from '../lib/companions.mjs';
 import {habitDay} from '../lib/habits.mjs';
 import assert from 'node:assert/strict';
 import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
@@ -32,9 +33,9 @@ test('a Fellow is ready after enough habit points in their area, and announced o
 
 test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(heroPowerFor(100,1),2500);assert.equal(heroPowerFor(100,3),3250);
  assert.equal(combinePower(1000,1000),2400);assert.equal(combinePower(1000,0),1000);
- let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterHalf(s),1500);assert.equal(rosterPower(s),combinePower(heroPower(s),1500))});
+ let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterHalf(s),1500);assert.equal(rosterPower(s),combinePower(heroPower(s),1500))});
 
-test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,fellows:{darrow:{level:10,stars:0}},family:{kira:{bond:0}}};
+test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:0}},family:{kira:{bond:0}}};
  // Bond level 1: linked +3%, everyone +0.5%.
  assert.equal(fellowPower(s,'darrow'),Math.round(1000*1.03*1.005))});
 
@@ -289,3 +290,20 @@ test('staff: area Fellows fill slots automatically, can be chosen, and raise inc
  assert.ok(act(s,'staffSet',T,'yard',['obiwan']).error,'Obi-Wan is Faith');assert.ok(act(s,'staffSet',T,'yard',['darrow','roy','grog']).error);
  const r=act(s,'staffSet',T,'yard',['roy']);assert.ok(!r.error,r.error);assert.deepEqual(buildingStaff(r.state,'yard'),['roy']);assert.ok(buildingRate(r.state,'yard')<auto);
  assert.deepEqual(buildingStaff(act(r.state,'staffSet',T,'yard',null).state,'yard'),['darrow','roy'],'null goes back to automatic')});
+
+test('companions: 32 lines, four per area, one starter each, art for every stage',()=>{assert.equal(COMPANIONS.length,32);for(const a of AREA_IDS){const c=COMPANIONS.filter(x=>x.area===a);assert.equal(c.length,4,a);assert.equal(c.filter(x=>x.starter).length,1,a)}
+ assert.equal(Object.keys(fresh(T).companions).length,8);for(const c of COMPANIONS)for(const st of c.stages)assert.ok(existsSync('public/assets/companions/'+st.id+'.webp'),st.id)});
+
+test('companions grow from area habits and treats, evolve at set levels and boost area Fellows',()=>{const {s,id}=withHabit('fitness','easy');const c=COMPANIONS.find(x=>x.area==='fitness'&&x.starter);
+ let r=act(s,'habitComplete',T,id);assert.equal(r.state.companions[c.id].exp,HABIT_EXP);r=act(r.state,'habitUndo',T,id);assert.equal(r.state.companions[c.id].exp,0);
+ assert.equal(companionLevel(0),1);assert.equal(companionLevel(companionLevelCost(1)),2);assert.equal(companionLevel(1e9),40);
+ r=act({...s,treats:1},'treat',T,c.id);assert.ok(!r.error,r.error);assert.equal(r.state.treats,0);assert.equal(r.state.companions[c.id].exp,TREAT_EXP);assert.ok(act(r.state,'treat',T,c.id).error);
+ let exp=0;for(let L=1;L<EVOLVE_AT[0];L++)exp+=companionLevelCost(L);assert.ok(act({...s,companions:{[c.id]:{exp:exp-1,stage:1}}},'evolve',T,c.id).error);
+ const e=act({...s,companions:{[c.id]:{exp,stage:1}}},'evolve',T,c.id);assert.ok(!e.error,e.error);assert.equal(e.state.companions[c.id].stage,2);
+ assert.equal(areaCompanionBoost(e.state,'fitness'),companionBoost(10,2));assert.equal(companionBoost(10,2),0.1);
+ const p={...e.state,companions:{},fellows:{darrow:{level:10,stars:0}}};assert.equal(fellowPower({...p,companions:e.state.companions},'darrow'),Math.round(fellowPower(p,'darrow')*1.1))});
+
+test('new companions are found on boss first-wins and every 8th Map run; runs drop treats',()=>{let s={...fresh(T),fellows:{darrow:{level:200,stars:5}},roam:{...fresh(T).roam,charges:20}};const first=REGIONS[0].adventures[0].id;
+ let r=act(s,'expedition',T,first);assert.equal(r.state.treats,s.treats+1);assert.equal(Object.keys(r.state.companions).length,8);
+ for(let i=0;i<7;i++)r=act(r.state,'expedition',T,first);assert.equal(Object.keys(r.state.companions).length,9);assert.ok(r.message.includes('joined'));
+ const b=act({...r.state,roam:{...r.state.roam,charges:5}},'expedition',T,REGIONS[0].boss.id);assert.ok(!b.error,b.error);assert.equal(Object.keys(b.state.companions).length,10);assert.equal(b.expedition.treats,2)});

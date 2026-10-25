@@ -24,6 +24,7 @@ rule and number. Read it before changing gameplay.
   in `lib/codex.mjs` so review progress stays attached.
 - After adding or changing cast art, run `node scripts/art-bounds.mjs` (records each figure's bounds so the character
   screen can zoom wide poses to fill the stage). A test fails if a portrait has no bounds.
+- Companions live in `lib/companions.mjs` (lines, art ids, formulas); art is made by `scripts/companion-art.mjs` (needs sharp: copy it into the imgtools folder next to this repo and run it there).
 - `lib/cast.mjs` world data, `lib/game.mjs` formulas and actions, `lib/habits.mjs` the journal,
   `lib/stories.mjs` scenes. Screens in `app/`; `page.tsx` wires them.
 - The UI reuses Everkai's class names and `app/globals.css`. Put new styles in `app/everstead.css`.

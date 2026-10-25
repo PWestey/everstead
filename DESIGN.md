@@ -160,6 +160,16 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals), roaming scenes.
 
+## Companions
+
+32 creatures (16 Pokémon, 16 Aniimo), four per life area, in `lib/companions.mjs`. Art: `public/assets/companions/<stage>.webp`.
+
+- **Starters:** one per area from the first day. The rest are **found**: every Map boss first-win, every 8th Map run (preferring the place's areas), and Gauntlet floors 10, 25 and 50.
+- **EXP:** every completed habit gives all four companions of its area **+25 EXP**; a **treat** gives one companion **+100**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
+- Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; cap 40. No buying levels.
+- **Evolve** (a tap) at level 10 and level 25 along the line.
+- **Boost:** each companion gives every Fellow of its area `0.5% × Level + 5% × (Stage − 1)` Power (adds with the Family area blessing). Four maxed companions: +120%.
+
 ## Expedition Map (replaced the Watchtower stages)
 
 The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows need, Fellows raise Power,
