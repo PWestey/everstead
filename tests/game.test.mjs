@@ -282,7 +282,7 @@ test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T)
 test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
 
 // ---------------- Everkai spine: EXP from stages, Power feeds buildings, staffing ----------------
-import {buildingStaff,staffSlots,buildingRate} from '../lib/game.mjs';
+import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost} from '../lib/game.mjs';
 test('Map runs pay Fellow EXP',()=>{const s={...fresh(T),fellows:{darrow:{level:20,stars:0}},roam:{charges:3,seen:[]}};const v=expeditionView(s,'cow-field');const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.fellowExp,s.fellowExp+v.loot.exp);assert.ok(v.loot.exp>0)});
 test('more Power means more income in every open building',()=>{let s={...fresh(T),buildings:{...fresh(T).buildings,yard:{level:1},chapel:{level:1}}};const a=buildingRate(s,'chapel'),b=buildingRate({...s,fellows:{darrow:{level:200,stars:5}}},'chapel');assert.ok(b>a,'Darrow’s Power raises the Chapel too')});
 test('staff: area Fellows fill slots automatically, can be chosen, and raise income',()=>{let s={...fresh(T),fellows:{darrow:{level:30,stars:1},roy:{level:5,stars:0},obiwan:{level:5,stars:0}},buildings:{...fresh(T).buildings,yard:{level:4}}};
@@ -328,3 +328,8 @@ test('gifts in bulk: times and max, capped by what you can afford',()=>{let s={.
  const five=act(s,'gift',T,'tyrande',{gift:'posy',times:5});assert.equal(five.state.family.tyrande.bond,100,'only 2 affordable');assert.equal(five.state.gold,200);
  const max=act({...s,gold:5000},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.equal(max.state.family.tyrande.bond,500);assert.equal(max.state.gold,0);
  assert.ok(act({...s,gold:10},'gift',T,'tyrande',{gift:'posy',times:'max'}).error)});
+
+test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;assert.equal(s.buildings.yard.level,1);
+ const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
+ const max=act({...s,gold:1000},'buildingUpgrade',T,'yard','max');assert.equal(max.state.buildings.yard.level,4,'200 + 300 + 450 fits in 1000, 675 does not');assert.ok(act({...s,gold:10},'buildingUpgrade',T,'yard','max').error);
+ const staffed={...five.state,buildings:{...five.state.buildings,yard:{...five.state.buildings.yard,staff:['darrow']}}};assert.deepEqual(act(staffed,'buildingUpgrade',T,'yard',1).state.buildings.yard.staff,['darrow'])});

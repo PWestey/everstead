@@ -159,3 +159,5 @@ h1,h2,h3{font-family:var(--rs-font)}
 .roster-tile .action-badge{top:4px;right:4px}
 .es-char-primary .spend-controls{display:grid!important;gap:6px;justify-items:end}
 .es-gifts .qty-picker{width:100%;margin-bottom:2px}
+
+.es-upgrade{display:grid;gap:6px;justify-items:end}

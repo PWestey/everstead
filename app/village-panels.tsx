@@ -1,6 +1,6 @@
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
-import {PrimaryAction,abbrev} from './original-controls';
+import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-controls';
 import {MiniArt} from './character-artwork';
 import {useState} from 'react';
 import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowsInArea,familyInArea,characterById} from '@/lib/cast.mjs';
@@ -25,7 +25,9 @@ function StaffPicker({game,id,area,action,locked}:any){const slots=staffSlots(ga
   <div className="es-residents">{pool.map((f:any)=>{const on=cur.includes(f.id);return <Button key={f.id} variant="outline" className={on?'es-on':''} disabled={locked||(!on&&cur.length>=slots)} onClick={()=>toggle(f.id)}><MiniArt person={f}/>{f.name}<small>{on?'Working · +'+pct(staffBonus(fellowPower(game,f.id))):'Off'}</small></Button>})}</div>
   <p className="small-note">Each worker adds +25% plus 1% per 400 Power. More slots at building levels 4, 7 and 10.</p></div>}
 
-export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){
+/** How many levels a building can gain for the gold in hand, and what they cost. */
+function upgradePlan(level:number,gold:number,times:Quantity){const limit=times==='max'?10000:times;let l=level,g=gold,cost=0,count=0;while(count<limit){const c=l?buildingUpgradeCost(l):BUILDING_OPEN_COST;if(g<c)break;g-=c;cost+=c;l++;count++}return {count,cost}}
+export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){const [q,setQ]=useState<Quantity>(1);
  const b=BUILDINGS.find(x=>x.id===id)!,area=areaById(b.area),lvl=game.buildings[id].level,fellows=fellowsInArea(b.area),family=familyInArea(b.area);
  const cost=lvl?buildingUpgradeCost(lvl):BUILDING_OPEN_COST,boost=areaBoost(game,b.area,game.lastAt),bless=blessings(game).building[b.area]||0;
  return <section className="business-list es-building" style={{['--area' as any]:area.color}}>
@@ -40,7 +42,7 @@ export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){
     <li><span>Momentum (all habits)</span><b>×{momentum(game,game.lastAt).toFixed(2)}</b></li>
    </ul>
    {lvl>0&&<StaffPicker game={game} id={id} area={b.area} action={action} locked={locked}/>}
-   <div className="business-actions"><PrimaryAction verb={lvl?'Upgrade':'Build'} tier={!lvl} disabled={locked} currency="Gold" have={game.gold} cost={cost} onClick={()=>action('buildingUpgrade',id)}/></div>
+   {(()=>{const p=upgradePlan(lvl,game.gold,q);return <div className="business-actions es-upgrade"><QuantityPicker value={q} onChange={setQ} label="Upgrade quantity"/><PrimaryAction verb={lvl?(p.count>1?`Upgrade ×${p.count}`:'Upgrade'):'Build'} tier={!lvl} disabled={locked||!p.count} currency="Gold" have={game.gold} cost={p.count?p.cost:cost} onClick={()=>action('buildingUpgrade',id,q)}/></div>})()}
    {[...fellows,...family].map((p:any)=>{const t=pendingTalk(game,p.id);return t&&((p.kind==='fellow'?game.fellows:game.family)[p.id])?<Button key={'talk-'+p.id} className="primary-action primary-tier rs-talk" onClick={()=>onTalk(t.tree)}><b>Talk to {p.name}</b><small>Quest: {QUESTS[t.quest].name}</small></Button>:null})}
    <AdventureCards game={game} location={id} onStart={onTalk}/>
    <div className="es-residents-wrap"><p className="es-residents-title">Residents</p><div className="es-residents">{[...fellows,...family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div></div>
