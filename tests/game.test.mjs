@@ -6,7 +6,7 @@ import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,he
 import {habitDue} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,migrate,blessings,BLESS_LINKED,playerStage} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage} from '../lib/game.mjs';
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
@@ -307,3 +307,8 @@ test('new companions are found on boss first-wins and every 8th Map run; runs dr
  let r=act(s,'expedition',T,first);assert.equal(r.state.treats,s.treats+1);assert.equal(Object.keys(r.state.companions).length,8);
  for(let i=0;i<7;i++)r=act(r.state,'expedition',T,first);assert.equal(Object.keys(r.state.companions).length,9);assert.ok(r.message.includes('joined'));
  const b=act({...r.state,roam:{...r.state.roam,charges:5}},'expedition',T,REGIONS[0].boss.id);assert.ok(!b.error,b.error);assert.equal(Object.keys(b.state.companions).length,10);assert.equal(b.expedition.treats,2)});
+
+test('everyone has arrived by day 30, companions by their day',()=>{const T0=fresh(T);const at=d=>settle(T0,T+(d-1)*864e5+1000);
+ const s29=at(29.9),s30=at(30.5);assert.ok(FELLOWS.some(f=>!fellowReady(s29,f)),'some still locked on day 29');assert.ok(FELLOWS.every(f=>fellowReady(s30,f)));assert.ok(FAMILY.every(f=>familyReady(s30,f)));
+ assert.equal(Object.keys(at(1).companions).length,8);assert.equal(Object.keys(at(10).companions).length,16);assert.equal(Object.keys(s30.companions).length,32);
+ const first=FELLOWS.find(f=>f.area==='faith');assert.equal(joinDay(first),6);assert.ok(!fellowReady(at(5),first)&&fellowReady(at(6),first))});

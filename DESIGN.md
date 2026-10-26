@@ -146,7 +146,7 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 
 ## Fellows (Power)
 
-- **Recruit** by lifetime habit points in their area. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
+- **Recruit** by lifetime habit points in their area, or by time: the k-th of n Fellows in an area is ready on day ⌈30k/n⌉, so everyone has arrived by day 30. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level × (1 + 0.25 × Stars)`
 - Level cost: `50 × Level^1.5` **Fellow EXP**. EXP comes only from stages: Map runs pay `200 × 1.3^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
@@ -155,7 +155,7 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 
 ## Family (Blessings)
 
-- **Welcome** by area points and your total level. Queue: 15, 60, 150, 280, 450… points, and total level 20, 60, 100, 140… for the 1st, 2nd, 3rd… Family member.
+- **Welcome** by area points and your total level, or by time (same day-30 rule as Fellows). Queue: 15, 60, 150, 280, 450… points, and total level 20, 60, 100, 140… for the 1st, 2nd, 3rd… Family member.
 - Bond level from bond XP; level L → L+1 costs `100 × L`.
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals), roaming scenes.
@@ -164,7 +164,7 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 
 32 creatures (16 Pokémon, 16 Aniimo), four per life area, in `lib/companions.mjs`. Art: `public/assets/companions/<stage>.webp`.
 
-- **Starters:** one per area from the first day. The rest are **found**: every Map boss first-win, every 8th Map run (preferring the place's areas), and Gauntlet floors 10, 25 and 50.
+- **Starters:** one per area from the first day; the other three of each area turn up by themselves on days 10, 20 and 30. Sooner, they are **found**: every Map boss first-win, every 8th Map run (preferring the place's areas), and Gauntlet floors 10, 25 and 50.
 - **EXP:** every completed habit gives all four companions of its area **+25 EXP**; a **treat** gives one companion **+100**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
 - Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; cap 40. No buying levels.
 - **Evolve** (a tap) at level 10 and level 25 along the line.

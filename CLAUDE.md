@@ -27,7 +27,7 @@ rule and number. Read it before changing gameplay.
 - Companions live in `lib/companions.mjs` (lines, art ids, formulas); art is made by `scripts/companion-art.mjs` (needs sharp: copy it into the imgtools folder next to this repo and run it there).
 - `lib/cast.mjs` world data, `lib/game.mjs` formulas and actions, `lib/habits.mjs` the journal,
   `lib/stories.mjs` scenes. Screens in `app/`; `page.tsx` wires them.
-- The UI reuses Everkai's class names and `app/globals.css`. Put new styles in `app/everstead.css`.
+- The UI reuses Everkai's class names and `app/globals.css`. Put new styles in `app/everstead.css`. The RuneScape look (stone, parchment, gold rivets) is `app/theme-rs.css`, loaded last; its tokens are in `app/rs.css`.
 - Saves are localStorage key `everstead-save-v1`. A change that adds a required field must keep old
   saves loading (`decode()` merges defaults from `fresh()`), or bump `SAVE_VERSION` with a migration.
 

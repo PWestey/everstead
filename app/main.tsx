@@ -6,4 +6,5 @@ import './globals.css';
 import './everstead.css';
 import './rs.css';
 import './char.css';
+import './theme-rs.css';
 createRoot(document.getElementById('root')!).render(<StartupRecovery><App/></StartupRecovery>);

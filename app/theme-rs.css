@@ -1,0 +1,86 @@
+/* RuneScape skin for the shared chrome (loaded last). The village art and icons stay; everything that was
+   Everkai's brown wood becomes OSRS stone, parchment and gold rivets, using the tokens from rs.css. */
+:root{--rs-rivet:radial-gradient(circle at 7px 7px,#ffe9a0 1.5px,#c99a2e 2.5px,#5a3d0a 3.5px,transparent 4.5px),radial-gradient(circle at calc(100% - 7px) 7px,#ffe9a0 1.5px,#c99a2e 2.5px,#5a3d0a 3.5px,transparent 4.5px),radial-gradient(circle at 7px calc(100% - 7px),#ffe9a0 1.5px,#c99a2e 2.5px,#5a3d0a 3.5px,transparent 4.5px),radial-gradient(circle at calc(100% - 7px) calc(100% - 7px),#ffe9a0 1.5px,#c99a2e 2.5px,#5a3d0a 3.5px,transparent 4.5px);
+ --rs-stone-grad:linear-gradient(#4f4434,#3e3529);--rs-font:'Texturina',Georgia,serif}
+.game{font-family:var(--rs-font)}
+
+/* Top bar: a stone strip with ink pills and yellow numbers. */
+.game>header,.resource-bar,.game-resources{background:var(--rs-stone-grad)!important;border-bottom:2px solid var(--rs-edge)!important;box-shadow:inset 0 1px 0 #6b5c45,0 2px 6px #000a!important}
+.resource-pill{background:var(--rs-ink)!important;border:1px solid var(--rs-edge)!important;box-shadow:inset 0 0 0 1px #6b5c45!important;border-radius:4px!important}
+.resource-pill strong,.gold-value{color:var(--rs-yellow)!important;text-shadow:1px 1px 0 #000;font-family:var(--rs-font)}
+.resource-pill>img,.resource-pill>svg{color:var(--rs-gold)}
+.resource-settings{background:var(--rs-stone-2)!important;border:2px solid var(--rs-edge)!important;color:var(--rs-orange)!important;border-radius:4px!important;box-shadow:inset 0 0 0 1px #6b5c45}
+.player-badge{border:3px solid #6b5c45!important;box-shadow:0 0 0 2px var(--rs-edge),inset 0 0 0 1px #2a241b;background:var(--rs-ink)!important}
+.player-badge>b{background:var(--rs-stone)!important;border:1px solid var(--rs-edge)!important;color:var(--rs-yellow)!important;text-shadow:1px 1px 0 #000}
+
+/* Modals: parchment inside a stone frame, orange title on stone. */
+.game-modal{background:var(--rs-parch)!important;border:3px solid #5c4d36!important;border-radius:6px!important;box-shadow:0 0 0 2px var(--rs-edge),inset 0 0 0 1px #8c7a52,0 14px 60px #000c!important;color:var(--rs-ink)}
+.modal-heading{background:var(--rs-stone-grad)!important;border-bottom:2px solid var(--rs-edge)!important;box-shadow:inset 0 1px 0 #6b5c45;color:#ffe8be!important;min-height:64px!important}
+.modal-heading [data-slot=dialog-title],.modal-heading h2{color:var(--rs-orange)!important;text-shadow:1px 1px 0 #000;font-family:var(--rs-font);font-weight:700}
+.modal-heading [data-slot=dialog-description],.modal-heading p{color:#ffe8be!important;text-shadow:1px 1px 0 #000}
+.game-modal .village-close{background:linear-gradient(#a02020,var(--rs-maroon))!important;border:2px solid var(--rs-edge)!important;box-shadow:inset 0 0 0 1px #c9a86a;border-radius:4px!important}
+.module-notice{background:var(--rs-stone)!important;color:var(--rs-yellow)!important;border-top:2px solid var(--rs-edge)!important;text-shadow:1px 1px 0 #000}
+.panel-pages{background:transparent!important;border-bottom:0!important}
+.panel-pages button{background:var(--rs-stone-2)!important;color:var(--rs-orange)!important;border:2px solid var(--rs-edge)!important;border-radius:4px!important;font:700 14px var(--rs-font)!important;text-shadow:1px 1px 0 #000;box-shadow:inset 0 1px 0 #6b5c45}
+.panel-pages button[aria-pressed=true],.panel-pages button.on{background:#6b5c45!important;color:var(--rs-yellow)!important}
+
+/* Bottom dock and side buttons. */
+.village-dock{background:var(--rs-stone-grad)!important;border-top:2px solid var(--rs-edge)!important;box-shadow:inset 0 1px 0 #6b5c45,0 -4px 14px #000a!important}
+.village-dock .village-icon span{color:var(--rs-yellow);font-family:var(--rs-font);text-shadow:1px 1px 0 #000,0 0 3px #000}
+.village-side-buttons .village-helper{background:var(--rs-stone-grad)!important;border:2px solid var(--rs-edge)!important;border-radius:4px!important;box-shadow:inset 0 0 0 1px #6b5c45,0 2px 6px #000a!important}
+.village-side-buttons .village-helper span{color:var(--rs-orange);font-family:var(--rs-font);text-shadow:1px 1px 0 #000}
+.village-next-step{background:var(--rs-parch)!important;border-bottom:2px solid var(--rs-edge)!important;box-shadow:inset 0 0 0 2px #5c4d36,inset 0 0 0 3px #8c7a52;color:var(--rs-ink)}
+.village-next-step small{color:var(--rs-maroon);font-weight:700}
+.village-building>span{background:var(--rs-stone)!important;border:1px solid var(--rs-edge)!important;color:var(--rs-yellow)!important;text-shadow:1px 1px 0 #000;font-family:var(--rs-font);border-radius:3px!important}
+.village-building>span small{color:#ffe8be!important}
+
+/* Buttons. */
+.primary-action{border:2px solid var(--rs-edge)!important;border-radius:4px!important;box-shadow:inset 0 0 0 1px #8fc08a,0 2px 4px #0008;font-family:var(--rs-font)}
+.primary-action>b,.primary-action>small{font-family:var(--rs-font)!important;text-shadow:1px 1px 0 #0008}
+.game [data-slot=button][class*=outline],.game button.outline{border-color:#5c4d36;background:#f3ead6;color:var(--rs-ink);font-family:var(--rs-font)}
+
+/* Roster cards: the Isekai rarity frame goes; a stone frame with gold rivets takes its place. */
+.roster-tile{background:var(--rs-ink)!important;border:3px solid #5c4d36!important;border-radius:4px!important;box-shadow:0 0 0 1px var(--rs-edge),inset 0 0 0 1px #8c7a52,0 3px 8px #000a!important}
+.roster-tile.chosen{border-color:#c99a2e!important;box-shadow:0 0 0 1px var(--rs-edge),inset 0 0 0 1px #ffe9a0,0 0 10px #f5b94288!important}
+.roster-tile-art{-webkit-mask:none!important;mask:none!important;inset:0!important}
+.roster-tile-art::after{content:'';position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(#0000,#000c)}
+:is(.roster-landing,.roster-cards) .roster-tile::after,.framed-card::after{background:var(--rs-rivet)!important}
+.roster-tile>strong{background:var(--rs-stone-grad)!important;border-top:2px solid var(--rs-edge)!important;color:var(--rs-orange)!important;text-shadow:1px 1px 0 #000;font-family:var(--rs-font)!important}
+.roster-tile .level-banner{background:var(--rs-stone)!important;border:1px solid var(--rs-edge)!important;border-top:0!important;color:var(--rs-yellow)!important;text-shadow:1px 1px 0 #000;font-family:var(--rs-font)!important}
+.roster-tile .es-area-chip{bottom:30%}
+.roster-tile .roster-card-only{display:none}
+.roster-tile.not-joined>.roster-tile-art{filter:grayscale(1) brightness(.55)!important}
+
+/* Character screen: stone bands top and bottom, orange name, stone rail buttons. */
+.es-char-top{background:linear-gradient(rgba(62,53,41,.96),rgba(62,53,41,.75))!important;border-bottom:2px solid var(--rs-edge)}
+.es-char-name b{color:var(--rs-orange);text-shadow:1px 1px 0 #000;font-family:var(--rs-font)}
+.es-char-name small{color:var(--rs-yellow)}
+.es-char-bar{background:linear-gradient(rgba(29,28,25,.75),rgba(29,28,25,.96))!important;border-top:2px solid var(--rs-edge);font-family:var(--rs-font)}
+.es-char-rail .es-rail-btn,.es-char-back,.es-char-arrow{background:var(--rs-stone-grad)!important;border:2px solid var(--rs-edge)!important;border-radius:4px!important;color:var(--rs-orange)!important;box-shadow:inset 0 0 0 1px #6b5c45;text-shadow:1px 1px 0 #000;font-family:var(--rs-font)}
+.es-char-rarity img{filter:drop-shadow(0 1px 1px #000)}
+.character-action-dock{background:var(--rs-stone-grad)!important;border-top:2px solid var(--rs-edge)!important;box-shadow:inset 0 1px 0 #6b5c45}
+.character-action-dock>button{color:var(--rs-orange);font-family:var(--rs-font)}
+.character-action-dock>button:hover{background:#6b5c45!important;color:var(--rs-yellow)!important}
+.es-mini-art{border:2px solid #8c7a52;box-shadow:0 0 0 1px var(--rs-edge);background:var(--rs-ink)}
+.es-join-card,.es-stage-card{background:var(--rs-stone)!important;border:2px solid var(--rs-edge)!important;box-shadow:inset 0 0 0 1px #6b5c45;border-radius:4px!important;color:#ffe8be!important}
+
+/* Parchment panels: the parchment is the page; cards sit on it in a stone frame. */
+.cp-card,.es-today li,.es-gift,.date-cards li{background:#f3ead6!important;border:2px solid #5c4d36!important;border-radius:4px!important;box-shadow:inset 0 0 0 1px #c9b990}
+.cp-card.cp-ready{border-color:#c99a2e!important;box-shadow:0 0 0 2px #f5d97a88,inset 0 0 0 1px #ffe9a0!important}
+.cp-art{background:radial-gradient(circle at 50% 70%,#e4d6b0,#cdb98a)!important;border:1px solid #8c7a52;border-radius:3px!important}
+.cp-areas button,.es-auto{background:var(--rs-stone-2)!important;border:2px solid var(--rs-edge)!important;color:var(--rs-orange)!important;border-radius:4px!important;font-family:var(--rs-font);text-shadow:1px 1px 0 #000}
+.cp-areas .cp-on{background:#6b5c45!important;color:var(--rs-yellow)!important}
+.cp-evolve{background:linear-gradient(#c99a2e,#8a5a00)!important;border:2px solid var(--rs-edge)!important;border-radius:4px!important;text-shadow:1px 1px 0 #000}
+.cp-bar{background:#5a1a0c!important;border:1px solid var(--rs-ink)}.cp-bar i{background:linear-gradient(#36c436,#1d8f1d)!important}
+.es-bond-bar{background:#5a1a0c!important;border:1px solid var(--rs-ink)!important;border-radius:2px!important}
+.es-breakdown th,.es-breakdown td{border-bottom:1px solid #c9b990}
+h1,h2,h3{font-family:var(--rs-font)}
+.roster-title-row h2,.treasure-panel>h2{color:var(--rs-maroon)}
+.village-next-step p,.village-next-step div{color:var(--rs-ink)!important;text-shadow:none!important}
+.village-next-step small{color:var(--rs-maroon)!important;text-shadow:none!important}
+:is(.roster-landing,.roster-cards) .roster-tile,.framed-card{background:var(--rs-ink)!important;border:3px solid #5c4d36!important;border-radius:4px!important;overflow:hidden;box-shadow:0 0 0 1px var(--rs-edge),inset 0 0 0 1px #8c7a52,0 3px 8px #000a!important}
+:is(.roster-landing,.roster-cards) .roster-tile.chosen{border-color:#c99a2e!important}
+:is(.roster-landing,.roster-cards) .roster-tile>.roster-tile-art{-webkit-mask:none!important;mask:none!important}
+.framed-card>img{-webkit-mask:none!important;mask:none!important}
+.familiar-art,.blessed-ring{background:var(--rs-ink)!important;border-color:#8c7a52}
+.name-plate{background:var(--rs-stone-grad)!important}
