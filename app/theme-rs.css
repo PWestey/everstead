@@ -154,3 +154,8 @@ h1,h2,h3{font-family:var(--rs-font)}
 .habit-own{display:grid;gap:8px}.habit-own p{margin:0;font-weight:700;color:var(--rs-maroon)}
 .habit-own textarea{min-height:90px;padding:8px;border:2px solid #5c4d36;border-radius:4px;background:#fffaf0;font:15px var(--rs-font)}
 .habit-own-btn{border-color:var(--rs-maroon)!important;color:var(--rs-maroon)!important}
+
+.roster-tile .level-banner{left:4px!important;top:4px!important;translate:0 0!important;border-radius:3px!important;border-top:1px solid var(--rs-edge)!important;padding:1px 6px!important}
+.roster-tile .action-badge{top:4px;right:4px}
+.es-char-primary .spend-controls{display:grid!important;gap:6px;justify-items:end}
+.es-gifts .qty-picker{width:100%;margin-bottom:2px}

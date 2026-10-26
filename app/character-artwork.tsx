@@ -22,7 +22,7 @@ export function Placeholder({person,compact=false}:{person:any,compact?:boolean}
 export function framedStyle(art:string,kind:'card'|'face'):any{const box=(BOUNDS as Record<string,number[]>)[art];if(!box)return undefined;
  // card: the top 55% of the figure (from the head) fills a ~2:3 card; face: the top 20% fills a square.
  const [l,t0,r,b,bl=l,br=r,hx=(bl+br)/2,t=t0]=box,w=kind==='face'?1/(1.5*(b-t)*0.2):1/((b-t)*0.55);
- return {position:'static',maxWidth:'none',minHeight:0,width:w*100+'%',height:'auto',objectFit:'fill',marginLeft:(50-hx*w*100)+'%',marginTop:((kind==='face'?2:3)-t*1.5*w*100)+'%'}}
+ return {position:'static',maxWidth:'none',minHeight:0,width:w*100+'%',height:'auto',objectFit:'fill',marginLeft:(50-hx*w*100)+'%',marginTop:((kind==='face'?2:12)-t*1.5*w*100)+'%'}}
 /** A small portrait for lists and story lines: the face, or the placeholder. */
 export function MiniArt({person}:{person:any}){
  const [missing,setMissing]=useState(false);

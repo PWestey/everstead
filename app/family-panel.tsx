@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
-import {PrimaryAction} from './original-controls';
+import {PrimaryAction,QuantityPicker,type Quantity} from './original-controls';
 import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
 import {familyBond,bondProgress,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
@@ -36,10 +36,10 @@ function FamilyStats({game,id}:any){
  </div>;
 }
 
-function GiftSheet({game,id,action,locked}:any){
- return <div className="es-gifts">{Object.entries(GIFTS).map(([key,g]:any)=>{const short=g.gold?game.gold<g.gold:game.crystals<g.crystals;
-  return <div key={key} className="es-gift"><div><strong>{g.name}</strong><p>+{g.bond} bond</p></div>
-   <PrimaryAction verb="Give" disabled={locked} currency={g.gold?'Gold':'Crystals'} have={g.gold?game.gold:game.crystals} cost={g.gold||g.crystals} onClick={()=>{if(!short)action('gift',id,key)}}/></div>})}</div>;
+function GiftSheet({game,id,action,locked}:any){const [q,setQ]=useState<Quantity>(1);
+ return <div className="es-gifts"><QuantityPicker value={q} onChange={setQ} label="Gift quantity"/>{Object.entries(GIFTS).map(([key,g]:any)=>{const have=g.gold?game.gold:game.crystals,each=g.gold||g.crystals,afford=Math.floor(have/each),n=q==='max'?Math.min(afford,10000):Math.min(q,afford);
+  return <div key={key} className="es-gift"><div><strong>{g.name}</strong><p>+{g.bond} bond{n>1?` × ${n} = +${(g.bond*n).toLocaleString()}`:''}</p></div>
+   <PrimaryAction verb={n>1?`Give ×${n}`:'Give'} disabled={locked||n<1} currency={g.gold?'Gold':'Crystals'} have={have} cost={each*Math.max(1,n)} onClick={()=>{if(n>=1)action('gift',id,{gift:key,times:n})}}/></div>})}</div>;
 }
 
 export default function FamilyPanel({game,action,locked,selected,setSelected,browse,setBrowse}:any){

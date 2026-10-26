@@ -45,7 +45,7 @@ function FellowUpgrade({game,id,action,locked,compact=false}:any){
  const [q,setQ]=useState<Quantity>(1);const f=game.fellows[id],def=FELLOWS.find(x=>x.id===id)!,cap=fellowLevelCap(f.stars);
  if(f.level>=cap){const cost=starCost(f.stars+1);return <div className="spend-controls">{f.stars>=MAX_STARS?<PrimaryAction verb="Max level" disabled/>:<PrimaryAction verb={'Earn star '+(f.stars+1)} tier disabled={locked} currency="Sigils" have={game.sigils[def.area]} cost={cost} onClick={()=>action('starUp',id)}/>}</div>}
  const p=plan(f.level,cap,game.fellowExp||0,q);
- return <div className="spend-controls">{!compact&&<QuantityPicker value={q} onChange={setQ} label="Level up quantity"/>}
+ return <div className="spend-controls"><QuantityPicker value={q} onChange={setQ} label="Level up quantity"/>
   <PrimaryAction verb={p.count?`Level up x${p.count}`:'Level up'} disabled={locked||!p.count} currency="EXP" have={game.fellowExp||0} cost={p.count?p.cost:fellowLevelCost(f.level)} onClick={()=>action('levelUp',id,q)}/></div>;
 }
 

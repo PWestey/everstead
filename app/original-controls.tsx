@@ -13,8 +13,8 @@ import {Button} from '@/components/ui/button';
  *
  *  `Quick` is the leftmost segment and maps to the same "as many as I can afford" intent Everkai's
  *  existing plans already call `max`; the original's own Quick behaviour beyond that is not captured. */
-export const QUANTITIES:[string,1|10|100|'max'][]=[['Quick','max'],['x1',1],['x10',10],['x100',100]];
-export type Quantity=1|10|100|'max';
+export const QUANTITIES:[string,1|5|10|'max'][]=[['x1',1],['x5',5],['x10',10],['Max','max']];
+export type Quantity=1|5|10|'max';
 /** Convention 5, the in-flow register: four significant digits, `24.43M` / `71.16K` / `6.652B`. The
  *  detail dialogs use `toLocaleString()` instead, which is the same number in the audit register. */
 export const abbrev=(n:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumSignificantDigits:4}).format(Math.floor(Number(n)||0));

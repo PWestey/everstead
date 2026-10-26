@@ -322,3 +322,9 @@ test('owning a miss needs a plan, pays nothing, resets the streak, hides the tas
  assert.ok(act(r.state,'habitComplete',T,id).error,'cannot complete after owning');assert.equal(r.state.habits.history.filter(h=>h.kind==='owned').length,1);assert.ok(valid(r.state));
  const next=settle(r.state,T+864e5);const y=next.habits.items.find(t=>t.id===id);assert.ok(!habitOwned(y,T+864e5));assert.equal(y.plan,'Tomorrow I will train before breakfast.');
  const done=act(next,'habitComplete',T+864e5,id);assert.ok(!done.error,done.error);assert.equal(done.state.habits.items.find(t=>t.id===id).plan,undefined,'plan clears once kept')});
+
+test('gifts in bulk: times and max, capped by what you can afford',()=>{let s={...fresh(T),gold:1200,family:{tyrande:{bond:0}}};
+ const one=act(s,'gift',T,'tyrande','posy');assert.equal(one.state.family.tyrande.bond,50);
+ const five=act(s,'gift',T,'tyrande',{gift:'posy',times:5});assert.equal(five.state.family.tyrande.bond,100,'only 2 affordable');assert.equal(five.state.gold,200);
+ const max=act({...s,gold:5000},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.equal(max.state.family.tyrande.bond,500);assert.equal(max.state.gold,0);
+ assert.ok(act({...s,gold:10},'gift',T,'tyrande',{gift:'posy',times:'max'}).error)});
