@@ -3,7 +3,7 @@ import {COMPANIONS,companionLevel,companionLevelCost,companionBoost,areaCompanio
 import {habitDay} from '../lib/habits.mjs';
 import assert from 'node:assert/strict';
 import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
-import {habitDue} from '../lib/habits.mjs';
+import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage} from '../lib/game.mjs';
@@ -315,3 +315,10 @@ test('everyone has arrived by day 30, companions by their day',()=>{const T0=fre
 
 test('the Hearth counts days in a row with a completed habit',()=>{const {s,id}=withHabit('fitness','easy');assert.equal(currentStreak(s,T),0);
  const r=act(s,'habitComplete',T,id);assert.equal(currentStreak(r.state,T),1);assert.equal(currentStreak(r.state,T+864e5),1,'still 1 the next morning');assert.equal(currentStreak(r.state,T+2*864e5),0,'gone after a missed day')});
+
+test('owning a miss needs a plan, pays nothing, resets the streak, hides the task for the day, and the plan waits for tomorrow',()=>{const {s,id}=withHabit('fitness','easy');
+ assert.ok(act(s,'habitOwn',T,id,'tomorrow').error,'too short');const r=act(s,'habitOwn',T,id,'Tomorrow I will train before breakfast.');assert.ok(!r.error,r.error);
+ const x=r.state.habits.items.find(t=>t.id===id);assert.equal(r.state.gold,s.gold);assert.equal(x.streak,0);assert.ok(habitOwned(x,T));assert.ok(r.message.includes('Tomorrow'));
+ assert.ok(act(r.state,'habitComplete',T,id).error,'cannot complete after owning');assert.equal(r.state.habits.history.filter(h=>h.kind==='owned').length,1);assert.ok(valid(r.state));
+ const next=settle(r.state,T+864e5);const y=next.habits.items.find(t=>t.id===id);assert.ok(!habitOwned(y,T+864e5));assert.equal(y.plan,'Tomorrow I will train before breakfast.');
+ const done=act(next,'habitComplete',T+864e5,id);assert.ok(!done.error,done.error);assert.equal(done.state.habits.items.find(t=>t.id===id).plan,undefined,'plan clears once kept')});

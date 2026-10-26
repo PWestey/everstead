@@ -145,3 +145,12 @@ h1,h2,h3{font-family:var(--rs-font)}
 .rs-clog-rows li{display:flex;justify-content:space-between;gap:6px;min-width:0}.rs-clog-rows li small{opacity:.7;white-space:nowrap}
 .rs-c-done{color:#0dc10d}.rs-c-part{color:var(--rs-yellow)}.rs-c-none{color:#ff3030}
 .roster-tile.not-joined>.roster-tile-art{filter:grayscale(1) brightness(.8)!important;opacity:1!important}
+
+/* Owning a miss. */
+.habit-owned{opacity:.8}.habit-owned .habit-card-text strong{color:var(--rs-maroon);text-decoration:line-through;text-decoration-color:#80000088}
+.habit-own-tag{flex:none;background:var(--rs-maroon);color:#ffe8be;border:1px solid var(--rs-edge);border-radius:3px;padding:1px 7px;font:700 11px var(--rs-font);text-shadow:1px 1px 0 #000}
+.habit-plan{display:block;color:var(--rs-maroon);font-style:italic;font-size:12px;margin-top:2px;white-space:normal}
+.habit-plan-sheet{margin:0;padding:8px 10px;background:#f3ead6;border:2px solid #5c4d36;border-radius:4px;font-size:14px}
+.habit-own{display:grid;gap:8px}.habit-own p{margin:0;font-weight:700;color:var(--rs-maroon)}
+.habit-own textarea{min-height:90px;padding:8px;border:2px solid #5c4d36;border-radius:4px;background:#fffaf0;font:15px var(--rs-font)}
+.habit-own-btn{border-color:var(--rs-maroon)!important;color:var(--rs-maroon)!important}

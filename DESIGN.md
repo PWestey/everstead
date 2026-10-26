@@ -170,6 +170,12 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 - **Evolve** (a tap) at level 10 and level 25 along the line.
 - **Boost:** each companion gives every Fellow of its area `0.5% × Level + 5% × (Stage − 1)` Power (adds with the Family area blessing). Four maxed companions: +120%.
 
+### Owning a miss
+
+A due daily task you didn't do can be **owned** (task sheet → "I failed today"): you must write how you'll make it right
+tomorrow (12–300 characters). The task leaves today's list, pays nothing, and its streak resets. Tomorrow the task shows
+what you said until you complete it. Owned days don't count for Momentum, area points or the Hearth.
+
 ## The Hearth and the Collection Log
 
 - **The Hearth** (top of Today): your streak, the days in a row with at least one completed habit, counting back from today or yesterday. One log per day (14 shown), the fire lit while the streak lives. Purely a mirror of the journal; it pays nothing itself.
