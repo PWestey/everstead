@@ -132,7 +132,7 @@ Eight modes, all settled by team power against a need (no battle engine); engine
 
 ## The Archives (the Codex)
 
-The owner's knowledge base, merged in from Jedi Codex: 331 cards from books, podcasts and talks
+The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, podcasts and talks
 (`lib/codex-cards.json`, engine in `lib/codex.mjs`). The old Habit Journal building is now the Archives.
 
 - Leitner spaced repetition: boxes 1–7 come back after 1, 2, 4, 7, 14, 30, 60 days. Got it → up a box; forgot → box 1, tomorrow.
