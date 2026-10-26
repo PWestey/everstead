@@ -9,6 +9,8 @@ const LANDMARKS=[
  {id:'habits',label:'The Archives',sprite:'habits',module:'codex',x:36,y:36},
  {id:'tower',label:'Expedition Map',sprite:'Building_1501',module:'stage',x:66,y:52},
  {id:'gate',label:'Village Gate',sprite:'Building_601',module:'roaming',x:33,y:81.1},
+ {id:'wartable',label:'War Table',sprite:'Building_1101',module:'modes',x:50,y:36},
+ {id:'menagerie',label:'Companions',sprite:'Building_1601',module:'companions',x:84,y:56},
 ];
 /** Everstead: one continuous village you pan across. Each life area owns a building; today's habits
  *  in that area light it up (the glow is the area boost, the same number that raises its income). */

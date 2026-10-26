@@ -136,7 +136,7 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 (`lib/codex-cards.json`, engine in `lib/codex.mjs`). The old Habit Journal building is now the Archives.
 
 - Leitner spaced repetition: boxes 1–7 come back after 1, 2, 4, 7, 14, 30, 60 days. Got it → up a box; forgot → box 1, tomorrow.
-- New cards arrive **15 a day**, rotating through topics. Topics map to areas (Parenting → Fatherhood, Marriage, Faith,
+- New cards arrive **15 a day**, drawn at random from the unseen pool (the draw is fixed for the day). Topics map to areas (Parenting → Fatherhood, Marriage, Faith,
   Leadership/Money → Work, Habits & Systems → Discipline, Lifting/Nutrition → Fitness, Growth → Hobbies).
 - **Each review pays 10 minutes of village income** (at least 50 gold) **+ 150 XP** in its area, the same for got it and
   forgot, for the first **40 reviews a day**.
@@ -148,7 +148,7 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 
 - **Recruit** by lifetime habit points in their area. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level × (1 + 0.25 × Stars)`
-- Level cost: `50 × Level^1.5` **Fellow EXP**. EXP comes only from stages: Map runs pay `200 × 1.3^k` (bosses ×2); the Rift, Spire, Arena and Gauntlet pay too. New saves start with 1,500. Level cap: `20 + 20 × Stars`.
+- Level cost: `50 × Level^1.5` **Fellow EXP**. EXP comes only from stages: Map runs pay `200 × 1.3^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
 - **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + Power/40,000` income. Untouched, the strongest fill the slots; pick by hand on the building screen.
 - **Power is wealth:** every open building earns an extra `Village Power / 40,000` gold per second on top of its base rate, before multipliers.
