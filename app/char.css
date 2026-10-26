@@ -9,7 +9,7 @@ html,body{background:#2a1b12}
 
 .character-modal .modal-body{display:flex;padding:0;overflow:hidden}
 .es-char{position:relative;flex:1;width:100%;height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;isolation:isolate;font-family:'Texturina',Georgia,serif}
-.es-char-scene{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,14,8,.35),rgba(20,14,8,0) 20%,rgba(20,14,8,0) 75%,rgba(20,14,8,.55)),url(/assets/ui-scenes/Bg_Village_01_Mid.jpg) center/cover}
+.es-char-scene{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,14,8,.35),rgba(20,14,8,0) 20%,rgba(20,14,8,0) 75%,rgba(20,14,8,.55)),url(/assets/osrs/bg-lumbridge.webp) center/cover}
 
 /* Top strip */
 .es-char-top{display:grid;grid-template-columns:minmax(76px,auto) 1fr minmax(76px,auto);align-items:center;gap:6px;padding:6px 8px;background:linear-gradient(rgba(30,20,12,.88),rgba(30,20,12,.55));z-index:2}

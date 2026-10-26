@@ -170,6 +170,12 @@ The owner's knowledge base, merged in from Jedi Codex: 324 cards from books, pod
 - **Evolve** (a tap) at level 10 and level 25 along the line.
 - **Boost:** each companion gives every Fellow of its area `0.5% × Level + 5% × (Stage − 1)` Power (adds with the Family area blessing). Four maxed companions: +120%.
 
+## The Hearth and the Collection Log
+
+- **The Hearth** (top of Today): your streak, the days in a row with at least one completed habit, counting back from today or yesterday. One log per day (14 shown), the fire lit while the streak lives. Purely a mirror of the journal; it pays nothing itself.
+- **Collection Log** (Hero screen → Log): every Fellow, Family member, companion, Map boss, skill at 99, quest, story chapter and mastered Archive card, with OSRS green/red counts. Also a mirror; no rewards attached.
+- Level 99 in a skill fires the level-up card with fireworks.
+
 ## Expedition Map (replaced the Watchtower stages)
 
 The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows need, Fellows raise Power,

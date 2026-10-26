@@ -34,7 +34,7 @@ export function SkillsPanel({game}:{game:any}){
 /** "Congratulations, you just advanced a level." One skill at a time. */
 export function LevelUpDialog({up,onClose}:{up:any,onClose:()=>void}){
  return <Dialog open={!!up} onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-levelup" showCloseButton={false}>
-  {up&&<button type="button" className="rs-levelup-body" onClick={onClose}>
+  {up&&<button type="button" className={'rs-levelup-body'+(up.level>=MAX_LEVEL?' rs-99':'')} onClick={onClose}>
    <img src={'./assets/'+skillIcon(up.area)} alt=""/>
    <div><DialogTitle>Congratulations, you just advanced {/^[aeiou]/i.test(areaName(up.area))?'an':'a'} {areaName(up.area)} level.</DialogTitle>
     <DialogDescription>Your {areaName(up.area)} level is now {up.level}.{up.level>=MAX_LEVEL?' You can now wear the '+areaName(up.area)+' cape!':''}</DialogDescription>

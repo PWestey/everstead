@@ -267,7 +267,7 @@ test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={..
  assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});
 
 // ---------------- Main story ----------------
-import {CHAPTERS,chapterLock,nextChapter,fillTokens,hearthLine} from '../lib/story.mjs';
+import {CHAPTERS,chapterLock,nextChapter,fillTokens,hearthLine,currentStreak} from '../lib/story.mjs';
 import {ORIGINS} from '../lib/origins.mjs';
 const allEffects=t=>Object.values(t.nodes).flatMap(n=>[...(n.do||[]),...(n.opts||[]).flatMap(o=>o.do||[])]);
 test('every chapter tree exists, is well formed and finishes with its story flag',()=>{for(const c of CHAPTERS){const t=TREES['story-'+c.n];assert.ok(t,'missing story-'+c.n);
@@ -312,3 +312,6 @@ test('everyone has arrived by day 30, companions by their day',()=>{const T0=fre
  const s29=at(29.9),s30=at(30.5);assert.ok(FELLOWS.some(f=>!fellowReady(s29,f)),'some still locked on day 29');assert.ok(FELLOWS.every(f=>fellowReady(s30,f)));assert.ok(FAMILY.every(f=>familyReady(s30,f)));
  assert.equal(Object.keys(at(1).companions).length,8);assert.equal(Object.keys(at(10).companions).length,16);assert.equal(Object.keys(s30.companions).length,32);
  const first=FELLOWS.find(f=>f.area==='faith');assert.equal(joinDay(first),6);assert.ok(!fellowReady(at(5),first)&&fellowReady(at(6),first))});
+
+test('the Hearth counts days in a row with a completed habit',()=>{const {s,id}=withHabit('fitness','easy');assert.equal(currentStreak(s,T),0);
+ const r=act(s,'habitComplete',T,id);assert.equal(currentStreak(r.state,T),1);assert.equal(currentStreak(r.state,T+864e5),1,'still 1 the next morning');assert.equal(currentStreak(r.state,T+2*864e5),0,'gone after a missed day')});

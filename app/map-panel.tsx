@@ -20,7 +20,7 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
  return <section className="xp-map">
   <header className="xp-top">
    <span><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><b>{n(power)}</b> Power</span>
-   <span><img src="./assets/ui/journey.webp" alt=""/><b>{game.roam.charges}</b>/{roamCap(game)} Roams</span>
+   <span><img className="rs-px" src="./assets/osrs/ui/Stamina_potion4.png" alt=""/><b>{game.roam.charges}</b>/{roamCap(game)} Roams</span>
   </header>
   <nav className="xp-regions" aria-label="Regions">{REGIONS.map((r,i)=><button key={r.id} type="button" className={(i===sel?'xp-on ':'')+(regionOpen(game,i)?'':'xp-locked')} onClick={()=>setSel(i)}>{regionOpen(game,i)?'':'🔒 '}{r.name}</button>)}</nav>
   <div className="xp-region" style={{backgroundImage:`url(./assets/${region.bg})`}}>
@@ -49,7 +49,7 @@ export function ExpeditionResult({run,onClose}:{run:any,onClose:()=>void}){
   {run&&<>
    <DialogTitle className={'xp-r-'+run.outcome.key}>{run.outcome.label}!</DialogTitle>
    <DialogDescription>{run.title}</DialogDescription>
-   <ul><li>+{n(run.loot.gold)} gold</li><li>+{n(run.loot.exp)} Fellow EXP</li>{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
+   <ul><li>+{n(run.loot.gold)} gold</li><li>+{n(run.loot.exp)} Fellow EXP</li>{run.treats>0&&<li className="xp-drop"><img className="rs-px" src="./assets/osrs/ui/Fish_food.png" alt=""/>{run.treats===1?'A treat tumbles':run.treats+' treats tumble'} out of the loot.</li>}{run.found&&<li className="xp-drop xp-find"><img className="rs-px" src="./assets/osrs/ui/Hunter_kit.png" alt=""/>{run.found} has followed you home!</li>}{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
    {run.perk&&<p className="xp-perk"><b>Boss defeated!</b> {run.perk}</p>}
    {run.opened&&<p className="xp-perk"><b>New region:</b> {run.opened} is open on the map.</p>}
    <Button onClick={onClose}>Continue</Button>

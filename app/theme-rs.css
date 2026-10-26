@@ -84,3 +84,64 @@ h1,h2,h3{font-family:var(--rs-font)}
 .framed-card>img{-webkit-mask:none!important;mask:none!important}
 .familiar-art,.blessed-ring{background:var(--rs-ink)!important;border-color:#8c7a52}
 .name-plate{background:var(--rs-stone-grad)!important}
+
+/* ---- Fonts: RuneScape UF for the interface, Quill for titles, Bold 12 for chat lines. ---- */
+:root{--rs-font:'RuneScapeUF','Texturina',Georgia,serif;--rs-quill:'RuneScapeQuill','Texturina',Georgia,serif;--rs-chat:'RuneScapeBold','RuneScapeUF',monospace}
+.game,.game-modal,.xp-map,.cx,.wt,.rs-stats,.rs-quests,.rs-sheet,.rs-dialogue,.rs-levelup,.rs-scroll,.character-sheet,.es-char-sheet,.breakdown-dialog{font-family:var(--rs-font)}
+.game-modal [data-slot=dialog-title],.modal-heading h2,.rs-scroll h2,.cx-card h3,.wt-head h2,.xp-region-text h2,.roster-title-row h2,.es-char-name b,.rs-levelup-body h2,.rs-journal h3{font-family:var(--rs-quill);font-weight:400;letter-spacing:.02em}
+.modal-heading [data-slot=dialog-title]{font-size:26px!important;line-height:1}
+.rs-px{image-rendering:pixelated;image-rendering:crisp-edges}
+.village-dock .village-icon img{width:44px!important;height:44px!important;object-fit:contain}
+.village-side-buttons .village-helper img{width:22px;height:22px;object-fit:contain}
+.resource-pill>img{width:20px;height:20px;object-fit:contain}
+.modal-heading>img{height:40px!important;width:40px!important;object-fit:contain}
+
+/* Hero badge: a square OSRS slot. */
+.player-badge{border-radius:4px!important}
+.player-badge>.es-face{border-radius:2px}
+.player-badge>b{border-radius:3px!important;bottom:-7px}
+
+/* Chatbox: notices read like game messages on the OSRS chat strip. */
+.module-notice,.toast{background:#d8ccb4!important;color:#000!important;border:2px solid #5c4d36!important;box-shadow:inset 0 0 0 1px #8c7a52,0 2px 6px #000a!important;font-family:var(--rs-chat)!important;font-size:16px!important;line-height:1.2;text-shadow:none!important;text-align:left!important;padding:8px 12px!important}
+.toast{border-radius:4px!important}
+.module-notice::before,.toast::before{content:'';display:inline-block;width:10px;height:10px;margin-right:8px;background:#5c4d36;border-radius:50%;box-shadow:inset 0 0 0 2px #d8ccb4,0 0 0 1px #5c4d36;vertical-align:1px}
+
+/* Textures: stone chrome gets mortar lines, parchment gets a little grain. */
+.modal-heading,.village-dock,.game>header,.game-resources,.es-char-top,.character-action-dock{background-image:var(--rs-stone-grad),repeating-linear-gradient(90deg,transparent 0 54px,#0003 54px 56px),repeating-linear-gradient(0deg,transparent 0 26px,#0003 26px 28px)!important;background-blend-mode:normal,multiply,multiply}
+.game-modal{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")!important;background-color:var(--rs-parch)!important}
+:is(.roster-landing,.roster-cards) .roster-tile,.framed-card{border:12px solid transparent!important;border-image:url(/assets/osrs/ui/Interface_border.png) 12 round!important;border-radius:0!important;box-shadow:0 3px 8px #000a!important;background:var(--rs-ink)!important}
+:is(.roster-landing,.roster-cards) .roster-tile.chosen{filter:drop-shadow(0 0 6px #f5b942)}
+:is(.roster-landing,.roster-cards) .roster-tile::after,.framed-card::after{background:none!important}
+
+/* The Hearth (Today). */
+.es-hearth{display:flex;gap:12px;align-items:center;padding:10px 12px;margin-bottom:10px;background:var(--rs-stone)!important;border:2px solid var(--rs-edge);box-shadow:inset 0 0 0 1px #6b5c45;border-radius:4px;color:#ffe8be}
+.es-hearth strong{color:var(--rs-orange);text-shadow:1px 1px 0 #000;font-size:16px}
+.es-hearth p{margin:2px 0 4px;font-size:13px}
+.es-hearth-fire{flex:none;width:64px;height:64px;display:grid;place-items:center}
+.es-hearth-fire img{max-width:64px;max-height:64px;filter:drop-shadow(0 0 8px #ff981f88)}
+.es-hearth-fire .es-cold{filter:grayscale(1) brightness(.7);width:40px}
+.es-logs{display:flex;flex-wrap:wrap;gap:2px;align-items:center}
+.es-logs img{width:22px;height:18px;object-fit:contain}
+.es-logs small{color:var(--rs-yellow);margin-left:4px}
+
+/* Drop lines on the expedition scroll. */
+.xp-drop{color:#5c4d36;font-style:italic}.xp-drop img{width:18px;height:18px}
+.xp-find{color:#0a6a0a;font-weight:700;font-style:normal}
+
+/* Level 99: fireworks behind the card. */
+.rs-levelup-body{position:relative;overflow:visible}
+.rs-99{box-shadow:0 0 0 2px var(--rs-edge),0 0 30px #ffd84c!important}
+.rs-99::before{content:"";position:absolute;inset:-70px -40px;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 20%,#ffd84c 0 3px,#ffd84c44 4px,transparent 14px),radial-gradient(circle at 85% 15%,#ff5c5c 0 3px,#ff5c5c44 4px,transparent 16px),radial-gradient(circle at 50% 0%,#7cf07c 0 3px,#7cf07c44 4px,transparent 15px),radial-gradient(circle at 10% 75%,#6fb7ff 0 3px,#6fb7ff44 4px,transparent 14px),radial-gradient(circle at 90% 80%,#ff9bf2 0 3px,#ff9bf244 4px,transparent 15px),radial-gradient(circle at 30% 100%,#ffd84c 0 2px,transparent 10px),radial-gradient(circle at 70% 100%,#ff5c5c 0 2px,transparent 10px);animation:rs-burst .9s ease-out 1}@keyframes rs-burst{from{transform:scale(.3);opacity:0}60%{opacity:1}to{transform:scale(1);opacity:1}}
+
+/* Collection Log. */
+.rs-clog-sheet{max-width:520px}
+.rs-clog header{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--rs-stone);border:2px solid var(--rs-edge);border-radius:4px;color:var(--rs-orange);text-shadow:1px 1px 0 #000;font-size:18px}
+.rs-clog header img{width:24px;height:24px}.rs-clog header span{margin-left:auto;color:var(--rs-yellow)}
+.rs-clog-tabs{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.rs-clog-tabs>li>button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--rs-stone-2);border:2px solid var(--rs-edge);border-radius:4px;color:var(--rs-orange);font:700 15px var(--rs-font);text-shadow:1px 1px 0 #000;cursor:pointer}
+.rs-clog-tabs>li>button.on{background:#6b5c45}
+.rs-clog-tabs i{font-style:normal}
+.rs-clog-rows{list-style:none;margin:2px 0 4px;padding:6px 8px;display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;background:#1d1c19;border:2px solid var(--rs-edge);border-radius:4px;font-size:13px;max-height:40dvh;overflow:auto}
+.rs-clog-rows li{display:flex;justify-content:space-between;gap:6px;min-width:0}.rs-clog-rows li small{opacity:.7;white-space:nowrap}
+.rs-c-done{color:#0dc10d}.rs-c-part{color:var(--rs-yellow)}.rs-c-none{color:#ff3030}
+.roster-tile.not-joined>.roster-tile-art{filter:grayscale(1) brightness(.8)!important;opacity:1!important}

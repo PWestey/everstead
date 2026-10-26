@@ -12,7 +12,7 @@ export function CompanionsPanel({game,action,locked}:{game:any,action:any,locked
  const [area,setArea]=useState(AREAS[0].id);
  const owned=Object.keys(game.companions||{}).length;
  return <section className="cp-panel">
-  <header className="cp-top"><span>🍖 <b>{game.treats||0}</b> treats</span><span><b>{owned}</b>/{COMPANIONS.length} met</span></header>
+  <header className="cp-top"><span><img className="rs-px" src="./assets/osrs/ui/Fish_food.png" alt="" style={{width:18,height:18,verticalAlign:'-3px'}}/> <b>{game.treats||0}</b> treats</span><span><b>{owned}</b>/{COMPANIONS.length} met</span></header>
   <nav className="cp-areas" aria-label="Life areas">{AREAS.map(a=><button key={a.id} type="button" className={a.id===area?'cp-on':''} onClick={()=>setArea(a.id)}><img src={'./assets/'+skillIcon(a.id)} alt=""/>{a.name}</button>)}</nav>
   <p className="cp-boost">{areaById(area).name} Fellows get <b>+{pct(areaCompanionBoost(game,area))}</b> Power from companions.</p>
   <ul className="cp-list">{COMPANIONS.filter(c=>c.area===area).map(c=>{const o=game.companions?.[c.id];

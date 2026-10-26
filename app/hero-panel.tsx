@@ -5,6 +5,7 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import CharacterScreen from './character-screen';
 import CharacterArtwork from './character-artwork';
 import {SkillsPanel} from './rs-ui';
+import {CollectionLog} from './collection-log';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {playerStage,rosterPower,powerBreakdown} from '@/lib/game.mjs';
 import {totalLevel,MAX_TOTAL} from '@/lib/skills.mjs';
@@ -12,7 +13,7 @@ const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 
 export default function HeroPanel({game,action,locked}:any){
  const tl=totalLevel(game),stage=playerStage(tl),next=PLAYER_STAGES.find(s=>s.level>tl);
- const [skills,setSkills]=useState(false),[looks,setLooks]=useState(false),[power,setPower]=useState(false),[naming,setNaming]=useState(false),[name,setName]=useState(game.playerName);
+ const [skills,setSkills]=useState(false),[clog,setClog]=useState(false),[looks,setLooks]=useState(false),[power,setPower]=useState(false),[naming,setNaming]=useState(false),[name,setName]=useState(game.playerName);
  const person={id:'player',name:game.playerName,title:stage.title,art:stage.art,description:'You. Every habit you keep trains a skill, and your total level earns your armour.'};
  const b=powerBreakdown(game),heroShare=b.hero+b.roster?b.hero/(b.hero+b.roster):1;
  return <CharacterScreen person={person} subtitle={stage.title+' · Total level '+tl}
@@ -25,11 +26,13 @@ export default function HeroPanel({game,action,locked}:any){
   </div>}
   detailsLabel="Power"
   rail={<>
-   <Button variant="outline" className="es-rail-btn" onClick={()=>setLooks(true)} aria-label="Armour"><img src="./assets/menu/rank.png" alt=""/><span>Armour</span></Button>
+   <Button variant="outline" className="es-rail-btn" onClick={()=>setLooks(true)} aria-label="Armour"><img className="rs-px" src="./assets/osrs/ui/Combat_icon.png" alt=""/><span>Armour</span></Button>
+   <Button variant="outline" className="es-rail-btn" onClick={()=>setClog(true)} aria-label="Collection Log"><img className="rs-px" src="./assets/osrs/ui/Collection_log_icon.png" alt=""/><span>Log</span></Button>
    <Button variant="outline" className="es-rail-btn" onClick={()=>setNaming(true)} aria-label="Name"><img src="./assets/menu/overview.png" alt=""/><span>Name</span></Button>
   </>}
   info={<p>Each life area is a skill from 1 to 99. Your total level (out of {MAX_TOTAL}) unlocks each armour tier, and your Power is half you, half your roster.</p>}
   collection={null}>
+  <Dialog open={clog} onOpenChange={setClog}><DialogContent className="es-char-sheet rs-clog-sheet"><DialogTitle className="sr-only">Collection Log</DialogTitle><DialogDescription className="sr-only">Everything to meet, beat, master and finish.</DialogDescription><CollectionLog game={game}/></DialogContent></Dialog>
   <Dialog open={skills} onOpenChange={setSkills}><DialogContent className="es-char-sheet es-skills-sheet"><DialogTitle>Skills</DialogTitle><DialogDescription>Tap a skill for its XP and cape.</DialogDescription><SkillsPanel game={game}/></DialogContent></Dialog>
   <Dialog open={looks} onOpenChange={setLooks}><DialogContent className="character-sheet panel-centered"><DialogTitle>Your armour</DialogTitle><DialogDescription>Each tier unlocks at a total level.</DialogDescription>
    <div className="character-sheet-body es-looks">{PLAYER_STAGES.map(s=><figure key={s.stage} className={tl>=s.level?'':'es-locked'}><CharacterArtwork person={{id:'player-'+s.stage,name:s.title,art:s.art}}/><figcaption><b>{s.title}</b><span>Total level {s.level}</span></figcaption></figure>)}</div>

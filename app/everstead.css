@@ -5,7 +5,7 @@
 
 /* Character art: full height, anchored to the bottom, over a soft village backdrop. */
 .character-artwork{position:relative;height:100%;width:100%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;
- background:linear-gradient(180deg,rgba(20,32,28,.15),rgba(20,32,28,.55)),url(/assets/ui-scenes/Bg_Village_01_Mid.jpg) center/cover no-repeat}
+ background:linear-gradient(180deg,rgba(20,32,28,.15),rgba(20,32,28,.55)),url(/assets/osrs/bg-lumbridge.webp) center/cover no-repeat}
 .character-artwork>img,.character-artwork>.art-placeholder{height:100%;width:100%;object-fit:contain;object-position:center bottom}
 .character-screen-art .character-showcase>.character-artwork{height:100%}
 .character-art-view .character-artwork{height:70dvh;border-radius:12px}

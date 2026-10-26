@@ -1,5 +1,9 @@
 /* RuneScape layer: skills, dialogue, quests, adventures. Fonts: Texturina (OFL, bundled locally). */
 @font-face{font-family:'Texturina';src:url(/assets/fonts/Texturina.ttf) format('truetype');font-weight:100 900;font-display:swap}
+/* RuneScape UF (Nathan P, free) for the interface; RuneScape Quill and Bold 12 from RuneStar/fonts (CC0) for titles and chat lines. */
+@font-face{font-family:'RuneScapeUF';src:url(/assets/fonts/RuneScapeUF.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'RuneScapeQuill';src:url(/assets/fonts/RuneScape-Quill.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'RuneScapeBold';src:url(/assets/fonts/RuneScape-Bold-12.ttf) format('truetype');font-display:swap}
 :root{--rs-ink:#1d1c19;--rs-stone:#3e3529;--rs-stone-2:#4f4434;--rs-edge:#2a241b;--rs-parch:#eadfcf;--rs-parch-2:#dccbaf;--rs-gold:#f5b942;--rs-yellow:#ffff00;--rs-orange:#ff981f;--rs-green:#0dc10d;--rs-blue:#2b4ea8;--rs-maroon:#800000}
 .rs-stats,.rs-quests,.rs-adventures,.rs-sheet,.rs-dialogue,.rs-levelup,.rs-scroll{font-family:'Texturina',Georgia,serif}
 

@@ -11,7 +11,7 @@ import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
 import {AdventureCards} from './rs-ui';
 import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
 import {codexQueue} from '@/lib/codex.mjs';
-import {nextChapter} from '@/lib/story.mjs';
+import {nextChapter,currentStreak,longestStreak} from '@/lib/story.mjs';
 import {CODEX_NEW_PER_DAY} from '@/lib/game.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const pct=(x:number)=>Math.round(x*100)+'%';
@@ -87,6 +87,12 @@ export function RoamingPanel({game,action,locked}:any){
 }
 
 /** Today: everything worth doing right now, each with a way to get there. */
+/** The Hearth: your streak as logs on the fire. One log per day, the fire lit while the streak lives. */
+function Hearth({streak,best}:{streak:number,best:number}){const logs=Math.min(streak,14);
+ return <div className="es-hearth"><div className="es-hearth-fire">{streak>0?<img src="./assets/osrs/ui/Fire.png" alt="A lit fire"/>:<img src="./assets/osrs/ui/Logs.png" alt="Unlit logs" className="es-cold rs-px"/>}</div>
+  <div><strong>The Hearth · {streak} day{streak===1?'':'s'}</strong><p>{streak>0?'Keep a habit every day and the fire stays lit. Longest: '+best+'.':'Complete any habit today to light the fire.'}</p>
+   <div className="es-logs" aria-hidden="true">{Array.from({length:logs},(_,i)=><img key={i} className="rs-px" src="./assets/osrs/ui/Logs.png" alt=""/>)}{streak>14&&<small>+{streak-14}</small>}</div></div></div>}
+
 export function TodayPanel({game,onNavigate}:any){
  const h=game.habits,now=game.lastAt,due=(h?.items||[]).filter((x:any)=>x.freq==='daily'&&habitDue(x,now)),done=due.filter((x:any)=>x.done).length,earn=habitEarnings(h,now),b=currentBlight(game,now),tl=totalLevel(game),nextTier=PLAYER_STAGES.find(s=>s.level>tl);
  const quest=questIds.map(id=>({id,...questStatus(game,id)})).find(q=>q.status==='active'||q.status==='available');
@@ -103,6 +109,7 @@ export function TodayPanel({game,onNavigate}:any){
   ...ready.map((f:any)=>[`${f.name} is ready to join`,`${areaById(f.area).name} · ${f.kind==='fellow'?'Fellow':'Family'}`,f.kind==='fellow'?'fellows':'family'] as [string,string,string]),
   ...(improve.length?[[`${improve.length} Fellow${improve.length>1?'s':''} can improve`,improve.map((f:any)=>f.name).join(', '),'fellows'] as [string,string,string]]:[]),
  ];
- return <section className="es-today"><ul>{rows.map(([t,d,go],i)=><li key={i}><div><strong>{t}</strong><p>{d}</p></div><Button variant="outline" onClick={()=>onNavigate(go)}>Go</Button></li>)}</ul>
+ const streak=currentStreak(game,now),best=longestStreak(game);
+ return <section className="es-today"><Hearth streak={streak} best={best}/><ul>{rows.map(([t,d,go],i)=><li key={i}><div><strong>{t}</strong><p>{d}</p></div><Button variant="outline" onClick={()=>onNavigate(go)}>Go</Button></li>)}</ul>
   <div className="es-area-row">{AREAS.map(a=><span key={a.id} style={{borderColor:a.color}}>{a.name}<b>{game.sigils[a.id]}</b></span>)}</div><p className="small-note">Sigils by life area. They earn your Fellows’ stars.</p></section>;
 }

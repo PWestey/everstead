@@ -24,9 +24,9 @@ import {totalLevel} from '@/lib/skills.mjs';
 import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './rs-ui';
 
 const MODULES:Record<string,{title:string,icon:string}>={
- hero:{title:'Your Hero',icon:'journey'},fellows:{title:'Fellows',icon:'fellows'},family:{title:'Family',icon:'family'},
- stage:{title:'Expedition Map',icon:'adventure'},habits:{title:'Habit Journal',icon:'school'},roaming:{title:'Village Gate',icon:'journey'},
- today:{title:'Today',icon:'journey'},codex:{title:'The Archives',icon:'school'},modes:{title:'The War Table',icon:'adventure'},companions:{title:'Companions',icon:'fellows'},building:{title:'Building',icon:'businesses'},quests:{title:'Quest Journal',icon:'journey'}};
+ hero:{title:'Your Hero',icon:'Character_Summary_icon'},fellows:{title:'Fellows',icon:'Your_Clan_icon'},family:{title:'Family',icon:'Friends_List'},
+ stage:{title:'Expedition Map',icon:'World_map_icon'},habits:{title:'Habit Journal',icon:'Collection_log_icon'},roaming:{title:'Village Gate',icon:'Lumbridge_Home_Teleport'},
+ today:{title:'Today',icon:'Watch'},codex:{title:'The Archives',icon:'Quest_list_icon'},modes:{title:'The War Table',icon:'Combat_icon'},companions:{title:'Companions',icon:'Hunter_kit'},building:{title:'Building',icon:'Bank_icon'},quests:{title:'Quest Journal',icon:'Quest_list_icon'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 /** Cheers (character pop-ups after habits) can be turned off per device. */
@@ -85,8 +85,8 @@ export default function App(){
 
  const locked=!loaded||failedLoad||saveFailed,level=totalLevel(game),stage=playerStage(level),blight=currentBlight(game,game.lastAt);
  const resources=<GameResources gold={game.gold} crystals={game.crystals} income={totalRate(game,game.lastAt)} multiplier={momentum(game,game.lastAt)} onSettings={()=>setPanel(true)} level={level} face={stage.art} onProfile={()=>openModule('hero')}/>;
- const dock=<nav className="village-dock original-primary-dock" aria-label="Everstead destinations">{([['Hero','hero','journey'],['Fellows','fellows','fellows'],['Family','family','family'],['Village','village','businesses'],['Map','stage','adventure'],['Journal','habits','school']] as const).map(([label,id,icon])=>
-  <Button key={id} className="village-icon" aria-current={!moduleOpen&&id==='village'?'page':undefined} onClick={()=>openModule(id)}><img src={'./assets/ui/'+icon+'.webp'} alt=""/><span>{label}</span></Button>)}</nav>;
+ const dock=<nav className="village-dock original-primary-dock" aria-label="Everstead destinations">{([['Hero','hero','Character_Summary_icon'],['Fellows','fellows','Your_Clan_icon'],['Family','family','Friends_List'],['Village','village','Lumbridge_Home_Teleport'],['Map','stage','World_map_icon'],['Journal','habits','Collection_log_icon']] as const).map(([label,id,icon])=>
+  <Button key={id} className="village-icon" aria-current={!moduleOpen&&id==='village'?'page':undefined} onClick={()=>openModule(id)}><img className="rs-px" src={'./assets/osrs/ui/'+icon+'.png'} alt=""/><span>{label}</span></Button>)}</nav>;
  const due=(game.habits?.items||[]).filter((x:any)=>x.freq==='daily'&&!x.done&&x.days.includes(new Date(game.lastAt).getDay())).length;
  const meta=MODULES[tab]||MODULES.today,title=tab==='building'?BUILDINGS.find(b=>b.id===building)?.name:meta.title;
 
@@ -94,15 +94,15 @@ export default function App(){
   {resources}
   <VillageMap game={game} blight={blight} openBuilding={(id:string)=>{setBuilding(id);openModule('building')}} openModule={openModule}
    side={<div className="village-side-buttons">
-    <Button className="village-helper village-today" variant="outline" onClick={()=>openModule('today')}><img src="./assets/ui/journey.webp" alt=""/><span>Today</span></Button>
-    <Button className="village-helper" variant="outline" onClick={()=>openModule('stage')}><img src="./assets/ui/journey.webp" alt=""/><span>Map · {game.roam.charges}</span></Button>
+    <Button className="village-helper village-today" variant="outline" onClick={()=>openModule('today')}><img className="rs-px" src="./assets/osrs/ui/Watch.png" alt=""/><span>Today</span></Button>
+    <Button className="village-helper" variant="outline" onClick={()=>openModule('stage')}><img className="rs-px" src="./assets/osrs/ui/World_map_icon.png" alt=""/><span>Map · {game.roam.charges}</span></Button>
     <Button className="village-helper rs-quest-btn" variant="outline" onClick={()=>openModule('quests')}><img src="./assets/rs/quest.png" alt=""/><span>Quests</span></Button>
    </div>}
    objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
   {dock}
   <Dialog open={moduleOpen} onOpenChange={setModuleOpen}><DialogContent className={'game-modal'+(CHARACTER_MODULES.includes(tab)?' character-modal':'')} showCloseButton={false}>
    {resources}
-   <div className="modal-heading"><img src={'./assets/ui/'+meta.icon+'.webp'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div><DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
+   <div className="modal-heading"><img className="rs-px" src={'./assets/osrs/ui/'+meta.icon+'.png'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div><DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
    <div className="modal-body" key={tab}>
     {tab==='hero'&&<HeroPanel game={game} action={action} locked={locked}/>}
     {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} onTalk={setTalk} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
