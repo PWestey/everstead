@@ -161,3 +161,5 @@ h1,h2,h3{font-family:var(--rs-font)}
 .es-gifts .qty-picker{width:100%;margin-bottom:2px}
 
 .es-upgrade{display:grid;gap:6px;justify-items:end}
+
+.es-milestone{color:var(--rs-yellow);text-shadow:1px 1px 0 #000;font-size:12px;justify-self:end}

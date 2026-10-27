@@ -2,7 +2,7 @@ import test from 'node:test';
 import {COMPANIONS,companionLevel,companionLevelCost,companionBoost,areaCompanionBoost,HABIT_EXP,TREAT_EXP,EVOLVE_AT} from '../lib/companions.mjs';
 import {habitDay} from '../lib/habits.mjs';
 import assert from 'node:assert/strict';
-import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
+import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,milestoneMult,nextMilestone,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
@@ -31,13 +31,15 @@ test('a Fellow is ready after enough habit points in their area, and announced o
  assert.ok(act(s,'recruitFellow',T,darrow.id).error);const r=act(s,'habitComplete',T,id);assert.ok(3>=FELLOW_JOIN_POINTS);assert.deepEqual(r.arrivals.map(a=>a.id),[darrow.id]);
  const j=act(r.state,'recruitFellow',T,darrow.id);assert.ok(!j.error,j.error);assert.deepEqual(j.state.fellows[darrow.id],{level:1,stars:0})});
 
-test('the power formula is the documented one',()=>{assert.equal(fellowBasePower(10,0),1000);assert.equal(fellowBasePower(10,2),1500);assert.equal(heroPowerFor(100,1),2500);assert.equal(heroPowerFor(100,3),3250);
+test('the power formula is the documented one: Level^1.15, milestones at 10/25/50/75/99, stars +25% each',()=>{assert.equal(fellowBasePower(1,0),100);assert.equal(fellowBasePower(9,0),Math.round(100*9**1.15));assert.equal(fellowBasePower(10,0),Math.round(100*10**1.15*1.25));assert.equal(fellowBasePower(10,2),Math.round(100*10**1.15*1.25*1.5));
+ assert.equal(milestoneMult(99),1.25**4*1.5);assert.ok(fellowBasePower(10,0)/fellowBasePower(9,0)>1.3,'the level-10 milestone is a felt jump');assert.ok(fellowBasePower(40,0)/fellowBasePower(20,0)>2.2,'late levels are worth more than early ones');assert.deepEqual(nextMilestone(10),[25,1.25]);assert.equal(nextMilestone(99),null);
+ const r=act({...fresh(T),fellowExp:1e9,fellows:{darrow:{level:9,stars:0}}},'levelUp',T,'darrow',1);assert.ok(r.message.includes('Lv 10 milestone'));assert.ok(r.milestone);assert.equal(heroPowerFor(100,1),2500);assert.equal(heroPowerFor(100,3),3250);
  assert.equal(combinePower(1000,1000),2400);assert.equal(combinePower(1000,0),1000);
- let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:2}}};assert.equal(fellowPower(s,'darrow'),1500);assert.equal(rosterHalf(s),1500);assert.equal(rosterPower(s),combinePower(heroPower(s),1500))});
+ let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:2}}};const p=fellowBasePower(10,2);assert.equal(fellowPower(s,'darrow'),p);assert.equal(rosterHalf(s),p);assert.equal(rosterPower(s),combinePower(heroPower(s),p))});
 
 test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:0}},family:{kira:{bond:0}}};
  // Bond level 1: linked +3%, everyone +0.5%.
- assert.equal(fellowPower(s,'darrow'),Math.round(1000*1.03*1.005))});
+ assert.equal(fellowPower(s,'darrow'),Math.round(fellowBasePower(10,0)*1.03*1.005))});
 
 test('levelling costs Fellow EXP and respects the star cap',()=>{let s={...fresh(T),fellowExp:1e9,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');assert.equal(r.state.fellows.darrow.level,20);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
  assert.equal(s.fellowExp-r.state.fellowExp,Array.from({length:19},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0));assert.equal(r.state.gold,s.gold,'gold untouched')});
@@ -160,7 +162,8 @@ test('needs climb along the map and outcomes follow the Power ratio',()=>{for(le
  assert.equal(expeditionOutcome(0.99),null);assert.equal(expeditionOutcome(1).mult,1);assert.equal(expeditionOutcome(1.5).mult,1.5);assert.equal(expeditionOutcome(3).mult,2)});
 
 /** A save with roughly `power` Total Power, from one Fellow. */
-const withPower=(power,roams=10)=>({...fresh(T),fellows:{darrow:{level:Math.ceil(power/100),stars:0}},roam:{charges:roams,seen:[]}});
+const levelFor=power=>{let L=1;while(fellowBasePower(L,0)<power)L++;return L};
+const withPower=(power,roams=10)=>({...fresh(T),fellows:{darrow:{level:levelFor(power),stars:0}},roam:{charges:roams,seen:[]}});
 
 test('a run costs a Roam, pays loot into gold, sigils and XP, and counts',()=>{let s=withPower(2000);const v=expeditionView(s,'cow-field');assert.ok(v.outcome);
  const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,9);assert.equal(r.state.gold,s.gold+v.loot.gold);assert.equal(r.state.sigils.home,v.loot.sigils);assert.equal(r.state.bonusXp.fitness,v.loot.xp);assert.equal(r.state.expeditions.runs['cow-field'],1);
@@ -300,8 +303,8 @@ test('companions grow from area habits and treats, evolve at set levels and boos
  r=act({...s,treats:1},'treat',T,c.id);assert.ok(!r.error,r.error);assert.equal(r.state.treats,0);assert.equal(r.state.companions[c.id].exp,TREAT_EXP);assert.ok(act(r.state,'treat',T,c.id).error);
  let exp=0;for(let L=1;L<EVOLVE_AT[0];L++)exp+=companionLevelCost(L);assert.ok(act({...s,companions:{[c.id]:{exp:exp-1,stage:1}}},'evolve',T,c.id).error);
  const e=act({...s,companions:{[c.id]:{exp,stage:1}}},'evolve',T,c.id);assert.ok(!e.error,e.error);assert.equal(e.state.companions[c.id].stage,2);
- assert.equal(areaCompanionBoost(e.state,'fitness'),companionBoost(10,2));assert.equal(companionBoost(10,2),0.1);
- const p={...e.state,companions:{},fellows:{darrow:{level:10,stars:0}}};assert.equal(fellowPower({...p,companions:e.state.companions},'darrow'),Math.round(fellowPower(p,'darrow')*1.1))});
+ assert.equal(areaCompanionBoost(e.state,'fitness'),companionBoost(10,2));assert.equal(companionBoost(10,2),0.004*10**1.15*1.15+0.05);assert.ok(companionBoost(10,1)/companionBoost(9,1)>1.2,'companion milestone at 10');
+ const p={...e.state,companions:{},fellows:{darrow:{level:10,stars:0}}};assert.equal(fellowPower({...p,companions:e.state.companions},'darrow'),Math.round(fellowPower(p,'darrow')*(1+companionBoost(10,2))))});
 
 test('new companions are found on boss first-wins and every 8th Map run; runs drop treats',()=>{let s={...fresh(T),fellows:{darrow:{level:200,stars:5}},roam:{...fresh(T).roam,charges:20}};const first=REGIONS[0].adventures[0].id;
  let r=act(s,'expedition',T,first);assert.equal(r.state.treats,s.treats+1);assert.equal(Object.keys(r.state.companions).length,8);

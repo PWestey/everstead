@@ -5,7 +5,7 @@ import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-controls';
 import {FELLOWS,areaById,buildingForArea,familyInArea} from '@/lib/cast.mjs';
-import {fellowPower,fellowBasePower,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,joinNeed,familyBond,BLESS_LINKED} from '@/lib/game.mjs';
+import {fellowPower,fellowBasePower,milestoneMult,nextMilestone,MILESTONES,fellowLevelCap,fellowLevelCost,starCost,MAX_STARS,fellowReady,fellowCanImprove,blessings,buildingRate,areaPoints,joinNeed,familyBond,BLESS_LINKED} from '@/lib/game.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {pendingTalk} from '@/lib/quests.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
@@ -27,13 +27,14 @@ function FellowStats({game,id}:any){
   <div className="fellow-stat"><span className="glyph">⌂</span><span>{building.name}</span><strong>+ {abbrev(buildingRate(game,building.id)*3600)}/h</strong></div>
   <Dialog open={open} onOpenChange={setOpen}><DialogContent className="breakdown-dialog"><DialogTitle>Power Details</DialogTitle><DialogDescription className="sr-only">How this Fellow's Power is calculated.</DialogDescription>
    <table className="es-breakdown"><tbody>
-    <tr><th>Base</th><td>100 × Lv {f.level} × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars))}</td></tr>
+    <tr><th>Base</th><td>100 × Lv {f.level}<sup>1.15</sup> × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars)/milestoneMult(f.level))}</td></tr>
+    <tr><th>Milestones</th><td>{MILESTONES.filter(([at])=>f.level>=at).map(([at])=>'Lv '+at).join(', ')||'none yet'}{(()=>{const m=nextMilestone(f.level);return m?` · next Lv ${m[0]} (×${m[1]})`:''})()}</td><td>×{milestoneMult(f.level)}</td></tr>
     {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
     <tr><th>Companions</th><td>{areaById(def.area).name} companions</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>
-   <p className="small-note">Level cap is 20 + 20 per star. Stars cost {areaById(def.area).name} sigils, earned by completing {areaById(def.area).name} habits.</p>
+   <p className="small-note">Milestones at levels 10, 25, 50 and 75 each multiply Power by 1.25; level 99 by 1.5. Level cap is 20 + 20 per star. Stars cost {areaById(def.area).name} sigils, earned by completing {areaById(def.area).name} habits.</p>
   </DialogContent></Dialog>
  </div>;
 }
@@ -46,7 +47,8 @@ function FellowUpgrade({game,id,action,locked,compact=false}:any){
  if(f.level>=cap){const cost=starCost(f.stars+1);return <div className="spend-controls">{f.stars>=MAX_STARS?<PrimaryAction verb="Max level" disabled/>:<PrimaryAction verb={'Earn star '+(f.stars+1)} tier disabled={locked} currency="Sigils" have={game.sigils[def.area]} cost={cost} onClick={()=>action('starUp',id)}/>}</div>}
  const p=plan(f.level,cap,game.fellowExp||0,q);
  return <div className="spend-controls"><QuantityPicker value={q} onChange={setQ} label="Level up quantity"/>
-  <PrimaryAction verb={p.count?`Level up x${p.count}`:'Level up'} disabled={locked||!p.count} currency="EXP" have={game.fellowExp||0} cost={p.count?p.cost:fellowLevelCost(f.level)} onClick={()=>action('levelUp',id,q)}/></div>;
+  <PrimaryAction verb={p.count?`Level up x${p.count}`:'Level up'} disabled={locked||!p.count} currency="EXP" have={game.fellowExp||0} cost={p.count?p.cost:fellowLevelCost(f.level)} onClick={()=>action('levelUp',id,q)}/>
+  {(()=>{const m=nextMilestone(f.level);return m?<small className="es-milestone">Next milestone: Lv {m[0]} · Power ×{m[1]}</small>:null})()}</div>;
 }
 
 export default function FellowsPanel({game,action,locked,onTalk,selected,setSelected,browse,setBrowse}:any){

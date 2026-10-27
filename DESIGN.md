@@ -122,11 +122,11 @@ Eight modes, all settled by team power against a need (no battle engine); engine
 | Mode | Roster | Cadence | Rule |
 |---|---|---|---|
 | Errands | Family | daily, 5 offers, 3 out | timed jobs (1/4/8h) paying gold, sigils or bond; +7% per daily done |
-| The Rift | Fellows (3) | 1 run/day | climbs floors `250×1.15^f`; today's area ×2 |
+| The Rift | Fellows (3) | 1 run/day | climbs floors `250×1.17^f`; today's area ×2 |
 | Blight Strikes | Family (3) | 3/day, bank 9 | each strike adds damage to this week's Blight |
-| The Arena | Both (5) | 5 tries/day | franchise teams `600×1.1^r`; own franchise ×0.75 |
+| The Arena | Both (5) | 5 tries/day | franchise teams `600×1.12^r`; own franchise ×0.75 |
 | Draft Gauntlet | Both | 1 run/day | everyone = 100 power; floors `240×1.06^f`; wounds carry; pick a draft or boon every 3 floors |
-| Eight Fronts | Both (3) | weekly | each character once a week; waves `300×1.13^w`, easier with that area's weekly habits |
+| Eight Fronts | Both (3) | weekly | each character once a week; waves `300×1.15^w`, easier with that area's weekly habits |
 | The Trials | Family-led (3) | weekly | 8 rooms with rule twists; tier cap from the area's skill level |
 | The Spire | Fellows (5) | any time | endless `400×1.12^f` (bosses ×2/×4); Resolve +1%/habit after a failure (max 20%) |
 
@@ -147,8 +147,8 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 ## Fellows (Power)
 
 - **Recruit** by lifetime habit points in their area, or by time: the k-th of n Fellows in an area is ready on day ⌈30k/n⌉, so everyone has arrived by day 30. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
-- `Fellow Power = 100 × Level × (1 + 0.25 × Stars)`
-- Level cost: `50 × Level^1.5` **Fellow EXP**. EXP comes only from stages: Map runs pay `200 × 1.3^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
+- `Fellow Power = 100 × Level^1.15 × milestones × (1 + 0.25 × Stars)`. **Milestones** at levels 10, 25, 50 and 75 each multiply Power by 1.25 for good; level 99 by 1.5 (×2.9 at 75, ×4.4 at 99). Levels are worth a little more the higher you go; the milestones are where it jumps (idle-game style).
+- Level cost: `50 × Level^1.65` **Fellow EXP** (the extra 0.15 pays for the curve, so the milestones are the real bonus). EXP comes only from stages: Map runs pay `200 × 1.37^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
 - **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + Power/40,000` income. Untouched, the strongest fill the slots; pick by hand on the building screen.
 - **Power is wealth:** every open building earns an extra `Village Power / 40,000` gold per second on top of its base rate, before multipliers.
@@ -166,9 +166,9 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 
 - **Starters:** one per area from the first day; the other three of each area turn up by themselves on days 10, 20 and 30. Sooner, they are **found**: every Map boss first-win, every 8th Map run (preferring the place's areas), and Gauntlet floors 10, 25 and 50.
 - **EXP:** every completed habit gives all four companions of its area **+25 EXP**; a **treat** gives one companion **+100**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
-- Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; cap 40. No buying levels.
+- Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; cap 40. No buying levels. Milestones ×1.15 at 10 and 25, ×1.25 at 40.
 - **Evolve** (a tap) at level 10 and level 25 along the line.
-- **Boost:** each companion gives every Fellow of its area `0.5% × Level + 5% × (Stage − 1)` Power (adds with the Family area blessing). Four maxed companions: +120%.
+- **Boost:** each companion gives every Fellow of its area `0.4% × Level^1.15 × milestones + 5% × (Stage − 1)` Power (adds with the Family area blessing). One maxed companion: +56%; four: +224%.
 
 ### Owning a miss
 
@@ -190,8 +190,8 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 - **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania → Karamja → Kharidian Desert →
   Fremennik Province → the Wilderness. Each has 4 adventures and a boss (35 places). Beating a region's boss
   opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
-- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.3^k` Power (Count Draynor 1,100 … King Black Dragon about 3M).
-- **Loot per run** = gold `150 × 1.3^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.37^k` Power (Count Draynor 1,400 … King Black Dragon about 18M, tuned to the Power curve).
+- **Loot per run** = gold `150 × 1.37^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
   `250 × 1.3^k`. Bosses pay double.
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along
