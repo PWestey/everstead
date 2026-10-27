@@ -285,7 +285,7 @@ test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T)
 test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
 
 // ---------------- Everkai spine: EXP from stages, Power feeds buildings, staffing ----------------
-import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost} from '../lib/game.mjs';
+import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost,bondLevel,bondProgress,giftPrice,BOND_CAP,GIFTS,BLESS_ALL} from '../lib/game.mjs';
 test('Map runs pay Fellow EXP',()=>{const s={...fresh(T),fellows:{darrow:{level:20,stars:0}},roam:{charges:3,seen:[]}};const v=expeditionView(s,'cow-field');const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.fellowExp,s.fellowExp+v.loot.exp);assert.ok(v.loot.exp>0)});
 test('more Power means more income in every open building',()=>{let s={...fresh(T),buildings:{...fresh(T).buildings,yard:{level:1},chapel:{level:1}}};const a=buildingRate(s,'chapel'),b=buildingRate({...s,fellows:{darrow:{level:200,stars:5}}},'chapel');assert.ok(b>a,'Darrow’s Power raises the Chapel too')});
 test('staff: area Fellows fill slots automatically, can be chosen, and raise income',()=>{let s={...fresh(T),fellows:{darrow:{level:30,stars:1},roy:{level:5,stars:0},obiwan:{level:5,stars:0}},buildings:{...fresh(T).buildings,yard:{level:4}}};
@@ -326,11 +326,18 @@ test('owning a miss needs a plan, pays nothing, resets the streak, hides the tas
  const next=settle(r.state,T+864e5);const y=next.habits.items.find(t=>t.id===id);assert.ok(!habitOwned(y,T+864e5));assert.equal(y.plan,'Tomorrow I will train before breakfast.');
  const done=act(next,'habitComplete',T+864e5,id);assert.ok(!done.error,done.error);assert.equal(done.state.habits.items.find(t=>t.id===id).plan,undefined,'plan clears once kept')});
 
-test('gifts in bulk: times and max, capped by what you can afford',()=>{let s={...fresh(T),gold:1200,family:{tyrande:{bond:0}}};
+test('gifts in bulk: times and max, capped by what you can afford, priced by her bond level',()=>{let s={...fresh(T),gold:1200,family:{tyrande:{bond:0}}};
  const one=act(s,'gift',T,'tyrande','posy');assert.equal(one.state.family.tyrande.bond,50);
  const five=act(s,'gift',T,'tyrande',{gift:'posy',times:5});assert.equal(five.state.family.tyrande.bond,100,'only 2 affordable');assert.equal(five.state.gold,200);
- const max=act({...s,gold:5000},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.equal(max.state.family.tyrande.bond,500);assert.equal(max.state.gold,0);
+ // Simulate the climb: each posy is priced at the level she has when it is given.
+ let bond=0,gold=5000,n=0;for(;;){const L=bondLevel(bond),p=giftPrice(GIFTS.posy,L);if(gold<p)break;gold-=p;bond+=50;n++}assert.ok(n<10&&n>5,'prices climb: '+n);
+ const max=act({...s,gold:5000},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.equal(max.state.family.tyrande.bond,bond);assert.equal(max.state.gold,gold);
  assert.ok(act({...s,gold:10},'gift',T,'tyrande',{gift:'posy',times:'max'}).error)});
+
+test('bond levels cost 100 × L^1.5, cap at 50, and gifts stop at the cap',()=>{assert.equal(bondLevel(0),1);assert.equal(bondLevel(99),1);assert.equal(bondLevel(100),2);assert.equal(bondLevel(100+283),3);assert.equal(bondLevel(1e9),BOND_CAP);
+ assert.equal(giftPrice(GIFTS.posy,1),500);assert.equal(giftPrice(GIFTS.posy,25),Math.round(500*1.1**24));assert.deepEqual(bondProgress(1e9),{level:BOND_CAP,into:0,need:0});
+ const r=act({...fresh(T),gold:1e12,family:{tyrande:{bond:1e9}}},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.ok(r.error&&/height/.test(r.error),r.error);
+ const b=blessings({...fresh(T),family:{tyrande:{bond:1e9}}});assert.equal(b.all,BLESS_ALL*BOND_CAP,'the all-Fellows blessing is capped with the level')});
 
 test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;assert.equal(s.buildings.yard.level,1);
  const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
