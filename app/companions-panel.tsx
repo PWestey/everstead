@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Button} from '@/components/ui/button';
-import {COMPANIONS,companionArt,companionName,companionLevel,companionLevelCost,companionLevelFloor,companionBoost,canEvolve,areaCompanionBoost,COMPANION_CAP,EVOLVE_AT,HABIT_EXP,TREAT_EXP,COMPANION_MILESTONES} from '@/lib/companions.mjs';
+import {COMPANIONS,companionArt,companionName,companionLevel,companionLevelCost,companionLevelFloor,companionBoost,canEvolve,areaCompanionBoost,COMPANION_CAP,EVOLVE_AT,HABIT_EXP,TREAT_EXP,nextCompanionMilestone} from '@/lib/companions.mjs';
 import {AREAS,areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 
@@ -22,7 +22,7 @@ export function CompanionsPanel({game,action,locked}:{game:any,action:any,locked
     <div className="cp-body"><h3>{companionName(c,o.stage)}<small> · {c.source}</small></h3>
      <div className="cp-lv"><span>Lv. <b>{L}</b></span><span>+{pct(companionBoost(L,o.stage))} to {areaById(c.area).name} Fellows</span></div>
      <div className="cp-bar"><i style={{width:(need?Math.min(100,into/need*100):100)+'%'}}/></div>
-     <small className="cp-exp">{need?`${into}/${need} EXP`:'Max level'}{o.stage<c.stages.length?` · evolves into ${companionName(c,o.stage+1)} at Lv. ${nextAt}`:' · final form'}{(()=>{const m=COMPANION_MILESTONES.find(([at])=>at>L);return m?` · milestone at Lv. ${m[0]} (×${m[1]})`:''})()}</small>
+     <small className="cp-exp">{need?`${into}/${need} EXP`:'Max level'}{o.stage<c.stages.length?` · evolves into ${companionName(c,o.stage+1)} at Lv. ${nextAt}`:' · final form'}{(()=>{const m=nextCompanionMilestone(L);return ` · milestone at Lv. ${m[0]} (×${m[1]})`})()}</small>
      <div className="cp-actions">
       <Button size="sm" variant="outline" disabled={locked||!(game.treats>0)||L>=COMPANION_CAP} onClick={()=>action('treat',c.id)}>Treat · +{TREAT_EXP} EXP</Button>
       {evolve&&<Button size="sm" className="cp-evolve" disabled={locked} onClick={()=>action('evolve',c.id)}>Evolve!</Button>}

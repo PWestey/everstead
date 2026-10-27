@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {REGIONS} from '@/lib/expedition-data.mjs';
-import {expeditionView,regionOpen,rosterPower,roamCap,perks} from '@/lib/game.mjs';
+import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks} from '@/lib/game.mjs';
 import {areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 import {BlightCard} from './village-panels';
@@ -20,12 +20,13 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
  return <section className="xp-map">
   <header className="xp-top">
    <span><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><b>{n(power)}</b> Power</span>
+   {lapOf(game)>1&&<span className="xp-lap" title={`Every need and reward is ×${LAP.toLocaleString()} per lap`}>Lap <b>{lapOf(game)}</b></span>}
    <span><img className="rs-px" src="./assets/osrs/ui/Stamina_potion4.png" alt=""/><b>{game.roam.charges}</b>/{roamCap(game)} Roams</span>
   </header>
   <nav className="xp-regions" aria-label="Regions">{REGIONS.map((r,i)=><button key={r.id} type="button" className={(i===sel?'xp-on ':'')+(regionOpen(game,i)?'':'xp-locked')} onClick={()=>setSel(i)}>{regionOpen(game,i)?'':'🔒 '}{r.name}</button>)}</nav>
   <div className="xp-region" style={{backgroundImage:`url(./assets/${region.bg})`}}>
    <div className="xp-region-text"><h2>{region.name}</h2><p>{region.blurb}</p>
-    <small>Boss reward: {region.perk.text}{game.expeditions.bosses.includes(region.boss.id)?' ✓':''}</small></div>
+    <small>Boss reward: {region.perk.text}{lapBeaten(game).includes(region.boss.id)?' ✓':''}</small></div>
   </div>
   {!open&&<p className="xp-lockmsg">Defeat <b>{REGIONS[sel-1].boss.title}</b> in {REGIONS[sel-1].name} to open {region.name}.</p>}
   <ul className="xp-list">{places.map(v=><li key={v.id} className={'xp-card'+(v.boss?' xp-boss':'')+(v.open&&!v.outcome?' xp-short':'')+(!v.open?' xp-closed':'')}>

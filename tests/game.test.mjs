@@ -32,7 +32,7 @@ test('a Fellow is ready after enough habit points in their area, and announced o
  const j=act(r.state,'recruitFellow',T,darrow.id);assert.ok(!j.error,j.error);assert.deepEqual(j.state.fellows[darrow.id],{level:1,stars:0})});
 
 test('the power formula is the documented one: Level^1.15, milestones at 10/25/50/75/99, stars +25% each',()=>{assert.equal(fellowBasePower(1,0),100);assert.equal(fellowBasePower(9,0),Math.round(100*9**1.15));assert.equal(fellowBasePower(10,0),Math.round(100*10**1.15*1.25));assert.equal(fellowBasePower(10,2),Math.round(100*10**1.15*1.25*1.5));
- assert.equal(milestoneMult(99),1.25**4*1.5);assert.ok(fellowBasePower(10,0)/fellowBasePower(9,0)>1.3,'the level-10 milestone is a felt jump');assert.ok(fellowBasePower(40,0)/fellowBasePower(20,0)>2.2,'late levels are worth more than early ones');assert.deepEqual(nextMilestone(10),[25,1.25]);assert.equal(nextMilestone(99),null);
+ assert.equal(milestoneMult(99),1.25**4*1.5);assert.ok(fellowBasePower(10,0)/fellowBasePower(9,0)>1.3,'the level-10 milestone is a felt jump');assert.ok(fellowBasePower(40,0)/fellowBasePower(20,0)>2.2,'late levels are worth more than early ones');assert.deepEqual(nextMilestone(10),[25,1.25]);assert.deepEqual(nextMilestone(99),[125,1.25]);
  const r=act({...fresh(T),fellowExp:1e9,fellows:{darrow:{level:9,stars:0}}},'levelUp',T,'darrow',1);assert.ok(r.message.includes('Lv 10 milestone'));assert.ok(r.milestone);assert.equal(heroPowerFor(100,1),2500);assert.equal(heroPowerFor(100,3),3250);
  assert.equal(combinePower(1000,1000),2400);assert.equal(combinePower(1000,0),1000);
  let s=fresh(T);s={...s,companions:{},fellows:{darrow:{level:10,stars:2}}};const p=fellowBasePower(10,2);assert.equal(fellowPower(s,'darrow'),p);assert.equal(rosterHalf(s),p);assert.equal(rosterPower(s),combinePower(heroPower(s),p))});
@@ -41,8 +41,8 @@ test('Family blessings multiply Fellow power',()=>{let s=fresh(T);s={...s,compan
  // Bond level 1: linked +3%, everyone +0.5%.
  assert.equal(fellowPower(s,'darrow'),Math.round(fellowBasePower(10,0)*1.03*1.005))});
 
-test('levelling costs Fellow EXP and respects the star cap',()=>{let s={...fresh(T),fellowExp:1e9,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');assert.equal(r.state.fellows.darrow.level,20);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
- assert.equal(s.fellowExp-r.state.fellowExp,Array.from({length:19},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0));assert.equal(r.state.gold,s.gold,'gold untouched')});
+test('levelling costs Fellow EXP, with no cap but a cost that climbs with the milestones',()=>{let s={...fresh(T),fellowExp:1e6,fellows:{darrow:{level:1,stars:0}}};const r=act(s,'levelUp',T,'darrow','max');const L=r.state.fellows.darrow.level;assert.ok(L>40&&L<80,'1M EXP buys a few dozen levels: '+L);assert.ok(act(r.state,'levelUp',T,'darrow',1).error);
+ assert.equal(s.fellowExp-r.state.fellowExp,Array.from({length:L-1},(_,i)=>fellowLevelCost(i+1)).reduce((a,b)=>a+b,0));assert.equal(r.state.gold,s.gold,'gold untouched')});
 
 test('stars cost sigils of the Fellow’s own area',()=>{let s={...fresh(T),fellows:{darrow:{level:1,stars:0}}};assert.ok(act(s,'starUp',T,'darrow').error);s={...s,sigils:{...s.sigils,fitness:starCost(1)}};const r=act(s,'starUp',T,'darrow');assert.equal(r.state.fellows.darrow.stars,1);assert.equal(r.state.sigils.fitness,0)});
 
@@ -285,7 +285,7 @@ test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T)
 test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
 
 // ---------------- Everkai spine: EXP from stages, Power feeds buildings, staffing ----------------
-import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost,bondLevel,bondProgress,giftPrice,BOND_CAP,GIFTS,BLESS_ALL} from '../lib/game.mjs';
+import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost,bondLevel,bondProgress,giftPrice,GIFTS,BLESS_ALL,staffBonus,LAP} from '../lib/game.mjs';
 test('Map runs pay Fellow EXP',()=>{const s={...fresh(T),fellows:{darrow:{level:20,stars:0}},roam:{charges:3,seen:[]}};const v=expeditionView(s,'cow-field');const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.fellowExp,s.fellowExp+v.loot.exp);assert.ok(v.loot.exp>0)});
 test('more Power means more income in every open building',()=>{let s={...fresh(T),buildings:{...fresh(T).buildings,yard:{level:1},chapel:{level:1}}};const a=buildingRate(s,'chapel'),b=buildingRate({...s,fellows:{darrow:{level:200,stars:5}}},'chapel');assert.ok(b>a,'Darrow’s Power raises the Chapel too')});
 test('staff: area Fellows fill slots automatically, can be chosen, and raise income',()=>{let s={...fresh(T),fellows:{darrow:{level:30,stars:1},roy:{level:5,stars:0},obiwan:{level:5,stars:0}},buildings:{...fresh(T).buildings,yard:{level:4}}};
@@ -299,7 +299,7 @@ test('companions: 32 lines, four per area, one starter each, art for every stage
 
 test('companions grow from area habits and treats, evolve at set levels and boost area Fellows',()=>{const {s,id}=withHabit('fitness','easy');const c=COMPANIONS.find(x=>x.area==='fitness'&&x.starter);
  let r=act(s,'habitComplete',T,id);assert.equal(r.state.companions[c.id].exp,HABIT_EXP);r=act(r.state,'habitUndo',T,id);assert.equal(r.state.companions[c.id].exp,0);
- assert.equal(companionLevel(0),1);assert.equal(companionLevel(companionLevelCost(1)),2);assert.equal(companionLevel(1e9),40);
+ assert.equal(companionLevel(0),1);assert.equal(companionLevel(companionLevelCost(1)),2);assert.ok(companionLevel(1e9)>40);
  r=act({...s,treats:1},'treat',T,c.id);assert.ok(!r.error,r.error);assert.equal(r.state.treats,0);assert.equal(r.state.companions[c.id].exp,TREAT_EXP);assert.ok(act(r.state,'treat',T,c.id).error);
  let exp=0;for(let L=1;L<EVOLVE_AT[0];L++)exp+=companionLevelCost(L);assert.ok(act({...s,companions:{[c.id]:{exp:exp-1,stage:1}}},'evolve',T,c.id).error);
  const e=act({...s,companions:{[c.id]:{exp,stage:1}}},'evolve',T,c.id);assert.ok(!e.error,e.error);assert.equal(e.state.companions[c.id].stage,2);
@@ -334,10 +334,19 @@ test('gifts in bulk: times and max, capped by what you can afford, priced by her
  const max=act({...s,gold:5000},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.equal(max.state.family.tyrande.bond,bond);assert.equal(max.state.gold,gold);
  assert.ok(act({...s,gold:10},'gift',T,'tyrande',{gift:'posy',times:'max'}).error)});
 
-test('bond levels cost 100 × L^1.5, cap at 50, and gifts stop at the cap',()=>{assert.equal(bondLevel(0),1);assert.equal(bondLevel(99),1);assert.equal(bondLevel(100),2);assert.equal(bondLevel(100+283),3);assert.equal(bondLevel(1e9),BOND_CAP);
- assert.equal(giftPrice(GIFTS.posy,1),500);assert.equal(giftPrice(GIFTS.posy,25),Math.round(500*1.1**24));assert.deepEqual(bondProgress(1e9),{level:BOND_CAP,into:0,need:0});
- const r=act({...fresh(T),gold:1e12,family:{tyrande:{bond:1e9}}},'gift',T,'tyrande',{gift:'posy',times:'max'});assert.ok(r.error&&/height/.test(r.error),r.error);
- const b=blessings({...fresh(T),family:{tyrande:{bond:1e9}}});assert.equal(b.all,BLESS_ALL*BOND_CAP,'the all-Fellows blessing is capped with the level')});
+test('bond levels cost 100 × L^1.5 with no cap; blessings come from the closest bond per area and the family average',()=>{assert.equal(bondLevel(0),1);assert.equal(bondLevel(99),1);assert.equal(bondLevel(100),2);assert.equal(bondLevel(100+283),3);assert.ok(bondLevel(1e9)>50);
+ assert.equal(giftPrice(GIFTS.posy,1),500);assert.equal(giftPrice(GIFTS.posy,25),Math.round(500*1.1**24));
+ const two={...fresh(T),family:{ariane:{bond:1e5},lys:{bond:0}}};const b=blessings(two);const L=bondLevel(1e5);assert.equal(b.all,BLESS_ALL*(L+1)/2,'average bond blesses everyone');assert.equal(b.linked[fellowsInArea('faith')[0].id],BLESS_LINKED*L,'the closest bond blesses the area')});
+
+test('nothing caps: stars, levels, companions and bond keep going, and laps restart the map',()=>{
+ const r=act({...fresh(T),sigils:{...fresh(T).sigils,fitness:1e6},fellows:{darrow:{level:1,stars:5}}},'starUp',T,'darrow');assert.ok(!r.error,r.error);assert.equal(r.state.fellows.darrow.stars,6);
+ assert.equal(milestoneMult(125),1.25**4*1.5*1.25);assert.equal(milestoneMult(150),1.25**4*1.5*1.25**2);assert.deepEqual(nextMilestone(99),[125,1.25]);assert.deepEqual(nextMilestone(150),[175,1.25]);
+ assert.ok(fellowLevelCost(200)/fellowLevelCost(100)>2**1.65*1.25**4*0.99,'level cost climbs with the milestones');assert.ok(companionLevel(1e9)>40);assert.ok(staffBonus(1e7)<3,'staff bonus grows with the log of Power');
+ let w={...fresh(T),fellows:{darrow:{level:3000,stars:40}},roam:{...fresh(T).roam,charges:20}};w.expeditions={runs:{},bosses:REGIONS.slice(0,9).map(x=>x.boss.id),lap:1,lapBosses:[]};
+ const need1=expeditionView(w,'cow-field').need;const nex=act(w,'expedition',T,'nex');assert.ok(!nex.error,nex.error);assert.equal(nex.state.expeditions.lap,2);assert.ok(/Lap 2/.test(nex.message));
+ assert.equal(regionOpen(nex.state,0),true);assert.equal(regionOpen(nex.state,1),false,'Asgarnia closes until Count Draynor falls again');assert.equal(expeditionView(nex.state,'cow-field').need,Math.round(need1*LAP));
+ assert.equal(perks(nex.state).power,perks({...w,expeditions:{...w.expeditions,bosses:[...w.expeditions.bosses,'nex']}}).power,'perks are all-time');assert.ok(valid(nex.state));
+ const again=act({...nex.state,roam:{...nex.state.roam,charges:5}},'expedition',T,'count-draynor');assert.ok(!again.error,again.error);assert.equal(regionOpen(again.state,1),true);assert.equal(again.expedition.perk,null,'no second perk')});
 
 test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;assert.equal(s.buildings.yard.level,1);
  const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
@@ -346,4 +355,4 @@ test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',
 
 test('ten regions, fifty places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,10);assert.equal(EXPEDITIONS.length,50);
  for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
- assert.ok(expeditionNeed(49)>2e7&&expeditionNeed(49)<5e7,'Nex is a maxed-village fight')});
+ assert.ok(expeditionNeed(49)>1e8&&expeditionNeed(49)<2e8,'Nex is the lap-one finale')});

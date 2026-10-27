@@ -31,6 +31,10 @@ rule and number. Read it before changing gameplay.
 - Saves are localStorage key `everstead-save-v1`. A change that adds a required field must keep old
   saves loading (`decode()` merges defaults from `fresh()`), or bump `SAVE_VERSION` with a migration.
 
+## Balance
+
+Everything grows without a cap, so every loop must be damped: costs geometric, income proportional to Power (never Power squared), blessings from the best and the average (never a sum over the cast). Before changing a formula run `node scripts/simulate.mjs 120 8 10` (a steady player) and `... 120 4 10` (a casual one) and compare the map pace against DESIGN.md.
+
 ## Checks
 
 `pnpm test`, `pnpm exec tsc --noEmit`, `pnpm build`. All three run in CI before every deploy.

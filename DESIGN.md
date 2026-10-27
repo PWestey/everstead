@@ -148,15 +148,16 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 
 - **Recruit** by lifetime habit points in their area, or by time: the k-th of n Fellows in an area is ready on day ⌈30k/n⌉, so everyone has arrived by day 30. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level^1.15 × milestones × (1 + 0.25 × Stars)`. **Milestones** at levels 10, 25, 50 and 75 each multiply Power by 1.25 for good; level 99 by 1.5 (×2.9 at 75, ×4.4 at 99). Levels are worth a little more the higher you go; the milestones are where it jumps (idle-game style).
-- Level cost: `50 × Level^1.65` **Fellow EXP** (the extra 0.15 pays for the curve, so the milestones are the real bonus). EXP comes only from stages: Map runs pay `200 × 1.26^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
-- Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
-- **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + Power/40,000` income. Untouched, the strongest fill the slots; pick by hand on the building screen.
+- Level cost: `50 × Level^1.65 × 1.25^(Level/25)` **Fellow EXP**: it climbs with the milestones, so Power per EXP falls slowly forever and nothing runs away. Past 99 a milestone comes every 25 levels (×1.25), without end. EXP comes only from stages: Map runs pay `50 × 1.3^k` (bosses ×2); War Table modes pay a share of their need (Rift 1⁄16 per floor, Spire 1⁄20, Arena 1⁄12, Gauntlet 1⁄12, Front 1⁄16 per wave, Trials 1⁄12). New saves start with 1,500. No level cap.
+- Stars cost `15 × n²` sigils of the Fellow's own area and never stop (five show as glyphs; past that the count is written). Each adds +25% Power. Levels have no cap: the climbing EXP cost is the pace.
+- **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + 25% per doubling of his Power past 10,000` income (log, so income stays proportional to Power). Untouched, the strongest fill the slots; pick by hand on the building screen.
 - **Power is wealth:** every open building earns an extra `Village Power / 40,000` gold per second on top of its base rate, before multipliers.
 
 ## Family (Blessings)
 
 - **Welcome** by area points and your total level, or by time (same day-30 rule as Fellows). Queue: 15, 60, 150, 280, 450… points, and total level 20, 60, 100, 140… for the 1st, 2nd, 3rd… Family member.
-- Bond level from bond XP; level L → L+1 costs `100 × L^1.5`, **cap 50**. Gifts cost `10% more per bond level` of the recipient (a posy is 500 gold at level 1, about 5,000 at level 25), so gold income can't buy unbounded Power through blessings.
+- Bond level from bond XP; level L → L+1 costs `100 × L^1.5`, no cap. Gifts cost `10% more per bond level` of the recipient (a posy is 500 gold at level 1, about 5,000 at level 25), so bond grows with the log of your gold.
+- **Blessings:** your closest bond in each area blesses its Fellows (+3%/level) and its building (+2%/level); the family's **average** bond blesses every Fellow (+0.5%/level). Sums over 97 members would run away; the best and the average don't.
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals; give ×1, ×5, ×10 or as many as you can afford), roaming scenes.
 
@@ -165,8 +166,8 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 32 creatures (16 Pokémon, 16 Aniimo), four per life area, in `lib/companions.mjs`. Art: `public/assets/companions/<stage>.webp`.
 
 - **Starters:** one per area from the first day; the other three of each area turn up by themselves on days 10, 20 and 30. Sooner, they are **found**: every Map boss first-win, every 8th Map run (preferring the place's areas), and Gauntlet floors 10, 25 and 50.
-- **EXP:** every completed habit gives all four companions of its area **+25 EXP**; a **treat** gives one companion **+100**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
-- Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; cap 40. No buying levels. Milestones ×1.15 at 10 and 25, ×1.25 at 40.
+- **EXP:** every completed habit gives all four companions of its area **+100 EXP**; a **treat** gives one companion **+250**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
+- Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; no cap. No buying levels. Milestones ×1.15 at 10 and 25, ×1.25 at 40, then ×1.15 every 25 levels.
 - **Evolve** (a tap) at level 10 and level 25 along the line.
 - **Boost:** each companion gives every Fellow of its area `0.4% × Level^1.15 × milestones + 5% × (Stage − 1)` Power (adds with the Family area blessing). One maxed companion: +56%; four: +224%.
 
@@ -175,6 +176,10 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 A due daily task you didn't do can be **owned** (task sheet → "I failed today"): you must write how you'll make it right
 tomorrow (12–300 characters). The task leaves today's list, pays nothing, and its streak resets. Tomorrow the task shows
 what you said until you complete it. Owned days don't count for Momentum, area points or the Hearth.
+
+## Pace
+
+From `node scripts/simulate.mjs` (a player who completes 8 hard daily habits, spends every Roam, runs the War Table and spends everything): the seven original regions fall in about 5 weeks, lap 1 (Nex) in about 3 months, and each lap after that takes longer than the last. A 4-habit player runs at roughly half that pace. Nothing caps, so the game never goes flat: Power, needs and rewards keep climbing together.
 
 ## The Hearth and the Collection Log
 
@@ -190,9 +195,10 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 - **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania → Karamja → Kharidian Desert →
   Fremennik Province → the Wilderness → Kandarin → Great Kourend → the God Wars Dungeon. Each has 4 adventures and a boss (50 places). Beating a region's boss
   opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
-- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.26^k` Power (Count Draynor 1,000 … King Black Dragon 1M … Nex about 33M, about what a maxed village reaches).
-- **Loot per run** = gold `150 × 1.26^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.3^k` Power (Count Draynor 1,100 … King Black Dragon 3M … Nex about 150M).
+- **Loot per run** = gold `150 × 1.3^k`, and in each of the place's two areas sigils `3 + ⌊k/5⌋` and XP
   `250 × 1.3^k`. Bosses pay double.
+- **Laps:** beating Nex starts lap 2: every need and every gold/EXP reward on the map is ×705 (25 steps' worth) per lap, regions re-open boss by boss, perks and companions are earned once. There is no last lap.
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along
   (`lib/expeditions/scenes.mjs`); repeats are one tap and a result scroll.

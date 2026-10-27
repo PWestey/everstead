@@ -5,7 +5,7 @@ import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction,QuantityPicker,type Quantity} from './original-controls';
 import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
-import {familyBond,bondProgress,bondLevel,giftPrice,BOND_CAP,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
+import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
@@ -24,9 +24,9 @@ function FamilyStats({game,id}:any){
    <button type="button" className="family-medallion" onClick={()=>setOpen('Bond')}><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/><span>Bond Lv</span><strong>{L}</strong></button>
    <button type="button" className="family-medallion" onClick={()=>setOpen('Blessing')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Blessing</span><strong>+{pct(BLESS_LINKED*L)}</strong></button>
   </div>
-  <div className="es-bond-bar" aria-label={p.need?`Bond ${p.into} of ${p.need} to the next level`:'Bond at its height'}><i style={{width:(p.need?Math.min(100,p.into/p.need*100):100)+'%'}}/><span>{p.need?`${p.into} / ${p.need}`:'Max bond'}</span></div>
+  <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{open==='Bond'?'Bond':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
-   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last, gifts cost 10% more per level, and bond tops out at level {BOND_CAP}.</p>
+   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 10% more per level. Your closest bond in each area blesses its Fellows and building; everyone's average bond blesses all Fellows.</p>
    :<table className="es-breakdown"><tbody>
      <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
      <tr><th>Every Fellow</th><td>village-wide</td><td>+{pct(BLESS_ALL*L)}</td></tr>
@@ -37,9 +37,9 @@ function FamilyStats({game,id}:any){
 }
 
 /** How many of a gift you can give her now, and what they cost together: each one is priced at her bond level as it climbs. */
-function giftPlan(g:any,bond:number,have:number,times:Quantity){const limit=times==='max'?10000:times;let n=0,cost=0,b=bond;while(n<limit){const L=bondLevel(b);if(L>=BOND_CAP)break;const p=giftPrice(g,L);if(have-cost<p)break;cost+=p;b+=g.bond;n++}return {n,cost}}
-function GiftSheet({game,id,action,locked}:any){const [q,setQ]=useState<Quantity>(1);const bond=game.family[id].bond,L=bondLevel(bond),capped=L>=BOND_CAP;
- return <div className="es-gifts"><QuantityPicker value={q} onChange={setQ} label="Gift quantity"/>{capped&&<p className="small-note">Her bond is at its height. Gifts are just gifts now.</p>}{Object.entries(GIFTS).map(([key,g]:any)=>{const have=g.gold?game.gold:game.crystals,p=giftPlan(g,bond,have,q);
+function giftPlan(g:any,bond:number,have:number,times:Quantity){const limit=times==='max'?10000:times;let n=0,cost=0,b=bond;while(n<limit){const L=bondLevel(b);const p=giftPrice(g,L);if(have-cost<p)break;cost+=p;b+=g.bond;n++}return {n,cost}}
+function GiftSheet({game,id,action,locked}:any){const [q,setQ]=useState<Quantity>(1);const bond=game.family[id].bond,L=bondLevel(bond);
+ return <div className="es-gifts"><QuantityPicker value={q} onChange={setQ} label="Gift quantity"/>{Object.entries(GIFTS).map(([key,g]:any)=>{const have=g.gold?game.gold:game.crystals,p=giftPlan(g,bond,have,q);
   return <div key={key} className="es-gift"><div><strong>{g.name}</strong><p>+{g.bond} bond{p.n>1?` × ${p.n} = +${(g.bond*p.n).toLocaleString()}`:''}</p></div>
    <PrimaryAction verb={p.n>1?`Give ×${p.n}`:'Give'} disabled={locked||p.n<1} currency={g.gold?'Gold':'Crystals'} have={have} cost={p.n?p.cost:giftPrice(g,L)} onClick={()=>{if(p.n>=1)action('gift',id,{gift:key,times:p.n})}}/></div>})}</div>;
 }
