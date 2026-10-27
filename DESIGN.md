@@ -148,7 +148,7 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 
 - **Recruit** by lifetime habit points in their area, or by time: the k-th of n Fellows in an area is ready on day ⌈30k/n⌉, so everyone has arrived by day 30. The join queue per area is 3, 30, 90, 180, 300, 450… points for the 1st, 2nd, 3rd… Fellow.
 - `Fellow Power = 100 × Level^1.15 × milestones × (1 + 0.25 × Stars)`. **Milestones** at levels 10, 25, 50 and 75 each multiply Power by 1.25 for good; level 99 by 1.5 (×2.9 at 75, ×4.4 at 99). Levels are worth a little more the higher you go; the milestones are where it jumps (idle-game style).
-- Level cost: `50 × Level^1.65` **Fellow EXP** (the extra 0.15 pays for the curve, so the milestones are the real bonus). EXP comes only from stages: Map runs pay `200 × 1.37^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
+- Level cost: `50 × Level^1.65` **Fellow EXP** (the extra 0.15 pays for the curve, so the milestones are the real bonus). EXP comes only from stages: Map runs pay `200 × 1.26^k` (bosses ×2); War Table modes pay a share of their need (Rift ¼ per floor, Spire ⅕, Arena ⅓, Gauntlet ⅓, Front ¼ per wave, Trials ⅓). New saves start with 1,500. Level cap: `20 + 20 × Stars`.
 - Stars 1–5 cost `15 × n²` sigils of the Fellow's own area (825 total).
 - **Staffing:** a building has `min(4, 1 + ⌊(Level−1)/3⌋)` staff slots (more at levels 4, 7, 10), filled by recruited Fellows of its area. Each worker adds `25% + Power/40,000` income. Untouched, the strongest fill the slots; pick by hand on the building screen.
 - **Power is wealth:** every open building earns an extra `Village Power / 40,000` gold per second on top of its base rate, before multipliers.
@@ -188,10 +188,10 @@ The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows n
 Power opens and crushes more of the map. Old School RuneScape places and art (`public/assets/osrs/`).
 
 - **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania → Karamja → Kharidian Desert →
-  Fremennik Province → the Wilderness. Each has 4 adventures and a boss (35 places). Beating a region's boss
+  Fremennik Province → the Wilderness → Kandarin → Great Kourend → the God Wars Dungeon. Each has 4 adventures and a boss (50 places). Beating a region's boss
   opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
-- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.37^k` Power (Count Draynor 1,400 … King Black Dragon about 18M, tuned to the Power curve).
-- **Loot per run** = gold `150 × 1.37^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.26^k` Power (Count Draynor 1,000 … King Black Dragon 1M … Nex about 33M, about what a maxed village reaches).
+- **Loot per run** = gold `150 × 1.26^k`, and in each of the place's two areas sigils `3 × 1.15^k` and XP
   `250 × 1.3^k`. Bosses pay double.
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along

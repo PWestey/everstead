@@ -336,3 +336,7 @@ test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',
  const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
  const max=act({...s,gold:1000},'buildingUpgrade',T,'yard','max');assert.equal(max.state.buildings.yard.level,4,'200 + 300 + 450 fits in 1000, 675 does not');assert.ok(act({...s,gold:10},'buildingUpgrade',T,'yard','max').error);
  const staffed={...five.state,buildings:{...five.state.buildings,yard:{...five.state.buildings.yard,staff:['darrow']}}};assert.deepEqual(act(staffed,'buildingUpgrade',T,'yard',1).state.buildings.yard.staff,['darrow'])});
+
+test('ten regions, fifty places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,10);assert.equal(EXPEDITIONS.length,50);
+ for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
+ assert.ok(expeditionNeed(49)>2e7&&expeditionNeed(49)<5e7,'Nex is a maxed-village fight')});
