@@ -304,7 +304,9 @@ test('companions grow from area habits and treats, evolve at set levels and boos
  let exp=0;for(let L=1;L<EVOLVE_AT[0];L++)exp+=companionLevelCost(L);assert.ok(act({...s,companions:{[c.id]:{exp:exp-1,stage:1}}},'evolve',T,c.id).error);
  const e=act({...s,companions:{[c.id]:{exp,stage:1}}},'evolve',T,c.id);assert.ok(!e.error,e.error);assert.equal(e.state.companions[c.id].stage,2);
  assert.equal(areaCompanionBoost(e.state,'fitness'),companionBoost(10,2));assert.equal(companionBoost(10,2),0.004*10**1.15*1.15+0.05);assert.ok(companionBoost(10,1)/companionBoost(9,1)>1.2,'companion milestone at 10');
- const p={...e.state,companions:{},fellows:{darrow:{level:10,stars:0}}};assert.equal(fellowPower({...p,companions:e.state.companions},'darrow'),Math.round(fellowPower(p,'darrow')*(1+companionBoost(10,2))))});
+ const p={...e.state,companions:{},fellows:{darrow:{level:10,stars:0}}};assert.equal(fellowPower({...p,companions:e.state.companions},'darrow'),Math.round(fellowPower(p,'darrow')*(1+companionBoost(10,2))));
+ // Companions multiply on their own, so a high bond never dilutes them.
+ const fam=FAMILY.find(f=>f.area==='fitness');const hb={...p,family:{[fam.id]:{bond:1e7}}};assert.equal(fellowPower({...hb,companions:e.state.companions},'darrow'),Math.round(fellowPower(hb,'darrow')*(1+companionBoost(10,2))),'same +% at high bond')});
 
 test('new companions are found on boss first-wins and every 8th Map run; runs drop treats',()=>{let s={...fresh(T),fellows:{darrow:{level:200,stars:5}},roam:{...fresh(T).roam,charges:20}};const first=REGIONS[0].adventures[0].id;
  let r=act(s,'expedition',T,first);assert.equal(r.state.treats,s.treats+1);assert.equal(Object.keys(r.state.companions).length,8);

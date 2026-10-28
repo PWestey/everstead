@@ -169,7 +169,7 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 - **EXP:** every completed habit gives all four companions of its area **+100 EXP**; a **treat** gives one companion **+250**. Treats drop 1 per Map run (2 from bosses), from the Rift (1/day), the Arena (1 per win), and every 5th Spire and Gauntlet floor. New saves start with 3.
 - Level from lifetime EXP: level L→L+1 costs `25 × L^1.5`; no cap. No buying levels. Milestones ×1.15 at 10 and 25, ×1.25 at 40, then ×1.15 every 25 levels.
 - **Evolve** (a tap) at level 10 and level 25 along the line.
-- **Boost:** each companion gives every Fellow of its area `0.4% × Level^1.15 × milestones + 5% × (Stage − 1)` Power (adds with the Family area blessing). One maxed companion: +56%; four: +224%.
+- **Boost:** each companion gives every Fellow of its area `0.4% × Level^1.15 × milestones + 5% × (Stage − 1)` Power. Companions are their own multiplier: `Fellow Power × (1 + area blessing) × (1 + companions) × (1 + family blessing)`, so a +10% companion is always a real +10% however high bond climbs. Four level-40 companions: ×2.8.
 
 ### Owning a miss
 

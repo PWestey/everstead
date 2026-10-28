@@ -30,7 +30,7 @@ function FellowStats({game,id}:any){
     <tr><th>Base</th><td>100 × Lv {f.level}<sup>1.15</sup> × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars)/milestoneMult(f.level))}</td></tr>
     <tr><th>Milestones</th><td>{MILESTONES.filter(([at])=>f.level>=at).map(([at])=>'Lv '+at).join(', ')||'none yet'}{(()=>{const m=nextMilestone(f.level);return m?` · next Lv ${m[0]} (×${m[1]})`:''})()}</td><td>×{milestoneMult(f.level)}</td></tr>
     {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
-    <tr><th>Companions</th><td>{areaById(def.area).name} companions</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
+    <tr><th>Companions</th><td>{areaById(def.area).name} companions (own multiplier)</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>
