@@ -273,6 +273,15 @@ test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={..
  for(let i=0;i<200&&s.modes.gauntlet.run;i++){const run=s.modes.gauntlet.run;if(run.offer){offered=true;s=act(s,'mode:gauntletChoose',T,run.offer.draft[0]||'rally').state}else s=act(s,'mode:gauntletFight',T,null,null).state}
  assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});
 
+test('Gauntlet: sector members count ×2, Rallies stack, and a lost floor offers a regroup boon',()=>{const s=fresh(T),day='2026-10-14',sec=WT.gauntletSector(day,1);
+ const inSec=FELLOWS.find(f=>f.area===sec).id,out=FELLOWS.find(f=>f.area!==sec).id;
+ assert.equal(WT.gauntletPower(s,{floor:0,squad:[inSec,out],boons:[]},day,T),300);assert.equal(WT.gauntletPower(s,{floor:0,squad:[inSec,out],boons:['focus']},day,T),360);
+ assert.equal(WT.gauntletPower(s,{floor:0,squad:[out],boons:['rally','rally']},day,T),Math.round(100*1.15*1.15));
+ // Floor 1 needs 240; one outsider (100) loses, keeps 60 health and is offered a boon instead of a bare retry.
+ const r=act({...s,fellows:{[out]:{level:1,stars:0}},modes:{...s.modes,gauntlet:{day,run:{floor:0,hp:100,squad:[out],boons:[],offer:null},best:0}}},'mode:gauntletFight',T,null,null);
+ assert.ok(!r.error,r.error);const run=r.state.modes.gauntlet.run;assert.equal(run.hp,60);assert.ok(run.offer?.regroup);assert.deepEqual(run.offer.boons,['rally','focus'],'no Mend on a regroup: it would refund the loss forever');
+ const g=act(r.state,'mode:gauntletChoose',T,'rally',null);assert.equal(g.state.modes.gauntlet.run.hp,60,'a regroup does not pay the +20 sector heal');assert.deepEqual(g.state.modes.gauntlet.run.boons,['rally'])});
+
 // ---------------- Main story ----------------
 import {CHAPTERS,chapterLock,nextChapter,fillTokens,hearthLine,currentStreak} from '../lib/story.mjs';
 import {ORIGINS} from '../lib/origins.mjs';
