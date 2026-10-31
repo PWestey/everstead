@@ -30,7 +30,7 @@ export default function HeroPanel({game,action,locked}:any){
    <Button variant="outline" className="es-rail-btn" onClick={()=>setClog(true)} aria-label="Collection Log"><img className="rs-px" src="./assets/osrs/ui/Collection_log_icon.png" alt=""/><span>Log</span></Button>
    <Button variant="outline" className="es-rail-btn" onClick={()=>setNaming(true)} aria-label="Name"><img src="./assets/menu/overview.png" alt=""/><span>Name</span></Button>
   </>}
-  info={<p>Each life area is a skill from 1 to 99. Your total level (out of {MAX_TOTAL}) unlocks each armour tier, and your Power is half you, half your roster.</p>}
+  info={<p>Each life area is a skill: the cape at 99, and the level keeps counting past it. Your total level unlocks each armour tier (max cape at {MAX_TOTAL}), opens Trial rooms, and past {MAX_TOTAL} it compounds your Hero Power by 1% a level.</p>}
   collection={null}>
   <Dialog open={clog} onOpenChange={setClog}><DialogContent className="es-char-sheet rs-clog-sheet"><DialogTitle className="sr-only">Collection Log</DialogTitle><DialogDescription className="sr-only">Everything to meet, beat, master and finish.</DialogDescription><CollectionLog game={game}/></DialogContent></Dialog>
   <Dialog open={skills} onOpenChange={setSkills}><DialogContent className="es-char-sheet es-skills-sheet"><DialogTitle>Skills</DialogTitle><DialogDescription>Tap a skill for its XP and cape.</DialogDescription><SkillsPanel game={game}/></DialogContent></Dialog>
@@ -39,7 +39,7 @@ export default function HeroPanel({game,action,locked}:any){
   </DialogContent></Dialog>
   <Dialog open={power} onOpenChange={setPower}><DialogContent className="breakdown-dialog"><DialogTitle>Power</DialogTitle><DialogDescription className="sr-only">Where your Power comes from.</DialogDescription>
    <table className="es-breakdown"><tbody>
-    <tr><th>You</th><td>25 × total level {tl} × armour (+{(stage.stage-1)*15}%)</td><td>{n(b.hero)}</td></tr>
+    <tr><th>You</th><td>25 × total level {tl} × armour (+{(stage.stage-1)*15}%){tl>MAX_TOTAL?` × 1.01^${tl-MAX_TOTAL}`:''}</td><td>{n(b.hero)}</td></tr>
     <tr><th>Roster</th><td>{b.fellows.length} Fellow{b.fellows.length===1?'':'s'}, with Family blessings</td><td>{n(b.roster)}</td></tr>
     {b.fellows.map((f:any)=><tr key={f.id} className="es-sub"><th>· {f.name}</th><td>{n(f.base)} +{(f.linked*100).toFixed(1)}% +{(b.all*100).toFixed(1)}%</td><td>{n(f.power)}</td></tr>)}
     <tr><th>Balance</th><td>smaller half ÷ larger half</td><td>+{Math.round(b.balance*20)}%</td></tr>

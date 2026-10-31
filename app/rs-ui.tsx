@@ -17,15 +17,15 @@ export function SkillsPanel({game}:{game:any}){
  const [open,setOpen]=useState<string|null>(null),info=open?skillInfo(game,open):null,tl=totalLevel(game);
  return <div className="rs-stats" aria-label="Skills">
   {AREAS.map(a=>{const s=skillInfo(game,a.id);return <button key={a.id} type="button" className="rs-skill" onClick={()=>setOpen(a.id)} aria-label={`${a.name} level ${s.level}`}>
-   <img src={'./assets/'+skillIcon(a.id)} alt=""/><span className="rs-lvl"><b>{s.level}</b><i>{s.level}</i></span></button>})}
+   <img src={'./assets/'+skillIcon(a.id)} alt=""/><span className={'rs-lvl'+(s.level>MAX_LEVEL?' rs-virtual':'')}><b>{s.level}</b><i>{s.level}</i></span></button>})}
   <div className="rs-total"><small>Total level:</small><b>{tl}</b></div>
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="rs-sheet">
    {info&&<><DialogTitle><img src={'./assets/'+skillIcon(info.area)} alt=""/> {info.name}</DialogTitle>
-    <DialogDescription>{info.style} · level {info.level} / {MAX_LEVEL}</DialogDescription>
+    <DialogDescription>{info.style} · level {info.level}{info.level>MAX_LEVEL?' · past the cape':' / '+MAX_LEVEL}</DialogDescription>
     <div className="rs-xp-rows"><p><span>{info.name} XP:</span><b>{n(info.xp)}</b></p>{info.next!==null&&<><p><span>Next level at:</span><b>{n(info.next)}</b></p><p><span>Remaining XP:</span><b>{n(info.next-info.xp)}</b></p></>}</div>
     {info.next!==null&&<div className="rs-bar"><i style={{width:Math.max(2,info.into/info.need*100)+'%'}}/><span>{Math.floor(info.into/info.need*100)}%</span></div>}
     <figure className={'rs-cape'+(info.level>=MAX_LEVEL?'':' rs-locked')}><img src={'./assets/'+capeArt(info.area)} alt={info.name+' cape'}/><figcaption>{info.level>=MAX_LEVEL?`${info.name} cape: yours.`:`${info.name} cape: reach level 99.`}</figcaption></figure>
-    <p className="small-note">Every {info.name} habit trains this skill: easy 500 XP, normal 1,000, hard 1,500. Quests and adventures add more.</p></>}
+    <p className="small-note">Every {info.name} habit trains this skill: easy 500 XP, normal 1,000, hard 1,500. Quests and adventures add more. The cape comes at 99; the level keeps counting past it, opening Trial rooms and feeding your Hero Power.</p></>}
   </DialogContent></Dialog>
   {tl>=MAX_TOTAL&&<img className="rs-max" src="./assets/rs/cape-max.webp" alt="Max cape"/>}
  </div>;
@@ -34,10 +34,10 @@ export function SkillsPanel({game}:{game:any}){
 /** "Congratulations, you just advanced a level." One skill at a time. */
 export function LevelUpDialog({up,onClose}:{up:any,onClose:()=>void}){
  return <Dialog open={!!up} onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-levelup" showCloseButton={false}>
-  {up&&<button type="button" className={'rs-levelup-body'+(up.level>=MAX_LEVEL?' rs-99':'')} onClick={onClose}>
+  {up&&<button type="button" className={'rs-levelup-body'+(up.level===MAX_LEVEL?' rs-99':'')} onClick={onClose}>
    <img src={'./assets/'+skillIcon(up.area)} alt=""/>
    <div><DialogTitle>Congratulations, you just advanced {/^[aeiou]/i.test(areaName(up.area))?'an':'a'} {areaName(up.area)} level.</DialogTitle>
-    <DialogDescription>Your {areaName(up.area)} level is now {up.level}.{up.level>=MAX_LEVEL?' You can now wear the '+areaName(up.area)+' cape!':''}</DialogDescription>
+    <DialogDescription>Your {areaName(up.area)} level is now {up.level}.{up.level===MAX_LEVEL?' You can now wear the '+areaName(up.area)+' cape!':''}</DialogDescription>
     <span className="rs-continue">Click here to continue</span></div></button>}
  </DialogContent></Dialog>;
 }

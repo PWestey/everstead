@@ -38,7 +38,7 @@ function Vs({power,need}:{power:number,need:number}){return <p className={'wt-vs
 
 export function ModesPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
  const [mode,setMode]=useState<Mode|null>(null),[sel,setSel]=useState<string[]>([]),[target,setTarget]=useState<string|null>(null);
- const now=Date.now(),m=X.modesNow(game,now),go=(kind:string,t:any=null,v:any=sel)=>{if(action('mode:'+kind,t,v)){setSel([]);setTarget(null)}};
+ const now=Date.now(),m=X.modesNow(game,now),go=(kind:string,t:any=null,v:any=sel)=>{if(action('mode:'+kind,t,v)){setSel([]);if(kind.startsWith('errand'))setTarget(null)}};// stay in the room: Optimize, Enter, again
  const open=(id:Mode)=>{setMode(id);setSel([]);setTarget(null)};
  if(!mode)return <section className="wt"><header className="wt-head"><h2>The War Table</h2><p>Put your Fellows and Family to work. Every mode runs on Power, and habits make each one stronger.</p></header>
   <ul className="wt-list">{MODES.map(md=><li key={md.id}><button type="button" className="wt-card" onClick={()=>open(md.id)}><b>{md.name}</b><small>{md.who} · {md.when}</small><span>{md.blurb}</span><em>{status(md.id,game,m,now)}</em></button></li>)}</ul></section>;

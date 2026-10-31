@@ -15,6 +15,7 @@
 .rs-lvl{display:grid;line-height:1;font-size:12px;font-weight:700;text-shadow:1px 1px 0 #000}
 .rs-lvl b{color:var(--rs-yellow)}
 .rs-lvl i{color:var(--rs-yellow);font-style:normal;opacity:.75;transform:translateX(5px)}
+.rs-lvl.rs-virtual b,.rs-lvl.rs-virtual i{color:#7cf07c}
 .rs-total{grid-column:1/-1;display:flex;justify-content:center;gap:6px;align-items:baseline;color:var(--rs-yellow);text-shadow:1px 1px 0 #000;font-weight:700;padding-top:2px}
 .rs-total small{font-size:12px}
 .rs-total b{font-size:15px}

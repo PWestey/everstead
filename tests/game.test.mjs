@@ -77,7 +77,11 @@ test('every character has an introduction, written or generated',()=>{for(const 
 test('written scenes only use real characters as speakers, and every character has an intro and roams',()=>{const ids=new Set([...FELLOWS,...FAMILY].map(c=>c.id));for(const c of [...FELLOWS,...FAMILY]){assert.ok(SCENES[c.id],'scenes for '+c.id);assert.ok(SCENES[c.id].roams.length>=1,c.id)}
  for(const [id,s] of Object.entries(SCENES)){assert.ok(ids.has(id),'scene owner '+id+' is in the cast');for(const lines of [s.intro,...s.roams.map(r=>r.lines)])for(const l of lines)if(Array.isArray(l))assert.ok(ids.has(l[0]),id+' speaker '+l[0])}});
 
-test('skills use RuneScape\'s XP table',()=>{assert.equal(XP_TABLE[2],83);assert.equal(XP_TABLE[50],101333);assert.equal(XP_TABLE[92],6517253);assert.equal(XP_TABLE[99],13034431);assert.equal(levelForXp(0),1);assert.equal(levelForXp(13034431),99);assert.equal(levelForXp(1e9),99)});
+test('skills use RuneScape\'s XP table',()=>{assert.equal(XP_TABLE[2],83);assert.equal(XP_TABLE[50],101333);assert.equal(XP_TABLE[92],6517253);assert.equal(XP_TABLE[99],13034431);assert.equal(levelForXp(0),1);assert.equal(levelForXp(13034431),99);assert.equal(levelForXp(13034430),98);const v=levelForXp(1e9);assert.ok(v>99&&v<200,'virtual levels past 99: '+v);assert.ok(levelForXp(1e15)>v)});
+
+test('Hero Power compounds 1% per total level past the max cape',()=>{assert.equal(heroPowerFor(792,7),Math.round(25*792*1.9));assert.equal(heroPowerFor(892,7),Math.round(25*892*1.9*1.01**100));
+ // A full lap of Map XP (×706) is about 66 levels per skill, 530 total: Hero ×195, well under the lap's ×706.
+ assert.ok(1.01**530<706)});
 
 test('habits train their area\'s skill and total level starts at 8',()=>{const {s,id}=withHabit('fitness','hard');assert.equal(totalLevel(s),8);const r=act(s,'habitComplete',T,id);assert.equal(skillLevel(r.state,'fitness'),levelForXp(3*XP_PER_POINT));assert.deepEqual(r.levelUps.map(u=>u.area),['fitness'])});
 

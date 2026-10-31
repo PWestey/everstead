@@ -37,18 +37,18 @@ An area can hold several of each. They join in list order (see the join queue be
 
 ## You: eight skills (RuneScape style)
 
-- Each life area is a **skill, levelled 1–99 on RuneScape's own XP table** (level 2 = 83 XP, 92 = 6.5M, 99 = 13,034,431).
+- Each life area is a **skill on RuneScape's own XP table** (level 2 = 83 XP, 92 = 6.5M, 99 = 13,034,431). **No cap:** 99 earns the cape, and the level keeps counting on the same curve (about 10% more XP per level, shown in green past 99). Map XP grows 30% a step, so a skill gains about 2.7 levels per map step forever.
   Each one wears an OSRS skill's icon and cape: Faith/Prayer, Marriage/Hitpoints, Fatherhood/Farming, Fitness/Strength,
   Work/Smithing, Home/Construction, Discipline/Defence, Hobbies/Fishing.
 - **Skill XP = lifetime habit points in the area × 500**, plus bonus XP from quests and adventures. Derived, never stored,
   so undo and old saves just work. ~4 points a day in an area ≈ level 37 in two weeks, 55 at three months, 69 at a year.
-- **Total level** = sum of the eight (8 to 792). It unlocks the **seven armour tiers**: Bronze (8), Iron (150),
+- **Total level** = sum of the eight (8 at the start, 792 with every cape, uncapped). It unlocks the **seven armour tiers**: Bronze (8), Iron (150),
   Mithril (280), Rune (360), Dragon (440), Barrows (490), Saradomin (540). A skillcape at 99; the max cape at 792.
 - Level-up message on every new level, RuneScape style.
 
 ## Power: half you, half your roster
 
-- **Hero Power** = `25 × total level × (1 + 0.15 per armour tier above Bronze)`.
+- **Hero Power** = `25 × total level × (1 + 0.15 per armour tier above Bronze) × 1.01^(total level − 792)` past the max cape. Level is the log of XP, so this is about ×1.23 per map step against needs of ×1.3: it catches up with the roster slowly and never outruns the Map.
 - **Roster Power** = the sum of your Fellows' Power (Family blessings included).
 - **Total Power** = `(Hero + Roster) × (1 + 0.2 × balance)`, balance = smaller half ÷ larger half. Used by every Power check.
 
