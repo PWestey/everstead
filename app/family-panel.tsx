@@ -26,7 +26,7 @@ function FamilyStats({game,id}:any){
   </div>
   <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{open==='Bond'?'Bond':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
-   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 10% more per level. Your closest bond in each area blesses its Fellows and building; everyone's average bond blesses all Fellows.</p>
+   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone's average bond blesses all Fellows.</p>
    :<table className="es-breakdown"><tbody>
      <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
      <tr><th>Every Fellow</th><td>village-wide</td><td>+{pct(BLESS_ALL*L)}</td></tr>

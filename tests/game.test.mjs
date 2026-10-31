@@ -337,7 +337,7 @@ test('gifts in bulk: times and max, capped by what you can afford, priced by her
  assert.ok(act({...s,gold:10},'gift',T,'tyrande',{gift:'posy',times:'max'}).error)});
 
 test('bond levels cost 100 × L^1.5 with no cap; blessings come from the closest bond per area and the family average',()=>{assert.equal(bondLevel(0),1);assert.equal(bondLevel(99),1);assert.equal(bondLevel(100),2);assert.equal(bondLevel(100+283),3);assert.ok(bondLevel(1e9)>50);
- assert.equal(giftPrice(GIFTS.posy,1),500);assert.equal(giftPrice(GIFTS.posy,25),Math.round(500*1.1**24));
+ assert.equal(giftPrice(GIFTS.posy,1),500);assert.equal(giftPrice(GIFTS.posy,25),Math.round(500*1.05**24));
  const two={...fresh(T),family:{ariane:{bond:1e5},lys:{bond:0}}};const b=blessings(two);const L=bondLevel(1e5);assert.equal(b.all,BLESS_ALL*(L+1)/2,'average bond blesses everyone');assert.equal(b.linked[fellowsInArea('faith')[0].id],BLESS_LINKED*L,'the closest bond blesses the area')});
 
 test('nothing caps: stars, levels, companions and bond keep going, and laps restart the map',()=>{
