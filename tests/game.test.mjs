@@ -273,8 +273,16 @@ test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={..
  for(let i=0;i<200&&s.modes.gauntlet.run;i++){const run=s.modes.gauntlet.run;if(run.offer){offered=true;s=act(s,'mode:gauntletChoose',T,run.offer.draft[0]||'rally').state}else s=act(s,'mode:gauntletFight',T,null,null).state}
  assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});
 
+test('Gauntlet traits: Hobbies are always ×2, Fitness lifts the squad, Home raises max health, Discipline softens wounds, Faith heals, and none of them stack',()=>{const s=fresh(T),day='2026-10-14';
+ const by=a=>FELLOWS.filter(f=>f.area===a).map(f=>f.id),sec=WT.gauntletSector(day,1),plain=FELLOWS.find(f=>!['hobbies','fitness',sec].includes(f.area)).id;
+ assert.equal(WT.gauntletPower(s,{floor:0,squad:[by('hobbies')[0]],boons:[]},day,T),200,'Wild');assert.equal(WT.gauntletPower(s,{floor:0,squad:[plain,by('fitness')[0]],boons:[]},day,T),Math.round(200*1.1*(sec==='fitness'?1.5:1)),'Drill');
+ assert.equal(WT.gauntletMaxHp({squad:by('home').slice(0,2)}),115,'Hearth does not stack');assert.equal(WT.gauntletMinWound(1),4);assert.equal(WT.gauntletMinWound(30),14,'the lightest wound grows with depth');
+ const fight=squad=>act({...s,fellows:Object.fromEntries(squad.map(id=>[id,{level:1,stars:0}])),modes:{...s.modes,gauntlet:{day,run:{floor:0,hp:100,squad,boons:[],offer:null},best:0}}},'mode:gauntletFight',T,null,null).state.modes.gauntlet.run;
+ const six=[...by('hobbies').slice(0,3),...by('fitness').slice(0,3)];assert.equal(fight(six).hp,96,'a comfortable floor still costs the 4 minimum');
+ assert.equal(fight([...six.slice(0,4),...by('discipline').slice(0,2)]).hp,98,'Guard: -3, once, never below 2');
+ assert.equal(fight([...six.slice(0,4),...by('faith').slice(0,2)]).hp,99,'Blessing: +3 after the floor, once')});
 test('Gauntlet: sector members count ×2, Rallies stack, and a lost floor offers a regroup boon',()=>{const s=fresh(T),day='2026-10-14',sec=WT.gauntletSector(day,1);
- const inSec=FELLOWS.find(f=>f.area===sec).id,out=FELLOWS.find(f=>f.area!==sec).id;
+ const inSec=FELLOWS.find(f=>f.area===sec).id,out=FELLOWS.find(f=>f.area!==sec&&f.area!=='hobbies'&&f.area!=='fitness').id;
  assert.equal(WT.gauntletPower(s,{floor:0,squad:[inSec,out],boons:[]},day,T),300);assert.equal(WT.gauntletPower(s,{floor:0,squad:[inSec,out],boons:['focus']},day,T),360);
  assert.equal(WT.gauntletPower(s,{floor:0,squad:[out],boons:['rally','rally']},day,T),Math.round(100*1.15*1.15));
  // Floor 1 needs 240; one outsider (100) loses, keeps 60 health and is offered a boon instead of a bare retry.

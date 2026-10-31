@@ -125,7 +125,7 @@ Eight modes, all settled by team power against a need (no battle engine); engine
 | The Rift | Fellows (3) | 1 run/day | climbs floors `250×1.17^f`; today's area ×2 |
 | Blight Strikes | Family (3) | 3/day, bank 9 | each strike adds damage to this week's Blight |
 | The Arena | Both (5) | 5 tries/day | franchise teams `600×1.12^r`; own franchise ×0.75 |
-| Draft Gauntlet | Both | 1 run/day | everyone = 100 power, ×2 in the sector's area (shown one sector ahead), ×1.15 per Rally (stacking), +5% per daily habit done today (cap +40%); floors `240×1.06^f`; wounds carry; pick a draft or boon every 3 floors; a lost floor costs 40 health and offers Rally or Focus to regroup |
+| Draft Gauntlet | Both | 1 run/day | everyone = 100 power, ×2 in the sector's area (shown one sector ahead), ×1.15 per Rally (stacking), +5% per daily habit done today (cap +40%); floors `240×1.06^f`; wounds carry, the lightest wound is `4 + floor/3`; pick a draft or boon every 3 floors; a lost floor costs 40 health and offers Rally or Focus to regroup. Every area brings a trait, none of them stack: Faith heals 3 per floor, Discipline −3 per wound, Home +15 max health, Work +25% gold/EXP, Hobbies always ×2, Fitness ×1.1 squad power, Fatherhood +1 recruit per draft, Marriage +15 on sector heals. Sim (30 days): random drafting floor ~26, deliberate drafting ~47 (~56 with 8 habits) |
 | Eight Fronts | Both (3) | weekly | each character once a week; waves `300×1.15^w`, easier with that area's weekly habits |
 | The Trials | Family-led (3) | weekly | 8 rooms with rule twists; tier cap from the area's skill level |
 | The Spire | Fellows (5) | any time | endless `400×1.12^f` (bosses ×2/×4); Resolve +1%/habit after a failure (max 20%) |

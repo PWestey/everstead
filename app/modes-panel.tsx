@@ -9,6 +9,7 @@ import * as X from '@/lib/modes.mjs';
 
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const area=(a:string)=>areaById(a)?.name||a;
+const trait=(a?:string)=>{const t=a?(X.GAUNTLET_TRAITS as any)[a]:null;return t?`${t.name}: ${t.text}`:''};
 type Mode='errands'|'rift'|'fronts'|'trials'|'strike'|'spire'|'arena'|'gauntlet';
 const MODES:{id:Mode,name:string,who:string,when:string,blurb:string}[]=[
  {id:'errands',name:'Errands',who:'Family',when:'Daily',blurb:'Send Family crews on timed jobs around the village.'},
@@ -84,12 +85,12 @@ export function ModesPanel({game,action,locked}:{game:any,action:any,locked:bool
    <Go label="Climb" locked={locked} disabled={locked||!sel.length} onGo={()=>go('spire')} optimize={()=>setSel(best(fellows,X.SPIRE_SQUAD))}/></>}
  if(mode==='gauntlet'){const run=m.gauntlet.run,day=m.gauntlet.day;
   if(!run&&m.gauntlet.done)body=<p className="wt-done">Today’s run is over. Best ever: floor {m.gauntlet.best}. A new draft tomorrow.</p>;
-  else if(!run){const draft=X.gauntletDraft(game,day);body=<><p>Pick 3 from today’s draft. In here everyone counts as 100 power, so it’s about choices, not levels: each sector of 3 floors favours one life area (×2), and you see the next sector before you draft. Each daily habit done today adds 5% (up to +40%). Best: floor {m.gauntlet.best}.</p><p>First sector favours <b>{area(X.gauntletSector(day,1))}</b>, then <b>{area(X.gauntletSector(day,4))}</b>.</p>
-   <Picker list={draft.map(id=>({id,name:characterById(id)?.name,power:100}))} max={3} sel={sel} setSel={setSel} note={c=>area(characterById(c.id)?.area)}/>
+  else if(!run){const draft=X.gauntletDraft(game,day);body=<><p>Pick 3 from today’s draft. In here everyone counts as 100 power, so it’s about choices, not levels: each sector of 3 floors favours one life area (×2), you see the next sector before you draft, and every area brings a trait (one member of an area is enough; they don’t stack). Wounds grow with depth, so heals stretch a run but can’t make it endless. Each daily habit done today adds 5% (up to +40%). Best: floor {m.gauntlet.best}.</p><p>First sector favours <b>{area(X.gauntletSector(day,1))}</b>, then <b>{area(X.gauntletSector(day,4))}</b>.</p>
+   <Picker list={draft.map(id=>({id,name:characterById(id)?.name,power:100}))} max={3} sel={sel} setSel={setSel} note={c=>`${area(characterById(c.id)?.area)} · ${trait(characterById(c.id)?.area)}`}/>
    <Button className="wt-go" disabled={locked||sel.length!==Math.min(3,draft.length)} onClick={()=>go('gauntletStart')}>Begin</Button></>}
-  else{const sec=X.gauntletSector(day,run.floor+1),nextSec=X.gauntletSector(day,run.floor+4);body=<><p>Floor <b>{run.floor+1}</b> · health <b>{run.hp}</b> · this sector favours <b>{area(sec)}</b> (×2), next <b>{area(nextSec)}</b>{run.boons.length?` · boons: ${run.boons.map((b:string)=>(X.GAUNTLET_BOONS as any)[b].name).join(', ')}`:''}</p>
-   <p>Squad: {run.squad.map((id:string)=>{const c=characterById(id);return c?.area===sec?`${c.name} ×2`:c?.name}).join(', ')}</p>
-   {run.offer?<><h3>{run.offer.regroup?'Regroup: choose a boon':'Sector cleared: choose one'}</h3><div className="wt-pick">{run.offer.draft.map((id:string)=><button key={id} type="button" className="wt-char" disabled={locked} onClick={()=>go('gauntletChoose',id,null)}><MiniArt person={characterById(id)}/><span><b>Recruit {characterById(id)?.name}</b><small>{area(characterById(id)?.area)}</small></span></button>)}
+  else{const sec=X.gauntletSector(day,run.floor+1),nextSec=X.gauntletSector(day,run.floor+4);body=<><p>Floor <b>{run.floor+1}</b> · health <b>{run.hp}/{X.gauntletMaxHp(run)}</b> · this sector favours <b>{area(sec)}</b> (×2), next <b>{area(nextSec)}</b>{run.boons.length?` · boons: ${run.boons.map((b:string)=>(X.GAUNTLET_BOONS as any)[b].name).join(', ')}`:''}</p>
+   <p>Squad: {run.squad.map((id:string)=>{const c=characterById(id);return `${c?.name} (${(X.GAUNTLET_TRAITS as any)[c?.area||'']?.name||''}${c?.area===sec||c?.area==='hobbies'?' ×2':''})`}).join(', ')}</p>
+   {run.offer?<><h3>{run.offer.regroup?'Regroup: choose a boon':'Sector cleared: choose one'}</h3><div className="wt-pick">{run.offer.draft.map((id:string)=><button key={id} type="button" className="wt-char" disabled={locked} onClick={()=>go('gauntletChoose',id,null)}><MiniArt person={characterById(id)}/><span><b>Recruit {characterById(id)?.name}</b><small>{area(characterById(id)?.area)} · {trait(characterById(id)?.area)}</small></span></button>)}
      {run.offer.boons.map((b:string)=><button key={b} type="button" className="wt-char" disabled={locked} onClick={()=>go('gauntletChoose',b,null)}><span><b>{(X.GAUNTLET_BOONS as any)[b].name}</b><small>{(X.GAUNTLET_BOONS as any)[b].text}</small></span></button>)}</div></>
    :<><Vs power={X.gauntletPower(game,run,day,now)} need={X.gauntletNeed(run.floor+1)}/><Button className="wt-go" disabled={locked} onClick={()=>go('gauntletFight',null,null)}>Fight floor {run.floor+1}</Button>
      <button type="button" className="wt-back" onClick={()=>go('gauntletEnd',null,null)}>Walk out</button></>}</>}}
