@@ -208,8 +208,8 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 
 ## Buildings
 
-- Open for 150 gold. Income `0.02 × level` gold/second, then × Fellow staff, × Family blessing,
-  × today's area boost, × Momentum. Upgrade cost `200 × 1.5^(level−1)`.
+- Open for 150 gold. Income `(0.02 × level + Village Power ÷ 40,000)` gold/second **× (1 + 0.15 × level)**, then × Fellow staff, × Family blessing,
+  × today's area boost, × Momentum. Upgrade cost `200 × 1.5^(level−1)`: the level multiplier is linear and the cost geometric, so each level is worth less per gold than the last and building income can never outrun Power.
 - Away earnings are capped at 12 hours.
 
 ## What we deliberately left out

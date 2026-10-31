@@ -285,7 +285,7 @@ test('chapters unlock in order, by Map boss and total level',()=>{let s=fresh(T)
 test('every character has an origin',()=>{for(const c of [...FELLOWS,...FAMILY])assert.ok(ORIGINS[c.id],'no origin for '+c.id)});
 
 // ---------------- Everkai spine: EXP from stages, Power feeds buildings, staffing ----------------
-import {buildingStaff,staffSlots,buildingRate,buildingUpgradeCost,bondLevel,bondProgress,giftPrice,GIFTS,BLESS_ALL,staffBonus,LAP} from '../lib/game.mjs';
+import {buildingStaff,staffSlots,buildingRate,buildingLevelMult,buildingUpgradeCost,bondLevel,bondProgress,giftPrice,GIFTS,BLESS_ALL,staffBonus,LAP} from '../lib/game.mjs';
 test('Map runs pay Fellow EXP',()=>{const s={...fresh(T),fellows:{darrow:{level:20,stars:0}},roam:{charges:3,seen:[]}};const v=expeditionView(s,'cow-field');const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.fellowExp,s.fellowExp+v.loot.exp);assert.ok(v.loot.exp>0)});
 test('more Power means more income in every open building',()=>{let s={...fresh(T),buildings:{...fresh(T).buildings,yard:{level:1},chapel:{level:1}}};const a=buildingRate(s,'chapel'),b=buildingRate({...s,fellows:{darrow:{level:200,stars:5}}},'chapel');assert.ok(b>a,'Darrow’s Power raises the Chapel too')});
 test('staff: area Fellows fill slots automatically, can be chosen, and raise income',()=>{let s={...fresh(T),fellows:{darrow:{level:30,stars:1},roy:{level:5,stars:0},obiwan:{level:5,stars:0}},buildings:{...fresh(T).buildings,yard:{level:4}}};
@@ -358,3 +358,7 @@ test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',
 test('ten regions, fifty places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,10);assert.equal(EXPEDITIONS.length,50);
  for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
  assert.ok(expeditionNeed(49)>1e8&&expeditionNeed(49)<2e8,'Nex is the lap-one finale')});
+
+test('building level multiplies income by 1 + 0.15 per level',()=>{const base={...fresh(T),fellows:{darrow:{level:500,stars:0}}};const at=l=>buildingRate({...base,buildings:{...base.buildings,yard:{level:l}}},'yard');
+ // Levels 1 and 2 share one staff slot, so the ratio is the level multiplier alone; by 20 the extra slots add more on top.
+ assert.ok(Math.abs(at(2)/at(1)-buildingLevelMult(2)/buildingLevelMult(1))<0.01,'level 2: '+(at(2)/at(1)).toFixed(3));assert.ok(at(20)/at(1)>=buildingLevelMult(20)/buildingLevelMult(1),'level 20 at least ×3.5: '+(at(20)/at(1)).toFixed(2))});

@@ -4,7 +4,7 @@ import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-cont
 import {MiniArt} from './character-artwork';
 import {useState} from 'react';
 import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowsInArea,familyInArea,characterById} from '@/lib/cast.mjs';
-import {buildingStaff,staffSlots,staffBonus,fellowPower,POWER_INCOME,buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerStage} from '@/lib/game.mjs';
+import {buildingStaff,staffSlots,staffBonus,fellowPower,POWER_INCOME,buildingLevelMult,buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerStage} from '@/lib/game.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
@@ -38,6 +38,7 @@ export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){co
     <li><span>Today’s {area.name} habits</span><b>+{pct(boost)}</b></li>
     <li><span>Staff ({buildingStaff(game,id).length}/{staffSlots(lvl)})</span><b>+{pct(buildingStaff(game,id).reduce((n:number,f:string)=>n+staffBonus(fellowPower(game,f)),0))}</b></li>
     {lvl>0&&<li><span>Village Power ({abbrev(rosterPower(game))})</span><b>+{abbrev(rosterPower(game)*POWER_INCOME*3600)}/h base</b></li>}
+    {lvl>0&&<li><span>Building level {lvl}</span><b>×{buildingLevelMult(lvl).toFixed(2)}</b></li>}
     <li><span>Family blessings</span><b>+{pct(bless)}</b></li>
     <li><span>Momentum (all habits)</span><b>×{momentum(game,game.lastAt).toFixed(2)}</b></li>
    </ul>
