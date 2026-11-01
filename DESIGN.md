@@ -193,12 +193,15 @@ The daily 15 minutes: habits earn Roams, Roams buy runs, runs pay what Fellows n
 Power opens and crushes more of the map. Old School RuneScape places and art (`public/assets/osrs/`).
 
 - **Regions** (`lib/expedition-data.mjs`): Lumbridge → Asgarnia → Morytania → Karamja → Kharidian Desert →
-  Fremennik Province → the Wilderness → Kandarin → Great Kourend → the God Wars Dungeon. Each has 4 adventures and a boss (50 places). Beating a region's boss
+  Fremennik Province → the Wilderness → Kandarin → Great Kourend → the God Wars Dungeon, then the second journey: Misthalin → Crandor → Tirannwn →
+  Darkmeyer → the Dragonkin's Trail → the Southern Seas → the Kebos Lowlands → the Deep Roads → Troll Country → Zul-Andra → the Deep Wilderness →
+  the Slayer Masters' Haunts → the Feldip Hills → Varlamore → the Fortis Colosseum → the Ancient Vaults → the Tombs of Amascut → the Theatre of Blood →
+  the Inferno → the Last Gates (Yama). Each has 4 adventures and a boss (150 places). Beating a region's boss
   opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
-- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × 1.3^k` Power (Count Draynor 1,100 … King Black Dragon 3M … Nex about 150M).
+- **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × MAP_GROWTH^k` Power, MAP_GROWTH 1.3 (Count Draynor 1,100 … King Black Dragon 3M … Nex about 150M … Yama about 4e19).
 - **Loot per run** = gold `150 × 1.3^k`, and in each of the place's two areas sigils `3 + ⌊k/5⌋` and XP
   `250 × 1.3^k`. Bosses pay double.
-- **Laps:** beating Nex starts lap 2: every need and every gold/EXP reward on the map is ×705 (25 steps' worth) per lap, regions re-open boss by boss, perks and companions are earned once. There is no last lap.
+- **Laps:** beating Yama starts lap 2: every need and every gold/EXP reward on the map is × a whole lap's worth of steps (1.3^150) per lap, so lap 2's Lumbridge picks up past Yama; regions re-open boss by boss, perks and companions are earned once. There is no last lap. Saves from the 10-region map that were on lap 2+ fold back to lap 1 at Misthalin (flag `map-30-1`).
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along
   (`lib/expeditions/scenes.mjs`); repeats are one tap and a result scroll.

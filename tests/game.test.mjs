@@ -80,8 +80,8 @@ test('written scenes only use real characters as speakers, and every character h
 test('skills use RuneScape\'s XP table',()=>{assert.equal(XP_TABLE[2],83);assert.equal(XP_TABLE[50],101333);assert.equal(XP_TABLE[92],6517253);assert.equal(XP_TABLE[99],13034431);assert.equal(levelForXp(0),1);assert.equal(levelForXp(13034431),99);assert.equal(levelForXp(13034430),98);const v=levelForXp(1e9);assert.ok(v>99&&v<200,'virtual levels past 99: '+v);assert.ok(levelForXp(1e15)>v)});
 
 test('Hero Power compounds 1% per total level past the max cape',()=>{assert.equal(heroPowerFor(792,7),Math.round(25*792*1.9));assert.equal(heroPowerFor(892,7),Math.round(25*892*1.9*1.01**100));
- // A full lap of Map XP (×706) is about 66 levels per skill, 530 total: Hero ×195, well under the lap's ×706.
- assert.ok(1.01**530<706)});
+ // A full lap of Map XP (×1.3^150) is about 415 levels per skill, 3,320 total: Hero ×2e14, well under the lap's ×1.5e17.
+ assert.ok(1.01**3320<1.3**150)});
 
 test('habits train their area\'s skill and total level starts at 8',()=>{const {s,id}=withHabit('fitness','hard');assert.equal(totalLevel(s),8);const r=act(s,'habitComplete',T,id);assert.equal(skillLevel(r.state,'fitness'),levelForXp(3*XP_PER_POINT));assert.deepEqual(r.levelUps.map(u=>u.area),['fitness'])});
 
@@ -365,20 +365,25 @@ test('nothing caps: stars, levels, companions and bond keep going, and laps rest
  const r=act({...fresh(T),sigils:{...fresh(T).sigils,fitness:1e6},fellows:{darrow:{level:1,stars:5}}},'starUp',T,'darrow');assert.ok(!r.error,r.error);assert.equal(r.state.fellows.darrow.stars,6);
  assert.equal(milestoneMult(125),1.25**4*1.5*1.25);assert.equal(milestoneMult(150),1.25**4*1.5*1.25**2);assert.deepEqual(nextMilestone(99),[125,1.25]);assert.deepEqual(nextMilestone(150),[175,1.25]);
  assert.ok(fellowLevelCost(200)/fellowLevelCost(100)>2**1.65*1.25**4*0.99,'level cost climbs with the milestones');assert.ok(companionLevel(1e9)>40);assert.ok(staffBonus(1e7)<3,'staff bonus grows with the log of Power');
- let w={...fresh(T),fellows:{darrow:{level:3000,stars:40}},roam:{...fresh(T).roam,charges:20}};w.expeditions={runs:{},bosses:REGIONS.slice(0,9).map(x=>x.boss.id),lap:1,lapBosses:[]};
- const need1=expeditionView(w,'cow-field').need;const nex=act(w,'expedition',T,'nex');assert.ok(!nex.error,nex.error);assert.equal(nex.state.expeditions.lap,2);assert.ok(/Lap 2/.test(nex.message));
+ let w={...fresh(T),fellows:{darrow:{level:5000,stars:40}},roam:{...fresh(T).roam,charges:20}};w.expeditions={runs:{},bosses:REGIONS.slice(0,-1).map(x=>x.boss.id),lap:1,lapBosses:[]};
+ const need1=expeditionView(w,'cow-field').need;const nex=act(w,'expedition',T,'yama');assert.ok(!nex.error,nex.error);assert.equal(nex.state.expeditions.lap,2);assert.ok(/Lap 2/.test(nex.message));
  assert.equal(regionOpen(nex.state,0),true);assert.equal(regionOpen(nex.state,1),false,'Asgarnia closes until Count Draynor falls again');assert.equal(expeditionView(nex.state,'cow-field').need,Math.round(need1*LAP));
- assert.equal(perks(nex.state).power,perks({...w,expeditions:{...w.expeditions,bosses:[...w.expeditions.bosses,'nex']}}).power,'perks are all-time');assert.ok(valid(nex.state));
+ assert.equal(perks(nex.state).power,perks({...w,expeditions:{...w.expeditions,bosses:[...w.expeditions.bosses,'yama']}}).power,'perks are all-time');assert.ok(valid(nex.state));
  const again=act({...nex.state,roam:{...nex.state.roam,charges:5}},'expedition',T,'count-draynor');assert.ok(!again.error,again.error);assert.equal(regionOpen(again.state,1),true);assert.equal(again.expedition.perk,null,'no second perk')});
+
+test('a save whose gold, XP and Fellow EXP have outgrown safe integers still loads',()=>{const s={...fresh(T),gold:1e20,earned:1e20,fellowExp:1e18,xp:1e18,bonusXp:{...fresh(T).bonusXp,faith:1e17}};assert.ok(valid(s));assert.ok(!valid({...s,crystals:1.5}),'counters stay integers')});
 
 test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',()=>{let s={...fresh(T),gold:1e6};s=act(s,'buildingUpgrade',T,'yard').state;assert.equal(s.buildings.yard.level,1);
  const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
  const max=act({...s,gold:1000},'buildingUpgrade',T,'yard','max');assert.equal(max.state.buildings.yard.level,4,'200 + 300 + 450 fits in 1000, 675 does not');assert.ok(act({...s,gold:10},'buildingUpgrade',T,'yard','max').error);
  const staffed={...five.state,buildings:{...five.state.buildings,yard:{...five.state.buildings.yard,staff:['darrow']}}};assert.deepEqual(act(staffed,'buildingUpgrade',T,'yard',1).state.buildings.yard.staff,['darrow'])});
 
-test('ten regions, fifty places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,10);assert.equal(EXPEDITIONS.length,50);
+test('thirty regions, 150 places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,30);assert.equal(EXPEDITIONS.length,150);
  for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
- assert.ok(expeditionNeed(49)>1e8&&expeditionNeed(49)<2e8,'Nex is the lap-one finale')});
+ assert.ok(expeditionNeed(49)>1e8&&expeditionNeed(49)<2e8,'Nex ends the first journey');assert.ok(expeditionNeed(149)>1e19,'Yama is the lap-one finale');
+ assert.ok(expeditionView({...fresh(T),expeditions:{runs:{},bosses:[],lap:2,lapBosses:[]}},'cow-field').need>expeditionNeed(149),'lap 2 picks up past the last boss');
+ const old=migrate({...fresh(T),flags:{'roam-refund-1':true},expeditions:{runs:{},bosses:REGIONS.slice(0,10).map(x=>x.boss.id),lap:2,lapBosses:['count-draynor']}});
+ assert.equal(old.expeditions.lap,1);assert.ok(regionOpen(old,10),'an old lap-2 save folds back to lap 1 with Misthalin open')});
 
 test('building level multiplies income by 1 + 0.15 per level',()=>{const base={...fresh(T),fellows:{darrow:{level:500,stars:0}}};const at=l=>buildingRate({...base,buildings:{...base.buildings,yard:{level:l}}},'yard');
  // Levels 1 and 2 share one staff slot, so the ratio is the level multiplier alone; by 20 the extra slots add more on top.
