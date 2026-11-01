@@ -18,7 +18,7 @@ const tryAct=(kind,now,target,value)=>{const r=act(s,kind,now,target,value);if(!
 const topFellows=(n,now)=>Object.keys(s.fellows).sort((a,b)=>fellowPower(s,b)-fellowPower(s,a)).slice(0,n);
 const fmt=n=>n>=1e9?(n/1e9).toFixed(2)+'B':n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':String(Math.round(n));
 let stepsBeaten=0,lastStepDay=0,stalls=[];
-console.log('day | power | map (lap, step, bosses this lap) | gold/h | fellows (n, top lv, stars) | bond (avg, max) | companions (n, top) | exp bank');
+console.log('day | power | map (lap, step, bosses this lap) | gold/h | fellows (n, top lv, stars) | bond (avg, max) | companions (n, top) | exp bank | buildings (top lv, hours of income to the next)');
 for(let d=0;d<DAYS;d++){
  const base=T0+d*DAY;
  // Morning: settle, habits, recruits.
@@ -49,7 +49,8 @@ for(let d=0;d<DAYS;d++){
  s=settle(s,base+12*H);s=settle(s,base+18*H);
  if(d-lastStepDay>=45&&!stalls.includes(lastStepDay))stalls.push(lastStepDay);
  if((d+1)%EVERY===0||d===DAYS-1){const fl=Object.values(s.fellows),lv=fl.map(f=>f.level),st=fl.map(f=>f.stars),bonds=Object.keys(s.family).map(id=>familyBond(s,id)),cs=Object.values(s.companions||{}).map(o=>companionLevel(o.exp));
-  console.log(`${String(d+1).padStart(3)} | ${fmt(rosterPower(s)).padStart(7)} | lap ${lapOf(s)}, step ${stepsBeaten}, ${lapBeaten(s).length} bosses | ${fmt(totalRate(s)*3600).padStart(7)} | ${fl.length}, lv ${Math.max(0,...lv)} (min ${Math.min(...lv)||0}), ★${(st.reduce((a,b)=>a+b,0)/Math.max(1,st.length)).toFixed(1)} | ${bonds.length?(bonds.reduce((a,b)=>a+b,0)/bonds.length).toFixed(1):0}, ${Math.max(0,...bonds)} | ${cs.length}, lv ${Math.max(0,...cs)} | ${fmt(s.fellowExp||0)}`)}
+  const bl=Math.max(0,...Object.values(s.buildings).map(b=>b.level)),rate=totalRate(s)*3600;
+  console.log(`${String(d+1).padStart(3)} | ${fmt(rosterPower(s)).padStart(7)} | lap ${lapOf(s)}, step ${stepsBeaten}, ${lapBeaten(s).length} bosses | ${fmt(rate).padStart(7)} | ${fl.length}, lv ${Math.max(0,...lv)} (min ${Math.min(...lv)||0}), ★${(st.reduce((a,b)=>a+b,0)/Math.max(1,st.length)).toFixed(1)} | ${bonds.length?(bonds.reduce((a,b)=>a+b,0)/bonds.length).toFixed(1):0}, ${Math.max(0,...bonds)} | ${cs.length}, lv ${Math.max(0,...cs)} | ${fmt(s.fellowExp||0)} | lv ${bl}, ${rate?(buildingUpgradeCost(bl)/rate).toFixed(1):'-'}h`)}
 }
 if(stalls.length)console.log('Stalls of 45+ days without a new map step after days: '+stalls.join(', '));
-console.log('Last map step beaten: '+stepsBeaten+' (50 per lap) on day '+(lastStepDay+1)+'. Total skill level '+totalLevel(s)+'.');
+console.log('Last map step beaten: '+stepsBeaten+' ('+REGIONS.length*5+' per lap) on day '+(lastStepDay+1)+'. Total skill level '+totalLevel(s)+'.');
