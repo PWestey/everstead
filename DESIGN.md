@@ -215,6 +215,10 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
   × today's area boost, × Momentum. Upgrade cost `200 × 1.5^(level−1)`: the level multiplier is linear and the cost geometric, so each level is worth less per gold than the last and building income can never outrun Power. The ×1.25 milestone at every tenth level (shown on the card as "N levels away") keeps a ten-level climb worth saving for once single levels are worth only a couple of percent.
 - Away earnings are capped at 12 hours.
 
+## Testing on a phone
+
+Open the game with `?roam=14` (any number 0-50) to set Roam charges on that device; the query is stripped after it applies, so a reload does not repeat it. That is the only URL switch, and it only touches Roam.
+
 ## What we deliberately left out
 
 Gacha and summons, the 50-term power formula, Stella, aptitude, awakening, familiars and turn-based

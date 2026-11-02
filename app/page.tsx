@@ -19,7 +19,7 @@ import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
 import {introFor} from '@/lib/stories.mjs';
-import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight} from '@/lib/game.mjs';
+import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight,urlTweaks} from '@/lib/game.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './rs-ui';
 
@@ -46,7 +46,9 @@ export default function App(){
  function tell(message:string){if(!message)return;setNotice(message);clearTimeout(timer.current);timer.current=setTimeout(()=>setNotice(''),4000)}
  function saveFailure(){ready.current=false;setSaveFailed(true);setPanel(true);if(storage.current.current){state.current=storage.current.current;setGame(state.current)}setSaveStatus('Saving paused — no new changes applied')}
  function persist(next:any){try{const saved=storage.current.commit(next);state.current=saved;setGame(saved);setSaveStatus('Saved on this device');return true}catch{saveFailure();return false}}
- function loadSaved(){try{const saved=storage.current.load(Date.now());state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setLoadError('');setSaveStatus('Saved on this device');return true}catch(error:any){setLoadError(String(error?.message||error||''));saveFailure();setFailedLoad(!storage.current.current);return false}}
+ function loadSaved(){try{let saved=storage.current.load(Date.now());
+   const tweaked=urlTweaks(saved,window.location.search);if(tweaked!==saved){saved=storage.current.commit(tweaked);window.history.replaceState(null,'',window.location.pathname);tell(`Roam set to ${saved.roam.charges} for testing`)}
+   state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setLoadError('');setSaveStatus('Saved on this device');return true}catch(error:any){setLoadError(String(error?.message||error||''));saveFailure();setFailedLoad(!storage.current.current);return false}}
  useEffect(()=>{loadSaved();setLoaded(true);let lastCheckpoint=Date.now();
   // Income accrues every second on screen; the save is written at most every 30 seconds and on leaving.
   const tick=setInterval(()=>{if(!ready.current)return;const now=Date.now(),next=settle(state.current,now);if(now-lastCheckpoint>=30000){if(persist(next))lastCheckpoint=now}else{state.current=next;setGame(next)}},1000);

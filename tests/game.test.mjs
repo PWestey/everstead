@@ -6,7 +6,12 @@ import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,mi
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,ROAM_URL_MAX} from '../lib/game.mjs';
+
+test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
+ assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);
+ assert.equal(urlTweaks(s,'?roam=999').roam.charges,ROAM_URL_MAX);assert.equal(urlTweaks(s,'?roam=-3').roam.charges,0);assert.equal(urlTweaks(s,'?roam=abc').roam.charges,0);
+ assert.ok(valid(urlTweaks(s,'?roam=14')))});
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
