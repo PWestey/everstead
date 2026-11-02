@@ -4,7 +4,7 @@ import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-cont
 import {MiniArt} from './character-artwork';
 import {useState} from 'react';
 import {AREAS,BUILDINGS,FELLOWS,FAMILY,areaById,fellowsInArea,familyInArea,characterById} from '@/lib/cast.mjs';
-import {buildingStaff,staffSlots,staffBonus,fellowPower,POWER_INCOME,buildingLevelMult,buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerStage} from '@/lib/game.mjs';
+import {buildingStaff,staffSlots,staffBonus,fellowPower,POWER_INCOME,buildingLevelMult,BUILDING_MILESTONE,BUILDING_MILESTONE_MULT,buildingRate,buildingUpgradeCost,BUILDING_OPEN_COST,areaBoost,blessings,momentum,rosterPower,stagePower,stageReward,currentBlight,blightReward,ROAM_CAP,fellowReady,familyReady,fellowCanImprove,playerStage} from '@/lib/game.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
@@ -39,6 +39,7 @@ export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){co
     <li><span>Staff ({buildingStaff(game,id).length}/{staffSlots(lvl)})</span><b>+{pct(buildingStaff(game,id).reduce((n:number,f:string)=>n+staffBonus(fellowPower(game,f)),0))}</b></li>
     {lvl>0&&<li><span>Village Power ({abbrev(rosterPower(game))})</span><b>+{abbrev(rosterPower(game)*POWER_INCOME*3600)}/h base</b></li>}
     {lvl>0&&<li><span>Building level {lvl}</span><b>×{buildingLevelMult(lvl).toFixed(2)}</b></li>}
+    {lvl>0&&<li><span>Milestone ×{BUILDING_MILESTONE_MULT} at Lv. {Math.ceil((lvl+1)/BUILDING_MILESTONE)*BUILDING_MILESTONE}</span><b>{Math.ceil((lvl+1)/BUILDING_MILESTONE)*BUILDING_MILESTONE-lvl} {Math.ceil((lvl+1)/BUILDING_MILESTONE)*BUILDING_MILESTONE-lvl===1?'level':'levels'} away</b></li>}
     <li><span>Family blessings</span><b>+{pct(bless)}</b></li>
     <li><span>Momentum (all habits)</span><b>×{momentum(game,game.lastAt).toFixed(2)}</b></li>
    </ul>
