@@ -206,8 +206,10 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
   the Inferno → the Last Gates (Yama). Each has 4 adventures and a boss (150 places). Beating a region's boss
   opens the next region and grants a permanent perk (Roam storage, building income, Power or expedition loot).
 - **Step k** = 5 × region + slot (boss is slot 4). **Need** = `400 × MAP_GROWTH^k` Power, MAP_GROWTH 1.2 (Count Draynor 830 … King Black Dragon 200K … Nex 3M … Yama 2.5e14).
-- **Loot per run** = gold `150 × 1.3^k`, and in each of the place's two areas sigils `3 + ⌊k/5⌋` and XP
-  `250 × 1.3^k`. Bosses pay double.
+- **Loot per run** = gold `150 × g^k`, and in each of the place's two areas sigils `3 + ⌊k/5⌋` and XP
+  `250 × g^k`. Bosses pay double. The two areas are spread evenly: every life area is on 37-38 of the 150 places, 12-13 of the first
+  journey's 50 and 7-8 bosses (a test holds this), so no area is starved of sigils or XP. Saves from before the retag got 900 sigils in
+  each of the five areas that had been short (flag `sigils-fair-1`).
 - **Laps:** beating Yama starts lap 2: every need and every gold/EXP reward on the map is × a whole lap's worth of steps (1.2^150, about 7.5e11) per lap, so lap 2's Lumbridge picks up past Yama; regions re-open boss by boss, perks and companions are earned once. There is no last lap. Saves from the 10-region map that were on lap 2+ fold back to lap 1 at Misthalin (flag `map-30-1`).
 - **Outcome** from Power ÷ need: under 1 locked · Success 1× · Great (1.5+) 1.5× · Overwhelming (3+) 2×.
 - **One Roam per run.** The first visit plays a short scene with a Fellow or Family member along

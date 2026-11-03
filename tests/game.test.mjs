@@ -7,6 +7,7 @@ import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
+import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 
 test('errand pay grows with the crew: √(Power ÷ need) up to ×8, half under the need',()=>{
@@ -195,7 +196,7 @@ const levelFor=power=>{let L=1;while(fellowBasePower(L,0)<power)L++;return L};
 const withPower=(power,roams=10)=>({...fresh(T),fellows:{darrow:{level:levelFor(power),stars:0}},roam:{charges:roams,seen:[]}});
 
 test('a run costs a Roam, pays loot into gold, sigils and XP, and counts',()=>{let s=withPower(2000);const v=expeditionView(s,'cow-field');assert.ok(v.outcome);
- const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,9);assert.equal(r.state.gold,s.gold+v.loot.gold);assert.equal(r.state.sigils.home,v.loot.sigils);assert.equal(r.state.bonusXp.fitness,v.loot.xp);assert.equal(r.state.expeditions.runs['cow-field'],1);
+ const r=act(s,'expedition',T,'cow-field');assert.ok(!r.error,r.error);assert.equal(r.state.roam.charges,9);assert.equal(r.state.gold,s.gold+v.loot.gold);const [a1,a2]=expeditionById('cow-field').areas;assert.equal(r.state.sigils[a1],v.loot.sigils);assert.equal(r.state.bonusXp[a2],v.loot.xp);assert.equal(r.state.expeditions.runs['cow-field'],1);
  assert.ok(act({...s,roam:{charges:0,seen:[]}},'expedition',T,'cow-field').error,'no roams');
  assert.ok(act({...fresh(T),roam:{charges:5,seen:[]}},'expedition',T,'cow-field').error,'not strong enough')});
 
@@ -402,6 +403,13 @@ test('buildings upgrade in bulk: a count or max, capped by gold, keeping staff',
  const five=act(s,'buildingUpgrade',T,'yard',5);assert.equal(five.state.buildings.yard.level,6);let spent=0;for(let l=1;l<6;l++)spent+=buildingUpgradeCost(l);assert.equal(s.gold-five.state.gold,spent);
  const max=act({...s,gold:1000},'buildingUpgrade',T,'yard','max');assert.equal(max.state.buildings.yard.level,4,'200 + 300 + 450 fits in 1000, 675 does not');assert.ok(act({...s,gold:10},'buildingUpgrade',T,'yard','max').error);
  const staffed={...five.state,buildings:{...five.state.buildings,yard:{...five.state.buildings.yard,staff:['darrow']}}};assert.deepEqual(act(staffed,'buildingUpgrade',T,'yard',1).state.buildings.yard.staff,['darrow'])});
+
+test('the Map is fair to every life area: 37-38 places each, 12-13 on the first journey, 7-8 bosses; old saves get the make-up sigils once',()=>{
+ const n={},f={},b={};for(const e of EXPEDITIONS)for(const a of e.areas){assert.ok(AREA_IDS.includes(a),a);n[a]=(n[a]||0)+1;if(e.k<50)f[a]=(f[a]||0)+1;if(e.boss)b[a]=(b[a]||0)+1}
+ for(const a of AREA_IDS){assert.ok(n[a]>=37&&n[a]<=38,a+' '+n[a]);assert.ok(f[a]>=12&&f[a]<=13,a+' first '+f[a]);assert.ok(b[a]>=7&&b[a]<=8,a+' bosses '+b[a])}
+ for(const e of EXPEDITIONS)assert.notEqual(e.areas[0],e.areas[1],e.id);
+ const old=migrate({...fresh(T),flags:{'roam-refund-1':true,'map-30-1':true},sigils:{...fresh(T).sigils,work:10}});
+ assert.equal(old.sigils.work,910);assert.equal(old.sigils.marriage,900);assert.equal(old.sigils.fitness,0);assert.equal(migrate(old).sigils.work,910,'paid once');assert.equal(fresh(T).sigils.work,0,'new villages start from nothing')});
 
 test('thirty regions, 150 places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,30);assert.equal(EXPEDITIONS.length,150);
  for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
