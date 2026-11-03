@@ -5,9 +5,12 @@
 // Prints a row every `every` days: Power, map progress, levels, income. Use it before changing a formula.
 import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf} from '../lib/game.mjs';
 import {REGIONS,ADVENTURE_IDS} from '../lib/expedition-data.mjs';
-import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS} from '../lib/cast.mjs';
+import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,characterById} from '../lib/cast.mjs';
+import {frontPower,gauntletDraft,charPower,modesNow} from '../lib/modes.mjs';
+import {habitDay} from '../lib/habits.mjs';
 import {COMPANIONS,companionLevel,canEvolve} from '../lib/companions.mjs';
 import {totalLevel} from '../lib/skills.mjs';
+import fs from 'node:fs';
 
 const DAYS=+process.argv[2]||365,HABITS=+process.argv[3]||8,EVERY=+process.argv[4]||30;
 const T0=new Date('2026-11-02T07:00:00').getTime(),DAY=864e5,H=36e5;
@@ -30,11 +33,15 @@ for(let d=0;d<DAYS;d++){
  let guard=0;while(s.roam.charges>0&&guard++<40){const views=ADVENTURE_IDS.map(id=>expeditionView(s,id)).filter(v=>v.open&&v.outcome);if(!views.length)break;
   const boss=views.find(v=>v.boss&&!v.defeated);const best=views.sort((a,b)=>b.loot.exp-a.loot.exp).slice(0,4);const pick=boss||best[guard%best.length];if(!tryAct('expedition',base+2*H,pick.id))break;
   const k=ADVENTURE_IDS.indexOf(pick.id)+50*(lapOf(s)-1);if(k+1>stepsBeaten&&!(pick.boss&&lapBeaten(s).length===0)){stepsBeaten=k+1;lastStepDay=d}}
- // War Table: Rift, Arena ×5, Spire.
+ // War Table: Rift, Arena ×5, Spire, the Gauntlet every day; the Fronts and Trials once a week (they reset weekly, so trying daily is harmless).
  const now=base+3*H;const three=topFellows(3),five=topFellows(5);
- if(three.length)tryAct('rift',now,null,three);
- if(five.length)for(let i=0;i<5;i++){const fam=Object.keys(s.family).sort((a,b)=>familyBond(s,b)-familyBond(s,a)).slice(0,2);if(!tryAct('arena',now+i,null,[...five.slice(0,5-fam.length),...fam]))break}
- if(five.length)tryAct('spire',now,null,five);
+ if(three.length)tryAct('mode:rift',now,null,three);
+ if(five.length)for(let i=0;i<5;i++){const fam=Object.keys(s.family).sort((a,b)=>familyBond(s,b)-familyBond(s,a)).slice(0,2);if(!tryAct('mode:arena',now+i,null,[...five.slice(0,5-fam.length),...fam]))break}
+ if(five.length)tryAct('mode:spire',now,null,five);
+ if(three.length){const draft=gauntletDraft(s,habitDay(now)).sort((a,b)=>charPower(s,b)-charPower(s,a)).slice(0,3);if(tryAct('mode:gauntletStart',now,null,draft))for(let i=0;i<300;i++){const run=modesNow(s,now).gauntlet.run;if(!run)break;
+   if(run.offer){const o=run.offer;tryAct('mode:gauntletChoose',now,o.draft[0]||(run.hp<60&&o.boons.includes('mend')?'mend':o.boons[0]))}else if(!tryAct('mode:gauntletFight',now))break}}
+ {const used=[];for(const a of AREA_IDS){const sq=[...Object.keys(s.fellows),...Object.keys(s.family)].filter(id=>!used.includes(id)).sort((p,q)=>frontPower(s,a,[q])-frontPower(s,a,[p])).slice(0,3);if(sq.length&&tryAct('mode:front',now,a,sq))used.push(...sq)}
+  for(const a of AREA_IDS)for(let t=0;t<40;t++){const fam=Object.keys(s.family).sort((p,q)=>familyBond(s,q)-familyBond(s,p)).slice(0,1);if(!fam.length)break;const r=act(s,'mode:trial',now,a,[...topFellows(2),...fam]);if(r.error||!r.won)break;s=r.state}}
  // Spend: stars when sigils allow, then EXP round-robin on the lowest level Fellow who can afford a level.
  for(const id of Object.keys(s.fellows)){let g=0;while(g++<50&&tryAct('starUp',now,id));}
  guard=0;while(guard++<2000){const ids=Object.keys(s.fellows).filter(id=>(s.fellowExp||0)>=fellowLevelCost(s.fellows[id].level)).sort((a,b)=>s.fellows[a].level-s.fellows[b].level);if(!ids.length)break;if(!tryAct('levelUp',now,ids[0],5))break}
@@ -53,4 +60,6 @@ for(let d=0;d<DAYS;d++){
   console.log(`${String(d+1).padStart(3)} | ${fmt(rosterPower(s)).padStart(7)} | lap ${lapOf(s)}, step ${stepsBeaten}, ${lapBeaten(s).length} bosses | ${fmt(rate).padStart(7)} | ${fl.length}, lv ${Math.max(0,...lv)} (min ${Math.min(...lv)||0}), ★${(st.reduce((a,b)=>a+b,0)/Math.max(1,st.length)).toFixed(1)} | ${bonds.length?(bonds.reduce((a,b)=>a+b,0)/bonds.length).toFixed(1):0}, ${Math.max(0,...bonds)} | ${cs.length}, lv ${Math.max(0,...cs)} | ${fmt(s.fellowExp||0)} | lv ${bl}, ${rate?(buildingUpgradeCost(bl)/rate).toFixed(1):'-'}h`)}
 }
 if(stalls.length)console.log('Stalls of 45+ days without a new map step after days: '+stalls.join(', '));
+// SIM_DUMP=path writes the final save as JSON, for scripts that want a mid-game village to measure against.
+if(process.env.SIM_DUMP)fs.writeFileSync(process.env.SIM_DUMP,JSON.stringify(s));
 console.log('Last map step beaten: '+stepsBeaten+' ('+REGIONS.length*5+' per lap) on day '+(lastStepDay+1)+'. Total skill level '+totalLevel(s)+'.');

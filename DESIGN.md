@@ -116,8 +116,13 @@ and the player's Chapter 1 answer ({motive}); its final choice becomes the Heart
 ## The War Table (game modes)
 
 Eight modes, all settled by team power against a need (no battle engine); engine `lib/modes.mjs`, screen
-`app/modes-panel.tsx`. Family fight at `150 × bond level`; Fellows at their Fellow Power. Rewards are multiples of
-10 minutes of village income. Franchise tags for the Arena are in `lib/franchises.mjs`.
+`app/modes-panel.tsx`. Family fight at `150 × bond level`; Fellows at their Fellow Power. Gold rewards are multiples of
+10 minutes of village income; Fellow EXP rewards are multiples of one frontier Map run (`expUnit = rosterPower ÷ 8`), so the squad decides how far you get and the
+whole village decides what a floor is worth: Rift 1/180 run per floor, Arena 1/20 per win, Gauntlet 1/100 per floor, Spire 1/20 per new floor, Trials 1/20 per new tier,
+Fronts 1/200 per wave. On a day-90 village (16 Map runs a day) that is Rift half a run, Arena ×5 a quarter, Gauntlet a third, and the weekly Fronts about four runs plus
+800 sigils (a star). It looks small next to the Map, but the economy compounds: with the War Table played every day the 90-day pace goes from step 88 (Map only) to 99;
+the modes' sigils alone take it to 92, and doubling these EXP constants takes it to 104. Resist raising them.
+Franchise tags for the Arena are in `lib/franchises.mjs`.
 
 | Mode | Roster | Cadence | Rule |
 |---|---|---|---|
@@ -186,7 +191,7 @@ what you said until you complete it. Owned days don't count for Momentum, area p
 
 ## Pace
 
-From `node scripts/simulate.mjs` (a player who completes 8 hard daily habits, spends every Roam, runs the War Table and spends everything): the first journey (Nex, step 50) falls in about a month, the whole 30-region lap (Yama, step 150) in about 7 months, and each lap after that takes longer than the last. A 4-habit player reaches Nex in about 2 months and Yama in about 11. (At the old growth of 1.3 per step neither player met the last 15 regions within a year, which is why it is 1.2.) Nothing caps, so the game never goes flat: Power, needs and rewards keep climbing together.
+From `node scripts/simulate.mjs` (a player who completes 8 hard daily habits, spends every Roam, runs the War Table and spends everything): the first journey (Nex, step 50) falls in about a month, the whole 30-region lap (Yama, step 150) in about 6 months with the War Table played daily (7 on the Map alone), and each lap after that takes longer than the last. A 4-habit player reaches Nex in about 2 months and Yama in about 11. (At the old growth of 1.3 per step neither player met the last 15 regions within a year, which is why it is 1.2.) Nothing caps, so the game never goes flat: Power, needs and rewards keep climbing together.
 
 ## The Hearth and the Collection Log
 

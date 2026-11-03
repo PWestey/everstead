@@ -294,6 +294,13 @@ test('War Table modes pay out, respect once-a-day and once-a-week rules',()=>{le
  const hp=WT.strikeDamage(s,['kira'],1000);r=act(s,'mode:strike',T,null,['kira']);assert.ok(!r.error,r.error);assert.equal(r.state.modes.strike.dmg,hp);
  for(let i=0;i<WT.ARENA_TRIES;i++)s=act(s,'mode:arena',T,null,['geralt']).state;assert.ok(act(s,'mode:arena',T,null,['geralt']).error,'tries run out');
  assert.ok(!act(s,'mode:rift',T+864e5,null,['darrow']).error,'Rift is back tomorrow')});
+test('War Table Fellow EXP is paid in Map-run units: rosterPower ÷ 8 per unit, so the modes keep pace with the Map',()=>{
+ let s={...fresh(T),fellows:{darrow:{level:300,stars:2},geralt:{level:300,stars:2},obiwan:{level:300,stars:2}},family:{kira:{bond:200000}}};const x=WT.expUnit(s);assert.equal(x,Math.round(rosterPower(s)/8));
+ const r=act(s,'mode:rift',T,null,['darrow','geralt','obiwan']);assert.ok(r.floors>0);assert.equal(r.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_RIFT*r.floors),'Rift: 1/180 of a run per floor');
+ const a=act(s,'mode:arena',T,null,['darrow','geralt']);assert.ok(a.won);assert.equal(a.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_ARENA),'Arena: a twentieth of a run per win');
+ const f=act(s,'mode:front',T,'fitness',['darrow','kira']);assert.ok(!f.error,f.error);const w=f.state.modes.fronts.waves.fitness;assert.ok(w>0);assert.equal(f.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_FRONT*w),'Fronts: 1/200 of a run per wave');
+ const sp=act(s,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>0);assert.equal(sp.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_SPIRE)*sp.state.modes.spire.floor,'Spire: a twentieth of a run per floor');
+ const weak={...s,fellows:{darrow:{level:1,stars:0}}};const wr=act(weak,'mode:rift',T,null,['darrow']);assert.ok(wr.floors<r.floors&&WT.expUnit(weak)<x,'a weaker village gets fewer floors and smaller units')});
 test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={...fresh(T),fellows:{darrow:{level:5,stars:0},geralt:{level:5,stars:0},obiwan:{level:5,stars:0},tony:{level:1,stars:0}}};
  const day='2026-10-14',d=WT.gauntletDraft(s,day);let r=act(s,'mode:gauntletStart',T,null,d.slice(0,3));assert.ok(!r.error,r.error);s=r.state;let offered=false;
  for(let i=0;i<200&&s.modes.gauntlet.run;i++){const run=s.modes.gauntlet.run;if(run.offer){offered=true;s=act(s,'mode:gauntletChoose',T,run.offer.draft[0]||'rally').state}else s=act(s,'mode:gauntletFight',T,null,null).state}
