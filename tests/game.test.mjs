@@ -409,7 +409,8 @@ test('the Map is fair to every life area: 37-38 places each, 12-13 on the first 
  for(const a of AREA_IDS){assert.ok(n[a]>=37&&n[a]<=38,a+' '+n[a]);assert.ok(f[a]>=12&&f[a]<=13,a+' first '+f[a]);assert.ok(b[a]>=7&&b[a]<=8,a+' bosses '+b[a])}
  for(const e of EXPEDITIONS)assert.notEqual(e.areas[0],e.areas[1],e.id);
  const old=migrate({...fresh(T),flags:{'roam-refund-1':true,'map-30-1':true},sigils:{...fresh(T).sigils,work:10}});
- assert.equal(old.sigils.work,910);assert.equal(old.sigils.marriage,900);assert.equal(old.sigils.fitness,0);assert.equal(migrate(old).sigils.work,910,'paid once');assert.equal(fresh(T).sigils.work,0,'new villages start from nothing')});
+ assert.equal(old.sigils.work,1810);assert.equal(old.sigils.marriage,900);assert.equal(old.sigils.hobbies,1800);assert.equal(old.sigils.faith,900);assert.equal(old.sigils.fitness,0);assert.equal(migrate(old).sigils.work,1810,'paid once');assert.equal(fresh(T).sigils.work,0,'new villages start from nothing');
+ const mid=migrate({...fresh(T),flags:{'roam-refund-1':true,'map-30-1':true,'sigils-fair-1':true}});assert.equal(mid.sigils.work,900);assert.equal(mid.sigils.home,0,'a save that already had the first grant gets only the second')});
 
 test('thirty regions, 150 places, every one with a first-visit scene and OSRS art',()=>{assert.equal(REGIONS.length,30);assert.equal(EXPEDITIONS.length,150);
  for(const r of REGIONS){assert.ok(existsSync('public/assets/'+r.bg),r.bg);for(const e of [...r.adventures,r.boss]){assert.ok(existsSync('public/assets/'+e.art),e.art);if(e.bg)assert.ok(existsSync('public/assets/'+e.bg),e.bg);assert.ok(TREES['x:'+e.id],'scene for '+e.id)}}
