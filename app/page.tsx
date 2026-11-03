@@ -14,6 +14,7 @@ import {MapPanel,ExpeditionResult} from './map-panel';
 import {CodexPanel} from './codex-panel';
 import {ModesPanel} from './modes-panel';
 import {CompanionsPanel} from './companions-panel';
+import {TrainingPanel} from './training-panel';
 import {TREES,cheerTree} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
@@ -26,7 +27,7 @@ import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './r
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'Character_Summary_icon'},fellows:{title:'Fellows',icon:'Your_Clan_icon'},family:{title:'Family',icon:'Friends_List'},
  stage:{title:'Expedition Map',icon:'World_map_icon'},habits:{title:'Habit Journal',icon:'Collection_log_icon'},roaming:{title:'Village Gate',icon:'Lumbridge_Home_Teleport'},
- today:{title:'Today',icon:'Watch'},codex:{title:'The Archives',icon:'Quest_list_icon'},modes:{title:'The War Table',icon:'Combat_icon'},companions:{title:'Companions',icon:'Hunter_kit'},building:{title:'Building',icon:'Bank_icon'},quests:{title:'Quest Journal',icon:'Quest_list_icon'}};
+ today:{title:'Today',icon:'Watch'},codex:{title:'The Archives',icon:'Quest_list_icon'},modes:{title:'The War Table',icon:'Combat_icon'},companions:{title:'Companions',icon:'Hunter_kit'},training:{title:'Training Grounds',icon:'Skills_icon'},building:{title:'Building',icon:'Bank_icon'},quests:{title:'Quest Journal',icon:'Quest_list_icon'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 /** Cheers (character pop-ups after habits) can be turned off per device. */
@@ -116,6 +117,7 @@ export default function App(){
     {tab==='codex'&&<CodexPanel game={game} action={action} locked={locked}/>}
     {tab==='modes'&&<ModesPanel game={game} action={action} locked={locked}/>}
     {tab==='companions'&&<CompanionsPanel game={game} action={action} locked={locked}/>}
+    {tab==='training'&&<TrainingPanel game={game} action={action} locked={locked}/>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
     {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onTalk={setTalk} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
    </div>

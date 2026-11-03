@@ -57,6 +57,8 @@
 .village-building.es-unbuilt>img{filter:grayscale(.8) brightness(.85);opacity:.75}
 .village-building.es-lit>img{filter:drop-shadow(0 0 12px var(--area)) drop-shadow(0 0 4px var(--area))}
 .village-canvas.blighted::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 60%,transparent 40%,rgba(60,60,80,.28));mix-blend-mode:multiply}
+.training-field{display:grid;gap:4px;margin:10px 0;font-size:14px}.training-field span{font-weight:700}.training-field input{width:140px;padding:6px 8px;border:1px solid #b99b68;border-radius:6px;background:#fff8e6;color:#2b1d0e;font:inherit}.training-field small{color:#6b5436}
+.training-auto{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}.training-auto input{width:18px;height:18px}
 .es-building .es-modifiers{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px;font-size:14px}
 .es-building .es-modifiers li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed rgba(168,139,85,.4);padding-bottom:3px}
 .es-residents{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}

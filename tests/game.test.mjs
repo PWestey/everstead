@@ -6,7 +6,27 @@ import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,mi
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,ROAM_URL_MAX} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
+import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
+
+test('errand pay grows with the crew: √(Power ÷ need) up to ×8, half under the need',()=>{
+ assert.equal(errandMult(0.5),0.5);assert.equal(errandMult(1),1);assert.equal(errandMult(4),2);assert.equal(errandMult(25),5);assert.equal(errandMult(1e6),ERRAND_MULT_CAP);
+ let s={...fresh(T),family:{tyrande:{bond:1e9},yennefer:{bond:1e9},padme:{bond:1e9}},gold:1e6,buildings:{...fresh(T).buildings,yard:{level:10}}};
+ const o=errandOffers(s,T).find(x=>x.kind==='gold');const sent=act(s,'mode:errandSend',T,o.id,Object.keys(s.family).slice(0,o.slots));assert.ok(!sent.error,sent.error);
+ const back=act(sent.state,'mode:errandCollect',T+o.hours*3600e3+1,o.id);assert.ok(!back.error,back.error);
+ const idle=settle(sent.state,T+o.hours*3600e3+1),u=Math.max(100,Math.round(rateOf(idle,idle.lastAt)*600));assert.ok(Math.abs(back.state.gold-idle.gold-Math.round(u*0.5*o.hours*ERRAND_MULT_CAP))<=1,'a crew far over the need pays the cap: '+(back.state.gold-idle.gold)+' vs '+u*0.5*o.hours*ERRAND_MULT_CAP)});
+
+test('Training Grounds: lowest first up to the mark, within EXP and gold; Auto keeps it up on settle',()=>{
+ let s={...fresh(T),fellowExp:1e9,gold:1e12,fellows:{darrow:{level:40,stars:0},obiwan:{level:3,stars:0},geralt:{level:10,stars:0}},family:{tyrande:{bond:0},yennefer:{bond:50000}}};
+ const a=trainFellows(s,20);assert.equal(a.state.fellows.darrow.level,40,'above the mark is left alone');assert.equal(a.state.fellows.obiwan.level,20);assert.equal(a.state.fellows.geralt.level,20);
+ assert.equal(a.levels,27);assert.ok(a.state.fellowExp<1e9);assert.equal(trainFellows(a.state,20).state,a.state,'nothing to do returns the same state');
+ const short=trainFellows({...s,fellowExp:fellowLevelCost(3)+fellowLevelCost(4)},20);assert.equal(short.state.fellows.obiwan.level,5,'the lowest Fellow goes first and EXP runs out');assert.equal(short.state.fellows.geralt.level,10);
+ const b=trainFamily(s,30);assert.ok(bondLv(b.state.family.tyrande.bond)>=30);assert.ok(bondLv(b.state.family.yennefer.bond)>=30);assert.ok(b.gifts>0&&b.state.gold<1e12);
+ const c=trainCost(s,{fellows:20,family:30});assert.equal(c.fellows,2);assert.equal(c.family,Object.values(s.family).filter(f=>bondLv(f.bond)<30).length);assert.ok(c.exp>0&&c.gold>0);assert.ok(Math.abs(c.gold-(1e12-b.state.gold))<1e-6,'the cost shown is what it spends');
+ const set=act(s,'train',T,null,{fellows:20,family:30,auto:false,now:true});assert.ok(!set.error);assert.equal(set.state.fellows.obiwan.level,20);assert.deepEqual(set.state.trainer,{fellows:20,family:30,auto:false});assert.ok(valid(set.state));
+ const auto=act({...s,fellowExp:0},'train',T,null,{fellows:20,family:0,auto:true,now:false});assert.equal(auto.state.fellows.obiwan.level,3,'auto without EXP waits');
+ const later=settle({...auto.state,fellowExp:1e9},T+5000);assert.equal(later.fellows.obiwan.level,20,'settle trains once EXP arrives');assert.ok(valid(later));
+ assert.ok(valid(migrate({...fresh(T),trainer:undefined})),'old saves without a trainer still load')});
 
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
  assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);

@@ -51,8 +51,9 @@ export function ModesPanel({game,action,locked}:{game:any,action:any,locked:bool
    <h3>Today’s jobs</h3>{offers.map(x=>{const taken=m.errands.done.includes(x.id)||m.errands.out.some((e:any)=>e.id===x.id);return <button key={x.id} type="button" disabled={taken} className={'wt-offer'+(target===x.id?' on':'')} onClick={()=>{setTarget(x.id);setSel([])}}>
     <img src={'./assets/'+skillIcon(x.area)} alt=""/><span><b>{x.title}</b><small>{area(x.area)} · {x.hours}h · crew of {x.slots} · pays {x.kind} · needs {n(x.need)}</small></span>{taken&&<em>Taken</em>}</button>})}
    {o&&<><Picker list={family.filter(c=>!busy.includes(c.id))} max={o.slots} sel={sel} setSel={setSel}/><Vs power={sel.reduce((t,id)=>t+X.charPower(game,id),0)} need={o.need}/>
+    <p className="small-note">This crew pays ×{X.errandMult(sel.reduce((t,id)=>t+X.charPower(game,id),0)/o.need).toFixed(1)} (√ of Power ÷ need, up to ×{X.ERRAND_MULT_CAP}) before today’s habit bonus.</p>
     <Go label="Send crew" locked={locked} disabled={locked||!sel.length} onGo={()=>go('errandSend',o.id)} optimize={()=>setSel(best(family.filter(c=>!busy.includes(c.id)),o.slots))}/></>}
-   <p className="small-note">Up to {X.ERRAND_MAX_OUT} errands out at once. Each daily habit you finish adds 7% to what they bring back (up to +50%).</p></>}
+   <p className="small-note">Up to {X.ERRAND_MAX_OUT} errands out at once. Stronger crews earn more: pay is √(Power ÷ need), up to ×{X.ERRAND_MULT_CAP}. Each daily habit you finish adds 7% on top (up to +50%).</p></>}
  if(mode==='rift'){const a=X.riftArea(now),p=X.riftPower(game,sel,now);let f=0;while(f<200&&p>=X.riftNeed(f+1))f++;
   body=m.rift.used.length?<p className="wt-done">Today’s squad climbed {m.rift.floor} floors. The {area(a)} Rift resets tomorrow.</p>:<>
    <p>Today the Rift is <b>{area(a)}</b>: {area(a)} Fellows count double. Each daily habit done adds 5% (up to +40%).</p>

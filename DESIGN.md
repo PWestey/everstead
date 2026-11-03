@@ -121,7 +121,7 @@ Eight modes, all settled by team power against a need (no battle engine); engine
 
 | Mode | Roster | Cadence | Rule |
 |---|---|---|---|
-| Errands | Family | daily, 5 offers, 3 out | timed jobs (1/4/8h) paying gold, sigils or bond; +7% per daily done |
+| Errands | Family | daily, 5 offers, 3 out | timed jobs (1/4/8h) paying gold, sigils or bond; pay × √(crew Power ÷ need) up to ×8 (half under the need); +7% per daily done |
 | The Rift | Fellows (3) | 1 run/day | climbs floors `250×1.17^f`; today's area ×2 |
 | Blight Strikes | Family (3) | 3/day, bank 9 | each strike adds damage to this week's Blight |
 | The Arena | Both (5) | 5 tries/day | franchise teams `600×1.12^r`; own franchise ×0.75 |
@@ -160,6 +160,13 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 - **Blessings:** your closest bond in each area blesses its Fellows (+3%/level) and its building (+2%/level); the family's **average** bond blesses every Fellow (+0.5%/level). Sums over 97 members would run away; the best and the average don't.
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals; give ×1, ×5, ×10 or as many as you can afford), roaming scenes.
+
+## Training Grounds
+
+A landmark next to the Workshop. Set a mark for Fellows (a level) and for Family (a bond level); "Train now" brings everyone below the mark up to it,
+lowest first, spending Fellow EXP on levels and gold on honey sweets (the best bond per gold). Fellows and Family above the mark are left alone.
+With Auto on, `settle` runs the same drill every tick, so EXP and gold are spent as they arrive. Levels bought here skip the level-up chat and
+milestone fanfare but are otherwise identical. Save field `trainer:{fellows,family,auto}`; action `train` with `{fellows,family,auto,now}`.
 
 ## Companions
 
