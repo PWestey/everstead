@@ -231,7 +231,7 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 
 ## Testing on a phone
 
-Open the game with `?roam=14` (any number 0-50) to set Roam charges on that device; the query is stripped after it applies, so a reload does not repeat it. That is the only URL switch, and it only touches Roam.
+Open the game with `?roam=14` (any number 0-50) to set Roam charges on that device; the query is stripped after it applies, so a reload does not repeat it. `?reset=wartable` forgets today's and this week's War Table usage (the Spire floor, Arena rank and Gauntlet best stay). Those are the only URL switches.
 
 ## What we deliberately left out
 

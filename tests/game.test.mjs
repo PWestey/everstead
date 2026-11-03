@@ -32,7 +32,10 @@ test('Training Grounds: lowest first up to the mark, within EXP and gold; Auto k
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
  assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);
  assert.equal(urlTweaks(s,'?roam=999').roam.charges,ROAM_URL_MAX);assert.equal(urlTweaks(s,'?roam=-3').roam.charges,0);assert.equal(urlTweaks(s,'?roam=abc').roam.charges,0);
- assert.ok(valid(urlTweaks(s,'?roam=14')))});
+ assert.ok(valid(urlTweaks(s,'?roam=14')));
+ let p={...fresh(T),fellows:{darrow:{level:20,stars:0}}};p=act(p,'mode:rift',T,null,['darrow']).state;p=act(p,'mode:front',T,'fitness',['darrow']).state;assert.ok(act(p,'mode:rift',T,null,['darrow']).error);
+ const w=urlTweaks(p,'?reset=wartable');assert.ok(!act(w,'mode:rift',T,null,['darrow']).error,'Rift is open again');assert.ok(!act(w,'mode:front',T,'work',['darrow']).error,'Darrow can fight a front again');assert.ok(valid(w));
+ const both=urlTweaks(p,'?roam=7&reset=wartable');assert.equal(both.roam.charges,7);assert.ok(!act(both,'mode:rift',T,null,['darrow']).error)});
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
