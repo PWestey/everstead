@@ -6,7 +6,7 @@ import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,mi
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 
@@ -35,7 +35,10 @@ test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and not
  assert.ok(valid(urlTweaks(s,'?roam=14')));
  let p={...fresh(T),fellows:{darrow:{level:20,stars:0}}};p=act(p,'mode:rift',T,null,['darrow']).state;p=act(p,'mode:front',T,'fitness',['darrow']).state;assert.ok(act(p,'mode:rift',T,null,['darrow']).error);
  const w=urlTweaks(p,'?reset=wartable');assert.ok(!act(w,'mode:rift',T,null,['darrow']).error,'Rift is open again');assert.ok(!act(w,'mode:front',T,'work',['darrow']).error,'Darrow can fight a front again');assert.ok(valid(w));
- const both=urlTweaks(p,'?roam=7&reset=wartable');assert.equal(both.roam.charges,7);assert.ok(!act(both,'mode:rift',T,null,['darrow']).error)});
+ const both=urlTweaks(p,'?roam=7&reset=wartable');assert.equal(both.roam.charges,7);assert.ok(!act(both,'mode:rift',T,null,['darrow']).error);
+ const all=urlTweaks({...p,fellows:{darrow:{level:20,stars:1}}},'?unlock=all');assert.equal(Object.keys(all.fellows).length,FELLOWS.length);assert.equal(Object.keys(all.family).length,FAMILY.length);
+ assert.deepEqual(all.fellows.darrow,{level:20,stars:1},'already-recruited Fellows keep their progress');assert.deepEqual(all.fellows.malfurion,{level:1,stars:0});assert.deepEqual(all.family.wasp,{bond:0});assert.ok(valid(all));
+ assert.equal(urlTweakNote(both,'?roam=7&unlock=all'),'Roam set to 7, everyone unlocked for testing');assert.equal(urlTweakNote(p,'?reset=wartable'),'War Table reset for testing');assert.equal(urlTweakNote(p,''),'')});
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
