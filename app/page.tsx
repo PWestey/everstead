@@ -20,7 +20,7 @@ import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
 import {introFor} from '@/lib/stories.mjs';
-import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight,urlTweaks,urlTweakNote} from '@/lib/game.mjs';
+import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight,urlTweaks,urlTweakNote,ROAM_URL_MAX} from '@/lib/game.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './rs-ui';
 
@@ -147,6 +147,7 @@ export default function App(){
    <div className="install-steps"><h3>On your iPhone</h3><ol><li>Open this link in Safari.</li><li>Tap Share <Share2 size={14}/> → Add to Home Screen.</li><li>Open the app online once and wait for “Ready for offline play” here.</li></ol></div>
    <div className="backup-row"><Button onClick={exportSave}>Export save</Button><Button variant="outline" onClick={()=>file.current?.click()}>Restore save</Button><input type="file" accept="application/json,.json" hidden ref={file} onChange={importSave}/><Button variant="outline" disabled={failedLoad} onClick={()=>setRestart(true)}>New journey</Button></div>
    <CheersToggle/>
+   <details className="rules-note"><summary>Testing switches</summary><p>Shortcuts for trying changes. They change this save, so export first if you care.</p><div className="backup-row"><Button variant="outline" disabled={locked} onClick={()=>action('testing','roam')}>Refill Roams to {ROAM_URL_MAX}</Button><Button variant="outline" disabled={locked} onClick={()=>action('testing','wartable')}>Reset War Table</Button><Button variant="outline" disabled={locked} onClick={()=>action('testing','unlock')}>Unlock everyone</Button></div></details>
    <details className="rules-note"><summary>About Everstead</summary><p>A habit tracker that lives inside a village. Real habits earn gold, XP, sigils and roams; your Fellows, Family and buildings grow from them. Away earnings are capped at 12 hours. Safari and the Home Screen app keep separate saves; export and restore to move progress.</p></details>
   </DialogContent></Dialog>
   <AlertDialog open={restart} onOpenChange={setRestart}><AlertDialogContent><AlertDialogTitle>Start a new journey?</AlertDialogTitle><AlertDialogDescription>Your village, Fellows, Family and progress start over. Your habit journal keeps its tasks, history and settings. Export a copy first if you want one.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>

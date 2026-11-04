@@ -232,7 +232,8 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 ## Testing on a phone
 
 Open the game with `?roam=14` (any number 0-50) to set Roam charges on that device; the query is stripped after it applies, so a reload does not repeat it. `?reset=wartable` forgets today's and this week's War Table usage (the Spire floor, Arena rank and Gauntlet best stay). `?unlock=all` recruits every
-Fellow (level 1) and welcomes every Family member (bond 0), leaving anyone already here untouched. Switches combine (`?roam=14&unlock=all`); those three are the only ones.
+Fellow (level 1) and welcomes every Family member (bond 0), leaving anyone already here untouched. Switches combine (`?roam=14&unlock=all`); those three are the only ones. The same three sit as buttons under "Testing switches" in the save
+dialog (gear icon), through the `testing` action, so a phone needs no link.
 
 ## What we deliberately left out
 

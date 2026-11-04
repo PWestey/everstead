@@ -38,7 +38,9 @@ test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and not
  const both=urlTweaks(p,'?roam=7&reset=wartable');assert.equal(both.roam.charges,7);assert.ok(!act(both,'mode:rift',T,null,['darrow']).error);
  const all=urlTweaks({...p,fellows:{darrow:{level:20,stars:1}}},'?unlock=all');assert.equal(Object.keys(all.fellows).length,FELLOWS.length);assert.equal(Object.keys(all.family).length,FAMILY.length);
  assert.deepEqual(all.fellows.darrow,{level:20,stars:1},'already-recruited Fellows keep their progress');assert.deepEqual(all.fellows.malfurion,{level:1,stars:0});assert.deepEqual(all.family.wasp,{bond:0});assert.ok(valid(all));
- assert.equal(urlTweakNote(both,'?roam=7&unlock=all'),'Roam set to 7, everyone unlocked for testing');assert.equal(urlTweakNote(p,'?reset=wartable'),'War Table reset for testing');assert.equal(urlTweakNote(p,''),'')});
+ assert.equal(urlTweakNote(both,'?roam=7&unlock=all'),'Roam set to 7, everyone unlocked for testing');assert.equal(urlTweakNote(p,'?reset=wartable'),'War Table reset for testing');assert.equal(urlTweakNote(p,''),'');
+ const t=act(p,'testing',T,'unlock');assert.equal(Object.keys(t.state.fellows).length,FELLOWS.length);assert.equal(t.message,'everyone unlocked for testing');
+ assert.equal(act(p,'testing',T,'roam').state.roam.charges,ROAM_URL_MAX);assert.ok(!act(act(p,'testing',T,'wartable').state,'mode:rift',T,null,['darrow']).error);assert.ok(act(p,'testing',T,'gold').error)});
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
