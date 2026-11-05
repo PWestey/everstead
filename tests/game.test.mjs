@@ -6,7 +6,7 @@ import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,mi
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 
@@ -28,6 +28,14 @@ test('Training Grounds: lowest first up to the mark, within EXP and gold; Auto k
  const auto=act({...s,fellowExp:0},'train',T,null,{fellows:20,family:0,auto:true,now:false});assert.equal(auto.state.fellows.obiwan.level,3,'auto without EXP waits');
  const later=settle({...auto.state,fellowExp:1e9},T+5000);assert.equal(later.fellows.obiwan.level,20,'settle trains once EXP arrives');assert.ok(valid(later));
  assert.ok(valid(migrate({...fresh(T),trainer:undefined})),'old saves without a trainer still load')});
+
+test('the Training Grounds buy sweets a level at a time: same gold and bond as one by one, and a full roster to a high mark is instant',()=>{
+ const g=GIFTS.sweets,slow=(bond,target)=>{let b=bond,L=bondLv(b),gold=0,n=0;while(L<target){gold+=giftPrice(g,L);b+=g.bond;L=bondLv(b);n++}return {gold,bond:b,n}};
+ for(const [bond,target] of [[0,2],[0,5],[130,7],[5000,12],[777,20]]){const s={...fresh(T),gold:1e12,family:{kira:{bond}}};const r=trainFamily(s,target),x=slow(bond,target);
+  assert.equal(r.gifts,x.n,bond+'→'+target+' gifts');assert.equal(1e12-r.state.gold,x.gold,'gold');assert.equal(r.state.family.kira.bond,x.bond,'bond');assert.equal(trainCost(s,{family:target}).gold,x.gold,'estimate')}
+ const poor={...fresh(T),gold:giftPrice(g,1)+giftPrice(g,2)+giftPrice(g,2)-1,family:{kira:{bond:0}}};assert.equal(trainFamily(poor,9).gifts,2,'stops when gold runs out: one sweet at level 1, one at level 2, not a third');
+ const all=unlockEveryone({...fresh(T),gold:1e15}),t0=Date.now(),c=trainCost(all,{fellows:500,family:150}),r=trainFamily(all,150);assert.ok(Date.now()-t0<2000,'fast');
+ assert.equal(c.family,FAMILY.length);assert.ok(Object.values(r.state.family).every(f=>bondLv(f.bond)>=150))});
 
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
  assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);
