@@ -5,7 +5,7 @@ import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction,QuantityPicker,type Quantity} from './original-controls';
 import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
-import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_ALL,BLESS_BUILDING,joinNeed} from '@/lib/game.mjs';
+import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_BUILDING,blessShare,joinNeed} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
@@ -16,7 +16,7 @@ const rung=(level:number)=>RUNGS[Math.min(RUNGS.length-1,Math.floor((level-1)/5)
 const pct=(x:number)=>(x*100).toFixed(1)+'%';
 
 function FamilyStats({game,id}:any){
- const def=FAMILY.find(f=>f.id===id)!,bond=game.family[id].bond,L=familyBond(game,id),p=bondProgress(bond),[open,setOpen]=useState<string|null>(null);
+ const def=FAMILY.find(f=>f.id===id)!,bond=game.family[id].bond,L=familyBond(game,id),p=bondProgress(bond),[open,setOpen]=useState<string|null>(null),rank=Object.keys(game.family).filter(x=>x!==id&&familyBond(game,x)>L).length;
  const fellows=fellowsInArea(def.area),building=buildingForArea(def.area);
  return <div className="family-stat-block">
   <div className={'rung-ribbon rung-'+(L<5?'green':'gold')}><b>{rung(L)}</b><i aria-hidden="true">&#9671;</i></div>
@@ -26,10 +26,10 @@ function FamilyStats({game,id}:any){
   </div>
   <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{open==='Bond'?'Bond':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
-   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone's average bond blesses all Fellows.</p>
+   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone blesses all Fellows, the closest bonds most.</p>
    :<table className="es-breakdown"><tbody>
      <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
-     <tr><th>Every Fellow</th><td>village-wide</td><td>+{pct(BLESS_ALL*L)}</td></tr>
+     <tr><th>Every Fellow</th><td>village-wide, as your {rank+1}{['st','nd','rd'][rank]||'th'} closest bond</td><td>+{pct(blessShare(L,rank))}</td></tr>
      <tr><th>{building.name}</th><td>income</td><td>+{pct(BLESS_BUILDING*L)}</td></tr>
     </tbody></table>}
   </DialogContent></Dialog>

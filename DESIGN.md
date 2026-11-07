@@ -162,8 +162,11 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 
 - **Welcome** by area points and your total level, or by time (same day-30 rule as Fellows). Queue: 15, 60, 150, 280, 450… points, and total level 20, 60, 100, 140… for the 1st, 2nd, 3rd… Family member.
 - Bond level from bond XP; level L → L+1 costs `100 × L^1.5`, no cap. Gifts cost `5% more per bond level` of the recipient (a posy is 500 gold at level 1, about 1,600 at level 25, 9,000 at level 60), so bond grows with the log of your gold.
-- **Blessings:** your closest bond in each area blesses its Fellows (+3%/level) and its building (+2%/level); the family's **average** bond blesses every Fellow (+0.5%/level). Sums over 97 members would run away; the best and the average don't.
-- Per Bond level: **+3%** Power to every Fellow in her area, **+0.5%** to every Fellow, **+2%** to her building's income.
+- **Blessings:** your closest bond in each area blesses its Fellows (+3%/level) and its building (+2%/level); **everyone** blesses every Fellow:
+  bond levels ranked highest first, the k-th weighted `0.85^(k-1)`, at +0.12% per weighted level (`blessAll`). The weights sum to at most 6.7, so
+  97 members can never pass 6.7 × one bond, welcoming someone never costs Power, and a newcomer counts from her first level (seven bonds at 150 ≈ +81%;
+  ninety more at bond 10 add about +2.5%, and more as they climb). Rate tuned on the 90-day simulator: step 103 on day 90 against 104 under the old average rule. A plain sum would run away and the old average fell every time someone joined.
+- Per Bond level: **+3%** Power to every Fellow in her area, **+0.12% × 0.85^rank** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals; give ×1, ×5, ×10 or as many as you can afford), roaming scenes.
 
 ## Training Grounds
