@@ -37,10 +37,36 @@ test('the Training Grounds buy sweets a level at a time: same gold and bond as o
  const all=unlockEveryone({...fresh(T),gold:1e15}),t0=Date.now(),c=trainCost(all,{fellows:500,family:150}),r=trainFamily(all,150);assert.ok(Date.now()-t0<2000,'fast');
  assert.equal(c.family,FAMILY.length);assert.ok(Object.values(r.state.family).every(f=>bondLv(f.bond)>=150))});
 
+test('remembered Power and blessings never go stale: every change to the roster shows at once, and bond levels match the slow count',()=>{
+ const slow=xp=>{let L=1,spent=0;while(spent+Math.round(100*L**1.5)<=xp){spent+=Math.round(100*L**1.5);L++}return L};for(const xp of [0,99,100,101,382,383,5000,123456,1e7,3.3e9])assert.equal(bondLv(xp),slow(xp),'bond '+xp);
+ let s={...fresh(T),gold:1e12,fellowExp:1e12,fellows:{darrow:{level:5,stars:0}},family:{kira:{bond:0}}};const p0=rosterPower(s);assert.equal(rosterPower(s),p0);
+ const lv=act(s,'levelUp',T,'darrow',1).state;assert.ok(rosterPower(lv)>p0,'a level shows');assert.equal(rosterPower(s),p0,'and the old save still reads its own Power');
+ const gift=act(s,'gift',T,'kira',{gift:'sweets',times:5});const g=gift.error?act(s,'visit',T,'kira').state:gift.state;assert.ok(g.family.kira.bond>0);
+ const big={...s,family:{kira:{bond:1e6}}};assert.ok(rosterPower(big)>p0,'bond shows');assert.ok(blessings(big).all>blessings(s).all);
+ const tick=settle(big,T+5000);assert.equal(rosterPower(tick),rosterPower(big),'an income tick changes nothing');assert.ok(rosterPower(unlockEveryone(big))>rosterPower(big),'new faces show')});
+
+test('several Map runs in one tap equal the same runs one by one, and stop when the Roams run out',()=>{const s={...fresh(T),fellows:{darrow:{level:60,stars:2}},roam:{charges:7,seen:[]}};
+ let one=s;for(let i=0;i<5;i++)one=act(one,'expedition',T,'cow-field').state;const five=act(s,'expedition',T,'cow-field',5);assert.ok(!five.error,five.error);
+ assert.deepEqual(five.state,one,'same save either way');assert.equal(five.expedition.times,5);assert.equal(five.expedition.loot.gold,one.gold-s.gold);assert.equal(five.state.roam.charges,2);
+ const all=act(s,'expedition',T,'cow-field',100);assert.equal(all.expedition.times,7,'stops at the Roams you have');assert.equal(all.state.roam.charges,0);assert.ok(act(all.state,'expedition',T,'cow-field',5).error,'nothing left');
+ assert.equal(act(s,'expedition',T,'cow-field',1).expedition.times,undefined,'a single run is the old single run')});
+
+test('War Table batches repeat a mode with the best squad and stop where single taps would',()=>{
+ let s={...fresh(T),fellows:{darrow:{level:300,stars:2},geralt:{level:300,stars:2},obiwan:{level:300,stars:2},tavi:{level:200,stars:1}},family:{kira:{bond:2e5},ariane:{bond:1e5},lys:{bond:5e4}}};
+ const a=act(s,'mode:arenaAll',T);assert.ok(!a.error,a.error);const am=WT.modesNow(a.state,T).arena;assert.ok(am.tries>=1&&am.tries<=WT.ARENA_TRIES);assert.equal(am.rank,a.won?am.rank:0);assert.ok(am.rank===am.tries||am.rank===am.tries-1,'every try but a last lost one is a win');
+ assert.ok(am.tries===WT.ARENA_TRIES||!act(a.state,'mode:arena',T,null,['darrow','geralt','obiwan','kira','ariane']).won,'it only stops early on a team that cannot win');
+ const f=act(s,'mode:frontAll',T);assert.ok(!f.error,f.error);const fm=WT.modesNow(f.state,T).fronts;assert.equal(new Set(fm.used).size,fm.used.length,'nobody fights twice');assert.equal(fm.used.length,7,'everyone was sent');assert.ok(Object.keys(fm.waves).length>=3);
+ assert.ok(act(f.state,'mode:frontAll',T).error,'nobody left');
+ const t=act(s,'mode:trialAll',T,'fitness');const tm=WT.modesNow(t.state,T).trials.cleared.fitness||0;let one=s,k=0;for(;;){const r=act(one,'mode:trial',T,'fitness',WT.bestPick(WT.roster(one),WT.TRIAL_SQUAD,c=>c.power*(c.kind==='family'?1.5:1),'family'));if(r.error||!r.won)break;one=r.state;k++}
+ assert.equal(tm,k,'climbs exactly as far as tap by tap');if(k)assert.deepEqual(t.state,one);
+ const st=act(s,'mode:strikeAll',T);assert.ok(!st.error,st.error);const sm=WT.modesNow(st.state,T).strike;assert.ok(sm.dmg>0);assert.equal(sm.used.length,3,'three Family, one strike');
+ let g=act(s,'mode:gauntletStart',T,null,WT.gauntletDraft(s,WT.modesNow(s,T).gauntlet.day).slice(0,3));assert.ok(!g.error,g.error);const rush=act(g.state,'mode:gauntletRush',T);assert.ok(!rush.error,rush.error);
+ const run=WT.modesNow(rush.state,T).gauntlet.run;assert.ok(!run||run.offer,'stops at a choice or at the end of the run');assert.ok(valid(rush.state)&&valid(a.state)&&valid(f.state)&&valid(st.state))});
+
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
  assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);
  assert.equal(urlTweaks(s,'?roam=999').roam.charges,ROAM_URL_MAX);assert.equal(urlTweaks(s,'?roam=-3').roam.charges,0);assert.equal(urlTweaks(s,'?roam=abc').roam.charges,0);
- assert.ok(valid(urlTweaks(s,'?roam=14')));
+ assert.ok(valid(urlTweaks(s,'?roam=14')));assert.ok(valid(urlTweaks(s,'?roam=50')),'the most the switch gives still saves');assert.ok(valid(act(s,'testing',T,'roam').state),'and so does the button');
  let p={...fresh(T),fellows:{darrow:{level:20,stars:0}}};p=act(p,'mode:rift',T,null,['darrow']).state;p=act(p,'mode:front',T,'fitness',['darrow']).state;assert.ok(act(p,'mode:rift',T,null,['darrow']).error);
  const w=urlTweaks(p,'?reset=wartable');assert.ok(!act(w,'mode:rift',T,null,['darrow']).error,'Rift is open again');assert.ok(!act(w,'mode:front',T,'work',['darrow']).error,'Darrow can fight a front again');assert.ok(valid(w));
  const both=urlTweaks(p,'?roam=7&reset=wartable');assert.equal(both.roam.charges,7);assert.ok(!act(both,'mode:rift',T,null,['darrow']).error);

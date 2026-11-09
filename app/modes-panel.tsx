@@ -29,16 +29,17 @@ function Picker({list,max,sel,setSel,note}:{list:any[],max:number,sel:string[],s
   onClick={()=>setSel(on?sel.filter(x=>x!==c.id):[...sel,c.id])}><MiniArt person={characterById(c.id)}/><span><b>{c.name}</b><small>{n(c.power)}{note?.(c)?' · '+note(c):''}</small></span></button>})}</div>}
 
 /** The strongest `max` of a list by `weight` (default: power). `mustKind` forces at least one character of that kind in. */
-function best(list:any[],max:number,weight:(c:any)=>number=c=>c.power,mustKind?:string){const ranked=[...list].sort((a,b)=>weight(b)-weight(a));const pick=ranked.slice(0,max);
- if(mustKind&&!pick.some(c=>c.kind===mustKind)){const need=ranked.find(c=>c.kind===mustKind);if(need){pick.pop();pick.push(need)}}return pick.map(c=>c.id)}
+const best:(list:any[],max:number,weight?:(c:any)=>number,mustKind?:string)=>string[]=X.bestPick as any;
+/** One tap for the whole mode: the engine picks the squad Optimize would and repeats until a single tap would have stopped. */
+function All({label,onGo,disabled}:{label:string,onGo:()=>void,disabled:boolean}){return <Button className="wt-go wt-all" disabled={disabled} onClick={onGo}>{label}</Button>}
 /** Optimize beside the mode's own button: fills the squad with the best picks so you needn't scroll back up. */
 function Go({label,onGo,disabled,optimize,locked}:{label:string,onGo:()=>void,disabled:boolean,optimize?:()=>void,locked:boolean}){
  return <div className="wt-actions">{optimize&&<Button className="wt-go wt-opt" disabled={locked} onClick={optimize}>Optimize</Button>}<Button className="wt-go" disabled={disabled} onClick={onGo}>{label}</Button></div>}
 
 function Vs({power,need}:{power:number,need:number}){return <p className={'wt-vs'+(power>=need?' ok':'')}><b>{n(power)}</b> vs <b>{n(need)}</b></p>}
 
-export function ModesPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
- const [mode,setMode]=useState<Mode|null>(null),[sel,setSel]=useState<string[]>([]),[target,setTarget]=useState<string|null>(null);
+export function ModesPanel({game,action,locked,mode,setMode}:{game:any,action:any,locked:boolean,mode:Mode|null,setMode:(m:Mode|null)=>void}){
+ const [sel,setSel]=useState<string[]>([]),[target,setTarget]=useState<string|null>(null);
  const now=Date.now(),m=X.modesNow(game,now),go=(kind:string,t:any=null,v:any=sel)=>{if(action('mode:'+kind,t,v)){setSel([]);if(kind.startsWith('errand'))setTarget(null)}};// stay in the room: Optimize, Enter, again
  const open=(id:Mode)=>{setMode(id);setSel([]);setTarget(null)};
  if(!mode)return <section className="wt"><header className="wt-head"><h2>The War Table</h2><p>Put your Fellows and Family to work. Every mode runs on Power, and habits make each one stronger.</p></header>
@@ -62,13 +63,16 @@ export function ModesPanel({game,action,locked}:{game:any,action:any,locked:bool
  if(mode==='strike'){const b=currentBlight(game,now);
   body=<><p><b>{b.name}: {b.title}</b> · {b.damage} / {b.hp} pushed back</p><p>{m.strike.bank} strike{m.strike.bank===1?'':'s'} left (3 a day, up to 9 saved). Each Family member can strike once a day.</p>
    {b.defeated?<p className="wt-done">Down for the week. Claim it on the Map.</p>:<><Picker list={family.filter(c=>!m.strike.used.includes(c.id))} max={X.STRIKE_SQUAD} sel={sel} setSel={setSel}/>
-   <p className="wt-vs ok">Hits for {X.strikeDamage(game,sel,b.hp)}</p><Go label="Strike" locked={locked} disabled={locked||!sel.length||m.strike.bank<1} onGo={()=>go('strike')} optimize={()=>setSel(best(family.filter(c=>!m.strike.used.includes(c.id)),X.STRIKE_SQUAD))}/></>}</>}
+   <p className="wt-vs ok">Hits for {X.strikeDamage(game,sel,b.hp)}</p><Go label="Strike" locked={locked} disabled={locked||!sel.length||m.strike.bank<1} onGo={()=>go('strike')} optimize={()=>setSel(best(family.filter(c=>!m.strike.used.includes(c.id)),X.STRIKE_SQUAD))}/>
+   <All label={`Use all ${m.strike.bank} strikes (best Family)`} disabled={locked||m.strike.bank<2} onGo={()=>go('strikeAll',null,null)}/></>}</>}
  if(mode==='arena'){const foe=X.arenaFoe(m.arena.rank),need=X.arenaNeed(m.arena.rank);
   body=<><p>Rank <b>{m.arena.rank+1}</b> · next: <b>Team {foe}</b>{m.arena.rank%5===4?' (champion)':''}. Your own {foe} heroes are outshone (×0.75). {X.ARENA_TRIES-m.arena.tries} tries left today.</p>
    <Picker list={all} max={X.ARENA_SQUAD} sel={sel} setSel={setSel} note={c=>FRANCHISE[c.id]===foe?'×0.75':''}/><Vs power={X.arenaPower(game,sel,now)} need={need}/>
-   <Go label="Fight" locked={locked} disabled={locked||!sel.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arena')} optimize={()=>setSel(best(all,X.ARENA_SQUAD,c=>c.power*(FRANCHISE[c.id]===foe?0.75:1)))}/></>}
+   <Go label="Fight" locked={locked} disabled={locked||!sel.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arena')} optimize={()=>setSel(best(all,X.ARENA_SQUAD,c=>c.power*(FRANCHISE[c.id]===foe?0.75:1)))}/>
+   <All label={`Fight all ${X.ARENA_TRIES-m.arena.tries} tries (best team each round)`} disabled={locked||!all.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arenaAll',null,null)}/></>}
  if(mode==='fronts'){const areaSel=target;
-  body=<><div className="wt-fronts">{AREAS.map(a=>{const w=m.fronts.waves[a.id];return <button key={a.id} type="button" className={'wt-front'+(areaSel===a.id?' on':'')} disabled={w!==undefined} onClick={()=>{setTarget(a.id);setSel([])}}><img src={'./assets/'+skillIcon(a.id)} alt=""/><b>{a.name}</b><small>{w===undefined?'Open':`${w} waves`}</small></button>})}</div>
+  body=<><All label="Defend every open front (best squads)" disabled={locked||AREAS.every(a=>m.fronts.waves[a.id]!==undefined)} onGo={()=>go('frontAll',null,null)}/>
+   <div className="wt-fronts">{AREAS.map(a=>{const w=m.fronts.waves[a.id];return <button key={a.id} type="button" className={'wt-front'+(areaSel===a.id?' on':'')} disabled={w!==undefined} onClick={()=>{setTarget(a.id);setSel([])}}><img src={'./assets/'+skillIcon(a.id)} alt=""/><b>{a.name}</b><small>{w===undefined?'Open':`${w} waves`}</small></button>})}</div>
    {areaSel&&<><p>{area(areaSel)} characters count ×1.25. The more {area(areaSel)} habits you did this week, the easier the waves.</p>
     <Picker list={all.filter(c=>!m.fronts.used.includes(c.id))} max={X.FRONT_SQUAD} sel={sel} setSel={setSel} note={c=>c.area===areaSel?'×1.25':''}/>
     {(()=>{const p=X.frontPower(game,areaSel,sel),lv=X.areaWeek(game,areaSel,now);let w=0;while(w<30&&p>=X.frontNeed(w+1,lv))w++;return <p className="wt-vs ok">Power {n(p)}: holds <b>{w}</b> waves</p>})()}
@@ -79,7 +83,8 @@ export function ModesPanel({game,action,locked}:{game:any,action:any,locked:bool
    {a&&(()=>{const tier=(m.trials.cleared[a]||0)+1,cap=X.trialCap(game,a),r=X.trialRule(a,now),t=X.trialPower(game,a,sel,tier,now);return <>
     <p><b>{X.TRIAL_RULES[r].name}:</b> {X.TRIAL_RULES[r].text}{a==='hobbies'?` (This week: ${area(r)}.)`:''} Family count ×1.5. At least one Family member.</p>
     {tier>cap?<p className="wt-done">Tier {tier} is locked. Raise your {area(a)} skill to open more.</p>:<><Picker list={all} max={X.TRIAL_SQUAD} sel={sel} setSel={setSel}/>
-     <p>Tier {tier}</p><Vs power={t.power} need={t.need}/><Go label="Enter" locked={locked} disabled={locked||!sel.length} onGo={()=>go('trial',a)} optimize={()=>setSel(best(all,X.TRIAL_SQUAD,c=>c.power*(c.kind==='family'?1.5:1),'family'))}/></>}</>})()}</>}
+     <p>Tier {tier}</p><Vs power={t.power} need={t.need}/><Go label="Enter" locked={locked} disabled={locked||!sel.length} onGo={()=>go('trial',a)} optimize={()=>setSel(best(all,X.TRIAL_SQUAD,c=>c.power*(c.kind==='family'?1.5:1),'family'))}/>
+     <All label="Climb until beaten (best team each tier)" disabled={locked||!family.length} onGo={()=>go('trialAll',a,null)}/></>}</>})()}</>}
  if(mode==='spire'){const f=m.spire.floor,res=X.spireResolve(game),p=Math.round(sel.reduce((t,id)=>t+X.charPower(game,id),0)*res);let to=f;while(to<1000&&p>=X.spireNeed(to+1))to++;
   body=<><p>Floor <b>{f}</b>. Next needs {n(X.spireNeed(f+1))}. Bosses every 10th and 50th floor.{res>1?` Resolve: +${Math.round((res-1)*100)}%.`:''}</p>
    <Picker list={fellows} max={X.SPIRE_SQUAD} sel={sel} setSel={setSel}/><p className="wt-vs ok">Power {n(p)}: reaches floor <b>{to}</b></p>
@@ -94,6 +99,7 @@ export function ModesPanel({game,action,locked}:{game:any,action:any,locked:bool
    {run.offer?<><h3>{run.offer.regroup?'Regroup: choose a boon':'Sector cleared: choose one'}</h3><div className="wt-pick">{run.offer.draft.map((id:string)=><button key={id} type="button" className="wt-char" disabled={locked} onClick={()=>go('gauntletChoose',id,null)}><MiniArt person={characterById(id)}/><span><b>Recruit {characterById(id)?.name}</b><small>{area(characterById(id)?.area)} · {trait(characterById(id)?.area)}</small></span></button>)}
      {run.offer.boons.map((b:string)=><button key={b} type="button" className="wt-char" disabled={locked} onClick={()=>go('gauntletChoose',b,null)}><span><b>{(X.GAUNTLET_BOONS as any)[b].name}</b><small>{(X.GAUNTLET_BOONS as any)[b].text}</small></span></button>)}</div></>
    :<><Vs power={X.gauntletPower(game,run,day,now)} need={X.gauntletNeed(run.floor+1)}/><Button className="wt-go" disabled={locked} onClick={()=>go('gauntletFight',null,null)}>Fight floor {run.floor+1}</Button>
+     <All label="Fight on to the next choice" disabled={locked} onGo={()=>go('gauntletRush',null,null)}/>
      <button type="button" className="wt-back" onClick={()=>go('gauntletEnd',null,null)}>Walk out</button></>}</>}}
  return <section className="wt">{back}<header className="wt-head"><h2>{md.name}</h2><p>{md.blurb}</p></header>{body}</section>;
 }

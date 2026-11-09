@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {REGIONS} from '@/lib/expedition-data.mjs';
-import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks} from '@/lib/game.mjs';
+import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks,MULTI_RUN_MAX} from '@/lib/game.mjs';
 import {areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 import {BlightCard} from './village-panels';
@@ -12,7 +12,9 @@ const areaNames=(areas:string[])=>areas.map(a=>areaById(a)?.name).join(' & ');
 
 /** The Expedition map: regions open one after another, each with four adventures and a boss.
  *  Every run costs one Roam; your Power against the place's need sets the outcome and the loot. */
-export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:boolean,onRun:(id:string)=>void}){
+const PER:[string,number][]=[['1',1],['5',5],['All',MULTI_RUN_MAX]];
+export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:boolean,onRun:(id:string,times?:number)=>void}){
+ const [per,setPer]=useState(1),times=Math.max(1,Math.min(per,game.roam.charges));
  const opened=REGIONS.filter((_,i)=>regionOpen(game,i)).length;
  const [sel,setSel]=useState(Math.max(0,opened-1));
  const region=REGIONS[sel],open=regionOpen(game,sel),power=rosterPower(game),p=perks(game);
@@ -23,6 +25,7 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
    {lapOf(game)>1&&<span className="xp-lap" title={`Every need and reward is ×${LAP.toLocaleString()} per lap`}>Lap <b>{lapOf(game)}</b></span>}
    <span><img className="rs-px" src="./assets/osrs/ui/Stamina_potion4.png" alt=""/><b>{game.roam.charges}</b>/{roamCap(game)} Roams</span>
   </header>
+  <div className="xp-per" role="group" aria-label="Runs per tap"><span>Runs per tap</span>{PER.map(([label,v])=><button key={label} type="button" aria-pressed={per===v} className={per===v?'xp-on':''} onClick={()=>setPer(v)}>{label}</button>)}</div>
   <nav className="xp-regions" aria-label="Regions">{REGIONS.map((r,i)=><button key={r.id} type="button" className={(i===sel?'xp-on ':'')+(regionOpen(game,i)?'':'xp-locked')} onClick={()=>setSel(i)}>{regionOpen(game,i)?'':'🔒 '}{r.name}</button>)}</nav>
   <div className="xp-region" style={{backgroundImage:`url(./assets/${region.bg})`}}>
    <div className="xp-region-text"><h2>{region.name}</h2><p>{region.blurb}</p>
@@ -36,7 +39,7 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
     <p>{v.blurb}</p>
     <div className="xp-need"><span>Needs <b>{n(v.need)}</b></span>{v.outcome?<i className={'xp-badge xp-'+v.outcome.key}>{v.outcome.label}</i>:<i className="xp-badge xp-locked-b">{v.open?`${Math.floor(power/v.need*100)}%`:'Locked'}</i>}</div>
     <div className="xp-loot"><span>+{n(v.loot.gold)} gold</span><span>+{n(v.loot.exp)} Fellow EXP</span>{v.areas.map((a:string)=><span key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{v.loot.sigils} · {n(v.loot.xp)} XP</span>)}</div>
-    <Button className="xp-go" disabled={locked||!v.outcome||game.roam.charges<1} onClick={()=>onRun(v.id)}>{!v.open?'Locked':!v.outcome?'Not strong enough':game.roam.charges<1?'No Roams':v.runs?'Go · 1 Roam':'Explore · 1 Roam'}</Button>
+    <Button className="xp-go" disabled={locked||!v.outcome||game.roam.charges<1} onClick={()=>onRun(v.id,times)}>{!v.open?'Locked':!v.outcome?'Not strong enough':game.roam.charges<1?'No Roams':`${v.runs?'Go':'Explore'} · ${times} Roam${times>1?'s':''}`}</Button>
    </div>
   </li>)}</ul>
   <p className="small-note xp-note">Roams come from daily habits. The stronger you are than a place, the more it pays: Great at 1.5× its need, Overwhelming at 3×.{p.power?` Your boss rewards add +${Math.round(p.power*100)}% Power.`:''}</p>
@@ -49,7 +52,7 @@ export function ExpeditionResult({run,onClose}:{run:any,onClose:()=>void}){
  return <Dialog open={!!run} onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-scroll xp-result" showCloseButton={false}>
   {run&&<>
    <DialogTitle className={'xp-r-'+run.outcome.key}>{run.outcome.label}!</DialogTitle>
-   <DialogDescription>{run.title}</DialogDescription>
+   <DialogDescription>{run.title}{run.times>1?` · ${run.times} runs`:''}</DialogDescription>
    <ul><li>+{n(run.loot.gold)} gold</li><li>+{n(run.loot.exp)} Fellow EXP</li>{run.treats>0&&<li className="xp-drop"><img className="rs-px" src="./assets/osrs/ui/Fish_food.png" alt=""/>{run.treats===1?'A treat tumbles':run.treats+' treats tumble'} out of the loot.</li>}{run.found&&<li className="xp-drop xp-find"><img className="rs-px" src="./assets/osrs/ui/Hunter_kit.png" alt=""/>{run.found} has followed you home!</li>}{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
    {run.perk&&<p className="xp-perk"><b>Boss defeated!</b> {run.perk}</p>}
    {run.opened&&<p className="xp-perk"><b>New region:</b> {run.opened} is open on the map.</p>}

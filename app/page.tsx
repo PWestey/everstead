@@ -41,6 +41,7 @@ export default function App(){
  const [saveStatus,setSaveStatus]=useState('Loading save…'),[offline,setOffline]=useState('Preparing offline play…'),[panel,setPanel]=useState(false),[failedLoad,setFailedLoad]=useState(false),[saveFailed,setSaveFailed]=useState(false),[loadError,setLoadError]=useState('');
  const [tab,setTab]=useState('fellows'),[moduleOpen,setModuleOpen]=useState(false),[building,setBuilding]=useState(BUILDINGS[0].id);
  const [fellow,setFellow]=useState(FELLOWS[0].id),[fellowBrowse,setFellowBrowse]=useState(true),[member,setMember]=useState(FAMILY[0].id),[familyBrowse,setFamilyBrowse]=useState(true);
+ const [wtMode,setWtMode]=useState<any>(null),sceneTimes=useRef(1);
  const [talk,setTalk]=useState<string|null>(null),[runResult,setRunResult]=useState<any>(null),[sceneRun,setSceneRun]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
  const [arrivals,setArrivals]=useState<any[]>([]),[scene,setScene]=useState<any>(null),[restore,setRestore]=useState<any>(null),[restart,setRestart]=useState(false);
  const storage=useRef(createPersistence(()=>localStorage)),state=useRef(game),ready=useRef(false),timer=useRef<any>(null),file=useRef<HTMLInputElement>(null);
@@ -64,7 +65,7 @@ export default function App(){
    setOffline('Offline download stalled — tap to retry')}catch{setOffline('Offline download incomplete — tap to retry')}}
  useEffect(()=>{let refreshing=false;const changed=()=>{if(!refreshing){refreshing=true;window.location.reload()}};navigator.serviceWorker?.addEventListener('controllerchange',changed);if(import.meta.env.PROD)cacheGame();else setOffline('Preview · offline download available in the installed build');return()=>navigator.serviceWorker?.removeEventListener('controllerchange',changed)},[]);
 
- function openModule(id:string){if(id==='village'){setModuleOpen(false);return}if(id==='fellows')setFellowBrowse(true);if(id==='family')setFamilyBrowse(true);setTab(id);setModuleOpen(true)}
+ function openModule(id:string){if(id==='village'){setModuleOpen(false);return}if(id==='modes')setWtMode(null);if(id==='fellows')setFellowBrowse(true);if(id==='family')setFamilyBrowse(true);setTab(id);setModuleOpen(true)}
  function action(kind:string,target:any=null,value:any=null){if(!ready.current)return false;const before=state.current,result:any=act(before,kind,Date.now(),target,value);if(!persist(result.state))return false;
   if(result.error){tell(result.error);return false}
   tell(result.message);setPulse(p=>p+1);
@@ -81,7 +82,7 @@ export default function App(){
   if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
  /** An expedition run: the first visit plays its scene, then the run resolves (result scroll). */
- function run(id:string){const seen=((game.expeditions.runs as Record<string,number>)[id]||0)>0;if(!seen&&TREES['x:'+id]){setSceneRun(id);setTalk('x:'+id);return}action('expedition',id)}
+ function run(id:string,times=1){const seen=((game.expeditions.runs as Record<string,number>)[id]||0)>0;sceneTimes.current=times;if(!seen&&TREES['x:'+id]){setSceneRun(id);setTalk('x:'+id);return}action('expedition',id,times)}
  function exportSave(){const rescue=failedLoad,stored=rescue?storage.current.raw:null;if(rescue&&stored===null){tell('No saved village was found in this browser');return}
   const blob=new Blob([rescue?stored:JSON.stringify(settle(state.current,Date.now()),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=rescue?'everstead-recovery.json':'everstead-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);tell('Save exported')}
  async function importSave(e:any){const f=e.target.files?.[0];if(!f)return;try{setRestore(decode(await readSaveFile(f)))}catch(err:any){tell(err.message||'Could not read that save.')}finally{e.target.value=''}}
@@ -105,7 +106,7 @@ export default function App(){
   {dock}
   <Dialog open={moduleOpen} onOpenChange={setModuleOpen}><DialogContent className={'game-modal'+(CHARACTER_MODULES.includes(tab)?' character-modal':'')} showCloseButton={false}>
    {resources}
-   <div className="modal-heading"><img className="rs-px" src={'./assets/osrs/ui/'+meta.icon+'.png'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div><DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
+   <div className="modal-heading"><img className="rs-px" src={'./assets/osrs/ui/'+meta.icon+'.png'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div>{tab==='modes'&&wtMode&&<button type="button" className="village-back" onClick={()=>setWtMode(null)}>‹ Back</button>}<DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
    <div className="modal-body" key={tab}>
     {tab==='hero'&&<HeroPanel game={game} action={action} locked={locked}/>}
     {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} onTalk={setTalk} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
@@ -115,7 +116,7 @@ export default function App(){
     {tab==='roaming'&&<RoamingPanel game={game} action={action} locked={locked}/>}
     {tab==='today'&&<TodayPanel game={game} onNavigate={openModule}/>}
     {tab==='codex'&&<CodexPanel game={game} action={action} locked={locked}/>}
-    {tab==='modes'&&<ModesPanel game={game} action={action} locked={locked}/>}
+    {tab==='modes'&&<ModesPanel game={game} action={action} locked={locked} mode={wtMode} setMode={setWtMode}/>}
     {tab==='companions'&&<CompanionsPanel game={game} action={action} locked={locked}/>}
     {tab==='training'&&<TrainingPanel game={game} action={action} locked={locked}/>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
@@ -132,7 +133,7 @@ export default function App(){
    <Button onClick={()=>{const a=arrivals[0];setArrivals([]);if(a.kind==='hero')openModule('hero');else if(a.kind==='family'){openModule('family');setMember(a.id);setFamilyBrowse(false)}else{openModule('fellows');setFellow(a.id);setFellowBrowse(false)}}}>{arrivals[0]?.kind==='hero'?'See your hero':'Meet '+arrivals[0]?.name}</Button>
    <Button variant="outline" onClick={()=>setArrivals([])}>Later</Button>
   </DialogContent></Dialog>
-  <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>{setTalk(null);if(sceneRun){const id=sceneRun;setSceneRun(null);action('expedition',id)}}}/>
+  <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>{setTalk(null);if(sceneRun){const id=sceneRun;setSceneRun(null);action('expedition',id,sceneTimes.current)}}}/>
   <LevelUpDialog up={talk?null:ups[0]} onClose={()=>setUps(u=>u.slice(1))}/>
   <ExpeditionResult run={talk?null:runResult} onClose={()=>setRunResult(null)}/>
   <QuestCompleteScroll questId={talk||ups.length?null:questDone} onClose={()=>setQuestDone(null)}/>

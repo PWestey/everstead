@@ -107,6 +107,9 @@
 .xp-top{display:flex;justify-content:space-between;gap:8px;color:#ffff00;text-shadow:1px 1px 0 #000;font-weight:700}
 .xp-top span{display:flex;align-items:center;gap:5px;background:#3e3529;border:2px solid #2a241b;border-radius:6px;padding:4px 10px;color:#ffe8be}
 .xp-top b{color:#ffff00}.xp-top img{width:20px;height:20px}
+/* Map: how many Roams one tap of Go spends (1, 5 or all of them). */
+.xp-per{display:flex;align-items:center;gap:6px;color:#ffe8be;font:700 13px 'Texturina',Georgia,serif;text-shadow:1px 1px 0 #000}.xp-per span{margin-right:auto}
+.xp-per button{min-width:44px;min-height:32px;background:#4f4434;border:2px solid #2a241b;border-radius:6px;color:#ffe8be;font:inherit;cursor:pointer}.xp-per button.xp-on{background:linear-gradient(#5b7c3a,#3e5a24);color:#ffff00}
 .xp-regions{display:flex;gap:6px;overflow-x:auto}
 .xp-regions button{flex:none;padding:6px 12px;border-radius:6px;background:#4f4434;border:2px solid #2a241b;color:#ff981f;font:700 14px 'Texturina',Georgia,serif;text-shadow:1px 1px 0 #000}
 .xp-regions button.xp-on{background:#6b5c45;color:#ffff00;box-shadow:inset 0 0 0 1px #c09e64}
@@ -194,6 +197,9 @@
 .wt-char .es-mini-art{width:34px;height:34px}
 .wt-vs{margin:0;padding:6px 10px;border-radius:6px;background:#800000cc;color:#ffe8be;font-size:15px;text-align:center}.wt-vs.ok{background:#3e5a24}
 .wt-actions{display:grid;grid-template-columns:1fr 2fr;gap:8px}.wt-actions .wt-go{width:100%}
+/* War Table: the one-tap batch button under a mode's own button, and the Back button that sits beside the X in the header so it never scrolls away. */
+.wt-all{width:100%;background:linear-gradient(#b8860b,#8a5a00)!important}.wt-all:disabled{background:#7a6a55!important;opacity:.8}
+.village-back{flex:none;align-self:flex-start;height:44px;padding:0 12px;background:#4f4434;border:2px solid #2a241b;box-shadow:inset 0 0 0 1px #c9a86a;border-radius:4px;color:#ffe8be;font:700 14px 'Texturina',Georgia,serif;cursor:pointer;white-space:nowrap}
 .wt-opt{background:linear-gradient(#8a6d2f,#5c4718)!important}
 .wt-go{min-height:44px!important;background:linear-gradient(#5b7c3a,#3e5a24)!important;color:#fff0c9!important;border:2px solid #2a241b!important;font:700 15px 'Texturina',Georgia,serif!important}
 .wt-done{margin:0;padding:10px;background:#eadfcf;border:2px solid #3e3529;border-radius:6px;color:#0a6a0a!important;font-weight:700}

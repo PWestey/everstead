@@ -232,6 +232,23 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
   × today's area boost, × Momentum. Upgrade cost `200 × 1.5^(level−1)`: the level multiplier is linear and the cost geometric, so each level is worth less per gold than the last and building income can never outrun Power. The ×1.25 milestone at every tenth level (shown on the card as "N levels away") keeps a ten-level climb worth saving for once single levels are worth only a couple of percent.
 - Away earnings are capped at 12 hours.
 
+## Doing several at once
+- **Map:** a "Runs per tap" switch (1, 5, All) above the regions sets how many Roams one tap of Go spends, on places and bosses alike. The engine repeats the
+  single run (`expedition` with a count, up to `MULTI_RUN_MAX`), so five at once is exactly five in a row, and it stops where single taps would: out of Roams,
+  or the last boss starting a new lap. A first visit still plays its scene first. One result card shows the totals.
+- **War Table:** each mode that took repeated taps has a gold one-tap button under its own. The engine picks the squad Optimize would, every round (`bestPick`):
+  Arena "Fight all tries" (stops at the first loss, since the same best team would lose again), Trials "Climb until beaten", Fronts "Defend every open front"
+  (areas in order, best unused three each), Blight "Use all strikes", Gauntlet "Fight on to the next choice". The Rift and Spire already resolve in one tap.
+  Rewards are the same as tap by tap; a test holds the Trials and Map batches to the one-by-one result.
+- **Back beside the X:** inside a War Table mode the header carries a Back button next to the close button, so leaving a mode never needs a scroll to the top.
+
+## Speed
+Power, blessings and bond levels are worked out once per real change, not per use: `remember` keeps the last answer while the parts of the save it came from
+(`family`, `fellows`, `companions`) are the same objects, and `bondLevel` reads a table. Those parts are replaced, never changed in place; keep it that way, or the
+remembered values go stale (a test checks every kind of change shows at once). Before this, each of the eight buildings recomputed the whole roster's Power, and each
+Fellow every Family bond level, on every one-second income tick: 88 ms a tick on a desktop with a full roster, now 2.5 ms; a 30-day simulation fell from 119 s to 4 s
+with a byte-identical save.
+
 ## Testing on a phone
 
 Open the game with `?roam=14` (any number 0-50) to set Roam charges on that device; the query is stripped after it applies, so a reload does not repeat it. `?reset=wartable` forgets today's and this week's War Table usage (the Spire floor, Arena rank and Gauntlet best stay). `?unlock=all` recruits every
