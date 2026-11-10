@@ -7,7 +7,7 @@ import {skillIcon} from '@/lib/skills.mjs';
 import {FRANCHISE} from '@/lib/franchises.mjs';
 import * as X from '@/lib/modes.mjs';
 import {SPECS,SET_NAMES,specOf,squadSet} from '@/lib/traits.mjs';
-import {SET_SIZE,SET_MULT,wornRelic} from '@/lib/game.mjs';
+import {SET_SIZE,SET_MULT,wornRelics} from '@/lib/game.mjs';
 
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const area=(a:string)=>areaById(a)?.name||a;
@@ -28,7 +28,7 @@ const MODES:{id:Mode,name:string,who:string,when:string,blurb:string}[]=[
 function Picker({list,max,sel,setSel,note,mode,game}:{list:any[],max:number,sel:string[],setSel:(v:string[])=>void,note?:(c:any)=>string,mode?:string,game?:any}){
  if(!list.length)return <p className="small-note">Nobody available yet. Recruit more with your habits.</p>;
  const set=squadSet(sel,SET_SIZE);
- return <><div className="wt-pick">{list.map(c=>{const on=sel.includes(c.id),sp=mode&&specOf(c.id)===mode,relic=mode&&game&&wornRelic(game,c.id)?.kind===mode;return <button key={c.id} type="button" className={'wt-char'+(on?' on':'')+(sp?' wt-spec':'')} disabled={!on&&sel.length>=max}
+ return <><div className="wt-pick">{list.map(c=>{const on=sel.includes(c.id),sp=mode&&specOf(c.id)===mode,relic=mode&&game&&wornRelics(game,c.id).some((r:any)=>r.kind===mode);return <button key={c.id} type="button" className={'wt-char'+(on?' on':'')+(sp?' wt-spec':'')} disabled={!on&&sel.length>=max}
   onClick={()=>setSel(on?sel.filter(x=>x!==c.id):[...sel,c.id])}><MiniArt person={characterById(c.id)}/><span><b>{c.name}{sp?' ★':''}</b><small>{n(c.power)}{sp?' · '+(SPECS as any)[mode].name:''}{relic?' · relic':''}{note?.(c)?' · '+note(c):''}</small></span></button>})}</div>
   {set&&<p className="wt-set">{(SET_NAMES as any)[set]}: {SET_SIZE} of {set}, ×{SET_MULT}</p>}</>}
 

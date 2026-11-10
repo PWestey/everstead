@@ -190,6 +190,8 @@ levels and bond that open paths come from Fellow EXP and area habits, and the Wa
 - **Drops**: each Map run rolls 5% (bosses 15%): common 60 / rare 30 / epic 10. A boss drops its legendary 4% of the time and surely on every 25th run of it. Gauntlet floors 10 and 25
   drop a rare, floor 50 an epic; every 25th Spire floor an epic. Rolls are fixed by the save and the run count, so a batch equals the same runs one by one. The drop stops the result
   scroll with the relic in its tier colour and an Equip control (the suggested wearer is a specialist of its mode with an empty slot, else the strongest). The Collection Log lists all 47.
+- **Two slots**: mode and Power relics are **weapons**, gold and EXP relics are **charms**; a character wears one of each (`worn:{charId:{weapon:uid,charm:uid}}`) and their
+  affixes add. Wearing a relic fills its slot, swapping out what was there. The charms never touch Power, so the second slot leaves the Map's pace where it was.
 - **Rolls**: every drop rolls once; its affix is the catalogue value × (0.8 + 0.4 × roll), so the best piece of a kind is ×1.2 its listed number and the worst ×0.8, and 95%+ is shown as
   *perfect*. Owned relics are pieces (`relics:{items:{uid:{id,roll}},worn:{charId:uid},shards,next}`); the roll is part of the drop's seed, so a batch still equals the same runs one by one.
   Wearing by catalogue id picks the best free roll. Saves from before rolls arrive with every copy at a middle roll.

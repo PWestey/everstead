@@ -3,7 +3,8 @@
 // A "player" who each day completes N habits, spends every Roam on the best Map run, runs the War Table,
 // spends Fellow EXP round-robin, stars Fellows, upgrades buildings, gives gifts and treats companions.
 // Prints a row every `every` days: Power, map progress, levels, income. Use it before changing a formula.
-import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicsOwned,relicSpares,isWorn,ascendsTo,ASCEND,SHARDS} from '../lib/game.mjs';
+import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicsOwned,relicSpares,isWorn,wornRelic,ascendsTo,ASCEND,SHARDS} from '../lib/game.mjs';
+import {slotOf} from '../lib/traits.mjs';
 
 import {REGIONS,ADVENTURE_IDS} from '../lib/expedition-data.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,characterById} from '../lib/cast.mjs';
@@ -55,7 +56,8 @@ for(let d=0;d<DAYS;d++){
  {const everyone=[...Object.keys(s.fellows),...Object.keys(s.family)];for(const id of everyone)while(pathsOpen(s,id)>0&&tryAct('pathChoose',now,id,'steady'));
   if(relicSpares(s).length)tryAct('relicSalvageSpares',now);
   for(let i=0;i<20;i++){const low=relicsOwned(s).filter(r=>isWorn(s,r.uid)&&ascendsTo(r)&&(s.relics.shards||0)>=ASCEND[r.tier]).sort((a,b)=>a.value-b.value)[0];if(!low||!tryAct('relicAscend',now,low.uid))break}
-  const bare=everyone.filter(id=>!s.relics?.worn?.[id]).sort((a,b)=>charPower(s,b)-charPower(s,a));for(const r of relicsOwned(s).sort((a,b)=>b.value-a.value)){if(!bare.length)break;if(!isWorn(s,r.uid))tryAct('relicWear',now,bare.shift(),r.uid)}}
+  const byPower=everyone.sort((a,b)=>charPower(s,b)-charPower(s,a)),bare={weapon:byPower.filter(id=>!wornRelic(s,id,'weapon')),charm:byPower.filter(id=>!wornRelic(s,id,'charm'))};
+  for(const r of relicsOwned(s).sort((a,b)=>b.value-a.value)){const q=bare[slotOf(r)];if(q.length&&!isWorn(s,r.uid))tryAct('relicWear',now,q.shift(),r.uid)}}
  // Companions: evolve what can, treats to the lowest-level companion.
  for(const c of COMPANIONS)if(canEvolve(c,s))tryAct('evolve',now,c.id);
  guard=0;while((s.treats||0)>0&&guard++<50){const owned=COMPANIONS.filter(c=>s.companions?.[c.id]).sort((a,b)=>companionLevel(s.companions[a.id].exp)-companionLevel(s.companions[b.id].exp));if(!owned.length||!tryAct('treat',now,owned[0].id))break}

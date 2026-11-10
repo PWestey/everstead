@@ -9,9 +9,9 @@ import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
-import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss} from '../lib/traits.mjs';
+import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss,slotOf} from '../lib/traits.mjs';
 import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
-const relicsOf=(...list)=>{const items={},worn={};list.forEach(([id,roll,wearer],i)=>{items['r'+(i+1)]={id,roll};if(wearer)worn[wearer]='r'+(i+1)});return {items,worn,shards:0,next:list.length+1}};
+const relicsOf=(...list)=>{const items={},worn={};list.forEach(([id,roll,wearer],i)=>{items['r'+(i+1)]={id,roll};if(wearer)worn[wearer]={...worn[wearer],[slotOf(relicById(id))]:'r'+(i+1)}});return {items,worn,shards:0,next:list.length+1}};
 
 
 test('errand pay grows with the crew: √(Power ÷ need) up to ×8, half under the need',()=>{
@@ -110,9 +110,18 @@ test('paths open at level and bond 50 and 100, are chosen once each, and Steady 
  let kira={...s,family:{kira:{bond:1e7}}};assert.ok(bondLv(1e7)>=100);assert.equal(pathsOpen(kira,'kira'),2);const k=act(kira,'pathChoose',T,'kira','steady');assert.equal(WT.charPower(k.state,'kira'),Math.round(WT.familyPower(1e7)*(1+PATH_STEADY)));
  assert.ok(valid(migrate({...fresh(T),paths:undefined,relics:undefined})),'old saves without paths or relics load')});
 
+test('two slots: a weapon and a charm are worn together, each slot comes off on its own, and the bonuses add',()=>{
+ const s={...fresh(T),fellows:{thor:{level:100,stars:0}},family:{kira:{bond:2e5}},relics:relicsOf(['vibranium-shield',0.5],['gold-epic',1],['power-rare',0.5])};
+ let r=act(s,'relicWear',T,'thor','r1');r=act(r.state,'relicWear',T,'thor','r2');assert.ok(!r.error,r.error);assert.deepEqual(r.state.relics.worn.thor,{weapon:'r1',charm:'r2'});assert.ok(valid(r.state));
+ assert.equal(fellowPower(r.state,'thor'),Math.round(fellowPower(s,'thor')*1.5),'the Shield still counts');assert.equal(squadGoldMult(r.state,['thor']),1+0.35*1.2,'and the charm counts');
+ r=act(r.state,'relicWear',T,'thor','r3');assert.equal(r.state.relics.worn.thor.weapon,'r3','a second weapon swaps the first out');assert.equal(relicFree(r.state,'vibranium-shield'),1);
+ r=act(r.state,'relicWear',T,'thor','charm');assert.ok(!r.error,r.error);assert.deepEqual(r.state.relics.worn.thor,{weapon:'r3'});assert.ok(act(r.state,'relicWear',T,'thor','charm').error,'nothing there');
+ r=act(r.state,'relicWear',T,'thor',null);assert.equal(r.state.relics.worn.thor,undefined);assert.ok(act(r.state,'relicSalvage',T,'r2').ok!==false)});
+
 test('the Forge: old count saves migrate to rolled pieces; salvage, spares, reroll and ascend keep the books straight',()=>{
  const old=migrate({...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0}},relics:{owned:{'power-rare':2,'arena-epic':1},worn:{darrow:'power-rare',thor:'arena-epic'}}});
- assert.ok(valid(old));assert.equal(relicsOwned(old).length,3);assert.ok(relicsOwned(old).every(r=>r.roll===0.5),'middle roll');assert.equal(wornRelic(old,'darrow').id,'power-rare');assert.equal(wornRelic(old,'thor').id,'arena-epic');assert.equal(relicFree(old,'power-rare'),1);assert.equal(old.relics.shards,0);
+ assert.ok(valid(old));assert.equal(relicsOwned(old).length,3);assert.ok(relicsOwned(old).every(r=>r.roll===0.5),'middle roll');assert.equal(wornRelic(old,'darrow').id,'power-rare');assert.equal(wornRelic(old,'thor').id,'arena-epic');
+ const one=migrate({...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:{items:{r1:{id:'gold-epic',roll:0.7}},worn:{darrow:'r1'},shards:0,next:2}});assert.ok(valid(one));assert.deepEqual(one.relics.worn.darrow,{charm:'r1'},'a single-slot save moves the piece into its slot');assert.equal(relicFree(old,'power-rare'),1);assert.equal(old.relics.shards,0);
  let s={...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:relicsOf(['arena-common',0.3],['arena-common',0.8],['arena-common',0.1,'darrow'],['arena-rare',0.5],['vibranium-shield',0.4],['power-epic',0.9])};
  assert.deepEqual(relicSpares(s).map(r=>r.uid),['r1'],'r1 is a spare (r2 is the best Glove, r3 is worn)');
  assert.ok(act(s,'relicSalvage',T,'r3').error,'worn');assert.ok(act(s,'relicSalvage',T,'r99').error);
@@ -122,7 +131,7 @@ test('the Forge: old count saves migrate to rolled pieces; salvage, spares, rero
  const before=r.state.relics.shards;let rr=act(r.state,'relicReroll',T,'r4');assert.ok(!rr.error,rr.error);assert.equal(rr.state.relics.shards,before-SHARDS.rare*REROLL_MULT);assert.equal(rr.state.relics.items.r4.id,'arena-rare');assert.ok(rr.relic.roll>=0&&rr.relic.roll<=1);assert.deepEqual(act(r.state,'relicReroll',T,'r4').state,rr.state,'the Forge roll is fixed');
  const r2=act(rr.state,'relicReroll',T,'r4');assert.notEqual(r2.state.relics.items.r4.roll,rr.state.relics.items.r4.roll,'the next roll differs');
  assert.ok(act(s,'relicAscend',T,'r6').error,'epics stay');assert.ok(act(s,'relicAscend',T,'r5').error,'legendaries stay');
- let a=act({...s,relics:{...s.relics,shards:ASCEND.common}},'relicAscend',T,'r3');assert.ok(!a.error,a.error);assert.equal(a.state.relics.items.r3.id,'arena-rare');assert.equal(a.state.relics.shards,0);assert.equal(a.state.relics.worn.darrow,'r3','still on Darrow');assert.ok(valid(a.state));
+ let a=act({...s,relics:{...s.relics,shards:ASCEND.common}},'relicAscend',T,'r3');assert.ok(!a.error,a.error);assert.equal(a.state.relics.items.r3.id,'arena-rare');assert.equal(a.state.relics.shards,0);assert.equal(a.state.relics.worn.darrow.weapon,'r3','still on Darrow');assert.ok(valid(a.state));
  assert.ok(act(a.state,'relicAscend',T,'r3').error,'15 more for epic');a=act({...a.state,relics:{...a.state.relics,shards:ASCEND.rare}},'relicAscend',T,'r3');assert.equal(a.state.relics.items.r3.id,'arena-epic');
  const pr={...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:relicsOf(['power-rare',0.5])};a=act({...pr,relics:{...pr.relics,shards:ASCEND.rare}},'relicAscend',T,'r1');assert.equal(a.state.relics.items.r1.id,'power-epic','power relics ascend within their kind')});
 
@@ -144,10 +153,10 @@ test('relics are worn one per character and one wearer per copy; a legendary cou
  r=act(r.state,'relicWear',T,'darrow',null);assert.ok(!r.error);assert.equal(fellowPower(r.state,'darrow'),p0);r=act(r.state,'relicWear',T,'thor','vibranium-shield');assert.ok(!r.error);assert.equal(fellowPower(r.state,'thor'),Math.round(t0*1.5),'Thor is Marvel: doubled');
  r=act(r.state,'relicWear',T,'darrow','power-rare');r=act(r.state,'relicWear',T,'kira','power-rare');assert.ok(!r.error,r.error);assert.equal(WT.charPower(r.state,'kira'),Math.round(WT.familyPower(1e5)*1.05));assert.equal(relicFree(r.state,'power-rare'),0);
  r=act(r.state,'relicWear',T,'thor','power-rare');assert.ok(r.error,'both copies worn');assert.ok(valid(act(s,'relicWear',T,'darrow','power-rare').state));
- assert.ok(!valid({...s,relics:{...relicsOf(['power-rare',0.5]),worn:{darrow:'r1',thor:'r1'}}}),'one piece on two wearers is refused');assert.ok(!valid({...s,relics:relicsOf(['bogus',0.5])}));assert.ok(!valid({...s,relics:relicsOf(['power-rare',1.5])}));
+ assert.ok(!valid({...s,relics:{...relicsOf(['power-rare',0.5]),worn:{darrow:{weapon:'r1'},thor:{weapon:'r1'}}}}),'one piece on two wearers is refused');assert.ok(!valid({...s,relics:{...relicsOf(['power-rare',0.5]),worn:{darrow:{charm:'r1'}}}}),'a weapon in the charm slot is refused');assert.ok(!valid({...s,relics:relicsOf(['bogus',0.5])}));assert.ok(!valid({...s,relics:relicsOf(['power-rare',1.5])}));
  const [g,rel]=grantRelic(s,'epic','spire:25');assert.equal(rel.tier,'epic');assert.equal(g.relics.items[rel.uid].id,rel.id);assert.equal(relicAt(g,rel.uid).value,rolled(relicById(rel.id),rel.roll));
  // Wearing by uid picks that piece; by catalogue id the best free roll.
- const two={...s,relics:relicsOf(['power-rare',0.2],['power-rare',0.9])};let w=act(two,'relicWear',T,'darrow','power-rare');assert.equal(w.state.relics.worn.darrow,'r2','best roll first');w=act(w.state,'relicWear',T,'thor','r2');assert.ok(w.error,'r2 is on Darrow');w=act(w.state,'relicWear',T,'thor','r1');assert.ok(!w.error);assert.equal(fellowPower(w.state,'thor'),Math.round(fellowPower(s,'thor')*(1+0.05*(ROLL_MIN+ROLL_SPAN*0.2))));
+ const two={...s,relics:relicsOf(['power-rare',0.2],['power-rare',0.9])};let w=act(two,'relicWear',T,'darrow','power-rare');assert.equal(w.state.relics.worn.darrow.weapon,'r2','best roll first');w=act(w.state,'relicWear',T,'thor','r2');assert.ok(w.error,'r2 is on Darrow');w=act(w.state,'relicWear',T,'thor','r1');assert.ok(!w.error);assert.equal(fellowPower(w.state,'thor'),Math.round(fellowPower(s,'thor')*(1+0.05*(ROLL_MIN+ROLL_SPAN*0.2))));
  const big={...fresh(T),fellows:{darrow:{level:3000,stars:9},geralt:{level:3000,stars:9},obiwan:{level:3000,stars:9}}};const sp=act(big,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>=25,'climbs past 25');assert.ok(sp.relic&&sp.relic.tier==='epic','the Spire drops an epic every 25th floor');
  assert.equal(relicsOwned(sp.state).length,Math.floor(sp.state.modes.spire.floor/25));
  assert.equal(RELICS.length,47);assert.equal(RELICS.filter(r=>r.tier==='legendary').length,15);assert.ok(RELICS.every(r=>relicById(r.id)===r))});

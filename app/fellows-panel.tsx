@@ -10,7 +10,7 @@ import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {pendingTalk} from '@/lib/quests.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
 import {TraitsBlock} from './relics';
-import {pathsOpen,wornRelic,steadyMult,relicBonus} from '@/lib/game.mjs';
+import {pathsOpen,wornRelics,steadyMult,relicBonus} from '@/lib/game.mjs';
 import {SPECS,ROLES,specOf,roleOf} from '@/lib/traits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
@@ -36,7 +36,7 @@ function FellowStats({game,id}:any){
     <tr><th>Companions</th><td>{areaById(def.area).name} companions (own multiplier)</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
     {steadyMult(game,id)>1&&<tr><th>Steady paths</th><td>chosen at milestones</td><td>×{steadyMult(game,id).toFixed(3)}</td></tr>}
-    {wornRelic(game,id)&&<tr><th>{wornRelic(game,id).name}</th><td>relic</td><td>+{(relicBonus(game,id,'power')*100).toFixed(0)}%</td></tr>}
+    {relicBonus(game,id,'power')>0&&<tr><th>{wornRelics(game,id).filter((r:any)=>r.kind==='power').map((r:any)=>r.name).join(', ')}</th><td>relic</td><td>+{(relicBonus(game,id,'power')*100).toFixed(0)}%</td></tr>}
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>
    <p className="small-note">Milestones at levels 10, 25, 50 and 75 each multiply Power by 1.25; level 99 by 1.5; then every 25 levels by 1.25, forever. Levels never cap. Stars never stop either: each adds +25%. Stars cost {areaById(def.area).name} sigils, earned by completing {areaById(def.area).name} habits.</p>

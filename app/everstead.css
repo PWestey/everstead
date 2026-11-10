@@ -215,7 +215,7 @@
 .es-trait{display:grid;padding:6px 8px;border-radius:8px;border:1px solid rgba(168,139,85,.5);background:rgba(32,24,16,.35);font-size:12px}.es-trait b{font-size:14px}.es-trait small{opacity:.85}
 .es-trait-spec b{color:#ffd166}.es-trait-provider b{color:#f6c177}.es-trait-mentor b{color:#8fd3ff}.es-trait-guardian b{color:#9fe0a0}.es-trait-fighter b{color:#f3dca7}.es-trait-set b{color:#f28ab2}
 .es-relic-slot{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;border:1px solid rgba(168,139,85,.5)}.es-relic-slot>img{width:28px;height:28px;image-rendering:pixelated}
-.es-relic-slot>span{display:grid;font-size:12px}.es-relic-slot .es-relic-name{color:var(--tier,#f3dca7)}.es-relic-slot select{grid-column:1/-1;font-size:13px}
+.es-relic-slot>span{display:grid;font-size:12px}.es-relic-slot .es-relic-name{color:var(--tier,#f3dca7)}.es-relic-slot>:not(img):not(span){grid-column:1/-1;width:100%;min-width:0}.es-relic-slot select{width:100%;font-size:13px}
 .es-path{padding:8px;border-radius:8px;border:2px solid #b8860b;background:#f5b94226}.es-path p{margin:0 0 6px;font-size:13px}
 .es-path-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}.es-path-choice button{height:auto;min-height:48px;display:grid;gap:2px;padding:6px 8px;white-space:normal;text-align:left}.es-path-choice small{font-size:11px;opacity:.9;line-height:1.2}
 .es-paths-taken{opacity:.8;font-size:12px}
