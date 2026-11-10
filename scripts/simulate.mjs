@@ -3,7 +3,7 @@
 // A "player" who each day completes N habits, spends every Roam on the best Map run, runs the War Table,
 // spends Fellow EXP round-robin, stars Fellows, upgrades buildings, gives gifts and treats companions.
 // Prints a row every `every` days: Power, map progress, levels, income. Use it before changing a formula.
-import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicsOwned,relicSpares,isWorn,wornRelic,ascendsTo,ASCEND,SHARDS} from '../lib/game.mjs';
+import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicsOwned,relicSpares,isWorn,wornRelic,ascendsTo,ASCEND,SHARDS,vendorStock,vendorPrice,vendorBought,repRank} from '../lib/game.mjs';
 import {slotOf} from '../lib/traits.mjs';
 
 import {REGIONS,ADVENTURE_IDS} from '../lib/expedition-data.mjs';
@@ -55,6 +55,8 @@ for(let d=0;d<DAYS;d++){
  // Paths (always Steady) and relics: spares are salvaged, the lowest worn relic is ascended when the shards allow, and every free piece goes on the strongest character wearing nothing.
  {const everyone=[...Object.keys(s.fellows),...Object.keys(s.family)];for(const id of everyone)while(pathsOpen(s,id)>0&&tryAct('pathChoose',now,id,'steady'));
   if(relicSpares(s).length)tryAct('relicSalvageSpares',now);
+  // Vendors: buy whatever standing and a tenth of the gold allow.
+  for(const r of REGIONS)for(const it of vendorStock(r))if(repRank(s,r)>=it.rank&&!vendorBought(s,r,it)&&vendorPrice(s,r,it)<=s.gold/10)tryAct('vendorBuy',now,r.id,it.id);
   for(let i=0;i<20;i++){const low=relicsOwned(s).filter(r=>isWorn(s,r.uid)&&ascendsTo(r)&&(s.relics.shards||0)>=ASCEND[r.tier]).sort((a,b)=>a.value-b.value)[0];if(!low||!tryAct('relicAscend',now,low.uid))break}
   const byPower=everyone.sort((a,b)=>charPower(s,b)-charPower(s,a)),bare={weapon:byPower.filter(id=>!wornRelic(s,id,'weapon')),charm:byPower.filter(id=>!wornRelic(s,id,'charm'))};
   for(const r of relicsOwned(s).sort((a,b)=>b.value-a.value)){const q=bare[slotOf(r)];if(q.length&&!isWorn(s,r.uid))tryAct('relicWear',now,q.shift(),r.uid)}}
@@ -70,4 +72,4 @@ for(let d=0;d<DAYS;d++){
 if(stalls.length)console.log('Stalls of 45+ days without a new map step after days: '+stalls.join(', '));
 // SIM_DUMP=path writes the final save as JSON, for scripts that want a mid-game village to measure against.
 if(process.env.SIM_DUMP)fs.writeFileSync(process.env.SIM_DUMP,JSON.stringify(s));
-console.log('Last map step beaten: '+stepsBeaten+' ('+REGIONS.length*5+' per lap) on day '+(lastStepDay+1)+'. Total skill level '+totalLevel(s)+'.');
+console.log('Last map step beaten: '+stepsBeaten+' ('+REGIONS.length*5+' per lap) on day '+(lastStepDay+1)+'. Total skill level '+totalLevel(s)+'. Vendor buys '+Object.values(s.vendor||{}).reduce((a,m)=>a+Object.keys(m).length,0)+', relics '+relicsOwned(s).length+', legendaries '+relicsOwned(s).filter(r=>r.tier==='legendary').length+'.');

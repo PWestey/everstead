@@ -190,6 +190,13 @@ levels and bond that open paths come from Fellow EXP and area habits, and the Wa
 - **Drops**: each Map run rolls 5% (bosses 15%): common 60 / rare 30 / epic 10. A boss drops its legendary 4% of the time and surely on every 25th run of it. Gauntlet floors 10 and 25
   drop a rare, floor 50 an epic; every 25th Spire floor an epic. Rolls are fixed by the save and the run count, so a batch equals the same runs one by one. The drop stops the result
   scroll with the relic in its tier colour and an Equip control (the suggested wearer is a specialist of its mode with an empty slot, else the strongest). The Collection Log lists all 47.
+- **Region reputation**: standing in a region is the runs made there (its four adventures and its boss, from `expeditions.runs`), ranked Known 10 / Trusted 25 / Honoured 50 / Exalted 100.
+  Each region keeps a **vendor**: a rare of the region's kind at Trusted, the epic at Honoured and the region boss's legendary at Exalted (regions are dealt kinds in order: Rift, Spire, Arena, Fronts,
+  Trials, Errands, strikes, Gauntlet, Power, gold, EXP, then round again). Each is sold **once per lap** (`vendor:{regionId:{relicId:lap}}`), priced at the boss's gold today × 50 / 150 / 500 runs,
+  so bad luck has a floor and gold a late sink without the shelf becoming a second Map: the simulator bought 376 relics when the shelf restocked at a markup, and 28 once per lap (day-120 step 135 and 106). The purchase rolls like a drop and stops the screen the same way. Habit inputs: Roams make the runs, buildings pay the gold.
+- **Titles**: earned, never stored, except the one chosen to show (`playerTitle`, action `title`): Relic Hunter (own a relic), Forgemaster (ten ascensions, `relics.forged`), Collector (every common,
+  rare and epic at once), Legend (all fifteen legendaries at once), Mentor (ten Fellows at 50+), and Exalted of each region. A title that is no longer true stops showing. Chosen in the Name dialog;
+  shown on the Hero screen and the village header; the Collection Log lists them all.
 - **Character sheet**: the Power control on a Fellow (and a new Power medallion on Family) opens the sheet: every multiplier in the order the formula applies it, then what
   they count in each mode they can enter (Fellows: Rift, Spire, Arena, Fronts, Trials, Gauntlet; Family: Arena, Fronts, Trials, Errands, strikes, Gauntlet), their role, set, weapon and charm.
   **Gear score** = what they count in their best mode (`gearScore`; sets belong to a squad, so they are not in it). Both rosters sort by it. Display only: nothing in the game reads it.

@@ -7,16 +7,18 @@ import CharacterArtwork from './character-artwork';
 import {SkillsPanel} from './rs-ui';
 import {CollectionLog} from './collection-log';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
-import {playerStage,rosterPower,powerBreakdown} from '@/lib/game.mjs';
+import {playerStage,rosterPower,powerBreakdown,playerTitle,titlesEarned,TITLES} from '@/lib/game.mjs';
+import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {totalLevel,MAX_TOTAL} from '@/lib/skills.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 
 export default function HeroPanel({game,action,locked}:any){
  const tl=totalLevel(game),stage=playerStage(tl),next=PLAYER_STAGES.find(s=>s.level>tl);
  const [skills,setSkills]=useState(false),[clog,setClog]=useState(false),[looks,setLooks]=useState(false),[power,setPower]=useState(false),[naming,setNaming]=useState(false),[name,setName]=useState(game.playerName);
- const person={id:'player',name:game.playerName,title:stage.title,art:stage.art,description:'You. Every habit you keep trains a skill, and your total level earns your armour.'};
+ const title=playerTitle(game),earned=titlesEarned(game);
+ const person={id:'player',name:game.playerName,title:title?`${title} · ${stage.title}`:stage.title,art:stage.art,description:'You. Every habit you keep trains a skill, and your total level earns your armour.'};
  const b=powerBreakdown(game),heroShare=b.hero+b.roster?b.hero/(b.hero+b.roster):1;
- return <CharacterScreen person={person} subtitle={stage.title+' · Total level '+tl}
+ return <CharacterScreen person={person} subtitle={person.title+' · Total level '+tl}
   summary={<div className="es-sum"><span><img src="./assets/rs/stats_icon.png" alt=""/>Total <b>{tl}</b></span><span><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><b>{n(rosterPower(game))}</b> POW</span></div>}
   primary={<Button className="primary-action es-skills-btn" onClick={()=>setSkills(true)}><b>Skills</b></Button>}
   details={<div className="fellow-stats es-hero-stats">
@@ -49,6 +51,8 @@ export default function HeroPanel({game,action,locked}:any){
   </DialogContent></Dialog>
   <Dialog open={naming} onOpenChange={setNaming}><DialogContent className="save-dialog"><DialogTitle>Your name</DialogTitle><DialogDescription>Shown on your Hero screen and in stories.</DialogDescription>
    <Input value={name} maxLength={30} onChange={e=>setName(e.target.value)} aria-label="Your name"/><Button disabled={locked} onClick={()=>{if(action('rename',null,name))setNaming(false)}}>Save name</Button>
+   <label className="es-title-pick">Title <NativeSelect aria-label="Your title" value={game.playerTitle||''} disabled={locked} onChange={(e:any)=>action('title',null,e.target.value||null)}><NativeSelectOption value="">None</NativeSelectOption>{earned.map((t:any)=><NativeSelectOption key={t.id} value={t.id}>{t.name}</NativeSelectOption>)}</NativeSelect></label>
+   <p className="small-note">{earned.length?`${earned.length} of ${TITLES.length} titles earned.`:'Titles are earned by what you collect, forge and finish; the Collection Log lists them.'}</p>
   </DialogContent></Dialog>
  </CharacterScreen>;
 }

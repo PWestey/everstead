@@ -21,7 +21,7 @@ import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
 import {BUILDINGS,FELLOWS,FAMILY} from '@/lib/cast.mjs';
 import {introFor} from '@/lib/stories.mjs';
-import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,currentBlight,urlTweaks,urlTweakNote,ROAM_URL_MAX} from '@/lib/game.mjs';
+import {fresh,newJourney,decode,settle,act,totalRate,momentum,playerStage,playerTitle,currentBlight,urlTweaks,urlTweakNote,ROAM_URL_MAX} from '@/lib/game.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './rs-ui';
 
@@ -104,7 +104,7 @@ export default function App(){
     <Button className="village-helper" variant="outline" onClick={()=>openModule('stage')}><img className="rs-px" src="./assets/osrs/ui/World_map_icon.png" alt=""/><span>Map · {game.roam.charges}</span></Button>
     <Button className="village-helper rs-quest-btn" variant="outline" onClick={()=>openModule('quests')}><img src="./assets/rs/quest.png" alt=""/><span>Quests</span></Button>
    </div>}
-   objective={<section className="village-next-step" aria-label="Today"><div><small>{stage.title.toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
+   objective={<section className="village-next-step" aria-label="Today"><div><small>{(playerTitle(game)||stage.title).toUpperCase()} · TOTAL LEVEL {level}</small><p>{due?`${due} daily habit${due>1?'s':''} left today. Each one strengthens Everstead.`:'Every daily habit is done. Everstead is thriving.'}</p></div><Button disabled={locked} onClick={()=>openModule('habits')}>{due?'Open journal':'Review journal'}</Button></section>}/>
   {dock}
   <Dialog open={moduleOpen} onOpenChange={setModuleOpen}><DialogContent className={'game-modal'+(CHARACTER_MODULES.includes(tab)?' character-modal':'')} showCloseButton={false}>
    {resources}

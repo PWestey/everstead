@@ -2,7 +2,9 @@ import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {REGIONS} from '@/lib/expedition-data.mjs';
-import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks,MULTI_RUN_MAX} from '@/lib/game.mjs';
+import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks,MULTI_RUN_MAX,REP_RANKS,regionRuns,repRank,vendorStock,vendorPrice,vendorBought} from '@/lib/game.mjs';
+import {TIERS,relicText} from '@/lib/traits.mjs';
+import {abbrev} from './original-controls';
 import {areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 import {BlightCard} from './village-panels';
@@ -30,8 +32,13 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
   <nav className="xp-regions" aria-label="Regions">{REGIONS.map((r,i)=><button key={r.id} type="button" className={(i===sel?'xp-on ':'')+(regionOpen(game,i)?'':'xp-locked')} onClick={()=>setSel(i)}>{regionOpen(game,i)?'':'🔒 '}{r.name}</button>)}</nav>
   <div className="xp-region" style={{backgroundImage:`url(./assets/${region.bg})`}}>
    <div className="xp-region-text"><h2>{region.name}</h2><p>{region.blurb}</p>
-    <small>Boss reward: {region.perk.text}{lapBeaten(game).includes(region.boss.id)?' ✓':''}</small></div>
+    <small>Boss reward: {region.perk.text}{lapBeaten(game).includes(region.boss.id)?' ✓':''}</small>
+    {(()=>{const runs=regionRuns(game,region),rank=repRank(game,region),next=REP_RANKS[rank] as any;return <small className="xp-rep">Standing: <b>{rank?REP_RANKS[rank-1][0]:'Stranger'}</b> · {runs} run{runs===1?'':'s'}{next?` · ${(next[1] as number)-runs} more to ${next[0]}`:''}</small>})()}</div>
   </div>
+  {open&&<div className="xp-vendor"><p><b>{region.name} vendor</b> · standing opens the shelf, gold buys from it, one of each per lap.</p>
+   <ul>{vendorStock(region).map((it:any)=>{const rank=repRank(game,region),price=vendorPrice(game,region,it),can=rank>=it.rank,sold=vendorBought(game,region,it);return <li key={it.id} style={{['--tier' as any]:(TIERS as any)[it.tier].color}}>
+    <div><b>{it.name}</b><small>{(TIERS as any)[it.tier].name} · {relicText(it)}</small><small>{can?sold?'Sold · back next lap':'':`Needs ${REP_RANKS[it.rank-1][0]} (${REP_RANKS[it.rank-1][1]} runs)`}</small></div>
+    <Button variant="outline" disabled={locked||!can||sold||game.gold<price} onClick={()=>action('vendorBuy',region.id,it.id)}>{sold?'Sold':abbrev(price)+' gold'}</Button></li>})}</ul></div>}
   {!open&&<p className="xp-lockmsg">Defeat <b>{REGIONS[sel-1].boss.title}</b> in {REGIONS[sel-1].name} to open {region.name}.</p>}
   <ul className="xp-list">{places.map(v=><li key={v.id} className={'xp-card'+(v.boss?' xp-boss':'')+(v.open&&!v.outcome?' xp-short':'')+(!v.open?' xp-closed':'')}>
    <div className="xp-art" style={{backgroundImage:`url(./assets/${v.bg||region.bg})`}}><img src={'./assets/'+v.art} alt=""/></div>

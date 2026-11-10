@@ -10,7 +10,7 @@ import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss,slotOf} from '../lib/traits.mjs';
-import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
+import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,regionRuns,repRank,vendorStock,vendorPrice,titlesEarned,playerTitle,TITLES,VENDOR_RUNS,vendorBought,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
 const relicsOf=(...list)=>{const items={},worn={};list.forEach(([id,roll,wearer],i)=>{items['r'+(i+1)]={id,roll};if(wearer)worn[wearer]={...worn[wearer],[slotOf(relicById(id))]:'r'+(i+1)}});return {items,worn,shards:0,next:list.length+1}};
 
 
@@ -109,6 +109,27 @@ test('paths open at level and bond 50 and 100, are chosen once each, and Steady 
  assert.ok(act(c.state,'pathChoose',T,'darrow','bogus').error||true);assert.ok(act(c.state,'pathChoose',T,'darrow','steady').error,'no third path before 150');
  let kira={...s,family:{kira:{bond:1e7}}};assert.ok(bondLv(1e7)>=100);assert.equal(pathsOpen(kira,'kira'),2);const k=act(kira,'pathChoose',T,'kira','steady');assert.equal(WT.charPower(k.state,'kira'),Math.round(WT.familyPower(1e7)*(1+PATH_STEADY)));
  assert.ok(valid(migrate({...fresh(T),paths:undefined,relics:undefined})),'old saves without paths or relics load')});
+
+test('region reputation: standing is runs in the region, vendors sell by rank at boss-run prices that climb per purchase, and titles are earned then chosen',()=>{
+ const lum=REGIONS[0];let s={...fresh(T),fellows:{darrow:{level:3000,stars:9}},roam:{...fresh(T).roam,charges:10}};
+ assert.equal(repRank(s,lum),0);const r10={...s,expeditions:{...s.expeditions,runs:{'cow-field':4,[lum.boss.id]:6}}};assert.equal(regionRuns(r10,lum),10);assert.equal(repRank(r10,lum),1,'Known at 10');
+ const stock=vendorStock(lum);assert.deepEqual(stock.map(x=>[x.id,x.rank]),[['rift-rare',2],['rift-epic',3],['silver-sword',4]],'Lumbridge sells Rift relics and Count Draynor’s Silver Sword');
+ assert.ok(vendorStock(REGIONS[11]).every(x=>x.tier!=='legendary'),'a region with no legendary boss sells two');
+ const r25={...s,gold:1e12,expeditions:{...s.expeditions,runs:{[lum.boss.id]:25}}};assert.ok(act(r25,'vendorBuy',T,lum.id,'rift-epic').error,'Honoured needed');assert.ok(act(r25,'vendorBuy',T,'bogus','rift-rare').error);assert.ok(act(r25,'vendorBuy',T,lum.id,'arena-rare').error,'not sold here');
+ const price=vendorPrice(r25,lum,stock[0]);assert.equal(price,Math.round(expeditionView(r25,lum.boss.id).loot.gold*VENDOR_RUNS.rare));assert.ok(act({...r25,gold:price-1},'vendorBuy',T,lum.id,'rift-rare').error,'gold');
+ let b=act(r25,'vendorBuy',T,lum.id,'rift-rare');assert.ok(!b.error,b.error);assert.equal(b.state.gold,1e12-price);assert.equal(b.relic.id,'rift-rare');assert.ok(b.relic.uid&&b.state.relics.items[b.relic.uid]);assert.deepEqual(b.state.vendor[lum.id],{'rift-rare':1});assert.ok(valid(b.state));
+ assert.ok(act(b.state,'vendorBuy',T,lum.id,'rift-rare').error,'one per lap');assert.ok(vendorBought(b.state,lum,stock[0]));assert.ok(!vendorBought({...b.state,expeditions:{...b.state.expeditions,lap:2}},lum,stock[0]),'back next lap');
+ assert.deepEqual(act(r25,'vendorBuy',T,lum.id,'rift-rare').state,b.state,'the roll is fixed');
+ const r100={...r25,expeditions:{...s.expeditions,runs:{[lum.boss.id]:100}}};assert.equal(repRank(r100,lum),4);b=act(r100,'vendorBuy',T,lum.id,'silver-sword');assert.ok(!b.error,b.error);assert.equal(b.relic.tier,'legendary');
+ assert.ok(!regionOpen(s,5));assert.ok(act({...r100,expeditions:{...r100.expeditions,runs:{[REGIONS[5].boss.id]:100}}},'vendorBuy',T,REGIONS[5].id,vendorStock(REGIONS[5])[0].id).error,'region closed');
+ // Titles
+ assert.deepEqual(titlesEarned(s).map(t=>t.id),[],'nothing yet');assert.ok(act(s,'title',T,null,'legend').error,'not earned');assert.ok(TITLES.length>=20);
+ assert.deepEqual(titlesEarned(b.state).map(t=>t.id),['relic-hunter','exalted-lumbridge']);const t=act(b.state,'title',T,null,'exalted-lumbridge');assert.ok(!t.error);assert.equal(playerTitle(t.state),'Exalted of Lumbridge');assert.ok(valid(t.state));
+ assert.equal(playerTitle({...t.state,expeditions:s.expeditions}),null,'a title lost is not shown');assert.equal(act(t.state,'title',T,null,null).state.playerTitle,null);
+ const ten={...s,fellows:Object.fromEntries(FELLOWS.slice(0,10).map(f=>[f.id,{level:50,stars:0}]))};assert.ok(titlesEarned(ten).some(x=>x.id==='mentor'));
+ const forged={...s,relics:{...s.relics,forged:10}};assert.ok(titlesEarned(forged).some(x=>x.id==='forgemaster'));
+ const fa={...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:relicsOf(['arena-common',0.5]),};let n=act({...fa,relics:{...fa.relics,shards:5}},'relicAscend',T,'r1');assert.equal(n.state.relics.forged,1,'ascensions are counted');
+ assert.ok(valid(migrate({...fresh(T),playerTitle:undefined,vendor:undefined})))});
 
 test('gear score is what a character counts in their best mode, within the modes they can enter',()=>{
  const s={...fresh(T),fellows:{darrow:{level:100,stars:0},obiwan:{level:100,stars:0}},family:{kira:{bond:2e5}}};

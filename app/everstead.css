@@ -145,6 +145,11 @@
 .xp-result ul{list-style:none;padding:0;margin:8px 0;display:grid;gap:4px}
 .xp-result li{display:flex;align-items:center;gap:6px}.xp-result li img{width:18px;height:18px}
 .xp-result h2.xp-r-great{color:#0a8a0a}.xp-result h2.xp-r-overwhelm{color:#b8860b}
+.xp-rep{display:block;margin-top:2px}
+.xp-vendor{margin:6px 0;padding:8px;border:1px solid rgba(168,139,85,.5);border-radius:8px;background:#fff7e6}.xp-vendor>p{margin:0 0 6px;font-size:13px}
+.xp-vendor ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}.xp-vendor li{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:6px;border:1px solid var(--tier)}
+.xp-vendor li>div{display:grid;min-width:0}.xp-vendor li b{color:var(--tier)}.xp-vendor li small{font-size:11px;color:#5c4d36}.xp-vendor button{min-height:36px;font-size:12px}
+.es-title-pick{display:grid;gap:4px;margin-top:8px;font-size:13px}
 .xp-perk{background:#f5b94233;border:1px solid #b8860b;border-radius:4px;padding:6px 8px;margin:4px 0}
 
 /* Hero badge (top left): crop the full-length portrait to the face. Portraits are 1024x1536 with the figure
