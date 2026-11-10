@@ -15,6 +15,7 @@ import {CodexPanel} from './codex-panel';
 import {ModesPanel} from './modes-panel';
 import {CompanionsPanel} from './companions-panel';
 import {TrainingPanel} from './training-panel';
+import {RelicDropDialog} from './relics';
 import {TREES,cheerTree} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
 import {readSaveFile} from '@/lib/save-format.mjs';
@@ -42,7 +43,7 @@ export default function App(){
  const [tab,setTab]=useState('fellows'),[moduleOpen,setModuleOpen]=useState(false),[building,setBuilding]=useState(BUILDINGS[0].id);
  const [fellow,setFellow]=useState(FELLOWS[0].id),[fellowBrowse,setFellowBrowse]=useState(true),[member,setMember]=useState(FAMILY[0].id),[familyBrowse,setFamilyBrowse]=useState(true);
  const [wtMode,setWtMode]=useState<any>(null),sceneTimes=useRef(1);
- const [talk,setTalk]=useState<string|null>(null),[runResult,setRunResult]=useState<any>(null),[sceneRun,setSceneRun]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
+ const [talk,setTalk]=useState<string|null>(null),[runResult,setRunResult]=useState<any>(null),[relicDrop,setRelicDrop]=useState<any>(null),[sceneRun,setSceneRun]=useState<string|null>(null),[ups,setUps]=useState<any[]>([]),[questDone,setQuestDone]=useState<string|null>(null);
  const [arrivals,setArrivals]=useState<any[]>([]),[scene,setScene]=useState<any>(null),[restore,setRestore]=useState<any>(null),[restart,setRestart]=useState(false);
  const storage=useRef(createPersistence(()=>localStorage)),state=useRef(game),ready=useRef(false),timer=useRef<any>(null),file=useRef<HTMLInputElement>(null);
  function tell(message:string){if(!message)return;setNotice(message);clearTimeout(timer.current);timer.current=setTimeout(()=>setNotice(''),4000)}
@@ -79,6 +80,7 @@ export default function App(){
   if(result.talk)setTalk(result.talk);
   if(result.cheer&&cheersOn()){const id=cheerTree(result.cheer);if(id)setTalk(t=>t||id)}
   if(result.expedition)setRunResult(result.expedition);
+  if(result.relic)setRelicDrop(result.relic);
   if(result.newTier)setArrivals([{id:'look',name:'New armour: '+playerStage(totalLevel(result.state)).title,kind:'hero'}]);
   return true}
  /** An expedition run: the first visit plays its scene, then the run resolves (result scroll). */
@@ -135,7 +137,8 @@ export default function App(){
   </DialogContent></Dialog>
   <DialogueScreen treeId={talk} game={game} act={(tree,node,opt)=>action('dialogue',tree,{node,opt})} onClose={()=>{setTalk(null);if(sceneRun){const id=sceneRun;setSceneRun(null);action('expedition',id,sceneTimes.current)}}}/>
   <LevelUpDialog up={talk?null:ups[0]} onClose={()=>setUps(u=>u.slice(1))}/>
-  <ExpeditionResult run={talk?null:runResult} onClose={()=>setRunResult(null)}/>
+  <ExpeditionResult run={talk?null:runResult} onClose={()=>setRunResult(null)} game={game} action={action} locked={locked}/>
+  <RelicDropDialog relic={talk||runResult?null:relicDrop} game={game} action={action} locked={locked} onClose={()=>setRelicDrop(null)}/>
   <QuestCompleteScroll questId={talk||ups.length?null:questDone} onClose={()=>setQuestDone(null)}/>
   <StoryDialog scene={scene} playerName={game.playerName} onClose={()=>setScene(null)}/>
 

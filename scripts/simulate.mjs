@@ -3,7 +3,8 @@
 // A "player" who each day completes N habits, spends every Roam on the best Map run, runs the War Table,
 // spends Fellow EXP round-robin, stars Fellows, upgrades buildings, gives gifts and treats companions.
 // Prints a row every `every` days: Power, map progress, levels, income. Use it before changing a formula.
-import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf} from '../lib/game.mjs';
+import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicFree} from '../lib/game.mjs';
+import {RELICS} from '../lib/traits.mjs';
 import {REGIONS,ADVENTURE_IDS} from '../lib/expedition-data.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,characterById} from '../lib/cast.mjs';
 import {frontPower,gauntletDraft,charPower,modesNow} from '../lib/modes.mjs';
@@ -50,6 +51,9 @@ for(let d=0;d<DAYS;d++){
  // Gifts: half of what's left goes to posies for the lowest-bond family, a few members a day.
  const fam=Object.keys(s.family).sort((a,b)=>s.family[a].bond-s.family[b].bond).slice(0,4);for(const id of fam){const budget=s.gold/2/fam.length;let n=0,cost=0,b=s.family[id].bond;while(cost+giftPrice(GIFTS.posy,bondLevel(b))<=budget&&n<10000){cost+=giftPrice(GIFTS.posy,bondLevel(b));b+=50;n++}if(n)tryAct('gift',now,id,{gift:'posy',times:n})}
  for(const id of Object.keys(s.family).slice(0,5))tryAct('visit',now,id);
+ // Paths (always Steady) and relics: every free copy goes on the strongest character wearing nothing.
+ {const everyone=[...Object.keys(s.fellows),...Object.keys(s.family)];for(const id of everyone)while(pathsOpen(s,id)>0&&tryAct('pathChoose',now,id,'steady'));
+  const bare=everyone.filter(id=>!s.relics?.worn?.[id]).sort((a,b)=>charPower(s,b)-charPower(s,a));for(const r of RELICS){let n=relicFree(s,r.id);while(n-->0&&bare.length)tryAct('relicWear',now,bare.shift(),r.id)}}
  // Companions: evolve what can, treats to the lowest-level companion.
  for(const c of COMPANIONS)if(canEvolve(c,s))tryAct('evolve',now,c.id);
  guard=0;while((s.treats||0)>0&&guard++<50){const owned=COMPANIONS.filter(c=>s.companions?.[c.id]).sort((a,b)=>companionLevel(s.companions[a.id].exp)-companionLevel(s.companions[b.id].exp));if(!owned.length||!tryAct('treat',now,owned[0].id))break}

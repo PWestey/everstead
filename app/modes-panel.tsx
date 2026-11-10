@@ -6,6 +6,8 @@ import {currentBlight} from '@/lib/game.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 import {FRANCHISE} from '@/lib/franchises.mjs';
 import * as X from '@/lib/modes.mjs';
+import {SPECS,SET_NAMES,specOf,squadSet} from '@/lib/traits.mjs';
+import {SET_SIZE,SET_MULT,wornRelic} from '@/lib/game.mjs';
 
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const area=(a:string)=>areaById(a)?.name||a;
@@ -23,10 +25,12 @@ const MODES:{id:Mode,name:string,who:string,when:string,blurb:string}[]=[
 ];
 
 /** Pick up to `max` from a list of characters; shows each one's power. */
-function Picker({list,max,sel,setSel,note}:{list:any[],max:number,sel:string[],setSel:(v:string[])=>void,note?:(c:any)=>string}){
+function Picker({list,max,sel,setSel,note,mode,game}:{list:any[],max:number,sel:string[],setSel:(v:string[])=>void,note?:(c:any)=>string,mode?:string,game?:any}){
  if(!list.length)return <p className="small-note">Nobody available yet. Recruit more with your habits.</p>;
- return <div className="wt-pick">{list.map(c=>{const on=sel.includes(c.id);return <button key={c.id} type="button" className={'wt-char'+(on?' on':'')} disabled={!on&&sel.length>=max}
-  onClick={()=>setSel(on?sel.filter(x=>x!==c.id):[...sel,c.id])}><MiniArt person={characterById(c.id)}/><span><b>{c.name}</b><small>{n(c.power)}{note?.(c)?' · '+note(c):''}</small></span></button>})}</div>}
+ const set=squadSet(sel,SET_SIZE);
+ return <><div className="wt-pick">{list.map(c=>{const on=sel.includes(c.id),sp=mode&&specOf(c.id)===mode,relic=mode&&game&&wornRelic(game,c.id)?.kind===mode;return <button key={c.id} type="button" className={'wt-char'+(on?' on':'')+(sp?' wt-spec':'')} disabled={!on&&sel.length>=max}
+  onClick={()=>setSel(on?sel.filter(x=>x!==c.id):[...sel,c.id])}><MiniArt person={characterById(c.id)}/><span><b>{c.name}{sp?' ★':''}</b><small>{n(c.power)}{sp?' · '+(SPECS as any)[mode].name:''}{relic?' · relic':''}{note?.(c)?' · '+note(c):''}</small></span></button>})}</div>
+  {set&&<p className="wt-set">{(SET_NAMES as any)[set]}: {SET_SIZE} of {set}, ×{SET_MULT}</p>}</>}
 
 /** The strongest `max` of a list by `weight` (default: power). `mustKind` forces at least one character of that kind in. */
 const best:(list:any[],max:number,weight?:(c:any)=>number,mustKind?:string)=>string[]=X.bestPick as any;
@@ -51,48 +55,48 @@ export function ModesPanel({game,action,locked,mode,setMode}:{game:any,action:an
   body=<>{m.errands.out.map((x:any)=><div key={x.id} className="wt-row"><span><b>{x.offer.title}</b><small>{x.crew.map((id:string)=>characterById(id)?.name).join(', ')} · {x.end<=now?'back!':`back in ${Math.ceil((x.end-now)/60000)} min`}</small></span><Button disabled={locked||x.end>now} onClick={()=>go('errandCollect',x.id,null)}>Collect</Button></div>)}
    <h3>Today’s jobs</h3>{offers.map(x=>{const taken=m.errands.done.includes(x.id)||m.errands.out.some((e:any)=>e.id===x.id);return <button key={x.id} type="button" disabled={taken} className={'wt-offer'+(target===x.id?' on':'')} onClick={()=>{setTarget(x.id);setSel([])}}>
     <img src={'./assets/'+skillIcon(x.area)} alt=""/><span><b>{x.title}</b><small>{area(x.area)} · {x.hours}h · crew of {x.slots} · pays {x.kind} · needs {n(x.need)}</small></span>{taken&&<em>Taken</em>}</button>})}
-   {o&&<><Picker list={family.filter(c=>!busy.includes(c.id))} max={o.slots} sel={sel} setSel={setSel}/><Vs power={sel.reduce((t,id)=>t+X.charPower(game,id),0)} need={o.need}/>
-    <p className="small-note">This crew pays ×{X.errandMult(sel.reduce((t,id)=>t+X.charPower(game,id),0)/o.need).toFixed(1)} (√ of Power ÷ need, up to ×{X.ERRAND_MULT_CAP}) before today’s habit bonus.</p>
-    <Go label="Send crew" locked={locked} disabled={locked||!sel.length} onGo={()=>go('errandSend',o.id)} optimize={()=>setSel(best(family.filter(c=>!busy.includes(c.id)),o.slots))}/></>}
+   {o&&<><Picker list={family.filter(c=>!busy.includes(c.id))} max={o.slots} sel={sel} setSel={setSel} mode="errand" game={game}/><Vs power={X.errandPower(game,sel)} need={o.need}/>
+    <p className="small-note">This crew pays ×{X.errandMult(X.errandPower(game,sel)/o.need).toFixed(1)} (√ of Power ÷ need, up to ×{X.ERRAND_MULT_CAP}) before today’s habit bonus.</p>
+    <Go label="Send crew" locked={locked} disabled={locked||!sel.length} onGo={()=>go('errandSend',o.id)} optimize={()=>setSel(best(family.filter(c=>!busy.includes(c.id)),o.slots,c=>X.modePower(game,c.id,'errand')))}/></>}
    <p className="small-note">Up to {X.ERRAND_MAX_OUT} errands out at once. Stronger crews earn more: pay is √(Power ÷ need), up to ×{X.ERRAND_MULT_CAP}. Each daily habit you finish adds 7% on top (up to +50%).</p></>}
  if(mode==='rift'){const a=X.riftArea(now),p=X.riftPower(game,sel,now);let f=0;while(f<200&&p>=X.riftNeed(f+1))f++;
   body=m.rift.used.length?<p className="wt-done">Today’s squad climbed {m.rift.floor} floors. The {area(a)} Rift resets tomorrow.</p>:<>
    <p>Today the Rift is <b>{area(a)}</b>: {area(a)} Fellows count double. Each daily habit done adds 5% (up to +40%).</p>
-   <Picker list={fellows} max={X.RIFT_SQUAD} sel={sel} setSel={setSel} note={c=>c.area===a?'×2':''}/><p className="wt-vs ok">Power {n(p)}: reaches floor <b>{f}</b></p>
-   <Go label="Enter the Rift" locked={locked} disabled={locked||!sel.length} onGo={()=>go('rift')} optimize={()=>setSel(best(fellows,X.RIFT_SQUAD,c=>c.power*(c.area===a?2:1)))}/></>}
+   <Picker list={fellows} max={X.RIFT_SQUAD} sel={sel} setSel={setSel} note={c=>c.area===a?'×2':''} mode="rift" game={game}/><p className="wt-vs ok">Power {n(p)}: reaches floor <b>{f}</b></p>
+   <Go label="Enter the Rift" locked={locked} disabled={locked||!sel.length} onGo={()=>go('rift')} optimize={()=>setSel(best(fellows,X.RIFT_SQUAD,c=>X.modePower(game,c.id,'rift')*(c.area===a?2:1)))}/></>}
  if(mode==='strike'){const b=currentBlight(game,now);
   body=<><p><b>{b.name}: {b.title}</b> · {b.damage} / {b.hp} pushed back</p><p>{m.strike.bank} strike{m.strike.bank===1?'':'s'} left (3 a day, up to 9 saved). Each Family member can strike once a day.</p>
-   {b.defeated?<p className="wt-done">Down for the week. Claim it on the Map.</p>:<><Picker list={family.filter(c=>!m.strike.used.includes(c.id))} max={X.STRIKE_SQUAD} sel={sel} setSel={setSel}/>
-   <p className="wt-vs ok">Hits for {X.strikeDamage(game,sel,b.hp)}</p><Go label="Strike" locked={locked} disabled={locked||!sel.length||m.strike.bank<1} onGo={()=>go('strike')} optimize={()=>setSel(best(family.filter(c=>!m.strike.used.includes(c.id)),X.STRIKE_SQUAD))}/>
+   {b.defeated?<p className="wt-done">Down for the week. Claim it on the Map.</p>:<><Picker list={family.filter(c=>!m.strike.used.includes(c.id))} max={X.STRIKE_SQUAD} sel={sel} setSel={setSel} mode="strike" game={game}/>
+   <p className="wt-vs ok">Hits for {X.strikeDamage(game,sel,b.hp)}</p><Go label="Strike" locked={locked} disabled={locked||!sel.length||m.strike.bank<1} onGo={()=>go('strike')} optimize={()=>setSel(best(family.filter(c=>!m.strike.used.includes(c.id)),X.STRIKE_SQUAD,c=>X.modePower(game,c.id,'strike')))}/>
    <All label={`Use all ${m.strike.bank} strikes (best Family)`} disabled={locked||m.strike.bank<2} onGo={()=>go('strikeAll',null,null)}/></>}</>}
  if(mode==='arena'){const foe=X.arenaFoe(m.arena.rank),need=X.arenaNeed(m.arena.rank);
   body=<><p>Rank <b>{m.arena.rank+1}</b> · next: <b>Team {foe}</b>{m.arena.rank%5===4?' (champion)':''}. Your own {foe} heroes are outshone (×0.75). {X.ARENA_TRIES-m.arena.tries} tries left today.</p>
-   <Picker list={all} max={X.ARENA_SQUAD} sel={sel} setSel={setSel} note={c=>FRANCHISE[c.id]===foe?'×0.75':''}/><Vs power={X.arenaPower(game,sel,now)} need={need}/>
-   <Go label="Fight" locked={locked} disabled={locked||!sel.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arena')} optimize={()=>setSel(best(all,X.ARENA_SQUAD,c=>c.power*(FRANCHISE[c.id]===foe?0.75:1)))}/>
+   <Picker list={all} max={X.ARENA_SQUAD} sel={sel} setSel={setSel} note={c=>FRANCHISE[c.id]===foe?'×0.75':''} mode="arena" game={game}/><Vs power={X.arenaPower(game,sel,now)} need={need}/>
+   <Go label="Fight" locked={locked} disabled={locked||!sel.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arena')} optimize={()=>setSel(best(all,X.ARENA_SQUAD,c=>X.modePower(game,c.id,'arena')*(FRANCHISE[c.id]===foe?0.75:1)))}/>
    <All label={`Fight all ${X.ARENA_TRIES-m.arena.tries} tries (best team each round)`} disabled={locked||!all.length||m.arena.tries>=X.ARENA_TRIES} onGo={()=>go('arenaAll',null,null)}/></>}
  if(mode==='fronts'){const areaSel=target;
   body=<><All label="Defend every open front (best squads)" disabled={locked||AREAS.every(a=>m.fronts.waves[a.id]!==undefined)} onGo={()=>go('frontAll',null,null)}/>
    <div className="wt-fronts">{AREAS.map(a=>{const w=m.fronts.waves[a.id];return <button key={a.id} type="button" className={'wt-front'+(areaSel===a.id?' on':'')} disabled={w!==undefined} onClick={()=>{setTarget(a.id);setSel([])}}><img src={'./assets/'+skillIcon(a.id)} alt=""/><b>{a.name}</b><small>{w===undefined?'Open':`${w} waves`}</small></button>})}</div>
    {areaSel&&<><p>{area(areaSel)} characters count ×1.25. The more {area(areaSel)} habits you did this week, the easier the waves.</p>
-    <Picker list={all.filter(c=>!m.fronts.used.includes(c.id))} max={X.FRONT_SQUAD} sel={sel} setSel={setSel} note={c=>c.area===areaSel?'×1.25':''}/>
-    {(()=>{const p=X.frontPower(game,areaSel,sel),lv=X.areaWeek(game,areaSel,now);let w=0;while(w<30&&p>=X.frontNeed(w+1,lv))w++;return <p className="wt-vs ok">Power {n(p)}: holds <b>{w}</b> waves</p>})()}
-    <Go label="Defend" locked={locked} disabled={locked||!sel.length} onGo={()=>go('front',areaSel)} optimize={()=>setSel(best(all.filter(c=>!m.fronts.used.includes(c.id)),X.FRONT_SQUAD,c=>c.power*(c.area===areaSel?1.25:1)))}/></>}
+    <Picker list={all.filter(c=>!m.fronts.used.includes(c.id))} max={X.FRONT_SQUAD} sel={sel} setSel={setSel} note={c=>c.area===areaSel?'×1.25':''} mode="front" game={game}/>
+    {(()=>{const p=X.frontPower(game,areaSel,sel),w=X.frontWaves(game,areaSel,sel,X.areaWeek(game,areaSel,now));return <p className="wt-vs ok">Power {n(p)}: holds <b>{w}</b> waves</p>})()}
+    <Go label="Defend" locked={locked} disabled={locked||!sel.length} onGo={()=>go('front',areaSel)} optimize={()=>setSel(best(all.filter(c=>!m.fronts.used.includes(c.id)),X.FRONT_SQUAD,c=>X.modePower(game,c.id,'front')*(c.area===areaSel?1.25:1)))}/></>}
    <p className="small-note">Every character can fight on one front per week. Resets Monday.</p></>}
  if(mode==='trials'){const a=target;
   body=<><div className="wt-fronts">{AREAS.map(x=>{const r=X.trialRule(x.id,now);return <button key={x.id} type="button" className={'wt-front'+(a===x.id?' on':'')} onClick={()=>{setTarget(x.id);setSel([])}}><img src={'./assets/'+skillIcon(x.id)} alt=""/><b>{x.name}</b><small>{x.id==='hobbies'?'Wild: ':''}{X.TRIAL_RULES[r].name} · {m.trials.cleared[x.id]||0}/{X.trialCap(game,x.id)}</small></button>})}</div>
    {a&&(()=>{const tier=(m.trials.cleared[a]||0)+1,cap=X.trialCap(game,a),r=X.trialRule(a,now),t=X.trialPower(game,a,sel,tier,now);return <>
     <p><b>{X.TRIAL_RULES[r].name}:</b> {X.TRIAL_RULES[r].text}{a==='hobbies'?` (This week: ${area(r)}.)`:''} Family count ×1.5. At least one Family member.</p>
-    {tier>cap?<p className="wt-done">Tier {tier} is locked. Raise your {area(a)} skill to open more.</p>:<><Picker list={all} max={X.TRIAL_SQUAD} sel={sel} setSel={setSel}/>
-     <p>Tier {tier}</p><Vs power={t.power} need={t.need}/><Go label="Enter" locked={locked} disabled={locked||!sel.length} onGo={()=>go('trial',a)} optimize={()=>setSel(best(all,X.TRIAL_SQUAD,c=>c.power*(c.kind==='family'?1.5:1),'family'))}/>
+    {tier>cap?<p className="wt-done">Tier {tier} is locked. Raise your {area(a)} skill to open more.</p>:<><Picker list={all} max={X.TRIAL_SQUAD} sel={sel} setSel={setSel} mode="trial" game={game}/>
+     <p>Tier {tier}</p><Vs power={t.power} need={t.need}/><Go label="Enter" locked={locked} disabled={locked||!sel.length} onGo={()=>go('trial',a)} optimize={()=>setSel(best(all,X.TRIAL_SQUAD,c=>X.modePower(game,c.id,'trial')*(c.kind==='family'?1.5:1),'family'))}/>
      <All label="Climb until beaten (best team each tier)" disabled={locked||!family.length} onGo={()=>go('trialAll',a,null)}/></>}</>})()}</>}
- if(mode==='spire'){const f=m.spire.floor,res=X.spireResolve(game),p=Math.round(sel.reduce((t,id)=>t+X.charPower(game,id),0)*res);let to=f;while(to<1000&&p>=X.spireNeed(to+1))to++;
+ if(mode==='spire'){const f=m.spire.floor,res=X.spireResolve(game),p=X.spirePower(game,sel);let to=f;while(to<1000&&p>=X.spireNeed(to+1))to++;
   body=<><p>Floor <b>{f}</b>. Next needs {n(X.spireNeed(f+1))}. Bosses every 10th and 50th floor.{res>1?` Resolve: +${Math.round((res-1)*100)}%.`:''}</p>
-   <Picker list={fellows} max={X.SPIRE_SQUAD} sel={sel} setSel={setSel}/><p className="wt-vs ok">Power {n(p)}: reaches floor <b>{to}</b></p>
-   <Go label="Climb" locked={locked} disabled={locked||!sel.length} onGo={()=>go('spire')} optimize={()=>setSel(best(fellows,X.SPIRE_SQUAD))}/></>}
+   <Picker list={fellows} max={X.SPIRE_SQUAD} sel={sel} setSel={setSel} mode="spire" game={game}/><p className="wt-vs ok">Power {n(p)}: reaches floor <b>{to}</b></p>
+   <Go label="Climb" locked={locked} disabled={locked||!sel.length} onGo={()=>go('spire')} optimize={()=>setSel(best(fellows,X.SPIRE_SQUAD,c=>X.modePower(game,c.id,'spire')))}/></>}
  if(mode==='gauntlet'){const run=m.gauntlet.run,day=m.gauntlet.day;
   if(!run&&m.gauntlet.done)body=<p className="wt-done">Today’s run is over. Best ever: floor {m.gauntlet.best}. A new draft tomorrow.</p>;
   else if(!run){const draft=X.gauntletDraft(game,day);body=<><p>Pick 3 from today’s draft. In here everyone counts as 100 power, so it’s about choices, not levels: each sector of 3 floors favours one life area (×2), you see the next sector before you draft, and every area brings a trait (one member of an area is enough; they don’t stack). Wounds grow with depth, so heals stretch a run but can’t make it endless. Each daily habit done today adds 5% (up to +40%). Best: floor {m.gauntlet.best}.</p><p>First sector favours <b>{area(X.gauntletSector(day,1))}</b>, then <b>{area(X.gauntletSector(day,4))}</b>.</p>
-   <Picker list={draft.map(id=>({id,name:characterById(id)?.name,power:100}))} max={3} sel={sel} setSel={setSel} note={c=>`${area(characterById(c.id)?.area)} · ${trait(characterById(c.id)?.area)}`}/>
+   <Picker list={draft.map(id=>({id,name:characterById(id)?.name,power:100}))} max={3} sel={sel} setSel={setSel} note={c=>`${area(characterById(c.id)?.area)} · ${trait(characterById(c.id)?.area)}`} mode="gauntlet" game={game}/>
    <Button className="wt-go" disabled={locked||sel.length!==Math.min(3,draft.length)} onClick={()=>go('gauntletStart')}>Begin</Button></>}
   else{const sec=X.gauntletSector(day,run.floor+1),nextSec=X.gauntletSector(day,run.floor+4);body=<><p>Floor <b>{run.floor+1}</b> · health <b>{run.hp}/{X.gauntletMaxHp(run)}</b> · this sector favours <b>{area(sec)}</b> (×2), next <b>{area(nextSec)}</b>{run.boons.length?` · boons: ${run.boons.map((b:string)=>(X.GAUNTLET_BOONS as any)[b].name).join(', ')}`:''}</p>
    <p>Squad: {run.squad.map((id:string)=>{const c=characterById(id);return `${c?.name} (${(X.GAUNTLET_TRAITS as any)[c?.area||'']?.name||''}${c?.area===sec||c?.area==='hobbies'?' ×2':''})`}).join(', ')}</p>

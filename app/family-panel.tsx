@@ -9,6 +9,8 @@ import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
+import {TraitsBlock} from './relics';
+import {pathsOpen} from '@/lib/game.mjs';
 
 /** Bond rungs, named the way the old Family screen named them, every 5 levels. */
 const RUNGS=['Acquainted','Friendly','Close','Loving','Loving★','Loving★★','Forever'];
@@ -48,7 +50,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const owned=game.family,order=rosterOrder(FAMILY,owned,(id:string)=>owned[id]?.bond||0);
  const person=FAMILY.find(f=>f.id===selected)||FAMILY[0],f=owned[person.id],area=areaById(person.area),[gift,setGift]=useState(false);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','name']} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&game.visits[id]!==habitDay(game.lastAt))} search={false} pageSize={9}
+ if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','name']} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&(pathsOpen(game,id)>0||game.visits[id]!==habitDay(game.lastAt)))} search={false} pageSize={9}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{familyReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
@@ -63,7 +65,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly
   info={<table className="member-info-table"><tbody><tr><th scope="row">Full name</th><td colSpan={3}>{person.fullName||person.name}</td></tr><tr><th scope="row">Title</th><td colSpan={3}>{person.title}</td></tr><tr><th scope="row">Area</th><td colSpan={3}>{area.name}</td></tr><tr><th scope="row">Bio</th><td colSpan={3}>{person.description}</td></tr></tbody></table>}
   summary={<div className="es-sum"><span><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/>Bond <b>{familyBond(game,person.id)}</b></span><span>Blessing <b>+{pct(BLESS_LINKED*familyBond(game,person.id))}</b></span></div>}
-  details={<FamilyStats game={game} id={person.id}/>} detailsLabel="Bond"
+  details={<><FamilyStats game={game} id={person.id}/><TraitsBlock game={game} id={person.id} action={action} locked={locked}/></>} detailsLabel="Bond"
   primary={<div className="spend-controls"><PrimaryAction verb={visited?'Visited today':'Spend time together'} disabled={locked||visited} onClick={()=>action('visit',person.id)}>+{VISIT_BOND} bond</PrimaryAction></div>}
   rail={<Button variant="outline" className="es-rail-btn" onClick={()=>setGift(true)} aria-label="Gift"><img src="./assets/menu/gifts.png" alt=""/><span>Gift</span></Button>}>
   <Dialog open={gift} onOpenChange={setGift}><DialogContent className="character-sheet panel-centered"><DialogTitle>Gift for {person.name}</DialogTitle><DialogDescription className="sr-only">Choose a gift.</DialogDescription><div className="character-sheet-body"><GiftSheet game={game} id={person.id} action={action} locked={locked}/></div></DialogContent></Dialog>

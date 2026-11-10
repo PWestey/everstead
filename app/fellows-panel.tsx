@@ -9,6 +9,9 @@ import {fellowPower,fellowBasePower,milestoneMult,nextMilestone,MILESTONES,fello
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {pendingTalk} from '@/lib/quests.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
+import {TraitsBlock} from './relics';
+import {pathsOpen,wornRelic,steadyMult,relicBonus} from '@/lib/game.mjs';
+import {SPECS,ROLES,specOf,roleOf} from '@/lib/traits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
 
@@ -32,6 +35,8 @@ function FellowStats({game,id}:any){
     {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
     <tr><th>Companions</th><td>{areaById(def.area).name} companions (own multiplier)</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
+    {steadyMult(game,id)>1&&<tr><th>Steady paths</th><td>chosen at milestones</td><td>×{steadyMult(game,id).toFixed(3)}</td></tr>}
+    {wornRelic(game,id)&&<tr><th>{wornRelic(game,id).name}</th><td>relic</td><td>+{(relicBonus(game,id,'power')*100).toFixed(0)}%</td></tr>}
     <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
    </tbody></table>
    <p className="small-note">Milestones at levels 10, 25, 50 and 75 each multiply Power by 1.25; level 99 by 1.5; then every 25 levels by 1.25, forever. Levels never cap. Stars never stop either: each adds +25%. Stars cost {areaById(def.area).name} sigils, earned by completing {areaById(def.area).name} habits.</p>
@@ -55,7 +60,7 @@ export default function FellowsPanel({game,action,locked,onTalk,selected,setSele
  const owned=game.fellows,order=rosterOrder(FELLOWS,owned,(id:string)=>fellowPower(game,id));
  const person=FELLOWS.find(f=>f.id===selected)||FELLOWS[0],f=owned[person.id],area=areaById(person.area);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Fellows" entries={FELLOWS} owned={owned} selected={selected} sortOrders={['power','level','name']} power={(id:string)=>fellowPower(game,id)} status={(id:string)=>`Lv. ${owned[id].level}`} badge={(id:string)=>fellowCanImprove(game,id)||fellowReady(game,FELLOWS.find(x=>x.id===id))} search={false}
+ if(browse)return <RosterLanding kind="Fellows" entries={FELLOWS} owned={owned} selected={selected} sortOrders={['power','level','name']} power={(id:string)=>fellowPower(game,id)} status={(id:string)=>`Lv. ${owned[id].level}`} badge={(id:string)=>fellowCanImprove(game,id)||pathsOpen(game,id)>0||fellowReady(game,FELLOWS.find(x=>x.id===id))} search={false}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{fellowReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Fellows bring Power. Each one belongs to a life area: complete habits in that area to recruit them and earn their stars.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
@@ -68,7 +73,7 @@ export default function FellowsPanel({game,action,locked,onTalk,selected,setSele
   </CharacterScreen>}
  return <CharacterScreen person={person} subtitle={area.name+' Fellow'} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)}
   summary={<FellowSummary game={game} id={person.id}/>} primary={<FellowUpgrade game={game} id={person.id} action={action} locked={locked} compact/>}
-  details={<><FellowStats game={game} id={person.id}/><FellowUpgrade game={game} id={person.id} action={action} locked={locked}/></>} detailsLabel="Upgrade"
+  details={<><FellowStats game={game} id={person.id}/><FellowUpgrade game={game} id={person.id} action={action} locked={locked}/><TraitsBlock game={game} id={person.id} action={action} locked={locked}/></>} detailsLabel="Upgrade"
   rail={pendingTalk(game,person.id)?<Button variant="outline" className="es-rail-btn es-rail-talk" onClick={()=>onTalk(pendingTalk(game,person.id)!.tree)} aria-label={'Talk to '+person.name}><img src="./assets/rs/quest.png" alt=""/><span>Talk</span></Button>:undefined}
-  info={<p className="small-note">{(person as any).fullName?<><b>{(person as any).fullName}</b>. </>:null}Works at the {buildingForArea(person.area).name}, adding 25% to its income.</p>}>{null}</CharacterScreen>;
+  info={<p className="small-note">{(person as any).fullName?<><b>{(person as any).fullName}</b>. </>:null}Works at the {buildingForArea(person.area).name}, adding 25% to its income. {(SPECS as any)[specOf(person.id)||'']?.name} ({(SPECS as any)[specOf(person.id)||'']?.where}) and {(ROLES as any)[roleOf(person.id)].name.toLowerCase()}.</p>}>{null}</CharacterScreen>;
 }

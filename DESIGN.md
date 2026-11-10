@@ -169,6 +169,30 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.12% × 0.85^rank** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals; give ×1, ×5, ×10 or as many as you can afford), roaming scenes.
 
+## Specialties, roles, sets, paths and relics
+
+What makes two characters at the same level different (data in `lib/traits.mjs`, formulas in `lib/game.mjs`). None of it adds a rule inside a fight: every
+piece is a multiplier on a Power check or on what a squad brings home. The habit inputs are the same as before: Roams buy the Map runs that drop relics, the
+levels and bond that open paths come from Fellow EXP and area habits, and the War Table squads are the ones habits already feed.
+
+- **Specialty** (one per character, by lore): the one War Table mode they count **×1.25** in. Riftwalker, Climber (Spire), Duelist (Arena), Shieldwall (Fronts),
+  Peacemaker (Trials), Errand-runner, Blightbane (strikes), Pathfinder (Gauntlet: counts 125 instead of 100). Fellows never specialise in Family-only modes or the reverse.
+  The Trials' Silence room strips specialties, sets and relics along with the Family bonus. The picker marks a specialist with ★; Optimize and the batches weigh by mode Power.
+- **Role**: Fighter (nothing extra, 59 of 138), **Provider** (+5% gold from War Table rewards and Errands for squads they are in), **Mentor** (+5% Fellow EXP for squads they are in),
+  **Guardian** (a Front with a Guardian holds one more wave; Gauntlet wounds are 2 lighter per Guardian). Role bonuses stack per member.
+- **Sets**: three of one franchise in a squad fight **×1.2** under the set's name (`SET_NAMES`: Jedi Council, Avengers Assemble, For Azeroth…). The Witcher has two characters, so its set is a wish.
+- **Paths**: at level 50 and 100 (Fellows) or bond 50 and 100 (Family) a character chooses once, for good: **Focus** (+0.25 to the specialty's ×, so ×1.5 then ×1.75) or
+  **Steady** (+5% Power everywhere, the Map included; ×1.1025 after both). The roster card's ! badge marks an open path. Action `pathChoose`, save field `paths:{id:[…]}`.
+- **Relics** (`RELICS`, 47): gear with a tier and one affix. One slot per character; a copy is worn by one character at a time (`relics:{owned:{id:count},worn:{charId:id}}`,
+  action `relicWear`). Affixes: a mode (the wearer counts ×1.1 / ×1.2 / ×1.35 there by tier), **gold** or **exp** (+10/20/35% for squads with the wearer), **power**
+  (Old Whetstone +5%, Hearthstone Charm +10%). **Legendaries**, one per franchise, give +25% Power, **doubled on one of their own** (Thor with the Vibranium Shield: +50%), and
+  drop only from the region boss they belong with (Silver Sword at Count Draynor, the Elder Wand at Nex…).
+- **Drops**: each Map run rolls 5% (bosses 15%): common 60 / rare 30 / epic 10. A boss drops its legendary 4% of the time and surely on every 25th run of it. Gauntlet floors 10 and 25
+  drop a rare, floor 50 an epic; every 25th Spire floor an epic. Rolls are fixed by the save and the run count, so a batch equals the same runs one by one. The drop stops the result
+  scroll with the relic in its tier colour and an Equip control (the suggested wearer is a specialist of its mode with an empty slot, else the strongest). The Collection Log lists all 47.
+- **Pace**: with Steady and the roles at 5%, the simulator's day-120 step moves from 124 to about 131 (8 habits) and 100 to about 104 (4 habits); at 10% it was 137, more than
+  doubling the War Table's EXP constants, which is why they are 5%. Specialties and sets change who you send, not how fast the Map goes.
+
 ## Training Grounds
 
 A landmark next to the Workshop. Set a mark for Fellows (a level) and for Family (a bond level); "Train now" brings everyone below the mark up to it,

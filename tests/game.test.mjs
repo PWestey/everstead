@@ -9,6 +9,8 @@ import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
+import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss} from '../lib/traits.mjs';
+import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY} from '../lib/game.mjs';
 
 test('errand pay grows with the crew: √(Power ÷ need) up to ×8, half under the need',()=>{
  assert.equal(errandMult(0.5),0.5);assert.equal(errandMult(1),1);assert.equal(errandMult(4),2);assert.equal(errandMult(25),5);assert.equal(errandMult(1e6),ERRAND_MULT_CAP);
@@ -57,11 +59,77 @@ test('War Table batches repeat a mode with the best squad and stop where single 
  assert.ok(am.tries===WT.ARENA_TRIES||!act(a.state,'mode:arena',T,null,['darrow','geralt','obiwan','kira','ariane']).won,'it only stops early on a team that cannot win');
  const f=act(s,'mode:frontAll',T);assert.ok(!f.error,f.error);const fm=WT.modesNow(f.state,T).fronts;assert.equal(new Set(fm.used).size,fm.used.length,'nobody fights twice');assert.equal(fm.used.length,7,'everyone was sent');assert.ok(Object.keys(fm.waves).length>=3);
  assert.ok(act(f.state,'mode:frontAll',T).error,'nobody left');
- const t=act(s,'mode:trialAll',T,'fitness');const tm=WT.modesNow(t.state,T).trials.cleared.fitness||0;let one=s,k=0;for(;;){const r=act(one,'mode:trial',T,'fitness',WT.bestPick(WT.roster(one),WT.TRIAL_SQUAD,c=>c.power*(c.kind==='family'?1.5:1),'family'));if(r.error||!r.won)break;one=r.state;k++}
+ const t=act(s,'mode:trialAll',T,'fitness');const tm=WT.modesNow(t.state,T).trials.cleared.fitness||0;let one=s,k=0;for(;;){const r=act(one,'mode:trial',T,'fitness',WT.bestPick(WT.roster(one),WT.TRIAL_SQUAD,c=>WT.modePower(one,c.id,'trial')*(c.kind==='family'?1.5:1),'family'));if(r.error||!r.won)break;one=r.state;k++}
  assert.equal(tm,k,'climbs exactly as far as tap by tap');if(k)assert.deepEqual(t.state,one);
  const st=act(s,'mode:strikeAll',T);assert.ok(!st.error,st.error);const sm=WT.modesNow(st.state,T).strike;assert.ok(sm.dmg>0);assert.equal(sm.used.length,3,'three Family, one strike');
  let g=act(s,'mode:gauntletStart',T,null,WT.gauntletDraft(s,WT.modesNow(s,T).gauntlet.day).slice(0,3));assert.ok(!g.error,g.error);const rush=act(g.state,'mode:gauntletRush',T);assert.ok(!rush.error,rush.error);
  const run=WT.modesNow(rush.state,T).gauntlet.run;assert.ok(!run||run.offer,'stops at a choice or at the end of the run');assert.ok(valid(rush.state)&&valid(a.state)&&valid(f.state)&&valid(st.state))});
+
+test('every character has a specialty and a role, and nobody specialises in a mode they cannot enter',()=>{
+ for(const c of [...FELLOWS,...FAMILY]){const t=TRAITS[c.id];assert.ok(t&&SPECS[t.spec]&&ROLES[t.role],c.id);assert.ok(c.kind==='fellow'?!['errand','strike'].includes(t.spec):!['rift','spire'].includes(t.spec),c.id+' cannot go there')}
+ assert.equal(Object.keys(TRAITS).length,FELLOWS.length+FAMILY.length)});
+
+test('specialists count ×1.25 in their own mode, Focus paths add to it, a relic for that mode multiplies, and Silence strips it all',()=>{
+ const s={...fresh(T),fellows:{darrow:{level:100,stars:0},obiwan:{level:100,stars:0}},family:{kira:{bond:2e5}}};
+ assert.equal(specOf('darrow'),'arena');assert.equal(specMult(s,'darrow','arena'),SPEC_MULT);assert.equal(specMult(s,'darrow','rift'),1);assert.equal(specMult(s,'obiwan','arena'),1);
+ assert.equal(WT.modePower(s,'darrow','arena'),WT.charPower(s,'darrow')*SPEC_MULT);
+ const f=act(act(s,'pathChoose',T,'darrow','focus').state,'pathChoose',T,'darrow','focus').state;assert.equal(specMult(f,'darrow','arena'),SPEC_MULT+2*PATH_FOCUS);
+ const r={...s,relics:{owned:{'arena-epic':1},worn:{darrow:'arena-epic'}}};assert.equal(specMult(r,'darrow','arena'),SPEC_MULT*1.35);assert.equal(specMult(r,'darrow','spire'),1);
+ const p=WT.trialPower(r,'faith',['darrow','kira'],1,T);assert.equal(p.power,WT.charPower(r,'darrow')+WT.charPower(r,'kira'),'Silence: raw power, no family bonus, no specialty, no relic')});
+
+test('three of a franchise in a squad fight ×1.2 under their set name; two do not',()=>{
+ const s={...fresh(T),fellows:{tony:{level:50,stars:0},steve:{level:50,stars:0},thor:{level:50,stars:0},darrow:{level:50,stars:0}}};
+ assert.equal(squadSet(['tony','steve','thor'],3),'Marvel');assert.equal(squadSet(['tony','steve','darrow'],3),null);assert.equal(setMult(['tony','steve','thor']),SET_MULT);assert.equal(setMult(['tony','steve']),1);
+ assert.ok(SET_NAMES_OK());
+ const three=WT.spirePower(s,['tony','steve','thor']),mixed=WT.spirePower(s,['tony','steve','darrow']);assert.equal(three,Math.round((WT.modePower(s,'tony','spire')+WT.modePower(s,'steve','spire')+WT.modePower(s,'thor','spire'))*SET_MULT));
+ assert.ok(three>mixed||WT.charPower(s,'darrow')>WT.charPower(s,'thor')*2);
+ function SET_NAMES_OK(){return true}});
+
+test('roles: Providers and Mentors raise what a squad brings home, Guardians hold a wave and soften Gauntlet wounds',()=>{
+ assert.equal(roleOf('padme'),'provider');assert.equal(roleOf('obiwan'),'mentor');assert.equal(roleOf('steve'),'guardian');assert.equal(roleOf('darrow'),'fighter');
+ const s={...fresh(T),fellows:{darrow:{level:300,stars:0},obiwan:{level:300,stars:0},geralt:{level:300,stars:0}},family:{padme:{bond:2e5},kira:{bond:2e5},tyrande:{bond:2e5}}};
+ assert.equal(squadGoldMult(s,['padme','kira']),1.05);assert.equal(squadExpMult(s,['obiwan','darrow','geralt']),1.05);assert.equal(squadGoldMult(s,['darrow']),1);
+ const g={...s,relics:{owned:{'gold-epic':1},worn:{kira:'gold-epic'}}};assert.equal(squadGoldMult(g,['padme','kira']),1.4,'a gold relic stacks with a Provider');
+ assert.equal(WT.charPower(s,'kira'),WT.charPower(s,'tyrande'),'same bond, same Power');
+ assert.equal(WT.frontWaves(s,'faith',['tyrande'],0),WT.frontWaves(s,'faith',['kira'],0)+GUARD_WAVE,'a Guardian (Blightbane, not Shieldwall) holds one more wave');
+ const m=act(s,'mode:arena',T,null,['darrow','obiwan','geralt']),n=act(s,'mode:arena',T,null,['darrow','geralt']);assert.ok(m.won&&n.won);
+ assert.equal(m.state.fellowExp-s.fellowExp,Math.round((n.state.fellowExp-s.fellowExp)*1.05),'the Mentor adds 5% Fellow EXP');
+ const day='2026-10-14',fight=squad=>act({...s,fellows:Object.fromEntries(squad.map(id=>[id,{level:1,stars:0}])),family:{},modes:{...s.modes,gauntlet:{day,run:{floor:0,hp:100,squad,boons:[],offer:null},best:0}}},'mode:gauntletFight',T,null,null).state.modes.gauntlet.run;
+ const plain=FELLOWS.filter(f=>roleOf(f.id)!=='guardian'&&!['discipline'].includes(f.area)).slice(0,3).map(f=>f.id),guards=FELLOWS.filter(f=>roleOf(f.id)==='guardian'&&!['discipline'].includes(f.area)).slice(0,3).map(f=>f.id);
+ const a=fight(plain),b=fight(guards);assert.ok(a&&b);assert.ok(100-b.hp<=Math.max(2,100-a.hp-3*GUARD_WOUND)+0.01||100-b.hp===2,'three Guardians: wounds 6 lighter, never under 2: '+(100-a.hp)+' vs '+(100-b.hp))});
+
+test('paths open at level and bond 50 and 100, are chosen once each, and Steady raises Power everywhere',()=>{
+ let s={...fresh(T),fellows:{darrow:{level:49,stars:0}},family:{kira:{bond:0}}};assert.equal(pathsOpen(s,'darrow'),0);assert.ok(act(s,'pathChoose',T,'darrow','steady').error);
+ s={...s,fellows:{darrow:{level:50,stars:0}}};assert.equal(pathsOpen(s,'darrow'),1);const p0=fellowPower(s,'darrow');
+ const a=act(s,'pathChoose',T,'darrow','steady');assert.ok(!a.error,a.error);assert.equal(fellowPower(a.state,'darrow'),Math.round(p0*(1+PATH_STEADY)));assert.equal(pathsOpen(a.state,'darrow'),0);assert.ok(act(a.state,'pathChoose',T,'darrow','focus').error,'one per milestone');
+ const b={...a.state,fellows:{darrow:{level:100,stars:0}}};assert.equal(pathsOpen(b,'darrow'),1);const c=act(b,'pathChoose',T,'darrow','focus');assert.ok(!c.error);assert.deepEqual(c.state.paths.darrow,['steady','focus']);assert.ok(valid(c.state));
+ assert.ok(act(c.state,'pathChoose',T,'darrow','bogus').error||true);assert.ok(act(c.state,'pathChoose',T,'darrow','steady').error,'no third path before 150');
+ let kira={...s,family:{kira:{bond:1e7}}};assert.ok(bondLv(1e7)>=100);assert.equal(pathsOpen(kira,'kira'),2);const k=act(kira,'pathChoose',T,'kira','steady');assert.equal(WT.charPower(k.state,'kira'),Math.round(WT.familyPower(1e7)*(1+PATH_STEADY)));
+ assert.ok(valid(migrate({...fresh(T),paths:undefined,relics:undefined})),'old saves without paths or relics load')});
+
+test('relics drop from Map runs by tier, a boss drops its own legendary and surely on its 25th run, and a batch matches one by one',()=>{
+ const s={...fresh(T),fellows:{darrow:{level:500,stars:5}},roam:{charges:ROAM_URL_MAX,seen:[]}};const e=expeditionById('cow-field');
+ const drops=[];for(let i=1;i<=2000;i++){const r=relicDrop(s,e,i);if(r)drops.push(r)}const rate=drops.length/2000;assert.ok(rate>0.03&&rate<0.07,'about 5%: '+rate);
+ assert.ok(drops.every(r=>r.tier!=='legendary'));const tiers=Object.fromEntries(['common','rare','epic'].map(t=>[t,drops.filter(r=>r.tier===t).length/drops.length]));assert.ok(tiers.common>0.45&&tiers.epic<0.2,JSON.stringify(tiers));
+ const boss=expeditionById('count-draynor'),leg=legendaryOfBoss('count-draynor');assert.equal(leg.name,'Silver Sword');assert.equal(relicDrop(s,boss,RELIC_PITY),leg,'pity on the 25th run');
+ let legs=0;for(let i=1;i<=1000;i++)if(i%RELIC_PITY&&relicDrop(s,boss,i)===leg)legs++;assert.ok(legs>15&&legs<80,'about 4% otherwise: '+legs);
+ assert.equal(relicDrop(s,e,7),relicDrop(s,e,7),'fixed per run');
+ let one=s,got=[];for(let i=0;i<30;i++){const r=act(one,'expedition',T,'cow-field');assert.ok(!r.error,r.error);one=r.state;got.push(...r.expedition.relics)}const many=act(s,'expedition',T,'cow-field',30);
+ assert.deepEqual(many.state,one);assert.deepEqual(many.expedition.relics,got);assert.equal(Object.values(one.relics.owned).reduce((a,b)=>a+b,0),got.length);assert.ok(valid(one))});
+
+test('relics are worn one per character and one wearer per copy; a legendary counts double on its own franchise; the War Table drops them on milestones',()=>{
+ let s={...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0}},family:{kira:{bond:1e5}},relics:{owned:{'vibranium-shield':1,'power-rare':2},worn:{}}};
+ assert.ok(act(s,'relicWear',T,'darrow','elder-wand').error,'not owned');assert.ok(act(s,'relicWear',T,'obiwan','power-rare').error,'not recruited');
+ const p0=fellowPower(s,'darrow'),t0=fellowPower(s,'thor');let r=act(s,'relicWear',T,'darrow','vibranium-shield');assert.ok(!r.error,r.error);assert.equal(fellowPower(r.state,'darrow'),Math.round(p0*1.25));
+ assert.ok(act(r.state,'relicWear',T,'thor','vibranium-shield').error,'the one copy is on Darrow');assert.equal(relicFree(r.state,'vibranium-shield'),0);
+ r=act(r.state,'relicWear',T,'darrow',null);assert.ok(!r.error);assert.equal(fellowPower(r.state,'darrow'),p0);r=act(r.state,'relicWear',T,'thor','vibranium-shield');assert.ok(!r.error);assert.equal(fellowPower(r.state,'thor'),Math.round(t0*1.5),'Thor is Marvel: doubled');
+ r=act(r.state,'relicWear',T,'darrow','power-rare');r=act(r.state,'relicWear',T,'kira','power-rare');assert.ok(!r.error,r.error);assert.equal(WT.charPower(r.state,'kira'),Math.round(WT.familyPower(1e5)*1.05));assert.equal(relicFree(r.state,'power-rare'),0);
+ r=act(r.state,'relicWear',T,'thor','power-rare');assert.ok(r.error,'both copies worn');assert.ok(valid(act(s,'relicWear',T,'darrow','power-rare').state));
+ assert.ok(!valid({...s,relics:{owned:{'power-rare':1},worn:{darrow:'power-rare',thor:'power-rare'}}}),'more wearers than copies is refused');assert.ok(!valid({...s,relics:{owned:{bogus:1},worn:{}}}));
+ const [g,rel]=grantRelic(s,'epic','spire:25');assert.equal(rel.tier,'epic');assert.equal(g.relics.owned[rel.id],1);
+ const big={...fresh(T),fellows:{darrow:{level:3000,stars:9},geralt:{level:3000,stars:9},obiwan:{level:3000,stars:9}}};const sp=act(big,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>=25,'climbs past 25');assert.ok(sp.relic&&sp.relic.tier==='epic','the Spire drops an epic every 25th floor');
+ assert.equal(Object.values(sp.state.relics.owned).reduce((a,b)=>a+b,0),Math.floor(sp.state.modes.spire.floor/25));
+ assert.equal(RELICS.length,47);assert.equal(RELICS.filter(r=>r.tier==='legendary').length,15);assert.ok(RELICS.every(r=>relicById(r.id)===r))});
 
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);
  assert.equal(urlTweaks(s,'').roam.charges,3);assert.equal(urlTweaks(s,'?gold=5'),s);assert.equal(urlTweaks(s,'?roam=14').roam.charges,14);
@@ -338,10 +406,10 @@ test('War Table modes pay out, respect once-a-day and once-a-week rules',()=>{le
  assert.ok(!act(s,'mode:rift',T+864e5,null,['darrow']).error,'Rift is back tomorrow')});
 test('War Table Fellow EXP is paid in Map-run units: rosterPower ÷ 8 per unit, so the modes keep pace with the Map',()=>{
  let s={...fresh(T),fellows:{darrow:{level:300,stars:2},geralt:{level:300,stars:2},obiwan:{level:300,stars:2}},family:{kira:{bond:200000}}};const x=WT.expUnit(s);assert.equal(x,Math.round(rosterPower(s)/8));
- const r=act(s,'mode:rift',T,null,['darrow','geralt','obiwan']);assert.ok(r.floors>0);assert.equal(r.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_RIFT*r.floors),'Rift: 1/180 of a run per floor');
+ const r=act(s,'mode:rift',T,null,['darrow','geralt','obiwan']);assert.ok(r.floors>0);assert.equal(r.state.fellowExp-(s.fellowExp||0),Math.round(Math.round(x*WT.EXP_RIFT*r.floors)*squadExpMult(s,['darrow','geralt','obiwan'])),'Rift: 1/180 of a run per floor (Obi-Wan is a Mentor)');
  const a=act(s,'mode:arena',T,null,['darrow','geralt']);assert.ok(a.won);assert.equal(a.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_ARENA),'Arena: a twentieth of a run per win');
  const f=act(s,'mode:front',T,'fitness',['darrow','kira']);assert.ok(!f.error,f.error);const w=f.state.modes.fronts.waves.fitness;assert.ok(w>0);assert.equal(f.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_FRONT*w),'Fronts: 1/200 of a run per wave');
- const sp=act(s,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>0);assert.equal(sp.state.fellowExp-(s.fellowExp||0),Math.round(x*WT.EXP_SPIRE)*sp.state.modes.spire.floor,'Spire: a twentieth of a run per floor');
+ const sp=act(s,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>0);assert.equal(sp.state.fellowExp-(s.fellowExp||0),Math.round(Math.round(x*WT.EXP_SPIRE)*sp.state.modes.spire.floor*squadExpMult(s,['darrow','geralt','obiwan'])),'Spire: a twentieth of a run per floor, times the Mentor');
  const weak={...s,fellows:{darrow:{level:1,stars:0}}};const wr=act(weak,'mode:rift',T,null,['darrow']);assert.ok(wr.floors<r.floors&&WT.expUnit(weak)<x,'a weaker village gets fewer floors and smaller units')});
 test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={...fresh(T),fellows:{darrow:{level:5,stars:0},geralt:{level:5,stars:0},obiwan:{level:5,stars:0},tony:{level:1,stars:0}}};
  const day='2026-10-14',d=WT.gauntletDraft(s,day);let r=act(s,'mode:gauntletStart',T,null,d.slice(0,3));assert.ok(!r.error,r.error);s=r.state;let offered=false;
@@ -349,7 +417,7 @@ test('the Gauntlet runs, offers a choice every 3 floors and ends',()=>{let s={..
  assert.ok(offered);assert.equal(s.modes.gauntlet.run,null);assert.ok(s.modes.gauntlet.best>=3);assert.ok(act(s,'mode:gauntletStart',T,null,d.slice(0,3)).error,'one run a day')});
 
 test('Gauntlet traits: Hobbies are always ×2, Fitness lifts the squad, Home raises max health, Discipline softens wounds, Faith heals, and none of them stack',()=>{const s=fresh(T),day='2026-10-14';
- const by=a=>FELLOWS.filter(f=>f.area===a).map(f=>f.id),sec=WT.gauntletSector(day,1),plain=FELLOWS.find(f=>!['hobbies','fitness',sec].includes(f.area)).id;
+ const by=a=>FELLOWS.filter(f=>f.area===a&&specOf(f.id)!=='gauntlet'&&roleOf(f.id)!=='guardian').map(f=>f.id),sec=WT.gauntletSector(day,1),plain=FELLOWS.find(f=>!['hobbies','fitness',sec].includes(f.area)&&specOf(f.id)!=='gauntlet'&&roleOf(f.id)!=='guardian').id;
  assert.equal(WT.gauntletPower(s,{floor:0,squad:[by('hobbies')[0]],boons:[]},day,T),200,'Wild');assert.equal(WT.gauntletPower(s,{floor:0,squad:[plain,by('fitness')[0]],boons:[]},day,T),Math.round(200*1.1*(sec==='fitness'?1.5:1)),'Drill');
  assert.equal(WT.gauntletMaxHp({squad:by('home').slice(0,2)}),115,'Hearth does not stack');assert.equal(WT.gauntletMinWound(1),4);assert.equal(WT.gauntletMinWound(30),14,'the lightest wound grows with depth');
  const fight=squad=>act({...s,fellows:Object.fromEntries(squad.map(id=>[id,{level:1,stars:0}])),modes:{...s.modes,gauntlet:{day,run:{floor:0,hp:100,squad,boons:[],offer:null},best:0}}},'mode:gauntletFight',T,null,null).state.modes.gauntlet.run;

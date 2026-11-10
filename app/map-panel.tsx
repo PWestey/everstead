@@ -6,6 +6,7 @@ import {lapOf,LAP,lapBeaten,expeditionView,regionOpen,rosterPower,roamCap,perks,
 import {areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 import {BlightCard} from './village-panels';
+import {RelicCard} from './relics';
 
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
 const areaNames=(areas:string[])=>areas.map(a=>areaById(a)?.name).join(' & ');
@@ -48,12 +49,13 @@ export function MapPanel({game,action,locked,onRun}:{game:any,action:any,locked:
 }
 
 /** The result of one run: outcome, loot, and any boss reward or newly opened region. */
-export function ExpeditionResult({run,onClose}:{run:any,onClose:()=>void}){
+export function ExpeditionResult({run,onClose,game,action,locked}:{run:any,onClose:()=>void,game:any,action:any,locked:boolean}){
  return <Dialog open={!!run} onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="rs-scroll xp-result" showCloseButton={false}>
   {run&&<>
    <DialogTitle className={'xp-r-'+run.outcome.key}>{run.outcome.label}!</DialogTitle>
    <DialogDescription>{run.title}{run.times>1?` · ${run.times} runs`:''}</DialogDescription>
    <ul><li>+{n(run.loot.gold)} gold</li><li>+{n(run.loot.exp)} Fellow EXP</li>{run.treats>0&&<li className="xp-drop"><img className="rs-px" src="./assets/osrs/ui/Fish_food.png" alt=""/>{run.treats===1?'A treat tumbles':run.treats+' treats tumble'} out of the loot.</li>}{run.found&&<li className="xp-drop xp-find"><img className="rs-px" src="./assets/osrs/ui/Hunter_kit.png" alt=""/>{run.found} has followed you home!</li>}{run.areas.map((a:string)=><li key={a}><img src={'./assets/'+skillIcon(a)} alt=""/>+{run.loot.sigils} {areaById(a)?.name} sigils · +{n(run.loot.xp)} XP</li>)}</ul>
+   {(run.relics||[]).map((r:any,i:number)=><RelicCard key={r.id+i} relic={r} game={game} action={action} locked={locked}/>)}
    {run.perk&&<p className="xp-perk"><b>Boss defeated!</b> {run.perk}</p>}
    {run.opened&&<p className="xp-perk"><b>New region:</b> {run.opened} is open on the map.</p>}
    <Button onClick={onClose}>Continue</Button>
