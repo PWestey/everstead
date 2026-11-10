@@ -10,6 +10,8 @@ import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
 import {TraitsBlock} from './relics';
+import {CharacterSheet} from './character-sheet';
+import {charPower,gearScore} from '@/lib/modes.mjs';
 import {pathsOpen} from '@/lib/game.mjs';
 
 /** Bond rungs, named the way the old Family screen named them, every 5 levels. */
@@ -24,11 +26,12 @@ function FamilyStats({game,id}:any){
   <div className={'rung-ribbon rung-'+(L<5?'green':'gold')}><b>{rung(L)}</b><i aria-hidden="true">&#9671;</i></div>
   <div className="family-medallions">
    <button type="button" className="family-medallion" onClick={()=>setOpen('Bond')}><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/><span>Bond Lv</span><strong>{L}</strong></button>
+   <button type="button" className="family-medallion" onClick={()=>setOpen('Power')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Power</span><strong>{Math.round(charPower(game,id)).toLocaleString('en-US')}</strong></button>
    <button type="button" className="family-medallion" onClick={()=>setOpen('Blessing')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Blessing</span><strong>+{pct(BLESS_LINKED*L)}</strong></button>
   </div>
   <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
-  <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{open==='Bond'?'Bond':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
-   {open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone blesses all Fellows, the closest bonds most.</p>
+  <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className={'breakdown-dialog'+(open==='Power'?' es-sheet-dialog':'')}><DialogTitle>{open==='Bond'?'Bond':open==='Power'?def.name+'’s sheet':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
+   {open==='Power'?<CharacterSheet game={game} id={id}/>:open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone blesses all Fellows, the closest bonds most.</p>
    :<table className="es-breakdown"><tbody>
      <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
      <tr><th>Every Fellow</th><td>village-wide, as your {rank+1}{['st','nd','rd'][rank]||'th'} closest bond</td><td>+{pct(blessShare(L,rank))}</td></tr>
@@ -50,7 +53,7 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const owned=game.family,order=rosterOrder(FAMILY,owned,(id:string)=>owned[id]?.bond||0);
  const person=FAMILY.find(f=>f.id===selected)||FAMILY[0],f=owned[person.id],area=areaById(person.area),[gift,setGift]=useState(false);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','name']} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&(pathsOpen(game,id)>0||game.visits[id]!==habitDay(game.lastAt)))} search={false} pageSize={9}
+ if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','gear','name']} sortKeys={{gear:(id:string)=>gearScore(game,id)}} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&(pathsOpen(game,id)>0||game.visits[id]!==habitDay(game.lastAt)))} search={false} pageSize={9}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{familyReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;

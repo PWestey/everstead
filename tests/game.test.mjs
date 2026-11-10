@@ -110,6 +110,13 @@ test('paths open at level and bond 50 and 100, are chosen once each, and Steady 
  let kira={...s,family:{kira:{bond:1e7}}};assert.ok(bondLv(1e7)>=100);assert.equal(pathsOpen(kira,'kira'),2);const k=act(kira,'pathChoose',T,'kira','steady');assert.equal(WT.charPower(k.state,'kira'),Math.round(WT.familyPower(1e7)*(1+PATH_STEADY)));
  assert.ok(valid(migrate({...fresh(T),paths:undefined,relics:undefined})),'old saves without paths or relics load')});
 
+test('gear score is what a character counts in their best mode, within the modes they can enter',()=>{
+ const s={...fresh(T),fellows:{darrow:{level:100,stars:0},obiwan:{level:100,stars:0}},family:{kira:{bond:2e5}}};
+ assert.deepEqual(WT.modesOf(s,'darrow'),WT.FELLOW_MODES);assert.deepEqual(WT.modesOf(s,'kira'),WT.FAMILY_MODES);assert.ok(!WT.FELLOW_MODES.includes('errand')&&!WT.FAMILY_MODES.includes('rift'));
+ assert.equal(WT.gearScore(s,'darrow'),Math.round(WT.charPower(s,'darrow')*SPEC_MULT),'a Duelist: the Arena');
+ const r={...s,relics:relicsOf(['spire-epic',1,'obiwan'])};assert.equal(WT.gearScore(r,'obiwan'),Math.round(WT.charPower(r,'obiwan')*Math.max(specMult(r,'obiwan',specOf('obiwan')),1+0.35*1.2)),'the better of specialty and relic mode');
+ assert.equal(WT.gearScore(s,'thor'),0,'not recruited')});
+
 test('two slots: a weapon and a charm are worn together, each slot comes off on its own, and the bonuses add',()=>{
  const s={...fresh(T),fellows:{thor:{level:100,stars:0}},family:{kira:{bond:2e5}},relics:relicsOf(['vibranium-shield',0.5],['gold-epic',1],['power-rare',0.5])};
  let r=act(s,'relicWear',T,'thor','r1');r=act(r.state,'relicWear',T,'thor','r2');assert.ok(!r.error,r.error);assert.deepEqual(r.state.relics.worn.thor,{weapon:'r1',charm:'r2'});assert.ok(valid(r.state));

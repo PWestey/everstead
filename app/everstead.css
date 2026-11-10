@@ -30,6 +30,8 @@
 .es-breakdown th,.es-breakdown td{padding:6px 4px;border-bottom:1px solid rgba(168,139,85,.35);text-align:left}
 .es-breakdown td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
 .es-breakdown .es-total th,.es-breakdown .es-total td{border-bottom:0;font-size:16px}
+.es-sheet{display:grid;gap:8px}.es-sheet-title{margin:6px 0 0;font-weight:700;color:#5c4d36}.es-sheet-modes .es-sheet-best th,.es-sheet-modes .es-sheet-best td{color:#8a5a00;background:rgba(245,166,35,.12)}
+.es-sheet-notes{margin:0;padding:0 0 0 16px;font-size:13px;display:grid;gap:4px}.es-sheet-dialog{max-height:90vh;overflow:auto}
 
 /* Family bond bar and gifts. */
 .es-bond-bar,.es-hp{position:relative;height:14px;border-radius:999px;background:rgba(0,0,0,.35);overflow:hidden;border:1px solid rgba(243,220,167,.5)}

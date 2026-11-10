@@ -190,6 +190,9 @@ levels and bond that open paths come from Fellow EXP and area habits, and the Wa
 - **Drops**: each Map run rolls 5% (bosses 15%): common 60 / rare 30 / epic 10. A boss drops its legendary 4% of the time and surely on every 25th run of it. Gauntlet floors 10 and 25
   drop a rare, floor 50 an epic; every 25th Spire floor an epic. Rolls are fixed by the save and the run count, so a batch equals the same runs one by one. The drop stops the result
   scroll with the relic in its tier colour and an Equip control (the suggested wearer is a specialist of its mode with an empty slot, else the strongest). The Collection Log lists all 47.
+- **Character sheet**: the Power control on a Fellow (and a new Power medallion on Family) opens the sheet: every multiplier in the order the formula applies it, then what
+  they count in each mode they can enter (Fellows: Rift, Spire, Arena, Fronts, Trials, Gauntlet; Family: Arena, Fronts, Trials, Errands, strikes, Gauntlet), their role, set, weapon and charm.
+  **Gear score** = what they count in their best mode (`gearScore`; sets belong to a squad, so they are not in it). Both rosters sort by it. Display only: nothing in the game reads it.
 - **Two slots**: mode and Power relics are **weapons**, gold and EXP relics are **charms**; a character wears one of each (`worn:{charId:{weapon:uid,charm:uid}}`) and their
   affixes add. Wearing a relic fills its slot, swapping out what was there. The charms never touch Power, so the second slot leaves the Map's pace where it was.
 - **Rolls**: every drop rolls once; its affix is the catalogue value × (0.8 + 0.4 × roll), so the best piece of a kind is ×1.2 its listed number and the worst ×0.8, and 95%+ is shown as

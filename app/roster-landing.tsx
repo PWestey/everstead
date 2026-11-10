@@ -3,7 +3,7 @@ import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import RosterPicker from './roster-picker';
 import {rosterSort} from '@/lib/roster-filter.mjs';
 
-const SORT_LABEL:Record<string,string>={default:'Default',power:'Power',level:'Level',aptitude:'Aptitude',awakening:'Awakening',rarity:'Rarity',name:'Name'};
+const SORT_LABEL:Record<string,string>={default:'Default',power:'Power',gear:'Gear score',level:'Level',aptitude:'Aptitude',awakening:'Awakening',rarity:'Rarity',name:'Name'};
 const readSort=(kind:string)=>{try{return localStorage.getItem('everkai-roster-sort-'+kind)||'power'}catch{return 'power'}};
 // The roster is the landing view, as in the original: you arrive at the grid and choose someone,
 // rather than arriving on one character and paging sideways to find anyone else.

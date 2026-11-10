@@ -10,6 +10,8 @@ import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {pendingTalk} from '@/lib/quests.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
 import {TraitsBlock} from './relics';
+import {CharacterSheet} from './character-sheet';
+import {gearScore} from '@/lib/modes.mjs';
 import {pathsOpen,wornRelics,steadyMult,relicBonus} from '@/lib/game.mjs';
 import {SPECS,ROLES,specOf,roleOf} from '@/lib/traits.mjs';
 const n=(x:number)=>Math.round(x).toLocaleString('en-US');
@@ -28,17 +30,8 @@ function FellowStats({game,id}:any){
     <span className="awaken-stars" aria-label={f.stars+' of '+MAX_STARS+' stars'}>{f.stars>MAX_STARS?<b className="lit">{f.stars}★</b>:Array.from({length:MAX_STARS},(_,i)=><b key={i} className={i<f.stars?'lit':''}>★</b>)}</span></div></div>
   <div className="fellow-stat"><span className="glyph">✦</span><span>{areaById(def.area).name} sigils</span><strong>{n(game.sigils[def.area])}</strong></div>
   <div className="fellow-stat"><span className="glyph">⌂</span><span>{building.name}</span><strong>+ {abbrev(buildingRate(game,building.id)*3600)}/h</strong></div>
-  <Dialog open={open} onOpenChange={setOpen}><DialogContent className="breakdown-dialog"><DialogTitle>Power Details</DialogTitle><DialogDescription className="sr-only">How this Fellow's Power is calculated.</DialogDescription>
-   <table className="es-breakdown"><tbody>
-    <tr><th>Base</th><td>100 × Lv {f.level}<sup>1.15</sup> × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars)/milestoneMult(f.level))}</td></tr>
-    <tr><th>Milestones</th><td>{MILESTONES.filter(([at])=>f.level>=at).map(([at])=>'Lv '+at).join(', ')||'none yet'}{(()=>{const m=nextMilestone(f.level);return m?` · next Lv ${m[0]} (×${m[1]})`:''})()}</td><td>×{milestoneMult(f.level)}</td></tr>
-    {family.map((m:any)=><tr key={m.id}><th>{m.name}’s blessing</th><td>{game.family[m.id]?'same life area':'not yet family'}</td><td>+{(game.family[m.id]?BLESS_LINKED*familyBond(game,m.id)*100:0).toFixed(1)}%</td></tr>)}
-    <tr><th>Companions</th><td>{areaById(def.area).name} companions (own multiplier)</td><td>+{(areaCompanionBoost(game,def.area)*100).toFixed(1)}%</td></tr>
-    <tr><th>Family blessing</th><td>every Fellow</td><td>+{(b.all*100).toFixed(1)}%</td></tr>
-    {steadyMult(game,id)>1&&<tr><th>Steady paths</th><td>chosen at milestones</td><td>×{steadyMult(game,id).toFixed(3)}</td></tr>}
-    {relicBonus(game,id,'power')>0&&<tr><th>{wornRelics(game,id).filter((r:any)=>r.kind==='power').map((r:any)=>r.name).join(', ')}</th><td>relic</td><td>+{(relicBonus(game,id,'power')*100).toFixed(0)}%</td></tr>}
-    <tr className="es-total"><th>Power</th><td/><td>{n(fellowPower(game,id))}</td></tr>
-   </tbody></table>
+  <Dialog open={open} onOpenChange={setOpen}><DialogContent className="breakdown-dialog es-sheet-dialog"><DialogTitle>{def.name}’s sheet</DialogTitle><DialogDescription className="sr-only">How this Fellow's Power is calculated and what they count in each mode.</DialogDescription>
+   <CharacterSheet game={game} id={id}/>
    <p className="small-note">Milestones at levels 10, 25, 50 and 75 each multiply Power by 1.25; level 99 by 1.5; then every 25 levels by 1.25, forever. Levels never cap. Stars never stop either: each adds +25%. Stars cost {areaById(def.area).name} sigils, earned by completing {areaById(def.area).name} habits.</p>
   </DialogContent></Dialog>
  </div>;
@@ -60,7 +53,7 @@ export default function FellowsPanel({game,action,locked,onTalk,selected,setSele
  const owned=game.fellows,order=rosterOrder(FELLOWS,owned,(id:string)=>fellowPower(game,id));
  const person=FELLOWS.find(f=>f.id===selected)||FELLOWS[0],f=owned[person.id],area=areaById(person.area);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Fellows" entries={FELLOWS} owned={owned} selected={selected} sortOrders={['power','level','name']} power={(id:string)=>fellowPower(game,id)} status={(id:string)=>`Lv. ${owned[id].level}`} badge={(id:string)=>fellowCanImprove(game,id)||pathsOpen(game,id)>0||fellowReady(game,FELLOWS.find(x=>x.id===id))} search={false}
+ if(browse)return <RosterLanding kind="Fellows" entries={FELLOWS} owned={owned} selected={selected} sortOrders={['power','gear','level','name']} sortKeys={{gear:(id:string)=>gearScore(game,id)}} power={(id:string)=>fellowPower(game,id)} status={(id:string)=>`Lv. ${owned[id].level}`} badge={(id:string)=>fellowCanImprove(game,id)||pathsOpen(game,id)>0||fellowReady(game,FELLOWS.find(x=>x.id===id))} search={false}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{fellowReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
   summary={<p className="management-hint">Fellows bring Power. Each one belongs to a life area: complete habits in that area to recruit them and earn their stars.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
