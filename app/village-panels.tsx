@@ -9,6 +9,7 @@ import {totalLevel} from '@/lib/skills.mjs';
 import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {QUESTS,questIds,questStatus,pendingTalk} from '@/lib/quests.mjs';
 import {AdventureCards} from './rs-ui';
+import {Forge} from './relics';
 import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
 import {codexQueue} from '@/lib/codex.mjs';
 import {nextChapter,currentStreak,longestStreak} from '@/lib/story.mjs';
@@ -47,6 +48,7 @@ export function BuildingPanel({game,id,action,locked,onCharacter,onTalk}:any){co
    {(()=>{const p=upgradePlan(lvl,game.gold,q);return <div className="business-actions es-upgrade"><QuantityPicker value={q} onChange={setQ} label="Upgrade quantity"/><PrimaryAction verb={lvl?(p.count>1?`Upgrade ×${p.count}`:'Upgrade'):'Build'} tier={!lvl} disabled={locked||!p.count} currency="Gold" have={game.gold} cost={p.count?p.cost:cost} onClick={()=>action('buildingUpgrade',id,q)}/></div>})()}
    {[...fellows,...family].map((p:any)=>{const t=pendingTalk(game,p.id);return t&&((p.kind==='fellow'?game.fellows:game.family)[p.id])?<Button key={'talk-'+p.id} className="primary-action primary-tier rs-talk" onClick={()=>onTalk(t.tree)}><b>Talk to {p.name}</b><small>Quest: {QUESTS[t.quest].name}</small></Button>:null})}
    <AdventureCards game={game} location={id} onStart={onTalk}/>
+   {id==='workshop'&&lvl>0&&<Forge game={game} action={action} locked={locked}/>}
    <div className="es-residents-wrap"><p className="es-residents-title">Residents</p><div className="es-residents">{[...fellows,...family].map((p:any)=><Button key={p.id} variant="outline" onClick={()=>onCharacter(p)}><MiniArt person={p}/>{p.name}<small>{(p.kind==='fellow'?game.fellows:game.family)[p.id]?'Visit':'Not joined'}</small></Button>)}</div></div>
   </article>
   </section>;

@@ -190,6 +190,12 @@ levels and bond that open paths come from Fellow EXP and area habits, and the Wa
 - **Drops**: each Map run rolls 5% (bosses 15%): common 60 / rare 30 / epic 10. A boss drops its legendary 4% of the time and surely on every 25th run of it. Gauntlet floors 10 and 25
   drop a rare, floor 50 an epic; every 25th Spire floor an epic. Rolls are fixed by the save and the run count, so a batch equals the same runs one by one. The drop stops the result
   scroll with the relic in its tier colour and an Equip control (the suggested wearer is a specialist of its mode with an empty slot, else the strongest). The Collection Log lists all 47.
+- **Rolls**: every drop rolls once; its affix is the catalogue value × (0.8 + 0.4 × roll), so the best piece of a kind is ×1.2 its listed number and the worst ×0.8, and 95%+ is shown as
+  *perfect*. Owned relics are pieces (`relics:{items:{uid:{id,roll}},worn:{charId:uid},shards,next}`); the roll is part of the drop's seed, so a batch still equals the same runs one by one.
+  Wearing by catalogue id picks the best free roll. Saves from before rolls arrive with every copy at a middle roll.
+- **The Forge** (in the Workshop, once it is built): salvage an unworn relic into shards by tier (common 1, rare 3, epic 10, legendary 30), salvage every *spare* (unworn and not
+  the best roll of its kind) in one tap, reroll a relic for twice its salvage value, or ascend a common (5) or rare (15) one tier within its kind with a fresh roll. Epics and legendaries
+  cannot be ascended, so a legendary only ever comes from its boss. The Forge's roll is fixed by the save and its count. Shards come only from relics, so only from Roams.
 - **Pace**: with Steady and the roles at 5%, the simulator's day-120 step moves from 124 to about 131 (8 habits) and 100 to about 104 (4 habits); at 10% it was 137, more than
   doubling the War Table's EXP constants, which is why they are 5%. Specialties and sets change who you send, not how fast the Map goes.
 

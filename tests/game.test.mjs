@@ -10,7 +10,9 @@ import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,
 import {expeditionById} from '../lib/game.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss} from '../lib/traits.mjs';
-import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY} from '../lib/game.mjs';
+import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
+const relicsOf=(...list)=>{const items={},worn={};list.forEach(([id,roll,wearer],i)=>{items['r'+(i+1)]={id,roll};if(wearer)worn[wearer]='r'+(i+1)});return {items,worn,shards:0,next:list.length+1}};
+
 
 test('errand pay grows with the crew: √(Power ÷ need) up to ×8, half under the need',()=>{
  assert.equal(errandMult(0.5),0.5);assert.equal(errandMult(1),1);assert.equal(errandMult(4),2);assert.equal(errandMult(25),5);assert.equal(errandMult(1e6),ERRAND_MULT_CAP);
@@ -74,7 +76,7 @@ test('specialists count ×1.25 in their own mode, Focus paths add to it, a relic
  assert.equal(specOf('darrow'),'arena');assert.equal(specMult(s,'darrow','arena'),SPEC_MULT);assert.equal(specMult(s,'darrow','rift'),1);assert.equal(specMult(s,'obiwan','arena'),1);
  assert.equal(WT.modePower(s,'darrow','arena'),WT.charPower(s,'darrow')*SPEC_MULT);
  const f=act(act(s,'pathChoose',T,'darrow','focus').state,'pathChoose',T,'darrow','focus').state;assert.equal(specMult(f,'darrow','arena'),SPEC_MULT+2*PATH_FOCUS);
- const r={...s,relics:{owned:{'arena-epic':1},worn:{darrow:'arena-epic'}}};assert.equal(specMult(r,'darrow','arena'),SPEC_MULT*1.35);assert.equal(specMult(r,'darrow','spire'),1);
+ const r={...s,relics:relicsOf(['arena-epic',0.5,'darrow'])};assert.equal(specMult(r,'darrow','arena'),SPEC_MULT*1.35);assert.equal(specMult(r,'darrow','spire'),1);
  const p=WT.trialPower(r,'faith',['darrow','kira'],1,T);assert.equal(p.power,WT.charPower(r,'darrow')+WT.charPower(r,'kira'),'Silence: raw power, no family bonus, no specialty, no relic')});
 
 test('three of a franchise in a squad fight ×1.2 under their set name; two do not',()=>{
@@ -89,7 +91,8 @@ test('roles: Providers and Mentors raise what a squad brings home, Guardians hol
  assert.equal(roleOf('padme'),'provider');assert.equal(roleOf('obiwan'),'mentor');assert.equal(roleOf('steve'),'guardian');assert.equal(roleOf('darrow'),'fighter');
  const s={...fresh(T),fellows:{darrow:{level:300,stars:0},obiwan:{level:300,stars:0},geralt:{level:300,stars:0}},family:{padme:{bond:2e5},kira:{bond:2e5},tyrande:{bond:2e5}}};
  assert.equal(squadGoldMult(s,['padme','kira']),1.05);assert.equal(squadExpMult(s,['obiwan','darrow','geralt']),1.05);assert.equal(squadGoldMult(s,['darrow']),1);
- const g={...s,relics:{owned:{'gold-epic':1},worn:{kira:'gold-epic'}}};assert.equal(squadGoldMult(g,['padme','kira']),1.4,'a gold relic stacks with a Provider');
+ const g={...s,relics:relicsOf(['gold-epic',0.5,'kira'])};assert.equal(squadGoldMult(g,['padme','kira']),1.4,'a gold relic stacks with a Provider');
+ const g2={...s,relics:relicsOf(['gold-epic',1,'kira'])};assert.equal(squadGoldMult(g2,['padme','kira']),1+0.05+0.35*1.2,'a perfect roll is ×1.2 the affix');
  assert.equal(WT.charPower(s,'kira'),WT.charPower(s,'tyrande'),'same bond, same Power');
  assert.equal(WT.frontWaves(s,'faith',['tyrande'],0),WT.frontWaves(s,'faith',['kira'],0)+GUARD_WAVE,'a Guardian (Blightbane, not Shieldwall) holds one more wave');
  const m=act(s,'mode:arena',T,null,['darrow','obiwan','geralt']),n=act(s,'mode:arena',T,null,['darrow','geralt']);assert.ok(m.won&&n.won);
@@ -107,28 +110,46 @@ test('paths open at level and bond 50 and 100, are chosen once each, and Steady 
  let kira={...s,family:{kira:{bond:1e7}}};assert.ok(bondLv(1e7)>=100);assert.equal(pathsOpen(kira,'kira'),2);const k=act(kira,'pathChoose',T,'kira','steady');assert.equal(WT.charPower(k.state,'kira'),Math.round(WT.familyPower(1e7)*(1+PATH_STEADY)));
  assert.ok(valid(migrate({...fresh(T),paths:undefined,relics:undefined})),'old saves without paths or relics load')});
 
+test('the Forge: old count saves migrate to rolled pieces; salvage, spares, reroll and ascend keep the books straight',()=>{
+ const old=migrate({...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0}},relics:{owned:{'power-rare':2,'arena-epic':1},worn:{darrow:'power-rare',thor:'arena-epic'}}});
+ assert.ok(valid(old));assert.equal(relicsOwned(old).length,3);assert.ok(relicsOwned(old).every(r=>r.roll===0.5),'middle roll');assert.equal(wornRelic(old,'darrow').id,'power-rare');assert.equal(wornRelic(old,'thor').id,'arena-epic');assert.equal(relicFree(old,'power-rare'),1);assert.equal(old.relics.shards,0);
+ let s={...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:relicsOf(['arena-common',0.3],['arena-common',0.8],['arena-common',0.1,'darrow'],['arena-rare',0.5],['vibranium-shield',0.4],['power-epic',0.9])};
+ assert.deepEqual(relicSpares(s).map(r=>r.uid),['r1'],'r1 is a spare (r2 is the best Glove, r3 is worn)');
+ assert.ok(act(s,'relicSalvage',T,'r3').error,'worn');assert.ok(act(s,'relicSalvage',T,'r99').error);
+ let r=act(s,'relicSalvage',T,'r5');assert.ok(!r.error,r.error);assert.equal(r.state.relics.shards,SHARDS.legendary);assert.equal(relicsOwned(r.state).length,5);assert.ok(valid(r.state));
+ r=act(r.state,'relicSalvageSpares',T);assert.ok(!r.error,r.error);assert.equal(r.state.relics.shards,SHARDS.legendary+SHARDS.common);assert.ok(!r.state.relics.items.r1);assert.ok(act(r.state,'relicSalvageSpares',T).error,'nothing left to salvage');
+ assert.ok(act({...s,relics:{...s.relics,shards:0}},'relicReroll',T,'r4').error,'no shards');
+ const before=r.state.relics.shards;let rr=act(r.state,'relicReroll',T,'r4');assert.ok(!rr.error,rr.error);assert.equal(rr.state.relics.shards,before-SHARDS.rare*REROLL_MULT);assert.equal(rr.state.relics.items.r4.id,'arena-rare');assert.ok(rr.relic.roll>=0&&rr.relic.roll<=1);assert.deepEqual(act(r.state,'relicReroll',T,'r4').state,rr.state,'the Forge roll is fixed');
+ const r2=act(rr.state,'relicReroll',T,'r4');assert.notEqual(r2.state.relics.items.r4.roll,rr.state.relics.items.r4.roll,'the next roll differs');
+ assert.ok(act(s,'relicAscend',T,'r6').error,'epics stay');assert.ok(act(s,'relicAscend',T,'r5').error,'legendaries stay');
+ let a=act({...s,relics:{...s.relics,shards:ASCEND.common}},'relicAscend',T,'r3');assert.ok(!a.error,a.error);assert.equal(a.state.relics.items.r3.id,'arena-rare');assert.equal(a.state.relics.shards,0);assert.equal(a.state.relics.worn.darrow,'r3','still on Darrow');assert.ok(valid(a.state));
+ assert.ok(act(a.state,'relicAscend',T,'r3').error,'15 more for epic');a=act({...a.state,relics:{...a.state.relics,shards:ASCEND.rare}},'relicAscend',T,'r3');assert.equal(a.state.relics.items.r3.id,'arena-epic');
+ const pr={...fresh(T),fellows:{darrow:{level:100,stars:0}},relics:relicsOf(['power-rare',0.5])};a=act({...pr,relics:{...pr.relics,shards:ASCEND.rare}},'relicAscend',T,'r1');assert.equal(a.state.relics.items.r1.id,'power-epic','power relics ascend within their kind')});
+
 test('relics drop from Map runs by tier, a boss drops its own legendary and surely on its 25th run, and a batch matches one by one',()=>{
  const s={...fresh(T),fellows:{darrow:{level:500,stars:5}},roam:{charges:ROAM_URL_MAX,seen:[]}};const e=expeditionById('cow-field');
  const drops=[];for(let i=1;i<=2000;i++){const r=relicDrop(s,e,i);if(r)drops.push(r)}const rate=drops.length/2000;assert.ok(rate>0.03&&rate<0.07,'about 5%: '+rate);
  assert.ok(drops.every(r=>r.tier!=='legendary'));const tiers=Object.fromEntries(['common','rare','epic'].map(t=>[t,drops.filter(r=>r.tier===t).length/drops.length]));assert.ok(tiers.common>0.45&&tiers.epic<0.2,JSON.stringify(tiers));
- const boss=expeditionById('count-draynor'),leg=legendaryOfBoss('count-draynor');assert.equal(leg.name,'Silver Sword');assert.equal(relicDrop(s,boss,RELIC_PITY),leg,'pity on the 25th run');
- let legs=0;for(let i=1;i<=1000;i++)if(i%RELIC_PITY&&relicDrop(s,boss,i)===leg)legs++;assert.ok(legs>15&&legs<80,'about 4% otherwise: '+legs);
- assert.equal(relicDrop(s,e,7),relicDrop(s,e,7),'fixed per run');
+ const boss=expeditionById('count-draynor'),leg=legendaryOfBoss('count-draynor');assert.equal(leg.name,'Silver Sword');assert.equal(relicDrop(s,boss,RELIC_PITY).id,leg.id,'pity on the 25th run');
+ let legs=0;for(let i=1;i<=1000;i++)if(i%RELIC_PITY&&relicDrop(s,boss,i)?.id===leg.id)legs++;assert.ok(legs>15&&legs<80,'about 4% otherwise: '+legs);
+ assert.deepEqual(relicDrop(s,e,7),relicDrop(s,e,7),'fixed per run');assert.ok(drops.every(d=>d.roll>=0&&d.roll<=1),'every drop rolls');assert.ok(drops.some(d=>d.roll>0.9)&&drops.some(d=>d.roll<0.1),'rolls spread');
  let one=s,got=[];for(let i=0;i<30;i++){const r=act(one,'expedition',T,'cow-field');assert.ok(!r.error,r.error);one=r.state;got.push(...r.expedition.relics)}const many=act(s,'expedition',T,'cow-field',30);
- assert.deepEqual(many.state,one);assert.deepEqual(many.expedition.relics,got);assert.equal(Object.values(one.relics.owned).reduce((a,b)=>a+b,0),got.length);assert.ok(valid(one))});
+ assert.deepEqual(many.state,one);assert.deepEqual(many.expedition.relics,got);assert.equal(relicsOwned(one).length,got.length);assert.ok(got.every(r=>r.uid&&one.relics.items[r.uid].id===r.id&&r.value===rolled(relicById(r.id),r.roll)),'results carry the owned piece');assert.ok(valid(one))});
 
 test('relics are worn one per character and one wearer per copy; a legendary counts double on its own franchise; the War Table drops them on milestones',()=>{
- let s={...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0}},family:{kira:{bond:1e5}},relics:{owned:{'vibranium-shield':1,'power-rare':2},worn:{}}};
+ let s={...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0}},family:{kira:{bond:1e5}},relics:relicsOf(['vibranium-shield',0.5],['power-rare',0.5],['power-rare',0.5])};
  assert.ok(act(s,'relicWear',T,'darrow','elder-wand').error,'not owned');assert.ok(act(s,'relicWear',T,'obiwan','power-rare').error,'not recruited');
  const p0=fellowPower(s,'darrow'),t0=fellowPower(s,'thor');let r=act(s,'relicWear',T,'darrow','vibranium-shield');assert.ok(!r.error,r.error);assert.equal(fellowPower(r.state,'darrow'),Math.round(p0*1.25));
  assert.ok(act(r.state,'relicWear',T,'thor','vibranium-shield').error,'the one copy is on Darrow');assert.equal(relicFree(r.state,'vibranium-shield'),0);
  r=act(r.state,'relicWear',T,'darrow',null);assert.ok(!r.error);assert.equal(fellowPower(r.state,'darrow'),p0);r=act(r.state,'relicWear',T,'thor','vibranium-shield');assert.ok(!r.error);assert.equal(fellowPower(r.state,'thor'),Math.round(t0*1.5),'Thor is Marvel: doubled');
  r=act(r.state,'relicWear',T,'darrow','power-rare');r=act(r.state,'relicWear',T,'kira','power-rare');assert.ok(!r.error,r.error);assert.equal(WT.charPower(r.state,'kira'),Math.round(WT.familyPower(1e5)*1.05));assert.equal(relicFree(r.state,'power-rare'),0);
  r=act(r.state,'relicWear',T,'thor','power-rare');assert.ok(r.error,'both copies worn');assert.ok(valid(act(s,'relicWear',T,'darrow','power-rare').state));
- assert.ok(!valid({...s,relics:{owned:{'power-rare':1},worn:{darrow:'power-rare',thor:'power-rare'}}}),'more wearers than copies is refused');assert.ok(!valid({...s,relics:{owned:{bogus:1},worn:{}}}));
- const [g,rel]=grantRelic(s,'epic','spire:25');assert.equal(rel.tier,'epic');assert.equal(g.relics.owned[rel.id],1);
+ assert.ok(!valid({...s,relics:{...relicsOf(['power-rare',0.5]),worn:{darrow:'r1',thor:'r1'}}}),'one piece on two wearers is refused');assert.ok(!valid({...s,relics:relicsOf(['bogus',0.5])}));assert.ok(!valid({...s,relics:relicsOf(['power-rare',1.5])}));
+ const [g,rel]=grantRelic(s,'epic','spire:25');assert.equal(rel.tier,'epic');assert.equal(g.relics.items[rel.uid].id,rel.id);assert.equal(relicAt(g,rel.uid).value,rolled(relicById(rel.id),rel.roll));
+ // Wearing by uid picks that piece; by catalogue id the best free roll.
+ const two={...s,relics:relicsOf(['power-rare',0.2],['power-rare',0.9])};let w=act(two,'relicWear',T,'darrow','power-rare');assert.equal(w.state.relics.worn.darrow,'r2','best roll first');w=act(w.state,'relicWear',T,'thor','r2');assert.ok(w.error,'r2 is on Darrow');w=act(w.state,'relicWear',T,'thor','r1');assert.ok(!w.error);assert.equal(fellowPower(w.state,'thor'),Math.round(fellowPower(s,'thor')*(1+0.05*(ROLL_MIN+ROLL_SPAN*0.2))));
  const big={...fresh(T),fellows:{darrow:{level:3000,stars:9},geralt:{level:3000,stars:9},obiwan:{level:3000,stars:9}}};const sp=act(big,'mode:spire',T,null,['darrow','geralt','obiwan']);assert.ok(sp.state.modes.spire.floor>=25,'climbs past 25');assert.ok(sp.relic&&sp.relic.tier==='epic','the Spire drops an epic every 25th floor');
- assert.equal(Object.values(sp.state.relics.owned).reduce((a,b)=>a+b,0),Math.floor(sp.state.modes.spire.floor/25));
+ assert.equal(relicsOwned(sp.state).length,Math.floor(sp.state.modes.spire.floor/25));
  assert.equal(RELICS.length,47);assert.equal(RELICS.filter(r=>r.tier==='legendary').length,15);assert.ok(RELICS.every(r=>relicById(r.id)===r))});
 
 test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and nothing else in the URL does anything',()=>{const s=fresh(T);

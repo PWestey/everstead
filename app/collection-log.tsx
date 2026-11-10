@@ -6,7 +6,8 @@ import {CODEX_CARDS} from '@/lib/codex.mjs';
 import {QUESTS,questIds,questStatus} from '@/lib/quests.mjs';
 import {CHAPTERS,chapterDone} from '@/lib/story.mjs';
 import {skillLevel,MAX_LEVEL} from '@/lib/skills.mjs';
-import {RELICS,TIERS} from '@/lib/traits.mjs';
+import {RELICS,TIERS} from "@/lib/traits.mjs";
+import {rollPct} from "@/lib/game.mjs";
 
 type Row={name:string,done:boolean,note?:string};
 type Section={title:string,rows:Row[]};
@@ -18,7 +19,7 @@ export function CollectionLog({game}:{game:any}){
   {title:'Family',rows:FAMILY.map((f:any)=>({name:f.name,done:!!game.family[f.id]}))},
   {title:'Companions',rows:COMPANIONS.map(c=>{const o=game.companions?.[c.id];return {name:o?companionName(c,o.stage):c.stages[0].name,done:!!o,note:o&&o.stage===c.stages.length&&c.stages.length>1?'final form':undefined}})},
   {title:'Bosses',rows:REGIONS.map(r=>({name:r.boss.title,done:game.expeditions.bosses.includes(r.boss.id),note:r.name}))},
-  {title:'Relics',rows:RELICS.map((r:any)=>({name:r.name,done:(game.relics?.owned?.[r.id]||0)>0,note:(TIERS as any)[r.tier].name+(r.boss?' · '+r.boss.replace(/-/g,' '):'')+((game.relics?.owned?.[r.id]||0)>1?' ×'+game.relics.owned[r.id]:'')}))},
+  {title:'Relics',rows:RELICS.map((r:any)=>{const mine=Object.values(game.relics?.items||{}).filter((it:any)=>it.id===r.id),best=Math.max(-1,...mine.map((it:any)=>it.roll));return {name:r.name,done:mine.length>0,note:(TIERS as any)[r.tier].name+(r.boss?' · '+r.boss.replace(/-/g,' '):'')+(mine.length>1?' ×'+mine.length:'')+(best>=0?' · best '+rollPct(best):'')}})},
   {title:'Skills at 99',rows:AREAS.map(a=>({name:a.name,done:skillLevel(game,a.id)>=MAX_LEVEL,note:`Lv ${skillLevel(game,a.id)}`}))},
   {title:'Quests',rows:questIds.map((id:string)=>({name:QUESTS[id].name,done:questStatus(game,id).status==='complete'}))},
   {title:'Story',rows:CHAPTERS.map(c=>({name:c.n<9?`Chapter ${c.n}: ${c.title}`:c.title,done:chapterDone(game,c.n)}))},
