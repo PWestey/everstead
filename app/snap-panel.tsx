@@ -8,6 +8,8 @@ import {DECKS as BUILT_IN_M} from '@/lib/snap/decks.mjs';
 import * as ENGINE from '@/lib/snap/engine.mjs';
 import {AIS as AIS_M} from '@/lib/snap/ai.mjs';
 import VERSION from '@/lib/snap/VERSION.json';
+import CARD_TIERS from '@/lib/snap-tiers.json';
+import '@/lib/snap-house.mjs';
 import {snapGold,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME} from '@/lib/game.mjs';
 import {abbrev} from './original-controls';
 
@@ -154,7 +156,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   </div>
   <div className="sn-hand">{s.players[ME].hand.filter((c:any)=>!m.staged.some((pl:any)=>pl.uid===c.uid)).map((c:any)=>{const ok=E.effCost(s,ME,c)<=energyLeft(m)&&!over(m)&&!m.busy&&[0,1,2].some(li=>E.canPlayAt(s,li,ME,c));
    return <Card key={c.uid} card={c} m={m} cls={(ok?'':'sn-unaffordable')+(m.selected===c.uid?' sn-selected':'')} onClick={()=>{if(ok)set(x=>({...x,move:null,selected:x.selected===c.uid?null:c.uid}))}} onPeek={onPeek}/>})}</div>
-  {peek&&<div className="sn-peek">{cardArt(peek.card)&&<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p>{cardArt(peek.card)?.artist&&<small>Art: {cardArt(peek.card)!.artist}</small>}</div></div>}
+  {peek&&<div className="sn-peek">{cardArt(peek.card)&&<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p>{(cardArt(peek.card)?.artist||CARDS[peek.card.id].house)&&<small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist:''}{CARDS[peek.card.id].house?(cardArt(peek.card)?.artist?' · ':'')+'House rule: +'+CARDS[peek.card.id].house+' Power':''}</small>}</div></div>}
   {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}! +${abbrev(snapGold(game,cubes))} gold`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}</div>}
   <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
   <div className="business-actions sn-acts">
@@ -183,11 +185,11 @@ function DeckBuilder({game,action,locked,start,startName,onClose,onSaved}:{game:
  const toggle=(id:string)=>setPicked(p=>p.includes(id)?p.filter(x=>x!==id):p.length<SNAP_DECK?[...p,id]:p);
  const save=()=>{const n=name.trim();if(!n){setErr('Give the deck a name');return}if(BUILT_IN[n]){setErr('That name belongs to a built-in deck');return}if(action('snapDeckSave',n,picked))onSaved(n)};
  const mine=!!game.snap?.decks?.[name.trim()];
- return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder"><DialogTitle>Build a deck</DialogTitle><DialogDescription>Tap cards to add or remove them. A deck is exactly {SNAP_DECK} different cards.</DialogDescription>
+ return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder"><DialogTitle>Build a deck</DialogTitle><DialogDescription>Tap cards to add or remove them. A deck is exactly {SNAP_DECK} different cards. T1–T5 is the card’s standing in the public tier lists; +1 marks a house rule.</DialogDescription>
   <div className="sn-bar"><input value={name} maxLength={SNAP_DECK_NAME} placeholder="Deck name" onChange={e=>{setName(e.target.value);setErr('')}}/><input value={q} placeholder="Search name or text" onChange={e=>setQ(e.target.value)}/>
    <NativeSelect value={cost} onChange={(e:any)=>setCost(e.target.value)}><NativeSelectOption value="">Any cost</NativeSelectOption>{[0,1,2,3,4,5,6].map(c=><NativeSelectOption key={c} value={String(c)}>{c===6?'6+':c}-Cost</NativeSelectOption>)}</NativeSelect>
    <label className="sn-only"><input type="checkbox" checked={only} onChange={e=>setOnly(e.target.checked)}/> picked only</label><b>{picked.length} / {SNAP_DECK}</b></div>
-  <div className="sn-pool">{shown.map(id=>{const d=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} title={d.text||'No ability'} onClick={()=>toggle(id)}><span className="sn-c">{d.cost}</span><span>{d.name}{d.skill?' (skill)':''}</span><span className="sn-p">{d.skill?'':d.power}</span></button>})}</div>
+  <div className="sn-pool">{shown.map(id=>{const d=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} title={d.text||'No ability'} onClick={()=>toggle(id)}><span className="sn-c">{d.cost}</span><span>{d.name}{d.skill?' (skill)':''}{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]} title={'Tier '+(CARD_TIERS as any)[id]+' in the public tier lists'}>T{(CARD_TIERS as any)[id]}</i>}{d.house&&<i className="sn-house" title={'House rule: +'+d.house+' Power'}>+{d.house}</i>}</span><span className="sn-p">{d.skill?'':d.power}</span></button>})}</div>
   {err&&<p className="small-note sn-err">{err}</p>}
   <div className="sn-bar"><Button disabled={locked||picked.length!==SNAP_DECK} onClick={save}>Save deck</Button>{mine&&<Button variant="outline" disabled={locked} onClick={()=>{if(action('snapDeckDelete',name.trim()))onClose()}}>Delete</Button>}<Button variant="outline" onClick={()=>setPicked([])}>Clear</Button><Button variant="outline" onClick={onClose}>Close</Button></div>
  </DialogContent></Dialog>;

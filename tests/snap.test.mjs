@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {fresh,act,valid,migrate,snapGold,SNAP_GOLD,SNAP_DECK,TITLES,titlesEarned} from '../lib/game.mjs';
 import {goldUnit} from '../lib/modes.mjs';
 import {CARDS,POOL_IDS} from '../lib/snap/cards.mjs';
@@ -33,3 +34,11 @@ test('decks are saved by name, must be 12 different cards, and can be forgotten'
 
 test('Cardsharp is earned at 100 cubes',()=>{
  const s=fresh(T);assert.ok(!titlesEarned(s).some(t=>t.id==='cardsharp'));assert.ok(titlesEarned({...s,snap:{...s.snap,cubes:100}}).some(t=>t.id==='cardsharp'));assert.ok(TITLES.some(t=>t.id==='cardsharp'))});
+
+test('house rules: +1 Power to famous Tier 4-5 cards, applied once on import, never more than HOUSE_MAX, only to real cards',async()=>{
+ const {HOUSE_POWER,HOUSE_MAX,applyHouseRules}=await import('../lib/snap-house.mjs');
+ for(const [id,d] of Object.entries(HOUSE_POWER)){assert.ok(CARDS[id],id+' exists');assert.ok(!CARDS[id].token,id+' is a character');assert.ok(d>=1&&d<=HOUSE_MAX,id+' is minor');assert.equal(CARDS[id].house,d)}
+ assert.equal(CARDS.Hawkeye.power,2,'Hawkeye 1/1 became 1/2');assert.equal(CARDS.TheThing.power,8);assert.deepEqual(applyHouseRules(),[],'a second application changes nothing');
+ const s=E.startTurn(E.createGame({decks:[DECKS.kazoo,DECKS.destroy],seed:3}));const hawk=[...s.players[0].hand,...s.players[0].deck].find(c=>c.id==='Hawkeye');assert.equal(hawk.power,2,'cards in a game carry the house number');
+ const tiers=JSON.parse(readFileSync(new URL('../lib/snap-tiers.json',import.meta.url),'utf8'));for(const [id,t] of Object.entries(tiers)){assert.ok(CARDS[id],id);assert.ok(t>=1&&t<=5)}
+ assert.ok(Object.keys(tiers).length>=450,'most of the pool is rated')});

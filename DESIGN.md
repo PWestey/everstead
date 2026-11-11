@@ -278,6 +278,10 @@ cards are seen, never at install; variants stay out). Re-run the script after th
   village income, so matches can only ever add a slice of what the habits already make. Losses cost nothing. No daily limit yet (to be set after play-testing).
 - **Ledger** (`snap` in the save): cubes, matches played and won, best win, and custom decks by name (12 different cards, `snapDeckSave` / `snapDeckDelete`).
   The **Cardsharp** title at 100 cubes. A match in progress lives for the page, not the save.
+- **Tier list and house rules:** `docs/snap-tiers.md` rates every card from the public tier lists (Marvel Snap Zone Series 3-5, Pocket Gamer for the
+  launch pool, snap.fan win rates where present); `lib/snap-tiers.json` carries the tier the deck builder shows (T1-T5). `lib/snap-house.mjs` is the only
+  place the Parlour departs from the real card numbers: +1 Power to famous characters sitting in Tier 4-5 (36 cards), applied to the card table on import,
+  never more than `HOUSE_MAX` per card and never a text change, so the copied engine, its hooks and the AI need no changes. Marked +1 in the builder and the peek.
 
 ## Buildings
 
