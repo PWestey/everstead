@@ -12,6 +12,7 @@ const LANDMARKS=[
  {id:'wartable',label:'War Table',sprite:'Building_1101',module:'modes',x:50,y:36},
  {id:'menagerie',label:'Companions',sprite:'Building_1601',module:'companions',x:84,y:56},
  {id:'grounds',label:'Training Grounds',sprite:'Building_1301',module:'training',x:12,y:36},
+ {id:'parlour',label:'Card Parlour',sprite:'Building_1201',module:'snap',x:88,y:76},
 ];
 /** Everstead: one continuous village you pan across. Each life area owns a building; today's habits
  *  in that area light it up (the glow is the area boost, the same number that raises its income). */

@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useRef,useState,lazy,Suspense} from 'react';
 import {ShieldCheck,HardDrive,Check,Share2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {AlertDialog,AlertDialogContent,AlertDialogTitle,AlertDialogDescription,AlertDialogCancel,AlertDialogAction} from '@/components/ui/alert-dialog';
@@ -15,6 +15,7 @@ import {CodexPanel} from './codex-panel';
 import {ModesPanel} from './modes-panel';
 import {CompanionsPanel} from './companions-panel';
 import {TrainingPanel} from './training-panel';
+const SnapPanel=lazy(()=>import('./snap-panel').then(m=>({default:m.SnapPanel})));   // the card engine loads when the Parlour opens
 import {RelicDropDialog} from './relics';
 import {TREES,cheerTree} from '@/lib/dialogue.mjs';
 import {createPersistence} from '@/lib/persistence.mjs';
@@ -28,7 +29,7 @@ import {QuestJournal,DialogueScreen,LevelUpDialog,QuestCompleteScroll} from './r
 const MODULES:Record<string,{title:string,icon:string}>={
  hero:{title:'Your Hero',icon:'Character_Summary_icon'},fellows:{title:'Fellows',icon:'Your_Clan_icon'},family:{title:'Family',icon:'Friends_List'},
  stage:{title:'Expedition Map',icon:'World_map_icon'},habits:{title:'Habit Journal',icon:'Collection_log_icon'},roaming:{title:'Village Gate',icon:'Lumbridge_Home_Teleport'},
- today:{title:'Today',icon:'Watch'},codex:{title:'The Archives',icon:'Quest_list_icon'},modes:{title:'The War Table',icon:'Combat_icon'},companions:{title:'Companions',icon:'Hunter_kit'},training:{title:'Training Grounds',icon:'Skills_icon'},building:{title:'Building',icon:'Bank_icon'},quests:{title:'Quest Journal',icon:'Quest_list_icon'}};
+ today:{title:'Today',icon:'Watch'},codex:{title:'The Archives',icon:'Quest_list_icon'},modes:{title:'The War Table',icon:'Combat_icon'},companions:{title:'Companions',icon:'Hunter_kit'},training:{title:'Training Grounds',icon:'Skills_icon'},snap:{title:'The Card Parlour',icon:'Pub_icon'},building:{title:'Building',icon:'Bank_icon'},quests:{title:'Quest Journal',icon:'Quest_list_icon'}};
 const CHARACTER_MODULES=['hero','fellows','family'];
 
 /** Cheers (character pop-ups after habits) can be turned off per device. */
@@ -121,6 +122,7 @@ export default function App(){
     {tab==='modes'&&<ModesPanel game={game} action={action} locked={locked} mode={wtMode} setMode={setWtMode}/>}
     {tab==='companions'&&<CompanionsPanel game={game} action={action} locked={locked}/>}
     {tab==='training'&&<TrainingPanel game={game} action={action} locked={locked}/>}
+    {tab==='snap'&&<Suspense fallback={<p className="small-note">Shuffling the deck…</p>}><SnapPanel game={game} action={action} locked={locked}/></Suspense>}
     {tab==='quests'&&<QuestJournal game={game} onTalk={setTalk}/>}
     {tab==='building'&&<BuildingPanel game={game} id={building} action={action} locked={locked} onTalk={setTalk} onCharacter={(p:any)=>{if(p.kind==='fellow'){setFellow(p.id);openModule('fellows');setFellowBrowse(false)}else{setMember(p.id);openModule('family');setFamilyBrowse(false)}}}/>}
    </div>
