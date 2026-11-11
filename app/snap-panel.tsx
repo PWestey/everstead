@@ -1,4 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
+import {createPortal} from 'react-dom';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
@@ -73,7 +74,7 @@ function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{c
 }
 
 export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
- const [m,setM]=useState<Match|null>(live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[retreating,setRetreating]=useState(false);
+ const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[retreating,setRetreating]=useState(false);
  const [ai,setAi]=useState(prefs.ai),[deckMe,setDeckMe]=useState(prefs.deckMe),[deckAi,setDeckAi]=useState(prefs.deckAi);
  const ref=useRef(m);ref.current=m;
  useEffect(()=>{loadArt().then(()=>tick(t=>t+1))},[]);
@@ -83,7 +84,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const ledger=game.snap||{cubes:0,played:0,won:0,best:0};
  const set=(fn:(m:Match)=>Match)=>{const cur=ref.current;if(!cur)return;const n=fn(cur);ref.current=n;setM(n)};
 
- async function start(){if(!decks[deckMe]||!decks[deckAi])return;let n=newMatch(decks,deckMe,deckAi,ai);ref.current=n;setM(n);n=await beginTurn(n);ref.current=n;setM(n);setPeek(null);setRetreating(false)}
+ async function start(){if(!decks[deckMe]||!decks[deckAi])return;let n=newMatch(decks,deckMe,deckAi,ai);ref.current=n;setM(n);setOpen(true);n=await beginTurn(n);ref.current=n;setM(n);setPeek(null);setRetreating(false)}
  /** Both submissions go to the engine; the AI's comes from the worker (or was made first, under Daredevil). */
  async function endTurn(act='none'){const cur=ref.current;if(!cur||cur.state.over||cur.busy)return;
   set(x=>({...x,busy:true,action:act,note:''}));const s=cur.state,mine={plays:cur.staged,moves:cur.moves.map((x:any)=>({uid:x.uid,to:x.to})),activates:cur.activates};
@@ -119,11 +120,12 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
   </div>
-  <div className="business-actions sn-acts"><Button disabled={locked} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button></div>
+  <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button></div>
   <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}). A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
 
- if(!m)return <section className="business-list es-building sn-panel">{lobby}{builder&&<DeckBuilder game={game} action={action} locked={locked} start={decks[deckMe]||[]} startName={custom[deckMe]?deckMe:''} onClose={()=>setBuilder(false)} onSaved={(n:string)=>{setDeckMe(n);setBuilder(false)}}/>}</section>;
+ const builderDialog=builder&&<DeckBuilder game={game} action={action} locked={locked} start={decks[deckMe]||[]} startName={custom[deckMe]?deckMe:''} onClose={()=>setBuilder(false)} onSaved={(n:string)=>{setDeckMe(n);setBuilder(false)}}/>;
+ if(!m||!open)return <section className="business-list es-building sn-panel">{lobby}{builderDialog}</section>;
 
  const s=m.state,canSee=seer(m),cubes=s.over?E.cubesFor(s,ME):0,fin=E.finalTurn(s);
  const notes:string[]=[];
@@ -134,7 +136,9 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const hint=s.over?'':m.busy?'The opponent is thinking…':m.agatha?(E.egoControls(s)?'Ego':'Agatha Harkness')+' controls your cards this turn. You can still Snap or Retreat, then end the turn.':m.selected||m.move?'Now tap a location.':'Tap a card, then a location. Outlined cards on the board can move. Tap a staged card to take it back.';
  const retreatCost=s.finalDoubled&&s.turn>=fin?s.stake/2:s.stake;
 
- return <section className="business-list es-building sn-panel">
+ // The match takes the whole screen (a portal, so the module dialog's transform cannot pin it): the board gets every pixel a phone has.
+ return createPortal(<div className="sn-full" role="dialog" aria-label="The Card Parlour table">
+  <div className="sn-full-head"><b>The Card Parlour</b><Button variant="outline" onClick={()=>setOpen(false)}>{s.over?'Back to the table':'Leave the table'}</Button></div>
   <div className="sn-stats">
    <span><small>Turn</small><b>{s.turn} / {fin}</b></span><span><small>Energy</small><b>{energyLeft(m)} / {s.players[ME].energy}</b></span>
    <span><small>Stake</small><b>{s.stake}{s.snapped[ME]?' ·you':''}{s.snapped[AI]?' ·them':''}</b></span><span><small>Their hand / deck</small><b>{s.players[AI].hand.length} / {s.players[AI].deck.length}</b></span>
@@ -160,7 +164,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}! +${abbrev(snapGold(game,cubes))} gold`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}</div>}
   <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
   <div className="business-actions sn-acts">
-   {s.over?<><Button disabled={locked} onClick={start}>Play again</Button><Button variant="outline" onClick={()=>{live=null;setM(null)}}>Back to the table</Button></>
+   {s.over?<><Button disabled={locked} onClick={start}>Play again</Button><Button variant="outline" onClick={()=>{live=null;setM(null);setOpen(false)}}>Back to the table</Button></>
    :<>
     <Button disabled={m.busy||s.snapped[ME]||m.action!=='none'} variant="outline" className="sn-snap" onClick={()=>set(x=>({...x,action:'snap'}))}>{m.action==='snap'?'Snapping…':'Snap'}</Button>
     {retreating?<><Button variant="outline" onClick={()=>{setRetreating(false);endTurn('retreat')}}>Yes, lose {retreatCost}</Button><Button variant="outline" onClick={()=>setRetreating(false)}>Stay</Button></>
@@ -171,9 +175,8 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   <details className="sn-log"><summary>Match log</summary><pre>{s.log.slice(-30).join('\n')}</pre></details>
   {chooser&&<Dialog open onOpenChange={o=>{if(!o)setChooser(null)}}><DialogContent className="breakdown-dialog"><DialogTitle>{chooser.name}: choose a target</DialogTitle><DialogDescription className="sr-only">Pick where the card acts.</DialogDescription>
    <div className="sn-chooser">{chooser.options.map((o:any,i:number)=><Button key={i} variant="outline" onClick={()=>chooser.pick(o.t)}>{o.label}</Button>)}<Button variant="outline" onClick={()=>setChooser(null)}>Cancel</Button></div></DialogContent></Dialog>}
-  {builder&&<DeckBuilder game={game} action={action} locked={locked} start={decks[deckMe]||[]} startName={custom[deckMe]?deckMe:''} onClose={()=>setBuilder(false)} onSaved={(n:string)=>{setDeckMe(n);setBuilder(false)}}/>}
-  <Button variant="outline" className="sn-builder-btn" onClick={()=>setBuilder(true)}>Build a deck</Button>
- </section>;
+  {builderDialog}
+ </div>,document.body);
 }
 
 /** Make a 12-card deck from the whole pool; saved in the village save under its name. */

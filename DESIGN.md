@@ -273,7 +273,7 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 A landmark at the Guildhall end of the village: a full Marvel Snap rules engine (the snap-proto prototype: 506 cards, 183 locations, 24 decks, four AI tiers)
 played against the AI, one tap per card and one per location. The engine and card data are copied by `node scripts/sync-snap.mjs` into `lib/snap/`
 (`VERSION.json` names the source commit) and the base card and location renders into `public/assets/snap/` (63 MB, streamed by the service worker as
-cards are seen, never at install; variants stay out). Re-run the script after the weekly snap-proto update. The opponent thinks in a Web Worker.
+cards are seen, never at install; variants stay out). Re-run the script after the weekly snap-proto update. The opponent thinks in a Web Worker. A match takes the whole screen (a portal over the village); "Leave the table" returns to the lobby with the match waiting.
 - **Habit input:** gold. A won match pays `gold unit × 0.25 × cubes` (`snapGold`; an Arena win pays 0.5 units), and the gold unit is ten minutes of
   village income, so matches can only ever add a slice of what the habits already make. Losses cost nothing. No daily limit yet (to be set after play-testing).
 - **Ledger** (`snap` in the save): cubes, matches played and won, best win, and custom decks by name (12 different cards, `snapDeckSave` / `snapDeckDelete`).
