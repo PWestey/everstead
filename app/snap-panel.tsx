@@ -141,7 +141,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  if(m.aiPre){const mv=(m.aiPre.moves??[]).length,ac=(m.aiPre.activates??[]).length;notes.push(`Daredevil: the opponent's plays this turn are shown on its side${m.aiPre.plays.length?'':' (it plays no cards)'}${mv?`, plus ${mv} move${mv>1?'s':''}`:''}${ac?`, plus ${ac} Activate`:''}.`)}
  if(!s.over&&E.seesPlays(s,AI))notes.push('The opponent has Daredevil: it sees your plays before making its own.');
  if(m.note)notes.push(m.note);
- const hint=s.over?'':m.busy?'The opponent is thinking…':m.agatha?(E.egoControls(s)?'Ego':'Agatha Harkness')+' controls your cards this turn. You can still Snap or Retreat, then end the turn.':m.selected||m.move?'Now tap a location.':'Tap a card, then a location; hold a card to read it. Outlined cards on the board can move. Tap a staged card to take it back.';
+ const hint=s.over?'':m.busy?'The opponent is thinking…':m.agatha?(E.egoControls(s)?'Ego':'Agatha Harkness')+' controls your cards this turn. You can still Snap or Retreat, then end the turn.':m.selected||m.move?'Now tap a location.':'Tap a card, then a location. Hold a card, or tap a location, to read it. Outlined cards can move; tap a staged card to take it back.';
  const retreatCost=s.finalDoubled&&s.turn>=fin?s.stake/2:s.stake;
 
  // The match takes the whole screen (a portal, so the module dialog's transform cannot pin it): the board gets every pixel a phone has.
