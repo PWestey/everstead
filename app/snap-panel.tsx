@@ -42,6 +42,7 @@ type Match={state:any,staged:any[],moves:any[],activates:string[],selected:strin
 /** The match in progress survives leaving the Parlour and coming back (it lives for the page, not the save). */
 let live:Match|null=null,prefs={ai:'lookahead',deckMe:Object.keys(BUILT_IN)[0],deckAi:Object.keys(BUILT_IN)[1]};
 
+const HOLD_MS=350;
 const handCard=(m:Match,uid:string)=>m.state.players[ME].hand.find((c:any)=>c.uid===uid);
 const stagedCost=(m:Match)=>m.staged.reduce((s:number,pl:any)=>s+E.effCost(m.state,ME,handCard(m,pl.uid)),0);
 const energyLeft=(m:Match)=>m.state.players[ME].energy-stagedCost(m);
@@ -66,8 +67,13 @@ function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{c
  const def=CARDS[card.id],a=cardArt(card),inHand=owner===ME&&!staged&&!!handCard(m,card.uid);
  const cost=inHand?E.effCost(m.state,ME,card):card.cost,pow=power??(inHand?E.handPower(m.state,ME,card):card.power);
  const peek=()=>onPeek?.(card,owner,power);
+ // Snap's gesture: tap to play or select, hold to look at the card. A held card swallows the click that follows.
+ const hold=useRef<any>(null),held=useRef(false);
+ const down=()=>{held.current=false;clearTimeout(hold.current);hold.current=setTimeout(()=>{held.current=true;peek()},HOLD_MS)};
+ const up=()=>clearTimeout(hold.current);
  return <div className={'sn-card'+(owner===AI?' sn-opp':'')+(staged?' sn-staged':'')+(card.silenced?' sn-silenced':'')+(card.hiddenUntilEnd?' sn-facedown':'')+(a?' sn-art':'')+(cls?' '+cls:'')} style={a?{backgroundImage:`url("${a.url}")`}:undefined}
-  onClick={e=>{peek();onClick?.(e)}} onMouseEnter={peek} role="button" tabIndex={0} title={card.hiddenUntilEnd?'Face down until the game ends':(E.cardText(m.state,card)||'No ability')}>
+  onPointerDown={down} onPointerUp={up} onPointerLeave={up} onPointerCancel={up} onContextMenu={e=>{e.preventDefault();e.stopPropagation();peek()}}
+  onClick={e=>{if(held.current){held.current=false;e.stopPropagation();return}if(onClick)onClick(e);else{e.stopPropagation();peek()}}} role="button" tabIndex={0} title={card.hiddenUntilEnd?'Face down until the game ends':(E.cardText(m.state,card)||'No ability')}>
   <span className="sn-cost">{cost}</span><span className="sn-pow">{pow}</span>
   {!a&&<><b className="sn-name">{card.alias??def.name}{card.evil?' ☠':''}{card.zg?' ✦':''}</b><small className="sn-text">{E.cardText(m.state,card)}</small></>}
  </div>;
@@ -98,7 +104,9 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  function stage(uid:string,li:number){const cur=ref.current!,card=handCard(cur,uid),def=CARDS[card.id],targets=def.targets?def.targets(cur.state,ME,li):[];
   if(!targets.length){set(x=>({...x,staged:[...x.staged,{uid,li,target:null}],selected:null}));return}
   setChooser({name:def.name,options:targets.map((t:any)=>({t,label:typeof t==='number'?LOCATIONS[cur.state.locations[t].id].name:CARDS[cur.state.locations[li].cards[ME].find((c:any)=>c.uid===t).id].name})),pick:(t:any)=>{set(x=>({...x,staged:[...x.staged,{uid,li,target:t}],selected:null}));setChooser(null)}})}
- function tapLocation(li:number){const cur=ref.current!;if(!playable(cur,li))return;
+ function tapLocation(li:number){const cur=ref.current!;
+  if(!cur.selected&&!cur.move){const L=cur.state.locations[li],shown=L.revealed||seer(cur),def=LOCATIONS[L.id];setPeek({loc:true,name:shown?def.name:'Unrevealed',text:shown?def.text:`This location is revealed on turn ${li+1}.`,art:shown?locArt(L.id):null});return}
+  if(!playable(cur,li))return;
   if(cur.selected)stage(cur.selected,li);
   else if(cur.move){const moves=[...cur.moves,{uid:cur.move.card.uid,card:cur.move.card,from:cur.move.from,to:li}];
    if(!E.validatePlays(cur.state,ME,[],moves.map((x:any)=>({uid:x.uid,to:x.to})),[]))set(x=>({...x,move:null,note:'Only one card can move from there this turn.'}));else set(x=>({...x,moves,move:null}))}}
@@ -133,7 +141,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  if(m.aiPre){const mv=(m.aiPre.moves??[]).length,ac=(m.aiPre.activates??[]).length;notes.push(`Daredevil: the opponent's plays this turn are shown on its side${m.aiPre.plays.length?'':' (it plays no cards)'}${mv?`, plus ${mv} move${mv>1?'s':''}`:''}${ac?`, plus ${ac} Activate`:''}.`)}
  if(!s.over&&E.seesPlays(s,AI))notes.push('The opponent has Daredevil: it sees your plays before making its own.');
  if(m.note)notes.push(m.note);
- const hint=s.over?'':m.busy?'The opponent is thinking…':m.agatha?(E.egoControls(s)?'Ego':'Agatha Harkness')+' controls your cards this turn. You can still Snap or Retreat, then end the turn.':m.selected||m.move?'Now tap a location.':'Tap a card, then a location. Outlined cards on the board can move. Tap a staged card to take it back.';
+ const hint=s.over?'':m.busy?'The opponent is thinking…':m.agatha?(E.egoControls(s)?'Ego':'Agatha Harkness')+' controls your cards this turn. You can still Snap or Retreat, then end the turn.':m.selected||m.move?'Now tap a location.':'Tap a card, then a location; hold a card to read it. Outlined cards on the board can move. Tap a staged card to take it back.';
  const retreatCost=s.finalDoubled&&s.turn>=fin?s.stake/2:s.stake;
 
  // The match takes the whole screen (a portal, so the module dialog's transform cannot pin it): the board gets every pixel a phone has.
@@ -143,24 +151,34 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <span><small>Turn</small><b>{s.turn} / {fin}</b></span><span><small>Energy</small><b>{energyLeft(m)} / {s.players[ME].energy}</b></span>
    <span><small>Stake</small><b>{s.stake}{s.snapped[ME]?' ·you':''}{s.snapped[AI]?' ·them':''}</b></span><span><small>Their hand / deck</small><b>{s.players[AI].hand.length} / {s.players[AI].deck.length}</b></span>
   </div>
+  {/* Laid out like Snap's table: the opponent's cards above, the three locations in a band across the middle with both power counts on them, your cards below. */}
   <div className="sn-board">
-   {s.locations.map((L:any,li:number)=>{const def=LOCATIONS[L.id],shown=L.revealed||canSee,la=shown?locArt(L.id):null,w=E.winnerAt(s,li),can=playable(m,li);
+   <div className="sn-zone sn-zone-opp">{s.locations.map((L:any,li:number)=><div key={li} className="sn-cell" onClick={()=>tapLocation(li)}>
+     {L.cards[AI].map((c:any)=><Card key={c.uid} card={c} m={m} owner={AI} power={E.cardPower(s,li,AI,c)} onPeek={onPeek}/>)}
+     {m.aiPre&&m.aiPre.plays.filter((pl:any)=>pl.li===li).map((pl:any)=>{const c=s.players[AI].hand.find((c:any)=>c.uid===pl.uid);return c?<Card key={c.uid} card={c} m={m} owner={AI} staged onPeek={onPeek}/>:null})}
+    </div>)}</div>
+   <div className="sn-locs">{s.locations.map((L:any,li:number)=>{const def=LOCATIONS[L.id],shown=L.revealed||canSee,la=shown?locArt(L.id):null,w=E.winnerAt(s,li),can=playable(m,li),name=shown?def.name:'Unrevealed';
     return <div key={li} className={'sn-loc'+(can?' sn-playable':'')+(L.revealed&&!E.canPlayAt(s,li,ME)?' sn-closed':'')} onClick={()=>tapLocation(li)}>
-     {la?<div className="sn-locimg" style={{backgroundImage:`url("${la}")`}} title={def.name}/>:<h3>{shown?def.name:'Unrevealed'}</h3>}
+     <span className={'sn-pw sn-them'+(w===AI?' sn-winning':'')}>{E.locPower(s,li,AI)}</span>
+     <div className={'sn-locimg'+(la?'':' sn-locblank')} style={la?{backgroundImage:`url("${la}")`}:undefined}>{!la&&<b>{name}</b>}</div>
+     {la&&<b className="sn-locname">{name}</b>}
      <p className="sn-loctext">{shown?def.text:`Revealed on turn ${li+1}`}</p>
-     <div className="sn-row">{L.cards[AI].map((c:any)=><Card key={c.uid} card={c} m={m} owner={AI} power={E.cardPower(s,li,AI,c)} onPeek={onPeek}/>)}
-      {m.aiPre&&m.aiPre.plays.filter((pl:any)=>pl.li===li).map((pl:any)=>{const c=s.players[AI].hand.find((c:any)=>c.uid===pl.uid);return c?<Card key={c.uid} card={c} m={m} owner={AI} staged onPeek={onPeek}/>:null})}</div>
-     <div className="sn-total"><span className={'sn-them'+(w===AI?' sn-winning':'')}>{E.locPower(s,li,AI)}</span><span className={'sn-me'+(w===ME?' sn-winning':'')}>{E.locPower(s,li,ME)}</span></div>
-     <div className="sn-row">{L.cards[ME].filter((c:any)=>!m.moves.some((x:any)=>x.uid===c.uid)).map((c:any)=>{const movable=!over(m)&&!m.busy&&[0,1,2].some(to=>E.canMove(s,ME,c,li,to)),activatable=!over(m)&&!m.busy&&E.canActivate(s,ME,c);
+     <span className={'sn-pw sn-me'+(w===ME?' sn-winning':'')}>{E.locPower(s,li,ME)}</span>
+    </div>})}</div>
+   <div className="sn-zone sn-zone-me">{s.locations.map((L:any,li:number)=><div key={li} className={'sn-cell'+(playable(m,li)?' sn-playable':'')} onClick={()=>tapLocation(li)}>
+     {L.cards[ME].filter((c:any)=>!m.moves.some((x:any)=>x.uid===c.uid)).map((c:any)=>{const movable=!over(m)&&!m.busy&&[0,1,2].some(to=>E.canMove(s,ME,c,li,to)),activatable=!over(m)&&!m.busy&&E.canActivate(s,ME,c);
        return <Card key={c.uid} card={c} m={m} power={E.cardPower(s,li,ME,c)} cls={(movable||activatable?'sn-movable':'')+(m.move?.card.uid===c.uid?' sn-selected':'')+(m.activates.includes(c.uid)?' sn-activating':'')}
         onClick={(e:any)=>{e.stopPropagation();if(activatable)set(x=>({...x,activates:x.activates.includes(c.uid)?x.activates.filter(u=>u!==c.uid):[...x.activates,c.uid]}));else if(movable)set(x=>({...x,selected:null,move:x.move?.card.uid===c.uid?null:{card:c,from:li}}))}} onPeek={onPeek}/>})}
-      {m.moves.filter((x:any)=>x.to===li).map((x:any)=><Card key={'mv'+x.uid} card={x.card} m={m} staged onClick={(e:any)=>{e.stopPropagation();if(!m.agatha)set(y=>({...y,moves:y.moves.filter(z=>z!==x)}))}} onPeek={onPeek}/>)}
-      {m.staged.filter((pl:any)=>pl.li===li).map((pl:any)=><Card key={'st'+pl.uid} card={handCard(m,pl.uid)} m={m} staged onClick={(e:any)=>{e.stopPropagation();if(!m.agatha)set(y=>({...y,staged:y.staged.filter(z=>z!==pl)}))}} onPeek={onPeek}/>)}</div>
-    </div>})}
+     {m.moves.filter((x:any)=>x.to===li).map((x:any)=><Card key={'mv'+x.uid} card={x.card} m={m} staged onClick={(e:any)=>{e.stopPropagation();if(!m.agatha)set(y=>({...y,moves:y.moves.filter(z=>z!==x)}))}} onPeek={onPeek}/>)}
+     {m.staged.filter((pl:any)=>pl.li===li).map((pl:any)=><Card key={'st'+pl.uid} card={handCard(m,pl.uid)} m={m} staged onClick={(e:any)=>{e.stopPropagation();if(!m.agatha)set(y=>({...y,staged:y.staged.filter(z=>z!==pl)}))}} onPeek={onPeek}/>)}
+    </div>)}</div>
   </div>
   <div className="sn-hand">{s.players[ME].hand.filter((c:any)=>!m.staged.some((pl:any)=>pl.uid===c.uid)).map((c:any)=>{const ok=E.effCost(s,ME,c)<=energyLeft(m)&&!over(m)&&!m.busy&&[0,1,2].some(li=>E.canPlayAt(s,li,ME,c));
    return <Card key={c.uid} card={c} m={m} cls={(ok?'':'sn-unaffordable')+(m.selected===c.uid?' sn-selected':'')} onClick={()=>{if(ok)set(x=>({...x,move:null,selected:x.selected===c.uid?null:c.uid}))}} onPeek={onPeek}/>})}</div>
-  {peek&&<div className="sn-peek">{cardArt(peek.card)&&<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p>{(cardArt(peek.card)?.artist||CARDS[peek.card.id].house)&&<small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist:''}{CARDS[peek.card.id].house?(cardArt(peek.card)?.artist?' · ':'')+'House rule: +'+CARDS[peek.card.id].house+' Power':''}</small>}</div></div>}
+  {peek&&<div className="sn-popup" onClick={()=>setPeek(null)} onContextMenu={e=>{e.preventDefault();setPeek(null)}}>
+   {peek.loc?<div className="sn-peek"><div className={'sn-peek-img sn-peek-loc'+(peek.art?'':' sn-locblank')} style={peek.art?{backgroundImage:`url("${peek.art}")`}:undefined}>{!peek.art&&<b>{peek.name}</b>}</div><div><b>{peek.name}</b><p>{peek.text}</p><small>Tap anywhere to close</small></div></div>
+   :<div className="sn-peek">{cardArt(peek.card)?<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>:<div className="sn-peek-img sn-locblank"><b>{peek.card.alias??CARDS[peek.card.id].name}</b></div>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
+  </div>}
   {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}! +${abbrev(snapGold(game,cubes))} gold`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}</div>}
   <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
   <div className="business-actions sn-acts">
