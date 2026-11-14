@@ -278,7 +278,10 @@ to 320 px: about 140 MB, streamed by the service worker as cards are seen, never
   gold unit is ten minutes of village income, so matches can only ever add a slice of what the habits already make. The streak is the straight wins before
   this one, so the bonus tops out at double; a loss or retreat ends it, a draw keeps it. Losses cost nothing. No daily limit yet (to be set after play-testing).
 - **Built-in decks:** the fifteen decks of Marvel Snap Zone's ranked meta tier list (`lib/snap-decks.mjs`, the report of 8 November 2026, tiers 1-3),
-  mapped to engine ids by hand; a card the pool does not have yet gets a stand-in noted in the file. snap-proto's hand-made archetypes stay as "Classic".
+  mapped to engine ids by hand; a card the pool does not have yet gets a stand-in noted in the file. Below them a **fun shelf** (`FUN_DECKS`): one real list per
+  archetype the meta leaves out (zoo, discard, Hela, destroy, Thanos destroy, mill, bounce, move, ongoing, Surfer, Cerebro, Devil Dino, affliction, lockdown, ramp,
+  big summons, Odin on-reveal, Galacti, energy cheats), each taken from a Marvel Snap Zone "New Decks to Play" article and dated; the Annihilus junk deck is
+  house-built because no recent article had one. Labels read "T1 · name" and "Fun · archetype: name". snap-proto's hand-made archetypes are no longer listed.
 - **Mystery opponent:** the Opponent list has a Mystery entry that picks the deck (any built-in or saved) and the playing style (Greedy, Lookahead or
   Rollout) at random and tells you both only when the match ends.
 - **Card art:** the lobby's Card art catalogue lists every card with variants; a pick (`snapArt`, kept in `snap.art` as card → variant id) is used on the

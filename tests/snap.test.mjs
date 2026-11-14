@@ -7,7 +7,7 @@ import {CARDS,POOL_IDS} from '../lib/snap/cards.mjs';
 import * as E from '../lib/snap/engine.mjs';
 import {AIS} from '../lib/snap/ai.mjs';
 import {DECKS} from '../lib/snap/decks.mjs';
-import {META_DECKS} from '../lib/snap-decks.mjs';
+import {META_DECKS,FUN_DECKS} from '../lib/snap-decks.mjs';
 const T=Date.UTC(2026,0,10,12);
 
 /** A whole match through the copied engine, both seats played by an AI tier. */
@@ -17,6 +17,9 @@ function play(a,b,seed,deckA='kazoo',deckB='destroy'){let s=E.startTurn(E.create
 test('the synced Snap engine plays a match to the end, and every deck is 12 real cards',()=>{
  for(const [name,ids] of Object.entries(DECKS)){assert.equal(ids.length,SNAP_DECK,name);assert.ok(ids.every(id=>CARDS[id]&&!CARDS[id].token),name)}
  for(const [key,d] of Object.entries(META_DECKS)){assert.equal(d.ids.length,SNAP_DECK,key);assert.equal(new Set(d.ids).size,SNAP_DECK,key+' has no duplicate');assert.ok(d.ids.every(id=>CARDS[id]&&!CARDS[id].token),key);assert.ok(d.tier>=1&&d.tier<=3&&d.name)}
+ for(const [key,d] of Object.entries(FUN_DECKS)){assert.equal(d.ids.length,SNAP_DECK,key);assert.equal(new Set(d.ids).size,SNAP_DECK,key+' has no duplicate');assert.ok(d.ids.every(id=>CARDS[id]&&!CARDS[id].token),key);assert.ok(d.arch&&d.name&&d.src)}
+ for(const a of ['Zoo','Discard','Destroy','Ongoing','Move','Bounce','Mill','Clog','Lockdown','Ramp','Affliction','Surfer','Cerebro'])assert.ok(Object.values(FUN_DECKS).some(d=>d.arch===a),'fun shelf has '+a);
+ const fun=E.startTurn(E.createGame({decks:[FUN_DECKS.junk.ids,FUN_DECKS.move.ids],seed:7}));let s3=fun;while(!s3.over){s3=E.resolveTurn(s3,[0,1].map(p=>{const r=AIS.greedy.choose(E.viewFor(s3,p),p);return {plays:r.plays,moves:r.moves||[],activates:r.activates||[],action:r.action}}));if(!s3.over)s3=E.startTurn(s3)}assert.ok(s3.over,'a fun deck plays through');
  const meta=E.startTurn(E.createGame({decks:[META_DECKS.zombie.ids,META_DECKS.hammer.ids],seed:5}));let s2=meta;while(!s2.over){s2=E.resolveTurn(s2,[0,1].map(p=>{const r=AIS.greedy.choose(E.viewFor(s2,p),p);return {plays:r.plays,moves:r.moves||[],activates:r.activates||[],action:r.action}}));if(!s2.over)s2=E.startTurn(s2)}assert.ok(s2.over,'a meta deck plays through');
  assert.ok(POOL_IDS.length>=500,'the whole pool is here');
  for(const seed of [1,2,3]){const s=play('greedy','greedy',seed);assert.ok(s.over&&s.result);assert.ok(Math.abs(E.cubesFor(s,0))<=8);assert.equal(E.cubesFor(s,0),-E.cubesFor(s,1))}

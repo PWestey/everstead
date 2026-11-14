@@ -5,8 +5,7 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {CARDS as CARDS_M,POOL_IDS} from '@/lib/snap/cards.mjs';
 import {LOCATIONS as LOCATIONS_M} from '@/lib/snap/locations.mjs';
-import {DECKS as CLASSIC_M} from '@/lib/snap/decks.mjs';
-import {META_DECKS,META_DATE} from '@/lib/snap-decks.mjs';
+import {META_DECKS,FUN_DECKS,META_DATE} from '@/lib/snap-decks.mjs';
 import * as ENGINE from '@/lib/snap/engine.mjs';
 import {AIS as AIS_M} from '@/lib/snap/ai.mjs';
 import VERSION from '@/lib/snap/VERSION.json';
@@ -16,9 +15,9 @@ import {snapGold,snapStreakBonus,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME,SNAP_ST
 import {abbrev} from './original-controls';
 
 const CARDS:any=CARDS_M,LOCATIONS:any=LOCATIONS_M,E:any=ENGINE,AIS:any=AIS_M;
-// Built-in decks: the ladder meta first (lib/snap-decks.mjs), then snap-proto's hand-made archetypes as "Classic".
-const BUILT_IN:Record<string,string[]>={...Object.fromEntries(Object.entries(META_DECKS).map(([k,d]:any)=>[k,d.ids])),...Object.fromEntries(Object.entries(CLASSIC_M as any).map(([k,v]:any)=>['classic:'+k,v]))};
-const deckLabel=(k:string,custom:Record<string,string[]>)=>custom[k]?'★ '+k:(META_DECKS as any)[k]?`T${(META_DECKS as any)[k].tier} · ${(META_DECKS as any)[k].name}`:k.startsWith('classic:')?'Classic · '+k.slice(8):k;
+// Built-in decks (lib/snap-decks.mjs): the ladder meta by tier, then the fun shelf, one deck per archetype the meta leaves out.
+const BUILT_IN:Record<string,string[]>={...Object.fromEntries(Object.entries(META_DECKS).map(([k,d]:any)=>[k,d.ids])),...Object.fromEntries(Object.entries(FUN_DECKS).map(([k,d]:any)=>['fun:'+k,d.ids]))};
+const deckLabel=(k:string,custom:Record<string,string[]>)=>{const m=(META_DECKS as any)[k],f=(FUN_DECKS as any)[k.slice(4)];return custom[k]?'★ '+k:m?`T${m.tier} · ${m.name}`:k.startsWith('fun:')&&f?`Fun · ${f.arch}: ${f.name}`:k};
 const ME=0,AI=1;
 const TIERS=[['greedy','Greedy (quick)'],['lookahead','Lookahead'],['rollout','Rollout (slow, strongest)'],['random','Random'],['mystery','Mystery: random deck and style']];
 const MYSTERY_STYLES=['greedy','lookahead','rollout'];const pick=<T,>(a:T[])=>a[Math.floor(Math.random()*a.length)];
@@ -139,7 +138,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
   </div>
   <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button><Button variant="outline" onClick={()=>setCatalog(true)}>Card art</Button></div>
-  <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE}. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
+  <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE} (T1-T3) and a fun shelf with one deck per archetype the meta leaves out. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
 
  const catalogDialog=catalog&&<ArtCatalog game={game} action={action} locked={locked} onClose={()=>setCatalog(false)}/>;
