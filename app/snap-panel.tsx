@@ -86,6 +86,16 @@ function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{c
  </div>;
 }
 
+/** A card frame with no match behind it: the builder, the catalogue and the detail views. */
+function Frame({id,name,cost,power,text,url,cls=''}:{id?:string,name?:string,cost:number,power:number|string,text?:string,url?:string|null,cls?:string}){
+ const d=id?CARDS[id]:null,a=url!==undefined?url:(id?artFor(id)?.url??null:null),n=name??d?.name??'';
+ return <div className={'sn-card'+(a?' sn-art':'')+(cls?' '+cls:'')} style={a?{backgroundImage:`url("${a}")`}:undefined}>
+  <span className="sn-cost">{cost}</span><span className="sn-pow">{power}</span>
+  {!a&&<><b className="sn-name">{n}</b><small className="sn-text">{text??d?.text}</small></>}
+ </div>;
+}
+const avatarOf=(ids:string[]|undefined)=>{if(!ids)return null;for(let i=ids.length-1;i>=0;i--){const a=artFor(ids[i]);if(a)return a.url}return null};
+
 export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
  const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[catalog,setCatalog]=useState(false),[retreating,setRetreating]=useState(false);
  PICKS=game.snap?.art||{};
@@ -155,11 +165,14 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const retreatCost=s.finalDoubled&&s.turn>=fin?s.stake/2:s.stake;
 
  // The match takes the whole screen (a portal, so the module dialog's transform cannot pin it): the board gets every pixel a phone has.
- return createPortal(<div className="sn-full" role="dialog" aria-label="The Card Parlour table">
-  <div className="sn-full-head"><b>The Card Parlour</b><Button variant="outline" onClick={()=>setOpen(false)}>{s.over?'Back to the table':'Leave the table'}</Button></div>
-  <div className="sn-stats">
-   <span><small>Turn</small><b>{s.turn} / {fin}</b></span><span><small>Energy</small><b>{energyLeft(m)} / {s.players[ME].energy}</b></span>
-   <span><small>Stake</small><b>{s.stake}{s.snapped[ME]?' ·you':''}{s.snapped[AI]?' ·them':''}</b></span><span><small>Their hand / deck</small><b>{s.players[AI].hand.length} / {s.players[AI].deck.length}</b></span>
+ return createPortal(<div className="sn-full sn-space" role="dialog" aria-label="The Card Parlour table">
+  <button type="button" className="sn-leave" onClick={()=>setOpen(false)}>{s.over?'Back to the table':'Leave the table'}</button>
+  <div className="sn-top">
+   <div className="sn-player sn-side-me"><span className="sn-hex"><i style={avatarOf(decks[m.deckMe])?{backgroundImage:`url("${avatarOf(decks[m.deckMe])}")`}:undefined}>{avatarOf(decks[m.deckMe])?'':'You'}</i></span><div><b>You</b><small>{deckLabel(m.deckMe,custom)} · {energyLeft(m)} / {s.players[ME].energy} energy</small></div></div>
+   {/* Snap's cube: the stake, and tapping it is how you snap */}
+   <button type="button" className={'sn-cube'+(m.action==='snap'?' sn-cube-snap':'')} disabled={s.over||m.busy||s.snapped[ME]||m.action==='retreat'} onClick={()=>set(x=>({...x,action:x.action==='snap'?'none':'snap'}))} title="Tap to snap: the stake doubles">
+    <b>{s.stake}</b><small>{s.over?'cubes':m.action==='snap'?'Snapping…':s.snapped[ME]?'You snapped':s.snapped[AI]?'They snapped':'Tap to snap'}</small></button>
+   <div className="sn-player sn-side-opp"><div><b>{m.mystery&&!s.over?'Mystery':styleName(m.ai)}</b><small>{m.mystery&&!s.over?'?':deckLabel(m.deckAi,custom)} · hand {s.players[AI].hand.length} · deck {s.players[AI].deck.length}</small></div><span className="sn-hex"><i style={!(m.mystery&&!s.over)&&avatarOf(decks[m.deckAi])?{backgroundImage:`url("${avatarOf(decks[m.deckAi])}")`}:undefined}>{!(m.mystery&&!s.over)&&avatarOf(decks[m.deckAi])?'':'?'}</i></span></div>
   </div>
   {/* Laid out like Snap's table: the opponent's cards above, the three locations in a band across the middle with both power counts on them, your cards below. */}
   <div className="sn-board">
@@ -170,9 +183,11 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <div className="sn-locs">{s.locations.map((L:any,li:number)=>{const def=LOCATIONS[L.id],shown=L.revealed||canSee,la=shown?locArt(L.id):null,w=E.winnerAt(s,li),can=playable(m,li),name=shown?def.name:'Unrevealed';
     return <div key={li} className={'sn-loc'+(can?' sn-playable':'')+(L.revealed&&!E.canPlayAt(s,li,ME)?' sn-closed':'')} onClick={()=>tapLocation(li)}>
      <span className={'sn-pw sn-them'+(w===AI?' sn-winning':'')}>{E.locPower(s,li,AI)}</span>
-     <div className={'sn-locimg'+(la?'':' sn-locblank')} style={la?{backgroundImage:`url("${la}")`}:undefined}>{!la&&<b>{name}</b>}</div>
-     {la&&<b className="sn-locname">{name}</b>}
-     <p className="sn-loctext">{shown?def.text:`Revealed on turn ${li+1}`}</p>
+     <div className="sn-plaque">
+      <b className="sn-locname">{name}</b>
+      <div className={'sn-locimg'+(la?'':' sn-locblank')} style={la?{backgroundImage:`url("${la}")`}:undefined}>{!la&&<b>{shown?'':'?'}</b>}</div>
+      <p className="sn-loctext">{shown?def.text:`Revealed on turn ${li+1}`}</p>
+     </div>
      <span className={'sn-pw sn-me'+(w===ME?' sn-winning':'')}>{E.locPower(s,li,ME)}</span>
     </div>})}</div>
    <div className="sn-zone sn-zone-me">{s.locations.map((L:any,li:number)=><div key={li} className={'sn-cell'+(playable(m,li)?' sn-playable':'')} onClick={()=>tapLocation(li)}>
@@ -187,17 +202,17 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    return <Card key={c.uid} card={c} m={m} cls={(ok?'':'sn-unaffordable')+(m.selected===c.uid?' sn-selected':'')} onClick={()=>{if(ok)set(x=>({...x,move:null,selected:x.selected===c.uid?null:c.uid}))}} onPeek={onPeek}/>})}</div>
   {peek&&<div className="sn-popup" onClick={()=>setPeek(null)} onContextMenu={e=>{e.preventDefault();setPeek(null)}}>
    {peek.loc?<div className="sn-peek"><div className={'sn-peek-img sn-peek-loc'+(peek.art?'':' sn-locblank')} style={peek.art?{backgroundImage:`url("${peek.art}")`}:undefined}>{!peek.art&&<b>{peek.name}</b>}</div><div><b>{peek.name}</b><p>{peek.text}</p><small>Tap anywhere to close</small></div></div>
-   :<div className="sn-peek">{cardArt(peek.card)?<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>:<div className="sn-peek-img sn-locblank"><b>{peek.card.alias??CARDS[peek.card.id].name}</b></div>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
+   :<div className="sn-peek"><div className={'sn-peek-img'+(cardArt(peek.card)?'':' sn-locblank')} style={cardArt(peek.card)?{backgroundImage:`url("${cardArt(peek.card)!.url}")`}:undefined}><span className="sn-cost">{peek.card.cost}</span><span className="sn-pow">{peek.power??peek.card.power}</span>{!cardArt(peek.card)&&<b>{peek.card.alias??CARDS[peek.card.id].name}</b>}</div><div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
   </div>}
   {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}!${(ledger.streak||0)>1?` ${ledger.streak} in a row.`:''}`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}{m.mystery&&<small> The opponent played {deckLabel(m.deckAi,custom)} in the {styleName(m.ai)} style.</small>}</div>}
-  <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
-  <div className="business-actions sn-acts">
-   {s.over?<><Button disabled={locked} onClick={start}>Play again</Button><Button variant="outline" onClick={()=>{live=null;setM(null);setOpen(false)}}>Back to the table</Button></>
+  <p className="sn-hint">{[hint,...notes].join(' ')}</p>
+  <div className="sn-bottom">
+   {s.over?<><button type="button" className="sn-ribbon sn-ribbon-red" onClick={()=>{live=null;setM(null);setOpen(false)}}>Back</button><span className="sn-orb"><b>{cubes>0?'+'+cubes:cubes}</b><small>cubes</small></span><button type="button" className="sn-ribbon sn-ribbon-purple" disabled={locked} onClick={start}>Play again</button></>
    :<>
-    <Button disabled={m.busy||s.snapped[ME]||m.action!=='none'} variant="outline" className="sn-snap" onClick={()=>set(x=>({...x,action:'snap'}))}>{m.action==='snap'?'Snapping…':'Snap'}</Button>
-    {retreating?<><Button variant="outline" onClick={()=>{setRetreating(false);endTurn('retreat')}}>Yes, lose {retreatCost}</Button><Button variant="outline" onClick={()=>setRetreating(false)}>Stay</Button></>
-    :<Button disabled={m.busy||m.action!=='none'} variant="outline" onClick={()=>setRetreating(true)}>Retreat</Button>}
-    <Button disabled={m.busy} onClick={()=>endTurn(m.action)}>End turn</Button>
+    {retreating?<span className="sn-retreating"><button type="button" className="sn-ribbon sn-ribbon-red sn-ribbon-sm" onClick={()=>{setRetreating(false);endTurn('retreat')}}>Lose {retreatCost}</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setRetreating(false)}>Stay</button></span>
+    :<button type="button" className="sn-ribbon sn-ribbon-red" disabled={m.busy||m.action!=='none'} onClick={()=>setRetreating(true)}>Retreat</button>}
+    <span className="sn-orb" title="Energy left this turn"><b>{energyLeft(m)}</b><small>energy</small></span>
+    <button type="button" className="sn-ribbon sn-ribbon-purple" disabled={m.busy} onClick={()=>endTurn(m.action)}>{m.busy?'Thinking…':s.turn>=fin?'Final turn':'End turn'}<small>{s.turn} / {fin}</small></button>
    </>}
   </div>
   <details className="sn-log"><summary>Match log</summary><pre>{s.log.slice(-30).join('\n')}</pre></details>
@@ -213,7 +228,7 @@ function ArtCatalog({game,action,locked,onClose}:{game:any,action:any,locked:boo
  const picks:Record<string,number>=game.snap?.art||{};const term=q.trim().toLowerCase();
  const ids=(POOL_IDS as string[]).filter(id=>!CARDS[id].token&&ART?.cards?.[id]?.variants?.length).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name)).filter(id=>!term||CARDS[id].name.toLowerCase().includes(term));
  const info=sel&&ART?ART.cards[sel]:null;
- return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder"><DialogTitle>{sel?CARDS[sel].name:'Card art'}</DialogTitle>
+ return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder sn-space"><DialogTitle>{sel?CARDS[sel].name:'Card art'}</DialogTitle>
   <DialogDescription>{sel?'Tap the art you want on the table. The first is the original.':ART?`${ids.length} cards have variants. ${Object.keys(picks).length} chosen.`:'The art index has not loaded yet.'}</DialogDescription>
   {sel&&info?<>
    <div className="sn-variants">
@@ -223,27 +238,43 @@ function ArtCatalog({game,action,locked,onClose}:{game:any,action:any,locked:boo
    <div className="sn-bar"><Button variant="outline" onClick={()=>setSel(null)}>All cards</Button><Button variant="outline" onClick={onClose}>Close</Button></div>
   </>:<>
    <div className="sn-bar"><input value={q} placeholder="Search by name" onChange={e=>setQ(e.target.value)}/></div>
-   <div className="sn-pool">{ids.map(id=>{const a=artFor(id)!,n=ART.cards[id].variants.length;return <button type="button" key={id} className={'sn-pick sn-artpick'+(picks[id]!=null?' sn-on':'')} onClick={()=>setSel(id)}><i className="sn-thumb" style={{backgroundImage:`url("${a.url}")`}}/><span>{CARDS[id].name}<br/><small>{n} variant{n===1?'':'s'}{picks[id]!=null?' · chosen':''}</small></span></button>})}</div>
+   <div className="sn-pool sn-artpool">{ids.map(id=>{const a=artFor(id)!,n=ART.cards[id].variants.length;return <button type="button" key={id} className={'sn-pick sn-artpick'+(picks[id]!=null?' sn-on':'')} onClick={()=>setSel(id)}><i className="sn-thumb" style={{backgroundImage:`url("${a.url}")`}}/><span>{CARDS[id].name}<br/><small>{n} variant{n===1?'':'s'}{picks[id]!=null?' · chosen':''}</small></span></button>})}</div>
    <div className="sn-bar"><Button variant="outline" onClick={onClose}>Close</Button></div>
   </>}
  </DialogContent></Dialog>;
 }
 
-/** Make a 12-card deck from the whole pool; saved in the village save under its name. */
+/** Make a 12-card deck from the whole pool; saved in the village save under its name. Laid out like Snap's collection: the deck across the top,
+ * the collection as card frames, a tap opens the card with Add / Remove. */
 function DeckBuilder({game,action,locked,start,startName,onClose,onSaved}:{game:any,action:any,locked:boolean,start:string[],startName:string,onClose:()=>void,onSaved:(n:string)=>void}){
- const [picked,setPicked]=useState<string[]>(start),[name,setName]=useState(startName),[q,setQ]=useState(''),[cost,setCost]=useState(''),[only,setOnly]=useState(false),[err,setErr]=useState('');
+ const [picked,setPicked]=useState<string[]>(start),[name,setName]=useState(startName),[q,setQ]=useState(''),[cost,setCost]=useState(''),[only,setOnly]=useState(false),[err,setErr]=useState(''),[sel,setSel]=useState<string|null>(null);
  const ids=(POOL_IDS as string[]).filter(id=>!CARDS[id].token).sort((a,b)=>CARDS[a].cost-CARDS[b].cost||CARDS[a].name.localeCompare(CARDS[b].name));
  const term=q.trim().toLowerCase();
  const shown=ids.filter(id=>{const d=CARDS[id];if(only&&!picked.includes(id))return false;if(cost!==''&&(cost==='6'?d.cost<6:d.cost!==Number(cost)))return false;return !term||(d.name+' '+d.text).toLowerCase().includes(term)});
  const toggle=(id:string)=>setPicked(p=>p.includes(id)?p.filter(x=>x!==id):p.length<SNAP_DECK?[...p,id]:p);
  const save=()=>{const n=name.trim();if(!n){setErr('Give the deck a name');return}if(BUILT_IN[n]){setErr('That name belongs to a built-in deck');return}if(action('snapDeckSave',n,picked))onSaved(n)};
  const mine=!!game.snap?.decks?.[name.trim()];
- return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder"><DialogTitle>Build a deck</DialogTitle><DialogDescription>Tap cards to add or remove them. A deck is exactly {SNAP_DECK} different cards. T1–T5 is the card’s standing in the public tier lists; +1 marks a house rule.</DialogDescription>
-  <div className="sn-bar"><input value={name} maxLength={SNAP_DECK_NAME} placeholder="Deck name" onChange={e=>{setName(e.target.value);setErr('')}}/><input value={q} placeholder="Search name or text" onChange={e=>setQ(e.target.value)}/>
-   <NativeSelect value={cost} onChange={(e:any)=>setCost(e.target.value)}><NativeSelectOption value="">Any cost</NativeSelectOption>{[0,1,2,3,4,5,6].map(c=><NativeSelectOption key={c} value={String(c)}>{c===6?'6+':c}-Cost</NativeSelectOption>)}</NativeSelect>
-   <label className="sn-only"><input type="checkbox" checked={only} onChange={e=>setOnly(e.target.checked)}/> picked only</label><b>{picked.length} / {SNAP_DECK}</b></div>
-  <div className="sn-pool">{shown.map(id=>{const d=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} title={d.text||'No ability'} onClick={()=>toggle(id)}>{artFor(id)&&<i className="sn-thumb" style={{backgroundImage:`url("${artFor(id)!.url}")`}}/>}<span className="sn-c">{d.cost}</span><span>{d.name}{d.skill?' (skill)':''}{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]} title={'Tier '+(CARD_TIERS as any)[id]+' in the public tier lists'}>T{(CARD_TIERS as any)[id]}</i>}{d.house&&<i className="sn-house" title={'House rule: +'+d.house+' Power'}>+{d.house}</i>}</span><span className="sn-p">{d.skill?'':d.power}</span></button>})}</div>
-  {err&&<p className="small-note sn-err">{err}</p>}
-  <div className="sn-bar"><Button disabled={locked||picked.length!==SNAP_DECK} onClick={save}>Save deck</Button>{mine&&<Button variant="outline" disabled={locked} onClick={()=>{if(action('snapDeckDelete',name.trim()))onClose()}}>Delete</Button>}<Button variant="outline" onClick={()=>setPicked([])}>Clear</Button><Button variant="outline" onClick={onClose}>Close</Button></div>
+ const sorted=[...picked].sort((a,b)=>CARDS[a].cost-CARDS[b].cost||CARDS[a].name.localeCompare(CARDS[b].name));
+ const d=sel?CARDS[sel]:null,tier=sel?(CARD_TIERS as any)[sel]:null;
+ return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder sn-space"><DialogTitle>{sel?d.name:'Build a deck'}</DialogTitle>
+  <DialogDescription className="sr-only">Tap cards to open them, then add or remove them. A deck is exactly {SNAP_DECK} different cards.</DialogDescription>
+  {sel&&d?<>
+   <div className="sn-detail"><Frame id={sel} cost={d.cost} power={d.skill?'':d.power}/>
+    <div><h3>{d.name}</h3><p>{d.text||'No ability'}</p>
+     <small>{d.skill?'Skill · ':''}{tier?`Tier ${tier} in the public tier lists · `:''}{d.house?`House rule: +${d.house} Power · `:''}{artFor(sel)?.artist?'Art: '+artFor(sel)!.artist:''}</small></div></div>
+   <div className="sn-bar">
+    {picked.includes(sel)?<button type="button" className="sn-ribbon sn-ribbon-red sn-ribbon-sm" onClick={()=>{toggle(sel);setSel(null)}}>Remove from deck</button>
+    :<button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-sm" disabled={picked.length>=SNAP_DECK} onClick={()=>{toggle(sel);setSel(null)}}>{picked.length>=SNAP_DECK?'Deck is full':'Add to deck'}</button>}
+    <button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setSel(null)}>Back</button></div>
+  </>:<>
+   <div className="sn-deckrow">{sorted.map(id=><Frame key={id} id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-deckcard"/>).map((f,i)=><span key={sorted[i]} onClick={()=>setSel(sorted[i])}>{f}</span>)}{Array.from({length:Math.max(0,SNAP_DECK-sorted.length)},(_,i)=><i key={'e'+i} className="sn-slot"/>)}</div>
+   <div className="sn-bar"><input value={name} maxLength={SNAP_DECK_NAME} placeholder="Deck name" onChange={e=>{setName(e.target.value);setErr('')}}/><b>{picked.length} / {SNAP_DECK}</b></div>
+   <div className="sn-bar"><input value={q} placeholder="Search name or text" onChange={e=>setQ(e.target.value)}/>
+    <NativeSelect value={cost} onChange={(e:any)=>setCost(e.target.value)}><NativeSelectOption value="">Any cost</NativeSelectOption>{[0,1,2,3,4,5,6].map(c=><NativeSelectOption key={c} value={String(c)}>{c===6?'6+':c}-Cost</NativeSelectOption>)}</NativeSelect>
+    <label className="sn-only"><input type="checkbox" checked={only} onChange={e=>setOnly(e.target.checked)}/> in deck</label></div>
+   <div className="sn-pool">{shown.map(id=>{const c=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} onClick={()=>setSel(id)}><Frame id={id} cost={c.cost} power={c.skill?'':c.power}/><span>{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]}>T{(CARD_TIERS as any)[id]}</i>}{c.house&&<i className="sn-house">+{c.house}</i>}</span></button>})}</div>
+   {err&&<p className="small-note sn-err">{err}</p>}
+   <div className="sn-bar"><button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-sm" disabled={locked||picked.length!==SNAP_DECK} onClick={save}>Save deck</button>{mine&&<button type="button" className="sn-ribbon sn-ribbon-red sn-ribbon-sm" disabled={locked} onClick={()=>{if(action('snapDeckDelete',name.trim()))onClose()}}>Delete</button>}<button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setPicked([])}>Clear</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={onClose}>Close</button></div>
+  </>}
  </DialogContent></Dialog>;
 }
