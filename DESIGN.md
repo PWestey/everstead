@@ -277,6 +277,8 @@ to 320 px: about 140 MB, streamed by the service worker as cards are seen, never
 - **Habit input:** gold. A won match pays `gold unit × 0.25 × cubes × (1 + 0.1 × min(streak, 10))` (`snapGold`; an Arena win pays 0.5 units), and the
   gold unit is ten minutes of village income, so matches can only ever add a slice of what the habits already make. The streak is the straight wins before
   this one, so the bonus tops out at double; a loss or retreat ends it, a draw keeps it. Losses cost nothing. No daily limit yet (to be set after play-testing).
+- **Built-in decks:** the fifteen decks of Marvel Snap Zone's ranked meta tier list (`lib/snap-decks.mjs`, the report of 8 November 2026, tiers 1-3),
+  mapped to engine ids by hand; a card the pool does not have yet gets a stand-in noted in the file. snap-proto's hand-made archetypes stay as "Classic".
 - **Mystery opponent:** the Opponent list has a Mystery entry that picks the deck (any built-in or saved) and the playing style (Greedy, Lookahead or
   Rollout) at random and tells you both only when the match ends.
 - **Card art:** the lobby's Card art catalogue lists every card with variants; a pick (`snapArt`, kept in `snap.art` as card → variant id) is used on the

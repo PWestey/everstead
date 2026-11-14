@@ -5,7 +5,8 @@ import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/u
 import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {CARDS as CARDS_M,POOL_IDS} from '@/lib/snap/cards.mjs';
 import {LOCATIONS as LOCATIONS_M} from '@/lib/snap/locations.mjs';
-import {DECKS as BUILT_IN_M} from '@/lib/snap/decks.mjs';
+import {DECKS as CLASSIC_M} from '@/lib/snap/decks.mjs';
+import {META_DECKS,META_DATE} from '@/lib/snap-decks.mjs';
 import * as ENGINE from '@/lib/snap/engine.mjs';
 import {AIS as AIS_M} from '@/lib/snap/ai.mjs';
 import VERSION from '@/lib/snap/VERSION.json';
@@ -14,7 +15,10 @@ import '@/lib/snap-house.mjs';
 import {snapGold,snapStreakBonus,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME,SNAP_STREAK,SNAP_STREAK_MAX} from '@/lib/game.mjs';
 import {abbrev} from './original-controls';
 
-const CARDS:any=CARDS_M,LOCATIONS:any=LOCATIONS_M,BUILT_IN:any=BUILT_IN_M,E:any=ENGINE,AIS:any=AIS_M;
+const CARDS:any=CARDS_M,LOCATIONS:any=LOCATIONS_M,E:any=ENGINE,AIS:any=AIS_M;
+// Built-in decks: the ladder meta first (lib/snap-decks.mjs), then snap-proto's hand-made archetypes as "Classic".
+const BUILT_IN:Record<string,string[]>={...Object.fromEntries(Object.entries(META_DECKS).map(([k,d]:any)=>[k,d.ids])),...Object.fromEntries(Object.entries(CLASSIC_M as any).map(([k,v]:any)=>['classic:'+k,v]))};
+const deckLabel=(k:string,custom:Record<string,string[]>)=>custom[k]?'★ '+k:(META_DECKS as any)[k]?`T${(META_DECKS as any)[k].tier} · ${(META_DECKS as any)[k].name}`:k.startsWith('classic:')?'Classic · '+k.slice(8):k;
 const ME=0,AI=1;
 const TIERS=[['greedy','Greedy (quick)'],['lookahead','Lookahead'],['rollout','Rollout (slow, strongest)'],['random','Random'],['mystery','Mystery: random deck and style']];
 const MYSTERY_STYLES=['greedy','lookahead','rollout'];const pick=<T,>(a:T[])=>a[Math.floor(Math.random()*a.length)];
@@ -130,12 +134,12 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <li><span>Cardsharp title</span><b>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
   </ul>
   <div className="sn-picks">
-   <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>
-   {ai!=='mystery'&&<label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>}
+   <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>
+   {ai!=='mystery'&&<label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>}
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
   </div>
   <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button><Button variant="outline" onClick={()=>setCatalog(true)}>Card art</Button></div>
-  <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}). A match in progress waits here while you walk the village; it is gone when the page closes.</p>
+  <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE}. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
 
  const catalogDialog=catalog&&<ArtCatalog game={game} action={action} locked={locked} onClose={()=>setCatalog(false)}/>;
@@ -186,7 +190,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    {peek.loc?<div className="sn-peek"><div className={'sn-peek-img sn-peek-loc'+(peek.art?'':' sn-locblank')} style={peek.art?{backgroundImage:`url("${peek.art}")`}:undefined}>{!peek.art&&<b>{peek.name}</b>}</div><div><b>{peek.name}</b><p>{peek.text}</p><small>Tap anywhere to close</small></div></div>
    :<div className="sn-peek">{cardArt(peek.card)?<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>:<div className="sn-peek-img sn-locblank"><b>{peek.card.alias??CARDS[peek.card.id].name}</b></div>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
   </div>}
-  {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}!${(ledger.streak||0)>1?` ${ledger.streak} in a row.`:''}`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}{m.mystery&&<small> The opponent played {m.deckAi} in the {styleName(m.ai)} style.</small>}</div>}
+  {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}!${(ledger.streak||0)>1?` ${ledger.streak} in a row.`:''}`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}{m.mystery&&<small> The opponent played {deckLabel(m.deckAi,custom)} in the {styleName(m.ai)} style.</small>}</div>}
   <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
   <div className="business-actions sn-acts">
    {s.over?<><Button disabled={locked} onClick={start}>Play again</Button><Button variant="outline" onClick={()=>{live=null;setM(null);setOpen(false)}}>Back to the table</Button></>
