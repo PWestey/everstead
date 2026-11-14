@@ -272,11 +272,16 @@ Power opens and crushes more of the map. Old School RuneScape places and art (`p
 
 A landmark at the Guildhall end of the village: a full Marvel Snap rules engine (the snap-proto prototype: 506 cards, 183 locations, 24 decks, four AI tiers)
 played against the AI, one tap per card and one per location. The engine and card data are copied by `node scripts/sync-snap.mjs` into `lib/snap/`
-(`VERSION.json` names the source commit) and the base card and location renders into `public/assets/snap/` (63 MB, streamed by the service worker as
-cards are seen, never at install; variants stay out). Re-run the script after the weekly snap-proto update. The opponent thinks in a Web Worker. The table is laid out like Snap's: the opponent's cards in a band above, the three locations in a band across the middle with both power counts on the tiles (locations without a render get a plain tile), your cards below; tap a card then a location to play, hold a card (or tap an opponent's card or an empty location) for a popup with its full text. A match takes the whole screen (a portal over the village); "Leave the table" returns to the lobby with the match waiting.
-- **Habit input:** gold. A won match pays `gold unit × 0.25 × cubes` (`snapGold`; an Arena win pays 0.5 units), and the gold unit is ten minutes of
-  village income, so matches can only ever add a slice of what the habits already make. Losses cost nothing. No daily limit yet (to be set after play-testing).
-- **Ledger** (`snap` in the save): cubes, matches played and won, best win, and custom decks by name (12 different cards, `snapDeckSave` / `snapDeckDelete`).
+(`VERSION.json` names the source commit) and the card and location renders into `public/assets/snap/` (base renders as they are, every variant shrunk
+to 320 px: about 140 MB, streamed by the service worker as cards are seen, never at install). Re-run the script after the weekly snap-proto update. The opponent thinks in a Web Worker. The table is laid out like Snap's: the opponent's cards in a band above, the three locations in a band across the middle with both power counts on the tiles (locations without a render get a plain tile), your cards below; tap a card then a location to play, hold a card (or tap an opponent's card or an empty location) for a popup with its full text. A match takes the whole screen (a portal over the village); "Leave the table" returns to the lobby with the match waiting.
+- **Habit input:** gold. A won match pays `gold unit × 0.25 × cubes × (1 + 0.1 × min(streak, 10))` (`snapGold`; an Arena win pays 0.5 units), and the
+  gold unit is ten minutes of village income, so matches can only ever add a slice of what the habits already make. The streak is the straight wins before
+  this one, so the bonus tops out at double; a loss or retreat ends it, a draw keeps it. Losses cost nothing. No daily limit yet (to be set after play-testing).
+- **Mystery opponent:** the Opponent list has a Mystery entry that picks the deck (any built-in or saved) and the playing style (Greedy, Lookahead or
+  Rollout) at random and tells you both only when the match ends.
+- **Card art:** the lobby's Card art catalogue lists every card with variants; a pick (`snapArt`, kept in `snap.art` as card → variant id) is used on the
+  table, in the hand, in the popup and in the deck builder, and can be put back to the original.
+- **Ledger** (`snap` in the save): cubes, matches played and won, best win, current and best streak, art picks, and custom decks by name (12 different cards, `snapDeckSave` / `snapDeckDelete`).
   The **Cardsharp** title at 100 cubes. A match in progress lives for the page, not the save.
 - **Tier list and house rules:** `docs/snap-tiers.md` rates every card from the public tier lists (Marvel Snap Zone Series 3-5, Pocket Gamer for the
   launch pool, snap.fan win rates where present); `lib/snap-tiers.json` carries the tier the deck builder shows (T1-T5). `lib/snap-house.mjs` is the only

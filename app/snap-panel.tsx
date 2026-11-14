@@ -11,12 +11,14 @@ import {AIS as AIS_M} from '@/lib/snap/ai.mjs';
 import VERSION from '@/lib/snap/VERSION.json';
 import CARD_TIERS from '@/lib/snap-tiers.json';
 import '@/lib/snap-house.mjs';
-import {snapGold,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME} from '@/lib/game.mjs';
+import {snapGold,snapStreakBonus,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME,SNAP_STREAK,SNAP_STREAK_MAX} from '@/lib/game.mjs';
 import {abbrev} from './original-controls';
 
 const CARDS:any=CARDS_M,LOCATIONS:any=LOCATIONS_M,BUILT_IN:any=BUILT_IN_M,E:any=ENGINE,AIS:any=AIS_M;
 const ME=0,AI=1;
-const TIERS=[['greedy','Greedy (quick)'],['lookahead','Lookahead'],['rollout','Rollout (slow, strongest)'],['random','Random']];
+const TIERS=[['greedy','Greedy (quick)'],['lookahead','Lookahead'],['rollout','Rollout (slow, strongest)'],['random','Random'],['mystery','Mystery: random deck and style']];
+const MYSTERY_STYLES=['greedy','lookahead','rollout'];const pick=<T,>(a:T[])=>a[Math.floor(Math.random()*a.length)];
+const styleName=(id:string)=>TIERS.find(t=>t[0]===id)?.[1].split(' (')[0]??id;
 const ID_BY_NAME:Record<string,string>=Object.fromEntries(Object.entries(CARDS).map(([id,d]:any)=>[d.name,id]));
 /** A card that borrowed another card's text (Kang's copies, Magus...) keeps its own art. */
 const artId=(card:any)=>card.alias?(ID_BY_NAME[card.alias]??card.id):card.id;
@@ -24,7 +26,9 @@ const artId=(card:any)=>card.alias?(ID_BY_NAME[card.alias]??card.id):card.id;
 // ---- art: base renders synced by scripts/sync-snap.mjs; without the index every card is a text box ----
 let ART:any=null,artLoad:Promise<any>|null=null;
 const loadArt=()=>artLoad||(artLoad=fetch('./assets/snap/index.json').then(r=>r.ok?r.json():null).then(a=>(ART=a)).catch(()=>null));
-const cardArt=(card:any)=>{const i=ART?.cards?.[artId(card)];return i?{url:'./assets/snap/'+i.base,artist:i.artist}:null};
+let PICKS:Record<string,number>={};
+const artFor=(id:string)=>{const i=ART?.cards?.[id];if(!i)return null;const v=PICKS[id]!=null?(i.variants||[]).find((v:any)=>v.vid===PICKS[id]):null;return {url:'./assets/snap/'+(v?v.file:i.base),artist:v?v.artist:i.artist}};
+const cardArt=(card:any)=>artFor(artId(card));
 const locArt=(id:string)=>ART?.locations?.[id]?'./assets/snap/'+ART.locations[id].base:null;
 
 // ---- the opponent thinks in a worker; if the browser refuses, it thinks inline ----
@@ -38,7 +42,7 @@ function think(view:any,p:number,ai:string):Promise<any>{
   const id=++seq;return new Promise((resolve,reject)=>{pending.set(id,{resolve,reject});worker!.postMessage({id,view,p,ai})}).catch(inline);
  }catch{return inline()}}
 
-type Match={state:any,staged:any[],moves:any[],activates:string[],selected:string|null,move:{card:any,from:number}|null,action:string,agatha:boolean,aiPre:any,busy:boolean,note:string,recorded:boolean,ai:string,deckMe:string,deckAi:string};
+type Match={state:any,staged:any[],moves:any[],activates:string[],selected:string|null,move:{card:any,from:number}|null,action:string,agatha:boolean,aiPre:any,busy:boolean,note:string,recorded:boolean,ai:string,deckMe:string,deckAi:string,mystery:boolean};
 /** The match in progress survives leaving the Parlour and coming back (it lives for the page, not the save). */
 let live:Match|null=null,prefs={ai:'lookahead',deckMe:Object.keys(BUILT_IN)[0],deckAi:Object.keys(BUILT_IN)[1]};
 
@@ -60,7 +64,7 @@ async function beginTurn(m:Match):Promise<Match>{
 
 function newMatch(decks:Record<string,string[]>,deckMe:string,deckAi:string,ai:string):Match{
  const state=E.startTurn(E.createGame({decks:[decks[deckMe],decks[deckAi]],seed:Math.floor(Math.random()*1e9)}));
- return {state,staged:[],moves:[],activates:[],selected:null,move:null,action:'none',agatha:false,aiPre:null,busy:false,note:'',recorded:false,ai,deckMe,deckAi}}
+ return {state,staged:[],moves:[],activates:[],selected:null,move:null,action:'none',agatha:false,aiPre:null,busy:false,note:'',recorded:false,ai,deckMe,deckAi,mystery:false}}
 
 /** One card as it looks on the board or in the hand. */
 function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{card:any,m:Match,owner?:number,staged?:boolean,power?:number|null,cls?:string,onClick?:(e:any)=>void,onPeek?:(c:any,owner:number,power:number|null)=>void}){
@@ -80,7 +84,8 @@ function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{c
 }
 
 export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
- const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[retreating,setRetreating]=useState(false);
+ const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[catalog,setCatalog]=useState(false),[retreating,setRetreating]=useState(false);
+ PICKS=game.snap?.art||{};
  const [ai,setAi]=useState(prefs.ai),[deckMe,setDeckMe]=useState(prefs.deckMe),[deckAi,setDeckAi]=useState(prefs.deckAi);
  const ref=useRef(m);ref.current=m;
  useEffect(()=>{loadArt().then(()=>tick(t=>t+1))},[]);
@@ -90,7 +95,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const ledger=game.snap||{cubes:0,played:0,won:0,best:0};
  const set=(fn:(m:Match)=>Match)=>{const cur=ref.current;if(!cur)return;const n=fn(cur);ref.current=n;setM(n)};
 
- async function start(){if(!decks[deckMe]||!decks[deckAi])return;let n=newMatch(decks,deckMe,deckAi,ai);ref.current=n;setM(n);setOpen(true);n=await beginTurn(n);ref.current=n;setM(n);setPeek(null);setRetreating(false)}
+ async function start(){const mystery=ai==='mystery',oppDeck=mystery?pick(names):deckAi,style=mystery?pick(MYSTERY_STYLES):ai;if(!decks[deckMe]||!decks[oppDeck])return;let n={...newMatch(decks,deckMe,oppDeck,style),mystery};ref.current=n;setM(n);setOpen(true);n=await beginTurn(n);ref.current=n;setM(n);setPeek(null);setRetreating(false)}
  /** Both submissions go to the engine; the AI's comes from the worker (or was made first, under Daredevil). */
  async function endTurn(act='none'){const cur=ref.current;if(!cur||cur.state.over||cur.busy)return;
   set(x=>({...x,busy:true,action:act,note:''}));const s=cur.state,mine={plays:cur.staged,moves:cur.moves.map((x:any)=>({uid:x.uid,to:x.to})),activates:cur.activates};
@@ -120,20 +125,22 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   <ul className="es-modifiers">
    <li><span>Cubes won</span><b>{ledger.cubes}</b></li>
    <li><span>Matches</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best} cubes`:''}</b></li>
-   <li><span>Gold per cube won</span><b>{abbrev(snapGold(game,1))}</b></li>
+   <li><span>Gold per cube won</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` (streak ×${snapStreakBonus(game).toFixed(1)})`:''}</b></li>
+   <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold per straight win, up to {SNAP_STREAK_MAX}</b></li>
    <li><span>Cardsharp title</span><b>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
   </ul>
   <div className="sn-picks">
    <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>
-   <label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>
+   {ai!=='mystery'&&<label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{custom[n]?'★ '+n:n}</NativeSelectOption>)}</NativeSelect></label>}
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
   </div>
-  <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button></div>
+  <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button><Button variant="outline" onClick={()=>setCatalog(true)}>Card art</Button></div>
   <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}). A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
 
+ const catalogDialog=catalog&&<ArtCatalog game={game} action={action} locked={locked} onClose={()=>setCatalog(false)}/>;
  const builderDialog=builder&&<DeckBuilder game={game} action={action} locked={locked} start={decks[deckMe]||[]} startName={custom[deckMe]?deckMe:''} onClose={()=>setBuilder(false)} onSaved={(n:string)=>{setDeckMe(n);setBuilder(false)}}/>;
- if(!m||!open)return <section className="business-list es-building sn-panel">{lobby}{builderDialog}</section>;
+ if(!m||!open)return <section className="business-list es-building sn-panel">{lobby}{builderDialog}{catalogDialog}</section>;
 
  const s=m.state,canSee=seer(m),cubes=s.over?E.cubesFor(s,ME):0,fin=E.finalTurn(s);
  const notes:string[]=[];
@@ -179,7 +186,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    {peek.loc?<div className="sn-peek"><div className={'sn-peek-img sn-peek-loc'+(peek.art?'':' sn-locblank')} style={peek.art?{backgroundImage:`url("${peek.art}")`}:undefined}>{!peek.art&&<b>{peek.name}</b>}</div><div><b>{peek.name}</b><p>{peek.text}</p><small>Tap anywhere to close</small></div></div>
    :<div className="sn-peek">{cardArt(peek.card)?<div className="sn-peek-img" style={{backgroundImage:`url("${cardArt(peek.card)!.url}")`}}/>:<div className="sn-peek-img sn-locblank"><b>{peek.card.alias??CARDS[peek.card.id].name}</b></div>}<div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
   </div>}
-  {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}! +${abbrev(snapGold(game,cubes))} gold`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}</div>}
+  {s.over&&<div className={'sn-banner'+(cubes>0?' sn-win':cubes<0?' sn-lose':'')}>{cubes>0?`You win ${cubes} cube${cubes===1?'':'s'}!${(ledger.streak||0)>1?` ${ledger.streak} in a row.`:''}`:cubes<0?`You lose ${-cubes} cube${cubes===-1?'':'s'} (${s.result.reason}).`:'A draw.'}{m.mystery&&<small> The opponent played {m.deckAi} in the {styleName(m.ai)} style.</small>}</div>}
   <p className="small-note sn-hint">{[hint,...notes].join(' ')}</p>
   <div className="business-actions sn-acts">
    {s.over?<><Button disabled={locked} onClick={start}>Play again</Button><Button variant="outline" onClick={()=>{live=null;setM(null);setOpen(false)}}>Back to the table</Button></>
@@ -197,6 +204,28 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  </div>,document.body);
 }
 
+/** Every card with variants; a tap picks the art the table, the hand and the builder use. Thumbnails load only for the card that is open. */
+function ArtCatalog({game,action,locked,onClose}:{game:any,action:any,locked:boolean,onClose:()=>void}){
+ const [q,setQ]=useState(''),[sel,setSel]=useState<string|null>(null);
+ const picks:Record<string,number>=game.snap?.art||{};const term=q.trim().toLowerCase();
+ const ids=(POOL_IDS as string[]).filter(id=>!CARDS[id].token&&ART?.cards?.[id]?.variants?.length).sort((a,b)=>CARDS[a].name.localeCompare(CARDS[b].name)).filter(id=>!term||CARDS[id].name.toLowerCase().includes(term));
+ const info=sel&&ART?ART.cards[sel]:null;
+ return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder"><DialogTitle>{sel?CARDS[sel].name:'Card art'}</DialogTitle>
+  <DialogDescription>{sel?'Tap the art you want on the table. The first is the original.':ART?`${ids.length} cards have variants. ${Object.keys(picks).length} chosen.`:'The art index has not loaded yet.'}</DialogDescription>
+  {sel&&info?<>
+   <div className="sn-variants">
+    <button type="button" className={'sn-variant'+(picks[sel]==null?' sn-on':'')} onClick={()=>{if(action('snapArt',sel,null))setSel(sel)}} disabled={locked}><i style={{backgroundImage:`url("./assets/snap/${info.base}")`}}/><span>Original<br/><small>{info.artist}</small></span></button>
+    {info.variants.map((v:any)=><button type="button" key={v.vid} className={'sn-variant'+(picks[sel]===v.vid?' sn-on':'')} onClick={()=>action('snapArt',sel,v.vid)} disabled={locked}><i style={{backgroundImage:`url("./assets/snap/${v.file}")`}}/><span>{v.rarity||'Variant'}<br/><small>{v.artist}</small></span></button>)}
+   </div>
+   <div className="sn-bar"><Button variant="outline" onClick={()=>setSel(null)}>All cards</Button><Button variant="outline" onClick={onClose}>Close</Button></div>
+  </>:<>
+   <div className="sn-bar"><input value={q} placeholder="Search by name" onChange={e=>setQ(e.target.value)}/></div>
+   <div className="sn-pool">{ids.map(id=>{const a=artFor(id)!,n=ART.cards[id].variants.length;return <button type="button" key={id} className={'sn-pick sn-artpick'+(picks[id]!=null?' sn-on':'')} onClick={()=>setSel(id)}><i className="sn-thumb" style={{backgroundImage:`url("${a.url}")`}}/><span>{CARDS[id].name}<br/><small>{n} variant{n===1?'':'s'}{picks[id]!=null?' · chosen':''}</small></span></button>})}</div>
+   <div className="sn-bar"><Button variant="outline" onClick={onClose}>Close</Button></div>
+  </>}
+ </DialogContent></Dialog>;
+}
+
 /** Make a 12-card deck from the whole pool; saved in the village save under its name. */
 function DeckBuilder({game,action,locked,start,startName,onClose,onSaved}:{game:any,action:any,locked:boolean,start:string[],startName:string,onClose:()=>void,onSaved:(n:string)=>void}){
  const [picked,setPicked]=useState<string[]>(start),[name,setName]=useState(startName),[q,setQ]=useState(''),[cost,setCost]=useState(''),[only,setOnly]=useState(false),[err,setErr]=useState('');
@@ -210,7 +239,7 @@ function DeckBuilder({game,action,locked,start,startName,onClose,onSaved}:{game:
   <div className="sn-bar"><input value={name} maxLength={SNAP_DECK_NAME} placeholder="Deck name" onChange={e=>{setName(e.target.value);setErr('')}}/><input value={q} placeholder="Search name or text" onChange={e=>setQ(e.target.value)}/>
    <NativeSelect value={cost} onChange={(e:any)=>setCost(e.target.value)}><NativeSelectOption value="">Any cost</NativeSelectOption>{[0,1,2,3,4,5,6].map(c=><NativeSelectOption key={c} value={String(c)}>{c===6?'6+':c}-Cost</NativeSelectOption>)}</NativeSelect>
    <label className="sn-only"><input type="checkbox" checked={only} onChange={e=>setOnly(e.target.checked)}/> picked only</label><b>{picked.length} / {SNAP_DECK}</b></div>
-  <div className="sn-pool">{shown.map(id=>{const d=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} title={d.text||'No ability'} onClick={()=>toggle(id)}><span className="sn-c">{d.cost}</span><span>{d.name}{d.skill?' (skill)':''}{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]} title={'Tier '+(CARD_TIERS as any)[id]+' in the public tier lists'}>T{(CARD_TIERS as any)[id]}</i>}{d.house&&<i className="sn-house" title={'House rule: +'+d.house+' Power'}>+{d.house}</i>}</span><span className="sn-p">{d.skill?'':d.power}</span></button>})}</div>
+  <div className="sn-pool">{shown.map(id=>{const d=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} title={d.text||'No ability'} onClick={()=>toggle(id)}>{artFor(id)&&<i className="sn-thumb" style={{backgroundImage:`url("${artFor(id)!.url}")`}}/>}<span className="sn-c">{d.cost}</span><span>{d.name}{d.skill?' (skill)':''}{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]} title={'Tier '+(CARD_TIERS as any)[id]+' in the public tier lists'}>T{(CARD_TIERS as any)[id]}</i>}{d.house&&<i className="sn-house" title={'House rule: +'+d.house+' Power'}>+{d.house}</i>}</span><span className="sn-p">{d.skill?'':d.power}</span></button>})}</div>
   {err&&<p className="small-note sn-err">{err}</p>}
   <div className="sn-bar"><Button disabled={locked||picked.length!==SNAP_DECK} onClick={save}>Save deck</Button>{mine&&<Button variant="outline" disabled={locked} onClick={()=>{if(action('snapDeckDelete',name.trim()))onClose()}}>Delete</Button>}<Button variant="outline" onClick={()=>setPicked([])}>Clear</Button><Button variant="outline" onClick={onClose}>Close</Button></div>
  </DialogContent></Dialog>;
