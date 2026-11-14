@@ -1,12 +1,12 @@
 # Card Parlour tier list
 
-Every card in the Parlour's pool (the snap-proto copy, 495 characters; tokens and skills left out), with its standing in the public tier lists as of 11 November 2026, and the Parlour's house rules.
+Every card in the Parlour's pool (the snap-proto copy, 500 characters; tokens and skills left out), with its standing in the public tier lists as of 11 November 2026, and the Parlour's house rules.
 
 **Sources.** Marvel Snap Zone's long-term card tier lists for [Series 3](https://marvelsnapzone.com/marvel-snap-pool-3-card-tier-list/), [Series 4](https://marvelsnapzone.com/marvel-snap-series-4-card-tier-list/) and [Series 5](https://marvelsnapzone.com/marvel-snap-series-5-card-tier-list/) (Tier 1 = every player should own it, Tier 5 = skippable) are the primary rating. Cards they do not cover (the launch pool) take [Pocket Gamer's all-cards list](https://www.pocketgamer.com/marvel-snap/tier-list) (S→1, A→2, B→3, C→4, D/E→5). [snap.fan's win-rate tier list](https://snap.fan/cards/tier-list/) (67,514 ranked games, 11 November 2026) is shown where it has the card; it only covers cards in current meta decks. Cards released after the lists were written are marked new.
 
 **House rules.** Famous characters whose cards sit in Tier 4-5 get +1 Power at the Parlour: 36 cards, each marked below. Nothing else changes (lib/snap-house.mjs).
 
-Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 29
+Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 
 | Card | Cost/Power | Tier | MSZ | Pocket Gamer | snap.fan | House |
 |---|---|---|---|---|---|---|
@@ -505,3 +505,8 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 29
 | Scorpion Brand New Day | 6/6 | new |  |  |  |  |
 | Sinister Six | 6/12 | new |  |  |  |  |
 | Monstro | 8/8 | new |  |  |  |  |
+| Zombie Nova | 2/0 | new |  |  |  |  |
+| Mordred | 3/4 | new |  |  |  |  |
+| Vampire America Chavez | 3/4 | new |  |  |  |  |
+| Arthur Pendragon | 4/4 | new |  |  |  |  |
+| Lancelot | 4/6 | new |  |  |  |  |
