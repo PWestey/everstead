@@ -34,7 +34,33 @@
    a cube at the top, cards with a blue cost gem and an orange power gem and a chunky name, location plaques with both powers on them, an energy orb
    between the red Retreat and purple End Turn ribbons. All of it is CSS and the card renders; nothing is taken from the game's own files. */
 .sn-panel{display:grid;gap:8px}
-.sn-lobby .sn-picks{display:grid;gap:6px;margin:8px 0}.sn-picks label{display:grid;gap:2px;font-size:13px;color:#5c4d36}.sn-picks label>:not(span){width:100%}
+/* The Parlour lobby: Snap's main menu in miniature (deep space, hex avatars, ribbons), inside the Guildhall's building list. */
+.sn-lobby{display:grid;gap:10px;padding:14px 12px 12px;border-radius:14px;border:1px solid #4a4480;box-shadow:inset 0 0 0 1px #0a0820,0 4px 14px #0008;font-family:'Texturina',Georgia,serif}
+.sn-lobby-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sn-lobby-head h2{margin:0;font:700 22px/1 var(--snf);letter-spacing:1px;text-transform:uppercase;color:#fff;text-shadow:0 0 12px #8a4dff,0 2px 2px #000}
+.sn-rank{padding:3px 10px;border-radius:12px;background:linear-gradient(90deg,#5a3a06,#a87a16);border:1px solid var(--sn-gold);color:#fff5d6;font:700 11px/1.2 var(--snf);letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+.sn-lobby p.sn-blurb{margin:0;font-size:12.5px;line-height:1.4;color:#c9c3e8}
+.sn-stats{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:10px;background:#14122acc;border:1px solid #3f3a72}
+.sn-stats .sn-orb{flex:0 0 58px}
+.sn-statlist{list-style:none;margin:0;padding:0;display:grid;gap:3px;min-width:0;flex:1}
+.sn-statlist li{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;min-width:0}
+.sn-statlist span{color:#b9b3d9;white-space:nowrap}.sn-statlist b{color:#fff;font-weight:700;text-align:right;display:flex;align-items:center;gap:6px;justify-content:flex-end;min-width:0}
+.sn-bar{display:inline-block;width:56px;height:6px;border-radius:3px;background:#0a0820;border:1px solid #4a4480;overflow:hidden;vertical-align:middle}.sn-bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--sn-gold),#fff3c4)}
+.sn-lobby-top{padding:0}
+.sn-vs{font:900 16px/1 var(--snf);color:var(--sn-gold);text-shadow:0 0 8px #f5c54288,0 1px 2px #000}
+.sn-lobby-deck{grid-template-columns:repeat(6,minmax(0,1fr))}
+.sn-lobby .sn-picks{display:grid;gap:6px;margin:0}
+.sn-picks label{display:grid;gap:2px;font-size:11px;color:#b9b3d9;text-transform:uppercase;letter-spacing:.4px}.sn-picks label>:not(span){width:100%}
+.sn-lobby .sn-picks select,.sn-lobby .sn-picks [data-slot=native-select],.sn-lobby .sn-picks [data-slot=native-select-wrapper]{background:#14122a;color:#fff;border-color:#4a4480;border-radius:8px;font:600 13px/1.2 'Texturina',Georgia,serif;text-transform:none;letter-spacing:0}
+.sn-lobby .sn-picks option{background:#14122a;color:#fff}
+.sn-lobby-acts{display:grid;gap:8px;justify-items:stretch}
+.sn-lobby-acts .sn-ribbon{justify-self:stretch;width:100%}
+.sn-ribbon-play{min-height:54px;font-size:20px;letter-spacing:1.5px;box-shadow:0 0 18px #8a4dff88}
+.sn-ribbon-gold{background:linear-gradient(#ffe08a,#c98a0a 60%,#7a4e02);color:#2a1a00;text-shadow:0 1px 0 #fff8}
+.sn-ribbon-gold small{color:#3a2800}
+.sn-lobby-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sn-lobby p.sn-foot{margin:0;font-size:10px;line-height:1.35;color:#8d86b8}
+@media (min-width:720px){.sn-lobby{padding:18px 20px}.sn-lobby-head h2{font-size:28px}.sn-lobby p.sn-blurb{font-size:14px}.sn-statlist li{font-size:13px}.sn-lobby .sn-picks{grid-template-columns:1fr 1fr 1fr}.sn-lobby-acts{grid-template-columns:1fr 1fr;align-items:start}.sn-lobby-acts .sn-ribbon-play{grid-column:1/-1}}
 .sn-acts{display:flex;gap:6px;flex-wrap:wrap}.sn-chooser{display:grid;gap:6px}
 :root{--snf:Impact,'Arial Black','Franklin Gothic Medium','Arial Narrow',sans-serif;--sn-blue:#2b7bff;--sn-blue2:#123f9e;--sn-red:#d9262e;--sn-red2:#7a0f14;--sn-purple:#8a4dff;--sn-purple2:#3f1aa6;--sn-gold:#f5c542;--sn-orange:#f08a1d;--sn-ink:#0a0820}
 .sn-space{background:#07061a;background-image:radial-gradient(ellipse at 50% 0%,#3a2a7a 0%,transparent 55%),radial-gradient(ellipse at 20% 100%,#1b2a6a 0%,transparent 50%),radial-gradient(ellipse at 85% 70%,#4a1a5a 0%,transparent 45%),radial-gradient(1px 1px at 12% 18%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 68% 9%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 40% 33%,#dfe8ff 50%,transparent 52%),radial-gradient(1px 1px at 88% 41%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 23% 62%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 76% 80%,#ffe9c4 50%,transparent 52%),radial-gradient(1px 1px at 52% 91%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 5% 85%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 95% 15%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 33% 5%,#fff 50%,transparent 52%),radial-gradient(1px 1px at 60% 55%,#fff 50%,transparent 52%);color:#ece8ff}

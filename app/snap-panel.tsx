@@ -132,23 +132,37 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const playable=(x:Match,li:number)=>{const sel=x.selected?handCard(x,x.selected):null;return !over(x)&&!x.busy&&((sel&&E.canPlayAt(x.state,li,ME,sel))||(x.move&&E.canMove(x.state,ME,x.move.card,x.move.from,li)))&&E.hasRoom(x.state,li,ME,addedAt(x,li))};
  const onPeek=(card:any,owner:number,power:number|null)=>setPeek({card,owner,power});
 
- const lobby=<article className="business-card sn-lobby">
-  <div className="identity"><h2>The Card Parlour</h2><span className="level">{ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.played?`${ledger.cubes} cubes`:'Open'}</span></div>
-  <p>A quiet table at the back of the Guildhall, cards from every corner of the multiverse. Six turns, three locations, win two. Snap to double the stakes, retreat to cut your losses.</p>
-  <ul className="es-modifiers">
-   <li><span>Cubes won</span><b>{ledger.cubes}</b></li>
-   <li><span>Matches</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best} cubes`:''}</b></li>
-   <li><span>Gold per cube won</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` (streak ×${snapStreakBonus(game).toFixed(1)})`:''}</b></li>
-   <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold per straight win, up to {SNAP_STREAK_MAX}</b></li>
-   <li><span>Cardsharp title</span><b>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
-  </ul>
+ const myDeck=decks[deckMe]||[],mySorted=[...myDeck].sort((x,y)=>CARDS[x].cost-CARDS[y].cost||CARDS[x].name.localeCompare(CARDS[y].name)),oppAv=ai==='mystery'?null:avatarOf(decks[deckAi]);
+ const rank=ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.played?`${ledger.cubes} cubes`:'Open table';
+ const lobby=<article className="sn-lobby sn-space">
+  <header className="sn-lobby-head"><h2>The Card Parlour</h2><span className="sn-rank">{rank}</span></header>
+  <p className="sn-blurb">A quiet table at the back of the Guildhall, cards from every corner of the multiverse. Six turns, three locations, win two. Snap to double the stakes, retreat to cut your losses.</p>
+  <div className="sn-stats">
+   <span className="sn-orb"><b>{ledger.cubes}</b><small>cubes</small></span>
+   <ul className="sn-statlist">
+    <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}</b></li>
+    <li><span>Gold per cube</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` · streak ×${snapStreakBonus(game).toFixed(1)}`:''}</b></li>
+    <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold a win, up to {SNAP_STREAK_MAX}</b></li>
+    <li><span>Cardsharp</span><b><i className="sn-bar"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
+   </ul>
+  </div>
+  <div className="sn-top sn-lobby-top">
+   <div className="sn-player sn-side-me"><span className="sn-hex"><i style={avatarOf(myDeck)?{backgroundImage:`url("${avatarOf(myDeck)}")`}:undefined}>{avatarOf(myDeck)?'':'Y'}</i></span><div><b>You</b><small>{deckLabel(deckMe,custom)}</small></div></div>
+   <span className="sn-vs">VS</span>
+   <div className="sn-player sn-side-opp"><div><b>{ai==='mystery'?'Mystery':styleName(ai)}</b><small>{ai==='mystery'?'Random deck and style':deckLabel(deckAi,custom)}</small></div><span className="sn-hex"><i style={oppAv?{backgroundImage:`url("${oppAv}")`}:undefined}>{oppAv?'':'?'}</i></span></div>
+  </div>
+  <div className="sn-deckrow sn-lobby-deck">{mySorted.map(id=><Frame key={id} id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-deckcard"/>)}{Array.from({length:Math.max(0,SNAP_DECK-mySorted.length)},(_,i)=><span key={'e'+i} className="sn-slot"/>)}</div>
   <div className="sn-picks">
    <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>
-   {ai!=='mystery'&&<label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>}
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
+   {ai!=='mystery'&&<label><span>Opponent’s deck</span><NativeSelect value={deckAi} onChange={(e:any)=>setDeckAi(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>}
   </div>
-  <div className="business-actions sn-acts">{m&&!m.state.over&&!open&&<Button onClick={()=>setOpen(true)}>Return to the table</Button>}<Button disabled={locked} variant={m&&!m.state.over&&!open?'outline':'default'} onClick={start}>{m&&!m.state.over?'Start over':m?'Play again':'Sit down'}</Button><Button variant="outline" onClick={()=>setBuilder(true)}>Build a deck</Button><Button variant="outline" onClick={()=>setCatalog(true)}>Card art</Button></div>
-  <p className="small-note">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE} (T1-T3) and a fun shelf with one deck per archetype the meta leaves out. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
+  <div className="sn-lobby-acts">
+   {m&&!m.state.over&&!open&&<button type="button" className="sn-ribbon sn-ribbon-gold" onClick={()=>setOpen(true)}>Return to the table<small>Turn {m.state.turn} · {m.state.stake} cube{m.state.stake===1?'':'s'} at stake</small></button>}
+   <button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-play" disabled={locked||!decks[deckMe]} onClick={start}>{m&&!m.state.over?'Start over':'Play'}<small>{m&&!m.state.over?'Forfeit the match in progress':'Sit down at the table'}</small></button>
+   <div className="sn-lobby-row"><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setBuilder(true)}>Decks</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setCatalog(true)}>Card art</button></div>
+  </div>
+  <p className="sn-foot">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE} (T1-T3) and a fun shelf with one deck per archetype the meta leaves out. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
 
  const catalogDialog=catalog&&<ArtCatalog game={game} action={action} locked={locked} onClose={()=>setCatalog(false)}/>;
