@@ -8,6 +8,7 @@ import * as E from '../lib/snap/engine.mjs';
 import {AIS} from '../lib/snap/ai.mjs';
 import {DECKS} from '../lib/snap/decks.mjs';
 import {META_DECKS,FUN_DECKS} from '../lib/snap-decks.mjs';
+import {DECK_GUIDES} from '../lib/snap-guides.mjs';
 const T=Date.UTC(2026,0,10,12);
 
 /** A whole match through the copied engine, both seats played by an AI tier. */
@@ -61,3 +62,12 @@ test('house rules: +1 Power to famous Tier 4-5 cards, applied once on import, ne
  const s=E.startTurn(E.createGame({decks:[DECKS.kazoo,DECKS.destroy],seed:3}));const hawk=[...s.players[0].hand,...s.players[0].deck].find(c=>c.id==='Hawkeye');assert.equal(hawk.power,2,'cards in a game carry the house number');
  const tiers=JSON.parse(readFileSync(new URL('../lib/snap-tiers.json',import.meta.url),'utf8'));for(const [id,t] of Object.entries(tiers)){assert.ok(CARDS[id],id);assert.ok(t>=1&&t<=5)}
  assert.ok(Object.keys(tiers).length>=450,'most of the pool is rated')});
+
+test('every built-in deck has a how-to-play guide that names its own cards',()=>{
+ const all={...META_DECKS,...FUN_DECKS};
+ for(const [k,d] of Object.entries(all)){const g=DECK_GUIDES[k];assert.ok(g,k+' has a guide');
+  assert.ok(g.plan.length>80&&g.curve.length>30&&g.tip.length>30,k+' guide is written out');
+  assert.ok(g.keys.length>=4&&g.keys.length<=6,k+' names 4 to 6 key cards');
+  for(const [id,why] of g.keys){assert.ok(d.ids.includes(id),k+' guide names '+id+' which is not in the deck');assert.ok(CARDS[id]&&why.length>20,k+' '+id)}}
+ for(const k of Object.keys(DECK_GUIDES))assert.ok(all[k],'guide '+k+' has a deck');
+});

@@ -6,6 +6,7 @@ import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {CARDS as CARDS_M,POOL_IDS} from '@/lib/snap/cards.mjs';
 import {LOCATIONS as LOCATIONS_M} from '@/lib/snap/locations.mjs';
 import {META_DECKS,FUN_DECKS,META_DATE} from '@/lib/snap-decks.mjs';
+import {DECK_GUIDES} from '@/lib/snap-guides.mjs';
 import * as ENGINE from '@/lib/snap/engine.mjs';
 import {AIS as AIS_M} from '@/lib/snap/ai.mjs';
 import VERSION from '@/lib/snap/VERSION.json';
@@ -133,6 +134,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const onPeek=(card:any,owner:number,power:number|null)=>setPeek({card,owner,power});
 
  const myDeck=decks[deckMe]||[],mySorted=[...myDeck].sort((x,y)=>CARDS[x].cost-CARDS[y].cost||CARDS[x].name.localeCompare(CARDS[y].name)),oppAv=ai==='mystery'?null:avatarOf(decks[deckAi]);
+ const guide:any=(DECK_GUIDES as any)[deckMe.replace(/^fun:/,'')]||null;
  const rank=ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.played?`${ledger.cubes} cubes`:'Open table';
  const lobby=<article className="sn-lobby sn-space">
   <header className="sn-lobby-head"><h2>The Card Parlour</h2><span className="sn-rank">{rank}</span></header>
@@ -152,6 +154,12 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <div className="sn-player sn-side-opp"><div><b>{ai==='mystery'?'Mystery':styleName(ai)}</b><small>{ai==='mystery'?'Random deck and style':deckLabel(deckAi,custom)}</small></div><span className="sn-hex"><i style={oppAv?{backgroundImage:`url("${oppAv}")`}:undefined}>{oppAv?'':'?'}</i></span></div>
   </div>
   <div className="sn-deckrow sn-lobby-deck">{mySorted.map(id=><Frame key={id} id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-deckcard"/>)}{Array.from({length:Math.max(0,SNAP_DECK-mySorted.length)},(_,i)=><span key={'e'+i} className="sn-slot"/>)}</div>
+  {guide&&<details className="sn-guide"><summary>How to play this deck</summary>
+   <p>{guide.plan}</p>
+   <ul>{guide.keys.map(([id,why]:[string,string])=><li key={id}><Frame id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-guidecard"/><div><b>{CARDS[id].name}</b><span>{why}</span></div></li>)}</ul>
+   <p><b>Curve</b> {guide.curve}</p>
+   <p><b>Tip</b> {guide.tip}</p>
+  </details>}
   <div className="sn-picks">
    <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
