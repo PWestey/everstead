@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {abbrev,exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import RosterLanding from './roster-landing';
@@ -26,7 +27,7 @@ function FamilyStats({game,id}:any){
   <div className={'rung-ribbon rung-'+(L<5?'green':'gold')}><b>{rung(L)}</b><i aria-hidden="true">&#9671;</i></div>
   <div className="family-medallions">
    <button type="button" className="family-medallion" onClick={()=>setOpen('Bond')}><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/><span>Bond Lv</span><strong>{L}</strong></button>
-   <button type="button" className="family-medallion" onClick={()=>setOpen('Power')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Power</span><strong>{Math.round(charPower(game,id)).toLocaleString('en-US')}</strong></button>
+   <button type="button" className="family-medallion" onClick={()=>setOpen('Power')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Power</span><strong>{abbrev(charPower(game,id))}</strong></button>
    <button type="button" className="family-medallion" onClick={()=>setOpen('Blessing')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Blessing</span><strong>+{pct(BLESS_LINKED*L)}</strong></button>
   </div>
   <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
@@ -45,7 +46,7 @@ function FamilyStats({game,id}:any){
 function giftPlan(g:any,bond:number,have:number,times:Quantity){const limit=times==='max'?10000:times;let n=0,cost=0,b=bond;while(n<limit){const L=bondLevel(b);const p=giftPrice(g,L);if(have-cost<p)break;cost+=p;b+=g.bond;n++}return {n,cost}}
 function GiftSheet({game,id,action,locked}:any){const [q,setQ]=useState<Quantity>(1);const bond=game.family[id].bond,L=bondLevel(bond);
  return <div className="es-gifts"><QuantityPicker value={q} onChange={setQ} label="Gift quantity"/>{Object.entries(GIFTS).map(([key,g]:any)=>{const have=g.gold?game.gold:game.crystals,p=giftPlan(g,bond,have,q);
-  return <div key={key} className="es-gift"><div><strong>{g.name}</strong><p>+{g.bond} bond{p.n>1?` × ${p.n} = +${(g.bond*p.n).toLocaleString()}`:''}</p></div>
+  return <div key={key} className="es-gift"><div><strong>{g.name}</strong><p>+{g.bond} bond{p.n>1?` × ${p.n} = +${exact(g.bond*p.n)}`:''}</p></div>
    <PrimaryAction verb={p.n>1?`Give ×${p.n}`:'Give'} disabled={locked||p.n<1} currency={g.gold?'Gold':'Crystals'} have={have} cost={p.n?p.cost:giftPrice(g,L)} onClick={()=>{if(p.n>=1)action('gift',id,{gift:key,times:p.n})}}/></div>})}</div>;
 }
 

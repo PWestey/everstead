@@ -1,15 +1,15 @@
 import {useState} from 'react';
 import {Button} from '@/components/ui/button';
-const compact=(value:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(value);
+import {abbrev,exact} from '@/lib/format.mjs';
 /** The resource rail across the top: your portrait and level (opens your Hero screen), earnings with the
  *  Momentum multiplier your habits earn, gold, crystals and settings. */
 export default function GameResources({gold,crystals,income,multiplier=1,onSettings,level,face,onProfile}: {gold:number,crystals:number,income:number,multiplier?:number,onSettings?:()=>void,level?:number,face?:string,onProfile?:()=>void}){
  const [noFace,setNoFace]=useState(false);
  return <header className="game-resources"><h1 className="sr-only">Everstead</h1>
   {level!=null&&onProfile&&<Button className="player-badge" variant="ghost" aria-label={'Your hero, total level '+level} onClick={onProfile}>{face&&!noFace?<span className="es-face"><img src={'./assets/'+face} alt="" onError={()=>setNoFace(true)}/></span>:<span className="es-face-fallback" aria-hidden="true">★</span>}<b>{level}</b></Button>}
-  <div className="resource-pill" title={Math.round(income*3600).toLocaleString()+' gold per hour from your buildings · Momentum ×'+multiplier.toFixed(2)}><img className="rs-px" src="./assets/osrs/ui/Bank_icon.png" alt=""/><span className="sr-only">Earnings </span><strong>{income>0?compact(income*3600):0}/h</strong></div>
-  <div className="resource-pill" title={gold.toLocaleString()+' gold'}><img className="rs-px" src="./assets/osrs/ui/Coins_1000.png" alt=""/><span className="sr-only">Gold </span><strong>{compact(Math.floor(gold))}</strong></div>
-  <div className="resource-pill" title={crystals.toLocaleString()+' crystals'}><img className="rs-px" src="./assets/osrs/ui/Dragonstone.png" alt=""/><span className="sr-only">Crystals </span><strong>{compact(crystals)}</strong></div>
+  <div className="resource-pill" title={exact(income*3600)+' gold per hour from your buildings · Momentum ×'+multiplier.toFixed(2)}><img className="rs-px" src="./assets/osrs/ui/Bank_icon.png" alt=""/><span className="sr-only">Earnings </span><strong>{income>0?abbrev(income*3600):0}/h</strong></div>
+  <div className="resource-pill" title={exact(gold)+' gold'}><img className="rs-px" src="./assets/osrs/ui/Coins_1000.png" alt=""/><span className="sr-only">Gold </span><strong>{abbrev(gold)}</strong></div>
+  <div className="resource-pill" title={exact(crystals)+' crystals'}><img className="rs-px" src="./assets/osrs/ui/Dragonstone.png" alt=""/><span className="sr-only">Crystals </span><strong>{abbrev(crystals)}</strong></div>
   {onSettings&&<Button className="resource-settings" variant="ghost" aria-label="Save and offline settings" onClick={onSettings}><img className="rs-px" src="./assets/osrs/ui/Settings.png" alt="" style={{width:22,height:22}}/></Button>}
  </header>;
 }

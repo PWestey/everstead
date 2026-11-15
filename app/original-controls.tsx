@@ -15,9 +15,10 @@ import {Button} from '@/components/ui/button';
  *  existing plans already call `max`; the original's own Quick behaviour beyond that is not captured. */
 export const QUANTITIES:[string,1|5|10|'max'][]=[['x1',1],['x5',5],['x10',10],['Max','max']];
 export type Quantity=1|5|10|'max';
-/** Convention 5, the in-flow register: four significant digits, `24.43M` / `71.16K` / `6.652B`. The
- *  detail dialogs use `toLocaleString()` instead, which is the same number in the audit register. */
-export const abbrev=(n:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumSignificantDigits:4}).format(Math.floor(Number(n)||0));
+/** Convention 5, the in-flow register (`123K` / `1.23M` / `45.6aa`) and the audit register the detail
+ *  dialogs use (every digit with commas). Both live in lib/format.mjs so the tests can read them. */
+import {abbrev,exact} from '@/lib/format.mjs';
+export {abbrev,exact};
 
 /** The 4-segment selector. Right-aligned, sits directly above the button it governs.
  *

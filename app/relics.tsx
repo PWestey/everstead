@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
@@ -63,7 +64,7 @@ export function TraitsBlock({game,id,action,locked}:{game:any,id:string,action:a
 export function Forge({game,action,locked}:{game:any,action:any,locked:boolean}){
  const list=relicsOwned(game).sort((a:any,b:any)=>TIER_RANK[a.tier]-TIER_RANK[b.tier]||a.name.localeCompare(b.name)||b.roll-a.roll),spares=relicSpares(game),shards=game.relics?.shards||0;
  return <div className="es-forge">
-  <p className="es-residents-title">The Forge · <b className="es-shards">{shards.toLocaleString('en-US')} shards</b></p>
+  <p className="es-residents-title">The Forge · <b className="es-shards">{exact(shards)} shards</b></p>
   <p className="small-note">Salvage a relic into shards (common {SHARDS.common}, rare {SHARDS.rare}, epic {SHARDS.epic}, legendary {SHARDS.legendary}). Reroll one for {REROLL_MULT}× its shards. Ascend a common for {ASCEND.common} or a rare for {ASCEND.rare}; it rolls afresh.</p>
   {spares.length>0&&<Button variant="outline" disabled={locked} onClick={()=>action('relicSalvageSpares')}>Salvage {spares.length} spare{spares.length>1?'s':''} (+{spares.reduce((n:number,r:any)=>n+(SHARDS as any)[r.tier],0)} shards)</Button>}
   {!list.length&&<p className="small-note">Nothing on the anvil yet. Relics drop on the Map and at War Table milestones.</p>}

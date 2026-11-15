@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import RosterLanding from './roster-landing';
@@ -14,7 +15,7 @@ import {CharacterSheet} from './character-sheet';
 import {gearScore} from '@/lib/modes.mjs';
 import {pathsOpen,wornRelics,steadyMult,relicBonus} from '@/lib/game.mjs';
 import {SPECS,ROLES,specOf,roleOf} from '@/lib/traits.mjs';
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const ICON='./assets/ui-original/Icons--Icon_EmblemStrength_1.png';
 
 /** How much gold `times` levels would cost from `level`, clamped to the cap and the wallet. */

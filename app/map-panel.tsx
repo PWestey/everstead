@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {REGIONS} from '@/lib/expedition-data.mjs';
@@ -10,7 +11,7 @@ import {skillIcon} from '@/lib/skills.mjs';
 import {BlightCard} from './village-panels';
 import {RelicCard} from './relics';
 
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const areaNames=(areas:string[])=>areas.map(a=>areaById(a)?.name).join(' & ');
 
 /** The Expedition map: regions open one after another, each with four adventures and a boss.

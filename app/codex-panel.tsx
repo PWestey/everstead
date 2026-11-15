@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {CODEX_CARDS,TOPIC_AREA,cardArea,codexQueue,codexMastered} from '@/lib/codex.mjs';
 import {codexReward,CODEX_PAID_PER_DAY,CODEX_NEW_PER_DAY,CODEX_XP,CODEX_MASTERY_STEP,CODEX_MASTERY_INCOME} from '@/lib/game.mjs';
@@ -6,7 +7,7 @@ import {habitDay} from '@/lib/habits.mjs';
 import {areaById} from '@/lib/cast.mjs';
 import {skillIcon} from '@/lib/skills.mjs';
 
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 
 /** The Archives: today's Codex reviews (spaced repetition) and the whole library of cards. */
 export function CodexPanel({game,action,locked}:{game:any,action:any,locked:boolean}){

@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
@@ -10,7 +11,7 @@ import {PLAYER_STAGES} from '@/lib/cast.mjs';
 import {playerStage,rosterPower,powerBreakdown,playerTitle,titlesEarned,TITLES} from '@/lib/game.mjs';
 import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {totalLevel,MAX_TOTAL} from '@/lib/skills.mjs';
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 
 export default function HeroPanel({game,action,locked}:any){
  const tl=totalLevel(game),stage=playerStage(tl),next=PLAYER_STAGES.find(s=>s.level>tl);

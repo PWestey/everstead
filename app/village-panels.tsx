@@ -1,4 +1,5 @@
 import {Button} from '@/components/ui/button';
+import {exact} from '@/lib/format.mjs';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
 import {PrimaryAction,QuantityPicker,abbrev,type Quantity} from './original-controls';
 import {MiniArt} from './character-artwork';
@@ -14,7 +15,7 @@ import {habitDue,habitEarnings,habitDay} from '@/lib/habits.mjs';
 import {codexQueue} from '@/lib/codex.mjs';
 import {nextChapter,currentStreak,longestStreak} from '@/lib/story.mjs';
 import {CODEX_NEW_PER_DAY} from '@/lib/game.mjs';
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const pct=(x:number)=>Math.round(x*100)+'%';
 
 /** A building's sheet: what it earns and why, and the one action that improves it. */

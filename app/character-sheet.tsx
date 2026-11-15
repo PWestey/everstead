@@ -1,11 +1,12 @@
 import {characterById,familyInArea,areaById} from '@/lib/cast.mjs';
+import {exact} from '@/lib/format.mjs';
 import {fellowBasePower,milestoneMult,nextMilestone,MILESTONES,blessings,steadyMult,relicBonus,wornRelics,wornRelic,specMult,pathsOf,bondLevel,SET_SIZE,SET_MULT,ROLE_PROVIDER,ROLE_MENTOR,GUARD_WAVE,GUARD_WOUND} from '@/lib/game.mjs';
 import {charPower,modePower,familyPower,modesOf,gearScore} from '@/lib/modes.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
 import {SPECS,ROLES,SET_NAMES,FRANCHISE,TIERS,specOf,roleOf,relicText} from '@/lib/traits.mjs';
 import {Roll} from './relics';
 
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const pct=(x:number)=>(x*100).toFixed(1)+'%';
 const x=(m:number)=>'×'+m.toFixed(m<10?2:1);
 

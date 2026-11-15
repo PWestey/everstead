@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {MiniArt} from './character-artwork';
 import {AREAS,areaById,characterById} from '@/lib/cast.mjs';
@@ -9,7 +10,7 @@ import * as X from '@/lib/modes.mjs';
 import {SPECS,SET_NAMES,specOf,squadSet} from '@/lib/traits.mjs';
 import {SET_SIZE,SET_MULT,wornRelics} from '@/lib/game.mjs';
 
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const area=(a:string)=>areaById(a)?.name||a;
 const trait=(a?:string)=>{const t=a?(X.GAUNTLET_TRAITS as any)[a]:null;return t?`${t.name}: ${t.text}`:''};
 type Mode='errands'|'rift'|'fronts'|'trials'|'strike'|'spire'|'arena'|'gauntlet';

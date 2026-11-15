@@ -309,6 +309,13 @@ to 320 px: about 140 MB, streamed by the service worker as cards are seen, never
   Rewards are the same as tap by tap; a test holds the Trials and Map batches to the one-by-one result.
 - **Back beside the X:** inside a War Table mode the header carries a Back button next to the close button, so leaving a mode never needs a scroll to the top.
 
+## Numbers
+
+Nothing caps, so gold and Power pass a quadrillion within a few laps and `Intl` compact notation runs out of letters at T. `lib/format.mjs` has the two registers every screen
+uses. The in-flow register `abbrev` (pills, buttons, stat lines) is exact with commas under 100,000, then three significant digits and a unit: 123K, 1.23M, 45.6B, 7.89T,
+then the idle-game letters aa (10^15), ab (10^18), ac ... az, ba ..., so a number is never longer than about six characters. The audit register `exact` (detail dialogs,
+tooltips, messages) shows every digit with commas up to a quadrillion, then the same letters with six significant digits (316.91aa), so a tooltip stays readable.
+
 ## Speed
 Power, blessings and bond levels are worked out once per real change, not per use: `remember` keeps the last answer while the parts of the save it came from
 (`family`, `fellows`, `companions`) are the same objects, and `bondLevel` reads a table. Those parts are replaced, never changed in place; keep it that way, or the

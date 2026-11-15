@@ -1,4 +1,5 @@
 import {useEffect,useState,Fragment} from 'react';
+import {abbrev} from '@/lib/format.mjs';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
@@ -36,7 +37,7 @@ export default function HabitPanel({game,action,locked,onSaveSettings}:any){
  <header className="habit-heading"><h2>Habit journal</h2>
   <div className="habit-tally">
    <div className="habit-meter"><span><Check aria-hidden="true"/>Today</span><progress value={summary.today.length} max={Math.max(1,summary.today.length+due.filter((x:any)=>!x.done).length)} aria-label="Tasks completed today"/><b>{summary.today.length}</b></div>
-   <div className="habit-meter"><span><Coins aria-hidden="true"/>Gold</span><progress value={goldPct} max={100} aria-label="Habit Gold toward today's limit"/><b>{Intl.NumberFormat('en',{notation:'compact'}).format(summary.gold)}</b></div>
+   <div className="habit-meter"><span><Coins aria-hidden="true"/>Gold</span><progress value={goldPct} max={100} aria-label="Habit Gold toward today's limit"/><b>{abbrev(summary.gold)}</b></div>
    <p className="habit-boost-line"><strong>×{earn.multiplier.toFixed(2)}</strong> Momentum · {earn.areas}/8 life areas this week</p>
   </div>
   <div className="habit-toolbar">{tools.map(([id,name,Icon])=><Button key={id} variant="outline" className="habit-icon" aria-label={name} title={name} onClick={()=>setModal(id)}><Icon aria-hidden="true"/></Button>)}<Button className="habit-icon habit-new" aria-label="New task" title="New task" disabled={locked} onClick={()=>openEditor()}><Plus aria-hidden="true"/></Button></div>

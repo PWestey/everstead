@@ -1,4 +1,5 @@
 import {useEffect,useRef,useState,lazy,Suspense} from 'react';
+import {abbrev,exact} from '@/lib/format.mjs';
 import {ShieldCheck,HardDrive,Check,Share2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {AlertDialog,AlertDialogContent,AlertDialogTitle,AlertDialogDescription,AlertDialogCancel,AlertDialogAction} from '@/components/ui/alert-dialog';
@@ -109,7 +110,7 @@ export default function App(){
   {dock}
   <Dialog open={moduleOpen} onOpenChange={setModuleOpen}><DialogContent className={'game-modal'+(CHARACTER_MODULES.includes(tab)?' character-modal':'')} showCloseButton={false}>
    {resources}
-   <div className="modal-heading"><img className="rs-px" src={'./assets/osrs/ui/'+meta.icon+'.png'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{Math.floor(game.gold).toLocaleString()} gold · {game.crystals.toLocaleString()} crystals</DialogDescription></div>{tab==='modes'&&wtMode&&<button type="button" className="village-back" onClick={()=>setWtMode(null)}>‹ Back</button>}<DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
+   <div className="modal-heading"><img className="rs-px" src={'./assets/osrs/ui/'+meta.icon+'.png'} alt=""/><div><DialogTitle>{title}</DialogTitle><DialogDescription>{abbrev(game.gold)} gold · {abbrev(game.crystals)} crystals</DialogDescription></div>{tab==='modes'&&wtMode&&<button type="button" className="village-back" onClick={()=>setWtMode(null)}>‹ Back</button>}<DialogClose className="village-close" aria-label="Return to village"><img src="./assets/ui/close.webp" alt=""/></DialogClose></div>
    <div className="modal-body" key={tab}>
     {tab==='hero'&&<HeroPanel game={game} action={action} locked={locked}/>}
     {tab==='fellows'&&<FellowsPanel game={game} action={action} locked={locked} onTalk={setTalk} selected={fellow} setSelected={setFellow} browse={fellowBrowse} setBrowse={setFellowBrowse}/>}
@@ -158,7 +159,7 @@ export default function App(){
   </DialogContent></Dialog>
   <AlertDialog open={restart} onOpenChange={setRestart}><AlertDialogContent><AlertDialogTitle>Start a new journey?</AlertDialogTitle><AlertDialogDescription>Your village, Fellows, Family and progress start over. Your habit journal keeps its tasks, history and settings. Export a copy first if you want one.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
    <AlertDialogAction onClick={()=>{try{const saved=storage.current.restore(newJourney(state.current,Date.now()),Date.now());state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setRestart(false);setModuleOpen(false);setPanel(false);tell('New journey started')}catch{saveFailure()}}}>Start over</AlertDialogAction></AlertDialogContent></AlertDialog>
-  <AlertDialog open={!!restore} onOpenChange={open=>{if(!open)setRestore(null)}}><AlertDialogContent><AlertDialogTitle>Restore this village?</AlertDialogTitle><AlertDialogDescription>Replace your current save with total level {restore?totalLevel(restore):0} and {Math.floor(restore?.gold||0).toLocaleString()} gold.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
+  <AlertDialog open={!!restore} onOpenChange={open=>{if(!open)setRestore(null)}}><AlertDialogContent><AlertDialogTitle>Restore this village?</AlertDialogTitle><AlertDialogDescription>Replace your current save with total level {restore?totalLevel(restore):0} and {exact(restore?.gold||0)} gold.</AlertDialogDescription><AlertDialogCancel>Cancel</AlertDialogCancel>
    <AlertDialogAction onClick={()=>{try{const saved=storage.current.restore(restore,Date.now());state.current=saved;setGame(saved);ready.current=true;setSaveFailed(false);setFailedLoad(false);setRestore(null);tell('Village restored')}catch{saveFailure()}}}>Restore village</AlertDialogAction></AlertDialogContent></AlertDialog>
   {notice&&!moduleOpen&&<div className="toast" key={pulse} role="status">{notice}</div>}
  </main>;

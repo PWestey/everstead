@@ -1,4 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
+import {exact} from '@/lib/format.mjs';
 import {nextChapter,hearthLine,fillTokens} from '@/lib/story.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {Button} from '@/components/ui/button';
@@ -9,7 +10,7 @@ import {QUESTS,questIds,questStatus,questPoints,questLock} from '@/lib/quests.mj
 import {TREES,ADVENTURES} from '@/lib/dialogue.mjs';
 import {playerStage} from '@/lib/game.mjs';
 import {MiniArt} from './character-artwork';
-const n=(x:number)=>Math.round(x).toLocaleString('en-US');
+const n=exact;
 const areaName=(a:string)=>AREAS.find(x=>x.id===a)?.name||a;
 
 /** The skills panel: eight skills, level/99, and the total level, in the style of the RuneScape stats tab. */
