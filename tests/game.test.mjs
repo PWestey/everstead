@@ -603,3 +603,9 @@ test('building level multiplies income by 1 + 0.15 per level, ×1.25 at every te
  assert.ok(buildingLevelMult(10)/buildingLevelMult(9)>1.3&&buildingLevelMult(11)/buildingLevelMult(10)<1.1,'the milestone level is the big one');const base={...fresh(T),fellows:{darrow:{level:500,stars:0}}};const at=l=>buildingRate({...base,buildings:{...base.buildings,yard:{level:l}}},'yard');
  // Levels 1 and 2 share one staff slot, so the ratio is the level multiplier alone; by 20 the extra slots add more on top.
  assert.ok(Math.abs(at(2)/at(1)-buildingLevelMult(2)/buildingLevelMult(1))<0.01,'level 2: '+(at(2)/at(1)).toFixed(3));assert.ok(at(20)/at(1)>=buildingLevelMult(20)/buildingLevelMult(1),'level 20 at least ×3.5: '+(at(20)/at(1)).toFixed(2))});
+
+test('the card-art index is precached, never kept in the forever cache, so new cards get art after a sync',async()=>{
+ const {streamed,kept}=await import('../scripts/offline-manifest.mjs');
+ assert.equal(streamed('assets/snap/index.json'),false);assert.equal(kept('assets/snap/index.json'),false);
+ assert.equal(streamed('assets/snap/cards/Hulk.webp'),true);assert.equal(kept('assets/snap/variants/Hulk/1.webp'),true);
+});
