@@ -61,7 +61,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Spider-Man Brand New Day | 1/2 | Tier 2 |  |  | A |  |
 | The Hood | 1/-3 | Tier 2 | Tier 2 | A | C |  |
 | X-23 | 1/1 | Tier 2 | Tier 2 | A | C |  |
-| Captain Britain | 2/2 | Tier 2 |  |  | A |  |
+| Captain Britain | 2/3 | Tier 2 |  |  | A |  |
 | Grand Master | 2/3 | Tier 2 | Tier 2 | A |  |  |
 | Hawkeye Kate Bishop | 2/3 | Tier 2 | Tier 2 |  |  |  |
 | Hulkbuster | 2/3 | Tier 2 |  | A |  |  |
@@ -85,7 +85,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Human Torch | 3/2 | Tier 2 | Tier 2 | C |  |  |
 | Maverick | 3/2 | Tier 2 | Tier 2 |  | C |  |
 | Mercury | 3/4 | Tier 2 | Tier 2 |  |  |  |
-| Mobius M. Mobius | 3/3 | Tier 2 | Tier 2 | S | B |  |
+| Mobius M. Mobius | 3/2 | Tier 2 | Tier 2 | S | B |  |
 | Mystique | 3/1 | Tier 2 | Tier 2 | A | F |  |
 | Prodigy | 3/4 | Tier 2 | Tier 2 |  |  |  |
 | Red Guardian | 3/2 | Tier 2 | Tier 2 |  |  |  |
@@ -163,7 +163,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Luke Cage | 2/2 | Tier 3 | Tier 3 | S | F |  |
 | Maximus | 2/6 | Tier 3 | Tier 3 | D |  |  |
 | Mirage | 2/3 | Tier 3 | Tier 3 | C |  |  |
-| Mister Sinister | 2/2 | Tier 3 |  | B |  |  |
+| Mister Sinister | 2/3 | Tier 3 |  | B |  |  |
 | Moondragon | 2/1 | Tier 3 | Tier 3 |  |  |  |
 | Morbius | 2/0 | Tier 3 |  | B |  |  |
 | Mysterio | 2/5 | Tier 3 | Tier 3 | S |  |  |
@@ -209,7 +209,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Prowler | 3/4 | Tier 3 | Tier 3 |  | C |  |
 | Sage | 3/0 | Tier 3 | Tier 3 | A |  |  |
 | Sebastian Shaw | 3/5 | Tier 3 | Tier 3 | S |  |  |
-| Shanna | 3/4 | Tier 3 | Tier 3 | D |  |  |
+| Shanna | 3/5 | Tier 3 | Tier 3 | D |  |  |
 | Silver Surfer First Steps | 3/5 | Tier 3 | Tier 3 |  |  |  |
 | Speed | 3/3 | Tier 3 | Tier 3 | A |  |  |
 | Spider-Punk | 3/3 | Tier 3 | Tier 3 |  |  |  |
@@ -219,7 +219,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Venom | 3/3 | Tier 3 | Tier 3 | S | C |  |
 | Viper | 3/4 | Tier 3 | Tier 3 | B |  |  |
 | Viv Vision | 3/4 | Tier 3 | Tier 3 |  |  |  |
-| Zombie Scarlet Witch | 3/4 | Tier 3 | Tier 3 |  |  |  |
+| Zombie Scarlet Witch | 3/3 | Tier 3 | Tier 3 |  |  |  |
 | Absorbing Man | 4/5 | Tier 3 | Tier 3 | A |  |  |
 | Anti-Venom | 4/7 | Tier 3 | Tier 3 | B |  |  |
 | Bastion | 4/3 | Tier 3 | Tier 3 |  |  |  |
@@ -262,7 +262,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Khonshu | 6/5 | Tier 3 | Tier 3 |  |  |  |
 | Magneto | 6/12 | Tier 3 | Tier 3 | B |  |  |
 | Mockingbird | 6/9 | Tier 3 | Tier 3 | A |  |  |
-| Onslaught | 6/8 | Tier 3 |  | B |  |  |
+| Onslaught | 6/9 | Tier 3 |  | B |  |  |
 | Red Hulk | 6/10 | Tier 3 | Tier 3 | S |  |  |
 | Sasquatch | 6/11 | Tier 3 | Tier 3 | A | B |  |
 | She-Hulk | 6/10 | Tier 3 | Tier 3 | C |  |  |
@@ -337,7 +337,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Ghost | 3/5 | Tier 4 | Tier 4 | E |  |  |
 | Hellcow | 3/5 | Tier 4 | Tier 4 | D |  |  |
 | Hercules | 3/5 | Tier 4 | Tier 4 | A |  |  |
-| Kang | 3/4 | Tier 4 | Tier 4 | E |  |  |
+| Kang | 3/5 | Tier 4 | Tier 4 | E |  |  |
 | Marvel Boy | 3/2 | Tier 4 | Tier 4 |  | B |  |
 | Mister Fantastic | 3/1 → 3/2 | Tier 4 |  | C |  | +1 Power |
 | Mister Fantastic First Steps | 3/5 | Tier 4 | Tier 4 |  | B |  |
@@ -465,7 +465,7 @@ Tier 1: 39 · Tier 2: 75 · Tier 3: 148 · Tier 4: 135 · Tier 5: 69 · new: 34
 | Namor | 4/6 → 4/7 | Tier 5 |  | E |  | +1 Power |
 | Rescue | 4/4 | Tier 5 | Tier 5 | E |  |  |
 | Selene Horseman of Famine | 4/4 | Tier 5 | Tier 5 |  |  |  |
-| Spider-Man Noir | 4/5 | Tier 5 | Tier 5 |  |  |  |
+| Spider-Man Noir | 4/6 | Tier 5 | Tier 5 |  |  |  |
 | Vampire Deacon Frost | 4/5 | Tier 5 |  |  | D |  |
 | Wolverine Horseman of War | 4/4 | Tier 5 | Tier 5 |  | C |  |
 | Zombie Captain Marvel | 4/6 | Tier 5 | Tier 5 |  | C |  |
