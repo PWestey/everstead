@@ -88,3 +88,7 @@ for n, out, sub in [('UI_Collection_DeckOptions_Icon_Back', 'icon-back', 'sprite
     im = find(n, sub)
     if out in ('icon-back', 'icon-check', 'icon-delete', 'icon-menu'): im = unblack(im)
     save(trim(im), out, 96, 'png')
+# the card back (pattern layer only, without the logo layer): deck thumbnails on the decks strip
+save(find('CardBack_Snap_01_Layer1_Purple'), 'cardback', 256)
+save(trim(find('img_hex_Outline')), 'hexoutline', 256, 'png')
+save(unblack(find('Pattern_Hexagon01')), 'hexpattern', 256, 'png')

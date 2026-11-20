@@ -169,7 +169,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   <div className="sn-lobby-acts">
    {m&&!m.state.over&&!open&&<button type="button" className="sn-ribbon sn-ribbon-gold" onClick={()=>setOpen(true)}>Return to the table<small>Turn {m.state.turn} · {m.state.stake} cube{m.state.stake===1?'':'s'} at stake</small></button>}
    <button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-play" disabled={locked||!decks[deckMe]} onClick={start}>{m&&!m.state.over?'Start over':'Play'}<small>{m&&!m.state.over?'Forfeit the match in progress':'Sit down at the table'}</small></button>
-   <div className="sn-lobby-row"><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setBuilder(true)}>Decks</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setCatalog(true)}>Card art</button></div>
+   <div className="sn-lobby-row"><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setBuilder(true)}>Cards</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setCatalog(true)}>Card art</button></div>
   </div>
   <p className="sn-foot">Cards and rules as of the snap-proto {VERSION.commit} sync ({VERSION.synced}); built-in decks are the Marvel Snap Zone ladder meta of {META_DATE} (T1-T3) and a fun shelf with one deck per archetype the meta leaves out. A match in progress waits here while you walk the village; it is gone when the page closes.</p>
  </article>;
