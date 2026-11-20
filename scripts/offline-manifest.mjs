@@ -4,7 +4,7 @@
 // Card art (63 MB) is fetched as cards are seen, never at install. The art index itself is precached so a new sync's
 // cards get their art at once: kept files are served from the cache forever, so an index in there would stay at the
 // first version a phone ever fetched.
-export const STREAMED=[/^assets\/snap\/(?!index\.json)/];
+export const STREAMED=[/^assets\/snap\/(?!index\.json)/];   // assets/snap-ui (the game's own chrome, 650 KB) is precached
 /** True when a built file is fetched on demand rather than precached. */
 export const streamed=path=>STREAMED.some(pattern=>pattern.test(path));
 // Streamed files listed here are cached the first time they are fetched. Every KEPT pattern must also be STREAMED.
