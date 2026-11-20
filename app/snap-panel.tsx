@@ -14,6 +14,7 @@ import CARD_TIERS from '@/lib/snap-tiers.json';
 import '@/lib/snap-house.mjs';
 import {snapGold,snapStreakBonus,SNAP_DECK,SNAP_CARDSHARP,SNAP_DECK_NAME,SNAP_STREAK,SNAP_STREAK_MAX} from '@/lib/game.mjs';
 import {abbrev} from './original-controls';
+import {DecksScreen} from './snap-decks';
 
 const CARDS:any=CARDS_M,LOCATIONS:any=LOCATIONS_M,E:any=ENGINE,AIS:any=AIS_M;
 // Built-in decks (lib/snap-decks.mjs): the ladder meta by tier, then the fun shelf, one deck per archetype the meta leaves out.
@@ -145,7 +146,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
     <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}</b></li>
     <li><span>Gold per cube</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` · streak ×${snapStreakBonus(game).toFixed(1)}`:''}</b></li>
     <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold a win, up to {SNAP_STREAK_MAX}</b></li>
-    <li><span>Cardsharp</span><b><i className="sn-bar"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
+    <li><span>Cardsharp</span><b><i className="sn-meter"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
    </ul>
   </div>
   <div className="sn-top sn-lobby-top">
@@ -174,7 +175,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  </article>;
 
  const catalogDialog=catalog&&<ArtCatalog game={game} action={action} locked={locked} onClose={()=>setCatalog(false)}/>;
- const builderDialog=builder&&<DeckBuilder game={game} action={action} locked={locked} start={decks[deckMe]||[]} startName={custom[deckMe]?deckMe:''} onClose={()=>setBuilder(false)} onSaved={(n:string)=>{setDeckMe(n);setBuilder(false)}}/>;
+ const builderDialog=builder&&<DecksScreen game={game} action={action} locked={locked} custom={custom} builtIn={BUILT_IN} current={deckMe} Frame={Frame} avatarOf={avatarOf} deckLabel={(k:string)=>deckLabel(k,custom)} onPick={setDeckMe} onClose={()=>setBuilder(false)}/>;
  if(!m||!open)return <section className="business-list es-building sn-panel">{lobby}{builderDialog}{catalogDialog}</section>;
 
  const s=m.state,canSee=seer(m),cubes=s.over?E.cubesFor(s,ME):0,fin=E.finalTurn(s);
@@ -266,37 +267,3 @@ function ArtCatalog({game,action,locked,onClose}:{game:any,action:any,locked:boo
  </DialogContent></Dialog>;
 }
 
-/** Make a 12-card deck from the whole pool; saved in the village save under its name. Laid out like Snap's collection: the deck across the top,
- * the collection as card frames, a tap opens the card with Add / Remove. */
-function DeckBuilder({game,action,locked,start,startName,onClose,onSaved}:{game:any,action:any,locked:boolean,start:string[],startName:string,onClose:()=>void,onSaved:(n:string)=>void}){
- const [picked,setPicked]=useState<string[]>(start),[name,setName]=useState(startName),[q,setQ]=useState(''),[cost,setCost]=useState(''),[only,setOnly]=useState(false),[err,setErr]=useState(''),[sel,setSel]=useState<string|null>(null);
- const ids=(POOL_IDS as string[]).filter(id=>!CARDS[id].token).sort((a,b)=>CARDS[a].cost-CARDS[b].cost||CARDS[a].name.localeCompare(CARDS[b].name));
- const term=q.trim().toLowerCase();
- const shown=ids.filter(id=>{const d=CARDS[id];if(only&&!picked.includes(id))return false;if(cost!==''&&(cost==='6'?d.cost<6:d.cost!==Number(cost)))return false;return !term||(d.name+' '+d.text).toLowerCase().includes(term)});
- const toggle=(id:string)=>setPicked(p=>p.includes(id)?p.filter(x=>x!==id):p.length<SNAP_DECK?[...p,id]:p);
- const save=()=>{const n=name.trim();if(!n){setErr('Give the deck a name');return}if(BUILT_IN[n]){setErr('That name belongs to a built-in deck');return}if(action('snapDeckSave',n,picked))onSaved(n)};
- const mine=!!game.snap?.decks?.[name.trim()];
- const sorted=[...picked].sort((a,b)=>CARDS[a].cost-CARDS[b].cost||CARDS[a].name.localeCompare(CARDS[b].name));
- const d=sel?CARDS[sel]:null,tier=sel?(CARD_TIERS as any)[sel]:null;
- return <Dialog open onOpenChange={o=>{if(!o)onClose()}}><DialogContent className="breakdown-dialog sn-builder sn-space"><DialogTitle>{sel?d.name:'Build a deck'}</DialogTitle>
-  <DialogDescription className="sr-only">Tap cards to open them, then add or remove them. A deck is exactly {SNAP_DECK} different cards.</DialogDescription>
-  {sel&&d?<>
-   <div className="sn-detail"><Frame id={sel} cost={d.cost} power={d.skill?'':d.power}/>
-    <div><h3>{d.name}</h3><p>{d.text||'No ability'}</p>
-     <small>{d.skill?'Skill · ':''}{tier?`Tier ${tier} in the public tier lists · `:''}{d.house?`House rule: +${d.house} Power · `:''}{artFor(sel)?.artist?'Art: '+artFor(sel)!.artist:''}</small></div></div>
-   <div className="sn-bar">
-    {picked.includes(sel)?<button type="button" className="sn-ribbon sn-ribbon-red sn-ribbon-sm" onClick={()=>{toggle(sel);setSel(null)}}>Remove from deck</button>
-    :<button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-sm" disabled={picked.length>=SNAP_DECK} onClick={()=>{toggle(sel);setSel(null)}}>{picked.length>=SNAP_DECK?'Deck is full':'Add to deck'}</button>}
-    <button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setSel(null)}>Back</button></div>
-  </>:<>
-   <div className="sn-deckrow">{sorted.map(id=><Frame key={id} id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-deckcard"/>).map((f,i)=><span key={sorted[i]} onClick={()=>setSel(sorted[i])}>{f}</span>)}{Array.from({length:Math.max(0,SNAP_DECK-sorted.length)},(_,i)=><i key={'e'+i} className="sn-slot"/>)}</div>
-   <div className="sn-bar"><input value={name} maxLength={SNAP_DECK_NAME} placeholder="Deck name" onChange={e=>{setName(e.target.value);setErr('')}}/><b>{picked.length} / {SNAP_DECK}</b></div>
-   <div className="sn-bar"><input value={q} placeholder="Search name or text" onChange={e=>setQ(e.target.value)}/>
-    <NativeSelect value={cost} onChange={(e:any)=>setCost(e.target.value)}><NativeSelectOption value="">Any cost</NativeSelectOption>{[0,1,2,3,4,5,6].map(c=><NativeSelectOption key={c} value={String(c)}>{c===6?'6+':c}-Cost</NativeSelectOption>)}</NativeSelect>
-    <label className="sn-only"><input type="checkbox" checked={only} onChange={e=>setOnly(e.target.checked)}/> in deck</label></div>
-   <div className="sn-pool">{shown.map(id=>{const c=CARDS[id];return <button type="button" key={id} className={'sn-pick'+(picked.includes(id)?' sn-on':'')} onClick={()=>setSel(id)}><Frame id={id} cost={c.cost} power={c.skill?'':c.power}/><span>{(CARD_TIERS as any)[id]&&<i className={'sn-tier sn-tier-'+(CARD_TIERS as any)[id]}>T{(CARD_TIERS as any)[id]}</i>}{c.house&&<i className="sn-house">+{c.house}</i>}</span></button>})}</div>
-   {err&&<p className="small-note sn-err">{err}</p>}
-   <div className="sn-bar"><button type="button" className="sn-ribbon sn-ribbon-purple sn-ribbon-sm" disabled={locked||picked.length!==SNAP_DECK} onClick={save}>Save deck</button>{mine&&<button type="button" className="sn-ribbon sn-ribbon-red sn-ribbon-sm" disabled={locked} onClick={()=>{if(action('snapDeckDelete',name.trim()))onClose()}}>Delete</button>}<button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={()=>setPicked([])}>Clear</button><button type="button" className="sn-ribbon sn-ribbon-blue sn-ribbon-sm" onClick={onClose}>Close</button></div>
-  </>}
- </DialogContent></Dialog>;
-}

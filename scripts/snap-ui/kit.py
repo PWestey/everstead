@@ -83,3 +83,8 @@ for src, dst in [('Comicraft - CCUltimatum Bold Italic.otf', 'CCUltimatum-BoldIt
     hits = glob.glob(os.path.join(ex, '*', 'fonts', src))
     if not hits: raise SystemExit('missing font ' + src)
     shutil.copy(hits[0], os.path.join(kit, 'fonts', dst)); print('font', dst)
+# deck screen icons (the collection's deck-option glyphs are red SDF shapes; the CSS turns them white)
+for n, out, sub in [('UI_Collection_DeckOptions_Icon_Back', 'icon-back', 'sprites'), ('UI_Collection_DeckOptions_Icon_Check', 'icon-check', 'sprites'), ('UI_Collection_DeckOptions_Icon_Delete', 'icon-delete', 'sprites'), ('UI_Collection_DeckOptions_Icon_Menu', 'icon-menu', 'sprites'), ('icn_copy', 'icon-copy', 'sprites'), ('ModEntry_OnReveal', 'icon-onreveal', 'sprites'), ('ModEntry_Ongoing', 'icon-ongoing', 'sprites'), ('ModEntry_Card', 'icon-card', 'sprites'), ('ModEntry_EndOfTurn', 'icon-endofturn', 'sprites'), ('ModEntry_Location', 'icon-location', 'sprites'), ('img_PlayerInfoIcons_Atlas_Deck', 'icon-deck', 'sprites'), ('UpgradeUpArrowGold', 'icon-up', 'textures')]:
+    im = find(n, sub)
+    if out in ('icon-back', 'icon-check', 'icon-delete', 'icon-menu'): im = unblack(im)
+    save(trim(im), out, 96, 'png')
