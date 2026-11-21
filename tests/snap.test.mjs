@@ -71,3 +71,8 @@ test('every built-in deck has a how-to-play guide that names its own cards',()=>
   for(const [id,why] of g.keys){assert.ok(d.ids.includes(id),k+' guide names '+id+' which is not in the deck');assert.ok(CARDS[id]&&why.length>20,k+' '+id)}}
  for(const k of Object.keys(DECK_GUIDES))assert.ok(all[k],'guide '+k+' has a deck');
 });
+
+test('snapReset wipes the record and the streaks but keeps cubes, decks and art',()=>{
+ let s=fresh(T);for(const c of [4,-2,3])s=act(s,'snapResult',T,null,{cubes:c}).state;s=act(s,'snapDeckSave',T,'Mine',Array.from({length:SNAP_DECK},(_,i)=>'c'+i)).state;
+ const r=act(s,'snapReset',T);assert.ok(!r.error,r.error);assert.deepEqual(r.state.snap,{decks:s.snap.decks,cubes:5,played:0,won:0,best:0,streak:0,bestStreak:0,art:{}});assert.ok(valid(r.state));
+ assert.equal(r.state.gold,s.gold,'no gold moves');assert.ok(!act(fresh(T),'snapReset',T).error,'fine on a fresh ledger')});

@@ -143,7 +143,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   <div className="sn-stats">
    <span className="sn-orb"><b>{ledger.cubes}</b><small>cubes</small></span>
    <ul className="sn-statlist">
-    <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}</b></li>
+    <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}{ledger.played>0&&<> · <button type="button" className="sn-link" disabled={locked} onClick={()=>{if(confirm('Start the record afresh? Wins, losses, best win and streaks go to zero. Your cubes, decks and card art stay.'))action('snapReset')}}>reset</button></>}</b></li>
     <li><span>Gold per cube</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` · streak ×${snapStreakBonus(game).toFixed(1)}`:''}</b></li>
     <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold a win, up to {SNAP_STREAK_MAX}</b></li>
     <li><span>Cardsharp</span><b><i className="sn-meter"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>

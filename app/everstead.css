@@ -44,6 +44,7 @@
 .sn-stats .sn-orb{flex:0 0 62px;background-image:url(/assets/snap-ui/cube.png);filter:drop-shadow(0 0 8px #4b8dff);padding-top:6px}.sn-stats .sn-orb small{color:#0b2a80;text-shadow:none;font-weight:700}.sn-bottom .sn-orb.sn-orb-cubes{background-image:url(/assets/snap-ui/cube.png);padding-top:6px}
 .sn-statlist{list-style:none;margin:0;padding:0;display:grid;gap:3px;min-width:0;flex:1}
 .sn-statlist li{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;min-width:0}
+.sn-link{background:none;border:0;padding:0;font:inherit;color:#b9b3d9;text-decoration:underline;cursor:pointer;min-height:24px}.sn-link:disabled{opacity:.5;cursor:default}
 .sn-statlist span{color:#b9b3d9;white-space:nowrap}.sn-statlist b{color:#fff;font-weight:700;text-align:right;display:flex;align-items:center;gap:6px;justify-content:flex-end;min-width:0}
 .sn-meter{display:inline-block;width:56px;height:6px;border-radius:3px;background:#0a0820;border:1px solid #4a4480;overflow:hidden;vertical-align:middle}.sn-meter>i{display:block;height:100%;background:linear-gradient(90deg,var(--sn-gold),#fff3c4)}
 .sn-lobby-top{padding:0}

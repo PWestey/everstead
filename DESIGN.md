@@ -278,6 +278,7 @@ to 320 px: about 140 MB, streamed by the service worker as cards are seen, never
 - **Habit input:** gold. A won match pays `gold unit × 0.25 × cubes × (1 + 0.1 × min(streak, 10))` (`snapGold`; an Arena win pays 0.5 units), and the
   gold unit is ten minutes of village income, so matches can only ever add a slice of what the habits already make. The streak is the straight wins before
   this one, so the bonus tops out at double; a loss or retreat ends it, a draw keeps it. Losses cost nothing. No daily limit yet (to be set after play-testing).
+  **Reset record** (lobby, action `snapReset`, confirmed first) zeroes played, won, best win and both streaks; cubes, decks and art stay, so the Cardsharp title and the gold rate do not move.
 - **Built-in decks:** the fifteen decks of Marvel Snap Zone's ranked meta tier list (`lib/snap-decks.mjs`, the report of 8 November 2026, tiers 1-3),
   mapped to engine ids by hand; a card the pool does not have yet gets a stand-in noted in the file. Below them a **fun shelf** (`FUN_DECKS`): one real list per
   archetype the meta leaves out (zoo, discard, Hela, destroy, Thanos destroy, mill, bounce, move, ongoing, Surfer, Cerebro, Devil Dino, affliction, lockdown, ramp,
