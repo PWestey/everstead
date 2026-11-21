@@ -1,12 +1,12 @@
 import test from 'node:test';
-import {COMPANIONS,companionLevel,companionLevelCost,companionBoost,areaCompanionBoost,HABIT_EXP,TREAT_EXP,EVOLVE_AT} from '../lib/companions.mjs';
+import {COMPANIONS,companionLevel,companionLevelFloor,companionLevelCost,companionBoost,areaCompanionBoost,HABIT_EXP,TREAT_EXP,EVOLVE_AT} from '../lib/companions.mjs';
 import {habitDay} from '../lib/habits.mjs';
 import assert from 'node:assert/strict';
 import {fresh,act,valid,decode,settle,rosterPower,fellowPower,fellowBasePower,milestoneMult,nextMilestone,heroPower,heroPowerFor,combinePower,rosterHalf,currentBlight,blightHp,fellowLevelCost,starCost,stagePower,newJourney,totalRate,FELLOW_JOIN_POINTS} from '../lib/game.mjs';
 import {habitDue,habitOwned} from '../lib/habits.mjs';
 import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../lib/cast.mjs';
 import {introFor,SCENES} from '../lib/stories.mjs';
-import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
+import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,LEVELS_URL_MAX,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {familyBond,familyStars,blessLevel,familyCanImprove,bondSpent} from '../lib/game.mjs';
 import {charPower,relicGain} from '../lib/modes.mjs';
@@ -203,6 +203,13 @@ test('?roam=N in the URL sets Roam charges for testing, clamped to 0-50, and not
  assert.equal(urlTweakNote(both,'?roam=7&unlock=all'),'Roam set to 7, everyone unlocked for testing');assert.equal(urlTweakNote(p,'?reset=wartable'),'War Table reset for testing');assert.equal(urlTweakNote(p,''),'');
  const t=act(p,'testing',T,'unlock');assert.equal(Object.keys(t.state.fellows).length,FELLOWS.length);assert.equal(t.message,'everyone unlocked for testing');
  assert.equal(act(p,'testing',T,'roam').state.roam.charges,ROAM_URL_MAX);assert.ok(!act(act(p,'testing',T,'wartable').state,'mode:rift',T,null,['darrow']).error);assert.ok(act(p,'testing',T,'gold').error)});
+test('?levels=N and the "Everyone +5 levels" button lift every recruited Fellow, Family member and found companion by N levels, at no cost',()=>{
+ const s={...fresh(T),fellows:{darrow:{level:20,stars:1},thor:{level:1,stars:0}},family:{kira:{bond:bondSpent(7)+5}}};const cid=Object.keys(s.companions)[0];s.companions={...s.companions,[cid]:{exp:companionLevelFloor(4)+3,stage:1}};
+ const t=act(s,'testing',T,'levels');assert.ok(!t.error,t.error);assert.equal(t.message,'everyone +5 levels for testing');
+ assert.deepEqual(t.state.fellows,{darrow:{level:25,stars:1},thor:{level:6,stars:0}});assert.equal(bondLevel(t.state.family.kira.bond),12);assert.equal(companionLevel(t.state.companions[cid].exp),9);assert.equal(t.state.companions[cid].stage,1,'stages are not touched');
+ assert.equal(t.state.gold,s.gold);assert.equal(t.state.fellowExp,s.fellowExp,'nothing is spent');assert.ok(valid(t.state));
+ assert.equal(urlTweaks(s,'?levels=12').fellows.darrow.level,32);assert.equal(urlTweaks(s,'?levels=999').fellows.darrow.level,20+LEVELS_URL_MAX,'clamped');assert.equal(urlTweaks(s,'?levels=0').fellows.darrow.level,21,'at least one');
+ assert.equal(urlTweakNote(s,'?levels=3&unlock=all'),'everyone unlocked, everyone +3 levels for testing');assert.equal(Object.keys(urlTweaks(fresh(T),'?levels=5').fellows).length,0,'nobody is recruited by it')});
 import {XP_TABLE,levelForXp,skillLevel,totalLevel,XP_PER_POINT} from '../lib/skills.mjs';
 import {QUESTS,questStatus,pendingTalk} from '../lib/quests.mjs';
 import {TREES,ADVENTURES} from '../lib/dialogue.mjs';
