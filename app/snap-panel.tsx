@@ -146,17 +146,17 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
 
  const myDeck=decks[deckMe]||[],mySorted=[...myDeck].sort((x,y)=>CARDS[x].cost-CARDS[y].cost||CARDS[x].name.localeCompare(CARDS[y].name)),oppAv=ai==='mystery'?null:avatarOf(decks[deckAi]);
  const guide:any=guideOf(deckMe);
- const rank=ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.played?`${ledger.cubes} cubes`:'Open table';
+ const rank=ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.cubes>0?`${ledger.cubes} cubes`:'Open table';
  const lobby=<article className="sn-lobby sn-space">
   <header className="sn-lobby-head"><h2>The Card Parlour</h2><span className="sn-rank">{rank}</span></header>
   <p className="sn-blurb">A quiet table at the back of the Guildhall, cards from every corner of the multiverse. Six turns, three locations, win two. Snap to double the stakes, retreat to cut your losses.</p>
   <div className="sn-stats">
    <span className="sn-orb"><b>{ledger.cubes}</b><small>cubes</small></span>
    <ul className="sn-statlist">
-    <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}{ledger.played>0&&<> · <button type="button" className="sn-link" disabled={locked} onClick={()=>{if(confirm('Start the record afresh? Wins, losses, best win and streaks go to zero. Your cubes, decks and card art stay.'))action('snapReset')}}>reset</button></>}</b></li>
+    <li><span>Record</span><b>{ledger.won} won of {ledger.played}{ledger.best?` · best ${ledger.best}`:''}{ledger.played>0&&<> · <button type="button" className="sn-link" disabled={locked} onClick={()=>{if(confirm('Start the record afresh? Wins, losses, best win and streaks go to zero. Decks and card art stay.'))action('snapReset',null,{cubes:confirm(`Also set your cubes (${ledger.cubes}) back to 0? OK resets them too; Cancel keeps them.`)})}}>reset</button></>}</b></li>
     <li><span>Gold per cube</span><b>{abbrev(snapGold(game,1))}{(ledger.streak||0)>0?` · streak ×${snapStreakBonus(game).toFixed(1)}`:''}</b></li>
     <li><span>Win streak</span><b>{ledger.streak||0}{ledger.bestStreak?` · best ${ledger.bestStreak}`:''} · +{Math.round(SNAP_STREAK*100)}% gold a win, up to {SNAP_STREAK_MAX}</b></li>
-    <li><span>Cardsharp</span><b><i className="sn-meter"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.min(ledger.cubes,SNAP_CARDSHARP)} / {SNAP_CARDSHARP}</b></li>
+    <li><span>Cardsharp</span><b><i className="sn-meter"><i style={{width:`${Math.min(100,Math.max(0,ledger.cubes)/SNAP_CARDSHARP*100)}%`}}/></i>{Math.max(0,Math.min(ledger.cubes,SNAP_CARDSHARP))} / {SNAP_CARDSHARP}</b></li>
    </ul>
   </div>
   <div className="sn-top sn-lobby-top">
