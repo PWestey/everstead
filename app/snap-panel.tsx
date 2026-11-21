@@ -125,7 +125,8 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  async function endTurn(act='none'){const cur=ref.current;if(!cur||cur.state.over||cur.busy)return;
   set(x=>({...x,busy:true,action:act,note:''}));const s=cur.state,mine={plays:cur.staged,moves:cur.moves.map((x:any)=>({uid:x.uid,to:x.to})),activates:cur.activates};
   let r:any;try{r=cur.aiPre??await think(E.seesPlays(s,AI)?E.viewWithPlays(s,AI,mine):E.viewFor(s,AI),AI,cur.ai)}catch{r=AIS.greedy.choose(E.viewFor(s,AI),AI)}
-  const subs=[{...mine,action:act},{plays:r.plays,moves:r.moves??[],activates:r.activates??[],action:r.action}];
+  // The opponent never retreats: a lost cause is played out, so every win is won on the board. Its snaps stand.
+  const subs=[{...mine,action:act},{plays:r.plays,moves:r.moves??[],activates:r.activates??[],action:r.action==='retreat'?'none':r.action}];
   let next:any;try{next=E.resolveTurn(s,subs)}catch(e:any){set(x=>({...x,busy:false,staged:[],moves:[],activates:[],agatha:false,action:'none',note:'That turn could not be resolved: '+e.message}));return}
   next.log.push(`(The opponent rated its chances ${Math.round((r.winProb||0)*100)}%)`);
   let n:Match={...cur,state:next,busy:false};
