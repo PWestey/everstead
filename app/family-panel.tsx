@@ -6,7 +6,7 @@ import RosterLanding from './roster-landing';
 import CharacterScreen from './character-screen';
 import {PrimaryAction,QuantityPicker,type Quantity} from './original-controls';
 import {FAMILY,areaById,fellowsInArea,buildingForArea} from '@/lib/cast.mjs';
-import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_BUILDING,blessShare,joinNeed} from '@/lib/game.mjs';
+import {familyBond,bondProgress,bondLevel,giftPrice,familyReady,areaPoints,GIFTS,VISIT_BOND,BLESS_LINKED,BLESS_BUILDING,blessShare,joinNeed,blessLevel,familyStars,familyCanImprove,starCost,FAMILY_STAR,MAX_STARS} from '@/lib/game.mjs';
 import {habitDay} from '@/lib/habits.mjs';
 import {rosterOrder,rosterStep} from '@/lib/roster-filter.mjs';
 import {totalLevel} from '@/lib/skills.mjs';
@@ -19,24 +19,27 @@ import {pathsOpen} from '@/lib/game.mjs';
 const RUNGS=['Acquainted','Friendly','Close','Loving','Loving★','Loving★★','Forever'];
 const rung=(level:number)=>RUNGS[Math.min(RUNGS.length-1,Math.floor((level-1)/5))];
 const pct=(x:number)=>(x*100).toFixed(1)+'%';
+/** Her stars as glyphs; past five the count is written, as for Fellows. */
+const Stars=({n}:{n:number})=><i className="es-stars" aria-label={n+' stars'}>{n>MAX_STARS?n+'★':'★'.repeat(n)}<em>{'★'.repeat(Math.max(0,MAX_STARS-n))}</em></i>;
 
 function FamilyStats({game,id}:any){
- const def=FAMILY.find(f=>f.id===id)!,bond=game.family[id].bond,L=familyBond(game,id),p=bondProgress(bond),[open,setOpen]=useState<string|null>(null),rank=Object.keys(game.family).filter(x=>x!==id&&familyBond(game,x)>L).length;
+ const def=FAMILY.find(f=>f.id===id)!,bond=game.family[id].bond,L=familyBond(game,id),E=blessLevel(game,id),stars=familyStars(game,id),p=bondProgress(bond),[open,setOpen]=useState<string|null>(null),rank=Object.keys(game.family).filter(x=>x!==id&&blessLevel(game,x)>E).length;
  const fellows=fellowsInArea(def.area),building=buildingForArea(def.area);
  return <div className="family-stat-block">
   <div className={'rung-ribbon rung-'+(L<5?'green':'gold')}><b>{rung(L)}</b><i aria-hidden="true">&#9671;</i></div>
+  <div className="es-famstars"><Stars n={stars}/><small>{stars?`bond counts ×${(1+FAMILY_STAR*stars).toFixed(1)}`:'no stars yet'}</small></div>
   <div className="family-medallions">
    <button type="button" className="family-medallion" onClick={()=>setOpen('Bond')}><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/><span>Bond Lv</span><strong>{L}</strong></button>
    <button type="button" className="family-medallion" onClick={()=>setOpen('Power')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Power</span><strong>{abbrev(charPower(game,id))}</strong></button>
-   <button type="button" className="family-medallion" onClick={()=>setOpen('Blessing')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Blessing</span><strong>+{pct(BLESS_LINKED*L)}</strong></button>
+   <button type="button" className="family-medallion" onClick={()=>setOpen('Blessing')}><img src="./assets/ui-original/Icons--Icon_EmblemStrength_1.png" alt=""/><span>Blessing</span><strong>+{pct(BLESS_LINKED*E)}</strong></button>
   </div>
   <div className="es-bond-bar" aria-label={`Bond ${p.into} of ${p.need} to the next level`}><i style={{width:Math.min(100,p.into/p.need*100)+'%'}}/><span>{p.into} / {p.need}</span></div>
   <Dialog open={!!open} onOpenChange={o=>{if(!o)setOpen(null)}}><DialogContent className={'breakdown-dialog'+(open==='Power'?' es-sheet-dialog':'')}><DialogTitle>{open==='Bond'?'Bond':open==='Power'?def.name+'’s sheet':'Blessings'}</DialogTitle><DialogDescription className="sr-only">What this does.</DialogDescription>
-   {open==='Power'?<CharacterSheet game={game} id={id}/>:open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone blesses all Fellows, the closest bonds most.</p>
+   {open==='Power'?<CharacterSheet game={game} id={id}/>:open==='Bond'?<p>Bond grows when you complete {areaById(def.area).name} habits (10 per point), spend time together once a day, give gifts and meet while roaming. Each level needs more than the last and gifts cost 5% more per level. Your closest bond in each area blesses its Fellows and building; everyone blesses all Fellows, the closest bonds most. Stars cost {areaById(def.area).name} sigils (15 × n²) and each makes her bond count 10% more.</p>
    :<table className="es-breakdown"><tbody>
-     <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*L)}</td></tr>
-     <tr><th>Every Fellow</th><td>village-wide, as your {rank+1}{['st','nd','rd'][rank]||'th'} closest bond</td><td>+{pct(blessShare(L,rank))}</td></tr>
-     <tr><th>{building.name}</th><td>income</td><td>+{pct(BLESS_BUILDING*L)}</td></tr>
+     <tr><th>{fellows.map((x:any)=>x.name).join(', ')}</th><td>{areaById(def.area).name} Fellows</td><td>+{pct(BLESS_LINKED*E)}</td></tr>
+     <tr><th>Every Fellow</th><td>village-wide, as your {rank+1}{['st','nd','rd'][rank]||'th'} closest bond</td><td>+{pct(blessShare(E,rank))}</td></tr>
+     <tr><th>{building.name}</th><td>income</td><td>+{pct(BLESS_BUILDING*E)}</td></tr>
     </tbody></table>}
   </DialogContent></Dialog>
  </div>;
@@ -54,9 +57,9 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const owned=game.family,order=rosterOrder(FAMILY,owned,(id:string)=>owned[id]?.bond||0);
  const person=FAMILY.find(f=>f.id===selected)||FAMILY[0],f=owned[person.id],area=areaById(person.area),[gift,setGift]=useState(false);
  const step=(d:number)=>setSelected(rosterStep(order,person.id,d));
- if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','gear','name']} sortKeys={{gear:(id:string)=>gearScore(game,id)}} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&(pathsOpen(game,id)>0||game.visits[id]!==habitDay(game.lastAt)))} search={false} pageSize={9}
+ if(browse)return <RosterLanding kind="Family" family entries={FAMILY} owned={owned} selected={selected} sortOrders={['power','gear','name']} sortKeys={{gear:(id:string)=>gearScore(game,id)}} power={(id:string)=>owned[id]?.bond||0} status={(id:string)=>`Bond ${familyBond(game,id)}`} badge={(id:string)=>familyReady(game,FAMILY.find(x=>x.id===id))||(owned[id]&&(pathsOpen(game,id)>0||familyCanImprove(game,id)||game.visits[id]!==habitDay(game.lastAt)))} search={false} pageSize={9}
   sub={(x:any)=>!owned[x.id]?<span className="es-area-chip" style={{background:areaById(x.area).color}}>{familyReady(game,x)?'Ready!':areaById(x.area).name}</span>:null}
-  summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area.</p>}
+  summary={<p className="management-hint">Family bring Blessings that multiply your Fellows’ Power and their building’s income. Bond grows with habits in their life area; sigils from those habits earn their stars.</p>}
   onSelect={(id:string)=>{setSelected(id);setBrowse(false)}}/>;
  const back=<Button className="es-back-btn" variant="outline" onClick={()=>setBrowse(true)} aria-label="Back to the Family roster">‹ Family</Button>;
  if(!f){const ready=familyReady(game,person),have=areaPoints(game,person.area),lvl=totalLevel(game),need=joinNeed(person);
@@ -68,9 +71,9 @@ export default function FamilyPanel({game,action,locked,selected,setSelected,bro
  const visited=game.visits[person.id]===habitDay(game.lastAt);
  return <CharacterScreen person={person} subtitle={area.name} collection={back} onPrevious={()=>step(-1)} onNext={()=>step(1)} infoOnly
   info={<table className="member-info-table"><tbody><tr><th scope="row">Full name</th><td colSpan={3}>{person.fullName||person.name}</td></tr><tr><th scope="row">Title</th><td colSpan={3}>{person.title}</td></tr><tr><th scope="row">Area</th><td colSpan={3}>{area.name}</td></tr><tr><th scope="row">Bio</th><td colSpan={3}>{person.description}</td></tr></tbody></table>}
-  summary={<div className="es-sum"><span><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/>Bond <b>{familyBond(game,person.id)}</b></span><span>Blessing <b>+{pct(BLESS_LINKED*familyBond(game,person.id))}</b></span></div>}
+  summary={<div className="es-sum"><span><img src="./assets/ui-original/Icons--Icon_Intimacy_1.png" alt=""/>Bond <b>{familyBond(game,person.id)}</b></span><span>Blessing <b>+{pct(BLESS_LINKED*blessLevel(game,person.id))}</b></span><span><Stars n={familyStars(game,person.id)}/></span></div>}
   details={<><FamilyStats game={game} id={person.id}/><TraitsBlock game={game} id={person.id} action={action} locked={locked}/></>} detailsLabel="Bond"
-  primary={<div className="spend-controls"><PrimaryAction verb={visited?'Visited today':'Spend time together'} disabled={locked||visited} onClick={()=>action('visit',person.id)}>+{VISIT_BOND} bond</PrimaryAction></div>}
+  primary={<div className="spend-controls"><PrimaryAction verb={'Earn star '+(familyStars(game,person.id)+1)} tier disabled={locked} currency="Sigils" have={game.sigils[person.area]} cost={starCost(familyStars(game,person.id)+1)} onClick={()=>action('familyStar',person.id)}/><PrimaryAction verb={visited?'Visited today':'Spend time together'} disabled={locked||visited} onClick={()=>action('visit',person.id)}>+{VISIT_BOND} bond</PrimaryAction></div>}
   rail={<Button variant="outline" className="es-rail-btn" onClick={()=>setGift(true)} aria-label="Gift"><img src="./assets/menu/gifts.png" alt=""/><span>Gift</span></Button>}>
   <Dialog open={gift} onOpenChange={setGift}><DialogContent className="character-sheet panel-centered"><DialogTitle>Gift for {person.name}</DialogTitle><DialogDescription className="sr-only">Choose a gift.</DialogDescription><div className="character-sheet-body"><GiftSheet game={game} id={person.id} action={action} locked={locked}/></div></DialogContent></Dialog>
  </CharacterScreen>;

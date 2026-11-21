@@ -1,7 +1,7 @@
 // Plays Everstead for a year against the real engine, to check the economy keeps pace with itself.
 //   node scripts/simulate.mjs [days=365] [habitsPerDay=8] [every=30]
 // A "player" who each day completes N habits, spends every Roam on the best Map run, runs the War Table,
-// spends Fellow EXP round-robin, stars Fellows, upgrades buildings, gives gifts and treats companions.
+// spends Fellow EXP round-robin, stars Fellows (and Family with what is left; STARS=family puts Family first), upgrades buildings, gives gifts and treats companions.
 // Prints a row every `every` days: Power, map progress, levels, income. Use it before changing a formula.
 import {fresh,act,settle,rosterPower,fellowPower,expeditionView,regionOpen,totalRate,perks,buildingUpgradeCost,fellowLevelCost,starCost,familyBond,lapOf,lapBeaten,GIFTS,giftPrice,bondLevel,BUILDING_OPEN_COST,fellowReady,familyReady,dayOf,pathsOpen,relicsOwned,relicSpares,isWorn,wornRelic,ascendsTo,ASCEND,SHARDS,vendorStock,vendorPrice,vendorBought,repRank} from '../lib/game.mjs';
 import {slotOf} from '../lib/traits.mjs';
@@ -23,7 +23,7 @@ const tryAct=(kind,now,target,value)=>{const r=act(s,kind,now,target,value);if(!
 const topFellows=(n,now)=>Object.keys(s.fellows).sort((a,b)=>fellowPower(s,b)-fellowPower(s,a)).slice(0,n);
 const fmt=n=>n>=1e9?(n/1e9).toFixed(2)+'B':n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':String(Math.round(n));
 let stepsBeaten=0,lastStepDay=0,stalls=[];
-console.log('day | power | map (lap, step, bosses this lap) | gold/h | fellows (n, top lv, stars) | bond (avg, max) | companions (n, top) | exp bank | buildings (top lv, hours of income to the next)');
+console.log('day | power | map (lap, step, bosses this lap) | gold/h | fellows (n, top lv, stars) | bond (avg, max, stars) | companions (n, top) | exp bank | buildings (top lv, hours of income to the next)');
 for(let d=0;d<DAYS;d++){
  const base=T0+d*DAY;
  // Morning: settle, habits, recruits.
@@ -45,7 +45,8 @@ for(let d=0;d<DAYS;d++){
  {const used=[];for(const a of AREA_IDS){const sq=[...Object.keys(s.fellows),...Object.keys(s.family)].filter(id=>!used.includes(id)).sort((p,q)=>frontPower(s,a,[q])-frontPower(s,a,[p])).slice(0,3);if(sq.length&&tryAct('mode:front',now,a,sq))used.push(...sq)}
   for(const a of AREA_IDS)for(let t=0;t<40;t++){const fam=Object.keys(s.family).sort((p,q)=>familyBond(s,q)-familyBond(s,p)).slice(0,1);if(!fam.length)break;const r=act(s,'mode:trial',now,a,[...topFellows(2),...fam]);if(r.error||!r.won)break;s=r.state}}
  // Spend: stars when sigils allow, then EXP round-robin on the lowest level Fellow who can afford a level.
- for(const id of Object.keys(s.fellows)){let g=0;while(g++<50&&tryAct('starUp',now,id));}
+ const starFellows=()=>{for(const id of Object.keys(s.fellows)){let g=0;while(g++<50&&tryAct('starUp',now,id));}},starFamily=()=>{for(const id of Object.keys(s.family)){let g=0;while(g++<50&&tryAct('familyStar',now,id));}};
+ if(process.env.STARS==='family'){starFamily();starFellows()}else{starFellows();starFamily()}
  guard=0;while(guard++<2000){const ids=Object.keys(s.fellows).filter(id=>(s.fellowExp||0)>=fellowLevelCost(s.fellows[id].level)).sort((a,b)=>s.fellows[a].level-s.fellows[b].level);if(!ids.length)break;if(!tryAct('levelUp',now,ids[0],5))break}
  // Buildings: open what you can, upgrade while a level costs under a tenth of your gold.
  for(const b of BUILDINGS){const lvl=s.buildings[b.id].level;if(!lvl){if(s.gold>=BUILDING_OPEN_COST*2)tryAct('buildingUpgrade',now,b.id,1)}else if(buildingUpgradeCost(lvl)<s.gold/10)tryAct('buildingUpgrade',now,b.id,'max')}
@@ -65,9 +66,9 @@ for(let d=0;d<DAYS;d++){
  guard=0;while((s.treats||0)>0&&guard++<50){const owned=COMPANIONS.filter(c=>s.companions?.[c.id]).sort((a,b)=>companionLevel(s.companions[a.id].exp)-companionLevel(s.companions[b.id].exp));if(!owned.length||!tryAct('treat',now,owned[0].id))break}
  s=settle(s,base+12*H);s=settle(s,base+18*H);
  if(d-lastStepDay>=45&&!stalls.includes(lastStepDay))stalls.push(lastStepDay);
- if((d+1)%EVERY===0||d===DAYS-1){const fl=Object.values(s.fellows),lv=fl.map(f=>f.level),st=fl.map(f=>f.stars),bonds=Object.keys(s.family).map(id=>familyBond(s,id)),cs=Object.values(s.companions||{}).map(o=>companionLevel(o.exp));
+ if((d+1)%EVERY===0||d===DAYS-1){const fl=Object.values(s.fellows),lv=fl.map(f=>f.level),st=fl.map(f=>f.stars),bonds=Object.keys(s.family).map(id=>familyBond(s,id)),fst=Object.values(s.family).map(f=>f.stars||0),cs=Object.values(s.companions||{}).map(o=>companionLevel(o.exp));
   const bl=Math.max(0,...Object.values(s.buildings).map(b=>b.level)),rate=totalRate(s)*3600;
-  console.log(`${String(d+1).padStart(3)} | ${fmt(rosterPower(s)).padStart(7)} | lap ${lapOf(s)}, step ${stepsBeaten}, ${lapBeaten(s).length} bosses | ${fmt(rate).padStart(7)} | ${fl.length}, lv ${Math.max(0,...lv)} (min ${Math.min(...lv)||0}), ★${(st.reduce((a,b)=>a+b,0)/Math.max(1,st.length)).toFixed(1)} | ${bonds.length?(bonds.reduce((a,b)=>a+b,0)/bonds.length).toFixed(1):0}, ${Math.max(0,...bonds)} | ${cs.length}, lv ${Math.max(0,...cs)} | ${fmt(s.fellowExp||0)} | lv ${bl}, ${rate?(buildingUpgradeCost(bl)/rate).toFixed(1):'-'}h`)}
+  console.log(`${String(d+1).padStart(3)} | ${fmt(rosterPower(s)).padStart(7)} | lap ${lapOf(s)}, step ${stepsBeaten}, ${lapBeaten(s).length} bosses | ${fmt(rate).padStart(7)} | ${fl.length}, lv ${Math.max(0,...lv)} (min ${Math.min(...lv)||0}), ★${(st.reduce((a,b)=>a+b,0)/Math.max(1,st.length)).toFixed(1)} | ${bonds.length?(bonds.reduce((a,b)=>a+b,0)/bonds.length).toFixed(1):0}, ${Math.max(0,...bonds)}, ★${fst.length?(fst.reduce((a,b)=>a+b,0)/fst.length).toFixed(1):0} | ${cs.length}, lv ${Math.max(0,...cs)} | ${fmt(s.fellowExp||0)} | lv ${bl}, ${rate?(buildingUpgradeCost(bl)/rate).toFixed(1):'-'}h`)}
 }
 if(stalls.length)console.log('Stalls of 45+ days without a new map step after days: '+stalls.join(', '));
 // SIM_DUMP=path writes the final save as JSON, for scripts that want a mid-game village to measure against.

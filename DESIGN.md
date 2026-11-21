@@ -9,7 +9,7 @@ fed by real habits.** If a system can grow without habits, it does not belong he
 1. **Complete a habit** in the Habit Journal. Each completion pays, by difficulty (easy 1 / normal 2 / hard 3 points):
    - **Gold:** 10 per point (daily cap 1,000)
    - **XP:** 10 per point. This levels **you**.
-   - **Sigils:** 1 per point, in that habit's life area. These earn your Fellows' stars.
+   - **Sigils:** 1 per point, in that habit's life area. These earn your Fellows' and Family's stars.
    - **Bond:** 10 per point for the Family member of that area, once she has joined.
    - **A roam:** one per *daily* habit (up to 10 banked, never expire).
    - **Blight damage:** its points, doubled if the area opposes this week's Blight.
@@ -168,6 +168,7 @@ The owner's knowledge base, merged in from Jedi Codex: 337 cards from books, pod
   ninety more at bond 10 add about +2.5%, and more as they climb). Rate tuned on the 90-day simulator: step 103 on day 90 against 104 under the old average rule. A plain sum would run away and the old average fell every time someone joined.
 - Per Bond level: **+3%** Power to every Fellow in her area, **+0.12% × 0.85^rank** to every Fellow, **+2%** to her building's income.
 - Bond sources: area habits, one visit per day (+30), gifts (gold or crystals; give ×1, ×5, ×10 or as many as you can afford), roaming scenes.
+- **Stars**, as Fellows have them: star n costs `15 × n²` sigils of her area, the same sigils that star her Fellows, so every sigil is a choice between one Fellow's Power and the whole area's blessing. A star makes her bond count more: blessings and her Power read `bond level × (1 + 0.1 × Stars)`. Five show as glyphs; past that the count is written. Buying a star keeps her bond, rung and paths where they were. Tuned on the 120-day simulator (which stars Fellows first and Family with what is left): at 0.1 the steady player reaches step 117 on day 90 against 110 without Family stars, the casual one 96 against 91; at 0.2 it was 129 and 103, too fast, and at 0.05 the pace did not move, which meant a star was never worth buying over a Fellow's.
 
 ## Specialties, roles, sets, paths and relics
 

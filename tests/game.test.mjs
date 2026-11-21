@@ -8,6 +8,8 @@ import {FELLOWS,FAMILY,AREA_IDS,BUILDINGS,familyInArea,fellowsInArea} from '../l
 import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
+import {familyBond,familyStars,blessLevel,familyCanImprove,bondSpent} from '../lib/game.mjs';
+import {charPower} from '../lib/modes.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss,slotOf} from '../lib/traits.mjs';
 import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,regionRuns,repRank,vendorStock,vendorPrice,titlesEarned,playerTitle,TITLES,VENDOR_RUNS,vendorBought,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
@@ -608,4 +610,20 @@ test('the card-art index is precached, never kept in the forever cache, so new c
  const {streamed,kept}=await import('../scripts/offline-manifest.mjs');
  assert.equal(streamed('assets/snap/index.json'),false);assert.equal(kept('assets/snap/index.json'),false);
  assert.equal(streamed('assets/snap/cards/Hulk.webp'),true);assert.equal(kept('assets/snap/variants/Hulk/1.webp'),true);
+});
+
+test('Family stars: cost her area’s sigils (15·n²), make her bond count 10% more for blessings and Power, survive gifts and visits, and old saves load without them',()=>{
+ const fam=FAMILY[0],fellow=fellowsInArea(fam.area)[0];
+ let s={...fresh(T),gold:1e12,fellows:{[fellow.id]:{level:50,stars:0}},family:{[fam.id]:{bond:bondSpent(10)}},sigils:{...fresh(T).sigils,[fam.area]:0}};
+ assert.equal(familyBond(s,fam.id),10);assert.ok(act(s,'familyStar',T,fam.id).error,'no sigils, no star');assert.equal(familyCanImprove(s,fam.id),false);
+ s={...s,sigils:{...s.sigils,[fam.area]:75}};assert.equal(familyCanImprove(s,fam.id),true);
+ const p0=fellowPower(s,fellow.id),c0=charPower(s,fam.id),r=act(s,'familyStar',T,fam.id);assert.ok(!r.error,r.message);
+ assert.equal(r.state.family[fam.id].stars,1);assert.equal(r.state.sigils[fam.area],60,'star 1 costs 15');
+ assert.equal(blessLevel(r.state,fam.id),11);assert.equal(blessings(r.state).linked[fellow.id],BLESS_LINKED*11);
+ assert.ok(fellowPower(r.state,fellow.id)>p0,'her Fellows gain Power');assert.equal(charPower(r.state,fam.id),Math.round(c0*1.1),'her own Power counts the star');
+ const r2=act(r.state,'familyStar',T,fam.id);assert.ok(!r2.error);assert.equal(r2.state.sigils[fam.area],0,'star 2 costs 60');assert.equal(blessLevel(r2.state,fam.id),12);
+ const g=act(r2.state,'gift',T,fam.id,{gift:'posy',times:1});assert.equal(g.state.family[fam.id].stars,2,'a gift keeps her stars');
+ const v=act(g.state,'visit',T,fam.id);assert.equal(v.state.family[fam.id].stars,2,'a visit keeps her stars');
+ assert.ok(valid(v.state));assert.ok(valid(s),'a member without a stars field is still a valid save');
+ const old=decode(JSON.stringify({...v.state,family:{[fam.id]:{bond:500}}}));assert.equal(familyStars(old,fam.id),0);assert.equal(blessLevel(old,fam.id),familyBond(old,fam.id));
 });

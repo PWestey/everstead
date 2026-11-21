@@ -1,6 +1,6 @@
 import {characterById,familyInArea,areaById} from '@/lib/cast.mjs';
 import {exact} from '@/lib/format.mjs';
-import {fellowBasePower,milestoneMult,nextMilestone,MILESTONES,blessings,steadyMult,relicBonus,wornRelics,wornRelic,specMult,pathsOf,bondLevel,SET_SIZE,SET_MULT,ROLE_PROVIDER,ROLE_MENTOR,GUARD_WAVE,GUARD_WOUND} from '@/lib/game.mjs';
+import {blessLevel,fellowBasePower,milestoneMult,nextMilestone,MILESTONES,blessings,steadyMult,relicBonus,wornRelics,wornRelic,specMult,pathsOf,bondLevel,SET_SIZE,SET_MULT,ROLE_PROVIDER,ROLE_MENTOR,GUARD_WAVE,GUARD_WOUND} from '@/lib/game.mjs';
 import {charPower,modePower,familyPower,modesOf,gearScore} from '@/lib/modes.mjs';
 import {areaCompanionBoost} from '@/lib/companions.mjs';
 import {SPECS,ROLES,SET_NAMES,FRANCHISE,TIERS,specOf,roleOf,relicText} from '@/lib/traits.mjs';
@@ -20,10 +20,10 @@ export function CharacterSheet({game,id}:{game:any,id:string}){
    {f?<>
     <tr><th>Base</th><td>100 × Lv {f.level}<sup>1.15</sup> × (1 + 0.25 × {f.stars}★)</td><td>{n(fellowBasePower(f.level,f.stars)/milestoneMult(f.level))}</td></tr>
     <tr><th>Milestones</th><td>{MILESTONES.filter(([at]:any)=>f.level>=at).map(([at]:any)=>'Lv '+at).join(', ')||'none yet'}{(()=>{const m=nextMilestone(f.level);return m?` · next Lv ${m[0]} (×${m[1]})`:''})()}</td><td>{x(milestoneMult(f.level))}</td></tr>
-    {(()=>{const kin=familyInArea(def.area),here=kin.filter((m:any)=>game.family[m.id]);return <tr><th>{areaById(def.area).name} family</th><td>{here.length?`${here.sort((p:any,q:any)=>game.family[q.id].bond-game.family[p.id].bond)[0].name}’s bond, the closest of ${here.length} here`:'no family here yet'}</td><td>+{pct(b.linked[id]||0)}</td></tr>})()}
+    {(()=>{const kin=familyInArea(def.area),here=kin.filter((m:any)=>game.family[m.id]);return <tr><th>{areaById(def.area).name} family</th><td>{here.length?`${here.sort((p:any,q:any)=>blessLevel(game,q.id)-blessLevel(game,p.id))[0].name}’s bond, the closest of ${here.length} here`:'no family here yet'}</td><td>+{pct(b.linked[id]||0)}</td></tr>})()}
     <tr><th>Companions</th><td>{areaById(def.area).name} companions</td><td>+{pct(areaCompanionBoost(game,def.area))}</td></tr>
     <tr><th>Family blessing</th><td>every Fellow</td><td>+{pct(b.all)}</td></tr>
-   </>:<tr><th>Base</th><td>150 × bond level {bondLevel(fam.bond)}</td><td>{n(familyPower(fam.bond))}</td></tr>}
+   </>:<tr><th>Base</th><td>150 × bond level {bondLevel(fam.bond)}{fam.stars?` × (1 + 0.1 × ${fam.stars}★)`:''}</td><td>{n(familyPower(fam.bond,fam.stars))}</td></tr>}
    {steadyMult(game,id)>1&&<tr><th>Steady paths</th><td>chosen at milestones</td><td>{x(steadyMult(game,id))}</td></tr>}
    {powerRelics.length>0&&<tr><th>{powerRelics.map((r:any)=>r.name).join(', ')}</th><td>relic{fr&&powerRelics.some((r:any)=>r.franchise===fr)?', doubled on one of their own':''}</td><td>+{(relicBonus(game,id,'power')*100).toFixed(0)}%</td></tr>}
    <tr className="es-total"><th>Power</th><td/><td>{n(power)}</td></tr>

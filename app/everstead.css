@@ -434,3 +434,5 @@
 .cp-exp{font-size:11px;opacity:.75}
 .cp-actions{display:flex;gap:6px;margin-top:auto;flex-wrap:wrap}
 .cp-evolve{background:#b8860b!important;color:#fff!important;font-weight:700}
+/* a Family member's stars under the bond rung */
+.es-famstars{display:flex;align-items:center;justify-content:center;gap:6px;margin:2px 0 4px}.es-famstars small{font-size:11px;color:#b9a98a}

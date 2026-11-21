@@ -118,5 +118,5 @@ export function TodayPanel({game,onNavigate}:any){
  ];
  const streak=currentStreak(game,now),best=longestStreak(game);
  return <section className="es-today"><Hearth streak={streak} best={best}/><ul>{rows.map(([t,d,go],i)=><li key={i}><div><strong>{t}</strong><p>{d}</p></div><Button variant="outline" onClick={()=>onNavigate(go)}>Go</Button></li>)}</ul>
-  <div className="es-area-row">{AREAS.map(a=><span key={a.id} style={{borderColor:a.color}}>{a.name}<b>{game.sigils[a.id]}</b></span>)}</div><p className="small-note">Sigils by life area. They earn your Fellows’ stars.</p></section>;
+  <div className="es-area-row">{AREAS.map(a=><span key={a.id} style={{borderColor:a.color}}>{a.name}<b>{game.sigils[a.id]}</b></span>)}</div><p className="small-note">Sigils by life area. They earn your Fellows’ and Family’s stars.</p></section>;
 }
