@@ -89,6 +89,16 @@ function Card({card,m,owner=ME,staged=false,power=null,cls='',onClick,onPeek}:{c
 }
 
 /** A card frame with no match behind it: the builder, the catalogue and the detail views. */
+/** "How to play this deck": the plan, the key cards and what to do with them, the curve and a tip (lib/snap-guides.mjs; built-in decks only). */
+const guideOf=(deck:string)=>(DECK_GUIDES as any)[deck.replace(/^fun:/,'')]||null;
+function GuideBody({guide}:{guide:any}){
+ return <>
+  <p>{guide.plan}</p>
+  <ul>{guide.keys.map(([id,why]:[string,string])=><li key={id}><Frame id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-guidecard"/><div><b>{CARDS[id].name}</b><span>{why}</span></div></li>)}</ul>
+  <p><b>Curve</b> {guide.curve}</p>
+  <p><b>Tip</b> {guide.tip}</p>
+ </>;
+}
 function Frame({id,name,cost,power,text,url,cls=''}:{id?:string,name?:string,cost:number,power:number|string,text?:string,url?:string|null,cls?:string}){
  const d=id?CARDS[id]:null,a=url!==undefined?url:(id?artFor(id)?.url??null:null),n=name??d?.name??'';
  return <div className={'sn-card'+(a?' sn-art':'')+(cls?' '+cls:'')} style={a?{backgroundImage:`url("${a}")`}:undefined}>
@@ -99,7 +109,7 @@ function Frame({id,name,cost,power,text,url,cls=''}:{id?:string,name?:string,cos
 const avatarOf=(ids:string[]|undefined)=>{if(!ids)return null;for(let i=ids.length-1;i>=0;i--){const a=artFor(ids[i]);if(a)return a.url}return null};
 
 export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boolean}){
- const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[catalog,setCatalog]=useState(false),[retreating,setRetreating]=useState(false);
+ const [m,setM]=useState<Match|null>(live),[open,setOpen]=useState(!!live),[,tick]=useState(0),[peek,setPeek]=useState<any>(null),[chooser,setChooser]=useState<any>(null),[builder,setBuilder]=useState(false),[catalog,setCatalog]=useState(false),[retreating,setRetreating]=useState(false),[guideOpen,setGuideOpen]=useState(false);
  PICKS=game.snap?.art||{};
  const [ai,setAi]=useState(prefs.ai),[deckMe,setDeckMe]=useState(prefs.deckMe),[deckAi,setDeckAi]=useState(prefs.deckAi);
  const ref=useRef(m);ref.current=m;
@@ -135,7 +145,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  const onPeek=(card:any,owner:number,power:number|null)=>setPeek({card,owner,power});
 
  const myDeck=decks[deckMe]||[],mySorted=[...myDeck].sort((x,y)=>CARDS[x].cost-CARDS[y].cost||CARDS[x].name.localeCompare(CARDS[y].name)),oppAv=ai==='mystery'?null:avatarOf(decks[deckAi]);
- const guide:any=(DECK_GUIDES as any)[deckMe.replace(/^fun:/,'')]||null;
+ const guide:any=guideOf(deckMe);
  const rank=ledger.cubes>=SNAP_CARDSHARP?'Cardsharp':ledger.played?`${ledger.cubes} cubes`:'Open table';
  const lobby=<article className="sn-lobby sn-space">
   <header className="sn-lobby-head"><h2>The Card Parlour</h2><span className="sn-rank">{rank}</span></header>
@@ -155,12 +165,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
    <div className="sn-player sn-side-opp"><div><b>{ai==='mystery'?'Mystery':styleName(ai)}</b><small>{ai==='mystery'?'Random deck and style':deckLabel(deckAi,custom)}</small></div><span className="sn-hex"><i style={oppAv?{backgroundImage:`url("${oppAv}")`}:undefined}>{oppAv?'':'?'}</i></span></div>
   </div>
   <div className="sn-deckrow sn-lobby-deck">{mySorted.map(id=><Frame key={id} id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-deckcard"/>)}{Array.from({length:Math.max(0,SNAP_DECK-mySorted.length)},(_,i)=><span key={'e'+i} className="sn-slot"/>)}</div>
-  {guide&&<details className="sn-guide"><summary>How to play this deck</summary>
-   <p>{guide.plan}</p>
-   <ul>{guide.keys.map(([id,why]:[string,string])=><li key={id}><Frame id={id} cost={CARDS[id].cost} power={CARDS[id].skill?'':CARDS[id].power} cls="sn-guidecard"/><div><b>{CARDS[id].name}</b><span>{why}</span></div></li>)}</ul>
-   <p><b>Curve</b> {guide.curve}</p>
-   <p><b>Tip</b> {guide.tip}</p>
-  </details>}
+  {guide&&<details className="sn-guide"><summary>How to play this deck</summary><GuideBody guide={guide}/></details>}
   <div className="sn-picks">
    <label><span>Your deck</span><NativeSelect value={deckMe} onChange={(e:any)=>setDeckMe(e.target.value)}>{names.map(n=><NativeSelectOption key={n} value={n}>{deckLabel(n,custom)}</NativeSelectOption>)}</NativeSelect></label>
    <label><span>Opponent</span><NativeSelect value={ai} onChange={(e:any)=>setAi(e.target.value)}>{TIERS.map(([id,label])=><NativeSelectOption key={id} value={id}>{label}</NativeSelectOption>)}</NativeSelect></label>
@@ -190,6 +195,7 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
  // The match takes the whole screen (a portal, so the module dialog's transform cannot pin it): the board gets every pixel a phone has.
  return createPortal(<div className="sn-full sn-space" role="dialog" aria-label="The Card Parlour table">
   <button type="button" className="sn-leave" onClick={()=>setOpen(false)}>{s.over?'Back to the table':'Leave the table'}</button>
+  {guideOf(m.deckMe)&&<button type="button" className="sn-leave sn-guidebtn" aria-expanded={guideOpen} onClick={()=>setGuideOpen(o=>!o)}>{guideOpen?'Close guide':'Deck guide'}</button>}
   <div className="sn-top">
    <div className="sn-player sn-side-me"><span className="sn-hex"><i style={avatarOf(decks[m.deckMe])?{backgroundImage:`url("${avatarOf(decks[m.deckMe])}")`}:undefined}>{avatarOf(decks[m.deckMe])?'':'You'}</i></span><div><b>You</b><small>{deckLabel(m.deckMe,custom)} · {energyLeft(m)} / {s.players[ME].energy} energy</small></div></div>
    {/* Snap's cube: the stake, and tapping it is how you snap */}
@@ -223,6 +229,8 @@ export function SnapPanel({game,action,locked}:{game:any,action:any,locked:boole
   </div>
   <div className="sn-hand">{s.players[ME].hand.filter((c:any)=>!m.staged.some((pl:any)=>pl.uid===c.uid)).map((c:any)=>{const ok=E.effCost(s,ME,c)<=energyLeft(m)&&!over(m)&&!m.busy&&[0,1,2].some(li=>E.canPlayAt(s,li,ME,c));
    return <Card key={c.uid} card={c} m={m} cls={(ok?'':'sn-unaffordable')+(m.selected===c.uid?' sn-selected':'')} onClick={()=>{if(ok)set(x=>({...x,move:null,selected:x.selected===c.uid?null:c.uid}))}} onPeek={onPeek}/>})}</div>
+  {/* the deck's guide, readable mid-match: tap the backdrop or the button to close */}
+  {guideOpen&&guideOf(m.deckMe)&&<div className="sn-popup" onClick={()=>setGuideOpen(false)}><div className="sn-guide sn-guide-table" onClick={e=>e.stopPropagation()}><p className="sn-guide-title">How to play {deckLabel(m.deckMe,custom)}</p><GuideBody guide={guideOf(m.deckMe)}/><small>Tap outside to close</small></div></div>}
   {peek&&<div className="sn-popup" onClick={()=>setPeek(null)} onContextMenu={e=>{e.preventDefault();setPeek(null)}}>
    {peek.loc?<div className="sn-peek"><div className={'sn-peek-img sn-peek-loc'+(peek.art?'':' sn-locblank')} style={peek.art?{backgroundImage:`url("${peek.art}")`}:undefined}>{!peek.art&&<b>{peek.name}</b>}</div><div><b>{peek.name}</b><p>{peek.text}</p><small>Tap anywhere to close</small></div></div>
    :<div className="sn-peek"><div className={'sn-peek-img'+(cardArt(peek.card)?'':' sn-locblank')} style={cardArt(peek.card)?{backgroundImage:`url("${cardArt(peek.card)!.url}")`}:undefined}><span className="sn-cost">{peek.card.cost}</span><span className="sn-pow">{peek.power??peek.card.power}</span>{!cardArt(peek.card)&&<b>{peek.card.alias??CARDS[peek.card.id].name}</b>}</div><div><b>{peek.card.alias??CARDS[peek.card.id].name} · {peek.card.cost} / {peek.power??peek.card.power}</b><p>{(E.cardText(s,peek.card)||'No ability')+(peek.card.evil?' EVIL (Sinister Six).':'')+(peek.card.zg?' Marked by Zombie Galacti.':'')}</p><small>{cardArt(peek.card)?.artist?'Art: '+cardArt(peek.card)!.artist+' · ':''}{CARDS[peek.card.id].house?'House rule: +'+CARDS[peek.card.id].house+' Power · ':''}Tap anywhere to close</small></div></div>}
