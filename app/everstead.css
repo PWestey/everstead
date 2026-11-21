@@ -380,6 +380,7 @@
 .es-relic small{font-size:11px;color:#5c4d36}.es-relic p{margin:0;font-size:13px}
 .es-relic-equip{display:flex;gap:6px;align-items:center;margin-top:4px}.es-relic-equip select{flex:1;min-width:0;font-size:13px}.es-relic-equip button{min-height:36px}
 .es-relic-worn{font-style:italic}
+.rs-scroll{max-height:88dvh;overflow:auto;overscroll-behavior:contain}  /* a result scroll taller than the phone (several relics) scrolls itself: the dialog locks the page behind it */
 .es-roll{font-style:normal;font-size:11px;color:#6b5a3e;white-space:nowrap}.es-roll-perfect{color:#c9741a;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
 .es-forge{display:grid;gap:8px;margin:12px 0}.es-shards{color:#c9741a}
 .es-forge-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}

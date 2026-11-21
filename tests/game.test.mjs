@@ -9,7 +9,7 @@ import {introFor,SCENES} from '../lib/stories.mjs';
 import {joinNeed,joinDay,fellowReady,familyReady,migrate,blessings,BLESS_LINKED,playerStage,urlTweaks,urlTweakNote,unlockEveryone,ROAM_URL_MAX,trainFellows,trainFamily,trainCost,bondLevel as bondLv,totalRate as rateOf} from '../lib/game.mjs';
 import {expeditionById} from '../lib/game.mjs';
 import {familyBond,familyStars,blessLevel,familyCanImprove,bondSpent} from '../lib/game.mjs';
-import {charPower} from '../lib/modes.mjs';
+import {charPower,relicGain} from '../lib/modes.mjs';
 import {errandMult,ERRAND_MULT_CAP,errandOffers} from '../lib/modes.mjs';
 import {specOf,roleOf,RELICS,relicById,SPECS,ROLES,TRAITS,squadSet,legendaryOfBoss,slotOf} from '../lib/traits.mjs';
 import {specMult,setMult,squadGoldMult,squadExpMult,pathsOpen,relicFree,relicDrop,grantRelic,wornRelic,relicAt,relicsOwned,relicSpares,rolled,regionRuns,repRank,vendorStock,vendorPrice,titlesEarned,playerTitle,TITLES,VENDOR_RUNS,vendorBought,SPEC_MULT,PATH_FOCUS,PATH_STEADY,SET_MULT,GUARD_WOUND,GUARD_WAVE,RELIC_PITY,SHARDS,ASCEND,REROLL_MULT,ROLL_MIN,ROLL_SPAN} from '../lib/game.mjs';
@@ -627,3 +627,13 @@ test('Family stars: cost her area’s sigils (15·n²), make her bond count 10% 
  assert.ok(valid(v.state));assert.ok(valid(s),'a member without a stars field is still a valid save');
  const old=decode(JSON.stringify({...v.state,family:{[fam.id]:{bond:500}}}));assert.equal(familyStars(old,fam.id),0);assert.equal(blessLevel(old,fam.id),familyBond(old,fam.id));
 });
+
+test('relicGain: what a wearer gains from a relic, so the Equip control ranks Marvel’s own first for a Marvel legendary and a strong specialist first for a mode relic',()=>{
+ const s={...fresh(T),fellows:{darrow:{level:100,stars:0},thor:{level:100,stars:0},roy:{level:100,stars:0}},family:{kira:{bond:1e5}},relics:relicsOf(['vibranium-shield',0.5],['spire-epic',1],['gold-epic',1],['power-rare',0.5])};
+ const p=id=>charPower(s,id);
+ assert.equal(relicGain(s,'thor','r1'),Math.round(p('thor')*1.5)-p('thor'),'Thor is Marvel: the Shield counts double');assert.equal(relicGain(s,'darrow','r1'),Math.round(p('darrow')*1.25)-p('darrow'));
+ assert.ok(relicGain(s,'thor','r1')/p('thor')>relicGain(s,'darrow','r1')/p('darrow'),'per point of Power, Marvel’s own gains more');
+ const spire=id=>relicGain(s,id,'r2');assert.ok(Math.abs(spire('roy')-p('roy')*specMult(s,'roy','spire')*0.35*1.2)<1e-6,'Power counted in the Spire: a specialist multiplies the relic');assert.ok(spire('roy')/p('roy')>spire('darrow')/p('darrow'),'and so gains more per point of Power than a non-specialist');
+ assert.ok(Math.abs(relicGain(s,'kira','r3')-0.35*1.2)<1e-9,'a charm: the affix step, whoever wears it');
+ let r=act(s,'relicWear',T,'thor','r1');assert.equal(relicGain(r.state,'thor','r4'),Math.round(p('thor')*1.05)-Math.round(p('thor')*1.5),'swapping the Shield for a Whetstone loses Power: the gain goes negative');
+ assert.equal(relicGain(s,'obiwan','r1'),0,'not recruited'); assert.equal(relicGain(s,'thor','nope'),0,'not owned')});

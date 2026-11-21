@@ -6,23 +6,24 @@ import {NativeSelect,NativeSelectOption} from '@/components/ui/native-select';
 import {characterById,FELLOWS,FAMILY} from '@/lib/cast.mjs';
 import {SPECS,ROLES,TIERS,SLOTS,slotOf,relicById,relicText,specOf,roleOf,SET_NAMES,FRANCHISE} from '@/lib/traits.mjs';
 import {wornRelic,wearerOf,relicsOwned,relicSpares,isWorn,ascendsTo,rollPct,pathsOf,pathsOpen,PATH_AT,PATH_FOCUS,PATH_STEADY,SPEC_MULT,SET_SIZE,SET_MULT,ROLL_PERFECT,SHARDS,REROLL_MULT,ASCEND} from '@/lib/game.mjs';
-import {charPower} from '@/lib/modes.mjs';
+import {charPower,relicGain} from '@/lib/modes.mjs';
 
 const everyone=(game:any)=>[...FELLOWS,...FAMILY].filter((c:any)=>game.fellows[c.id]||game.family[c.id]);
 const TIER_RANK:any={legendary:0,epic:1,rare:2,common:3};
-/** Who should wear a relic: a specialist of its mode with that slot empty, else the strongest with it empty, else the strongest. */
-function suggest(game:any,relic:any){const list=everyone(game).sort((a:any,b:any)=>charPower(game,b.id)-charPower(game,a.id)),slot=slotOf(relic);
- return (list.find((c:any)=>specOf(c.id)===relic.kind&&!wornRelic(game,c.id,slot))||list.find((c:any)=>!wornRelic(game,c.id,slot))||list[0])?.id||''}
+/** Who could wear a relic, best first: by what each gains from it (a Marvel legendary counts double on Marvel's own, a mode relic counts most on a strong specialist), then by Power. */
+function candidates(game:any,relic:any){const slot=slotOf(relic),list=everyone(game).map((c:any)=>({...c,gain:relic.uid?relicGain(game,c.id,relic.uid):0,worn:wornRelic(game,c.id,slot)}));
+ return list.sort((a:any,b:any)=>b.gain-a.gain||charPower(game,b.id)-charPower(game,a.id))}
+const gainText=(relic:any,gain:number)=>relic.kind==='power'?`${gain>=0?'+':''}${exact(Math.round(gain))} Power`:relic.kind==='gold'||relic.kind==='exp'?`${gain>=0?'+':''}${Math.round(gain*100)}% ${relic.kind==='gold'?'gold':'EXP'}`:`${gain>=0?'+':''}${exact(Math.round(gain))} in ${(SPECS as any)[relic.kind].where}`;
 /** "Roll 87%", and "perfect" at the top. */
 export const Roll=({roll}:{roll:number})=><em className={'es-roll'+(roll>=ROLL_PERFECT?' es-roll-perfect':'')}>{roll>=ROLL_PERFECT?'perfect ':'roll '}{rollPct(roll)}</em>;
 
 /** A relic as it looks the moment it drops: name in its tier's colour, what it does, its roll, and an Equip control. */
 export function RelicCard({relic,game,action,locked}:{relic:any,game:any,action:any,locked:boolean}){
- const t=(TIERS as any)[relic.tier],[who,setWho]=useState(()=>suggest(game,relic)),mine=relic.uid&&game.relics?.items?.[relic.uid],free=!!mine&&!isWorn(game,relic.uid),wearer=relic.uid&&wearerOf(game,relic.uid),slot=slotOf(relic),wearing=who&&wornRelic(game,who,slot);
+ const t=(TIERS as any)[relic.tier],list=candidates(game,relic),[who,setWho]=useState(()=>list[0]?.id||''),mine=relic.uid&&game.relics?.items?.[relic.uid],free=!!mine&&!isWorn(game,relic.uid),wearer=relic.uid&&wearerOf(game,relic.uid),slot=slotOf(relic),wearing=who&&wornRelic(game,who,slot);
  return <div className={'es-relic es-relic-'+relic.tier} style={{['--tier' as any]:t.color}}>
   <img src="./assets/menu/relics.png" alt=""/>
   <div><b>{relic.name}</b><small>{t.name} {(SLOTS as any)[slot].toLowerCase()}{relic.franchise?' · '+relic.franchise:''}{relic.roll!==undefined&&<> · <Roll roll={relic.roll}/></>}</small><p>{relicText(relic)}.</p>
-   {free?<div className="es-relic-equip"><NativeSelect aria-label="Who wears it" value={who} onChange={(e:any)=>setWho(e.target.value)}>{everyone(game).map((c:any)=><NativeSelectOption key={c.id} value={c.id}>{c.name}{specOf(c.id)===relic.kind?' ★':''}{wornRelic(game,c.id,slot)?' (wearing '+wornRelic(game,c.id,slot).name+')':''}</NativeSelectOption>)}</NativeSelect>
+   {free?<div className="es-relic-equip"><NativeSelect aria-label="Who wears it" value={who} onChange={(e:any)=>setWho(e.target.value)}>{list.map((c:any)=><NativeSelectOption key={c.id} value={c.id}>{c.name}{specOf(c.id)===relic.kind?' ★':''}{relic.uid?' · '+gainText(relic,c.gain):''}{c.worn?' · swaps '+c.worn.name:''}</NativeSelectOption>)}</NativeSelect>
     <Button disabled={locked||!who} onClick={()=>action('relicWear',who,relic.uid)}>{wearing?'Swap in':'Equip'}</Button></div>
    :wearer?<small className="es-relic-worn">Worn by {characterById(wearer)?.name}.</small>:null}</div>
  </div>;
